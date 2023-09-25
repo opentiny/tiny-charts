@@ -1,0 +1,27 @@
+import React, { Component } from 'react';
+import Chart from 'eview-react/Chart';
+export default class Example extends Component {
+    chartName = 'JadeJueChart'
+
+    chartOption =
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            chartName: this.chartName,
+            chartOption: this.chartOption,
+        };
+    }
+
+    render() {
+        return (
+            <div style={{ backgroundColor: '#191919' }}>
+                <Chart
+                    style={{ height: '500px' }}
+                    name={this.state.chartName}
+                    option={this.state.chartOption}
+                />
+            </div>
+        );
+    }
+}

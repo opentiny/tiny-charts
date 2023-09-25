@@ -1,0 +1,31 @@
+import init from '../../option/init';
+import { event } from '../../util/event';
+import { setSeries } from './handleSeries';
+import megre from '../../util/megre';
+import PolarCoordSys from '../../option/PolarCoordinateSystem';
+
+const CHART_NAME = 'SunburstChart';
+export default class SunburstChart {
+    constructor(iChartOption, plugins, chartInstance) {
+        this.baseOption = {};
+        this.iChartOption = {};
+        this.iChartOption = init(iChartOption);
+        this.updateOption(chartInstance);
+    }
+    updateOption(chartInstance) {
+        const iChartOption = this.iChartOption;
+        // 装载除series之外的其他配置
+        PolarCoordSys(this.baseOption, iChartOption, CHART_NAME);
+        this.baseOption.color = ['', ...iChartOption.color];
+        this.baseOption.series = setSeries(iChartOption);
+        // 配置图表事件
+        if (iChartOption.event) {
+            event(chartInstance, iChartOption.event);
+        }
+        // 合并用户自定义series
+        megre(this.baseOption.series, iChartOption.series);
+    }
+    getOption() {
+        return this.baseOption;
+    }
+}

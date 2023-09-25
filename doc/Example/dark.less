@@ -1,0 +1,126 @@
+body {
+  &.ic-dark {
+    background: #1c1c1c;
+  }
+}
+
+html.ic-dark {
+  ::-webkit-scrollbar-thumb {
+    background-color: #454545;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1c1c1c;
+  }
+}
+
+// 黑色主题
+.ic-dark {
+  .ic-example {
+    .ic-example-explore {
+      background-color: #1c1c1c;
+      .chart-title {
+        color: #fff;
+      }
+      .ic-example-list-container {
+        .ic-example-list {
+          .ic-example-list-title {
+            color: #f5f5f5;
+            .ic-example-list-bubbles {
+              border: 0.0625rem solid #676767;
+            }
+          }
+          .ic-example-list-search {
+            border-bottom: 1px solid #676767;
+            &:hover {
+              border-bottom-color: #2e94ff;
+            }
+            .ic-example-list-icon {
+              background-image: url('../image/Doc/navigations-search-dark.svg');
+            }
+            .ic-example-list-input {
+              color: #f5f5f5;
+              v-input &::placeholder {
+                color: #949494;
+              }
+            }
+          }
+          .ic-example-card {
+            .ic-example-list-box {
+              border: 0.0625rem solid #111;
+              background-color: #191919;
+              .ic_box_title {
+                color: #ffffff;
+                border-bottom: 0.0625rem solid #111;
+              }
+            }
+            .ic-example-list-box:hover {
+              box-shadow: 0 0 0.6rem 0.1rem rgba(0, 0, 0, 0.75);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//文档图表样式
+.aui3.ic-dark .ev_table {
+  border: 1px solid #4a4a4a;
+
+  table.ev_table_tb {
+    tbody {
+      tr {
+        background-color: #141414;
+        &:hover {
+          background-color: #2d2d2d;
+        }
+        td {
+          color: #fff;
+          &.ev_table_cell {
+            .ev_table_close {
+              background: url(../../public/icons/tableIcon.svg) center no-repeat;
+              background-size: 1rem 1rem;
+            }
+            .ev_table_open {
+              background: url(../../public/icons/tableIcon.svg) center no-repeat;
+              background-size: 1rem 1rem;
+              transform: rotate(180deg);
+            }
+          }
+          p.ev_expand_title {
+            background: #1c1c1c;
+          }
+          pre {
+            code.lang-d,
+            code.lang-css {
+              background-color: #141414;
+            }
+          }
+        }
+      }
+    }
+    thead {
+      tr {
+        color: #fff;
+      }
+    }
+  }
+}
+
+// 快速开始/数据状态table样式
+.ic-dark {
+  table {
+    th,
+    td {
+      background-color: #141414;
+      color: #fff;
+      border-color: #4a4a4a !important;
+    }
+    tr:hover > td {
+      background-color: #2d2d2d;
+    }
+    td + td + td {
+      color: #fff;
+    }
+  }
+}

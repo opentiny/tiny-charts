@@ -1,0 +1,46 @@
+export default {
+    title: 'K线图 CandlestickChart',
+    paths: [
+      {
+        title: '基础能力',
+        children: [
+          {
+            name: '基础K线图',
+            routePath: 'CandlestickChart-1',
+            imagePath: './image/light/CandlestickChart/CandlestickChart-1.png',
+          },
+          {
+            name: 'K线图显示MA',
+            routePath: 'CandlestickChart-2',
+            imagePath: './image/light/CandlestickChart/CandlestickChart-2.png',
+          },
+          {
+            name: 'K线图显示volume',
+            routePath: 'CandlestickChart-3',
+            imagePath: './image/light/CandlestickChart/CandlestickChart-3.png',
+          },
+          {
+            name: 'K线图显示dataZoom',
+            routePath: 'CandlestickChart-4',
+            imagePath: './image/light/CandlestickChart/CandlestickChart-4.png',
+          },
+        ],
+      },
+      {
+        title: '自定义',
+        children: [
+          {
+            name: '不显示volume调整位置',
+            routePath: 'CandlestickChart-5',
+            imagePath: './image/light/CandlestickChart/CandlestickChart-5.png',
+          },
+          {
+            name: '显示volume调整位置',
+            routePath: 'CandlestickChart-6',
+            imagePath: './image/light/CandlestickChart/CandlestickChart-6.png',
+          },
+        ],
+      },
+    ],
+  };
+  

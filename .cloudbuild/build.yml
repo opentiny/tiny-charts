@@ -1,0 +1,71 @@
+﻿# NPM工程编写Build.yml：
+---
+version: 2.0
+
+#构建环境
+env: #了解如何进行环境配置
+  label: designsystem_build #构建资源标签
+
+#构建参数定义, 构建脚本可从环境变量中读取使用这些参数
+params: #了解如何配置构建参数
+  - name: product
+    value: cloudbuild2.0
+  - name: check_dependency
+    value: true
+  - name: configModules
+  - name: CB_META_VERSION
+    value: V2
+  - name: CB_META_ENABLE_SWBOM
+    value: true
+  - name: CB_META_ENABLE_FILE_SWBOM
+    value: true
+
+#构建步骤
+steps: #了解如何配置构建步骤：
+  PRE_BUILD: #了解如何配置构建准备阶段：
+    - checkout #检出当前源码库
+  BUILD: #了解如何配置构建执行步骤：
+    - when:
+        condition: check_dependency == 'true'
+        steps:
+          - build_execute: #执行构建
+              command: sh .cloudbuild/build.sh #构建命令，如sh build.sh 或 make 或 mvn clean package
+              accelerate: false #是否启用分布式加速(jiffy)
+              enhance:
+                - feature: md5_source_tracement
+                  build_tools: [npm] #<-- 开启上传监听功能，支持maven、gradle等多种工具
+              check:
+                auto: true #<-- 开启检查分析自动模式，详见检查分析配置文档
+                buildcheck: true # 非必配项，不配时不检查
+                sourcecheck: # 构建来源检查，非必配项，不配时不检查
+                  - project_type: npm # 必配项。当前支持检查maven/npm/python/gomod/gradle/buildscript 仓库来源检查
+                    project_dir: . # 工程根目录，必配项。如maven为pom文件所在目录
+                dependency: # 非必配项，不配时不检查
+                  - tool_type: npm #必配项，工程类型，支持（maven/npm/python/gomod）
+                    project_dir: . # 工程根目录，必配项。如maven为pom文件所在目录
+                    skip_plugin: false
+                callstack: true # 非必配项，不配时不检查
+    - when:
+        condition: check_dependency != 'true'
+        steps:
+          - build_execute: #执行构建
+              command: sh .cloudbuild/build.sh #构建命令，如sh build.sh 或 make 或 mvn clean package
+              accelerate: false #是否启用分布式加速(jiffy)
+              enhance:
+                - feature: md5_source_tracement
+                  build_tools: [npm] #<-- 开启上传监听功能，支持maven、gradle等多种工具
+              check:
+                auto: true #<-- 开启检查分析自动模式，详见检查分析配置文档
+                buildcheck: true # 非必配项，不配时不检查
+                sourcecheck: # 构建来源检查，非必配项，不配时不检查
+                  - project_type: npm # 必配项。当前支持检查maven/npm/python/gomod/gradle/buildscript 仓库来源检查
+                    project_dir: . # 工程根目录，必配项。如maven为pom文件所在目录
+                callstack: true # 非必配项，不配时不检查
+  POST_BUILD: #了解如何配置构建后步骤：
+    # - upload_cloud_artifact: #从云龙上传构建cloudArtifact仓库 需要云龙流水线传入serviceId,serviceName,isRelease参数
+    #     file_path: packages/*.zip #文件路径地址
+    - version_set #记录云龙version_set(云龙部署专用)
+    - compile_report:
+        rules:
+          - 'warning /((?i).*warning.*)/'
+          - 'error /((?i).*Error.*)/'

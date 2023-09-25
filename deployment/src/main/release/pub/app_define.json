@@ -1,0 +1,99 @@
+{
+    "fileVersion": "1",
+    "name": "ItmWebsite",
+    "runninglevel": "L1",
+    "description": "Provides a website service.",
+    "requireDiskSize": 200,
+    "rtspSoftLink": true,
+    "dependency": {
+        "Bus": "~1.3"
+    },
+    "processes": {
+        "itmwebsite": {
+            "use": {
+                "jre": "~1.3",
+                "tomcat": "~9.0",
+                "cxx3rdlib": "~8.0",
+                "base3rdcbb": "~1.0.1",
+                "middlewarecbb": "~1.0.1",
+                "smhelpercbb": "~1.0.1",
+                "basecbb": "~1.0.1"
+            },
+            "subscribes": [{
+                "name": "ItmService",
+                "roles": ["op_regular"]
+            },{
+                "name": "UserService",
+                "roles": ["op_regular"]
+            }],
+            "mode": "critical",
+            "cpu": 0.5,
+            "memory": 512,
+            "memoryLimit": 1024,
+            "statics": [
+                {
+                    "pattern": "/itmwebsite",
+                    "alias": "${APP_ROOT}/webapps/itmwebsite",
+                    "gzipExtensions": "js;css",
+                    "fileList": "itm-embed.js",
+                    "addHeader": {
+                        "x-download-options": "noopen"
+                    }
+                }
+            ],
+            "patterns": [
+                "!/itmwebsite"
+            ],
+            "useAdditionalEnv": [
+                "_APP_LOG_DIR",
+                "_APP_TMP_DIR",
+                "_APP_SHARE_DIR"
+            ],
+            "protocols": {
+                "IR": "http"
+            },
+            "commands": {
+                "start": [
+                    "${APP_ROOT}/bin/start.sh"
+                ],
+                "stop": [
+                    "${APP_ROOT}/bin/stop.sh"
+                ]
+            },
+            "policy": [
+                {
+                    "scenes": "changeip",
+                    "stopaction": "no",
+                    "startaction": "no"
+                },
+                {
+                    "scenes": "changetimezone",
+                    "stopaction": "no",
+                    "startaction": "no"
+                },
+                {
+                    "scenes": "changedbp",
+                    "stopaction": "no",
+                    "startaction": "no"
+                }
+            ],
+			"tenacity": {
+                "instanceConfig":{
+                    "flowcontrol":{
+                        "provider":{
+                            "ratelimit":1000
+                        }
+                    }
+                }
+            }
+		}
+    },
+    "upgrade": {
+        "postInstall": {
+            "command": [
+                "${APP_ROOT}/upgrade/post_install.sh"
+            ],
+            "timeout": 300
+        }
+    }
+}

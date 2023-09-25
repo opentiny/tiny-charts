@@ -1,0 +1,146 @@
+div,
+canvas,
+svg,
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+.fc-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.fc-node-container {
+    width: 100%;
+    height: 100%;
+}
+
+.fc-absolute {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.fc-line {
+    fill: transparent;
+    stroke-linejoin: round;
+    pointer-events: stroke;
+    marker-end: url(#markerArrow);
+}
+
+.fc-arrow {
+    /* fill: #c2c2c2; */
+}
+
+.fc-node {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    // background-color: #ffffff;
+    & > div{
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+}
+
+.p1 {
+    opacity: 0;
+    animation: p1kf 4s linear infinite;
+}
+
+@keyframes p1kf {
+    0%,100%{
+        opacity:0;
+    }
+    25%{
+        opacity:1;
+    }
+    50%{
+        opacity:0.66;
+    }
+    75%{
+        opacity:0.33
+    }
+}
+
+.p2 {
+    opacity: 0.33;
+    animation: p2kf 4s linear infinite;
+}
+
+@keyframes p2kf {
+    0%,100% {
+        opacity: 0.33;
+    }
+
+    25% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0.66;
+    }
+}
+
+.p3 {
+    opacity: 0.66;
+    animation: p3kf 4s linear infinite;
+}
+
+@keyframes p3kf {
+    0%,100% {
+        opacity: 0.66;
+    }
+
+    25% {
+        opacity: 0.33;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 1;
+    }
+}
+
+
+.p4 {
+    opacity: 1;
+    animation: p4kf 4s linear infinite;
+}
+
+@keyframes p4kf {
+    0%,100% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: 0.66;
+    }
+
+    50% {
+        opacity: 0.33;
+    }
+
+    75% {
+        opacity: 0;
+    }
+}
+

@@ -1,0 +1,67 @@
+import { themeMd, theme } from '../common/theme'
+import { paddingMd, padding } from '../common/padding'
+import { colorMd, color } from '../common/color'
+import { legendMd, legend } from '../common/legend'
+import { tipHtmlMd, tipHtml } from '../common/tipHtml'
+import { tipHtmlStyleMd, tipHtmlStyle } from '../common/tipHtmlStyle'
+import { xAxisMd, xAxis } from '../common/xAxis'
+import { yAxisMd, yAxis } from '../common/yAxis'
+import { dataZoomMd, dataZoom } from '../common/dataZoom'
+import { eventMd, event } from '../common/event'
+import { linearGradientMd, linearGradient } from '../common/linearGradient'
+import dataMd from './data.md?raw'
+import itemStyleMd from './itemStyle.md?raw'
+import smoothMd from './smooth.md?raw'
+import predictMd from './predict.md?raw'
+import marklineMd from './markline.md?raw'
+import markpointMd from './markpoint.md?raw'
+import silentMd from './silent.md?raw'
+import stepMd from './step.md?raw'
+
+var data = {
+    dataset: [
+        theme,
+        color,
+        padding,
+        legend,
+        tipHtml,
+        tipHtmlStyle,
+        xAxis,
+        yAxis,
+        dataZoom,
+        linearGradient,
+        event,
+        ['data', '图表数据(必填)', 'array', '无'],
+        ['itemStyle', '图表数据点文本样式', 'object', "{symbolSize:20,borderColor:'#fff'}"],
+        ['smooth', '折线是否更改为曲线', 'boolean', "false"],
+        ['silent', '是否关闭hover动效', 'boolean', "false"],
+        ['step', '折线是否更改为阶梯线', 'boolean', "false"],
+        ['predict', '折线更改为预测线的数据名', 'string', "无"],
+        ['markline', '阈值线配置', 'object', "无"],
+        ['markPoint', '峰值标记', 'object', "{max:false,min:false}"],
+    ],
+    markdown: [
+        themeMd,
+        colorMd,
+        paddingMd,
+        legendMd,
+        tipHtmlMd,
+        tipHtmlStyleMd,
+        xAxisMd,
+        yAxisMd,
+        dataZoomMd,
+        linearGradientMd,
+        eventMd,
+        dataMd,
+        itemStyleMd,
+        smoothMd,
+        silentMd,
+        stepMd,
+        predictMd,
+        marklineMd,
+        markpointMd,
+    ],
+};
+
+
+export default data;
