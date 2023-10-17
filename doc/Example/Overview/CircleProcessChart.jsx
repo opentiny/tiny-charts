@@ -1,28 +1,35 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import IntegrateChart from '../../../src/index';
 
 const CircleProcessChart = props => {
   let theme = props.theme;
   const circleProcessChartRef = useRef();
+  const [chartIns, setChartIns] = useState(new IntegrateChart());
+
+  let chartData = [
+    {
+      name: "VPC",
+      value: 10,
+    },
+    {
+      name: "EM",
+      value: 20,
+    },
+  ];
+  let chartOpt = {
+    theme: `hwCloud-${theme}`,
+    data: chartData,
+  };
 
   useEffect(() => {
-    let chartIns = new IntegrateChart();
-    let chartData = [
-      {
-        name: "VPC",
-        value: 10,
-      },
-      {
-        name: "EM",
-        value: 20,
-      },
-    ];
-    let chartOpt = {
-      theme: `hwCloud-${theme}`,
-      data: chartData,
-    };
     chartIns.init(circleProcessChartRef.current);
     chartIns.setSimpleOption('CircleProcessChart', chartOpt, {});
+    return () => {
+      chartIns.uninstall();
+    };
+  }, []);
+
+  useEffect(() => {
     setTimeout(() => {
       if (!props.shouldRender) { // 如果dom脱离视口，停止渲染
         return;

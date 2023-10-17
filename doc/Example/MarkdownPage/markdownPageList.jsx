@@ -48,6 +48,10 @@ const solution = [
         path: 'quick_start/customTheme.md',
     },
     {
+        name: 'AxisOptimization',
+        path: 'quick_start/axisOptimization.md',
+    },
+    {
         name: 'LazyLoad',
         path: 'quick_start/lazyLoad.md',
     },

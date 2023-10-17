@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import IntegrateChart from '../../../src/index';
 
 const animationTime = 1500;
@@ -8,41 +8,48 @@ const RadarChart = props => {
   const radarChartRef = useRef();
   const shouldRenderRef = useRef();
   shouldRenderRef.current = props.shouldRender;
+  const [chartIns, setChartIns] = useState(new IntegrateChart());
+
+  let chartData = {
+    Domestic: {
+      Equipment: 43,
+      VM: 90,
+      CSP: 80,
+      RD: 53,
+      Markets: 78,
+    },
+    Abroad: {
+      Equipment: 75,
+      VM: 55,
+      CSP: 93,
+      RD: 90,
+      Markets: 86,
+    },
+  };
+  let chartOpt = {
+    theme: theme,
+    legend: {
+      show: true,
+      position: {
+        left: 'center',
+        bottom: 20,
+      },
+      orient: 'horizontal',
+    },
+    markLine: 81,
+    data: chartData,
+  };
 
   useEffect(() => {
-    let chartIns = new IntegrateChart();
-    let chartCount = 0;
-    let chartData = {
-      Domestic: {
-        Equipment: 43,
-        VM: 90,
-        CSP: 80,
-        RD: 53,
-        Markets: 78,
-      },
-      Abroad: {
-        Equipment: 75,
-        VM: 55,
-        CSP: 93,
-        RD: 90,
-        Markets: 86,
-      },
-    };
-    let chartOpt = {
-      theme: theme,
-      legend: {
-        show: true,
-        position: {
-          left: 'center',
-          bottom: 20,
-        },
-        orient: 'horizontal',
-      },
-      markLine: 81,
-      data: chartData,
-    };
     chartIns.init(radarChartRef.current);
     chartIns.setSimpleOption('RadarChart', chartOpt, {});
+    return () => {
+      chartIns.uninstall();
+    };
+  }, []);
+
+  useEffect(() => {
+    let chartCount = 0;
     let interval;
     setTimeout(() => {
       if (!props.shouldRender) { // 如果dom脱离视口，停止渲染
@@ -155,7 +162,6 @@ const RadarChart = props => {
     }, 100);
     return () => {
       clearInterval(interval);
-      chartIns.uninstall()
     };
   }, [props.shouldRender]);
 

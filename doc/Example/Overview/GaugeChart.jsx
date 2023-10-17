@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import IntegrateChart from '../../../src/index';
 
 const animationTime = 1500;
@@ -8,63 +8,70 @@ const GaugeChart = props => {
   const gaugeChartRef = useRef();
   const shouldRenderRef = useRef();
   shouldRenderRef.current = props.shouldRender;
+  const [chartIns, setChartIns] = useState(new IntegrateChart());
+
+  let chartData = [{ value: 10, name: '占空比' }];
+  let chartOpt = {
+    theme: theme,
+    gradientColor: ['rgba(78,127,243)', 'rgba(78,127,243)'],
+    data: chartData,
+    min: 0,
+    max: 100,
+    markLine: 80,
+    position: {
+      radius: '65%',
+    },
+    text: {
+      offset: [5, 0],
+      formatter: function (value) {
+        return '{value|' + value + '}{unit|%}';
+      },
+      formatterStyle: {
+        value: {
+          fontSize: 40,
+          color: theme == 'light' ? '#000' : '#eeeeee',
+        },
+        unit: {
+          fontSize: 12,
+          color: theme == 'light' ? '#000' : '#eeeeee',
+          padding: [12, 0, 0, 4],
+        },
+      },
+    },
+    pointer: true,
+    splitNumber: 4,
+    itemStyle: {
+      lineStyle: {
+        length: 2,
+        color: 'transparent',
+      },
+    },
+    axisLabelStyle: {
+      color: 'gray',
+    },
+    pointerStyle: {
+      width: 16,
+      length: '12%',
+      pointerDistance: '-120%',
+      lineDistance: '4%',
+    },
+    mask: {
+      show: true,
+      hightLight: true,
+      width: 10,
+    },
+  };
 
   useEffect(() => {
-    let chartIns = new IntegrateChart();
-    let chartData = [{ value: 10, name: '占空比' }];
-    let chartOpt = {
-      theme: theme,
-      gradientColor: ['rgba(78,127,243)', 'rgba(78,127,243)'],
-      data: chartData,
-      min: 0,
-      max: 100,
-      markLine: 80,
-      position: {
-        radius: '65%',
-      },
-      text: {
-        offset: [5, 0],
-        formatter: function (value) {
-          return '{value|' + value + '}{unit|%}';
-        },
-        formatterStyle: {
-          value: {
-            fontSize: 40,
-            color: theme == 'light' ? '#000' : '#eeeeee',
-          },
-          unit: {
-            fontSize: 12,
-            color: theme == 'light' ? '#000' : '#eeeeee',
-            padding: [12, 0, 0, 4],
-          },
-        },
-      },
-      pointer: true,
-      splitNumber: 4,
-      itemStyle: {
-        lineStyle: {
-          length: 2,
-          color: 'transparent',
-        },
-      },
-      axisLabelStyle: {
-        color: 'gray',
-      },
-      pointerStyle: {
-        width: 16,
-        length: '12%',
-        pointerDistance: '-120%',
-        lineDistance: '4%',
-      },
-      mask: {
-        show: true,
-        hightLight: true,
-        width: 10,
-      },
-    };
-    let chartCount = 0;
     chartIns.init(gaugeChartRef.current);
     chartIns.setSimpleOption('GaugeChart', chartOpt, {});
+    return () => {
+      chartIns.uninstall();
+    };
+  }, []);
+
+  useEffect(() => {
+    let chartCount = 0;
     let interval;
     setTimeout(() => {
       if (!props.shouldRender) { // 如果dom脱离视口，停止渲染
@@ -124,7 +131,6 @@ const GaugeChart = props => {
     }, 100);
     return () => {
       clearInterval(interval);
-      chartIns.uninstall()
     };
   }, [props.shouldRender]);
 

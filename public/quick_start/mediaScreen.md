@@ -1,34 +1,32 @@
-# 响应式
+# 响应式（类媒体查询效果）
 
-## 背景
+在实际场景中，图表的尺寸会动态变化，在不同尺寸下，图表展示形式可能不一样。<br>
 
-在实际场景中，页面/图表容器的尺寸不是固定的，在不同尺寸下，用户需要的图表的展示形式可能是不一样的。<br>
-当页面/图表容器尺寸过小时，为了能让整个图表尽可能的展示完全，一些非必要的属性的显示显得没那么重要，如图例、x 轴文本、y 轴文本等。<br>
-当页面/图表容器尺寸足够时，才需要将所有的属性都完全展示出来。<br>
-目前 HUI-Charts 提供了一套直角坐标系下的响应式图表属性配置，以达到图表在不同尺寸之间实现最佳平衡的配置。
+当图表尺寸过小时，聚焦核心图元，隐藏非必要的属性，如图例、坐标轴等。当图表尺寸足够时，才需要将所有的属性展示出来。<br>
 
-## 如何使用
+目前 HUI-Charts 提供了一套响应式图表配置方法，让图表在不同尺寸之间实现最佳视觉效果。
 
-```js
+## 使用方式
+
+您可以调用`chartInstance.mediaScreen(dom, screenOption)`方法实现自定义响应式图表，不同分辨率下切换图表形态。
+
+```javascript
+// 监听尺寸变化的DOM元素，该DOM可以为document、图表容器、甚至是页面中任意元素
+const screenDOM = document.documentElement;
+// 响应式配置，会根据宽度匹配 screenDOM 的尺寸，应用相应的 option
+const screenOption = [{
+  maxWidth:1920,
+  minWidth:1280,
+  option:{
+    legend:{...},
+    markLine:{...}
+  }
+},{
+  maxWidth:1279,
+  option:{
+    markLine:{...}
+  }
+}];
 // 开启响应式布局（类媒体查询效果）
-chartInstance.mediaScreen(dom, screenOption);
-// dom是图表开始响应式后依赖的监听对象；根据dom的尺寸配置图表属性。（必填，一般为document.documentElement或者图表容器）
-// screenOption是用户传入自己编写的响应式配置。（非必填，数组格式，不传则使用HUI-Charts默认的响应式图表属性）
-screenOption 格式：[
-  {
-    maxWidth:400, // 定义option属性生效的dom尺寸最大值区间
-    minWidth:200, // 定义option属性生效的dom尺寸最小值区间
-    option:{      // dom尺寸符合maxWidth和minWidth,配置option图表属性。
-      legend:{...},
-      markLine:{...}
-    }
-  },
-  ...
-]
+chartInstance.mediaScreen(screenDOM, screenOption);
 ```
-
-## 默认响应式配置
-目前 HUI-Charts 提供了一套直角坐标系下的响应式图表属性配置，如下：...
-
-## 响应式设计 demo
-

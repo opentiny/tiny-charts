@@ -1,5 +1,5 @@
-const versionNumber = '1.1.60';
-const updateTime = '2023-09-16';
+const versionNumber = '1.1.62';
+const updateTime = '2023-10-10';
 
 const NAV_DATA = [
   {
@@ -45,6 +45,11 @@ const NAV_DATA = [
         value: 'mediaScreen',
       },
       {
+        title: "懒加载",
+        titleId: 'ic_lazyLoad',
+        value: 'LazyLoad',
+      },
+      {
         title: '网格对齐',
         titleId: 'ic_axisMargin',
         value: 'AxisMargin',
@@ -55,7 +60,7 @@ const NAV_DATA = [
         value: 'HighOrder',
       },
       {
-        title: '迷你场景',
+        title: '迷你图表',
         titleId: 'ic_mini',
         value: 'Mini',
       },
@@ -70,10 +75,10 @@ const NAV_DATA = [
         value: 'CustomTheme',
       },
       {
-        title: "懒加载及渲染优化",
-        titleId: 'ic_lazyLoad',
-        value: 'LazyLoad',
-      },
+        title: '数据波动优化',
+        titleId: 'ic_axisOptimization',
+        value: 'AxisOptimization',
+      }
       // {
       //   title: 'resize卡顿',
       //   titleId: 'ic_readme',
@@ -246,16 +251,16 @@ const NAV_DATA = [
     titleId: 'ic_WaveChart',
     value: 'WaveChart',
   },
-  // {
-  //   title: '百度地图 BaiduMapChart',
-  //   titleId: 'ic_BaiduMapChart',
-  //   value: 'BaiduMapChart',
-  // },
-  // {
-  //   title: '高德地图 AutonaviMapChart',
-  //   titleId: 'ic_AutonaviMapChart',
-  //   value: 'AutonaviMapChart',
-  // },
+  {
+    title: '百度地图 BaiduMapChart',
+    titleId: 'ic_BaiduMapChart',
+    value: 'BaiduMapChart',
+  },
+  {
+    title: '高德地图 AutonaviMapChart',
+    titleId: 'ic_AutonaviMapChart',
+    value: 'AutonaviMapChart',
+  },
   {
     title: '组织关系图 OrganizationChart',
     titleId: 'ic_OrganizationChart',

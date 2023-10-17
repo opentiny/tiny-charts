@@ -19,6 +19,7 @@ import 'echarts-wordcloud';
 import axios from 'axios';
 import * as d3 from 'd3';
 import './index.less';
+import 'echarts-extension-amap';
 
 // 词云图需要的遮罩图片
 const base64 =
@@ -100,7 +101,7 @@ function PlayGround(props) {
           const chartIndex = response.data.match('chartOption:').index + 'chartOption:'.length;
           const beforeCode = response.data.slice(0, chartIndex);
           const afterCode = response.data.slice(chartIndex);
-          content = `${beforeCode  }\n${  content  }${afterCode}`;
+          content = `${beforeCode}\n${content}${afterCode}`;
           // 动态修改txt中的图表名称
           content = content.replace('name="GaugeChart"', `name="${chartName}"`);
         } else {
@@ -108,7 +109,7 @@ function PlayGround(props) {
           const chartIndex = response.data.match('chartOption =').index + 'chartOption ='.length;
           const beforeCode = response.data.slice(0, chartIndex);
           const afterCode = response.data.slice(chartIndex);
-          content = `${beforeCode  }\n${  content  }${afterCode}`;
+          content = `${beforeCode}\n${content}${afterCode}`;
           // 动态修改txt中的图表名称
           content = content.replace('chartName = \'JadeJueChart\'', `chartName = '${chartName}'`);
         }
@@ -215,7 +216,6 @@ function PlayGround(props) {
       integrateChart.setSimpleOption(chartName, option, { ecStat, d3 });
       // 延迟图表渲染，使页面打开时图表有动画
       setTimeout(() => {
-        integrateChart.showLoading()
         integrateChart.render();
       }, 20);
     }
@@ -226,12 +226,12 @@ function PlayGround(props) {
     axios.get(optionPath).then(response => {
 
       const option = transformCode(response.data);
-      
+
       setIChartOption(response.data);
       // 当iframe传入了主题，替换option中的主题
       if (theme) {
         if (option.theme && option.theme.indexOf('hwCloud-') !== -1) {
-          option.theme = `hwCloud-${  theme}`;
+          option.theme = `hwCloud-${theme}`;
         } else {
           option.theme = theme;
         }

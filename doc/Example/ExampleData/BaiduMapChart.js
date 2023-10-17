@@ -9,6 +9,11 @@ export default {
                     routePath: 'BaiduMapChart-1',
                     imagePath: './image/light/BaiduMapChart/BaiduMapChart-1.png',
                 },
+                {
+                    name: '百度地图-热力图',
+                    routePath: 'BaiduMapChart-2',
+                    imagePath: './image/light/BaiduMapChart/BaiduMapChart-2.png',
+                },
             ]
         },
 

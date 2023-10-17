@@ -1,6 +1,6 @@
 # 版本发布日志
 
-## 🎊1.1.61
+## 🎊1.1.62
 发布时间：未发布
 
 - ✨ : 新增支持自定义主题功能，通过调用HuiCharts.registerTheme(name,colorConfig) 。同时支持配置全局默认主题调用HuiCharts.theme(name) ,name目前支持'dark','light', 'cloud-dark','cloud-light'四个可选值，增加全局的tip
@@ -13,6 +13,12 @@
 - ✨ : 新增支持tooltip可手动控制显示/隐藏
 - ✨ : 新增支持线形图和柱状图可选择指定数据进行堆叠，默认全部参与堆叠
 - ✨ : 新增进度图中StackProcessBarChart支持数据缺省柱条圆角适配
+- ✨ : 新增自定义DOM，支持用户创建自定义数据状态
+- ✨ : 新增百度地图
+- ✨ : 修改五种内置数据状态的图标
+- ✨ : 进度图进行了代码层面的重构,对相关功能进行整合和拓展
+
+
 ### 🐞 Bug Fixes
 - 🐞 : 修复进度图中StackProcessBarChart左侧产生空白偏移的bug
 

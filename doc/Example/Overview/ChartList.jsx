@@ -29,10 +29,10 @@ import CandlestickChart from './CandlestickChart';
 
 const ChartList = (theme, shouldRenderArr) => {
   const chartList = [
-    // {
-    //   name: 'LineChart',
-    //   components: (index) => { return <LineChart theme={theme} shouldRender={shouldRenderArr.includes(index)} ></LineChart>; }
-    // },
+    {
+      name: 'LineChart',
+      components: (index) => { return <LineChart theme={theme} shouldRender={shouldRenderArr.includes(index)} ></LineChart>; }
+    },
     {
       name: 'BarChart',
       components: (index) => { return <BarChart theme={theme} shouldRender={shouldRenderArr.includes(index)} ></BarChart>; }
@@ -81,10 +81,10 @@ const ChartList = (theme, shouldRenderArr) => {
       name: 'SunburstChart',
       components: (index) => { return <SunburstChart theme={theme} shouldRender={shouldRenderArr.includes(index)} ></SunburstChart>; },
     },
-    // {
-    //   name: 'HillChart',
-    //   components: (index) => { return <HillChart theme={theme} shouldRender={shouldRenderArr.includes(index)} ></HillChart>; },
-    // },
+    {
+      name: 'HillChart',
+      components: (index) => { return <HillChart theme={theme} shouldRender={shouldRenderArr.includes(index)} ></HillChart>; },
+    },
     {
       name: 'CircleProcessChart',
       components: (index) => { return <CircleProcessChart theme={theme} shouldRender={shouldRenderArr.includes(index)} ></CircleProcessChart>; },

@@ -26,8 +26,9 @@ import LiquidfillChart from './LiquidfillChart';
 import BoxplotChart from './BoxplotChart';
 import CandlestickChart from './CandlestickChart';
 import RegionChart from './RegionChart';
-import AssembleBubbleChart from './AssembleBubbleChart'
-import GraphChart from './GraphChart'
+import AssembleBubbleChart from './AssembleBubbleChart';
+import GraphChart from './GraphChart';
+import BaiduMapChart from './BaiduMapChart';
 
 export default {
     LineChart,
@@ -59,5 +60,6 @@ export default {
     CandlestickChart,
     RegionChart,
     GraphChart,
-    AssembleBubbleChart
+    AssembleBubbleChart,
+    BaiduMapChart
 };

@@ -1,22 +1,29 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import IntegrateChart from '../../../src/index';
 
 const CandlestickChart = props => {
   let theme = props.theme;
   const candlestickChartRef = useRef();
+  const [chartIns, setChartIns] = useState(new IntegrateChart());
+
+  let chartOpt = {
+    theme: `hwCloud-${theme}`,
+    data: handleData(),
+    padding: [50, 30],
+  };
 
   useEffect(() => {
-    let chartIns = new IntegrateChart();
-    let chartOpt = {
-      theme: `hwCloud-${theme}`,
-      data: handleData(),
-      padding: [50, 30],
-    };
     chartIns.init(candlestickChartRef.current);
     chartIns.setSimpleOption('CandlestickChart', chartOpt, {});
+    return () => {
+      chartIns.uninstall();
+    };
+  }, []);
+
+  useEffect(() => {
     setTimeout(() => {
-      if(!props.shouldRender){
-        return
+      if (!props.shouldRender) {
+        return;
       }
       chartIns.render();
     }, 100);

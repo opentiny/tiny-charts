@@ -1,13 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import IntegrateChart from '../../../src/index';
 
 const HillChart = props => {
   let theme = props.theme;
-  let chartIns = undefined;
+  const [chartIns, setChartIns] = useState(new IntegrateChart());
   const chartRef = useRef();
 
   useEffect(() => {
-    chartIns = new IntegrateChart();
     let chartData = [
       { name: 'BRAS 01', value: 80 },
       { name: 'BRAS 02', value: 60 },
@@ -30,10 +29,13 @@ const HillChart = props => {
     };
     chartIns.init(chartRef.current);
     chartIns.setSimpleOption('HillChart', chartOpt, {});
+    return () => {
+      chartIns.uninstall();
+    };
   }, []);
 
   useEffect(() => {
-    if(props.shouldRender){
+    if (props.shouldRender) {
       setTimeout(() => {
         chartIns && chartIns.render();
       }, 100);

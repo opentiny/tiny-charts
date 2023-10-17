@@ -205,6 +205,29 @@ chartInstance.closeState();
 | imageShow | 是否显示图标 | boolean | `true` |
 | backgroundColor | 自定义背景底色 | string | `"#FFFFFF"` |
 
+
+<br/>
+<br/>
+
+
+## 自定义DOM
+
+当上述所有内置的数据状态无法满足您的需求场景时，您可以使用自定义DOM，创建您所需要的数据状态:<br>
+
+```javascript
+// 下述代码为展示示例，用户可以自行根据场景创建内容
+chartInstance.showCustomDom(function (container) {
+    // 传入自定义DOM，container 为数据状态的DOM容器
+    let customContainer = document.createElement('div'); 
+    customContainer.className = 'huicharts-custom-state';
+    customContainer.innerHTML = '重新加载';
+    container.appendChild(customContainer);
+})
+
+// 关闭自定义DOM
+chartInstance.closeCustomDom();
+```
+
 <!-- 样式 -->
 <style>
     .img-warpper{
