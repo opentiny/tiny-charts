@@ -1,16 +1,16 @@
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 
 class GraphChart {
-  constructor(iChartOption, _, chartInstance) {
+  constructor(iChartOption) {
     this.rootData = {};
     this.baseOption = {};
     // 根据 iChartOption 组装 baseOption
-    this.updateOption(iChartOption, _, chartInstance);
+    this.updateOption(iChartOption);
   }
 
-  updateOption(iChartOption, _, chartInstance) {
+  updateOption(iChartOption) {
     // 兼容echarts属性
-    megre(this.baseOption, iChartOption);
+    merge(this.baseOption, iChartOption);
   }
 
   getOption() {
@@ -18,6 +18,6 @@ class GraphChart {
   }
 
   setOption() { }
-};
+}
 
 export default GraphChart;

@@ -1,14 +1,14 @@
 import grid from '../config/grid';
 import xAxis from '../config/xAxis';
 import yAxis from '../config/yAxis';
-import legend from './legend';
+import legend from '../config/legend';
 import tooltip from '../config/tooltip';
 import datazoom from '../config/datazoom';
 // 暴露出去的方法
 import xkey from '../config/xAxis/xkey';
 import xdata from '../config/xAxis/xdata';
 import ydata from '../config/yAxis/ydata';
-import ldata from './legend/ldata';
+import ldata from '../config/legend/ldata';
 
 // 组装直角坐标系所需的基础配置
 function RectCoordSys(baseOpt, iChartOpt, chartName) {

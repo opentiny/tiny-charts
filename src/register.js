@@ -143,12 +143,12 @@ const components = [
   },
   {
     name: 'GraphChart',
-    component: GraphChart
+    component: GraphChart,
   },
   {
     name: 'AssembleBubbleChart',
-    component: AssembleBubbleChart
-  }
+    component: AssembleBubbleChart,
+  },
 ];
 
 components.forEach(comp => {

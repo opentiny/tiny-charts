@@ -6,7 +6,7 @@ import RectCoordSys from '../../option/RectangularCoordinateSystem';
 import Theme from '../../feature/theme';
 const CHART_NAME = 'BoxplotChart';
 export default class BoxplotChart {
-    constructor(iChartOption, plugins, chartInstance) {
+    constructor(iChartOption,  chartInstance) {
         this.baseOption = {};
         this.iChartOption = {};
         this.iChartOption = init(iChartOption);

@@ -6,7 +6,7 @@ import PolarCoordSys from '../../option/PolarCoordinateSystem';
 
 const CHART_NAME = 'PolarBarChart';
 export default class PolarBarChart {
-    constructor(iChartOption, plugins, chartInstance) {
+    constructor(iChartOption, chartInstance) {
         this.baseOption = {};
         this.iChartOption = {};
         // 组装 iChartOption, 补全默认值
@@ -31,9 +31,9 @@ export default class PolarBarChart {
             // legend数据
             this.baseOption.legend.data = data;
             // series bar数据
-            var seriesData = getSeriesData(data)
+            const seriesData = getSeriesData(data)
             // pie数据
-            var labelData = getLabelData(data);
+            const labelData = getLabelData(data);
             this.baseOption.series = setSeries(seriesData, labelData, iChartOption, this.baseOption.polar);
         }
 

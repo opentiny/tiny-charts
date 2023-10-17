@@ -62,13 +62,26 @@ const STAGE_EMPTY_SVG = (fillColor) => {
 
 
 const LOADING_SVG = (fillColor) => {
-    return `<svg width="24px" height="24px" viewBox="0 0 24 24" style="transform: scale(1.2);" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <g>
-            <path fill="${fillColor}" style="transform-origin: 50% 50%;" d="M12,2.25 C17.3847763,2.25 21.75,6.61522369 21.75,12 C21.75,12.4142136 21.4142136,12.75 21,12.75 C20.5857864,12.75 20.25,12.4142136 20.25,12 C20.25,7.44365081 16.5563492,3.75 12,3.75 C7.44365081,3.75 3.75,7.44365081 3.75,12 C3.75,16.5563492 7.44365081,20.25 12,20.25 C14.2249159,20.25 16.307894,19.3661759 17.8466362,17.8205968 C18.1388795,17.5270551 18.6137521,17.5260024 18.9072938,17.8182457 C19.2008355,18.1104889 19.2018882,18.5853615 18.9096449,18.8789033 C17.0922045,20.7044189 14.6280007,21.75 12,21.75 C6.61522369,21.75 2.25,17.3847763 2.25,12 C2.25,6.61522369 6.61522369,2.25 12,2.25 Z">
-                <animateTransform attributeName='transform' type="rotate" from='0' to='360' dur='1' repeatCount='indefinite'/>
-            </path>
+    return `<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient x1="128.248383%" y1="50%" x2="26.8114638%" y2="0%" id="linearGradient-2">
+            <stop stop-color="${fillColor}" stop-opacity="0" offset="0.0956075175%"></stop>
+            <stop stop-color="${fillColor}" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-817.000000, -590.000000)">
+            <g transform="translate(538.000000, 402.000000)">
+                <g transform="translate(279.000000, 188.000000)">
+                    <path style="transform-origin: 50% 50%;"  d="M12,0.9 C12.7455844,0.9 13.35,1.50441559 13.35,2.25 C13.35,2.99558441 12.7455844,3.6 12,3.6 C7.36058441,3.6 3.6,7.36058441 3.6,12 C3.6,16.6394156 7.36058441,20.4 12,20.4 C16.6394156,20.4 20.4,16.6394156 20.4,12 C20.4,11.2544156 21.0044156,10.65 21.75,10.65 C22.4955844,10.65 23.1,11.2544156 23.1,12 C23.1,18.1305844 18.1305844,23.1 12,23.1 C5.86941559,23.1 0.9,18.1305844 0.9,12 C0.9,5.86941559 5.86941559,0.9 12,0.9 Z" id="Stroke-2" fill="url(#linearGradient-2)" fill-rule="nonzero">
+                    <animateTransform attributeName='transform' type="rotate" from='0' to='360' dur='1' repeatCount='indefinite'/> 
+                    </path>
+                     
+                </g>
+            </g>
         </g>
-    </svg>`;
+    </g>
+</svg>`;
 }
 
 
@@ -84,7 +97,7 @@ function insertStateDom(container, state, option = { theme: 'light' }) {
     let textColor = option.textColor || (theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#808080');
     let imageColor = option.imageColor || (theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#191919');
     let backgroundColor = option.backgroundColor || (theme.indexOf('dark') !== -1 ? '#191919' : '#FFFFFF');
-    if(hasStateDom(container, state)) return; 
+    if (hasStateDom(container, state)) return;
     switch (state) {
         case 'error':
             image = ERROR_SVG(defendXSS(imageColor));
@@ -127,11 +140,11 @@ function removeStateDom(container, state) {
     }
 }
 
-function hasStateDom(container, state){
+function hasStateDom(container, state) {
     let doms = container.getElementsByClassName(`huicharts-${state}`);
-    if(doms.length >= 1){
+    if (doms.length >= 1) {
         return true
-    }else{
+    } else {
         return false;
     }
 }

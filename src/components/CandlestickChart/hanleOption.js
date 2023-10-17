@@ -1,7 +1,7 @@
 import { isArray } from '../../util/type';
 import cloneDeep from '../../util/cloneDeep';
 import { VOLUMEGRID } from './BaseOption';
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 import Theme from '../../feature/theme';
 import { xkey } from '../../option/RectangularCoordinateSystem';
 function handleData(iChartOpt) {
@@ -72,14 +72,14 @@ function handleDataZoom(baseOpt, iChartOpt) {
   baseOpt.dataZoom[0].xAxisIndex = [0, 1];
   baseOpt.dataZoom[0].bottom = '6%';
   if (dataZoom) {
-    megre(baseOpt.dataZoom[0], dataZoom);
+    merge(baseOpt.dataZoom[0], dataZoom);
   }
 }
 
 function handleLegend(baseOpt, iChartOpt) {
   const { legend } = iChartOpt;
   if (legend) {
-    megre(baseOpt.legend, legend);
+    merge(baseOpt.legend, legend);
   }
 }
 
@@ -89,7 +89,7 @@ function handleTooltip(baseOpt, iChartOpt) {
   inerTooltip.axisPointer = { type: 'cross' };
   baseOpt.tooltip = inerTooltip;
   if (iChartOpt.tooltip) {
-    megre(baseOpt.tooltip, iChartOpt.tooltip);
+    merge(baseOpt.tooltip, iChartOpt.tooltip);
   }
 }
 

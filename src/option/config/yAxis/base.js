@@ -34,7 +34,7 @@ function base(theme) {
     option.splitLine.lineStyle.width = 1;
     option.splitLine.lineStyle.type = [4, 4];
   }
-  const colorBase =  Theme.color.base
+  const colorBase = Theme.color.base
   option.axisLabel.color = colorBase.axislabel;
   option.nameTextStyle.color = colorBase.axislabel;
   option.splitLine.lineStyle.color = [colorBase.axis];

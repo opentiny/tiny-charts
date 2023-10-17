@@ -21,17 +21,17 @@ import yAxis from '../../option/config/yAxis';
 const CHART_NAME = 'HillChart';
 
 class HillChart {
-  constructor(iChartOption, _, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
     this.baseOption = cloneDeep(BaseOption);
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
-    this.updateOption(iChartOption, _, chartInstance);
+    this.updateOption(iChartOption, chartInstance);
   }
 
-  updateOption(iChartOption, _, chartInstance) {
+  updateOption(iChartOption, chartInstance) {
     // 是否显示坐标轴
     // 配置x轴
     this.baseOption.xAxis = xAxis(iChartOption, CHART_NAME)[0];

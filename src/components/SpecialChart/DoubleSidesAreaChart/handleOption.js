@@ -1,4 +1,4 @@
-import megre from '../../../util/megre';
+import merge from '../../../util/merge';
 import { getColorBase } from '../util/theme';
 
 /**
@@ -34,7 +34,7 @@ export function handleTooltipValue(baseOpt, iChartOpt) {
  */
 export function handleGrid(baseOpt, iChartOpt, baseGrid) {
     const { grid } = iChartOpt;
-    megre(baseGrid, grid);
+    merge(baseGrid, grid);
     baseOpt.grid = baseGrid;
 }
 
@@ -48,7 +48,7 @@ export function handleXaxis(baseOpt, iChartOpt, baseXaxis) {
     const { xAxis, theme } = iChartOpt;
     const colorBase = getColorBase(theme);
     baseXaxis[0].axisLabel.color = colorBase.axislabel;
-    megre(baseXaxis, xAxis);
+    merge(baseXaxis, xAxis);
     baseOpt.xAxis = baseXaxis;
 }
 
@@ -66,7 +66,7 @@ export function handleYaxis(baseOpt, iChartOpt, baseYaxis) {
         item.nameTextStyle.color = colorBase.axislabel;
         item.splitLine.lineStyle.color = colorBase.axis;
     });
-    megre(baseYaxis, yAxis);
+    merge(baseYaxis, yAxis);
     baseOpt.yAxis = baseYaxis;
 }
 

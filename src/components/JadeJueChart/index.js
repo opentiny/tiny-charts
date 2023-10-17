@@ -9,7 +9,7 @@ import { event } from '../../util/event';
 
 const CHART_NAME = 'JadeJueChart';
 class JadeJueChart {
-  constructor(iChartOption, _, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
     this.baseOption = cloneDeep(BaseOption);

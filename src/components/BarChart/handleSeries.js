@@ -1,4 +1,4 @@
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 import defendXSS from '../../util/defendXSS';
 import { getColor } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
@@ -147,7 +147,7 @@ function handleMarkLine(seriesUnit, iChartOption, direction) {
   const isBottomMarkLine = markLine && markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(name) === -1);
   if (isTopMarkLine || isBottomMarkLine) {
     seriesUnit.markLine = cloneDeep(markLineDefault);
-    megre(seriesUnit.markLine, markLine);
+    merge(seriesUnit.markLine, markLine);
     seriesUnit.markLine.lineStyle.color = markLine.color ||  Theme.color.state.error;
   }
   if (isTopMarkLine) {

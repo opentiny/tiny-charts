@@ -8,7 +8,7 @@ import { xkey, xdata, ldata, ydata } from '../../../option/RectangularCoordinate
 import { event } from '../../../util/event';
 
 class DoubleSidesAreaChart {
-    constructor(iChartOption, plugins, chartInstance) {
+    constructor(iChartOption, chartInstance) {
         this.baseOption = cloneDeep(baseOption);
         this.chartInstance = chartInstance;
         // 组装 iChartOption, 补全默认值
@@ -19,7 +19,7 @@ class DoubleSidesAreaChart {
         event(chartInstance, iChartOption.event);
     }
 
-    updateOption(iChartOption, chartInstance) {
+    updateOption(iChartOption) {
         // 装载除series之外的其他配置
         RectCoordSys(this.baseOption, iChartOption, 'DoubleSidesAreaChart');
         // 重置grid

@@ -1,6 +1,6 @@
 import base from './base';
 import axisPointer from './axisPointer';
-import megre from '../../../util/megre';
+import merge from '../../../util/merge';
 
 function tooltip(iChartOption, chartName) {
   let theme = iChartOption.theme;
@@ -16,7 +16,7 @@ function tooltip(iChartOption, chartName) {
     tooltip.backgroundColor = formatterStyle.backgroundColor || tooltip.backgroundColor;
   }
   axisPointer(tooltip, theme, chartName);
-  megre(tooltip, iChartOption.tooltip);
+  merge(tooltip, iChartOption.tooltip);
   return tooltip;
 }
 

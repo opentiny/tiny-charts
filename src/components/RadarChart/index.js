@@ -9,7 +9,7 @@ import PolarCoordSys from '../../option/PolarCoordinateSystem';
 import { setRadar, setTooltip, setMarkLine, getRadarMax, getRadarKeys } from './handleOptipn';
 
 class RadarChart {
-  constructor(iChartOption, _, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
     this.chartInstance = chartInstance;
@@ -45,14 +45,14 @@ class RadarChart {
     }
   }
 
-  //根据渲染出的结果，二次计算option
+  // 根据渲染出的结果，二次计算option
   updateOptionAgain(YAxiMax, YAxiMin) {
-    let container = this.chartInstance.getDom();
+    const container = this.chartInstance.getDom();
     insertCenterDom(container, this.iChartOption);
   }
 
   resize(){
-    let container = this.chartInstance.getDom();
+    const container = this.chartInstance.getDom();
     resizeCenterDom(container, this.iChartOption);
   }
 

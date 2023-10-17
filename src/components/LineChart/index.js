@@ -3,8 +3,7 @@ import mini from '../../feature/mini';
 import { event } from '../../util/event';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../util/baseOption';
-import megreSeries from '../../util/megreSeries';
-import megreVisualMap from '../../util/megreVisualMap';
+import {mergeVisualMap, mergeSeries} from '../../util/merge';
 import { setVisualMap } from './handleVisualMap';
 import { handlePredict } from './handlePredict';
 import { topArea, bottomArea } from './AreaChart';
@@ -14,7 +13,7 @@ import RectCoordSys from '../../option/RectangularCoordinateSystem';
 import { xkey, xdata, ldata, ydata } from '../../option/RectangularCoordinateSystem';
 
 class LineChart {
-  constructor(iChartOption, plugins, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.baseOption = cloneDeep(BaseOption);
     this.iChartOption = {};
@@ -81,9 +80,9 @@ class LineChart {
     // 针对离散数据, 创建同名Series, 显示离散数据的单个点
     discrete(iChartOption, this.baseOption) 
     // 合并用户自定义series
-    megreSeries(iChartOption, this.baseOption);
+    mergeSeries(iChartOption, this.baseOption);
     // 合并用户自定义visualMap
-    megreVisualMap(iChartOption, this.baseOption);
+    mergeVisualMap(iChartOption, this.baseOption);
     // 处理特性
     mini(iChartOption, this.baseOption);
   }

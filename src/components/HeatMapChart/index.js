@@ -15,7 +15,7 @@ import {
 import init from '../../option/init';
 
 class HeatMapChart {
-  constructor(iChartOption, _, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
     this.baseOption = cloneDeep(BaseOption);

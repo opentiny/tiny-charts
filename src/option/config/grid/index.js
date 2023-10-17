@@ -1,5 +1,5 @@
 import base from './base';
-import megre from '../../../util/megre';
+import merge from '../../../util/merge';
 import { isArray } from '../../../util/type';
 
 function grid(iChartOpt) {
@@ -13,7 +13,7 @@ function grid(iChartOpt) {
     gridResult = [gridResult];
   }
   gridResult.forEach(item => {
-    megre(gridUnit, item);
+    merge(gridUnit, item);
   });
   return gridResult;
 }

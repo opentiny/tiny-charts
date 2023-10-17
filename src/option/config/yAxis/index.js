@@ -1,11 +1,13 @@
 import base from './base';
 import title from '../title';
 import { isArray } from '../../../util/type';
+import { getNewData, getAxisRangeFromData } from '../../../feature/fluctuation/index'
 
 function yAxis(baseOpt, iChartOpt, chartName) {
   let theme = iChartOpt.theme;
   let yAxisOpt = iChartOpt.yAxis;
   let yAxisName = iChartOpt.yAxisName;
+  let data = iChartOpt.data;
   if (!isArray(yAxisOpt)) {
     yAxisOpt = [yAxisOpt];
   }
@@ -14,7 +16,7 @@ function yAxis(baseOpt, iChartOpt, chartName) {
   }
   // 循环y轴配置
   let yAxis = [];
-  yAxisOpt.forEach((item,index) => {
+  yAxisOpt.forEach((item, index) => {
     let temp = base(theme);
     if (item && item.unit) {
       temp.axisLabel.formatter = `{value} ${item.unit}`;
@@ -32,8 +34,22 @@ function yAxis(baseOpt, iChartOpt, chartName) {
     if (item && item.splitLine) {
       item.splitLine = Object.assign(temp.splitLine, item.splitLine);
     }
+    // 静态给定y轴优化范围 
+    if (item && item.fluctuation == true) {
+      let newdata = getNewData(data);
+      let value = getAxisRangeFromData(newdata);
+      temp.min = value[0];
+      temp.max = value[1];
+    }
+    // 动态优化y轴范围
+    if (item && item.allowRange) {
+      let newdata = getNewData(data);
+      let value = getAxisRangeFromData(newdata, item.allowRange)
+      temp.min = value[0];
+      temp.max = value[1];
+    }
     temp = Object.assign(temp, item);
-    if(index == 0 && yAxisOpt.length == 1 && temp.position !== 'right'){
+    if (index == 0 && yAxisOpt.length == 1 && temp.position !== 'right') {
       delete temp.name;
     }
     yAxis.push(temp);

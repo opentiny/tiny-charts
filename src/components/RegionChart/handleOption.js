@@ -1,4 +1,4 @@
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 import Theme from '../../feature/theme'
 
 /**
@@ -14,6 +14,6 @@ export function setOption(iChartOption) {
       color: Theme.color.base.font
     }
   };
-  visualMap && megre(visualMap, defaultVisualMap);
+  visualMap && merge(visualMap, defaultVisualMap);
 }
 

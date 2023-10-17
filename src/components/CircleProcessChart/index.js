@@ -6,7 +6,7 @@ import PolarCoordSys from '../../option/PolarCoordinateSystem';
 
 const CHART_NAME = 'CircleProcessChart';
 export default class CircleProcessChart {
-    constructor(iChartOption, plugins, chartInstance) {
+    constructor(iChartOption, chartInstance) {
         this.baseOption = {};
         this.iChartOption = {};
         // 组装 iChartOption, 补全默认值
@@ -19,12 +19,12 @@ export default class CircleProcessChart {
         const iChartOption = this.iChartOption;
         // 装载除series之外的其他配置
         PolarCoordSys(this.baseOption, iChartOption, CHART_NAME);
-        //tooltip悬浮框
+        // tooltip悬浮框
         setTooltip(this.baseOption);
-        //legend数据
+        // legend数据
         this.baseOption.legend.data = iChartOption.data;
-        //series bar数据
-        var seriesData = getSeriesData(iChartOption.data);
+        // series bar数据
+        const seriesData = getSeriesData(iChartOption.data);
         this.baseOption.series = setSeries(seriesData, iChartOption);
         // 配置图表事件
         if (iChartOption.event) {

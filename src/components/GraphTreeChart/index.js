@@ -7,16 +7,16 @@ import { handleCategories, handleForce, handleArrow, handlePosition, handleLineS
 import { mixTree } from './mixTree';
 
 class GraphTreeChart {
-  constructor(iChartOption, _, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.rootData = {};
     this.baseOption = cloneDeep(BaseOption);
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
-    this.updateOption(iChartOption, _, chartInstance);
+    this.updateOption(iChartOption, chartInstance);
   }
 
-  updateOption(iChartOption, _, chartInstance) {
+  updateOption(iChartOption, chartInstance) {
     // 配置主题
     const theme = iChartOption.theme || 'light';
     // 处理节点类目样式

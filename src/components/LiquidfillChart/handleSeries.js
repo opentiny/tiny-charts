@@ -1,4 +1,4 @@
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 import cloneDeep from '../../util/cloneDeep';
 import Theme from '../../feature/theme'
 export const seriesInit = {
@@ -42,7 +42,7 @@ export function setSeries(iChartOption) {
       setBackgroundStyle(seriesUnit, item, theme, backgroundStyle);
       setOutline(seriesUnit, item, theme, outline)
       setLabel(seriesUnit, item, theme, label);
-      megre(seriesUnit, item)
+      merge(seriesUnit, item)
       series.push(seriesUnit);
     });
   } else {
@@ -72,14 +72,14 @@ function setLabel(seriesTarget, seriesSource, theme, label) {
     seriesTarget.label.color = colorBase.font;
     seriesTarget.label.position = 'inside';
     seriesTarget.label.show = true;
-    megre(seriesTarget.label, seriesSource.label);
+    merge(seriesTarget.label, seriesSource.label);
   }
   // 多个/单个数据：series里面label不存在但一级属性label存在
   else if (seriesSource.label === undefined && label) {
     seriesTarget.label.color = colorBase.font;
     seriesTarget.label.position = 'inside';
     seriesTarget.label.show = true;
-    megre(seriesTarget.label, label);
+    merge(seriesTarget.label, label);
   }
   // 多个/单个数据：series和一级属性都不存在label，设置初始值
   else {
@@ -97,12 +97,12 @@ function setOutline(seriesTarget, seriesSource, theme, outline) {
   // 单个数据：没有series时一级属性outline存在
   if (seriesSource.outline !== undefined) {
     itemStyle.borderColor = colorGroup[0];
-    megre(seriesTarget.outline, seriesSource.outline)
+    merge(seriesTarget.outline, seriesSource.outline)
   }
   // 多个/单个数据：series里面outline不存在但一级属性outline存在
   else if (seriesSource.outline === undefined && outline) {
     itemStyle.borderColor = colorGroup[0];
-    megre(seriesTarget.outline, outline)
+    merge(seriesTarget.outline, outline)
   }
   // 多个/单个数据：series和一级属性都不存在outline，设置初始值
   else {
@@ -117,12 +117,12 @@ function setBackgroundStyle(seriesTarget, seriesSource, theme, backgroundStyle) 
   // 单个数据：没有series时一级属性backgroundStyle存在
   if (seriesSource.backgroundStyle !== undefined) {
     seriesTarget.backgroundStyle.color = colorBase.main;
-    megre(seriesTarget.backgroundStyle, seriesSource.backgroundStyle);
+    merge(seriesTarget.backgroundStyle, seriesSource.backgroundStyle);
   }
   // 多个/单个数据：series里面backgroundStyle不存在但一级属性backgroundStyle存在
   else if (seriesSource.backgroundStyle === undefined && backgroundStyle) {
     seriesTarget.backgroundStyle.color = colorBase.main;
-    megre(seriesTarget.backgroundStyle, backgroundStyle);
+    merge(seriesTarget.backgroundStyle, backgroundStyle);
   }
   // 多个/单个数据：series和一级属性都不存在backgroundStyle，设置初始值
   else {
@@ -137,12 +137,12 @@ function setColor(seriesTarget, seriesSource, theme, color) {
   // 单个数据：没有series时一级属性存在color
   if (seriesSource.color !== undefined) {
     seriesTarget.color = colorGroup;
-    megre(seriesTarget.color, seriesSource.color);
+    merge(seriesTarget.color, seriesSource.color);
   }
   // 多个/单个数据：series里面color不存在但一级属性color存在
   else if (seriesSource.color === undefined && color) {
     seriesTarget.color = colorGroup;
-    megre(seriesTarget.color, color);
+    merge(seriesTarget.color, color);
   }
   // 多个/单个数据：series和一级属性都不存在color，设置初始值
   else {

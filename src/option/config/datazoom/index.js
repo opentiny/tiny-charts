@@ -1,5 +1,4 @@
 import base from './base';
-import megre from '../../../util/megre';
 
 function datazoom(iChartOption) {
   let theme = iChartOption.theme;

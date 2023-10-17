@@ -1,4 +1,4 @@
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 import ictDark from './ictDark';
 import ictLight from './ictLight';
 import cloudDark from './cloudDark';
@@ -35,7 +35,7 @@ class Theme {
 
   static set(name, config) {
     const defaultConfig = cloneDeep(this.get(DEFAULT_THEME_NAME));
-    megre(defaultConfig, config);
+    merge(defaultConfig, config);
     theme.set(name, defaultConfig);
   }
 

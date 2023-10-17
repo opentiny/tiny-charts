@@ -3,8 +3,7 @@ import init from '../../option/init';
 import { event } from '../../util/event';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../util/baseOption';
-import megreSeries from '../../util/megreSeries';
-import megreVisualMap from '../../util/megreVisualMap';
+import {mergeVisualMap, mergeSeries} from '../../util/merge';
 import RectCoordSys from '../../option/RectangularCoordinateSystem';
 import { setStack, setDirection, setDoubleSides } from './handleOptipn';
 import { xkey, xdata, ldata, ydata } from '../../option/RectangularCoordinateSystem';
@@ -12,7 +11,7 @@ import { xkey, xdata, ldata, ydata } from '../../option/RectangularCoordinateSys
 import { setSeries, setRange, setMarkLine, setWaterFall, setLimitFormatter } from './handleSeries';
 
 class BarChart {
-  constructor(iChartOption, plugins, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.baseOption = cloneDeep(BaseOption);
     this.chartInstance = chartInstance;
@@ -64,22 +63,22 @@ class BarChart {
       this.baseOption.tooltip = {};
     }
     // 合并用户自定义series
-    megreSeries(iChartOption, this.baseOption);
+    mergeSeries(iChartOption, this.baseOption);
     // 合并用户自定义visualMap
-    megreVisualMap(iChartOption, this.baseOption);
+    mergeVisualMap(iChartOption, this.baseOption);
   }
 
   // 根据渲染出的结果，二次计算option
   updateOptionAgain(YAxiMax, YAxiMin) {
-    let baseOption = this.baseOption;
-    let iChartOption = this.iChartOption;
-    let lineDataName = iChartOption.lineDataName;
+    const baseOption = this.baseOption;
+    const iChartOption = this.iChartOption;
+    const lineDataName = iChartOption.lineDataName;
     // 折柱混合
     if (lineDataName && lineDataName.length > 0) {
-      let lineChartBaseOpt = new LineChart(iChartOption, {}, this.chartInstance);
-      let lineBaseOption = lineChartBaseOpt.getOption();
-      let lineSeries = lineBaseOption.series;
-      let barSeries = baseOption.series;
+      const lineChartBaseOpt = new LineChart(iChartOption, {}, this.chartInstance);
+      const lineBaseOption = lineChartBaseOpt.getOption();
+      const lineSeries = lineBaseOption.series;
+      const barSeries = baseOption.series;
       lineDataName.forEach(lineName => {
         let bar = null;
         let line = null;

@@ -1,12 +1,12 @@
 import init from '../../option/init';
 import { event } from '../../util/event';
 import { setSeries } from './handleSeries';
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 import PolarCoordSys from '../../option/PolarCoordinateSystem';
 
 const CHART_NAME = 'SunburstChart';
 export default class SunburstChart {
-    constructor(iChartOption, plugins, chartInstance) {
+    constructor(iChartOption, chartInstance) {
         this.baseOption = {};
         this.iChartOption = {};
         this.iChartOption = init(iChartOption);
@@ -23,7 +23,7 @@ export default class SunburstChart {
             event(chartInstance, iChartOption.event);
         }
         // 合并用户自定义series
-        megre(this.baseOption.series, iChartOption.series);
+        merge(this.baseOption.series, iChartOption.series);
     }
     getOption() {
         return this.baseOption;

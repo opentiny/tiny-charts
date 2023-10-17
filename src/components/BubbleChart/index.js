@@ -9,20 +9,19 @@ import { setDataset, setVisualMap } from './handleVisualMap';
 import RectCoordSys from '../../option/RectangularCoordinateSystem';
 
 class BubbleChart {
-  constructor(iChartOption, plugins, chartInstance) {
+  constructor(iChartOption, chartInstance, plugins) {
     this.baseOption = {};
     this.baseOption = cloneDeep(BaseOption);
     this.iChartOption = {};
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
-    this.updateOption(plugins, chartInstance);
+    this.updateOption(plugins);
   }
 
-  updateOption(plugins, chartInstance) {
+  updateOption(plugins) {
     const iChartOption = this.iChartOption;
     const theme = iChartOption.theme;
-    const padding = iChartOption.chartPadding || iChartOption.padding;
     // 装载除series之外的其他配置
     RectCoordSys(this.baseOption, this.iChartOption, 'BubbleChart');
     // 增加气泡图的默认悬浮提示框

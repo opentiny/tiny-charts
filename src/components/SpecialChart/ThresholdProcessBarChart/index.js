@@ -5,7 +5,7 @@ import { handleTooltip, handleTheme, handleData, handleAxis } from './handleOpti
 import { handleSeries, handleColor } from './handleSeries';
 
 class ThresholdProcessBarChart {
-  constructor(iChartOption, _, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.baseOption = cloneDeep(BaseOption);
 

@@ -1,4 +1,4 @@
-import megre from "../../util/megre";
+import merge from "../../util/merge";
 import defaultOption from './defaultOption';
 import cloneDeep from "../../util/cloneDeep";
 import { isArrayEqual } from '../../util/isEqual';
@@ -26,7 +26,7 @@ class mediaScreen {
       let tempOption = cloneDeep(this.initOption);
       this.curRange = range;
       this.curRange.forEach((rangeIndex) => {
-        megre(tempOption, this.option[rangeIndex].option);
+        merge(tempOption, this.option[rangeIndex].option);
       });
       this.callback(tempOption);
     }

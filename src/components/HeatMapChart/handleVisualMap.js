@@ -2,7 +2,7 @@ import min from '../../util/sort/min';
 import max from '../../util/sort/max';
 import { VISUALMAPUNIT, CHARTTYPE } from './BaseOption';
 import cloneDeep from '../../util/cloneDeep';
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 import Theme from '../../feature/theme';
 /**
  * 设置日历热力图视觉滑块控制手柄
@@ -18,7 +18,7 @@ function handleCalendar(iChartOption, visualMapItem, maxValue, minValue) {
     visualMapItem.itemWidth = iChartOption.handle.width || 20;
     visualMapItem.itemHeight = iChartOption.handle.height || 400;
     if (iChartOption.handle.position) {
-      megre(visualMapItem, iChartOption.handle.position);
+      merge(visualMapItem, iChartOption.handle.position);
     } else {
       visualMapItem.right = '4%';
       visualMapItem.bottom = '6%';

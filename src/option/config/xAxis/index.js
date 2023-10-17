@@ -4,7 +4,7 @@ import axisLine from './axisLine';
 import axisLabel from './axisLabel';
 import axisMargin from './axisMargin';
 import boundaryGap from './boundaryGap';
-import megre from '../../../util/megre';
+import merge from '../../../util/merge';
 import { toArray } from '../../../util/type';
 
 function xAxis(iChartOpt, chartName) {
@@ -23,7 +23,7 @@ function xAxis(iChartOpt, chartName) {
     // 坐标轴前后留白
     axisMargin(xAxisUnit, xAxisItem, iChartOpt);
     // 覆盖属性
-    megre(xAxisUnit, xAxisItem);
+    merge(xAxisUnit, xAxisItem);
     return xAxisUnit;
   });
   return xAxisResult;

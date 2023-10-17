@@ -76,7 +76,7 @@ function configureLoadData(baseOptt, d3, iChartOption, seriesData, chartInstance
 }
 
 class AssembleBubbleChart {
-  constructor(iChartOption, plugins, chartInstance) {
+  constructor(iChartOption, chartInstance, plugins,) {
     this.baseOption = {};
     this.baseOption = cloneDeep(BaseOption);
     this.updateOption(iChartOption, plugins, chartInstance, this.baseOption);

@@ -1,9 +1,9 @@
-import title from "./title";
-import legend from "./legend";
-import tooltip from "./tooltip";
-import angleAxis from "./angleAxis";
-import radiusAxis from "./radiusAxis";
-import polar from "./polar";
+import title from './title';
+import legend from './legend';
+import tooltip from './tooltip';
+import angleAxis from './angleAxis';
+import radiusAxis from './radiusAxis';
+import polar from './polar';
 
 // 极坐标系所需的基础配置
 function PolarCoordSys(baseOpt, iChartOpt, chartName) {

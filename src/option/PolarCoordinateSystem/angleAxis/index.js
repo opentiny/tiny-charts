@@ -1,5 +1,5 @@
 import base from './base';
-import megre from '../../../util/megre';
+import merge from '../../../util/merge';
 
 function angleAxis(iChartOption, chartName) {
   let angleAxisOpt = undefined;
@@ -7,7 +7,7 @@ function angleAxis(iChartOption, chartName) {
     case 'JadeJueChart':
     case 'PolarBarChart':
       angleAxisOpt = base(iChartOption.theme, chartName);
-      megre(angleAxisOpt, iChartOption.angleAxis)
+      merge(angleAxisOpt, iChartOption.angleAxis)
       break;
     case 'CircleProcessChart':
       angleAxisOpt = {

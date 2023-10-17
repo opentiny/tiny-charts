@@ -1,11 +1,11 @@
 import tips from './util/tips';
-import megre from './util/megre';
+import merge from './util/merge';
 import Register from './register';
 import * as echarts from 'echarts';
 import Theme from './feature/theme';
 import throttle from './util/throttle';
 import { isFunction } from './util/type';
-import mergeExtend from './util/mergeExtend';
+import { mergeExtend } from './util/merge';
 import BaseChart from './components/BaseChart';
 import mediaScreen from './feature/mediaScreen';
 
@@ -59,12 +59,12 @@ export default class IntegrateChart extends BaseChart {
 
   // 初始化echarts，并同时监听容器和窗口的大小变化
   init(chartDom, initOpts) {
-    let defaultInit = {
+    const defaultInit = {
       'domResize': true,
       'windowResize': true,
       'resizeThrottle': this.resizeThrottle,
     };
-    initOpts = megre(defaultInit, initOpts);
+    initOpts = merge(defaultInit, initOpts);
     this.dom = chartDom;
     this.echartsIns = echarts.init(chartDom, {}, initOpts);
     // resize节流函数
@@ -91,7 +91,7 @@ export default class IntegrateChart extends BaseChart {
 
   // 传入简化后的icharts-option
   setSimpleOption(chartName, iChartOption, plugins = {}, isInit = true) {
-    if(isInit){
+    if (isInit) {
       Theme.setDefaultTheme(iChartOption.theme);
       this.mediaScreenObserver && this.mediaScreenObserver.setInitOption(iChartOption)
     }
@@ -103,7 +103,7 @@ export default class IntegrateChart extends BaseChart {
     this.chartName = chartName;
     this.iChartOption = iChartOption;
     const ChartClass = this.getChartClass(chartName);
-    this.ichartsIns = new ChartClass(iChartOption, this.plugins, this.echartsIns);
+    this.ichartsIns = new ChartClass(iChartOption,  this.echartsIns, this.plugins);
     this.eChartOption = this.ichartsIns.getOption();
     mergeExtend(this.iChartOption, this.eChartOption);
   }
@@ -149,7 +149,7 @@ export default class IntegrateChart extends BaseChart {
 
   // 第一次渲染: 调用echarts原生的setOption
   setOption(eChartOption, option) {
-    option = megre({ notMerge: true }, option);
+    option = merge({ notMerge: true }, option);
     eChartOption && this.echartsIns.setOption(eChartOption, option);
   }
 

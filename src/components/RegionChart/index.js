@@ -1,11 +1,11 @@
 import init from '../../option/init';
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 import { event } from '../../util/event';
 import { setOption } from './handleOption';
 import tooltip from '../../option/config/tooltip';
 
 export default class RegionChart {
-  constructor(iChartOption, plugins, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
     // 组装 iChartOption, 补全默认值
@@ -21,7 +21,7 @@ export default class RegionChart {
     // 配置悬浮提示框
     this.baseOption.tooltip = tooltip(iChartOption);
     // 兼容echarts属性
-    megre(this.baseOption, iChartOption);
+    merge(this.baseOption, iChartOption);
     // 配置图表事件
     if (iChartOption.event) {
       event(chartInstance, iChartOption.event);

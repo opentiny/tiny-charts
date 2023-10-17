@@ -1,39 +1,60 @@
 import init from '../../option/init';
-import ProcessBarChart from './ProcessBarChart';
-import StackProcessBarChart from './StackProcessBarChart';
-
-class ProcessChart {
-  constructor(iChartOption, plugins, newChart) {
+import RectCoordSys from '../../option/RectangularCoordinateSystem';
+import { PROCESSBARTYPE } from './BaseOption';
+import handleData from './handleData';
+import { event } from '../../util/event';
+import {
+  handleGrid,
+  handleYaxis,
+  handleXaxis,
+  handleDataZoom,
+  handleLegend,
+  handleTooltip,
+} from './handleOption';
+import handleSeries from './handleSeries'
+import cloneDeep from '../../util/cloneDeep';
+class ProcessChart2 {
+  constructor(iChartOption, chartInstance) {
+    // 保存初始的iChartOption
+    this.initIchartOption=cloneDeep(iChartOption)
     this.baseOption = {};
     this.iChartOption = {};
+    this.chartInstance = chartInstance;
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
-    this.updateOption(iChartOption, plugins, newChart);
+    this.updateOption();
   }
 
-  updateOption(iChartOption, plugins, newChart) {
+  updateOption() {
+    const iChartOption = this.iChartOption;
     if (!iChartOption.name) {
       throw new Error('ProcessChart must have a name');
     }
-    let chartClass;
-    switch (iChartOption.name) {
-      case 'ProcessBarChart':
-        chartClass = ProcessBarChart;
-        break;
-      case 'StackProcessBarChart':
-        chartClass = StackProcessBarChart;
-        break;
-      default:
-        break;
-    }
-    const chart = new chartClass(iChartOption, plugins, newChart);
-    this.baseOption = chart.getOption();
-  }
+    // 加载默认的直角坐标系
+    RectCoordSys(this.baseOption, iChartOption, iChartOption.name);
+    // 是否是基础双向进度图
+    const doubleSide = iChartOption.type && iChartOption.type === PROCESSBARTYPE;
+    const dataSet = handleData(iChartOption, doubleSide);
+    if (!dataSet) return;
 
-  // 根据渲染出的结果，二次计算option
-  // secondaryUpdateOption(YAxiMax, YAxiMin) {
-  // }
+    handleGrid(this.baseOption, iChartOption, doubleSide, this.chartInstance);
+
+    handleYaxis(this.baseOption, iChartOption, dataSet, doubleSide);
+
+    handleXaxis(this.baseOption, doubleSide, iChartOption);
+    // datazoom和legend会在init配置默认值做特殊处理手动用初始值做混合
+    handleDataZoom(this.baseOption, this.initIchartOption);
+    
+    handleLegend(this.baseOption, iChartOption, dataSet, doubleSide, this.initIchartOption);
+    
+    handleSeries(this.baseOption, iChartOption, dataSet, doubleSide);
+
+    handleTooltip(this.baseOption, iChartOption, dataSet, doubleSide);
+
+    //  加载事件
+    event(this.chartInstance, iChartOption.event);
+  }
 
   getOption() {
     return this.baseOption;
@@ -44,4 +65,4 @@ class ProcessChart {
   }
 }
 
-export default ProcessChart;
+export default ProcessChart2;

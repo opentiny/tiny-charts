@@ -1,5 +1,5 @@
 import { codeToHex, codeToRGB } from '../../util/color';
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 import Theme from '../../feature/theme';
 
 // 配置数据
@@ -188,6 +188,6 @@ export function handleMarkLine(baseOpt, iChartOpt) {
       }
     }
     // 合并属性
-    megre(baseOpt.series[0].markLine, markLine);
+    merge(baseOpt.series[0].markLine, markLine);
   }
 }

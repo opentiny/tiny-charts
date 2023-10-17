@@ -1,5 +1,5 @@
 import Theme from '../../feature/theme';
-import merge from '../../util/megre';
+import merge from '../../util/merge';
 
 /**
  * 配置山峰图高亮状态

@@ -11,11 +11,11 @@ import {
   handleAxisPointer,
 } from './hanleOption';
 import { handleSeries } from './hanleSeries';
-import megreSeries from '../../util/megreSeries';
+import {mergeSeries} from '../../util/merge';
 
 
 class CandlestickChart {
-  constructor(iChartOption, _, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
     this.chartInstance = chartInstance;
@@ -42,7 +42,7 @@ class CandlestickChart {
     handleLegend(this.baseOption, iChartOption);
     handleAxisPointer(this.baseOption, theme);
     event(this.chartInstance, iChartOption.event);
-    megreSeries(iChartOption, this.baseOption)
+    mergeSeries(iChartOption, this.baseOption)
   }
 
   getOption() {

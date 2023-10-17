@@ -1,5 +1,5 @@
 import base from './base';
-import megre from '../../../util/megre';
+import merge from '../../../util/merge';
 
 function radiusAxis(iChartOption, chartName) {
   let radiusAxisOpt = undefined;
@@ -7,7 +7,7 @@ function radiusAxis(iChartOption, chartName) {
     case 'JadeJueChart':
     case 'PolarBarChart':
       radiusAxisOpt = base(iChartOption.theme, chartName);
-      megre(radiusAxisOpt, iChartOption.radiusAxis)
+      merge(radiusAxisOpt, iChartOption.radiusAxis)
       break;
     case 'CircleProcessChart':
       radiusAxisOpt = {

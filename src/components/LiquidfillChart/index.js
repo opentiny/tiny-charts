@@ -5,7 +5,7 @@ import PolarCoordSys from '../../option/PolarCoordinateSystem';
 
 const CHART_NAME = 'LiquidfillChart';
 export default class LiquidfillChart {
-  constructor(iChartOption, plugins, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
     // 组装 iChartOption, 补全默认值

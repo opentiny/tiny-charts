@@ -2,7 +2,7 @@ import { isArray, isObject } from '../../util/type';
 import cloneDeep from '../../util/cloneDeep';
 import defendXSS from '../../util/defendXSS';
 import Theme from '../../feature/theme';
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 /**
  * 从数据中拿出雷达的所有维度
  */
@@ -236,18 +236,18 @@ function handleRader(iChartOption, indicator, dataLength, data) {
   });
 
   if (radar) {
-    megre(inerRadar, radar);
+    merge(inerRadar, radar);
   }
 
   if (radar?.indicator) {
     // 处理外部传进来的indicator，让文本不显示
     const indicator = radar.indicator.map(j => {
-      return megre(j, { axisLabel: { show: false } });
+      return merge(j, { axisLabel: { show: false } });
     });
 
     const mixinIndicator = inerRadar.indicator.map(i => {
       const coveredIndicator = indicator.find(indicate => indicate.name === i.name);
-      return coveredIndicator ? coveredIndicator : megre(i, { axisLabel: { show: false } });
+      return coveredIndicator ? coveredIndicator : merge(i, { axisLabel: { show: false } });
     });
 
     inerRadar.indicator = mixinIndicator;

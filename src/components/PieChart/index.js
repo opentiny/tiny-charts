@@ -2,19 +2,19 @@ import init from '../../option/init';
 import { event } from '../../util/event';
 import handleMulti from './handleMulti';
 import handleSeries from './handleSeries';
-import megreSeries from '../../util/megreSeries';
+import {mergeSeries} from '../../util/merge';
 import PolarCoordSys from '../../option/PolarCoordinateSystem';
 class PieChart {
-  constructor(iChartOption, _, chartInstance) {
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
-    this.updateOption(_, chartInstance);
+    this.updateOption( chartInstance);
   }
 
-  updateOption(_, chartInstance) {
+  updateOption(chartInstance) {
     const iChartOption = this.iChartOption;
     const theme = iChartOption.theme;
     const type = iChartOption.type || 'circle';
@@ -35,7 +35,7 @@ class PieChart {
       this.baseOption.tooltip = {};
     }
     // 合并用户自定义series
-    megreSeries(iChartOption, this.baseOption);
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   getOption() {
