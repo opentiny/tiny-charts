@@ -33,7 +33,7 @@ class RadarChart {
     // 绘制雷达地图
     this.baseOption.radar.push(setRadar(radarKeys, iChartOption, isCustomMaxVal));
     // 赋值数据
-    this.baseOption.series = setSeries(theme, radarKeys, iChartOption.data);
+    this.baseOption.series = setSeries(iChartOption, radarKeys, iChartOption.data);
     // 阈值线
     setMarkLine(this.baseOption, iChartOption, radarKeys, isCustomMaxVal);
     // 图表鼠标悬浮提示框

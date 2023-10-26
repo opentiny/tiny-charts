@@ -15,6 +15,9 @@ export const seriesInit = {
   areaStyle: {
     opacity: 0.2,
   },
+  lineStyle: {
+    width: 2,
+  },
   // 高亮的样式
   emphasis: {
     focus: 'none',
@@ -31,13 +34,30 @@ export const seriesInit = {
  * @param {数据} data
  * @returns
  */
-export function setSeries(theme, radarKeys, data) {
+export function setSeries(iChartOption, radarKeys, data) {
+  const { _isWaveRadar, theme } = iChartOption
   // 更改拐点边框样式
-  seriesInit.itemStyle.borderColor =Theme.color.base.bg;
+  seriesInit.itemStyle.borderColor = Theme.color.base.bg;
   // 组装数据
   const series = [];
   const dataNames = Object.keys(data);
   const seriesUnit = cloneDeep(seriesInit);
+  // 华为云的主题下的特殊处理，之后通过token解决，暂时这样处理
+  if (theme.toLowerCase().indexOf('cloud-dark') !== -1 || theme.toLowerCase().indexOf('cloud-light') !== -1) {
+    // 普通
+    seriesUnit.symbolSize = 8
+    seriesUnit.itemStyle.borderWidth = 1
+    seriesUnit.areaStyle.opacity = 0.1
+    seriesUnit.emphasis.areaStyle.opacity = 0.2
+    //  异型
+    if (_isWaveRadar) {
+      seriesUnit.symbolSize = 12
+      seriesUnit.itemStyle.borderWidth = 2
+      seriesUnit.areaStyle.opacity = 0.2
+      seriesUnit.lineStyle.width = 3
+      seriesUnit.emphasis.areaStyle.opacity = 0.4
+    }
+  }
   dataNames.forEach(name => {
     const radarData = {
       name,
@@ -91,8 +111,8 @@ function handleRedPointerRadar(chartPosition, radarKeys, dataNameIndex, radarMax
 }
 
 function handleRedPointerSeries(index, theme, dataValue, seriesName, noMarkLine) {
-  const alarmColor = Theme.color.state.error            
-  const colorBase = Theme.color.base   
+  const alarmColor = Theme.color.state.error
+  const colorBase = Theme.color.base
   const redPointerSeries = {
     type: 'radar',
     // 拐点大小

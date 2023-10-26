@@ -1,14 +1,16 @@
+import './index.less';
 import BaseChart from '../BaseChart';
+import Theme from '../../feature/theme';
 import { initContainer } from './insert';
 import defaultPath from './defaultPath';
 import IntegrateChart from '../../index';
-import defaultGradient from './defaultGradient';
-import { isString, isDOM } from '../../util/type';
 import defendXSS from '../../util/defendXSS';
+import defaultGradient from './defaultGradient';
+import { isString, isDOM, isArray } from '../../util/type';
 import { insertStateDom, removeStateDom } from '../../util/init/insert';
 import { createDom, appendDom, appendHTML, setStyle, percentToDecimal } from './util';
-import './index.less';
-import Theme from '../../feature/theme'
+
+
 export default class WaveChart extends BaseChart {
     constructor() {
         super();
@@ -28,6 +30,10 @@ export default class WaveChart extends BaseChart {
         this.center = null;
         // 大小
         this.radius = null;
+        // 阈值线数量
+        this.splitNumber = null;
+        // 刻度值的最大值
+        this.radarMax = null;
         // loading状态容器
         this.loadingContainer = null;
         // loading文本容器
@@ -37,6 +43,7 @@ export default class WaveChart extends BaseChart {
         // 是否显示波纹
         this.showWave = null;
     }
+
     // 初始化图表渲染容器
     init(dom) {
         this.dom = dom;
@@ -56,7 +63,7 @@ export default class WaveChart extends BaseChart {
         this.initFlagParams();
         // 位置定位
         this.handlePosition();
-        if (this.data && this.data.length > 0) {
+        if (this.data) {
             this.initRadar();
         }
         this.setResizeObserver();
@@ -74,7 +81,9 @@ export default class WaveChart extends BaseChart {
         const gContainer = this.dom.getElementsByClassName('wave_g_container')[0];
         this.svg = this.dom.getElementsByClassName('wave_svg_container')[0];
         this.domContainer = this.dom.getElementsByClassName('wave_dom_container')[0];
+        // 雷达图的dom
         this.rContainer = this.dom.getElementsByClassName('wave_radar_container')[0];
+        // 加载状态的dom
         this.loadingContainer = this.dom.getElementsByClassName('wave_loading_container')[0];
         this.loadingDom = this.dom.getElementsByClassName('loading_dom')[0];
         defaultPath.forEach((item, index) => {
@@ -87,7 +96,6 @@ export default class WaveChart extends BaseChart {
         const width = gContainerInfo.width;
         const height = gContainerInfo.height;
         setStyle(this.svg, { width, height });
-
     }
 
     // refresh相关dom
@@ -113,17 +121,25 @@ export default class WaveChart extends BaseChart {
 
     // 配置dom位置
     handlePosition() {
+        let basePosition = null;
         // 位置和大小
-        const basePosition = {
-            center: ['50%', '50%'],
-            radius: '50%',
-        };
+        if (isArray(this.data)) {
+            basePosition = {
+                center: ['50%', '50%'],
+                radius: '80%'
+            };
+        } else {
+            basePosition = {
+                center: ['50%', '50%'],
+                radius: ['28.8%', '80%']
+            };
+        }
         const position = this.option.position;
         this.radius = (position && position.radius) || basePosition.radius;
         this.center = (position && position.center) || basePosition.center;
         const newPosition = this.center.map(item => {
             if (item.indexOf('px') === -1 && item.indexOf('%') === -1) {
-                item = `${item  }px`;
+                item = `${item}px`;
             }
             return item;
         });
@@ -139,11 +155,14 @@ export default class WaveChart extends BaseChart {
 
     // radar背景
     initRadar() {
-        const colorBase = Theme.color.base 
+        const colorBase = Theme.color.base;
+        this.splitNumber = (this.option.splitNumber) || 5;
+        this.radarMax = (this.option.radarMax);
         // 创建图表实例
         const chartIns = new IntegrateChart();
         chartIns.init(this.rContainer);
         const chartOption = {
+            _isWaveRadar: null,
             radarMark: false,
             radarMax: 100,
             position: {},
@@ -154,39 +173,62 @@ export default class WaveChart extends BaseChart {
                 label: {},
             },
             radar: {
-                splitNumber: 6,
                 axisName: {
                     formatter: indicatorName => {
                         return `{a|${indicatorName}}`;
                     },
                     rich: {
                         a: {
+                            // color: 'rgba(128,128,128,1.00)',
                             color: colorBase.subfont,
                             align: 'center',
                             fontSize: 12,
-                            lineHeight: 12,
+                            lineHeight: 12
                         },
                     },
                 },
+                axisLabel: {
+                    // color: 'rgba(128,128,128,1.00)',
+                    color: colorBase.subfont,
+                    showMinLabel: false
+                },
                 axisLine: {
                     lineStyle: {
-                        color: colorBase.subaxis,
+                        // color: 'rgba(0, 0, 0, 0.08)',
+                        color: colorBase.subaxis
                     },
                 },
                 splitLine: {
                     lineStyle: {
-                        type: 'dashed',
-                        color: colorBase.subaxis,
+                        type: 'solid',
+                        color: colorBase.subaxis
                     },
                 },
             },
         };
+        const { type = 'health' } = this.option;
+        if (type == 'health') {
+            chartOption.color = ['#5CB300'];
+        } else if (type == 'warning') {
+            chartOption.color = ['#FFB700'];
+        } else if (type == 'risk') {
+            chartOption.color = ['#F23030'];
+        }
 
-        this.data.forEach(item => {
-            chartOption.data.label[item] = 0;
-        });
+        if (isArray(this.data)) {
+            this.data.forEach(item => {
+                chartOption.data.label[item] = 0;
+            });
+        } else {
+            chartOption.data = this.data;
+        }
+        this.option.theme && (chartOption.theme = this.option.theme);
+        chartOption._isWaveRadar = (this.option.theme.toLowerCase().indexOf('cloud-light') !== -1);
+        this.option.radarMark && (chartOption.radarMark = this.option.radarMark);
+        this.radarMax && (chartOption.radarMax = this.radarMax);
         chartOption.position.center = this.center;
         chartOption.position.radius = this.radius;
+        chartOption.radar.splitNumber = this.splitNumber;
         chartIns.setSimpleOption('RadarChart', chartOption);
         // 开始渲染
         chartIns.render();
@@ -195,21 +237,37 @@ export default class WaveChart extends BaseChart {
     resizeDom() {
         const width = this.svg.getAttribute('width');
         const height = this.svg.getAttribute('height');
-        const decimal = percentToDecimal(this.radius);
+        let scaleWidth = null;
+        let decimal = null;
+        let domDecimal = null;
         const clientWidth = this.rContainer.clientWidth;
         const clientHeight = this.rContainer.clientHeight;
+
+        if (isArray(this.radius)) {
+            decimal = percentToDecimal(this.radius[1]);
+            domDecimal = percentToDecimal(this.radius[0]);
+        } else {
+            decimal = percentToDecimal(this.radius);
+        }
+
         const scaleX = (((clientWidth * decimal) / width) * 0.9).toFixed(2);
         const scaleY = (((clientHeight * decimal) / height) * 0.9).toFixed(2);
         const scale = clientWidth >= clientHeight ? scaleY : scaleX;
         this.scale = scale;
         this.svg.style.transform = `translate(-50%, -50%) scale(${scale})`;
         const loadingSvg = this.dom.getElementsByClassName('wave_loading_svg')[0];
-        const scaleWidth = `${width * 0.45 * scale  }px`;
+
+        if (isArray(this.radius)) {
+            scaleWidth = `${(clientWidth >= clientHeight ? clientHeight : clientWidth) * domDecimal + 10}px`;
+        } else {
+            scaleWidth = `${width * 0.45 * scale}px`;
+        }
         this.domContainer.style.width = scaleWidth;
         this.loadingDom.style.width = scaleWidth;
         this.domContainer.style.height = scaleWidth;
         this.loadingDom.style.height = scaleWidth;
-        loadingSvg.style.transform = `scale(${this.scale}`;
+        loadingSvg.style.width = scaleWidth;
+        loadingSvg.style.height = scaleWidth;
     }
 
     // 自定义dom插入
@@ -238,7 +296,7 @@ export default class WaveChart extends BaseChart {
         this.initFlagParams();
         this.handlePosition();
         this.resizeDom();
-        if (this.data && this.data.length > 0) {
+        if (this.data) {
             this.initRadar();
         }
     }
@@ -246,7 +304,7 @@ export default class WaveChart extends BaseChart {
     // 图表刷新，仅刷新数据
     refreshData(data) {
         this.option.data = data;
-        this.refresh(this.option)
+        this.refresh(this.option);
     }
 
     // 刷新图表自适应宽度

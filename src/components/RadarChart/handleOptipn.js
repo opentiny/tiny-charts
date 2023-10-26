@@ -238,18 +238,12 @@ function handleRader(iChartOption, indicator, dataLength, data) {
   if (radar) {
     merge(inerRadar, radar);
   }
-
+  // 坐标轴的相关配置
   if (radar?.indicator) {
-    // 处理外部传进来的indicator，让文本不显示
-    const indicator = radar.indicator.map(j => {
-      return merge(j, { axisLabel: { show: false } });
-    });
-
     const mixinIndicator = inerRadar.indicator.map(i => {
-      const coveredIndicator = indicator.find(indicate => indicate.name === i.name);
-      return coveredIndicator ? coveredIndicator : merge(i, { axisLabel: { show: false } });
+      const coveredIndicator = radar.indicator.find(indicate => indicate.name === i.name);
+      return coveredIndicator ? coveredIndicator : i;
     });
-
     inerRadar.indicator = mixinIndicator;
   }
 
@@ -270,16 +264,18 @@ export function setRadar(radarKeys, iChartOption, isCustomMaxVal) {
   // 雷达图坐标系数据
   const indicator = radarKeys.map((name, index) => {
     if (!isRadarMaxArr) {
+      // 非数组的形式默认所有维度共享一个最大值，只显示一个维度的刻度
       if (index === 0) {
         return { name, max: radarMax };
       } else {
         return { name, max: radarMax, axisLabel: { show: false } };
       }
     } else {
+      const { radarMark } = iChartOption;
       const inerMax = getRadarMax(data, iChartOption, isCustomMaxVal);
       const isName = radarMax.find(item => item.name === name);
       const cusIndicator = isName ? isName : {};
-      return { name, max: inerMax, axisLabel: { show: false }, ...cusIndicator };
+      return { name, max: inerMax, axisLabel: { show: !!radarMark }, ...cusIndicator };
     }
   });
   const radar = handleRader(iChartOption, indicator, dataLength, data);

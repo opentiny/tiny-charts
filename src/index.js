@@ -31,7 +31,7 @@ export default class IntegrateChart extends BaseChart {
     // 图表渲染完毕的回调
     this.renderCallBack = null;
     // 图表resize节流时间
-    this.resizeThrottle = 100;
+    this.resizeThrottle = 0;
     // 图表容器的宽高变化监听器
     this.resizeObserver = null;
     // 响应式布局的监听器
@@ -68,7 +68,7 @@ export default class IntegrateChart extends BaseChart {
     this.dom = chartDom;
     this.echartsIns = echarts.init(chartDom, {}, initOpts);
     // resize节流函数
-    this.throttleResize = throttle(initOpts.resizeThrottle, this.setResize.bind(this));
+    this.throttleResize = initOpts.resizeThrottle === 0 ? this.setResize.bind(this) : throttle(initOpts.resizeThrottle, this.setResize.bind(this));
     // 容器大小变化监听
     initOpts.domResize && this.setResizeObserver();
     // 页面大小变化监听
@@ -77,7 +77,9 @@ export default class IntegrateChart extends BaseChart {
 
   setResizeObserver() {
     this.resizeObserver = new ResizeObserver(entries => {
-      this.throttleResize();
+      window.requestAnimationFrame(() => {
+        this.throttleResize();
+      });
     });
     this.resizeObserver.observe(this.dom);
   }
