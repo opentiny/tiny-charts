@@ -1,5 +1,5 @@
 import tooltip from '../../option/config/tooltip';
-import legend from '../../option/PolarCoordinateSystem/legend';
+import legend from '../../option/config/legend';
 import defendXSS from '../../util/defendXSS';
 // 配置图表图例位置信息
 export function setLegend(iChartOption, selfLegend) {

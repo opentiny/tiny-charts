@@ -2,7 +2,6 @@ import init from '../../option/init';
 import { event } from '../../util/event';
 import handleMulti from './handleMulti';
 import handleSeries from './handleSeries';
-import {mergeSeries} from '../../util/merge';
 import PolarCoordSys from '../../option/PolarCoordinateSystem';
 class PieChart {
   constructor(iChartOption, chartInstance) {
@@ -11,7 +10,7 @@ class PieChart {
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
-    this.updateOption( chartInstance);
+    this.updateOption(chartInstance);
   }
 
   updateOption(chartInstance) {
@@ -34,8 +33,6 @@ class PieChart {
     if (iChartOption.silent) {
       this.baseOption.tooltip = {};
     }
-    // 合并用户自定义series
-    mergeSeries(iChartOption, this.baseOption);
   }
 
   getOption() {

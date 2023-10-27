@@ -105,7 +105,7 @@ export default class IntegrateChart extends BaseChart {
     this.chartName = chartName;
     this.iChartOption = iChartOption;
     const ChartClass = this.getChartClass(chartName);
-    this.ichartsIns = new ChartClass(iChartOption,  this.echartsIns, this.plugins);
+    this.ichartsIns = new ChartClass(iChartOption, this.echartsIns, this.plugins);
     this.eChartOption = this.ichartsIns.getOption();
     mergeExtend(this.iChartOption, this.eChartOption);
   }

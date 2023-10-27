@@ -1,3 +1,4 @@
+import merge from '../../util/merge';
 import Theme from '../../feature/theme';
 import cloneDeep from '../../util/cloneDeep';
 
@@ -11,6 +12,8 @@ export const seriesInit = {
     borderWidth: 3,
     borderColor: '#ffffff',
   },
+  selectMode: false,
+  roseType: false,
   label: {},
   labelLine: {},
   data: [],
@@ -55,7 +58,7 @@ function hasLabelFormatterFun(labelFormatterType, seriesUnit, sum) {
     case 'percent':
       seriesUnit.label.formatter = params => {
         if (params.value === 0) {
-          return '0（0 %）';
+          return '0(0 %)';
         } else {
           return `${params.value}(${Math.round(((params.value * 100) / sum) * 100) / 100} %)`;
         }
@@ -83,6 +86,7 @@ function handleHasLabelFormatter(hasLabel, hasLabelFormatter, seriesUnit, labelF
  * 配置圆盘图的label
  */
 function setLabel(theme, seriesUnit, label, data) {
+  debugger
   const hasLabel = !(label && label.show === false);
   const hasLabelLine = !(label && label.line === false);
   const hasLabelFormatter = label && label.labelHtml;
@@ -92,6 +96,8 @@ function setLabel(theme, seriesUnit, label, data) {
   handleHasLabel(hasLabel, seriesUnit, theme, label);
   handleHasLabelLine(hasLabelLine, seriesUnit, label, theme);
   handleHasLabelFormatter(hasLabel, hasLabelFormatter, seriesUnit, labelFormatterType, sum);
+  // 合并label其他属性
+  merge(seriesUnit.label, label)
 }
 
 /**
@@ -143,12 +149,27 @@ function handleEmptyData(data, series, theme, center, radius) {
           show: false,
         },
         emptyCircleStyle: {
-          color:Theme.color.base.axis,
+          color: Theme.color.base.axis,
         },
         silent: true,
         animation: false,
       }
     )
+  }
+}
+
+// 合并默认值到series
+function mergeDefaultSeries(seriesUnit) {
+  for (const key in seriesInit) {
+    if (Object.hasOwnProperty.call(seriesInit, key)) {
+      if (key === 'itemStyle') {
+        const series = cloneDeep(seriesInit);
+        seriesUnit[key] = merge(series.itemStyle, seriesUnit.itemStyle);
+      }
+      if (seriesUnit[key] === undefined) {
+        seriesUnit[key] = seriesInit[key];
+      }
+    }
   }
 }
 
@@ -158,52 +179,40 @@ function handleEmptyData(data, series, theme, center, radius) {
  * @param {数据} data
  * @returns
  */
-function handleSeries(pieType, theme, iChartOption, position) {
-  const { data, label, itemStyle, silent, minAngle, emphasis, stillShowZeroSum } = iChartOption;
-  position = position || {};
-  // 更改扇面边框样式
-  if (itemStyle && itemStyle.borderColor) {
-    seriesInit.itemStyle.borderColor = itemStyle.borderColor;
-  } else {
-    seriesInit.itemStyle.borderColor = Theme.color.base.main
-  }
-  if (itemStyle && itemStyle.borderRadius) {
-    seriesInit.itemStyle.borderRadius = itemStyle.borderRadius;
-  }
-  if (itemStyle && itemStyle.borderWidth) {
-    seriesInit.itemStyle.borderWidth = itemStyle.borderWidth;
-  }
 
+function handleSeries(pieType, theme, iChartOption, position) {
+  const { data, label, stillShowZeroSum } = iChartOption;
+  position = position || {};
+  iChartOption.center = position?.center;
+  iChartOption.radius = position?.radius;
   // 组装数据
-  const series = [];
-  const seriesUnit = cloneDeep(seriesInit);
-  const center = position.center || ['50%', '50%'];
-  const radius = setPieRadius(pieType, position.radius);
-  seriesUnit.data = data;
-  // 圆盘图label
-  setLabel(theme, seriesUnit, label, data);
-  // 圆盘图位置
-  seriesUnit.center = center;
-  // 圆盘图半径
-  seriesUnit.radius = radius;
-  // 圆盘图最小角度      
-  if (minAngle) {
-    seriesUnit.minAngle = minAngle;
+  let series = [];
+  let selfSeries = iChartOption.series;
+  if (selfSeries === undefined) {
+    selfSeries = [{}];
   }
-  series.push(seriesUnit);
-  // 数据和为0时不显示扇区
+  selfSeries.forEach(seriesItem => {
+    debugger
+    const seriesUnit = seriesItem;
+    const config = ['data', 'label', 'labelLine', 'itemStyle', 'radius', 'center', 'silent',
+      'minAngle', 'emphasis', 'stillShowZeroSum', 'selectedMode', 'roseType']
+    // 处理属性的优先级
+    config.forEach((name) => {
+      if (seriesUnit[name] === undefined) {
+        seriesUnit[name] = iChartOption[name];
+      }
+    });
+    seriesUnit['radius'] = setPieRadius(pieType, seriesUnit.radius);
+    setLabel(theme, seriesUnit, label, data);
+    // 默认样式合并
+    mergeDefaultSeries(seriesUnit);
+
+  })
+  // 数据和为0时不显示扇区 数据和为0时series属性都是一级
   if (stillShowZeroSum === false) {
-    handleEmptyData(data, series, theme, center, radius);
+    handleEmptyData(data, selfSeries, theme, selfSeries[0].center, selfSeries[0].radius);
   }
-  // 是否关闭hover态的效果，默认为false
-  series[0].silent = silent || false;
-  // hover虚化效果
-  const baseEmphasis = {
-    focus: 'none',
-  };
-  if (emphasis) {
-    series[0].emphasis = Object.assign(baseEmphasis, emphasis);
-  }
+  series = selfSeries;
   return series;
 }
 

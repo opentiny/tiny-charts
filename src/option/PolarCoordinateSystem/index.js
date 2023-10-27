@@ -1,5 +1,5 @@
 import title from './title';
-import legend from './legend';
+import legend from '../config/legend';
 import tooltip from './tooltip';
 import angleAxis from './angleAxis';
 import radiusAxis from './radiusAxis';

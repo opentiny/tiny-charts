@@ -6,9 +6,6 @@ const basePolar = {
 };
 
 function base(position, chartName) {
-    if (chartName === 'JadeJueChart') {
-        basePolar.radius = ['20%', '60%']
-    }
     switch (chartName) {
         case 'JadeJueChart':
             basePolar.radius = ['20%', '60%'];

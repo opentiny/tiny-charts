@@ -83,7 +83,6 @@ export default class WaveChart extends BaseChart {
         this.domContainer = this.dom.getElementsByClassName('wave_dom_container')[0];
         // 雷达图的dom
         this.rContainer = this.dom.getElementsByClassName('wave_radar_container')[0];
-        // 加载状态的dom
         this.loadingContainer = this.dom.getElementsByClassName('wave_loading_container')[0];
         this.loadingDom = this.dom.getElementsByClassName('loading_dom')[0];
         defaultPath.forEach((item, index) => {
@@ -116,6 +115,8 @@ export default class WaveChart extends BaseChart {
         this.showWave = this.option.showWave !== undefined ? this.option.showWave : true;
         if (!this.showWave) {
             this.svg.style.opacity = 0;
+        } else {
+            this.svg.style.opacity = 1;
         }
     }
 
@@ -126,12 +127,12 @@ export default class WaveChart extends BaseChart {
         if (isArray(this.data)) {
             basePosition = {
                 center: ['50%', '50%'],
-                radius: '80%'
+                radius: '70%'
             };
         } else {
             basePosition = {
                 center: ['50%', '50%'],
-                radius: ['28.8%', '80%']
+                radius: ['25.2%', '70%']
             };
         }
         const position = this.option.position;

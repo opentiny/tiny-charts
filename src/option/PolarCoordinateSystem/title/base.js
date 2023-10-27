@@ -1,4 +1,3 @@
-
 import cloneDeep from '../../../util/cloneDeep';
 import Theme from '../../../feature/theme'
 const baseTitle = {

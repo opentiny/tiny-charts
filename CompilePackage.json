@@ -27,6 +27,6 @@
     "edge >= 12"
   ],
   "dependencies": {
-    "echarts": "5.4.2"
+    "echarts": "5.4.3"
   }
 }

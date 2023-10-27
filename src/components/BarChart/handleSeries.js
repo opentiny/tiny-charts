@@ -119,6 +119,7 @@ function handleItemStyle(direction, itemStyle) {
   if (itemStyle?.color) {
     seriesInit_.itemStyle.color = itemStyle.color;
   }
+  merge(seriesInit_.itemStyle, itemStyle);
   return seriesInit_;
 }
 
@@ -132,6 +133,7 @@ function handleLabel(seriesUnit, iChartOption, index) {
     labelOption = label;
   }
   if (labelOption && labelOption.show) {
+    merge(seriesUnit.label, labelOption);
     seriesUnit.label.show = true;
     seriesUnit.label.offset = labelOption.offset || [0, 0];
     seriesUnit.label.position = labelOption.position || 'inside';
@@ -183,18 +185,21 @@ function handleStack(type, seriesUnit, index, legendData, iChartOption) {
         if (Object.hasOwnProperty.call(stack, name)) {
           const stackArray = stack[name];
           const seriesName = seriesUnit.name;
-          if(stackArray.indexOf(seriesName) !== -1){
+          const stackIndex = stackArray.indexOf(seriesName);
+          if(stackIndex !== -1){
             seriesUnit.stack = name;
+            if(stackIndex + 1 < stackArray.length){
+              delete seriesUnit.itemStyle.borderRadius;
+            }
           }
           break;
         }
       }
     }else{
       seriesUnit.stack = 'stack';
-    }
-    // 叠在下面的柱子全部删除圆角
-    if (index !== legendData.length - 1) {
-      delete seriesUnit.itemStyle.borderRadius;
+      if (index !== legendData.length - 1) {
+        delete seriesUnit.itemStyle.borderRadius;
+      }
     }
   }
 }
