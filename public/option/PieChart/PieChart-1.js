@@ -1,10 +1,10 @@
 const option = {
     theme: 'light',
-    type:'circle', // type = 'circle' 表示为圆环图
+    type: 'circle', // type = 'circle' 表示为圆环图
     // 是否关闭hover态的效果，默认为false
-    silent:false,
-    title:{
-        text:`{a|253}\n{b|总数量}\n{b|(用户数)}`,
+    silent: false,
+    title: {
+        text: `{a|253}\n{b|总数量}\n{b|(用户数)}`,
         textStyle: {
             rich: {
                 a: {
@@ -22,26 +22,26 @@ const option = {
     legend: {
         show: true,
     },
-    label:{
+    label: {
         show: true,
-        type:'percent',
+        type: 'percent',
         line: false
     },
-    data:[                             
-        {value: 100,name: 'VPC'},
-        {value: 90, name: 'IM' },
-        {value: 49, name: 'EIP'},
-        {value: 14, name: 'SG' },
+    data: [
+        { value: 100, name: 'VPC' },
+        { value: 90, name: 'IM' },
+        { value: 49, name: 'EIP' },
+        { value: 14, name: 'SG' },
     ],
     // 自定义设置图表事件
-    event:{
-      'series':{
-          click:(params)=>{
-              
-          },
-          dblclick:(params)=>{
-              
-          }
-      }
+    event: {
+        'series': {
+            click: (params) => {
+
+            },
+            dblclick: (params) => {
+
+            }
+        }
     }
 };

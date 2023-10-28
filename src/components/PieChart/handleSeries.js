@@ -86,7 +86,6 @@ function handleHasLabelFormatter(hasLabel, hasLabelFormatter, seriesUnit, labelF
  * 配置圆盘图的label
  */
 function setLabel(theme, seriesUnit, label, data) {
-  debugger
   const hasLabel = !(label && label.show === false);
   const hasLabelLine = !(label && label.line === false);
   const hasLabelFormatter = label && label.labelHtml;
@@ -181,7 +180,7 @@ function mergeDefaultSeries(seriesUnit) {
  */
 
 function handleSeries(pieType, theme, iChartOption, position) {
-  const { data, label, stillShowZeroSum } = iChartOption;
+  const { data, stillShowZeroSum } = iChartOption;
   position = position || {};
   iChartOption.center = position?.center;
   iChartOption.radius = position?.radius;
@@ -192,21 +191,17 @@ function handleSeries(pieType, theme, iChartOption, position) {
     selfSeries = [{}];
   }
   selfSeries.forEach(seriesItem => {
-    debugger
     const seriesUnit = seriesItem;
     const config = ['data', 'label', 'labelLine', 'itemStyle', 'radius', 'center', 'silent',
       'minAngle', 'emphasis', 'stillShowZeroSum', 'selectedMode', 'roseType']
     // 处理属性的优先级
     config.forEach((name) => {
-      if (seriesUnit[name] === undefined) {
-        seriesUnit[name] = iChartOption[name];
-      }
+      seriesUnit[name] = merge(iChartOption[name], seriesUnit[name]);
     });
     seriesUnit['radius'] = setPieRadius(pieType, seriesUnit.radius);
-    setLabel(theme, seriesUnit, label, data);
+    setLabel(theme, seriesUnit, seriesUnit.label, seriesUnit.data);
     // 默认样式合并
     mergeDefaultSeries(seriesUnit);
-
   })
   // 数据和为0时不显示扇区 数据和为0时series属性都是一级
   if (stillShowZeroSum === false) {

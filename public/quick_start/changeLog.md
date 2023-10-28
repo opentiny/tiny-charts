@@ -1,7 +1,15 @@
 # 版本发布日志
+## 🎊1.1.63
+发布时间：10.27
+
+- ✨ : 新增柱状图自定义stack功能
+- ✨ : 新增波纹图中波纹雷达图的经典场景
+- ✨ : 新增圆盘图selectedMode、roseType接口能力
+- ✨ : 新增数据优化解决方案能力
+
 
 ## 🎊1.1.62
-发布时间：未发布
+发布时间：10.23
 
 - ✨ : 新增支持自定义主题功能，通过调用HuiCharts.registerTheme(name,colorConfig) 。同时支持配置全局默认主题调用HuiCharts.theme(name) ,name目前支持'dark','light', 'cloud-dark','cloud-light'四个可选值，增加全局的tip
 - ✨ : 新增支持init附加参数
