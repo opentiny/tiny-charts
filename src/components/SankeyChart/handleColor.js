@@ -11,7 +11,7 @@ export function setColor(color, baseOpt) {
   data.forEach((item, index) => {
     item.itemStyle = {
       color: Array.isArray(colorGroup) ? getColor(colorGroup, index) : colorGroup,
-      borderColor: Array.isArray(colorGroup) ? getColor(colorGroup, index) : colorGroup,
+      // borderColor: Array.isArray(colorGroup) ? getColor(colorGroup, index) : colorGroup,
     };
   });
 }

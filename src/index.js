@@ -7,6 +7,7 @@ import throttle from './util/throttle';
 import { isFunction } from './util/type';
 import { mergeExtend } from './util/merge';
 import BaseChart from './components/BaseChart';
+import readScreen from './feature/readScreen';
 import mediaScreen from './feature/mediaScreen';
 
 export default class IntegrateChart extends BaseChart {
@@ -96,6 +97,9 @@ export default class IntegrateChart extends BaseChart {
     if (isInit) {
       Theme.setDefaultTheme(iChartOption.theme);
       this.mediaScreenObserver && this.mediaScreenObserver.setInitOption(iChartOption)
+    }
+    if (iChartOption.readScreen){
+      readScreen(this.dom, iChartOption.readScreen);
     }
     if (isFunction(chartName)) {
       this.redirectSelfChart(chartName, iChartOption);

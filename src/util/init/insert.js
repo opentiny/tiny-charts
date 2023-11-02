@@ -64,7 +64,7 @@ const STAGE_EMPTY_SVG = (fillColor) => {
 const LOADING_SVG = (fillColor) => {
     return `<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
-        <linearGradient x1="128.248383%" y1="50%" x2="26.8114638%" y2="0%" id="linearGradient-2">
+        <linearGradient x1="128.248383%" y1="50%" x2="26.8114638%" y2="0%" id="huichart-loading-linearGradient">
             <stop stop-color="${fillColor}" stop-opacity="0" offset="0.0956075175%"></stop>
             <stop stop-color="${fillColor}" offset="100%"></stop>
         </linearGradient>
@@ -73,7 +73,7 @@ const LOADING_SVG = (fillColor) => {
         <g transform="translate(-817.000000, -590.000000)">
             <g transform="translate(538.000000, 402.000000)">
                 <g transform="translate(279.000000, 188.000000)">
-                    <path style="transform-origin: 50% 50%;"  d="M12,0.9 C12.7455844,0.9 13.35,1.50441559 13.35,2.25 C13.35,2.99558441 12.7455844,3.6 12,3.6 C7.36058441,3.6 3.6,7.36058441 3.6,12 C3.6,16.6394156 7.36058441,20.4 12,20.4 C16.6394156,20.4 20.4,16.6394156 20.4,12 C20.4,11.2544156 21.0044156,10.65 21.75,10.65 C22.4955844,10.65 23.1,11.2544156 23.1,12 C23.1,18.1305844 18.1305844,23.1 12,23.1 C5.86941559,23.1 0.9,18.1305844 0.9,12 C0.9,5.86941559 5.86941559,0.9 12,0.9 Z" id="Stroke-2" fill="url(#linearGradient-2)" fill-rule="nonzero">
+                    <path style="transform-origin: 50% 50%;"  d="M12,0.9 C12.7455844,0.9 13.35,1.50441559 13.35,2.25 C13.35,2.99558441 12.7455844,3.6 12,3.6 C7.36058441,3.6 3.6,7.36058441 3.6,12 C3.6,16.6394156 7.36058441,20.4 12,20.4 C16.6394156,20.4 20.4,16.6394156 20.4,12 C20.4,11.2544156 21.0044156,10.65 21.75,10.65 C22.4955844,10.65 23.1,11.2544156 23.1,12 C23.1,18.1305844 18.1305844,23.1 12,23.1 C5.86941559,23.1 0.9,18.1305844 0.9,12 C0.9,5.86941559 5.86941559,0.9 12,0.9 Z" id="Stroke-2" fill="url(#huichart-loading-linearGradient)" fill-rule="nonzero">
                     <animateTransform attributeName='transform' type="rotate" from='0' to='360' dur='1' repeatCount='indefinite'/> 
                     </path>
                      
@@ -127,7 +127,7 @@ function insertStateDom(container, state, option = { theme: 'light' }) {
     let stateDom =
         `<div class="huicharts-state-container huicharts-${defendXSS(state)}" style="background-color: ${defendXSS(backgroundColor)};position:absolute;top: 0;left: 0;width: 100%;height: 100%;display: flex;align-items: center;flex-direction: column;justify-content: center;z-index: 99;">
             <div style="display: ${imageShow ? 'flex' : 'none'};width: ${defendXSS(imageSize)}px;height: ${defendXSS(imageSize)}px;padding: 0;margin: 0;align-items: center;justify-content: center;">${image}</div>
-            <div style="color: ${defendXSS(textColor)};font-size: ${defendXSS(textSize)}px;line-height: ${defendXSS(textSize)}px;display: ${textShow ? 'block' : 'none'};margin-top: 14px;letter-spacing: 0.5px;">${defendXSS(text)}</div>
+            <div style="color: ${defendXSS(textColor)};font-size: ${defendXSS(textSize)}px;line-height: ${defendXSS(textSize)}px;display: ${textShow ? 'block' : 'none'};margin-top: 14px;letter-spacing: 0.5px;">${text}</div>
         </div>`
     container.insertAdjacentHTML('beforeend', stateDom);
 }

@@ -504,23 +504,40 @@ export function setRange(baseOption, iChartOption) {
 // 针对瀑布图表需求，图表需要进行特殊处理
 export function setWaterFall(baseOption, iChartOption) {
   const type = iChartOption.type;
+  const totalName = iChartOption.totalName || 'Total';
+  const totalPosition = iChartOption.totalPosition || 'end';
   if (type && type === 'water-fall') {
-    baseOption.xAxis[0].data.push('Total');
     const tempArray = [];
     baseOption.series.forEach((item, index) => {
       const barData = item.data;
       const placeholderData = [0];
       const placeholder = placeFun(index, placeholderData);
-      barData.forEach((d, i) => {
-        if (i < barData.length - 1) {
-          placeholderData.push((Number(d) || 0) + placeholderData[i]);
-        }
-      });
-      placeholderData[placeholderData.length - 1] = 0;
+      if(totalPosition === 'end'){
+        barData.forEach((d, i) => {
+          if (i < barData.length - 1) {
+            placeholderData.push((Number(d) || 0) + placeholderData[i]);
+          }
+        });
+        placeholderData[placeholderData.length - 1] = 0;
+      } else {
+        barData.unshift(barData.pop());
+        placeholderData[0] = barData[0];
+        barData.forEach((d, i) => {
+          if (i > 0) {
+            placeholderData.push(placeholderData[i - 1] - (Number(d) || 0));
+          }
+        });
+        placeholderData[0] = 0;
+      }
       item.stack = `stack${index}`;
       tempArray.push(placeholder);
       tempArray.push(item);
     });
+    if(totalPosition === 'end'){
+      baseOption.xAxis[0].data.push(totalName);
+    } else {
+      baseOption.xAxis[0].data.unshift(totalName);
+    }
     baseOption.series = tempArray;
   }
 }

@@ -7,7 +7,7 @@ import cloneDeep from '../../util/cloneDeep';
 import { setSeries, setMarkLineSeries } from './handleSeries';
 import PolarCoordSys from '../../option/PolarCoordinateSystem';
 import { setRadar, setTooltip, setMarkLine, getRadarMax, getRadarKeys } from './handleOptipn';
-
+import { mergeSeries } from '../../util/merge';
 class RadarChart {
   constructor(iChartOption, chartInstance) {
     this.baseOption = {};
@@ -40,6 +40,8 @@ class RadarChart {
     setTooltip(this.baseOption, iChartOption, radarKeys);
     // 设置阈值红点
     setMarkLineSeries(this.baseOption, iChartOption, radarKeys, isCustomMaxVal);
+    // 目前只允许合并基础的雷达图的series，对于阈值线和红点所在的series不做处理，普通雷达图用series.name='data'标识，目前本接口只给opentinty和aui使用
+    mergeSeries(iChartOption, this.baseOption)
     if (iChartOption.event) {
       event(chartInstance, iChartOption.event);
     }

@@ -13,7 +13,7 @@ import {
 } from './handleOption';
 import handleSeries from './handleSeries'
 import cloneDeep from '../../util/cloneDeep';
-class ProcessChart2 {
+class ProcessChart {
   constructor(iChartOption, chartInstance) {
     // 保存初始的iChartOption
     this.initIchartOption=cloneDeep(iChartOption)
@@ -65,4 +65,4 @@ class ProcessChart2 {
   }
 }
 
-export default ProcessChart2;
+export default ProcessChart;

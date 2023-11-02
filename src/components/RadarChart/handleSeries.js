@@ -1,8 +1,9 @@
 import { isObject } from '../../util/type';
 import cloneDeep from '../../util/cloneDeep';
-import Theme from '../../feature/theme'
+import Theme from '../../feature/theme';
 export const seriesInit = {
   type: 'radar',
+  name: 'data',
   // 使用的雷达坐标系
   radarIndex: 0,
   // 拐点的标记大小
@@ -35,7 +36,7 @@ export const seriesInit = {
  * @returns
  */
 export function setSeries(iChartOption, radarKeys, data) {
-  const { _isWaveRadar, theme } = iChartOption
+  const { _isWaveRadar, theme } = iChartOption;
   // 更改拐点边框样式
   seriesInit.itemStyle.borderColor = Theme.color.base.bg;
   // 组装数据
@@ -45,17 +46,17 @@ export function setSeries(iChartOption, radarKeys, data) {
   // 华为云的主题下的特殊处理，之后通过token解决，暂时这样处理
   if (theme.toLowerCase().indexOf('cloud-dark') !== -1 || theme.toLowerCase().indexOf('cloud-light') !== -1) {
     // 普通
-    seriesUnit.symbolSize = 8
-    seriesUnit.itemStyle.borderWidth = 1
-    seriesUnit.areaStyle.opacity = 0.1
-    seriesUnit.emphasis.areaStyle.opacity = 0.2
+    seriesUnit.symbolSize = 8;
+    seriesUnit.itemStyle.borderWidth = 1;
+    seriesUnit.areaStyle.opacity = 0.1;
+    seriesUnit.emphasis.areaStyle.opacity = 0.2;
     //  异型
     if (_isWaveRadar) {
-      seriesUnit.symbolSize = 12
-      seriesUnit.itemStyle.borderWidth = 2
-      seriesUnit.areaStyle.opacity = 0.2
-      seriesUnit.lineStyle.width = 3
-      seriesUnit.emphasis.areaStyle.opacity = 0.4
+      seriesUnit.symbolSize = 12;
+      seriesUnit.itemStyle.borderWidth = 2;
+      seriesUnit.areaStyle.opacity = 0.2;
+      seriesUnit.lineStyle.width = 3;
+      seriesUnit.emphasis.areaStyle.opacity = 0.4;
     }
   }
   dataNames.forEach(name => {
@@ -111,8 +112,8 @@ function handleRedPointerRadar(chartPosition, radarKeys, dataNameIndex, radarMax
 }
 
 function handleRedPointerSeries(index, theme, dataValue, seriesName, noMarkLine) {
-  const alarmColor = Theme.color.state.error
-  const colorBase = Theme.color.base
+  const alarmColor = Theme.color.state.error;
+  const colorBase = Theme.color.base;
   const redPointerSeries = {
     type: 'radar',
     // 拐点大小

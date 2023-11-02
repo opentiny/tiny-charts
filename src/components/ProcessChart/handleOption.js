@@ -91,7 +91,6 @@ function handleXaxis(baseOpt, doubleSide, iChartOpt) {
 }
 
 function handleDataZoom(baseOpt, initIchartOption) {
-  baseOpt.dataZoom = undefined;
   if (initIchartOption.dataZoom) {
     handleMergeOption(baseOpt.dataZoom, initIchartOption.dataZoom);
   }

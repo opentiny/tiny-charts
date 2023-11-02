@@ -1,13 +1,13 @@
 import init from '../../option/init';
 import mini from '../../feature/mini';
 import { event } from '../../util/event';
+import { setSeries } from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../util/baseOption';
-import {mergeVisualMap, mergeSeries} from '../../util/merge';
 import { setVisualMap } from './handleVisualMap';
 import { handlePredict } from './handlePredict';
 import { topArea, bottomArea } from './AreaChart';
-import { setSeries } from './handleSeries';
+import {mergeVisualMap, mergeSeries} from '../../util/merge';
 import { handleData, onlyOnePoint, discrete } from './handleOptipn';
 import RectCoordSys from '../../option/RectangularCoordinateSystem';
 import { xkey, xdata, ldata, ydata } from '../../option/RectangularCoordinateSystem';

@@ -19,36 +19,32 @@ export const seriesInit = {
   data: [],
 };
 
-function handleHasLabel(hasLabel, seriesUnit, theme, label) {
+function handleHasLabel(hasLabel, seriesUnit, theme) {
   if (hasLabel) {
-    seriesUnit.label = { color: theme === 'dark' ? '#eeeeee' : '#191919' };
-    Object.assign(seriesUnit.label, label);
+    seriesUnit.label = merge({ color: Theme.color.base.font }, seriesUnit.label);
   } else {
     seriesUnit.label = { show: false };
   }
 }
 
 function handleHasLabelLine(hasLabelLine, seriesUnit, label, theme) {
+  let lineColor = label?.lineColor;
+  let lineLength = label !== undefined ? (label.distance !== undefined ? label.distance : 25) : 25;
   if (hasLabelLine) {
-    let _lineColor;
-    if (label) {
-      const { lineColor } = label;
-      _lineColor = lineColor;
-    }
-    seriesUnit.labelLine = {
+    seriesUnit.labelLine = merge({
       show: true,
       lineStyle: {
-        color: _lineColor ? _lineColor : theme === 'dark' ? '#eeeeee' : '#191919',
+        color: lineColor ? lineColor : Theme.color.base.font,
       },
       smooth: 0.3,
-      length: label !== undefined ? (label.distance !== undefined ? label.distance : 25) : 25,
-      length2: label !== undefined ? (label.distance !== undefined ? label.distance : 25) : 25,
-    };
+      length: lineLength,
+      length2: lineLength,
+    }, seriesUnit.labelLine);
   } else {
     seriesUnit.labelLine = {
       show: false,
-      length: label !== undefined ? (label.distance !== undefined ? label.distance : 25) : 25,
-      length2: label !== undefined ? (label.distance !== undefined ? label.distance : 25) : 25,
+      length: lineLength,
+      length2: lineLength,
     };
   }
 }
@@ -178,12 +174,29 @@ function mergeDefaultSeries(seriesUnit) {
  * @param {数据} data
  * @returns
  */
+const config = ['label', 'labelLine', 'itemStyle', 'radius', 'center', 'silent',
+  'minAngle', 'emphasis', 'stillShowZeroSum', 'selectedMode', 'roseType']
 
 function handleSeries(pieType, theme, iChartOption, position) {
-  const { data, stillShowZeroSum } = iChartOption;
+
+  const { data, itemStyle, stillShowZeroSum } = iChartOption;
   position = position || {};
   iChartOption.center = position?.center;
   iChartOption.radius = position?.radius;
+
+  // 更改扇面边框样式
+  if (itemStyle && itemStyle.borderColor) {
+    seriesInit.itemStyle.borderColor = itemStyle.borderColor;
+  } else {
+    seriesInit.itemStyle.borderColor = Theme.color.base.main
+  }
+  if (itemStyle && itemStyle.borderRadius) {
+    seriesInit.itemStyle.borderRadius = itemStyle.borderRadius;
+  }
+  if (itemStyle && itemStyle.borderWidth) {
+    seriesInit.itemStyle.borderWidth = itemStyle.borderWidth;
+  }
+
   // 组装数据
   let series = [];
   let selfSeries = iChartOption.series;
@@ -192,13 +205,13 @@ function handleSeries(pieType, theme, iChartOption, position) {
   }
   selfSeries.forEach(seriesItem => {
     const seriesUnit = seriesItem;
-    const config = ['data', 'label', 'labelLine', 'itemStyle', 'radius', 'center', 'silent',
-      'minAngle', 'emphasis', 'stillShowZeroSum', 'selectedMode', 'roseType']
+    const temp = cloneDeep(iChartOption)
     // 处理属性的优先级
     config.forEach((name) => {
-      seriesUnit[name] = merge(iChartOption[name], seriesUnit[name]);
+      seriesUnit[name] = merge(temp[name], seriesUnit[name]);
     });
-    seriesUnit['radius'] = setPieRadius(pieType, seriesUnit.radius);
+    seriesUnit.data = seriesUnit.data || iChartOption.data;
+    seriesUnit.radius = setPieRadius(pieType, seriesUnit.radius);
     setLabel(theme, seriesUnit, seriesUnit.label, seriesUnit.data);
     // 默认样式合并
     mergeDefaultSeries(seriesUnit);
