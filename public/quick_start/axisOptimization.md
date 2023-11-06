@@ -1,4 +1,4 @@
-# 数据波动优化
+# 刻度优化
 
 ## 场景1：数据波动不明显
 当数据波动很小，但是轴范围很大时，会导致波动不明显，无法直观感受到数据波动：
@@ -59,8 +59,7 @@
         line-height: 24px;
     }
     .img-warpper{
-        width: 1203px;
-        /* height: 485px; */
+        width: 850px;
         margin: auto;
         display: flex;
         margin-top: 16px;
@@ -70,18 +69,11 @@
         background-color:#ffffff;
         justify-content: space-between;
     }
-    .img-double{
-        width: 900px;
-    }
-    .img-three{
-        width: 1200px;
-    }
     .img-container{
         border:1px solid #ccc;
         position:relative;
         margin:0 auto;
-        width: 1203px;
-        height: 485px;
+        width: 850px;
         display:inline-flex;
         justify-content:center;
         align-items:center;

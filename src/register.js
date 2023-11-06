@@ -22,7 +22,8 @@ import BoxplotChart from './components/BoxplotChart';
 import RegionChart from './components/RegionChart';
 import CandlestickChart from './components/CandlestickChart';
 import GraphChart from './components/GraphChart';
-import AssembleBubbleChart from './components/AssembleBubbleChart'
+import AssembleBubbleChart from './components/AssembleBubbleChart';
+
 function Register() {
   this.registeredComp = {};
 }

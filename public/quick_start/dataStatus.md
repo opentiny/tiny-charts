@@ -33,7 +33,7 @@ chartInstance.closeLoading();
 ### showLoading方法参数
 | 参数 | 说明 | 类型 | 默认值
 | :--- | :--- | :--- | :--- |
-| theme | 选择主题，支持四种主题：`"light"`，`"dark"`，`"hwCloud-light"`，`"hwCloud-dark"` | string | `"light"` |
+| theme | 选择主题，支持五种主题：`"light"`，`"dark"`，`"cloud-light"`，`"cloud-dark"`，`"bpit-light"` | string | `"light"` |
 | text | 数据加载时的文本内容 | string | `"加载中..."` |
 | textSize | 数据加载时的文本大小 | number | `14` |
 | textColor | 数据加载时的文本颜色 | string | `"#808080"` |
@@ -72,7 +72,7 @@ chartInstance.closeError();
 ### showError方法参数
 | 参数 | 说明 | 类型 | 默认值
 | :--- | :--- | :--- | :--- |
-| theme | 选择主题，支持四种主题：`"light"`，`"dark"`，`"hwCloud-light"`，`"hwCloud-dark"` | string | `"light"` |
+| theme | 选择主题，支持五种主题：`"light"`，`"dark"`，`"cloud-light"`，`"cloud-dark"`，`"bpit-light"` | string | `"light"` |
 | text | 数据错误时的文本内容 | string | `"加载失败"` |
 | textSize | 数据错误时的文本大小 | number | `14` |
 | textColor | 数据错误时的文本颜色 | string | `"#808080"` |
@@ -111,7 +111,7 @@ chartInstance.closeEmpty();
 ### showEmpty方法参数
 | 参数 | 说明 | 类型 | 默认值
 | :--- | :--- | :--- | :--- |
-| theme | 选择主题，支持四种主题：`"light"`，`"dark"`，`"hwCloud-light"`，`"hwCloud-dark"` | string | `"light"` |
+| theme | 选择主题，支持五种主题：`"light"`，`"dark"`，`"cloud-light"`，`"cloud-dark"`，`"bpit-light"` | string | `"light"` |
 | text | 空数据时的文本内容 | string | `"暂无数据"` |
 | textSize | 空数据时的文本大小 | number | `14` |
 | textColor | 空数据时的文本颜色 | string | `"#808080"` |
@@ -151,7 +151,7 @@ chartInstance.closeStageEmpty();
 ### showStageEmpty方法参数
 | 参数 | 说明 | 类型 | 默认值
 | :--- | :--- | :--- | :--- |
-| theme | 选择主题，支持四种主题：`"light"`，`"dark"`，`"hwCloud-light"`，`"hwCloud-dark"` | string | `"light"` |
+| theme | 选择主题，支持五种主题：`"light"`，`"dark"`，`"cloud-light"`，`"cloud-dark"`，`"bpit-light"` | string | `"light"` |
 | text | 阶段空数据时的文本内容 | string | `"没有符合所选时间内的数据"` |
 | textSize | 阶段空数据时的文本大小 | number | `14` |
 | textColor | 阶段空数据时的文本颜色 | string | `"#808080"` |
@@ -194,7 +194,7 @@ chartInstance.closeState();
 ### showState方法参数
 | 参数 | 说明 | 类型 | 默认值
 | :--- | :--- | :--- | :--- |
-| theme | 选择主题，支持四种主题：`"light"`，`"dark"`，`"hwCloud-light"`，`"hwCloud-dark"` | string | `"light"` |
+| theme | 选择主题，支持五种主题：`"light"`，`"dark"`，`"cloud-light"`，`"cloud-dark"`，`"bpit-light"` | string | `"light"` |
 | text | 自定义文本内容 | string | - |
 | textSize | 自定义文本大小 | number | `14` |
 | textColor | 自定义文本颜色 | string | `"#808080"` |

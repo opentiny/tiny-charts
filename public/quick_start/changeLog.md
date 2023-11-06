@@ -1,4 +1,13 @@
 # 版本发布日志
+
+## 🎊1.1.82
+发布时间：11.03
+
+- ✨ : 新增质量与流程IT浅色图表主题
+
+### 🐞 Bug Fixes
+- 🐞 :修复进度图对dataZoom的兼容bug
+
 ## 🎊1.1.63
 发布时间：10.27
 
@@ -604,7 +613,7 @@
 
 ### ✨ Features
 
-- ✨ : 新增支持 hwCloud-light 和 hwCloud-dark 主题
+- ✨ : 新增支持 cloud-light 和 cloud-dark 主题
 - ✨ : 新增支持 5 种数据状态： 数据加载中、数据加载失败、数据为空、阶段数据为空、自定义状态
 - ✨ : 将原 chartPadding 属性更名为 padding，兼容旧版本
 

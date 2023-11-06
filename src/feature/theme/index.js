@@ -1,16 +1,19 @@
 import merge from '../../util/merge';
 import ictDark from './ictDark';
 import ictLight from './ictLight';
+import bpitLight from './bpitLight';
 import cloudDark from './cloudDark';
 import cloudLight from './cloudLight';
 import HashMap from '../../util/hashMap';
 import cloneDeep from '../../util/cloneDeep';
 import validateTheme from './util/validateTheme';
 import { THEMES, CURRENT_THEME, DEFAULT_THEME_NAME } from './config';
+
 // import basicTheme  from './basicTheme';
 const theme = new HashMap({
   [THEMES.DARK]: ictDark,
   [THEMES.LIGHT]: ictLight,
+  [THEMES.BPIT_LIGHT]: bpitLight,
   [THEMES.CLOUD_DARK]: cloudDark,
   [THEMES.CLOUD_LIGHT]: cloudLight,
   [CURRENT_THEME]: ictLight,

@@ -2,7 +2,7 @@
 格式：
 
 ```d
-size: {
+position: {
         left: 'center',
         right: '80',
         top: 60,

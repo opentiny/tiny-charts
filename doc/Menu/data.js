@@ -1,5 +1,5 @@
-const versionNumber = '1.1.62';
-const updateTime = '2023-10-10';
+const versionNumber = '1.1.82';
+const updateTime = '2023-11-05';
 
 const NAV_DATA = [
   {
@@ -50,6 +50,11 @@ const NAV_DATA = [
         value: 'LazyLoad',
       },
       {
+        title: '按需引入',
+        titleId: 'ic_demandLoad',
+        value: 'DemandLoad',
+      },
+      {
         title: '网格对齐',
         titleId: 'ic_axisMargin',
         value: 'AxisMargin',
@@ -65,20 +70,25 @@ const NAV_DATA = [
         value: 'Mini',
       },
       {
+        title: '语音读屏',
+        titleId: 'ic_readScreen',
+        value: 'ReadScreen',
+      },
+      {
         title: '配置扩展',
         titleId: 'ic_eChartsNative',
         value: 'EChartsNative',
+      },
+      {
+        title: '刻度优化',
+        titleId: 'ic_axisOptimization',
+        value: 'AxisOptimization',
       },
       {
         title: '自定义主题',
         titleId: 'ic_customTheme',
         value: 'CustomTheme',
       },
-      {
-        title: '数据波动优化',
-        titleId: 'ic_axisOptimization',
-        value: 'AxisOptimization',
-      }
       // {
       //   title: 'resize卡顿',
       //   titleId: 'ic_readme',

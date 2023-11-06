@@ -2,6 +2,7 @@
 const THEMES = {
   DARK: 'dark',
   LIGHT: 'light',
+  BPIT_LIGHT:'bpit-light',
   CLOUD_DARK: 'cloud-dark',
   CLOUD_LIGHT: 'cloud-light',
 };

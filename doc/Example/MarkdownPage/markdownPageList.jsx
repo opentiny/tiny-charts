@@ -28,6 +28,10 @@ const quickStart = [
 // 解决方案
 const solution = [
     {
+        name: 'DemandLoad',
+        path: 'quick_start/demandLoad.md',
+    },
+    {
         name: 'AxisMargin',
         path: 'quick_start/axisMargin.md',
     },
@@ -50,6 +54,10 @@ const solution = [
     {
         name: 'AxisOptimization',
         path: 'quick_start/axisOptimization.md',
+    },
+    {
+        name: 'ReadScreen',
+        path: 'quick_start/readScreen.md',
     },
     {
         name: 'LazyLoad',

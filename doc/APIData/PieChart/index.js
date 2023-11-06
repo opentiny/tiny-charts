@@ -13,6 +13,8 @@ import positionMd from './position.md?raw'
 import itemStyleMd from './itemStyle.md?raw'
 import minAngleMd from './minAngle.md?raw'
 import stillShowZeroSumMd from './stillShowZeroSum.md?raw'
+import selectedModeMd from './selectedMode.md?raw'
+import roseTypeMd from './roseType.md?raw'
 
 var data = {
     dataset: [
@@ -31,6 +33,9 @@ var data = {
         ['label', '外侧文本配置', 'object', '默认显示'],
         ['itemStyle', '描边配置', 'object', '见说明'],
         ['stillShowZeroSum', '是否在数据和为0的时候仍显示扇区', 'boolean', 'true'],
+        ['selectedMode', '扇区选中模式配置', 'boolean', 'false'],
+        ['roseType', '是否展示成南丁格尔图', 'boolean', 'false'],
+
     ],
     markdown: [
         themeMd,
@@ -48,6 +53,8 @@ var data = {
         labelMd,
         itemStyleMd,
         stillShowZeroSumMd,
+        selectedModeMd,
+        roseTypeMd,
     ],
 };
 

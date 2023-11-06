@@ -13,13 +13,14 @@ import handleScroll from './handleScroll';
 import SplitPane from 'react-split-pane';
 import * as echarts from 'echarts';
 import ecStat from 'echarts-stat';
+import 'echarts-extension-amap';
 import Editor from './Editor';
 import 'echarts-liquidfill';
 import 'echarts-wordcloud';
 import axios from 'axios';
 import * as d3 from 'd3';
 import './index.less';
-import 'echarts-extension-amap';
+
 
 // 词云图需要的遮罩图片
 const base64 =

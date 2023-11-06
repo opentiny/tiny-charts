@@ -2,11 +2,12 @@
 
 ## 内置主题
 
-HUI-Charts 目前内置了4种皮肤主题色，包括：
+HUI-Charts 目前内置了5种皮肤主题色，包括：
 - ICT3.0图表浅色主题`light`
 - ICT3.0图表深色主题`dark`
 - 华为云图表浅色主题`cloud-light`
 - 华为云图表深色主题`cloud-dark`
+- 质量与流程IT浅色主题`bpit-light`
 
 详细可<a href="https://co.uiplus.huawei.com/components/hui-charts/index.html#/Menu/Theme" target="_blank">点击这里跳转查看</a>。
 
