@@ -12,7 +12,7 @@ export const seriesInit = {
     borderWidth: 3,
     borderColor: '#ffffff',
   },
-  selectMode: false,
+  selectedMode: false,
   roseType: false,
   label: {},
   labelLine: {},
@@ -205,10 +205,13 @@ function handleSeries(pieType, theme, iChartOption, position) {
   }
   selfSeries.forEach(seriesItem => {
     const seriesUnit = seriesItem;
-    const temp = cloneDeep(iChartOption)
+    const temp = cloneDeep(iChartOption);
     // 处理属性的优先级
     config.forEach((name) => {
-      seriesUnit[name] = merge(temp[name], seriesUnit[name]);
+      let existValue = merge(temp[name], seriesUnit[name]);
+      if (existValue !== undefined) {
+        seriesUnit[name] = existValue;
+      }
     });
     seriesUnit.data = seriesUnit.data || iChartOption.data;
     seriesUnit.radius = setPieRadius(pieType, seriesUnit.radius);

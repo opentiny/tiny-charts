@@ -1,4 +1,5 @@
 import base from './base';
+import merge from '../../../util/merge';
 
 function tooltip(iChartOption, chartName) {
   let theme = iChartOption.theme;
@@ -12,6 +13,7 @@ function tooltip(iChartOption, chartName) {
     tooltip.padding = formatterStyle.padding || tooltip.padding;
     tooltip.backgroundColor = formatterStyle.backgroundColor || tooltip.backgroundColor;
   }
+  merge(tooltip, iChartOption.tooltip);
   return tooltip;
 }
 

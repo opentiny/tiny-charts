@@ -7,6 +7,6 @@ const BaseOption = {
     max: (sum * 4) / 3,
   },
   polar: {},
-  series: []
+  series:  []
 };
 export default BaseOption;

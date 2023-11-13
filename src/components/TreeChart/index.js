@@ -2,7 +2,7 @@ import BaseOption from './BaseOption';
 import cloneDeep from '../../util/cloneDeep';
 import { setTooltip, setTheme } from './handleOptipn';
 import { setSeries } from './handleSeries';
-
+import { mergeSeries } from '../../util/merge';
 class TreeChart {
   constructor(iChartOption) {
     this.baseOption = {};
@@ -25,6 +25,7 @@ class TreeChart {
     this.baseOption.series = setSeries(type, theme, iChartOption);
     //  图表鼠标悬浮提示框
     this.baseOption.tooltip = setTooltip(iChartOption);
+    mergeSeries(iChartOption, this.baseOption)
   }
 
   getOption() {
