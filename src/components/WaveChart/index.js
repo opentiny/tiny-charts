@@ -207,7 +207,7 @@ export default class WaveChart extends BaseChart {
                 },
             },
         };
-        const { type = 'health' } = this.option;
+        const { type = 'health', theme = 'light' } = this.option;
         if (type == 'health') {
             chartOption.color = ['#5CB300'];
         } else if (type == 'warning') {
@@ -223,8 +223,8 @@ export default class WaveChart extends BaseChart {
         } else {
             chartOption.data = this.data;
         }
-        this.option.theme && (chartOption.theme = this.option.theme);
-        chartOption._isWaveRadar = (this.option.theme.toLowerCase().indexOf('cloud-light') !== -1);
+        theme && (chartOption.theme = this.option.theme);
+        chartOption._isWaveRadar = (theme.toLowerCase().indexOf('cloud-light') !== -1);
         this.option.radarMark && (chartOption.radarMark = this.option.radarMark);
         this.radarMax && (chartOption.radarMax = this.radarMax);
         chartOption.position.center = this.center;

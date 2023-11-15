@@ -1,4 +1,5 @@
-import cloudDark from './dark';
-import cloudLight from './light';
+import cloudDark2 from './dark';
+import cloudLight2 from './light';
 
-export { cloudLight, cloudDark };
+export default  cloudLight2
+export { cloudLight2, cloudDark2 };

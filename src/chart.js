@@ -4,6 +4,7 @@ import Theme from './feature/theme';
 import { isFunction } from './util/type';
 import { mergeExtend } from './util/merge';
 import readScreen from './feature/readScreen';
+import mediaScreen from './feature/mediaScreen';
 
 // 图表核心对象，通过 Register 全量引入图表给 HuiCharts 渲染，打包容量较大
 export default class HuiCharts extends core {
@@ -39,5 +40,20 @@ export default class HuiCharts extends core {
   // 获取图表类
   getChartClass(name) {
     return Register.getRegisteredComp(name);
+  }
+
+  // 开启响应式布局（类媒体查询效果）
+  mediaScreen(dom, screenOption) {
+    this.mediaScreenObserver = new mediaScreen(dom, screenOption, option => {
+      this.setSimpleOption(this.chartName, option, this.plugins, false);
+      this.render();
+    });
+  }
+
+  // 图表刷新，包括刷新配置和数据
+  refresh(iChartOption) {
+    this.iChartOption = iChartOption;
+    this.setSimpleOption(this.chartName, iChartOption, this.plugins);
+    this.render();
   }
 }

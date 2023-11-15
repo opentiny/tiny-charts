@@ -1,8 +1,7 @@
 import modeleToken from './modelToken';
 import chartsToken from './chartsToken';
 import basicToken from './basicToken';
-import mapToken from './mapToken';
-import { colorGroup, colorState } from './basicToken';
+import { colorGroup, colorState } from '../color/ictColor';
 
 const basicTheme = {
   colorGroup,
@@ -12,4 +11,4 @@ const basicTheme = {
 };
 
 export default basicTheme;
-export { basicToken, mapToken };
+export { basicToken };

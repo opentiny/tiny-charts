@@ -29,14 +29,15 @@ const colorState = {
   successColor: '#5CB300',
   // 提示色
   infoColor: '#1476FF',
-  // 失效 '#939393'
+  // 失效
   disabledColor: colorGary.colorGray40,
 };
 
-const color = {
+const cloudColor = {
   ...colorGary,
-  ...colorState,
+  colorState,
   colorGroup,
 };
 
-export default color;
+export default cloudColor;
+export { colorGary, colorState, colorGroup };

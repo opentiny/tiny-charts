@@ -2,7 +2,6 @@ import './index.less';
 import BaseChart from '../BaseChart';
 import NodeManager from './NodeManager';
 import RotateManager from './RotateManager';
-
 export default class OrganizationChart extends BaseChart {
     constructor() {
         super();

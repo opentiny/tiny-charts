@@ -36,7 +36,6 @@ export default function getModelToken(mapToken) {
   // 主文本
   const textColor = {
    tooltipAxisPointerTextColor:colorText,
-    // titleSubTextColor: colorText,
     //   圆盘图Serieslabel
     seriesLabelTextColor: colorText,
   };
@@ -192,7 +191,7 @@ const   containerBg={
   const legend = {
     legendItemGap: legendGap,
     legendCircleItemWidth: 24,
-    legendCircleItemHeight: 12,
+    legendCircleItemHeight: 6,
     legendReactItemWidth:12,
     legendReactItemHeight:2,
     legendTextFontSize:subtextFontSize,

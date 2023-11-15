@@ -1,15 +1,17 @@
 // import basicToken from '../basicToken';
-import { codeToRGB } from '../../../util/color';
+import { codeToRGB } from '../../../../util/color';
 
 export default function getMapToken(basicToken, isLight = true) {
   const {
     colorGray0,
     colorGray10,
+    colorGray20,
     colorGray50,
+    colorGray40,
     colorGray90,
+    colorTP,
     fontSizeSM,
     fontSize,
-    lineWidth,
     lineWidthXL,
     lineWidthXXL,
     lineWidthSM,
@@ -17,46 +19,37 @@ export default function getMapToken(basicToken, isLight = true) {
     space,
     spaceSM,
     lineTypeSolid,
-    colorTP,
+    lineTypeDashedLG,
     borderZero,
   } = basicToken;
 
-  const mapToken = {
+  return {
     // 主色
     colorPrimary: colorGray0, // 确定
     //  初级底色
     colorBg: colorGray0, // 确定
     // 次级背景色
     colorSubg: colorGray0,
-
-
-
-
-
-
-
-
     // 主要文本色
     colorText: colorGray90, // 确定
     // 次级文本色
     colorSubtext: colorGray50, // 确定
     // 禁用文本色
-    colorDisabledText: codeToRGB(colorGray90, 0.3), // 确定
+    colorDisabledText: colorGray40, // 确定
 
     // 控件激活色（legend相关的颜色）
     colorActive: colorGray50,
     // 控件失效色
-    colorInactive: codeToRGB(colorGray90, 0.3),
-
+    colorInactive: colorGray40,
 
     // 坐标轴线颜色
-    colorAxisLine: colorGray10, // 确定
+    colorAxisLine: colorGray20, // 确定
     // 刻度线颜色
-    colorAxisTickLine: colorGray10, // 确定
+    colorAxisTickLine: colorGray20, // 确定
     // 分隔线颜色
-    colorAxisSplitLine: codeToRGB(colorGray90, 0.1), // 确定
+    colorAxisSplitLine: colorGray20, // 确定
     // 坐标轴指示器悬浮线
-    colorAxisPointerLine: codeToRGB(colorGray90, 0.1),
+    colorAxisPointerLine: colorGray50,
 
     // 透明边框色
     colorBorderTP: colorTP,
@@ -65,6 +58,7 @@ export default function getMapToken(basicToken, isLight = true) {
     // 文本透明
     colorTextTP: colorTP,
 
+    
     // 指示器阴影
     colorAxisPointerShadow: codeToRGB(isLight ? colorGray90 : colorGray10, 0.08),
 
@@ -74,9 +68,9 @@ export default function getMapToken(basicToken, isLight = true) {
     subtextFontSize: fontSizeSM, // 确定
 
     // 坐标轴 2
-    axisLineWidth: lineWidth,
+    axisLineWidth: lineWidthSM,
     //   刻度线  2
-    axisTickLineWidth: lineWidth,
+    axisTickLineWidth: lineWidthSM,
     //   分隔线
     axisSplitLineWidth: lineWidthSM,
 
@@ -90,7 +84,7 @@ export default function getMapToken(basicToken, isLight = true) {
 
     axisTickLineType: lineTypeSolid,
 
-    axisSplitLineType: lineTypeSolid,
+    axisSplitLineType: lineTypeDashedLG,
 
     axisPointerLineType: lineTypeSolid,
 
@@ -112,6 +106,4 @@ export default function getMapToken(basicToken, isLight = true) {
     // series里面的labelLine的长度
     labelLineLength: lineLength,
   };
-
-  return mapToken;
 }

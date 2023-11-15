@@ -50,11 +50,15 @@ const colorGroup = [
   '#00A2B5',
 ];
 
-const color = {
+const colorTP = 'transparent';
+
+const ictColor = {
   ...colorGary,
-  ...colorState,
+  colorState,
   colorGroup,
+  colorTP,
 };
 
-export default color;
+export default ictColor;
+
 export { colorGary, colorState, colorGroup };
