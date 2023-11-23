@@ -6,10 +6,12 @@ import cloudDark from './cloudDark';
 import cloudLight from './cloudLight';
 import HashMap from '../../util/hashMap';
 import cloneDeep from '../../util/cloneDeep';
-import validateTheme from './util/validateTheme';
-import { THEMES, CURRENT_THEME, DEFAULT_THEME_NAME } from './config';
-import { ictLight2, ictDark2 } from './ict';
-import { cloudLight2, cloudDark2 } from './cloud';
+import tips from '../../util/tips';
+import ictLight2 from './ict/light';
+import ictDark2 from './ict/dark';
+import cloudLight2 from './cloud/light';
+import cloudDark2 from './cloud/dark';
+import { THEMES, CURRENT_THEME, DEFAULT_THEME_NAME, THEME_ERROR_TIP_MESSAGE } from './config';
 
 const theme = new HashMap({
   [THEMES.DARK]: ictDark,
@@ -20,7 +22,7 @@ const theme = new HashMap({
   [CURRENT_THEME]: ictLight,
 });
 
-const themeConfig = new HashMap({
+const themeToken = new HashMap({
   [THEMES.DARK]: ictDark2,
   [THEMES.LIGHT]: ictLight2,
   [THEMES.BPIT_LIGHT]: bpitLight,
@@ -35,7 +37,7 @@ class Theme {
   // 当前主题颜色
   static color;
 
-  static config;
+  static config = ictLight2;
 
   static set(name, config) {
     const defaultConfig = cloneDeep(this.get(DEFAULT_THEME_NAME));
@@ -48,20 +50,45 @@ class Theme {
   }
 
   static getConfig(name) {
-    return themeConfig.get(name);
+    return themeToken.get(name);
   }
 
   static setDefaultTheme(name) {
-    const tempTheme = validateTheme(name, this.themeName, theme);
+    const tempTheme = this.validate(name);
     if (this.themeName !== tempTheme) {
       this.themeName = tempTheme;
       theme.set(CURRENT_THEME, theme.get(tempTheme));
       this.color = this.get(CURRENT_THEME).color;
       // 以下config功能待完善
-      themeConfig.set(CURRENT_THEME, themeConfig.get(tempTheme));
+      themeToken.set(CURRENT_THEME, themeToken.get(tempTheme));
       this.config = this.getConfig(CURRENT_THEME);
       // console.log(this.config);
     }
+  }
+
+  // 校验主题的合法性,将不合法的主题值重置为默认的light主题,并给与告警
+  static validate(name) {
+    // 如果没传并且没有全局注册过直接就是light主题
+    let tempTheme = name || this.themeName || DEFAULT_THEME_NAME;
+
+    if (tempTheme.toLowerCase().indexOf('cloud-light') !== -1) {
+      tempTheme = THEMES.CLOUD_LIGHT;
+    }
+
+    if (tempTheme.toLowerCase().indexOf('cloud-dark') !== -1) {
+      tempTheme = THEMES.CLOUD_DARK;
+    }
+
+    const themeKeys = theme.keys();
+
+    const validate = themeKeys.includes(tempTheme);
+
+    if (!validate) {
+      tips.error(THEME_ERROR_TIP_MESSAGE);
+      tempTheme = THEMES.LIGHT;
+    }
+
+    return tempTheme;
   }
 }
 

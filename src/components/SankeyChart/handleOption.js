@@ -1,5 +1,8 @@
 import tooltip from '../../option/config/tooltip';
 import defendXSS from '../../util/defendXSS';
+import { getTextWidth } from '../../util/util';
+import merge from '../../util/merge';
+
 // 配置桑基图是否可以拖动
 export function isMove(draggable, baseOpt) {
   // 设置默认值true
@@ -48,11 +51,57 @@ export function setTooltip(iChartOption, formatter) {
 }
 
 // 配置桑基图的chartPadding
-export function padSize(padding, baseOpt) {
-  baseOpt.series[0].top = padding[0];
-  baseOpt.series[0].right = padding[1];
-  baseOpt.series[0].bottom = padding[2];
-  baseOpt.series[0].left = padding[3];
+export function padSize(padding, baseOpt, userPadding) {
+  if (userPadding) {
+    baseOpt.series[0].top = padding[0];
+    baseOpt.series[0].right = padding[1];
+    baseOpt.series[0].bottom = padding[2];
+    baseOpt.series[0].left = padding[3];
+  } else {
+    const distance = baseOpt.series[0].label.distance;
+    // 根据文本自适应
+    if (baseOpt.series[0].orient === 'horizontal') {
+      let allSource = [];
+      let unLeftArr = [];
+      let leftArr = []; // 左侧全部文本
+      let rightArr = []; // 最右侧全部文本
+      baseOpt.series[0].links.forEach((item) => {
+        if (allSource.indexOf(item.source) === -1) {
+          allSource.push(item.source);
+        }
+        baseOpt.series[0].data.forEach((val) => {
+          if (item.target.indexOf(val.name) !== -1 && unLeftArr.indexOf(val.name) === -1) {
+            unLeftArr.push(val.name);
+          }
+        });
+      });
+      baseOpt.series[0].data.forEach((val) => {
+        if (unLeftArr.indexOf(val.name) === -1 && leftArr.indexOf(val.name) === -1) {
+          leftArr.push(val.name);
+        }
+      });
+      if (baseOpt.series[0].levels[0].label.position === 'left') {
+        baseOpt.series[0].left = judgeMaxText(leftArr, baseOpt) + distance * 2;
+      }
+      unLeftArr.forEach((val) => {
+        if (allSource.indexOf(val) === -1 && rightArr.indexOf(val) === -1) {
+          rightArr.push(val);
+        }
+      });
+      if (baseOpt.series[0].label.position === 'right') {
+        baseOpt.series[0].right = judgeMaxText(rightArr, baseOpt) + distance * 2;
+      }
+      // 上下padding
+      baseOpt.series[0].top = 0;
+      baseOpt.series[0].bottom = 0;
+    } else {
+      const padding = 2 * (baseOpt.series[0].label.fontSize + distance);
+      baseOpt.series[0].top = padding;
+      baseOpt.series[0].right = 0;
+      baseOpt.series[0].bottom = padding;
+      baseOpt.series[0].left = 0;
+    }
+  }
 }
 
 // 计算桑基图的每列的value总和，展示每个节点的百分比
@@ -119,3 +168,47 @@ export function setAlign(nodeAlign, baseOpt) {
   }
   baseOpt.series[0].nodeAlign = nodeAlign;
 }
+
+// 配置桑基图的label
+export function setLabel(iChartOption, baseOpt) {
+  const { label } = iChartOption;
+  merge(baseOpt.series[0].label, label);
+}
+
+// 配置桑基图itemStyle属性
+export function handleItemStyle(iChartOption, baseOpt) {
+  const { itemStyle } = iChartOption;
+  baseOpt.series[0].data.forEach((item, index) => {
+    if (item.name !== 'empty' && item.name !== 'virtical') {
+      merge(item.itemStyle, itemStyle);
+    }
+  });
+}
+
+export function handleLineStyle(iChartOption, baseOpt) {
+  const { lineStyle } = iChartOption;
+  merge(baseOpt.series[0].lineStyle, lineStyle);
+  baseOpt.series[0].links.forEach((item, index) => {
+    if (item.source === 'virtical' || item.target === 'empty') {
+      item.lineStyle = {
+        color: "transparent"
+      };
+    }
+  });
+}
+
+const judgeMaxText = (textArr, baseOpt) => {
+  const { data, label: { fontSize } } = baseOpt.series[0];
+  textArr.sort((a, b) => {
+    return b.length - a.length;
+  });
+  let BfbText;
+  data.forEach((item) => {
+    if (item.name === textArr[0]) {
+      BfbText = item.valueBfb;
+    }
+  });
+  const leftTextWidth = Math.max(getTextWidth(textArr[0], fontSize),
+    getTextWidth(BfbText, fontSize));
+  return leftTextWidth;
+};

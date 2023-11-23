@@ -35,7 +35,7 @@ class BarChart {
     // 连线的数据
     const seriesData = ydata(iChartOption.data, legendData);
     // 赋值数据
-    this.baseOption.legend.data = legendData;
+    this.baseOption.legend.data = iChartOption.legend.data || legendData;
     this.baseOption.xAxis.forEach(item => {
       item.data = xAxisData
     });

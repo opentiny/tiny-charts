@@ -1,32 +1,126 @@
 import cloudBasicToken from './basicToken';
-import getMapToken from '../../util/getMapToken';
-// 覆盖y轴分隔线
-const axisLineType = {
-  axisSplitLineType: cloudBasicToken.lineTypeDashedLG,
-};
+import { codeToRGB } from '../../../../util/color';
 
-// MapToken覆盖基础数组中坐标轴和刻度的粗组从2改为1
-const axisLineWidth = {
-  axisLineWidth: cloudBasicToken.lineWidthSM,
-  axisTickLineWidth: cloudBasicToken.lineWidthSM,
-};
+function getMapToken(basicToken, isLight = true) {
+  const {
+    colorGray0,
+    colorGray5,
+    colorGray10,
+    colorGray20,
+    colorGray50,
+    colorGray60,
+    colorGray70,
+    colorGray90,
+    colorTP,
+    fontSizeSM,
+    fontSize,
+    lineWidthXL,
+    lineWidthXXL,
+    lineWidthSM,
+    lineLength,
+    space,
+    spaceSM,
+    lineTypeSolid,
+    lineTypeDashedLG,
+    borderZero,
+    lineWidthXXXL,
+  } = basicToken;
 
-// 覆盖里面的文本样式
-const textColor = {
-  colorSubtext: cloudBasicToken.colorGray50,
-};
+  return {
+    // 主色
+    colorPrimary: isLight ? colorGray0 : colorGray90, // 确定
+    //  初级底色
+    colorBg: isLight ? colorGray0 : colorGray90, // 确定
+    // 次级背景色
+    colorSubg: isLight ? colorGray0 : colorGray70,
+    // 主要文本色
+    colorText: isLight ? colorGray90 : colorGray5, // 确定
+    // 次级文本色
+    colorSubtext: isLight ? colorGray60 : colorGray20, // 确定
+    // 禁用文本色
+    colorDisabledText: isLight ? codeToRGB(colorGray90, 0.3) : codeToRGB(colorGray10, 0.3), // 确定
+    // 控件激活色（legend相关的文本图标的颜色）
+    colorActive: isLight ? colorGray60 : colorGray20, // 确定
+    // 控件失效色（legend相关的文本图标失效的颜色）
+    colorInactive: isLight ? codeToRGB(colorGray90, 0.3) : codeToRGB(colorGray10, 0.3), // 确定
+    // 坐标轴线颜色
+    colorAxisLine: isLight ? colorGray10 : codeToRGB(colorGray10, 0.1), // 确定
+    // 刻度线颜色
+    colorAxisTickLine: isLight ? colorGray10 : codeToRGB(colorGray10, 0.1), // 确定
+    // 分隔线颜色
+    colorAxisSplitLine: isLight ? codeToRGB(colorGray90, 0.1) : codeToRGB(colorGray10, 0.1),
+    // 坐标轴指示器悬浮线
+    colorAxisPointerLine: isLight ? colorGray20 : colorGray50, // 确定
+    // 透明边框色
+    colorBorderTP: colorTP,
+    // 基础边框色
+    colorBorder: colorGray0,
+    // 文本透明
+    colorTextTP: colorTP,
+    // 面积区域透明
+    colorAreaTP: colorTP,
+    // 指示器阴影
+    colorAxisPointerShadow: isLight ? codeToRGB(colorGray90, 0.08) : codeToRGB(colorGray10, 0.08),
+    // 主文本字号
+    textFontSize: fontSize, // 确定
+    // 次级文本字号
+    subtextFontSize: fontSizeSM, // 确定
+    // 坐标轴线宽 1
+    axisLineWidth: lineWidthSM,
+    //  刻度线线宽 1
+    axisTickLineWidth: lineWidthSM,
+    //  分隔线线宽 1
+    axisSplitLineWidth: lineWidthSM,
+    // 坐标轴指示器的标线线宽 1
+    axisPointerLineWidth: lineWidthSM,
 
-const lineColor = {
-  colorAxisPointerLine: cloudBasicToken.colorGray50,
-};
+    markLineWidth: lineWidthSM,
+
+    markLineEmphasisWidth: lineWidthSM,
+
+    axisLineType: lineTypeSolid,
+
+    axisTickLineType: lineTypeSolid,
+
+    axisSplitLineType: lineTypeDashedLG,
+
+    axisPointerLineType: lineTypeSolid,
+
+    borderWidthZero: borderZero,
+
+    // 名称的间距
+    nameGap: space,
+    // 容器的间距
+    containerGap: space,
+
+    // 图例的间距
+    legendGap: spaceSM * 7,
+    // 图元大小
+    symbolSize: 10,
+    symbolSizeSM: 8,
+    symbolSizeLG: 12,
+    symbolSizeXS: 6,
+    // 文本距离
+    labelDistance: 10,
+    labelDistanceLG: 25,
+    // 柱条的宽度
+    barWidth: lineWidthXL,
+    // 柱条的宽度大
+    barWidthLG: lineWidthXXL,
+    // 堆叠进度图宽度 20
+    barWidthStack: lineWidthXXXL,
+    // series里面的labelLine的长度
+    labelLineLength: lineLength,
+  };
+}
 
 // 获取新的mapToken
 const cloudMapToken = {
-  ...getMapToken(cloudBasicToken),
-  ...axisLineType,
-  ...axisLineWidth,
-  ...textColor,
-  ...lineColor,
+  ...getMapToken(cloudBasicToken, false),
+  // ...axisLineType,
+  // ...axisLineWidth,
+  // ...textColor,
+  // ...lineColor,
 };
 
 export default cloudMapToken;

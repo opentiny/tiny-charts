@@ -1,4 +1,4 @@
-import  basicTheme from '../../basicTheme'
+import  basicTheme from '../../basic'
 
 const ictLight = {
  ...basicTheme,

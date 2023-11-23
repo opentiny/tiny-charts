@@ -1,6 +1,7 @@
 import './index.less';
 import BaseChart from '../BaseChart';
 import NodeManager from './NodeManager';
+
 export default class HoneycombChart extends BaseChart {
     constructor() {
         super();
@@ -46,7 +47,6 @@ export default class HoneycombChart extends BaseChart {
             this.nodeManager = new NodeManager(this.dom, this.option);
         }
     }
-
 
     resizeDom() {
         if (this.data.length > 0) {

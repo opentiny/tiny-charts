@@ -20,6 +20,7 @@ export const emptySeriesUnit = {
 };
 
 export const seriesInit = {
+  name: '',
   type: 'gauge',
   // 仪表盘轨道底色
   axisLine: {
@@ -113,15 +114,15 @@ function handleSplitLine(iChartOption, seriesUnit) {
 // 根据主题设置刻度线的颜色
 function handleTheme(iChartOption) {
   const { orbitalColor } = iChartOption;
-  const colorBase=Theme.color.base
+  const colorBase = Theme.color.base
   seriesInit.axisLine.lineStyle.color = [[1, orbitalColor || colorBase.subg]];
   seriesInit.splitLine.lineStyle.color = colorBase.axis;
-  seriesInit.axisLabel.color =colorBase.axislabel;
+  seriesInit.axisLabel.color = colorBase.axislabel;
 }
 
 // 配置仪表盘中心文本
 function handleDetail(seriesUnit, text, data) {
-  const colorBase=Theme.color.base
+  const colorBase = Theme.color.base
   seriesUnit.detail.formatter =
     text.formatter ||
     function (value) {
@@ -377,8 +378,8 @@ function setMarkLine(series, markLine, marklineColor) {
 }
 
 function handleOther(iChartOption, seriesUnit, series, theme, data) {
-  const colorState= Theme.color.state   
-  const marklineColor=colorState.error
+  const colorState = Theme.color.state
+  const marklineColor = colorState.error
   if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
     setSplitColor(seriesUnit, iChartOption.splitColor);
   } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 0) {
@@ -429,6 +430,7 @@ function handleOther(iChartOption, seriesUnit, series, theme, data) {
  * @returns
  */
 function handleSeries(iChartOption) {
+  const seriesName = iChartOption.seriesName
   const theme = iChartOption.theme;
   const data = iChartOption.data;
   const text = iChartOption.text || {};
@@ -436,7 +438,7 @@ function handleSeries(iChartOption) {
   const axisLabelStyle = iChartOption.axisLabelStyle || {};
   const { pointerStyle, pointer, min, max, startAngle, endAngle, silent } = iChartOption;
   // 更改仪表盘轨道底色
-  handleTheme( iChartOption);
+  handleTheme(iChartOption);
   // 更换刻度文本颜色、字号、字体宽度等样式
   if (axisLabelStyle['color']) {
     seriesInit.axisLabel['color'] = axisLabelStyle['color'];
@@ -449,6 +451,7 @@ function handleSeries(iChartOption) {
   // 组装数据
   const series = [];
   const seriesUnit = cloneDeep(seriesInit);
+  seriesUnit.name = seriesName || iChartOption.name;
   seriesUnit.data = data;
   // 控制刻度线及刻度文本是否展示;大刻度数量以及判断刻度文本是否显示
   handleSplitLine(iChartOption, seriesUnit);

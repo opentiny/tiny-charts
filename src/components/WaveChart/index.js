@@ -2,13 +2,11 @@ import './index.less';
 import BaseChart from '../BaseChart';
 import Theme from '../../feature/theme';
 import { initContainer } from './insert';
-import defaultPath from './defaultPath';
 import IntegrateChart from '../../index';
 import defendXSS from '../../util/defendXSS';
-import defaultGradient from './defaultGradient';
 import { isString, isDOM, isArray } from '../../util/type';
 import { insertStateDom, removeStateDom } from '../../util/init/insert';
-import { createDom, appendDom, appendHTML, setStyle, percentToDecimal } from './util';
+import { appendDom, appendHTML, percentToDecimal } from './util';
 
 
 export default class WaveChart extends BaseChart {
@@ -20,12 +18,14 @@ export default class WaveChart extends BaseChart {
         this.option = null;
         // 图表所需数据
         this.data = null;
-        // 波纹容器
-        this.svg = null;
         // 自定义dom容器
         this.domContainer = null;
+        // 自定义innerdom容器
+        this.innerContainer = null;
         // radar容器
         this.rContainer = null;
+        // loading状态容器
+        this.loadingContainer = null;
         // 位置
         this.center = null;
         // 大小
@@ -34,8 +34,6 @@ export default class WaveChart extends BaseChart {
         this.splitNumber = null;
         // 刻度值的最大值
         this.radarMax = null;
-        // loading状态容器
-        this.loadingContainer = null;
         // loading文本容器
         this.loadingDom = null;
         // 图表容器的宽高变化监听器
@@ -59,82 +57,43 @@ export default class WaveChart extends BaseChart {
         this.data = this.option.data;
         // 渲染dom
         this.initDom();
-        // 渲染refresh相关dom
-        this.initFlagParams();
         // 位置定位
-        this.handlePosition();
-        if (this.data) {
-            this.initRadar();
-        }
+        this.setPosition();
+        // 初始化Radar
+        this.data && this.initRadar();
         this.setResizeObserver();
         this.renderCallBack && this.renderCallBack(this);
-    }
-
-    // 图表渲染完成时回调
-    onRenderReady(callback) {
-        this.renderCallBack = callback;
     }
 
     // 渲染dom
     initDom() {
         initContainer(this.dom);
-        const gContainer = this.dom.getElementsByClassName('wave_g_container')[0];
-        this.svg = this.dom.getElementsByClassName('wave_svg_container')[0];
         this.domContainer = this.dom.getElementsByClassName('wave_dom_container')[0];
-        // 雷达图的dom
+        this.innerContainer = this.dom.getElementsByClassName('wave_inner_container')[0];
         this.rContainer = this.dom.getElementsByClassName('wave_radar_container')[0];
         this.loadingContainer = this.dom.getElementsByClassName('wave_loading_container')[0];
         this.loadingDom = this.dom.getElementsByClassName('loading_dom')[0];
-        defaultPath.forEach((item, index) => {
-            const gItem = createDom('g');
-            setStyle(gItem, { class: `g_Item_${index}` });
-            appendHTML(gItem, item.path);
-            appendDom(gContainer, gItem);
-        });
-        const gContainerInfo = gContainer.getBoundingClientRect();
-        const width = gContainerInfo.width;
-        const height = gContainerInfo.height;
-        setStyle(this.svg, { width, height });
-    }
-
-    // refresh相关dom
-    initFlagParams() {
-        // 自定义dom插入
         const { centerDom } = this.option;
+        this.insertCenterDom(centerDom, this.domContainer)
+    }
+
+
+    // 自定义dom插入
+    insertCenterDom(centerDom, dom) {
         if (centerDom) {
-            this.insertCenterDom(centerDom, this.domContainer)
-        }
-        // 波纹图渲染
-        const { type = 'health' } = this.option;
-        defaultGradient.forEach(item => {
-            if (item.type === type) {
-                appendHTML(this.svg, item.lineGradient);
-            }
-        });
-        // 是否显示波纹图
-        this.showWave = this.option.showWave !== undefined ? this.option.showWave : true;
-        if (!this.showWave) {
-            this.svg.style.opacity = 0;
-        } else {
-            this.svg.style.opacity = 1;
+            if (!dom) return;
+            const initCustomdom = centerDom(dom);
+            isString(initCustomdom) && appendHTML(dom, initCustomdom);
+            isDOM(initCustomdom) && appendDom(dom, initCustomdom);
         }
     }
 
-    // 配置dom位置
-    handlePosition() {
-        let basePosition = null;
-        // 位置和大小
-        if (isArray(this.data)) {
-            basePosition = {
-                center: ['50%', '50%'],
-                radius: '70%'
-            };
-        } else {
-            basePosition = {
-                center: ['50%', '50%'],
-                radius: ['25.2%', '70%']
-            };
-        }
+    // 设置dom位置 
+    setPosition() {
+        let basePosition = {
+            center: ['50%', '50%'],
+            radius: ['35%', '70%']
+        };
         const position = this.option.position;
         this.radius = (position && position.radius) || basePosition.radius;
         this.center = (position && position.center) || basePosition.center;
@@ -144,26 +103,51 @@ export default class WaveChart extends BaseChart {
             }
             return item;
         });
+        this.setPointAndLineStyle()
         const left = newPosition[0];
         const top = newPosition[1];
-        this.svg.style.left = left;
-        this.svg.style.top = top;
         this.domContainer.style.left = left;
         this.domContainer.style.top = top;
+        this.innerContainer.style.left = `${this.clientWidth * parseInt(left) / 100}px`;
+        this.innerContainer.style.top = `${this.clientHeight * parseInt(top) / 100}px`;
         this.loadingContainer.style.left = left;
         this.loadingContainer.style.top = top;
     }
 
-    // radar背景
+    // 设置雷达图点和线的样式随着尺寸自适应
+    setPointAndLineStyle() {
+        this.clientWidth = this.rContainer.clientWidth;
+        this.clientHeight = this.rContainer.clientHeight;
+        if (isArray(this.radius)) {
+            this.decimal = percentToDecimal(this.radius[1]);
+            this.domDecimal = percentToDecimal(this.radius[0]);
+        } else {
+            this.decimal = percentToDecimal(this.radius);
+        }
+        let trueWidth = Math.min(this.clientWidth, this.clientHeight) * this.decimal;
+        if (trueWidth > 280) {
+            this.symbolSize = 12
+            this.borderitemStyleWidth = 2
+            this.lineStyleWidth = 3
+        } else {
+            this.symbolSize = 8
+            this.borderitemStyleWidth = 1.5
+            this.lineStyleWidth = 2
+        }
+    }
+
+    // 初始化radar
     initRadar() {
         const colorBase = Theme.color.base;
-        this.splitNumber = (this.option.splitNumber) || 5;
+        this.splitNumber = 3;
         this.radarMax = (this.option.radarMax);
         // 创建图表实例
         const chartIns = new IntegrateChart();
         chartIns.init(this.rContainer);
+        const { type = 'health', theme = 'light' } = this.option;
+        this.setAreaColor(type, this.splitNumber)
         const chartOption = {
-            _isWaveRadar: null,
+            isWaveRadar: null,
             radarMark: false,
             radarMax: 100,
             position: {},
@@ -180,7 +164,6 @@ export default class WaveChart extends BaseChart {
                     },
                     rich: {
                         a: {
-                            // color: 'rgba(128,128,128,1.00)',
                             color: colorBase.subfont,
                             align: 'center',
                             fontSize: 12,
@@ -189,25 +172,42 @@ export default class WaveChart extends BaseChart {
                     },
                 },
                 axisLabel: {
-                    // color: 'rgba(128,128,128,1.00)',
                     color: colorBase.subfont,
                     showMinLabel: false
                 },
                 axisLine: {
                     lineStyle: {
-                        // color: 'rgba(0, 0, 0, 0.08)',
                         color: colorBase.subaxis
                     },
                 },
                 splitLine: {
+                    show: false,
                     lineStyle: {
                         type: 'solid',
                         color: colorBase.subaxis
                     },
                 },
+                splitArea: {
+                    show: true,
+                    areaStyle:
+                    {
+                        color: this.colorArr
+                    }
+                }
             },
+            series: [{
+                name: 'data',
+                symbol: '',
+                symbolSize: this.symbolSize,
+                itemStyle: {
+                    borderWidth: this.borderitemStyleWidth
+                },
+                lineStyle: {
+                    width: this.lineStyleWidth
+                },
+
+            }]
         };
-        const { type = 'health', theme = 'light' } = this.option;
         if (type == 'health') {
             chartOption.color = ['#5CB300'];
         } else if (type == 'warning') {
@@ -215,7 +215,6 @@ export default class WaveChart extends BaseChart {
         } else if (type == 'risk') {
             chartOption.color = ['#F23030'];
         }
-
         if (isArray(this.data)) {
             this.data.forEach(item => {
                 chartOption.data.label[item] = 0;
@@ -224,65 +223,86 @@ export default class WaveChart extends BaseChart {
             chartOption.data = this.data;
         }
         theme && (chartOption.theme = this.option.theme);
-        chartOption._isWaveRadar = (theme.toLowerCase().indexOf('cloud-light') !== -1);
+        chartOption.isWaveRadar = (theme.toLowerCase().indexOf('cloud-light') !== -1);
         this.option.radarMark && (chartOption.radarMark = this.option.radarMark);
         this.radarMax && (chartOption.radarMax = this.radarMax);
         chartOption.position.center = this.center;
         chartOption.position.radius = this.radius;
         chartOption.radar.splitNumber = this.splitNumber;
+        // 是否显示背景
+        this.showWave = this.option.showWave !== undefined ? this.option.showWave : true;
+        if (!this.showWave) {
+            chartOption.radar.splitArea.show = false;
+            this.innerContainer.style.backgroundColor = '#fff'
+            chartOption.radar.splitLine.show = true
+            chartOption.series[0].symbol = 'none'
+            chartOption.series[0].lineStyle.width = 0
+            chartOption.series[0]['areaStyle'] = {
+                opacity: 0
+            }
+            chartOption.series[0]['emphasis'] = {
+                areaStyle: {
+                    opacity: 0
+                }
+            };
+            this.innerContainer.style.opacity = 0
+            chartOption['tooltip'] = { show: false }
+        }
+
         chartIns.setSimpleOption('RadarChart', chartOption);
         // 开始渲染
         chartIns.render();
     }
 
+    // 根据分割段和健康类型设置分割段颜色
+    setAreaColor(type, splitNumber) {
+        if (type == 'health') {
+            this.rgba = '130,204,51,';
+        } else if (type == 'warning') {
+            this.rgba = '255,183,0,';
+        } else if (type == 'risk') {
+            this.rgba = '242,48,48,';
+        }
+        let arr = [];
+        const base = type == 'risk' ? 0.08 : 0.1
+        for (let i = 1; i <= splitNumber + 1; i++) {
+            let opacity = base * i;
+            let rgba = 'rgba(' + this.rgba + opacity + ')';
+            arr.push(rgba);
+        }
+        this.backgroundColor = arr.reverse().shift()
+        this.colorArr = arr;
+    }
+
     resizeDom() {
-        const width = this.svg.getAttribute('width');
-        const height = this.svg.getAttribute('height');
-        let scaleWidth = null;
-        let decimal = null;
-        let domDecimal = null;
-        const clientWidth = this.rContainer.clientWidth;
-        const clientHeight = this.rContainer.clientHeight;
-
-        if (isArray(this.radius)) {
-            decimal = percentToDecimal(this.radius[1]);
-            domDecimal = percentToDecimal(this.radius[0]);
-        } else {
-            decimal = percentToDecimal(this.radius);
-        }
-
-        const scaleX = (((clientWidth * decimal) / width) * 0.9).toFixed(2);
-        const scaleY = (((clientHeight * decimal) / height) * 0.9).toFixed(2);
-        const scale = clientWidth >= clientHeight ? scaleY : scaleX;
-        this.scale = scale;
-        this.svg.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        this.setPointAndLineStyle()
         const loadingSvg = this.dom.getElementsByClassName('wave_loading_svg')[0];
-
-        if (isArray(this.radius)) {
-            scaleWidth = `${(clientWidth >= clientHeight ? clientHeight : clientWidth) * domDecimal + 10}px`;
-        } else {
-            scaleWidth = `${width * 0.45 * scale}px`;
-        }
+        let scaleWidth = null;
+        let innerWidth = null;
+        scaleWidth = `${(this.clientWidth >= this.clientHeight ? this.clientHeight : this.clientWidth) * this.domDecimal * (1 - 1 / this.splitNumber)}px`;
+        innerWidth = `${(this.clientWidth >= this.clientHeight ? this.clientHeight : this.clientWidth) * this.domDecimal + 1}px`
         this.domContainer.style.width = scaleWidth;
-        this.loadingDom.style.width = scaleWidth;
         this.domContainer.style.height = scaleWidth;
+        this.innerContainer.style.width = innerWidth;
+        this.innerContainer.style.height = innerWidth;
+        this.innerContainer.style.backgroundColor = this.backgroundColor;
+        this.loadingDom.style.width = scaleWidth;
         this.loadingDom.style.height = scaleWidth;
         loadingSvg.style.width = scaleWidth;
         loadingSvg.style.height = scaleWidth;
     }
 
-    // 自定义dom插入
-    insertCenterDom(centerDom, dom) {
-        if (!dom) return;
-        const initCustomdom = centerDom(dom);
-        isString(initCustomdom) && appendHTML(dom, initCustomdom);
-        isDOM(initCustomdom) && appendDom(dom, initCustomdom);
+    // 图表渲染完成时回调
+    onRenderReady(callback) {
+        this.renderCallBack = callback;
     }
 
     // 监听容器变化
     setResizeObserver() {
         this.resizeObserver = new ResizeObserver(entries => {
+            this.setPosition()
             this.resizeDom();
+            this.initRadar()
         });
         this.resizeObserver.observe(this.dom);
     }
@@ -290,16 +310,16 @@ export default class WaveChart extends BaseChart {
     // 图表刷新，刷新配置项
     refresh(option) {
         this.domContainer.innerHTML = '';
-        const defsDom = this.svg.getElementsByTagName('defs')[0];
-        if (defsDom) { this.svg.removeChild(defsDom) }
+        this.innerContainer.innerHTML = '';
         this.option = option;
         this.data = option.data;
-        this.initFlagParams();
-        this.handlePosition();
-        this.resizeDom();
+        this.centerDom = option.centerDom
+        this.insertCenterDom(this.centerDom, this.domContainer)
+        this.setPosition();
         if (this.data) {
             this.initRadar();
         }
+        this.resizeDom();
     }
 
     // 图表刷新，仅刷新数据
@@ -319,7 +339,7 @@ export default class WaveChart extends BaseChart {
             this.loadingDom.innerHTML = '';
             option = Object.assign({ theme: 'light' }, option);
             const text = option.text || '加载中...';
-            const textSize = option.textSize || 14;
+            const textSize = option.textSize || 24;
             const textShow = option.textShow === false ? false : true;
             const textColor = option.textColor || (option.theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#808080');
             const centerDom = () => {
@@ -329,9 +349,8 @@ export default class WaveChart extends BaseChart {
                 </div>`;
                 return dom;
             };
-            this.insertCenterDom(centerDom, this.loadingDom);
+            this.insertCenterDom(centerDom, this.loadingDom)
             this.loadingContainer.style.display = 'block';
-            this.svg.style.opacity = 0;
         } else {
             // 显示通用性loading
             insertStateDom(this.dom, 'loading', option);
@@ -344,9 +363,6 @@ export default class WaveChart extends BaseChart {
         removeStateDom(this.dom, 'loading');
         if (this.loadingContainer) {
             this.loadingContainer.style.display = 'none';
-        }
-        if (this.showWave && this.svg) {
-            this.svg.style.opacity = 1;
         }
     }
 

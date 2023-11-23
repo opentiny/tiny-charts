@@ -10,7 +10,7 @@ export default class NodeManager {
     // 数据
     data;
     // 圆环默认大小
-    radius = 500;
+    radius = 200;
     // 圆环纵向间隔
     distance = 350;
     // 分隔角度
@@ -29,24 +29,26 @@ export default class NodeManager {
     // 创建层级圆环
     createWarppers() {
         // 最顶层的圆环的位置
-        const initTop = -700;
+        const initTop = 400; // 此处要改成高度的一半
+        const initRadius = 200; // 初始大小 200 ，每次递增 100
         let depth = getDataDepth(this.data, 0);
         for (let index = 0; index < depth; index++) {
-            let top = initTop + index * this.distance;
-            let width = this.radius * 2;
+            let radius = initRadius + index * 100;
+            let top = initTop - radius;
+            let width = radius * 2;
             let zindex = 100 - index;
             // 圆环
             let warpper = `<div class="ozc_warpper" style='top: ${top}px;width: ${width}px;height: ${width}px;z-index: ${zindex}; transform: translateX(-50%) rotate(0deg);'></div>`;
             this.dom.insertAdjacentHTML('beforeend', warpper);
-            // 竖线
-            let warpperLine = `<div class="ozc_warpper_line" style='top: ${top + this.radius * 2 - this.distance / 3}px;height: ${this.distance / 3}px;'></div>`;
-            this.dom.insertAdjacentHTML('beforeend', warpperLine);
-            // 标签
-            let warpperRect = `<div class="ozc_warpper_rect" style='top: ${top + this.radius * 2 - this.distance / 5}px;'>N层</div>`;
-            this.dom.insertAdjacentHTML('beforeend', warpperRect);
-            // 空数据提示
-            let warpperEmpty = `<div class="ozc_warpper_empty" style='top: ${top + this.radius * 2 - this.distance / 3 - 36}px;'>当前部门无子部门</div>`;
-            this.dom.insertAdjacentHTML('beforeend', warpperEmpty);
+            // // 竖线
+            // let warpperLine = `<div class="ozc_warpper_line" style='top: ${top + this.radius * 2 - this.distance / 3}px;height: ${this.distance / 3}px;'></div>`;
+            // this.dom.insertAdjacentHTML('beforeend', warpperLine);
+            // // 标签
+            // let warpperRect = `<div class="ozc_warpper_rect" style='top: ${top + this.radius * 2 - this.distance / 5}px;'>N层</div>`;
+            // this.dom.insertAdjacentHTML('beforeend', warpperRect);
+            // // 空数据提示
+            // let warpperEmpty = `<div class="ozc_warpper_empty" style='top: ${top + this.radius * 2 - this.distance / 3 - 36}px;'>当前部门无子部门</div>`;
+            // this.dom.insertAdjacentHTML('beforeend', warpperEmpty);
         }
         this.warppers = this.dom.getElementsByClassName('ozc_warpper');
         this.warpperLines = this.dom.getElementsByClassName('ozc_warpper_line');
@@ -70,7 +72,7 @@ export default class NodeManager {
     // 创建boss节点
     createBoss() {
         // 绘制最顶层管理者 
-        let boss = this.createNode(this.data,  'left: 50%;top: 36px;transform: translateX(-50%);'); 
+        let boss = this.createNode(this.data,  'left: 50%;top: 50%;transform: translateX(-50%);'); 
         this.dom.insertAdjacentHTML('beforeend', boss);
     }
 

@@ -1,14 +1,7 @@
-import {basicToken } from '../../basicTheme';
-import getMapToken from '../../util/getMapToken';
+import ictBasicToken from './basicToken';
+import getMapToken from '../getMapToken';
+const mapToken = {
+  ...getMapToken(ictBasicToken, false),
+};
 
-
-// 覆盖色值
-const colorSubg=basicToken.colorGray70
-
-
-const ictMapToken={
-    ...getMapToken(basicToken),
-    colorSubg,
-}
-
-export  default  ictMapToken
+export default mapToken;

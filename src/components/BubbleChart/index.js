@@ -2,7 +2,7 @@ import init from '../../option/init';
 import BaseOption from '../../util/baseOption';
 import cloneDeep from '../../util/cloneDeep';
 import { getLegendData, getXAxisData } from './handleData';
-import { setSeries } from './handleSeries';
+import { setSeries, handleSeriesExtra } from './handleSeries';
 import { setTooltip } from './handleOptipn';
 import { handleTrendLine } from './handleTrendLine';
 import { setDataset, setVisualMap } from './handleVisualMap';
@@ -29,20 +29,29 @@ class BubbleChart {
     // 组装基础数据
     const legendData = getLegendData(iChartOption.data);
     // 设置x轴类型，是目录型，还是数值型
-    if (legendData && 
+    const { xAxisType } = iChartOption;
+    if (legendData &&
+      legendData[0] &&
         legendData[0] && 
+      legendData[0] &&
+      iChartOption.data[legendData[0]] &&
         iChartOption.data[legendData[0]] && 
+      iChartOption.data[legendData[0]] &&
+      iChartOption.data[legendData[0]][0] &&
         iChartOption.data[legendData[0]][0] && 
+      iChartOption.data[legendData[0]][0] &&
+      iChartOption.data[legendData[0]][0][0] &&
         iChartOption.data[legendData[0]][0][0] && 
-        typeof iChartOption.data[legendData[0]][0][0] === 'string') {
-        this.baseOption.xAxis.forEach(item => {
-          item.type = 'category';
-          item.data = getXAxisData(iChartOption.data[legendData[0]]);
-        });
+      iChartOption.data[legendData[0]][0][0] &&
+      typeof iChartOption.data[legendData[0]][0][0] === 'string') {
+      this.baseOption.xAxis.forEach(item => {
+        item.type = xAxisType || 'category';
+        item.data = getXAxisData(iChartOption.data[legendData[0]]);
+      });
     } else {
-        this.baseOption.xAxis.forEach(item => {
-          item.type = 'value';
-        });
+      this.baseOption.xAxis.forEach(item => {
+        item.type = xAxisType || 'value';
+      });
     }
     // 赋值数据
     this.baseOption.legend.data = legendData;
@@ -59,6 +68,8 @@ class BubbleChart {
     this.baseOption.visualMap = setVisualMap(this.baseOption, iChartOption, legendData);
     // 针对趋势线的需求，图表需要进行特殊处理
     handleTrendLine(this.baseOption, iChartOption, plugins);
+    // 添加seires属性
+    handleSeriesExtra(this.baseOption, iChartOption);
   }
 
   getOption() {

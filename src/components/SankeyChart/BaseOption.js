@@ -53,17 +53,12 @@ const BaseOption = {
         // 线条弯曲度
         curveness: 0.5,
       },
-      itemStyle: {
-        borderWidth: 4,
-        borderType: 'solid',
-        borderJoin: 'round',
-      },
       label: {
         color: textColor,
-        fontSize: '12px',
+        fontSize: 12,
         fontFamily: 'HuaweiSans',
         // 文字距离节点矩形块的距离
-        distance: 10,
+        distance: 5,
         position: 'right',
         // 展示文本内容及百分比
         formatter: params => {

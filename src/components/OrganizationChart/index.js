@@ -15,7 +15,6 @@ export default class OrganizationChart extends BaseChart {
         this.resizeObserver = null;
         // 生成节点和计算位置
         this.nodeManager = null;
-
         // 当前选中的组织index
         // selected[0] 表示第一层组织正在显示的index
         // selected[1] 表示第二层组织正在显示的index

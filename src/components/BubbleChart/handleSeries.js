@@ -2,6 +2,7 @@ import { getColor, codeToRGB } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep'
 import { markLineDefault } from '../../option/config/mark';
 import Theme from '../../feature/theme';
+import merge from '../../util/merge';
 export const seriesInit = {
   // 数据
   data: [],
@@ -65,4 +66,18 @@ export function setSeries({ theme, legendData, data, markLine, color }) {
     series.push(seriesUnit);
   });
   return series;
+}
+
+// 添加seires属性
+export function handleSeriesExtra(baseOpt, iChartOption) {
+  const { symbol, symbolRotate, symbolOffset, cursor, label, itemStyle, emphasis } = iChartOption;
+  baseOpt.series.forEach((item, index) => {
+    item.symbol = symbol;
+    item.symbolRotate = symbolRotate;
+    item.symbolOffset = symbolOffset;
+    item.cursor = cursor;
+    item.label = label;
+    merge(item.itemStyle, itemStyle);
+    merge(item.emphasis, emphasis);
+  });
 }

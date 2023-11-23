@@ -7,7 +7,6 @@ export default class NodeManager {
     vGap;
     hGap;
     layout;
-    //dom
     dom;
     //节点宽度
     nodeWidth;
