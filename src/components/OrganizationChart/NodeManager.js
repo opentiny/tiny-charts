@@ -1,27 +1,41 @@
-import defendXSS from "../../util/defendXSS";
+import merge from "../../util/merge";
+import { getEdge, getAngle } from "../../util/math";
 
-/**
- * 目前假设的组织关系为固定3层，后续肯定要修改
- */
-const defaultUserHead = `<svg class="icon" style="width: 48px;height: 48px;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3967"><path d="M171.9808 860.8256c5.8368 0 5.8368 0 0 0 0-17.5616 0-35.1744 5.8368-52.6848 5.888-29.3376 11.7248-58.6752 17.6128-82.1248s17.6128-46.8992 35.2256-70.3488c11.7248-23.4496 23.4496-41.0624 41.0112-52.736a138.24 138.24 0 0 1 52.736-46.9504c17.6128-17.5616 41.0624-29.2864 64.512-35.1744h5.8368c17.6128 35.1744 41.0624 64.512 58.6752 99.6864 17.5616 35.1744 41.0112 70.2976 58.624 99.6352 0 5.8368 0 5.8368 5.888 0l70.3488-105.5744c11.7248-17.6128 23.5008-41.0112 35.2256-58.624 5.888-11.7248 11.7248-23.4496 23.5008-35.1744h5.7856c17.6128 5.888 41.0112 17.6128 58.624 29.3376s41.1136 29.3376 52.7872 46.8992c17.6128 23.5008 35.2256 41.0624 46.8992 70.3488 17.6128 35.2256 29.2864 76.2368 41.0112 117.248 5.888 17.6128 5.888 35.2256 5.888 52.7872v52.6848h-5.888c-35.1232 17.6128-76.1856 29.3376-117.1968 35.2256-41.1136 11.7248-82.1248 17.6128-123.0848 23.5008-17.6128 0-41.1136 5.7856-58.6752 5.7856H482.6624c-41.0624 0-87.9616-5.7856-128.9728-11.7248-41.0624-5.888-82.1248-17.6128-123.0848-29.2864-17.6128-5.888-41.0624-11.7248-58.6752-17.6128h-5.7856c5.8368-17.5616 5.8368-23.3984 5.8368-35.1232zM529.5616 75.264h11.7248c17.6128 0 35.2256 5.888 46.9504 11.7248 11.7248 5.8368 29.2864 17.6128 41.1136 23.4496l35.1232 35.1744c17.6128 17.6128 29.2864 41.0624 35.2256 64.512 5.888 11.7248 5.888 29.2864 5.888 41.0624v29.2864c0 23.4496-5.888 41.0112-17.6128 64.4608a128 128 0 0 1-29.2864 46.8992l-35.2768 35.1744c-11.7248 11.7248-29.2864 17.5616-46.8992 23.4496-17.6128 5.8368-29.3376 11.7248-41.0624 11.7248-29.2864 0-52.736 0-82.0736-5.8368-23.4496-11.7248-46.8992-23.4496-64.512-41.0624-17.6128-17.5616-35.1232-35.1744-46.8992-58.624a113.5104 113.5104 0 0 1-17.6128-58.624v-35.1744c0-23.4496 5.888-41.0624 11.7248-64.512s17.6128-41.0112 35.1744-52.7872c5.888-11.7248 17.6128-23.4496 29.3376-35.1744 23.5008-17.5616 46.9504-23.3984 70.3488-35.1232 11.7248 0 17.664-5.8368 29.3376-5.8368 11.7248 5.8368 17.6128 5.8368 29.2864 5.8368z m0 0" fill="#999999"></path></svg>`
+const INIT_RADIUS = {
+    min: 200,
+    gap: 200,
+    angle: 30,
+    direction: 'bottom'
+};
+
+const DIRECTION_ANGLE = {
+    top: 180,
+    left: -90,
+    right: 90,
+    bottom: 0
+};
+
 export default class NodeManager {
     // 圆环容器
     dom;
     // 数据
     data;
-    // 圆环默认大小
-    radius = 200;
-    // 圆环纵向间隔
-    distance = 350;
-    // 分隔角度
-    unitAngle = 20;
-    // 当前选中的组织index
+    // 圆环细节 
+    radius;
+    // 每层选中index
     selected;
+    // 每层旋转角度
+    angles;
 
     constructor(dom, option, selected) {
         this.dom = dom;
         this.selected = selected;
         this.data = option.data;
+        this.radius = merge(INIT_RADIUS, option.radius);
+        this.render = option.render;
+        this.angles = [];
+        // 余弦定理算出第一层圆圈中两个点之间的直线距离
+        this.distance = getEdge(this.radius.min, this.radius.min, this.radius.angle);
         this.createWarppers();
         this.createInitNodes();
     }
@@ -29,16 +43,15 @@ export default class NodeManager {
     // 创建层级圆环
     createWarppers() {
         // 最顶层的圆环的位置
-        const initTop = 400; // 此处要改成高度的一半
-        const initRadius = 200; // 初始大小 200 ，每次递增 100
-        let depth = getDataDepth(this.data, 0);
-        for (let index = 0; index < depth; index++) {
-            let radius = initRadius + index * 100;
-            let top = initTop - radius;
+        // const initTop = 400; // 此处要改成高度的一半
+        this.depth = this.getDataDepth(this.data, 0);
+        for (let index = 0; index < this.depth; index++) {
+            let radius = this.radius.min + this.radius.gap * index;
+            // let top = initTop - radius;
             let width = radius * 2;
             let zindex = 100 - index;
             // 圆环
-            let warpper = `<div class="ozc_warpper" style='top: ${top}px;width: ${width}px;height: ${width}px;z-index: ${zindex}; transform: translateX(-50%) rotate(0deg);'></div>`;
+            let warpper = `<div class="ozc_warpper" style='width: ${width}px;height: ${width}px;z-index: ${zindex}; transform: translateX(-50%) translateY(-50%) rotate(0deg);'></div>`;
             this.dom.insertAdjacentHTML('beforeend', warpper);
             // // 竖线
             // let warpperLine = `<div class="ozc_warpper_line" style='top: ${top + this.radius * 2 - this.distance / 3}px;height: ${this.distance / 3}px;'></div>`;
@@ -51,29 +64,27 @@ export default class NodeManager {
             // this.dom.insertAdjacentHTML('beforeend', warpperEmpty);
         }
         this.warppers = this.dom.getElementsByClassName('ozc_warpper');
-        this.warpperLines = this.dom.getElementsByClassName('ozc_warpper_line');
-        this.warpperRects = this.dom.getElementsByClassName('ozc_warpper_rect');
-        this.warpperEmptys = this.dom.getElementsByClassName('ozc_warpper_empty');
+        // this.warpperLines = this.dom.getElementsByClassName('ozc_warpper_line');
+        // this.warpperRects = this.dom.getElementsByClassName('ozc_warpper_rect');
+        // this.warpperEmptys = this.dom.getElementsByClassName('ozc_warpper_empty');
     }
 
     // 创建初始节点和布局
     createInitNodes() {
         this.createBoss();
-        let firstLevel = this.data.children || [];
-        let firstSelect = this.selected[0];
-        this.warpperRects[0].innerHTML = this.data.level;
-        this.createLevel(firstLevel, firstSelect, 0);
-        let secondLevel = firstLevel[firstSelect].children;
-        let secondSelect = this.selected[1];
-        this.warpperRects[1].innerHTML = firstLevel[firstSelect].level;
-        this.createLevel(secondLevel, secondSelect, 1);
+        let data = [this.data];
+        for (let level = 0; level < this.depth; level++) {
+            let preSelect = this.selected[level - 1] || 0;
+            let nextSelect = this.selected[level] || 0;
+            data = data[preSelect]?.children || [];
+            this.createLevel(data, nextSelect, level);
+        }
     }
 
-    // 创建boss节点
+    // 绘制最顶层管理者 
     createBoss() {
-        // 绘制最顶层管理者 
-        let boss = this.createNode(this.data,  'left: 50%;top: 50%;transform: translateX(-50%);'); 
-        this.dom.insertAdjacentHTML('beforeend', boss);
+        let boss = this.createNode(this.data,  'left: 50%;top: 50%;transform: translateX(-50%) translateY(-50%);'); 
+        this.dom.appendChild(boss);
     }
 
     /**
@@ -84,75 +95,91 @@ export default class NodeManager {
      */
     createLevel(data, selectedIndex, warpperIndex){
         let warpper = this.warppers[warpperIndex];
-        let warpperLine = this.warpperLines[warpperIndex];
-        let warpperRect = this.warpperRects[warpperIndex];
-        let warpperEmpty = this.warpperEmptys[warpperIndex];
+        // let warpperLine = this.warpperLines[warpperIndex];
+        // let warpperRect = this.warpperRects[warpperIndex];
+        // let warpperEmpty = this.warpperEmptys[warpperIndex];
         if(!data || data.length == 0){
-            warpperEmpty.style.display = 'block';
-            warpper.style.display = 'none';
-            warpperLine.style.display = 'none';
-            warpperRect.style.display = 'none';
+            // warpperEmpty.style.display = 'block';
+            // warpper.style.display = 'none';
+            // warpperLine.style.display = 'none';
+            // warpperRect.style.display = 'none';
             return;
         }else{
-            warpperEmpty.style.display = 'none';
+            // warpperEmpty.style.display = 'none';
             warpper.style.display = 'block';
-            warpperLine.style.display = 'block';
-            warpperRect.style.display = 'block';
+            // warpperLine.style.display = 'block';
+            // warpperRect.style.display = 'block';
         }
-        let initAngle = selectedIndex * this.unitAngle * -1;
-        let userCardWidth = 150; // 这个值讲道理应该动态获取
-        let userHeadWidth = 52; // 这个值讲道理应该动态获取
+        
+        let radius = this.radius.min + warpperIndex * this.radius.gap;
+        let distance = this.distance + warpperIndex * 10;
+        let angleUnit = getAngle(radius, radius, distance)[2];
+        let initAngle = selectedIndex * angleUnit * -1 + DIRECTION_ANGLE[this.radius.direction];
+        this.angles[warpperIndex] = angleUnit;
         data.forEach((user, i) => {
-            let center = { x: this.radius,y: this.radius };
-            let angle = initAngle + this.unitAngle * i;
-            let left = center.x + this.radius * Math.sin(Math.PI * angle / 180) - userCardWidth / 2;
-            let top = center.y + this.radius * Math.cos(Math.PI * angle / 180) - userHeadWidth / 2;
+            let center = { x: radius,y: radius };
+            let angle = initAngle + angleUnit * i;
+            let left = center.x + radius * Math.sin(Math.PI * angle / 180);
+            let top = center.y + radius * Math.cos(Math.PI * angle / 180);
             let style = `left: ${left}px;top: ${top}px;`;
-            if(i === selectedIndex){
-                style = `left: ${left}px;top: ${top}px;transform: scale(1.2);`;
-            }
             let node = this.createNode(user, style, warpperIndex, i);
-            warpper.insertAdjacentHTML('beforeend', node);
+            warpper.appendChild(node);
         });
     }
 
-    // 刷新第二层数据和DOM
-    refreshSecondWarpper(selected){
-        this.warppers[1].style.transform = ` translateX(-50%) rotate(0deg)`;
-        this.warppers[1].innerHTML = '';
+    // 刷新数据和DOM
+    refreshWarpper(warpperIndex, selected){
         this.selected = selected;
-        let secondLevel = this.data.children[this.selected[0]].children;
-        let secondSelect = Math.floor(secondLevel.length / 2); 
-        this.selected[1] = secondSelect;
-        this.createLevel(secondLevel, secondSelect, 1);
+        for (let level = warpperIndex + 1; level < this.depth; level++) {
+            this.warppers[level].style.transform = `translateX(-50%) translateY(-50%) rotate(0deg)`;
+            this.warppers[level].innerHTML = '';
+            let depthData = this.getDepthData(this.data, level);
+            let nextSelect = this.selected[level] || 0;
+            this.createLevel(depthData, nextSelect, level);
+        }
     }
 
     createNode(data, style, warpperIndex, nodeIndex) {
-        let node = `
-            <div class='user_card' style='${style}' data-warpper-index='${warpperIndex}' data-node-index='${nodeIndex}'>
-                <div class='user_head'>
-                    ${
-                        data.head ? '<img class="user_head_img " draggable="false" src="' + defendXSS(data.head) + '"/>' : defaultUserHead
-                    }
-                </div>
-                <div class='user_name'>${defendXSS(data.name)}</div>
-                <div class='user_id'>${defendXSS(data.id)}</div>
-                <div class='user_address'>${defendXSS(data.address)}</div>
-                <div class='user_subordinates'>${data.children ? data.children.length : 0}个下层组织</div>
-            </div>`;
+        let node = document.createElement('div');
+        node.setAttribute('style', style);
+        node.setAttribute('class', 'ozc_card');
+        node.setAttribute('data-node-index', nodeIndex);
+        node.setAttribute('data-warpper-index', warpperIndex);
+        let state = {
+            boss: warpperIndex == undefined,
+            selected: this.selected[warpperIndex] === nodeIndex ? true : false
+        };
+        this.render && this.render(node, data, state);
         return node;
     }
-}
 
-
-// data：obj
-function getDataDepth(data, depth) {
-    if (data && data.children && data.children.length > 0) {
-        depth++;
-        let childDepths = data.children.map(child => {
-            return getDataDepth(child, depth)
-        });
-        depth = Math.max(...childDepths)
+    
+    // 获得指定层级的数据
+    getDepthData(data, targetDepth) {
+        let result = [data];
+        for (let level = 0; level < this.depth; level++) {
+            let preSelect =  this.selected[level - 1] || 0;
+            result = result[preSelect]?.children || [];
+            if(level === targetDepth){
+                break;
+            }
+        }
+        return result;
     }
-    return depth;
+
+
+    // 根据数据计算出层级深度
+    getDataDepth(data, depth) {
+        if (data && data.children && data.children.length > 0) {
+            depth++;
+            let childDepths = data.children.map(child => {
+                return this.getDataDepth(child, depth);
+            });
+            depth = Math.max(...childDepths);
+        }
+        return depth;
+    }
 }
+
+
+

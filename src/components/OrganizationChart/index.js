@@ -16,9 +16,7 @@ export default class OrganizationChart extends BaseChart {
         // 生成节点和计算位置
         this.nodeManager = null;
         // 当前选中的组织index
-        // selected[0] 表示第一层组织正在显示的index
-        // selected[1] 表示第二层组织正在显示的index
-        this.selected = [1, 1];
+        this.selected = null;
     }
 
     // 初始化图表渲染容器
@@ -34,6 +32,7 @@ export default class OrganizationChart extends BaseChart {
     // 图表渲染回调
     render() {
         this.data = this.option.data || [];
+        this.selected = this.option.selected || [1, 1];
         this.initDom();
         this.setResizeObserver();
         this.renderCallBack && this.renderCallBack(this);
@@ -51,6 +50,9 @@ export default class OrganizationChart extends BaseChart {
         this.container.setAttribute('class', 'ozc_container');
         if(this.option.theme && this.option.theme.indexOf('dark') !== -1){
             this.container.classList.add('ozc_container_dark');
+        }
+        for (const styleKey in this.option.position) {
+            this.container.style[styleKey] = this.option.position[styleKey];
         }
         this.dom.appendChild(this.container);
         this.nodeManager = new NodeManager(this.container, this.option, this.selected);

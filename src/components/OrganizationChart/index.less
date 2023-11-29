@@ -2,16 +2,15 @@
     width: 100%;
     height: 100%;
     display: flex;
-    overflow: hidden;
     justify-content: center;
     align-items: center;
     position: relative;
 
     .ozc_warpper{
+        top: 50%;
         left: 50%;
         position: absolute;
         border-radius: 50%;
-        transform: translateX(-50%);
         transform-origin: 50% 50%;
         transition: all 200ms linear;
         border: 1px solid #bbbbbb;
@@ -51,55 +50,6 @@
     }
 }
 
-.user_card{
-    position: absolute;
-    &.center_user{
-        top: 50%;
-        left: 50%;
-        transform: translate3d(-50%, -50%, 0);
-    }
-    width: 150px;
-    display: flex;
-    transform-origin: 75px 25px;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    .user_head{
-        width: 50px;
-        height: 50px;
-        overflow: hidden;
-        border-radius: 50%;
-        background-color: #fff;
-        border: 1px solid #bbbbbb;
-        .user_head_img{
-            width: 100%;
-            height: 100%;
-            display: block;
-            border-radius: 50%;
-        }
-    }
-    .user_name{
-        color: #999999;
-        font-size: 14px;
-        margin-top: 4px;
-    }
-    .user_id{
-        color: #999999;
-        font-size: 14px;
-    }
-    .user_address{
-        color: #000000;
-        font-weight: bold;
-        font-size: 18px;
-        text-align: center;
-    }
-    .user_subordinates{
-        margin-top: 2px;
-        color: #999999;
-        font-size: 12px;
-    }
-}
-
 // 深色主题
 .ozc_container_dark.ozc_container {
     .ozc_warpper{
@@ -116,21 +66,14 @@
     .ozc_warpper_empty{
         color: #bbbbbb;
     }
-    .user_card{
-        .user_head{
-            border-color: #bbbbbb;
-        }
-        .user_name{
-            color: #bbbbbb;
-        }
-        .user_id{
-            color: #bbbbbb;
-        }
-        .user_address{
-            color: #eeeeee;
-        }
-        .user_subordinates{
-            color: #bbbbbb;
-        }
+}
+
+.ozc_card{
+    width: 0;
+    height: 0;
+    position: absolute;
+    transition: all 100ms linear;
+    img{
+        -webkit-user-drag:none;
     }
 }
