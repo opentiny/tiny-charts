@@ -2,6 +2,7 @@ import merge from '../../util/merge';
 import ictDark from './ictDark';
 import ictLight from './ictLight';
 import bpitLight from './bpitLight';
+import bpitDark from './bpitDark';
 import cloudDark from './cloudDark';
 import cloudLight from './cloudLight';
 import HashMap from '../../util/hashMap';
@@ -11,24 +12,29 @@ import ictLight2 from './ict/light';
 import ictDark2 from './ict/dark';
 import cloudLight2 from './cloud/light';
 import cloudDark2 from './cloud/dark';
-import { THEMES, CURRENT_THEME, DEFAULT_THEME_NAME, THEME_ERROR_TIP_MESSAGE } from './config';
+import bpitDark2 from './bpit/dark';
+import bpitLight2 from './bpit/light';
+import { THEMES, CURRENT_THEME, DEFAULT_THEME_NAME, THEME_ERROR_TIP_MESSAGE } from './constants';
+import mergeThemeConfig from './mergeThemeConfig';
 
 const theme = new HashMap({
   [THEMES.DARK]: ictDark,
   [THEMES.LIGHT]: ictLight,
   [THEMES.BPIT_LIGHT]: bpitLight,
+  [THEMES.BPIT_DARK]: bpitDark,
   [THEMES.CLOUD_DARK]: cloudDark,
   [THEMES.CLOUD_LIGHT]: cloudLight,
   [CURRENT_THEME]: ictLight,
 });
 
 const themeToken = new HashMap({
-  [THEMES.DARK]: ictDark2,
-  [THEMES.LIGHT]: ictLight2,
-  [THEMES.BPIT_LIGHT]: bpitLight,
-  [THEMES.CLOUD_DARK]: cloudDark2,
-  [THEMES.CLOUD_LIGHT]: cloudLight2,
-  [CURRENT_THEME]: ictLight2,
+  [THEMES.LIGHT]: cloneDeep(ictLight2),
+  [THEMES.DARK]: cloneDeep(ictDark2),
+  [THEMES.BPIT_LIGHT]: cloneDeep(bpitLight2),
+  [THEMES.BPIT_DARK]: cloneDeep(bpitDark2),
+  [THEMES.CLOUD_LIGHT]: cloneDeep(cloudLight2),
+  [THEMES.CLOUD_DARK]: cloneDeep(cloudDark2),
+  [CURRENT_THEME]: cloneDeep(ictLight2),
 });
 
 class Theme {
@@ -37,12 +43,42 @@ class Theme {
   // 当前主题颜色
   static color;
 
-  static config = ictLight2;
+  static config = cloneDeep(ictLight2);
 
   static set(name, config) {
     const defaultConfig = cloneDeep(this.get(DEFAULT_THEME_NAME));
     merge(defaultConfig, config);
     theme.set(name, defaultConfig);
+  }
+  //  以下待确认
+  static setConfig(name, config) {
+    // 以下为新的逻辑
+    const themeKeys = this.getThemeKeys();
+    const validate = themeKeys.includes(name);
+    // 修改已有主题的配置
+    if (validate) {
+      const newConfig = mergeThemeConfig(name, config);
+      const oldConfig = this.getConfig(name);
+      merge(oldConfig, newConfig);
+    } else {
+      const newConfig = mergeThemeConfig(DEFAULT_THEME_NAME, config);
+      themeToken.set(name, newConfig);
+    }
+  }
+  //  以下待确认
+  static getThemeKeys() {
+    return themeToken.keys();
+  }
+
+  //  以下待确认
+  static resetThemeCongfig() {
+    themeToken.set(THEMES.LIGHT, cloneDeep(ictLight2));
+    themeToken.set(THEMES.DARK, cloneDeep(ictDark2));
+    themeToken.set(THEMES.BPIT_LIGHT, cloneDeep(bpitLight2));
+    themeToken.set(THEMES.BPIT_DARK, cloneDeep(bpitDark2));
+    themeToken.set(THEMES.CLOUD_LIGHT, cloneDeep(cloudLight2));
+    themeToken.set(THEMES.CLOUD_DARK, cloneDeep(cloudDark2));
+    themeToken.set(CURRENT_THEME, cloneDeep(ictLight2));
   }
 
   static get(name) {
@@ -62,7 +98,6 @@ class Theme {
       // 以下config功能待完善
       themeToken.set(CURRENT_THEME, themeToken.get(tempTheme));
       this.config = this.getConfig(CURRENT_THEME);
-      // console.log(this.config);
     }
   }
 

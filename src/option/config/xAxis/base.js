@@ -1,53 +1,53 @@
 import Theme from '../../../feature/theme';
-import cloneDeep from '../../../util/cloneDeep';
 
-const baseOption = {
-  data: [],
-  // 坐标轴类型
-  type: 'category',
-  // 坐标轴两边留白策略
-  boundaryGap: true,
-  // 坐标轴在grid区域中分隔线
-  splitLine: {
-    show: false,
-  },
-  // 坐标轴名称样式配置
-  nameTextStyle: {
-    color: undefined,
-    fontSize: 12,
-  },
-  // 坐标轴线配置
-  axisLine: {
-    lineStyle: {
-      width: 2,
-      color: undefined,
+function getBaseOption() {
+  return {
+    data: [],
+    // 坐标轴类型
+    type: 'category',
+    // 坐标轴两边留白策略
+    boundaryGap: true,
+    // 坐标轴在grid区域中分隔线
+    splitLine: {
+      show: false,
+      lineStyle: {
+        width: Theme.config.xAxisSplitLineWidth,
+        color: Theme.config.xAxisSplitLineColor,
+        type: Theme.config.xAxisSplitLineType,
+      },
     },
-  },
-  // 坐标轴刻度配置
-  axisTick: {
-    alignWithLabel: true,
-    lineStyle: {
-      width: 2,
-      color: undefined,
+    // 坐标轴名称样式配置
+    nameTextStyle: {
+      color: Theme.config.xAxisNameColor,
+      fontSize: Theme.config.xAxisNameFontSize,
     },
-  },
-  // 坐标轴刻度标签配置
-  axisLabel: {
-    color: undefined,
-  },
-};
+    // 坐标轴线配置
+    axisLine: {
+      lineStyle: {
+        width: Theme.config.xAxisLineWidth,
+        color: Theme.config.xAxisLineColor,
+        type: Theme.config.xAxisLineType,
+      },
+    },
+    // 坐标轴刻度配置
+    axisTick: {
+      alignWithLabel: true,
+      lineStyle: {
+        width: Theme.config.xAxisTickLineWidth,
+        color: Theme.config.xAxisTickLineColor,
+        type: Theme.config.xAxisTickLineType,
+      },
+    },
+    // 坐标轴刻度标签配置
+    axisLabel: {
+      color: Theme.config.xAxisLabelColor,
+      fontSize: Theme.config.xAxisLabelFontSize,
+    },
+  };
+}
 
-function base(theme) {
-  const option = cloneDeep(baseOption);
-  if (theme.toLowerCase().indexOf('cloud') !== -1){
-    option.axisLine.lineStyle.width = 1;
-    option.axisTick.lineStyle.width = 1;
-  }
-  const colorBase = Theme.color.base
-  option.nameTextStyle.color = colorBase.axislabel; 
-  option.axisLine.lineStyle.color = colorBase.axis;
-  option.axisTick.lineStyle.color = colorBase.axis;
-  option.axisLabel.color = colorBase.axislabel;
+function base() {
+  const option = getBaseOption();
   return option;
 }
 

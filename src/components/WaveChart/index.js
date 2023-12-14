@@ -258,7 +258,7 @@ export default class WaveChart extends BaseChart {
                     opacity: 0
                 }
             };
-            this.innerContainer.style.opacity = 0;
+            this.innerContainer.style.display = 'none';
             chartOption['tooltip'] = { show: false };
         }
         chartIns.setSimpleOption('RadarChart', chartOption);
@@ -319,6 +319,9 @@ export default class WaveChart extends BaseChart {
 
     // 图表刷新，刷新配置项
     refresh(option) {
+        if (this.innerContainer) {
+            this.innerContainer.style.display = 'block';
+        }
         this.domContainer.innerHTML = '';
         this.innerContainer.innerHTML = '';
         this.option = option;
@@ -344,6 +347,7 @@ export default class WaveChart extends BaseChart {
     // 加载状态
     showLoading(option) {
         if (this.loadingContainer) {
+            this.domContainer.innerHTML = '';
             this.loadingDom.innerHTML = '';
             option = Object.assign({ theme: 'light' }, option);
             const text = option.text || '加载中...';

@@ -3,7 +3,7 @@ import cloneDeep from '../../util/cloneDeep';
 import Theme from '../../feature/theme';
 import { getColor } from '../../util/color';
 import merge from '../../util/merge';
-import { getTextWidth } from '../../util/util';
+import { getTextWidth } from '../../util/dom';
 function setStateBarColor(data, stateColorGroup, successColor, stateList) {
   const min = stateList[0];
   const max = stateList[stateList.length - 1];

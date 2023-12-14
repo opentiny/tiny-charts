@@ -1,4 +1,4 @@
-import color from './colorGary';
+import gray from './gray';
 
 // 图表的状态颜色
 const colorState = {
@@ -13,32 +13,17 @@ const colorState = {
   // 提示色
   infoColor: '#5990FD',
   // 失效 '#939393'
-  disabledColor: color.colorGray40,
+  disabledColor: gray.colorGray40,
 };
 
 // 图表内置的颜色组
-const colorGroup = [
-  // Blue 60
-  '#1F55B5',
-  // Mint 50
-  '#278661',
-  // Purple 60
-  '#8A21BC',
-  // Cyan 60
-  '#26616B',
-  // Yellow 40
-  '#B98C1D',
-  // Indido 50
-  '#745EF7',
-  // Cyan 50
-  '#2A8290',
-];
+const colorGroup = ['#1F55B5', '#278661', '#8A21BC', '#26616B', '#B98C1D', '#745EF7', '#2A8290'];
 
-const ictDark = {
-  ...color,
+const dark = {
+  ...gray,
   colorState,
   colorGroup,
 };
 
-export default ictDark;
+export default dark;
 export { colorState, colorGroup };

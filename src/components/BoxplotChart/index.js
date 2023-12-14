@@ -2,7 +2,7 @@ import init from '../../option/init';
 import { event } from '../../util/event';
 import { setDataset, setSeries } from './handleSeries';
 import { setDirection, setTooltip } from './handleOption';
-import RectCoordSys from '../../option/RectangularCoordinateSystem';
+import RectCoordSys from '../../option/RectSys';
 import Theme from '../../feature/theme';
 const CHART_NAME = 'BoxplotChart';
 export default class BoxplotChart {

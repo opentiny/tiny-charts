@@ -1,7 +1,8 @@
-import ictBasicToken from './basicToken';
+import basicToken from './basicToken';
 import getMapToken from '../getMapToken';
+
 const mapToken = {
-  ...getMapToken(ictBasicToken, false),
+  ...getMapToken(basicToken, false),
 };
 
 export default mapToken;

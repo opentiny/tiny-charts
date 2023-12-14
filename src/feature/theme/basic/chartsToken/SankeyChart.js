@@ -1,10 +1,10 @@
 const SankeyChart = (basicToken, mapToken) => {
-  const { fontSizeSM, spaceSM } = basicToken;
+  const { fontSizeSM, space } = basicToken;
 
   return {
     label: {
       fontSize: fontSizeSM,
-      distance: spaceSM,
+      distance: space,
     },
   };
 };

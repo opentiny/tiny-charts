@@ -1,30 +1,44 @@
-const RadarChart = (basicToken, mapToken) => {
-  const { fontSizeSM, lineHeightSM, colorTP, border, borderSM, lineWidth, lineWidthLG, lineWidthZero } = basicToken;
-  const { symbolSize, symbolSizeSM, symbolSizeLG } = mapToken;
+const RadarChart = (modelToken) => {
+  const {
+    symbolSize,
+    symbolSizeSM,
+    symbolSizeLG,
+    areaColorTP,
+    richFontSizeSM,
+    richLineHeight,
+    richLineHeightSM,
+    itemBorderWidth,
+    itemBorderWidthSM,
+    lineStyleWidth,
+    lineStyleWidthLG,
+    lineStyleWidthZero,
+    itemBorderColor
+  } = modelToken;
 
   return {
     symbolSize,
     symbolSizeSM,
     symbolSizeLG,
     areaStyle: {
-      color: colorTP,
+      color: areaColorTP,
     },
     rich: {
-      fontSize: fontSizeSM,
-      lineHeight: lineHeightSM * fontSizeSM,
-      lineHeightSmall: fontSizeSM,
+      fontSize: richFontSizeSM,
+      lineHeight: richLineHeight,
+      lineHeightSM: richLineHeightSM,
     },
     itemStyle: {
       borderWidth: {
-        border,
-        borderSM,
+        border: itemBorderWidth,
+        borderSM: itemBorderWidthSM,
       },
+      borderColor: itemBorderColor
     },
     lineStyle: {
       width: {
-        lineWidth,
-        lineWidthLG,
-        lineWidthZero,
+        lineWidth: lineStyleWidth,
+        lineWidthLG: lineStyleWidthLG,
+        lineWidthZero: lineStyleWidthZero,
       },
     },
   };

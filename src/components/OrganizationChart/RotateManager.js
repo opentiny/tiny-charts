@@ -1,5 +1,6 @@
 import { isParent } from '../../util/dom';
-// TODO: mousemove 和 mouseup 改为绑定在this.dom
+import { pointsDirection, getAngleByPoints } from '../../util/math';
+
 export default class RotateManager {
     currentTarget = null; 
 
@@ -32,80 +33,66 @@ export default class RotateManager {
                     startTouchPosition: { // 鼠标拖动的起始位置
                         x: e.clientX,
                         y: e.clientY
-                    }
+                    },
+                    clockwise: undefined, // true 表示顺时针方向
                 }
             });
             element.addEventListener('mousemove', (e) => {
                 if(this.currentTarget){
                     this.drag = true;
-                    this.currentTarget.endTouchPosition = { // 鼠标拖动的当前位置
+                    // 当前拖动的层级
+                    let curLevel = this.currentTarget.index;
+                    // 鼠标拖动的当前位置
+                    this.currentTarget.endTouchPosition = { 
                         x: e.clientX,
                         y: e.clientY
                     };
-                    let endAngle = 360 * Math.atan((this.currentTarget.endTouchPosition.y - this.currentTarget.center.y) / (this.currentTarget.endTouchPosition.x - this.currentTarget.center.x))/(2 * Math.PI);
-                    let startAngle = 360 * Math.atan((this.currentTarget.startTouchPosition.y - this.currentTarget.center.y) / (this.currentTarget.startTouchPosition.x - this.currentTarget.center.x))/(2 * Math.PI);
-                    let rotate = 0;
-                    console.log('startAngle' + startAngle)
-                    console.log('endAngle' + endAngle)
-                    if(endAngle >= 0 && startAngle >= 0){
-                        // ???
-                    }else if(endAngle < 0 && startAngle >= 0){
-                        // endAngle = endAngle + 180;
-                    }else if(endAngle < 0 && startAngle <= 0){
-                        // ???
-                    }else if(endAngle > 0 && startAngle < 0){
-                        // startAngle = startAngle + 180;
+                    // 是否为顺时针方向
+                    let clockwise = pointsDirection(
+                        this.currentTarget.center, 
+                        this.currentTarget.startTouchPosition, 
+                        this.currentTarget.endTouchPosition
+                    );
+                    // 旋转夹角，计算结论<=180°，要结合顺逆时判断是否>180°
+                    let angle = getAngleByPoints(
+                        this.currentTarget.center, 
+                        this.currentTarget.startTouchPosition, 
+                        this.currentTarget.endTouchPosition
+                    )[1];
+                    // 顺时针夹角为正，逆时针夹角为负
+                    if(this.currentTarget.clockwise === undefined){
+                        this.currentTarget.clockwise = clockwise;
+                    } else if (this.currentTarget.clockwise !== clockwise){ 
+                        // 用户旋转超过180度后，继续旋转, 极限是转到 350
+                        if(angle > 10){  
+                            angle = 360 - angle;
+                        // 用户向另一个方向旋转了
+                        }else{
+                            this.currentTarget.clockwise = clockwise;
+                        }
                     }
-
-                    rotate = endAngle - startAngle;
-                    console.log('rotate' + rotate)
+                    let rotate = angle;
+                    rotate = angle * (this.currentTarget.clockwise ? 1 : -1); 
                     rotate = this.currentTarget.startRotate + rotate;
-                    this.setRotateDeg(this.currentTarget.dom, -1, rotate);
+                    // 旋转时产生的临时选中下标
+                    let selected = this.getSelected(rotate).selected;
+                    // 旋转前选中的下标
+                    let prevSelected = this.selected[curLevel];
+                    this.setRotateDeg(this.currentTarget.dom, curLevel, rotate, selected, prevSelected);
                 }                
             });
             element.addEventListener('mouseup', (e) => {
                 if(this.drag && this.currentTarget){
-                    let endRotate = this.getRotateDeg(this.currentTarget.dom);
                     let curIndex = this.currentTarget.index;
-                    let unitAngle = this.angles[curIndex];
-                    // step1. 吸附到最近的 unitAngle 倍数上
-                    if(Math.abs(endRotate % unitAngle) >= unitAngle / 2){
-                        if(endRotate >= 0){
-                            endRotate = (Math.floor(endRotate / unitAngle) + 1) * unitAngle;
-                        }else{
-                            endRotate = (Math.ceil(endRotate / unitAngle) - 1) * unitAngle;
-                        }
-                    }else{
-                        if(endRotate >= 0){
-                            endRotate = Math.floor(endRotate / unitAngle) * unitAngle;
-                        }else{
-                            endRotate = Math.ceil(endRotate / unitAngle) * unitAngle;
-                        }
-                    }
-                    // step2. 进行超限修正 
-                    // 修正前旋转了多少位置
-                    let dataLength = this.nodeManager.getDepthData(this.data, curIndex).length;
-                    let changeIndex = (endRotate - this.currentTarget.startRotate) / unitAngle;
-                    let endIndex = parseInt(changeIndex.toFixed()) + this.selected[curIndex];
-                    // 右侧超限需要回转
-                    if(endIndex >= dataLength){
-                        this.selected[curIndex] = dataLength - 1; 
-                        endRotate = endRotate - (endIndex - (dataLength - 1)) * unitAngle;
-                    // 左侧超限需要回转
-                    } else if(endIndex < 0){
-                        this.selected[curIndex] = 0;
-                        endRotate = endRotate + (Math.abs(endIndex)) * unitAngle;
-                    // 正常范围内
-                    } else if(this.selected[curIndex] !== endIndex){
-                        this.selected[curIndex] = endIndex;
-                    }
+                    let endRotate = this.getRotateDeg(this.currentTarget.dom);
+                    let result = this.getSelected(endRotate, true);
+                    endRotate = result.rotate;
+                    this.selected[curIndex] = result.selected
                     // 刷新下层数据
                     this.nodeManager.refreshWarpper(curIndex, this.selected);
-                    this.setRotateDeg(this.currentTarget.dom, curIndex,  endRotate);
+                    this.setRotateDeg(this.currentTarget.dom, curIndex,  endRotate, this.selected[curIndex], -1);
                 }
                 this.currentTarget = null;
-                e.stopPropagation();
-                e.preventDefault();
             });
         });
         this.dom.addEventListener('mouseleave', (e)=>{
@@ -130,28 +117,34 @@ export default class RotateManager {
                 let rotate = this.angles[warpperIndex] * moveIndex * -1;
                 rotate = this.getRotateDeg(warpperDom) + rotate;
                 this.selected[warpperIndex] = nodeIndex;
-                this.setRotateDeg(warpperDom, warpperIndex,  rotate);
+                this.setRotateDeg(warpperDom, warpperIndex,  rotate, nodeIndex, -1);
                 // 刷新下层数据
                 this.nodeManager.refreshWarpper(warpperIndex, this.selected);
             }
         });
     }
 
-    // 旋转DOM，domIndex == -1 时表示仅旋转，不刷新内部组件selected状态， 避免了拖拽时的卡顿
-    setRotateDeg(dom, domIndex, rotate){
+    /**
+     * 旋转 ozc_warpper
+     * dom: ozc_warpper元素
+     * domIndex： ozc_warpper下标
+     * rotate： ozc_warpper目标旋转角度
+     * selected： 当前选中的元素
+     * prevSelected： 拖拽过程前选中的元素（上一个选中元素）
+     */
+    setRotateDeg(dom, domIndex, rotate, selected, prevSelected){
         dom.style.transform = ` translateX(-50%) translateY(-50%) rotate(${rotate}deg)`;
-        let data = domIndex === -1 ? undefined : this.nodeManager.getDepthData(this.data, domIndex);
-        // 逆向旋转内部组件
+        let data = this.nodeManager.getDepthData(this.data, domIndex);
+        // 逆向旋转ozc_card
         Array.from(dom.getElementsByClassName('ozc_card')).forEach((element, index) => {
             element.style.transform = `rotate(${-rotate}deg)`;
-            if(domIndex !== -1){
-                // 清空内部组件，并重新绘制 selected 状态
-                element.innerHTML = '';
-                this.nodeManager.render && this.nodeManager.render(element, data[index], {
-                    boss: false,
-                    selected: this.selected[domIndex] === index ? true : false
-                });
-            }
+            // 清空ozc_card，并重新绘制 selected 状态
+            element.innerHTML = '';
+            this.nodeManager.render && this.nodeManager.render(element, data[index], {
+                boss: false,
+                selected: selected === index ? true : false,
+                prevSelected: prevSelected === index ? true : false,
+            });
         }); 
     }
 
@@ -163,10 +156,47 @@ export default class RotateManager {
         let targetRotate = parseFloat(transform.slice(rotateIndex + 'rotate('.length, degIndex));
         return targetRotate;
     }
-
-    // 以center为圆心，以start
-    getMouseDeg(center, ){
-
+    
+    // 根据当前旋转角度计算出选中的单位, correct = true时表示需要对角度进行修正
+    getSelected(rotate, correct){
+        let curIndex = this.currentTarget.index;
+        let unitAngle = this.angles[curIndex];
+        // step1. 吸附到最近的 unitAngle 倍数上
+        if(Math.abs(rotate % unitAngle) >= unitAngle / 2){
+            if(rotate >= 0){
+                rotate = (Math.floor(rotate / unitAngle) + 1) * unitAngle;
+            }else{
+                rotate = (Math.ceil(rotate / unitAngle) - 1) * unitAngle;
+            }
+        }else{
+            if(rotate >= 0){
+                rotate = Math.floor(rotate / unitAngle) * unitAngle;
+            }else{
+                rotate = Math.ceil(rotate / unitAngle) * unitAngle;
+            }
+        }
+        // step2. 进行超限修正 
+        // 修正前旋转了多少位置
+        let dataLength = this.nodeManager.getDepthData(this.data, curIndex).length;
+        let changeIndex = (rotate - this.currentTarget.startRotate) / unitAngle;
+        let endIndex = parseInt(changeIndex.toFixed()) + this.selected[curIndex];
+        let selectedIndex = 0;
+        // 右侧超限需要回转
+        if(endIndex >= dataLength) {
+            selectedIndex = dataLength - 1; 
+            correct && (rotate = rotate - (endIndex - (dataLength - 1)) * unitAngle);
+        // 左侧超限需要回转
+        } else if (endIndex < 0){
+            selectedIndex = 0;
+            correct && (rotate = rotate + (Math.abs(endIndex)) * unitAngle);
+        // 正常范围内
+        } else {
+            selectedIndex = endIndex;
+        }
+        return {
+            rotate: rotate,
+            selected: selectedIndex
+        };
     }
 }
 

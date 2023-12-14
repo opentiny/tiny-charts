@@ -1,4 +1,4 @@
-import { getRandom } from '../../../util/util';
+import { getRandom } from '../../../util/math';
 
 function overallLayout(params, api, distance, displayRoot, d3) {
   const context = params.context;
@@ -124,7 +124,7 @@ function returnValue(params) {
 
 export function handleRootData(params) {
   const { d3, seriesData, baseOpt, distance, length, type, chartInstance, iChartOption } = params;
-  
+
   function stratify() {
     // d3函数：定义球的大小排列与id名处理等
     return d3

@@ -40,3 +40,5 @@ const font = {
 };
 
 export default font;
+
+export { getFont };

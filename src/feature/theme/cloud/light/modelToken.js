@@ -1,7 +1,8 @@
-import cloudMapToken from './mapToken';
+import mapToken from './mapToken';
 import getModelToken from '../getModelToken';
-const cloudModelToken = {
-  ...getModelToken(cloudMapToken),
+
+const modelToken = {
+  ...getModelToken(mapToken),
 };
 
-export default cloudModelToken;
+export default modelToken;

@@ -1,15 +1,33 @@
-const PieChart = (basicToken, mapToken) => {
-  const { borderLG, colorGray0, borderZero } = basicToken;
-  const { labelDistanceLG } = mapToken;
+const PieChart = modelToken => {
+  const {
+    itemBorderWidth,
+    itemBorderWidthZero,
+    itemBorderColor,
+    labelDistanceLG,
+    labelColor,
+    lineColor,
+    circleColor,
+    labelFontSizeSM,
+    itemBorderRadiusZero
+  } = modelToken;
 
   return {
     itemStyle: {
-      borderWidthLG: borderLG,
-      borderColor: colorGray0,
-      borderWidthZero: borderZero,
+      borderWidth: itemBorderWidth,
+      borderColor: itemBorderColor,
+      borderWidthZero: itemBorderWidthZero,
+      borderRadius: itemBorderRadiusZero,
     },
     label: {
       distance: labelDistanceLG,
+      color: labelColor,
+      fontSize: labelFontSizeSM
+    },
+    lineStyle: {
+      color: lineColor,
+    },
+    emptyCircleStyle: {
+      color: circleColor,
     },
   };
 };

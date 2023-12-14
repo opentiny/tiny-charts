@@ -8,10 +8,9 @@ import merge from '../../../util/merge';
 import { toArray } from '../../../util/type';
 
 function xAxis(iChartOpt, chartName) {
-  const theme = iChartOpt.theme;
   let xAxisResult = iChartOpt.xAxis || {};
   xAxisResult = toArray(xAxisResult).map(xAxisItem => {
-    let xAxisUnit = base(theme);
+    const xAxisUnit = base();
     // 坐标轴名称
     name(xAxisUnit, xAxisItem, iChartOpt);
     // 坐标轴两边留白策略

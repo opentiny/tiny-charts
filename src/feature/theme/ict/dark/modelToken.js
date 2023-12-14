@@ -1,7 +1,8 @@
 import mapToken from './mapToken';
 import getModelToken from '../getModelToken';
-const modeleToken = {
+
+const modelToken = {
   ...getModelToken(mapToken),
 };
 
-export default modeleToken;
+export default modelToken;

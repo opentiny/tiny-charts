@@ -1,6 +1,6 @@
 import tooltip from '../../option/config/tooltip';
 import defendXSS from '../../util/defendXSS';
-import { getTextWidth } from '../../util/util';
+import { getTextWidth } from '../../util/dom';
 import merge from '../../util/merge';
 
 // 配置桑基图是否可以拖动

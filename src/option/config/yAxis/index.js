@@ -1,26 +1,26 @@
 import base from './base';
-import title from '../title';
+import title from '../rectTitle';
 import { isArray } from '../../../util/type';
-import { getNewData, getAxisRangeFromData } from '../../../feature/fluctuation/index'
+import fluctuation from '../../../feature/fluctuation/index';
+import { transformData } from '../../../feature/fluctuation/index';
+import merge from '../../../util/merge';
 
 function yAxis(baseOpt, iChartOpt, chartName) {
-  let theme = iChartOpt.theme;
   let yAxisOpt = iChartOpt.yAxis;
-  let yAxisName = iChartOpt.yAxisName;
-  let data = iChartOpt.data;
+  const yAxisName = iChartOpt.yAxisName;
+  const data = iChartOpt.data;
   if (!isArray(yAxisOpt)) {
     yAxisOpt = [yAxisOpt];
   }
   if (isNeedTitle(yAxisOpt, yAxisName)) {
-    baseOpt.title = title(iChartOpt, chartName);
+    baseOpt.title = title(iChartOpt, chartName, yAxisOpt[0]?.nameTextStyle);
   }
   // 循环y轴配置
-  let yAxis = [];
+  const yAxis = [];
   yAxisOpt.forEach((item, index) => {
-    let temp = base(theme);
+    let temp = base();
     if (item && item.unit) {
       temp.axisLabel.formatter = `{value} ${item.unit}`;
-      // delete item.unit;
     }
     if (item && item.formatter) {
       temp.axisLabel.formatter = item.formatter;
@@ -34,21 +34,21 @@ function yAxis(baseOpt, iChartOpt, chartName) {
     if (item && item.splitLine) {
       item.splitLine = Object.assign(temp.splitLine, item.splitLine);
     }
-    // 静态给定y轴优化范围 
+    // 静态给定y轴优化范围
     if (item && item.fluctuation == true) {
-      let newdata = getNewData(data);
-      let value = getAxisRangeFromData(newdata);
+      const newdata = transformData(data);
+      const value = fluctuation(newdata);
       temp.min = value[0];
       temp.max = value[1];
     }
     // 动态优化y轴范围
     if (item && item.allowRange) {
-      let newdata = getNewData(data);
-      let value = getAxisRangeFromData(newdata, item.allowRange)
+      const newdata = transformData(data);
+      const value = fluctuation(newdata, item.allowRange);
       temp.min = value[0];
       temp.max = value[1];
     }
-    temp = Object.assign(temp, item);
+    temp = merge(temp, item);
     if (index == 0 && yAxisOpt.length == 1 && temp.position !== 'right') {
       delete temp.name;
     }
@@ -56,7 +56,6 @@ function yAxis(baseOpt, iChartOpt, chartName) {
   });
   return yAxis;
 }
-
 
 function isNeedTitle(yAxisOpt, yAxisName) {
   if (yAxisName) {
@@ -69,5 +68,3 @@ function isNeedTitle(yAxisOpt, yAxisName) {
 }
 
 export default yAxis;
-
-

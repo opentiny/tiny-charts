@@ -1,38 +1,49 @@
-import cloneDeep from '../../../util/cloneDeep';
-import Theme from '../../../feature/theme'
-const baseOption = {
-  trigger: 'axis',
-  confine: true,
-  axisPointer: {
-    z: 0,
-    type: 'line',
-    lineStyle: {
-      type: 'solid',
-      width: 1,
-      color: undefined,
-    },
-    shadowStyle: {
-      color: undefined,
-    },
-  },
-  textStyle: {
-    color: undefined,
-    fontSize: 14,
-  },
-  borderWidth: 0,
-  padding: [14, 16],
-  backgroundColor: undefined,
-  formatter: undefined,
-};
+import Theme from '../../../feature/theme';
 
-function base(theme) {
-  const option = cloneDeep(baseOption);
-  const colorBase =Theme.color.base
-  option.axisPointer.lineStyle.color = colorBase.subfont;
-  option.axisPointer.shadowStyle.color = colorBase.subg;
-  option.backgroundColor = colorBase.bg;
-  option.textStyle.color = colorBase.font;
-  return option;
+const chartType = [
+  'CircleProcessChart',
+  'GaugeChart',
+  'RadarChart',
+  'FunnelChart',
+  'JadeJueChart',
+  'LiquidfillChart',
+  'PieChart',
+  'PolarBarChart',
+  'SunburstChart',
+];
+
+function getbaseOption(chartName) {
+  const trigger = chartName && chartType.includes(chartName) ? 'item' : 'axis';
+  return {
+    trigger,
+    confine: true,
+    borderRadius: Theme.config.tooltipBorderRaduis,
+    axisPointer: {
+      z: 0,
+      type: 'line',
+      lineStyle: {
+        type: Theme.config.tooltipAxisPointerLineType,
+        width: Theme.config.tooltipAxisPointerLineWidth,
+        color: Theme.config.tooltipAxisPointerLineColor,
+      },
+      shadowStyle: {
+        color: Theme.config.tooltipAxisPointerShadow,
+      },
+    },
+    textStyle: {
+      color: Theme.config.tooltipAxisPointerTextColor,
+      fontSize: Theme.config.tooltipTextFontSize,
+    },
+    borderWidth: 0,
+    // 待定
+    padding: [14, 16],
+    backgroundColor: Theme.config.tooltipBg,
+    formatter: undefined,
+  };
+}
+
+function base(chartName) {
+  return getbaseOption(chartName);
 }
 
 export default base;

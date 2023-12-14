@@ -14,7 +14,7 @@ function setDefaultTheme(iChartOption) {
  */
 function setDefaultColor(iChartOption) {
   if (!iChartOption.color) {
-    iChartOption.color = Theme.color.group
+    iChartOption.color = Theme.config.colorGroup
   }
 }
 

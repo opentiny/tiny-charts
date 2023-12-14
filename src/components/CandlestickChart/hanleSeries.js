@@ -2,7 +2,7 @@ import  cloneDeep  from '../../util/cloneDeep';
 import {BASICSERIES} from './BaseOption'
 import LineChart from '../LineChart';
 import  BarChart from '../BarChart'
-import { xkey } from '../../option/RectangularCoordinateSystem';
+import { xkey } from '../../option/RectSys';
 import Theme from '../../feature/theme';
 function handleSeries(baseOpt,  iChartOpt, data, chartInstance){
     const {upColor, downColor}=iChartOpt

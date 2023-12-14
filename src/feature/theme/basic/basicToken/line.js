@@ -4,12 +4,12 @@ const line = {
   lineWidthSM: 1,
   lineWidth: 2,
   lineWidthLG: 3,
-  lineWidthXL:8,
-  lineWidthXXL:10,
-  lineWidthXXXL:20,
+  lineWidthXL: 8,
+  lineWidthXXL: 10,
+  lineWidthXXXL: 20,
   lineTypeSolid: 'solid',
   lineTypeDashed: 'dashed',
-  lineTypeDashedLG: [4, 10],
+  lineTypeDashedLG: [4, 4],
   lineLength: 25,
 };
 export default line;

@@ -1,28 +1,34 @@
-export const markLineDefault = {
-  symbol: 'none',
-  silent: true,
-  label: {
-    show: false,
-  },
-  lineStyle: {
-    width: 1,
-  },
-  emphasis: {
+import Theme from '../../../feature/theme';
+
+export function getMarkLineDefault() {
+  return {
+    symbol: 'none',
+    silent: true,
     label: {
       show: false,
     },
     lineStyle: {
-      width: 1,
+      width: Theme.config.seriesMarkLineWidth,
     },
-  },
-  data: [],
-};
+    emphasis: {
+      label: {
+        show: false,
+      },
+      lineStyle: {
+        width: Theme.config.seriesMarkLineEmphasisWidth,
+      },
+    },
+    data: [],
+  };
+}
 
-export const markPointDefault = {
-  symbol: 'path://M50 0 L0 50 L100 50 Z',
-  symbolSize: [10, 6],
-  label: {
-    color: 'transparent',
-  },
-  data: [],
-};
+export function getMarkPointDefault() {
+  return {
+    symbol: 'path://M50 0 L0 50 L100 50 Z',
+    symbolSize: [10, 6],
+    label: {
+      color: Theme.config.markPointLabelColor,
+    },
+    data: [],
+  };
+}

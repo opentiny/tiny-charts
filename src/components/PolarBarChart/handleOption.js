@@ -1,17 +1,23 @@
 import defendXSS from '../../util/defendXSS';
 // 获取bar的series数据
-export function getSeriesData(data) {
+export function getSeriesData(data, type) {
   const seriesData = [];
-  data.forEach((item, i) => {
-    seriesData[i] = [];
-    for (let j = 0; j < data.length; j++) {
-      if (i == j) {
-        seriesData[i][j] = item.value;
-      } else {
-        seriesData[i][j] = 0;
+  if (type === 'normal') {
+    data.forEach((item, i) => {
+      seriesData[i] = [];
+      for (let j = 0; j < data.length; j++) {
+        if (i == j) {
+          seriesData[i][j] = item.value;
+        } else {
+          seriesData[i][j] = 0;
+        }
       }
-    }
-  });
+    });
+  } else {
+    data.forEach((item) => {
+      seriesData.push(item.value);
+    });
+  }
 
   return seriesData;
 }
@@ -47,7 +53,7 @@ function angleText(i, num) {
 }
 
 function tooltipFormatter(params) {
-  const seriesName = params.seriesName;
+  const seriesName = params.name;
   const color = params.color;
   const value = params.value;
   const htmlString = `<div>

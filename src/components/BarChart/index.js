@@ -4,9 +4,9 @@ import { event } from '../../util/event';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../util/baseOption';
 import {mergeVisualMap, mergeSeries} from '../../util/merge';
-import RectCoordSys from '../../option/RectangularCoordinateSystem';
+import RectCoordSys from '../../option/RectSys';
 import { setStack, setDirection, setDoubleSides } from './handleOptipn';
-import { xkey, xdata, ldata, ydata } from '../../option/RectangularCoordinateSystem';
+import { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 
 import { setSeries, setRange, setMarkLine, setWaterFall, setLimitFormatter } from './handleSeries';
 

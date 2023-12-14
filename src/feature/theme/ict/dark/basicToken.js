@@ -1,10 +1,10 @@
-import { basicToken } from '../../basic';
-import ictDark from '../../color/ict/dark';
+import basic from '../../basic';
+import dark from '../../color/ict/dark';
 
 // 覆盖基础的色值
-const ictBasicToken = {
-  ...basicToken,
-  ...ictDark,
+const basicToken = {
+  ...basic,
+  ...dark,
 };
 
-export default ictBasicToken;
+export default basicToken;

@@ -13,7 +13,7 @@ import { handleEmphasis } from './handleSeries';
 
 import { event } from '../../util/event';
 import init from '../../option/init';
-import title from '../../option/config/title';
+import title from '../../option/config/rectTitle';
 import toolTip from '../../option/config/tooltip';
 import xAxis from '../../option/config/xAxis';
 import yAxis from '../../option/config/yAxis';

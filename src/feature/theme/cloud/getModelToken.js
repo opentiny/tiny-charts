@@ -1,4 +1,4 @@
-export default function getModelToken(mapToken) {
+function getModelToken(mapToken) {
   const {
     colorPrimary,
     colorText,
@@ -15,11 +15,12 @@ export default function getModelToken(mapToken) {
     textFontSize,
     subtextFontSize,
     nameGap,
+    titleGap,
+    axisLabelGap,
     containerGap,
     labelLineLength,
     borderWidthZero,
     colorSubg,
-    colorBg,
     colorAxisPointerShadow,
     colorAxisPointerLine,
     axisPointerLineWidth,
@@ -30,18 +31,45 @@ export default function getModelToken(mapToken) {
     colorTextTP,
     colorActive,
     colorInactive,
+    itemBorderWidthSM,
+    itemBorderRadiusSM,
+    labelColor,
+    labelFontSizeSM,
+    colorItemTP,
+    barWidth,
+    colorBorderTP,
+    symbolSize,
+    symbolSizeSM,
+    symbolSizeLG,
+    colorAreaTP,
+    richFontSizeSM,
+    richLineHeight,
+    richLineHeightSM,
+    itemBorderWidth,
+    lineStyleWidth,
+    lineStyleWidthLG,
+    lineStyleWidthZero,
+    itemBorderWidthLG,
+    itemBorderWidthZero,
+    itemBorderColor,
+    labelDistanceLG,
+    symbolSizeXS,
+    containerBoderRadius,
+    barBorderRadiusZero,
+    titleFontSize,
+    subtitleFontSize,
   } = mapToken;
+  return {
+    // 主文本
 
-  // 主文本
-  const textColor = {
     tooltipAxisPointerTextColor: colorText,
     //   圆盘图Serieslabel
     seriesLabelTextColor: colorText,
-  };
 
-  // 次要文本
-  const subTextColor = {
-    titleTextColor: colorSubtext,
+    // 次要文本
+
+    titleTextColor: colorText,
+    titleSubTextColor: colorSubtext,
     legendTextColor: colorSubtext,
     legendTextRichColor: colorSubtext,
     legendRichTextColor: colorSubtext,
@@ -51,19 +79,17 @@ export default function getModelToken(mapToken) {
     yAxisLabelColor: colorSubtext,
     radarAxisNameColor: colorSubtext,
     radarAxisLabelColor: colorSubtext,
-  };
+    angleAxisLabelColor: colorSubtext,
+    // 轴线的name字号
 
-  // 轴线的name字号
-  const axisNameFontSize = {
     xAxisNameFontSize: textFontSize,
     yAxisNameFontSize: textFontSize,
-
+    radiusAxisLabelColor: colorSubtext,
     tooltipTextFontSize: textFontSize,
-  };
+    titleTextFontSize: titleFontSize,
+    titleSubtextFontSize: subtitleFontSize,
+    // 轴线的类型
 
-  // 轴线的类型
-
-  const axisType = {
     xAxisLineType: axisLineType,
     xAxisTickLineType: axisTickLineType,
     xAxisSplitLineType: axisSplitLineType,
@@ -72,11 +98,17 @@ export default function getModelToken(mapToken) {
     yAxisTickLineType: axisTickLineType,
     yAxisSplitLineType: axisSplitLineType,
 
+    angleAxisLineType: axisLineType,
+    angleAxisTickLineType: axisTickLineType,
+    //* *********备注极坐标系的角度轴的分割线需要特别写成实线，和直角坐标系的使用有区别******
+    angleAxisSplitLineType: axisLineType,
+    radiusAxisLineType: axisLineType,
+    radiusAxisTickLineType: axisTickLineType,
+    radiusAxisSplitLineType: axisSplitLineType,
     tooltipAxisPointerLineType: axisPointerLineType,
-  };
 
-  // 次要文本的字号
-  const subTextFontSize = {
+    // 次要文本的字号
+
     xAxisLabelFontSize: subtextFontSize,
     yAxisLabelFontSize: subtextFontSize,
     legendTextFontSize: subtextFontSize,
@@ -84,11 +116,8 @@ export default function getModelToken(mapToken) {
     angleAxisLabelFontSize: subtextFontSize,
     radiusAxisLabelFontSize: subtextFontSize,
 
-    titleTextFontSize: subtextFontSize,
-  };
+    // 轴线的颜色
 
-  // 轴线的颜色
-  const axisLineColor = {
     xAxisLineColor: colorAxisLine,
     xAxisTickLineColor: colorAxisTickLine,
     xAxisSplitLineColor: colorAxisSplitLine,
@@ -112,10 +141,9 @@ export default function getModelToken(mapToken) {
     tooltipAxisPointerLineColor: colorAxisPointerLine,
     //   圆盘图的serieslabel线
     seriesLabelLineColor: colorAxisSplitLine,
-  };
 
-  // 轴线的粗细
-  const axislineWidth = {
+    // 轴线的粗细
+
     xAxisLineWidth: axisLineWidth,
     xAxisTickLineWidth: axisTickLineWidth,
     xAxisSplitLineWidth: axisSplitLineWidth,
@@ -137,44 +165,30 @@ export default function getModelToken(mapToken) {
     angleAxisSplitLineWidth: axisSplitLineWidth,
 
     tooltipAxisPointerLineWidth: axisPointerLineWidth,
-  };
 
-  // 轴线名称的间距
-  const axisNameGap = {
+    // 轴线名称的间距
+
     xAxisNameGap: nameGap,
     yAxisNameGap: nameGap,
-  };
-
-  const lineLength = {
+    titleItemGap: titleGap,
+    radiusAxisLabelGap: axisLabelGap,
     // 圆盘图的labelline的长度
     seriesLabelLineLength: labelLineLength, // 待讨论
-  };
 
-  // tooltip的间距
-  const tooltipSpace = {
+    // tooltip的间距
+
     // 垂直
     tooltipSpaceVertical: containerGap,
     // 水平
     tooltipSpaceHorizontal: containerGap * 2,
-  };
 
-  // 此部分的配置是根据规范的tooltip的内容区域的文本样式
-  const tooltipContent = {};
+    // 背景色
 
-  const gridGap = {
-    // gridTop:
-    // gridRight:
-    // gridBottom:
-    // gridLeft:
-  };
+    tooltipBg: colorSubg,
+    tooltipFontColor: colorText,
+    tooltipBorderRaduis: containerBoderRadius,
+    // 边框相关
 
-  // 背景色
-  const containerBg = {
-    tooltipBg: colorBg,
-  };
-
-  // 边框相关
-  const borderWidth = {
     // 圆盘图
     seriesItemStyleBorderWidthZero: borderWidthZero,
     // seriesItemStyleBorderWidth:
@@ -182,16 +196,14 @@ export default function getModelToken(mapToken) {
     legendInactiveBorderWidth: borderWidthZero,
     legendBorderWidth: borderWidthZero,
     legendItemStyleBorderWidth: borderWidthZero,
-  };
 
-  // 图例相关
-  const legend = {
+    // 图例相关
+
     legendItemGap: legendGap,
     legendCircleItemWidth: 24,
     legendCircleItemHeight: 6,
     legendReactItemWidth: 12,
     legendReactItemHeight: 2,
-    legendTextFontSize: subtextFontSize,
     legendInactiveColor: colorInactive,
     legendTextPadding: [containerGap / 2, 0, 0, 0],
     legendTextRichPadding: [containerGap / 2, 0, 0, 0],
@@ -199,48 +211,56 @@ export default function getModelToken(mapToken) {
     legendInactiveBorderColor: colorPrimary,
     legendPageIconInactiveColor: colorInactive,
     legendPageIconColor: colorActive,
-  };
 
-  const axisPointerShadow = {
     tooltipAxisPointerShadow: colorAxisPointerShadow,
-  };
 
-  // 圆盘图
-  const seriesEmptyCircleColor = colorSubg;
+    // 圆盘图
+    seriesEmptyCircleColor: colorSubg,
 
-  const seriesMarkLineWidth = markLineWidth;
+    seriesMarkLineWidth: markLineWidth,
 
-  const seriesMarkLineEmphasisWidth = markLineEmphasisWidth;
+    seriesMarkLineEmphasisWidth: markLineEmphasisWidth,
 
-  const markPointLabelColor = colorTextTP;
-  const lineColorTp = colorTextTP;
+    markPointLabelColor: colorTextTP,
 
-  //  visualMap
-  const visualMapPiecesColor = colorTextTP;
+    lineColorTp: colorTextTP,
 
-  const modeleToken = {
+    //  visualMap
+    visualMapPiecesColor: colorTextTP,
+    visualMapDashColor: colorPrimary,
+
     colorPrimary,
-    ...textColor,
-    ...subTextColor,
-    ...axisLineColor,
-    ...axislineWidth,
-    ...axisType,
-    ...axisNameFontSize,
-    ...subTextFontSize,
-    ...tooltipSpace,
-    ...axisNameGap,
-    ...lineLength,
-    ...borderWidth,
-    ...axisPointerShadow,
-    ...legend,
-    ...containerBg,
-    seriesEmptyCircleColor,
-    seriesMarkLineWidth,
-    seriesMarkLineEmphasisWidth,
-    markPointLabelColor,
-    lineColorTp,
-    visualMapPiecesColor,
-  };
 
-  return modeleToken;
+    // series系列
+    itemBorderWidthSM,
+    itemBorderWidthZero,
+    itemBorderWidth,
+    itemBorderWidthLG,
+    itemBorderColor,
+    itemBorderColorTP: colorBorderTP,
+    itemBorderRadiusSM,
+    itemBorderRadiusZero: barBorderRadiusZero,
+    itemColorTP: colorItemTP,
+    symbolSize,
+    symbolSizeSM,
+    symbolSizeLG,
+    symbolSizeXS,
+    labelColor,
+    labelFontSizeSM,
+    labelDistanceLG,
+    richFontSizeSM,
+    richLineHeight,
+    richLineHeightSM,
+    lineStyleWidth,
+    lineStyleWidthLG,
+    lineStyleWidthZero,
+    lineColor: colorText,
+    barWidth,
+    areaColorTP: colorAreaTP,
+    circleColor: colorAxisLine,
+    markLineColorTP: colorBorderTP,
+  };
 }
+
+export default getModelToken;
+export { getModelToken as getCloudModelToken };

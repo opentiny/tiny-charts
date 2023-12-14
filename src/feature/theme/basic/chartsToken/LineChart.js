@@ -1,6 +1,15 @@
-const LineChart = (basicToken, mapToken) => {
-  const { symbolSizeXS, symbolSize } = mapToken;
-  const { lineWidthLG, borderZero, lineWidth, borderLG, colorTP } = basicToken;
+const LineChart = (modelToken) => {
+  const {
+    symbolSize,
+    symbolSizeXS,
+    lineStyleWidthLG,
+    lineStyleWidth,
+    itemBorderWidthLG,
+    itemBorderWidthZero,
+    itemBorderWidth,
+    itemBorderColor,
+    markLineColorTP
+  } = modelToken;
 
   return {
     symbolSize: {
@@ -8,16 +17,18 @@ const LineChart = (basicToken, mapToken) => {
       symbolSize,
     },
     lineStyle: {
-      lineWidthLG,
-      lineWidth,
+      lineWidthLG: lineStyleWidthLG,
+      lineWidth: lineStyleWidth,
     },
     itemStyle: {
-      borderZero,
-      borderLG,
+      borderZero: itemBorderWidthZero,
+      borderLG: itemBorderWidthLG,
+      border:itemBorderWidth,
+      borderColor:itemBorderColor
     },
     markLine: {
       lineStyle: {
-        color: colorTP,
+        color: markLineColorTP,
       },
     },
   };

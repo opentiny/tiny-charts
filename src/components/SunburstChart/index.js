@@ -2,7 +2,7 @@ import init from '../../option/init';
 import { event } from '../../util/event';
 import { setSeries } from './handleSeries';
 import merge from '../../util/merge';
-import PolarCoordSys from '../../option/PolarCoordinateSystem';
+import PolarCoordSys from '../../option/PolarSys';
 
 const CHART_NAME = 'SunburstChart';
 export default class SunburstChart {

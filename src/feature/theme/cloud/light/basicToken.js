@@ -1,9 +1,10 @@
-import { basicToken } from '../../basic';
-import cloudLight from '../../color/cloud/light';
+import basic from '../../basic';
+import light from '../../color/cloud/light';
+
 // 覆盖基础的色值
-const cloudBasicToken = {
-  ...basicToken,
-  ...cloudLight,
+const basicToken = {
+  ...basic,
+  ...light,
 };
 
-export default cloudBasicToken;
+export default basicToken;

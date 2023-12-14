@@ -6,16 +6,15 @@ import textStyle from './textStyle';
 import itemStyle from './itemStyle';
 
 function legend(iChartOption, chartName) {
-  let theme = iChartOption.theme;
-  let selfLegend = iChartOption.legend;
-  let {
+  const selfLegend = iChartOption.legend;
+  const {
     data,
     show,
     orient,
     formatter,
     selectedMode,
   } = selfLegend;
-  let legend = base(theme);
+  const legend = base();
   // 控制显示
   if (!show) {
     legend.show = false;

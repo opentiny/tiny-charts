@@ -5,7 +5,9 @@ function getColor(colors, index) {
   return colors[index % colors.length];
 }
 
-// 十六进制转rgba  codeToRGB("#6d8ff0",0.5) --> 'rgba(109,143,240,0.5)'
+/**
+ * 十六进制转rgba, 如codeToRGB("#6d8ff0",0.5) --> 'rgba(109,143,240,0.5)'
+ */
 function codeToRGB(code, opacity) {
   if (code === undefined) {
     return undefined;
@@ -17,8 +19,10 @@ function codeToRGB(code, opacity) {
   return `rgba(${result.join(',')},${opacity})`;
 }
 
-// rgb转十六进制 codeToHex('rgba(255,0,0,.5)') --> '#fffcfc'
-// 也可以将red、blue等转换为十六进制 codeToHex
+/**
+ * rgba转十六进制 codeToHex('rgba(255,0,0,.5)') --> '#fffcfc'
+ * 将red、blue等转换为十六进制
+ */
 function codeToHex(color) {
   switch (color) {
     case 'red':
@@ -61,16 +65,20 @@ function codeToHex(color) {
   return `#${  (`0${  r.toString(16)}`).slice(-2)  }${(`0${  g.toString(16)}`).slice(-2)  }${(`0${  b.toString(16)}`).slice(-2)}`;
 }
 
-// 修改 'rgba(109,143,240,0.5)' 格式下的颜色透明度,
+
+/**
+ * 修改 'rgba(109,143,240,0.5)' 格式下的颜色透明度
+ */
 function changeRgbaOpacity(rgba, opacity) {
   const [r, g, b] = rgba.match(/\d+(\.\d+)?/g);
   return `rgba(${r},${g},${b},${opacity})`;
 }
 
 
-// 生成过渡色的方法(c1,c2必须为十六进制颜色 c1为初始颜色，c2为末尾颜色，n表示过渡色数量，返回值为length===n+2的数组
-// 如：colorsBetween('#ff0000', '#ffffff', 10) -->
-// ['#ff0000','#ff1717','#ff2e2e','#ff4646','#ff5d5d','#ff7474','#ff8b8b','#ffa2a2','#ffb9b9','#ffd1d1','#ffe8e8','#ffffff' ]
+/**
+ * 生成过渡色的方法(c1,c2必须为十六进制颜色 c1为初始颜色，c2为末尾颜色，n表示过渡色数量，返回值为 length === n+2 的数组
+ * 如：colorsBetween('#ff0000', '#ffffff', 10) --> ['#ff0000','#ff1717','#ff2e2e','#ff4646','#ff5d5d','#ff7474','#ff8b8b','#ffa2a2','#ffb9b9','#ffd1d1','#ffe8e8','#ffffff' ]
+ */
 function colorsBetween(c1, c2, n) {
   const Color = function Color(r, g, b) {
     this.r = Math.abs(r);
@@ -140,6 +148,6 @@ export {
   getColor,
   codeToRGB,
   codeToHex,
-  changeRgbaOpacity,
   colorsBetween,
+  changeRgbaOpacity,
 }

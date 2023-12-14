@@ -9,8 +9,8 @@ import { handlePredict } from './handlePredict';
 import { topArea, bottomArea } from './AreaChart';
 import {mergeVisualMap, mergeSeries} from '../../util/merge';
 import { handleData, onlyOnePoint, discrete } from './handleOptipn';
-import RectCoordSys from '../../option/RectangularCoordinateSystem';
-import { xkey, xdata, ldata, ydata } from '../../option/RectangularCoordinateSystem';
+import RectCoordSys from '../../option/RectSys';
+import { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 
 class LineChart {
   constructor(iChartOption, chartInstance) {

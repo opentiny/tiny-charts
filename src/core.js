@@ -58,9 +58,22 @@ export default class CoreChart extends BaseChart {
     Theme.set(name, config);
   }
 
+  // 注册配置
+  static registerConfig(name, config) {
+    if (!config) {
+      tips.error('The second parameter config is required');
+      return;
+    }
+    Theme.setConfig(name, config);
+  }
+
   // 设置主题
   static theme(name) {
     Theme.setDefaultTheme(name);
+  }
+
+  static resetThemeCongfig() {
+    Theme.resetThemeCongfig();
   }
 
   // 开启响应式布局（类媒体查询效果）
@@ -109,7 +122,7 @@ export default class CoreChart extends BaseChart {
   }
 
   // 传入简化后的icharts-option
-  setSimpleOption(chartClass, iChartOption, plugins = {}, isInit = true) {
+  setSimpleOption(chartClass, iChartOption, plugins = {}, isInit = true) {   
     if (isInit) {
       Theme.setDefaultTheme(iChartOption.theme);
       this.mediaScreenObserver && this.mediaScreenObserver.setInitOption(iChartOption);
@@ -127,13 +140,6 @@ export default class CoreChart extends BaseChart {
     this.ichartsIns = new chartClass(iChartOption, this.echartsIns, this.plugins);
     this.eChartOption = this.ichartsIns.getOption();
     mergeExtend(this.iChartOption, this.eChartOption);
-  }
-
-  // 直接传入ECharts的原生配置项
-  setEchartsOption(option) {
-    if (option) {
-      this.eChartOption = option;
-    }
   }
 
   // 若自研图表，走自研图表路径，并更改this指向
@@ -269,6 +275,11 @@ export default class CoreChart extends BaseChart {
     return this.echartsIns;
   }
 
+  // 直接传入ECharts的原生配置项
+  setEchartsOption(option) {
+    option && (this.eChartOption = option);
+  }
+
   // 获取到ECharts配置项
   getEchartsOption() {
     return this.eChartOption;
@@ -280,7 +291,7 @@ export default class CoreChart extends BaseChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMaxValue(index) {
-    return this.echartsIns.getModel().getComponent('yAxis', index).axis.scale._extent[1];
+    return this.echartsIns.getModel().getComponent('yAxis', index)?.axis.scale._extent[1];
   }
 
   /**
@@ -289,6 +300,6 @@ export default class CoreChart extends BaseChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMinValue(index) {
-    return this.echartsIns.getModel().getComponent('yAxis', index).axis.scale._extent[0];
+    return this.echartsIns.getModel().getComponent('yAxis', index)?.axis.scale._extent[0];
   }
 }

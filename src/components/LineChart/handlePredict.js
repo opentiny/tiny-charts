@@ -1,6 +1,6 @@
-import Theme from '../../feature/theme';
 import cloneDeep from '../../util/cloneDeep';
 import defendXSS from '../../util/defendXSS';
+import chartToken from './chartToken';
 
 function setDashedLineVisualMap(seriesIndex, lineColor, predictIndex) {
   const vm = {
@@ -12,7 +12,7 @@ function setDashedLineVisualMap(seriesIndex, lineColor, predictIndex) {
       {
         gte: 0,
         lte: predictIndex,
-        color: 'rgba(0,0,0,0)',
+        color: chartToken.visualMapPiecesColor,
       },
       {
         gt: predictIndex,
@@ -40,7 +40,9 @@ function setToolTip(dataLength, fontColor, selfFormatter) {
         htmlString += `
                     <div>
                         <span style="display:inline-block;width:10px;
-                        height:10px;border-radius:5px;background-color:${defendXSS(color_ ? color_[0].color : item.color)};">
+                        height:10px;border-radius:5px;background-color:${defendXSS(
+                          color_ ? color_[0].color : item.color,
+                        )};">
                         </span>
                         <span style="margin-left:5px;color:${defendXSS(fontColor)}">
                             <span style="display:inline-block;width:80px;">${defendXSS(item.seriesName)}</span> 
@@ -65,14 +67,14 @@ export function handlePredict(option, predict, tipHtml, lineStyle) {
     const dataLength = data.length;
     const xAxisDataLength = option.xAxis[0].data.length;
     const predictIndex = option.xAxis[0].data.indexOf(predict);
-    const colorBase=Theme.color.base
-    const fontColor=colorBase.font
+    const colorBase = Theme.color.base;
+    const fontColor = colorBase.font;
     // 制作虚线的series(只有匹配成功即predictIndex>-1时，才设置阈值线的样式)
     if (predictIndex > -1) {
       for (let index = 0; index < dataLength; index++) {
         const temp = cloneDeep(data[index]);
         temp.lineStyle = {
-          width: 3,
+          width: chartToken.lineWidthLG,
           type: [5, 8],
         };
         temp.itemStyle = {
@@ -84,7 +86,7 @@ export function handlePredict(option, predict, tipHtml, lineStyle) {
         // 插入虚线的series
         option.series.push(temp);
         // VisualMap只能处理线的颜色，不能处理面积的颜色
-        let dashColor = colorBase.main
+        let dashColor = chartToken.visualMapDashColor;
         if (lineStyle && lineStyle.dashColor) {
           dashColor = lineStyle.dashColor;
         }
@@ -93,6 +95,6 @@ export function handlePredict(option, predict, tipHtml, lineStyle) {
       }
     }
     // 修改tooltip,不显示虚线的tooltip
-    option.tooltip.formatter = setToolTip(dataLength, fontColor, tipHtml);
+    option.tooltip.formatter = setToolTip(dataLength, chartToken.tooltipFontColor, tipHtml);
   }
 }

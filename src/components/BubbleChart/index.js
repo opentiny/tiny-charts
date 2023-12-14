@@ -6,7 +6,7 @@ import { setSeries, handleSeriesExtra } from './handleSeries';
 import { setTooltip } from './handleOptipn';
 import { handleTrendLine } from './handleTrendLine';
 import { setDataset, setVisualMap } from './handleVisualMap';
-import RectCoordSys from '../../option/RectangularCoordinateSystem';
+import RectCoordSys from '../../option/RectSys';
 
 class BubbleChart {
   constructor(iChartOption, chartInstance, plugins) {

@@ -1,5 +1,5 @@
 import { second, createEl, className, appendEL, appendText, appendNode, setStyle } from './util';
-import { getTextWidth } from '../../util/util';
+import { getTextWidth } from '../../util/dom';
 import defendXSS from '../../util/defendXSS';
 //  minute背景
 function renderMinute(node, theme) {

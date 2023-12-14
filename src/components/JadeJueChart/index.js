@@ -3,7 +3,7 @@ import BaseOption from './BaseOption';
 import cloneDeep from '../../util/cloneDeep';
 import { setSeriesData } from './handleSeries';
 import { handleLabelFormatter } from './labelFormatter';
-import PolarCoordSys from '../../option/PolarCoordinateSystem';
+import PolarCoordSys from '../../option/PolarSys';
 import { setStartAngle, setbarWidth, handleLegendData } from './handleOption';
 import { event } from '../../util/event';
 

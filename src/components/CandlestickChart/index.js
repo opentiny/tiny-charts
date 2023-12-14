@@ -1,6 +1,6 @@
 import init from '../../option/init';
 import { event } from '../../util/event';
-import RectCoordSys from '../../option/RectangularCoordinateSystem';
+import RectCoordSys from '../../option/RectSys';
 import {
   handleData,
   handleAxis,

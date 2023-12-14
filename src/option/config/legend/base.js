@@ -1,71 +1,64 @@
-import cloneDeep from '../../../util/cloneDeep';
-import Theme from '../../../feature/theme'
-const baseOption = {
-  data: [],
-  icon: 'circle',
-  left: 'center',
-  bottom: 12,
-  inactiveColor: undefined,
-  inactiveBorderColor: undefined,
-  inactiveBorderWidth: 0,
-  borderWidth: 0,
-  formatter: undefined,
-  textStyle: {
-    fontSize: 12,
-    color: undefined,
-    align: 'left',
-    verticalAlign: 'top',
-    padding: [3, 0, 0, 0],
-    rich: {
-      a: {
-        fontSize: 12,
-        color: undefined,
-        align: 'left',
-        verticalAlign: 'top',
-        padding: [4, 0, 0, 0],
+import Theme from '../../../feature/theme';
+import { pageIconArr } from './pageIcon';
+function getBaseOption() {
+  return {
+    data: [],
+    icon: 'circle',
+    left: 'center',
+    bottom: 12,
+    inactiveColor: Theme.config.legendInactiveColor,
+    inactiveBorderColor: Theme.config.legendInactiveBorderColor,
+    inactiveBorderWidth: Theme.config.legendInactiveBorderWidth,
+    borderWidth: Theme.config.legendBorderWidth,
+    formatter: undefined,
+    textStyle: {
+      fontSize: Theme.config.legendTextFontSize,
+      color: Theme.config.legendTextColor,
+      align: 'left',
+      verticalAlign: 'top',
+      padding: Theme.config.legendTextPadding,
+      rich: {
+        a: {
+          fontSize: Theme.config.legendTextRichFontSize,
+          color: Theme.config.legendTextRichColor,
+          align: 'left',
+          verticalAlign: 'top',
+          padding: Theme.config.legendTextRichPadding,
+        },
+        b: {
+          fontSize: Theme.config.legendTextRichFontSize,
+          color: Theme.config.legendTextRichColor,
+          align: 'left',
+          verticalAlign: 'top',
+          padding: Theme.config.legendTextRichPadding,
+        },
       },
-      b: {
-        fontSize: 12,
-        color: undefined,
-        align: 'left',
-        verticalAlign: 'top',
-        padding: [4, 0, 0, 0],
-      },
+      overflow: 'none',
+      width: undefined,
     },
-    overflow: 'none',
     width: undefined,
-  },
-  width: undefined,
-  pageTextStyle: {
-    color: undefined,
-  },
-  pageIconColor: undefined,
-  pageIconInactiveColor: undefined,
-  selectedMode: true,
-  align: 'left',
-  itemGap: 28,
-  itemWidth: 25,
-  itemHeight: 12,
-  itemStyle: {
-    borderWidth: 0,
-  },
-};
+    pageTextStyle: {
+      color: Theme.config.legendPageTextColor,
+    },
+    pageIconColor: Theme.config.legendPageIconColor,
+    pageIconInactiveColor: Theme.config.legendPageIconInactiveColor,
+    pageIcons: {
+      horizontal: pageIconArr,
+      vertical: pageIconArr
+    },
+    selectedMode: true,
+    align: 'left',
+    itemGap: Theme.config.legendItemGap,
+    itemWidth: Theme.config.legendCircleItemWidth,
+    itemHeight: Theme.config.legendCircleItemHeight,
+    itemStyle: {
+      borderWidth: Theme.config.legendItemStyleBorderWidth,
+    },
+  };
+}
 
-function base(theme) {
-  const option = cloneDeep(baseOption);
-  if (theme.toLowerCase().indexOf('cloud') !== -1) {
-    option.itemHeight = 6;
-  }
-  const colorBase = Theme.color.base         
-  option.inactiveColor = colorBase.subfont;
-  option.inactiveBorderColor = colorBase.main;
-  option.textStyle.color = colorBase.axislabel;
-  option.textStyle.rich.a.color = colorBase.axislabel;
-  option.textStyle.rich.b.color = colorBase.axislabel;
-  option.pageTextStyle.color = colorBase.font;
-  option.pageIconInactiveColor = colorBase.axis;
-  option.pageIconColor = colorBase.axislabel;
-  return option;
+function base() {
+  return getBaseOption();
 }
 
 export default base;

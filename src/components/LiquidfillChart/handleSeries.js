@@ -65,7 +65,7 @@ export function setSeries(iChartOption) {
 
 // 设置Label的属性
 function setLabel(seriesTarget, seriesSource, theme, label) {
-  const colorBase = Theme.color.base   
+  const colorBase = Theme.color.base
   // 多个数据：series里面label存在
   // 单个数据：没有series时一级属性label存在
   if (seriesSource.label !== undefined) {
@@ -91,7 +91,7 @@ function setLabel(seriesTarget, seriesSource, theme, label) {
 
 // 设置Outline的属性
 function setOutline(seriesTarget, seriesSource, theme, outline) {
-  const colorGroup = Theme.color.group 
+  const colorGroup = Theme.color.group
   const itemStyle = seriesTarget.outline.itemStyle;
   // 多个数据：series里面outline存在
   // 单个数据：没有series时一级属性outline存在
@@ -112,7 +112,7 @@ function setOutline(seriesTarget, seriesSource, theme, outline) {
 
 // 设置BackgroundStyle的属性
 function setBackgroundStyle(seriesTarget, seriesSource, theme, backgroundStyle) {
-  const colorBase = Theme.color.base 
+  const colorBase = Theme.color.base
   // 多个数据：series里面backgroundStyle存在
   // 单个数据：没有series时一级属性backgroundStyle存在
   if (seriesSource.backgroundStyle !== undefined) {
@@ -136,16 +136,16 @@ function setColor(seriesTarget, seriesSource, theme, color) {
   // 多个数据：series里面color存在
   // 单个数据：没有series时一级属性存在color
   if (seriesSource.color !== undefined) {
-    seriesTarget.color = colorGroup;
+    seriesTarget.color = [...colorGroup];
     merge(seriesTarget.color, seriesSource.color);
   }
   // 多个/单个数据：series里面color不存在但一级属性color存在
   else if (seriesSource.color === undefined && color) {
-    seriesTarget.color = colorGroup;
+    seriesTarget.color = [...colorGroup];
     merge(seriesTarget.color, color);
   }
   // 多个/单个数据：series和一级属性都不存在color，设置初始值
   else {
-    seriesTarget.color = colorGroup;
+    seriesTarget.color = [...colorGroup];
   }
 }

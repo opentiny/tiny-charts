@@ -1,5 +1,5 @@
 import init from '../../option/init';
-import RectCoordSys from '../../option/RectangularCoordinateSystem';
+import RectCoordSys from '../../option/RectSys';
 import { PROCESSBARTYPE } from './BaseOption';
 import handleData from './handleData';
 import { event } from '../../util/event';

@@ -1,16 +1,24 @@
-const BarChart = (basicToken, mapToken) => {
-  const { borderSM, borderRadiusSM, colorGray10, fontSizeSM } = basicToken;
-  const { colorBorderTP, barWidth } = mapToken;
+const BarChart = (modelToken) => {
+  const {
+    itemBorderWidthSM,
+    itemBorderRadiusSM,
+    labelColor,
+    labelFontSizeSM,
+    itemColorTP,
+    barWidth,
+    itemBorderColorTP
+  } = modelToken;
+
   return {
     itemStyle: {
-      borderWidth: borderSM,
-      borderColor: colorBorderTP,
-      borderRadius: borderRadiusSM,
-      color: colorBorderTP,
+      borderWidth: itemBorderWidthSM,
+      borderColor: itemBorderColorTP,
+      borderRadius: itemBorderRadiusSM,
+      color: itemColorTP,
     },
     label: {
-      color: colorGray10,
-      fontSize: fontSizeSM,
+      color: labelColor,
+      fontSize: labelFontSizeSM,
     },
     barWidth,
   };

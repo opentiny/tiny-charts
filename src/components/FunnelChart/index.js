@@ -2,7 +2,7 @@ import init from '../../option/init';
 import { event } from '../../util/event';
 import { setLegend } from './handleLegend.js'
 import { setSeries } from './handleSeries.js';
-import PolarCoordSys from '../../option/PolarCoordinateSystem';
+import PolarCoordSys from '../../option/PolarSys';
 
 const CHART_NAME = 'FunnelChart';
 

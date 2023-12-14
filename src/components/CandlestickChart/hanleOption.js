@@ -3,7 +3,7 @@ import cloneDeep from '../../util/cloneDeep';
 import { VOLUMEGRID } from './BaseOption';
 import merge from '../../util/merge';
 import Theme from '../../feature/theme';
-import { xkey } from '../../option/RectangularCoordinateSystem';
+import { xkey } from '../../option/RectSys';
 function handleData(iChartOpt) {
   const { data} = iChartOpt;
   const xAxisDataName=xkey(iChartOpt)

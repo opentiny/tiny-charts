@@ -3,36 +3,44 @@ import defendXSS from '../../util/defendXSS';
 import { getColor } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
 import { isArray, isNumber } from '../../util/type';
-import { markLineDefault } from '../../option/config/mark';
-import Theme from '../../feature/theme';
-export const seriesInit = {
-  label: {
-    show: false,
-    color: '#eeeeee',
-    fontSize: 12,
-  },
-  // 数据
-  data: [],
-  // 柱形
-  type: 'bar',
-  // 柱条宽度
-  barWidth: 8,
-  // 柱间距离
-  barGap: '60%',
-  // 阈值线
-  markLine: null,
-  // 峰值标志
-  markPoint: null,
-  // 柱形的每个样式配置项
-  itemStyle: {
-    borderRadius: [5, 5, 0, 0],
-  },
+import { getMarkLineDefault } from '../../option/config/mark';
+import chartToken from './chartToken';
+
+export const seriesInit = () => {
+  return {
+    label: {
+      show: false,
+      color: chartToken.labelColor,
+      fontSize: chartToken.fontSize,
+    },
+    // 数据
+    data: [],
+    // 柱形
+    type: 'bar',
+    // 柱条宽度
+    barWidth: chartToken.barWidth,
+    // 柱间距离
+    barGap: '60%',
+    // 阈值线
+    markLine: null,
+    // 峰值标志
+    markPoint: null,
+    // 柱形的每个样式配置项
+    itemStyle: {
+      borderRadius: [chartToken.borderRadius, chartToken.borderRadius, 0, 0],
+    },
+  };
 };
 
 function handleWaterFall(type, seriesUnit) {
   if (type && type === 'water-fall') {
     // 调整堆叠柱子圆角
-    seriesUnit.itemStyle.borderRadius = [5, 5, 5, 5];
+    seriesUnit.itemStyle.borderRadius = [
+      chartToken.borderRadius,
+      chartToken.borderRadius,
+      chartToken.borderRadius,
+      chartToken.borderRadius,
+    ];
     // 瀑布图最有有一个总体数据
     seriesUnit.data.push(
       seriesUnit.data.reduce(function (prev, curr) {
@@ -46,7 +54,12 @@ function handleWaterFall(type, seriesUnit) {
 function handleRange(type, seriesUnit) {
   if (type && type === 'range') {
     // 调整堆叠柱子圆角
-    seriesUnit.itemStyle.borderRadius = [5, 5, 5, 5];
+    seriesUnit.itemStyle.borderRadius = [
+      chartToken.borderRadius,
+      chartToken.borderRadius,
+      chartToken.borderRadius,
+      chartToken.borderRadius,
+    ];
   }
 }
 
@@ -103,9 +116,9 @@ export function setSeries(seriesData, legendData, iChartOption) {
 }
 
 function handleItemStyle(direction, itemStyle) {
-  const seriesInit_ = cloneDeep(seriesInit);
+  const seriesInit_ = cloneDeep(seriesInit());
   if (direction && direction === 'horizontal') {
-    seriesInit_.itemStyle.borderRadius = [0, 5, 5, 0];
+    seriesInit_.itemStyle.borderRadius = [0, chartToken.borderRadius, chartToken.borderRadius, 0];
   }
   if (itemStyle?.barMinHeight) {
     seriesInit_.barMinHeight = itemStyle.barMinHeight;
@@ -124,7 +137,6 @@ function handleItemStyle(direction, itemStyle) {
 }
 
 function handleLabel(seriesUnit, iChartOption, index) {
-  seriesUnit.label.color =  Theme.color.base.font;
   const label = iChartOption.label;
   let labelOption;
   if (label && isArray(label)) {
@@ -146,11 +158,12 @@ function handleMarkLine(seriesUnit, iChartOption, direction) {
   const theme = iChartOption.theme;
   const markLine = iChartOption.markLine;
   const isTopMarkLine = markLine && markLine.top && !(markLine.topUse && markLine.topUse.indexOf(name) === -1);
-  const isBottomMarkLine = markLine && markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(name) === -1);
+  const isBottomMarkLine =
+    markLine && markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(name) === -1);
   if (isTopMarkLine || isBottomMarkLine) {
-    seriesUnit.markLine = cloneDeep(markLineDefault);
+    seriesUnit.markLine = cloneDeep(getMarkLineDefault());
     merge(seriesUnit.markLine, markLine);
-    seriesUnit.markLine.lineStyle.color = markLine.color ||  Theme.color.state.error;
+    seriesUnit.markLine.lineStyle.color = markLine.color || chartToken.errorColor;
   }
   if (isTopMarkLine) {
     if (direction && direction === 'horizontal') {
@@ -173,29 +186,29 @@ function handleFocus(seriesUnit, iChartOption) {
     seriesUnit.emphasis = {
       focus: 'series',
       blurScope: 'global',
-    }
+    };
   }
 }
 
 function handleStack(type, seriesUnit, index, legendData, iChartOption) {
   if (type && type === 'stack') {
-    let stack = iChartOption.stack;
-    if(stack){
+    const stack = iChartOption.stack;
+    if (stack) {
       for (const name in stack) {
         if (Object.hasOwnProperty.call(stack, name)) {
           const stackArray = stack[name];
           const seriesName = seriesUnit.name;
           const stackIndex = stackArray.indexOf(seriesName);
-          if(stackIndex !== -1){
+          if (stackIndex !== -1) {
             seriesUnit.stack = name;
-            if(stackIndex + 1 < stackArray.length){
+            if (stackIndex + 1 < stackArray.length) {
               delete seriesUnit.itemStyle.borderRadius;
             }
           }
           break;
         }
       }
-    }else{
+    } else {
       seriesUnit.stack = 'stack';
       if (index !== legendData.length - 1) {
         delete seriesUnit.itemStyle.borderRadius;
@@ -210,17 +223,17 @@ function handleBothSides(type, seriesUnit, direction, index, legendData) {
     // 调整堆叠柱子圆角
     if (direction && direction === 'horizontal') {
       if (index === 0) {
-        seriesUnit.itemStyle.borderRadius = [0, 5, 5, 0];
+        seriesUnit.itemStyle.borderRadius = [0, chartToken.borderRadius, chartToken.borderRadius, 0];
       }
       if (index === legendData.length - 1) {
-        seriesUnit.itemStyle.borderRadius = [5, 0, 0, 5];
+        seriesUnit.itemStyle.borderRadius = [chartToken.borderRadius, 0, 0, chartToken.borderRadius];
       }
     } else {
       if (index === 0) {
-        seriesUnit.itemStyle.borderRadius = [5, 5, 0, 0];
+        seriesUnit.itemStyle.borderRadius = [chartToken.borderRadius, chartToken.borderRadius, 0, 0];
       }
       if (index === legendData.length - 1) {
-        seriesUnit.itemStyle.borderRadius = [0, 0, 5, 5];
+        seriesUnit.itemStyle.borderRadius = [0, 0, chartToken.borderRadius, chartToken.borderRadius];
       }
     }
   }
@@ -246,16 +259,15 @@ function handleContain(type, seriesUnit) {
   }
 }
 
-
 function handleColorStops(percent, originColor, markLineColor) {
   const colorStops = [
     {
       offset: 0,
-      color: markLineColor ? markLineColor : '#F43146',
+      color: markLineColor ? markLineColor : chartToken.errorColor,
     },
     {
       offset: percent,
-      color: markLineColor ? markLineColor : '#F43146',
+      color: markLineColor ? markLineColor : chartToken.errorColor,
     },
     {
       offset: percent + 0.001,
@@ -303,24 +315,24 @@ function handleBottomObj(d, direction, percent, originColor, markLineColor) {
   return bottomObj;
 }
 const colorStopsOrigin = [
-  { offset: 0, color: '#F43146' },
-  { offset: 1, color: '#F43146' },
+  { offset: 0, color: chartToken.errorColor },
+  { offset: 1, color: chartToken.errorColor },
 ];
 
 function handleColorStopsTop(originColor, bottomPercent) {
   const colorStops = [
     { offset: 0, color: originColor },
     { offset: bottomPercent, color: originColor },
-    { offset: bottomPercent + 0.0001, color: '#F43146' },
-    { offset: 1, color: '#F43146' },
+    { offset: bottomPercent + 0.0001, color: chartToken.errorColor },
+    { offset: 1, color: chartToken.errorColor },
   ];
   return colorStops;
 }
 
 function handleColorStopsBottom(originColor, topPercent) {
   const colorStops = [
-    { offset: 0, color: '#F43146' },
-    { offset: topPercent, color: '#F43146' },
+    { offset: 0, color: chartToken.errorColor },
+    { offset: topPercent, color: chartToken.errorColor },
     { offset: topPercent + 0.0001, color: originColor },
     { offset: 1, color: originColor },
   ];
@@ -329,12 +341,12 @@ function handleColorStopsBottom(originColor, topPercent) {
 
 function handleColorStopsOther(originColor, topPercent, bottomPercent) {
   const colorStops = [
-    { offset: 0, color: '#F43146' },
-    { offset: topPercent, color: '#F43146' },
+    { offset: 0, color: chartToken.errorColor },
+    { offset: topPercent, color: chartToken.errorColor },
     { offset: topPercent + 0.0001, color: originColor },
     { offset: bottomPercent, color: originColor },
-    { offset: bottomPercent + 0.0001, color: '#F43146' },
-    { offset: 1, color: '#F43146' },
+    { offset: bottomPercent + 0.0001, color: chartToken.errorColor },
+    { offset: 1, color: chartToken.errorColor },
   ];
   return colorStops;
 }
@@ -431,7 +443,7 @@ export function setMarkLine(baseOption, iChartOption) {
           const originColor = getColor(colors, index);
           // 如果该柱形高度超过阈值，侧改变其颜色
           if (top && d >= 0 && top >= 0 && d > top) {
-            if (topUse && topUse.indexOf(item.name) === -1){
+            if (topUse && topUse.indexOf(item.name) === -1) {
               return d;
             }
             const percent = (d - top) / (d - 0);
@@ -439,7 +451,7 @@ export function setMarkLine(baseOption, iChartOption) {
             return topObj;
             // 如果该柱形高度低于阈值，侧改变其颜色
           } else if (bottom && d <= 0 && bottom <= 0 && d < bottom) {
-            if (bottomUse && bottomUse.indexOf(item.name) === -1){
+            if (bottomUse && bottomUse.indexOf(item.name) === -1) {
               return d;
             }
             const percent = (bottom - d) / (0 - d);
@@ -464,13 +476,13 @@ function placeFun(index, placeholderData) {
     type: 'bar',
     stack: `stack${index}`,
     itemStyle: {
-      borderColor: 'transparent',
-      color: 'transparent',
+      borderColor: chartToken.borderColor,
+      color: chartToken.color,
     },
     emphasis: {
       itemStyle: {
-        borderColor: 'transparent',
-        color: 'transparent',
+        borderColor: chartToken.borderColor,
+        color: chartToken.color,
       },
     },
     data: placeholderData,
@@ -512,7 +524,7 @@ export function setWaterFall(baseOption, iChartOption) {
       const barData = item.data;
       const placeholderData = [0];
       const placeholder = placeFun(index, placeholderData);
-      if(totalPosition === 'end'){
+      if (totalPosition === 'end') {
         barData.forEach((d, i) => {
           if (i < barData.length - 1) {
             placeholderData.push((Number(d) || 0) + placeholderData[i]);
@@ -533,7 +545,7 @@ export function setWaterFall(baseOption, iChartOption) {
       tempArray.push(placeholder);
       tempArray.push(item);
     });
-    if(totalPosition === 'end'){
+    if (totalPosition === 'end') {
       baseOption.xAxis[0].data.push(totalName);
     } else {
       baseOption.xAxis[0].data.unshift(totalName);
@@ -567,12 +579,20 @@ export function setLimitFormatter(baseOption, iChartOption) {
       const itemColor = typeof item.color === 'string' ? item.color : getColor(colors, index);
       htmlString += `
                     <div>
-                        <span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:${defendXSS(itemColor)};">
+                        <span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:${defendXSS(
+                          itemColor,
+                        )};">
                         </span>
                         <span style="margin-left:5px;">
-                            <span style="display:inline-block;margin-right:8px;min-width:60px;">${defendXSS(item.seriesName)}</span> 
+                            <span style="display:inline-block;margin-right:8px;min-width:60px;">${defendXSS(
+                              item.seriesName,
+                            )}</span> 
                             <span style="font-weight:bold">
-                              ${defendXSS(type === 'range' ? `${`${`[${params[index * 2].value}`}-${params[index * 2].value + item.value}`}]` : item.value)}
+                              ${defendXSS(
+                                type === 'range'
+                                  ? `${`${`[${params[index * 2].value}`}-${params[index * 2].value + item.value}`}]`
+                                  : item.value,
+                              )}
                             </span>
                         </span>
                     </div>
@@ -581,7 +601,6 @@ export function setLimitFormatter(baseOption, iChartOption) {
     return htmlString;
   };
 }
-
 
 function handleYaxis(series, yAxis) {
   if (Array.isArray(yAxis)) {

@@ -1,14 +1,8 @@
-import modeleToken from './modelToken';
-import chartsToken from './chartsToken';
-import basicToken from './basicToken';
-import { colorGroup, colorState } from '../color/ict/light';
+import basic from './basicToken';
+import getChartsToken from './chartsToken';
+import { getRadius } from './basicToken/border';
+import { getFont } from './basicToken/font';
+import { getSpace } from './basicToken/space';
 
-const basicTheme = {
-  colorGroup,
-  colorState,
-  ...modeleToken, // 三级
-  ...chartsToken, // 四级
-};
-
-export default basicTheme;
-export { basicToken };
+export default basic;
+export { getChartsToken, getRadius, getFont, getSpace };

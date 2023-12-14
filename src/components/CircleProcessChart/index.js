@@ -2,7 +2,7 @@ import init from '../../option/init';
 import { event } from '../../util/event';
 import { getSeriesData, setTooltip } from './handleOption';
 import { setSeries } from './handleSeries';
-import PolarCoordSys from '../../option/PolarCoordinateSystem';
+import PolarCoordSys from '../../option/PolarSys';
 
 const CHART_NAME = 'CircleProcessChart';
 export default class CircleProcessChart {

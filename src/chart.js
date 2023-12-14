@@ -18,9 +18,9 @@ export default class HuiCharts extends core {
   setSimpleOption(chartName, iChartOption, plugins = {}, isInit = true) {
     if (isInit) {
       Theme.setDefaultTheme(iChartOption.theme);
-      this.mediaScreenObserver && this.mediaScreenObserver.setInitOption(iChartOption)
+      this.mediaScreenObserver && this.mediaScreenObserver.setInitOption(iChartOption);
     }
-    if (iChartOption.readScreen){
+    if (iChartOption.readScreen) {
       readScreen(this.dom, iChartOption.readScreen);
     }
     if (isFunction(chartName)) {
@@ -55,5 +55,6 @@ export default class HuiCharts extends core {
     this.iChartOption = iChartOption;
     this.setSimpleOption(this.chartName, iChartOption, this.plugins);
     this.render();
+    this.mediaScreenObserver && this.mediaScreenObserver.refresh();
   }
 }

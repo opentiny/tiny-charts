@@ -1,12 +1,14 @@
-import cloudModelToken from './modelToken';
-import cloudChartsToken from './chartsToken';
+import basicToken from './basicToken';
+import modelToken from './modelToken';
+import chartsToken from './chartsToken';
 import { colorState, colorGroup } from '../../color/cloud/light';
 
 const cloudLight = {
   colorGroup,
   colorState,
-  ...cloudModelToken,
-  ...cloudChartsToken,
+  ...modelToken,
+  ...chartsToken,
 };
 
 export default cloudLight;
+export { basicToken as cloudLightBasicToken };

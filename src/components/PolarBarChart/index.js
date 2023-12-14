@@ -2,7 +2,7 @@ import init from '../../option/init';
 import { event } from '../../util/event';
 import { getSeriesData, getLabelData, setTooltip } from './handleOption';
 import { setSeries } from './handleSeries';
-import PolarCoordSys from '../../option/PolarCoordinateSystem';
+import PolarCoordSys from '../../option/PolarSys';
 
 const CHART_NAME = 'PolarBarChart';
 export default class PolarBarChart {
@@ -20,21 +20,25 @@ export default class PolarBarChart {
         const data = iChartOption.data;
         // 装载除series之外的其他配置
         PolarCoordSys(this.baseOption, iChartOption, CHART_NAME);
+        const type = iChartOption.type || 'normal';
         // angleAxis赋值
         this.baseOption.angleAxis.data = [];
+        if (type !== 'normal') {
+            this.baseOption.angleAxis.axisLabel.show = true;
+        }
         if (data) {
             data.forEach(item => {
-                this.baseOption.angleAxis.data.push(item.name)
+                this.baseOption.angleAxis.data.push(item.name);
             });
             // tooltip悬浮框
             setTooltip(this.baseOption);
             // legend数据
-            this.baseOption.legend.data = data;
+            this.baseOption.legend.data = type === 'normal' ? data : [];
             // series bar数据
-            const seriesData = getSeriesData(data)
+            const seriesData = getSeriesData(data, type);
             // pie数据
             const labelData = getLabelData(data);
-            this.baseOption.series = setSeries(seriesData, labelData, iChartOption, this.baseOption.polar);
+            this.baseOption.series = setSeries(seriesData, labelData, iChartOption, this.baseOption.polar, type);
         }
 
         // 配置图表事件

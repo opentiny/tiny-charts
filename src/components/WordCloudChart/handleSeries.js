@@ -1,4 +1,4 @@
-import {  getRandom } from '../../util/util';
+import { getRandom } from '../../util/math';
 import { getColor } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
 import Theme from '../../feature/theme';
@@ -69,7 +69,7 @@ function handleSeries(params) {
     textColor,
     colors,
   } = params;
-  seriesInit.emphasis.textStyle.textShadowColor =Theme.color.base.subg;
+  seriesInit.emphasis.textStyle.textShadowColor = Theme.color.base.subg;
   // 组装数据
   const series = [];
   const seriesUnit = cloneDeep(seriesInit);

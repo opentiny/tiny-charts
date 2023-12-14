@@ -1,4 +1,4 @@
-import { getRandom } from '../../util/util';
+import { getRandom } from '../../util/math';
 
 function overallLayout(params, api, distance, displayRoot, d3) {
   const context = params.context;

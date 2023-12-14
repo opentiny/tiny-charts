@@ -76,7 +76,7 @@ const LOADING_SVG = (fillColor) => {
                     <path style="transform-origin: 50% 50%;"  d="M12,0.9 C12.7455844,0.9 13.35,1.50441559 13.35,2.25 C13.35,2.99558441 12.7455844,3.6 12,3.6 C7.36058441,3.6 3.6,7.36058441 3.6,12 C3.6,16.6394156 7.36058441,20.4 12,20.4 C16.6394156,20.4 20.4,16.6394156 20.4,12 C20.4,11.2544156 21.0044156,10.65 21.75,10.65 C22.4955844,10.65 23.1,11.2544156 23.1,12 C23.1,18.1305844 18.1305844,23.1 12,23.1 C5.86941559,23.1 0.9,18.1305844 0.9,12 C0.9,5.86941559 5.86941559,0.9 12,0.9 Z" id="Stroke-2" fill="url(#huichart-loading-linearGradient)" fill-rule="nonzero">
                     <animateTransform attributeName='transform' type="rotate" from='0' to='360' dur='1' repeatCount='indefinite'/> 
                     </path>
-                     
+            
                 </g>
             </g>
         </g>

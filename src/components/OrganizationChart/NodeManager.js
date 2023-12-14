@@ -47,7 +47,6 @@ export default class NodeManager {
         this.depth = this.getDataDepth(this.data, 0);
         for (let index = 0; index < this.depth; index++) {
             let radius = this.radius.min + this.radius.gap * index;
-            // let top = initTop - radius;
             let width = radius * 2;
             let zindex = 100 - index;
             // 圆环
@@ -64,9 +63,6 @@ export default class NodeManager {
             // this.dom.insertAdjacentHTML('beforeend', warpperEmpty);
         }
         this.warppers = this.dom.getElementsByClassName('ozc_warpper');
-        // this.warpperLines = this.dom.getElementsByClassName('ozc_warpper_line');
-        // this.warpperRects = this.dom.getElementsByClassName('ozc_warpper_rect');
-        // this.warpperEmptys = this.dom.getElementsByClassName('ozc_warpper_empty');
     }
 
     // 创建初始节点和布局

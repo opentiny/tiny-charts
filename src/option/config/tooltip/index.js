@@ -2,12 +2,13 @@ import base from './base';
 import axisPointer from './axisPointer';
 import merge from '../../../util/merge';
 
+/**
+ * tipHtml 和 tipHtmlStyle 为旧属性，后续逐步废弃
+ */
 function tooltip(iChartOption, chartName) {
-  let theme = iChartOption.theme;
-  // tipHtml 和 tipHtmlStyle 为旧属性，后续逐步废弃
-  let formatter = iChartOption.tipHtml;
-  let formatterStyle = iChartOption.tipHtmlStyle;
-  let tooltip = base(theme);
+  const formatter = iChartOption.tipHtml;
+  const formatterStyle = iChartOption.tipHtmlStyle;
+  const tooltip = base(chartName);
   if (formatter) {
     tooltip.formatter = formatter;
   }
@@ -15,7 +16,7 @@ function tooltip(iChartOption, chartName) {
     tooltip.padding = formatterStyle.padding || tooltip.padding;
     tooltip.backgroundColor = formatterStyle.backgroundColor || tooltip.backgroundColor;
   }
-  axisPointer(tooltip, theme, chartName);
+  axisPointer(tooltip, chartName);
   merge(tooltip, iChartOption.tooltip);
   return tooltip;
 }

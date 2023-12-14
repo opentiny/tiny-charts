@@ -3,14 +3,11 @@ import font from './font';
 import line from './line';
 import space from './space';
 
-const basicToken = {
+const basic = {
+  ...border,
   ...font,
   ...line,
   ...space,
-  ...border,
 };
 
-export default basicToken;
-
-
-
+export default basic;

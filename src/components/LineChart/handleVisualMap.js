@@ -2,19 +2,19 @@ import min from '../../util/sort/min';
 import max from '../../util/sort/max';
 import { isNumber } from '../../util/type';
 import { getColor } from '../../util/color';
-import Theme from '../../feature/theme';
+import chartToken from './chartToken';
 export function setVisualMap(legendData, seriesData, markLine, colors, theme) {
   const visualMap = [];
   if (markLine) {
     let topValue = markLine.top;
     let bottomValue = markLine.bottom;
-    const vmColor = Theme.color.state.error;
+    const vmColor = chartToken.errorColor;
     const topColor = markLine.topColor || vmColor;
     const bottomColor = markLine.bottomColor || vmColor;
-    if (!isNumber(topValue)){
+    if (!isNumber(topValue)) {
       topValue = undefined;
     }
-    if (!isNumber(bottomValue)){
+    if (!isNumber(bottomValue)) {
       bottomValue = undefined;
     }
     if (topValue === undefined && bottomValue === undefined) {
@@ -29,13 +29,13 @@ export function setVisualMap(legendData, seriesData, markLine, colors, theme) {
       const maxData = max(data);
       let bottom = bottomValue;
       let top = topValue;
-      if (markLine.topUse && markLine.topUse.indexOf(legendName) === -1){
+      if (markLine.topUse && markLine.topUse.indexOf(legendName) === -1) {
         top = undefined;
       }
-      if (markLine.bottomUse && markLine.bottomUse.indexOf(legendName) === -1){
+      if (markLine.bottomUse && markLine.bottomUse.indexOf(legendName) === -1) {
         bottom = undefined;
       }
-      if (top === undefined && bottom === undefined){
+      if (top === undefined && bottom === undefined) {
         return;
       }
       // 阈值无下限

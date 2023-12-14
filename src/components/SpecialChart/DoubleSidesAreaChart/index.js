@@ -1,10 +1,10 @@
 import cloneDeep from '../../../util/cloneDeep';
 import { baseOption, baseGrid, baseXaxis, baseYaxis } from './baseOption';
 import init from '../../../option/init';
-import RectCoordSys from '../../../option/RectangularCoordinateSystem';
+import RectCoordSys from '../../../option/RectSys';
 import { handleData, handleTooltipValue, handleGrid, handleXaxis, handleYaxis, handleDataZoom } from './handleOption';
 import { handleSeries } from './handleSeries';
-import { xkey, xdata, ldata, ydata } from '../../../option/RectangularCoordinateSystem';
+import { xkey, xdata, ldata, ydata } from '../../../option/RectSys';
 import { event } from '../../../util/event';
 
 class DoubleSidesAreaChart {

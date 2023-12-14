@@ -1,6 +1,6 @@
 import { getColor, codeToRGB } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep'
-import { markLineDefault } from '../../option/config/mark';
+import { getMarkLineDefault } from '../../option/config/mark';
 import Theme from '../../feature/theme';
 import merge from '../../util/merge';
 export const seriesInit = {
@@ -47,7 +47,7 @@ export function setSeries({ theme, legendData, data, markLine, color }) {
     const itemBorderColor = codeToRGB(itemColor, 0.2);
     // 阈值线
     if (markLine) {
-      seriesUnit.markLine = cloneDeep(markLineDefault);
+      seriesUnit.markLine = cloneDeep(getMarkLineDefault());
       if (markLine.y) {
         seriesUnit.markLine.data.push({ yAxis: markLine.y });
       }

@@ -1,6 +1,7 @@
 import min from '../../util/sort/min';
 import max from '../../util/sort/max';
 import { getColor } from '../../util/color';
+import chartToken from './chartToken';
 
 export function setVisualMap(legendData, seriesData, markLine, colors) {
   const visualMap = [];
@@ -27,7 +28,7 @@ export function setVisualMap(legendData, seriesData, markLine, colors) {
           },
         ],
         outOfRange: {
-          color: '#f43146',
+          color: chartToken.errorColor,
         },
       });
     });

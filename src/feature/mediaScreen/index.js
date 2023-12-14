@@ -1,18 +1,17 @@
 import merge from "../../util/merge";
-import defaultOption from './defaultOption';
 import cloneDeep from "../../util/cloneDeep";
-import { isArrayEqual } from '../../util/isEqual';
+import { isArrayEqual } from '../../util/equal';
 class mediaScreen {
 
   constructor(dom, option, callback) {
     // 媒体查询监听的dom
-    this.dom = dom; 
+    this.dom = dom;
     // 媒体查询的响应式配置
-    this.option = option || defaultOption;
+    this.option = option || [];
     // 媒体查询命中时的回调函数
     this.callback = callback;
     // 当前宽度下响应式配置命中的区间
-    this.curRange = []; 
+    this.curRange = [];
     // 图表初始配置
     this.initOption = {};
   }
@@ -32,8 +31,14 @@ class mediaScreen {
     }
   }
 
+  // 强制触发一次监听，(解决页面挂载就调用refresh配置的问题)
+  refresh() {
+    this.curRange = [];
+    this.observe()
+  }
+
   // 设置图表初始配置
-  setInitOption(option){
+  setInitOption(option) {
     this.initOption = cloneDeep(option);
   }
 

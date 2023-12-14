@@ -13,11 +13,10 @@ import PolarBarChart from './PolarBarChart';
 import PieChart from './PieChart';
 import AreaChart from './AreaChart';
 import LineChart from './LineChart';
-import basicToken from '../basicToken';
-import mapToken from '../mapToken';
-const getChartsToken = () => {
+
+function getChartsToken(basicToken, mapToken, modelToken) {
   return {
-    BarChart: BarChart(basicToken, mapToken),
+    BarChart: BarChart(modelToken),
     BubbleChart: BubbleChart(basicToken, mapToken),
     FunnelChart: FunnelChart(basicToken, mapToken),
     GraphTreeChart: GraphTreeChart(basicToken, mapToken),
@@ -26,17 +25,13 @@ const getChartsToken = () => {
     TreeChart: TreeChart(basicToken, mapToken),
     SunburstChart: SunburstChart(basicToken, mapToken),
     SankeyChart: SankeyChart(basicToken, mapToken),
-    RadarChart: RadarChart(basicToken, mapToken),
+    RadarChart: RadarChart(modelToken),
     ProcessChart: ProcessChart(basicToken, mapToken),
     PolarBarChart: PolarBarChart(basicToken, mapToken),
-    PieChart: PieChart(basicToken, mapToken),
-    AreaChart: AreaChart(basicToken, mapToken),
-    LineChart: LineChart(basicToken, mapToken),
+    PieChart: PieChart(modelToken),
+    AreaChart: AreaChart(modelToken),
+    LineChart: LineChart(modelToken),
   };
-};
+}
 
-const chartsToken = {
-  ...getChartsToken(),
-};
-
-export default chartsToken;
+export default getChartsToken;

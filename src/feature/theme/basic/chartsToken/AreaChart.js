@@ -1,8 +1,8 @@
-const AreaChart = (basicToken, mapToken) => {
-  const { colorAreaTP } = mapToken;
+const AreaChart = (modelToken) => {
+  const { areaColorTP } = modelToken;
   return {
     areaStyle: {
-      color: colorAreaTP,
+      color: areaColorTP,
     },
   };
 };

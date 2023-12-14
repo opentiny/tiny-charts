@@ -29,12 +29,14 @@ export function removeCenterDom(container) {
 }
 
 export function resizeCenterDom(container, option) {
-  let centerDomContainer = container.getElementsByClassName('hui_center_dom_container');
-  let containerWidth = Math.min(container.clientWidth, container.clientHeight);
+  let centerDomContainer = container?.getElementsByClassName('hui_center_dom_container');
+  let containerWidth = Math.min(container?.clientWidth, container?.clientHeight);
   let radius = getCenterDomRadius(option);
-  Array.prototype.slice.call(centerDomContainer).forEach(element => {
-    setSize(element, radius, containerWidth);
-  });
+  if(centerDomContainer){
+    Array.prototype.slice.call(centerDomContainer).forEach(element => {
+      setSize(element, radius, containerWidth);
+    });
+  }
 }
 
 const getCenterDomRadius = (option) => {

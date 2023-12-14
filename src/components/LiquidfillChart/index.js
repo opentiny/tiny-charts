@@ -1,7 +1,7 @@
 import init from '../../option/init';
 import { event } from '../../util/event';
 import { setSeries } from './handleSeries.js';
-import PolarCoordSys from '../../option/PolarCoordinateSystem';
+import PolarCoordSys from '../../option/PolarSys';
 
 const CHART_NAME = 'LiquidfillChart';
 export default class LiquidfillChart {

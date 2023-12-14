@@ -1,9 +1,9 @@
 import { isArray } from '../../util/type';
 
-// 获取getAxisRangeFromData方法数据格式
-export function getNewData(origindata) {
-  let newData = {}
-  let count = Object.keys(origindata[0]).length
+// 获取新的数据格式
+const transformData = (origindata) => {
+  const newData = {}
+  const count = Object.keys(origindata[0]).length
   for (let i = 1; i < count; i++) {
     let arr = []
     origindata.forEach((key) => {
@@ -17,10 +17,9 @@ export function getNewData(origindata) {
 }
 
 // 修改轴数据 data：图表数据 allowRange：允许轴的范围
-export function getAxisRangeFromData(data, allowRange) {
+const fluctuation = (data, allowRange) => {
   let min = Infinity;
   let max = -Infinity;
-
   const range = allowRange || [-Infinity, Infinity];
   const dataKeys = Object.keys(data);
 
@@ -30,25 +29,15 @@ export function getAxisRangeFromData(data, allowRange) {
         const arr = item.filter((t) => !isNaN(Number(t)) && Number(t) > range[0] && Number(t) < range[1]);
         const curMin = Math.min(...arr);
         const curMax = Math.max(...arr);
-
-        if (min > Number(curMin)) {
-          min = Number(curMin);
-        }
-
-        if (max < Number(curMax)) {
-          max = Number(curMax);
-        }
+        min = Math.min(min, curMin);
+        max = Math.max(max, curMax);
       } else {
-        if (Number(item) < range[0] || Number(item) > range[1]) {
+        const num = Number(item);
+        if (num < range[0] || num > range[1]) {
           return;
         }
-        if (min > Number(item)) {
-          min = Number(item);
-        }
-
-        if (max < Number(item)) {
-          max = Number(item);
-        }
+        min = Math.min(min, num);
+        max = Math.max(max, num);
       }
     });
   });
@@ -61,3 +50,5 @@ export function getAxisRangeFromData(data, allowRange) {
   return [axisMin, axisMax];
 }
 
+export default fluctuation;
+export { transformData };

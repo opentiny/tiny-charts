@@ -37,6 +37,7 @@ function getRadius(radiusBase) {
   }
 
   return {
+    borderRadiusZero: 0,
     borderRadius: radiusBase, // 6
     borderRadiusXS: radiusXS, // 2
     borderRadiusSM: radiusSM, // 4
@@ -47,7 +48,6 @@ function getRadius(radiusBase) {
 const borderRadius = {
   ...getRadius(basicBorderRadius),
 };
-
 
 const border = {
   borderZero: 0,
@@ -60,3 +60,5 @@ const border = {
 };
 
 export default border;
+
+export { getRadius };

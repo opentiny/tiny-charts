@@ -3,7 +3,7 @@ import merge from '../../../util/merge';
 import { isArray } from '../../../util/type';
 
 function grid(iChartOpt) {
-  let gridUnit = base();
+  const gridUnit = base();
   gridUnit.top = iChartOpt.padding[0];
   gridUnit.left = iChartOpt.padding[3];
   gridUnit.right = iChartOpt.padding[1];
