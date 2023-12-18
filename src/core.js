@@ -17,6 +17,7 @@ const SELF_CHART = [
   'HoneycombChart',
   'OrganizationChart',
   'AutonaviMapChart',
+  'SnowFlakeChart'
 ];
 
 // 图表核心对象，按需引入图表 class 给 CoreChart 渲染，打包容量较小

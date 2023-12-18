@@ -8,6 +8,8 @@ import GanttChart from '../../src/components/GanttChart';
 import RiverChart from '../../src/components/RiverChart';
 import FlowChart from '../../src/components/FlowChart';
 import WaveChart from '../../src/components/WaveChart';
+import TerraceChart from '../../src/components/TerraceChart';
+import SnowFlakeChart from '../../src/components/SnowFlakeChart';
 import IntegrateChart from '../../src/index';
 import handleScroll from './handleScroll';
 import SplitPane from 'react-split-pane';
@@ -64,7 +66,7 @@ function PlayGround(props) {
   const [isMobile, setIsMobile] = useState(() => {
     const mobileCharts = ['OrganizationChart'];
     if (mobileCharts.indexOf(chartName) !== -1) {
-      return { width: '500px', margin: 'auto' };
+      return { width: 'auto', margin: 'auto' };
     }
     return {};
   });
@@ -72,7 +74,7 @@ function PlayGround(props) {
   const transformCode = codeString => {
     const codeObj = { code: 0 };
     const resolve = (option) => {
-      renderChart(option)
+      renderChart(option);
     };
     Function('codeObj', 'axios', 'echarts', 'resolve', `"use strict";${codeString};return (codeObj.code = option || {})`)(codeObj, axios, echarts, resolve);
     return codeObj.code;
@@ -204,6 +206,11 @@ function PlayGround(props) {
       integrateChart.init(chartRef.current);
       integrateChart.setSimpleOption(WaveChart, option, {});
       integrateChart.render();
+    } else if (chartName == 'TerraceChart') {
+      chartRef.current.innerHTML = '';
+      integrateChart.init(chartRef.current);
+      integrateChart.setSimpleOption(TerraceChart, option, {});
+      integrateChart.render();
     } else if (chartName == 'RiverChart') {
       instance = new RiverChart();
       instance.init(chartRef.current);
@@ -212,6 +219,11 @@ function PlayGround(props) {
       instance = new GanttChart();
       instance.init(chartRef.current);
       instance.setOption(option);
+    } else if (chartName == 'SnowFlakeChart') {
+      const div = document.createElement('div');
+      chartRef.current.appendChild(div);
+      div.className = 'sc-exampleContainer';
+      instance = new SnowFlakeChart(div, option);
     } else {
       integrateChart.init(chartRef.current);
       integrateChart.setSimpleOption(chartName, option, { ecStat, d3 });

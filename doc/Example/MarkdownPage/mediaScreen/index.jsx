@@ -6,6 +6,7 @@ import PieChart from './PieChart';
 import PieChartCode from './PieChart?raw';
 import './index.less';
 import CodeExample from './CodeExample';
+import Test from './Test'
 
 export default function mediaScreen() {
   return (
@@ -16,6 +17,7 @@ export default function mediaScreen() {
       </CodeExample>
       <CodeExample code={PieChartCode} title='响应式案例二：圆盘图'>
         <PieChart></PieChart>
+        {/* <Test></Test> */}
       </CodeExample>
     </div>
   );

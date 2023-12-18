@@ -36,33 +36,33 @@ function getMapToken(basicToken, light = true) {
 
   return {
     // 主色
-    colorPrimary: light ? colorGray0 : colorGray90, // 确定
+    colorPrimary: colorGray90, 
     // 初级底色
-    colorBg: light ? colorGray0 : colorGray90, // 确定
+    colorBg: colorGray90, 
     // 次级底色
-    colorSubg: light ? colorGray0 : colorGray80, // 确定
+    colorSubg: colorGray80, 
     // 主要文本色
-    colorText: light ? colorGray90 : colorGray40, // 确定
+    colorText: colorGray40, 
     // 次级文本色
-    colorSubtext: light ? colorGray60 : colorGray50, // 确定
+    colorSubtext: colorGray50, 
     // 禁用文本色
-    colorDisabledText: light ? colorGray50 : colorGray60, // 确定
+    colorDisabledText: colorGray60, 
     // 控件激活色（legend相关的颜色）
-    colorActive: light ? colorGray60 : colorGray60, // 确定
+    colorActive: colorGray60, 
     // 控件失效色
-    colorInactive: light ? colorGray50 : colorGray80, // 确定
+    colorInactive: colorGray80, 
     // 坐标轴线颜色
-    colorAxisLine: light ? colorGray30 : colorGray80, // 确定
+    colorAxisLine: colorGray80, 
     // 刻度线颜色
-    colorAxisTickLine: light ? colorGray30 : colorGray80, // 确定
+    colorAxisTickLine: colorGray80, 
     // 分隔线颜色
-    colorAxisSplitLine: light ? colorGray30 : colorGray80, // 确定
+    colorAxisSplitLine: colorGray80, 
     // 坐标轴指示器悬浮线
-    colorAxisPointerLine: light ? colorGray60 : colorGray70, // 确定
+    colorAxisPointerLine: colorGray70, 
     // 透明边框色
     colorBorderTP: colorTP,
     // 基础边框色
-    colorBorder: light ? colorGray0 : colorGray80,
+    colorBorder: colorGray80,
     // 文本透明
     colorTextTP: colorTP,
     // 面积区域透明
@@ -70,9 +70,9 @@ function getMapToken(basicToken, light = true) {
     // 图元透明
     colorItemTP: colorTP,
     // 指示器阴影
-    colorAxisPointerShadow: light ? codeToRGB(colorGray90, 0.08) : codeToRGB(colorGray90, 0.08), // D
+    colorAxisPointerShadow: codeToRGB(colorGray90, 0.08), 
     // 主文本字号
-    textFontSize: fontSize, // 确定
+    textFontSize: fontSize, 
     // 次级文本字号
     subtextFontSize: fontSizeSM, // 确定
     titleFontSize: fontSize * 2,

@@ -29,6 +29,7 @@ import RegionChart from './RegionChart';
 import AssembleBubbleChart from './AssembleBubbleChart';
 import GraphChart from './GraphChart';
 import BaiduMapChart from './BaiduMapChart';
+import TerraceChart from './TerraceChart';
 
 export default {
     LineChart,
@@ -61,5 +62,6 @@ export default {
     RegionChart,
     GraphChart,
     AssembleBubbleChart,
-    BaiduMapChart
+    BaiduMapChart,
+    TerraceChart
 };

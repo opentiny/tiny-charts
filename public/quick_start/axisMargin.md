@@ -99,7 +99,7 @@ let chartOption = {
     <div class="img-container" style="margin-left: 3rem;">
         <img src="./image/md/axisMargin3.png"/>
         <span>两侧留白距离2</span>
-    </div>
+    </div>20
 </div>
 
 ```jsx

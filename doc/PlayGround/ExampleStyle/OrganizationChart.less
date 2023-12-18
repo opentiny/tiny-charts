@@ -1,0 +1,176 @@
+.user_card{
+    top: -25px;
+    width: 150px;
+    display: flex;
+    position: relative;
+    transform: translateX(-50%);
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    .user_head{
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        border-radius: 50%;
+        background-color: #fff;
+        border: 1px solid #bbbbbb;
+        .user_head_img{
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 50%;
+        }
+    }
+    .user_name{
+        color: #999999;
+        font-size: 14px;
+        margin-top: 4px;
+    }
+    .user_id{
+        color: #999999;
+        font-size: 14px;
+    }
+    .user_address{
+        color: #000000;
+        font-weight: bold;
+        font-size: 18px;
+        text-align: center;
+    }
+    .user_subordinates{
+        margin-top: 2px;
+        color: #999999;
+        font-size: 12px;
+    }
+}
+
+.ozc_container_dark.ozc_container {
+    .user_card{
+        .user_head{
+            border-color: #bbbbbb;
+        }
+        .user_name{
+            color: #bbbbbb;
+        }
+        .user_id{
+            color: #bbbbbb;
+        }
+        .user_address{
+            color: #eeeeee;
+        }
+        .user_subordinates{
+            color: #bbbbbb;
+        }
+    }
+}
+
+.workshop{
+    top: -7px;
+    left: -7px;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    cursor: pointer;
+    position: relative;
+    align-items: center;
+    border-radius: 50%;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: #ffffff;
+    &:hover{
+        .workshop_name{
+            font-size:16px;
+            line-height: 16px;
+            font-weight: 800;
+        }
+        .workshop_head{
+            border-width: 0px;
+            background: linear-gradient(#50C291, #00A874);
+        }
+    }
+    .workshop_head{
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 1px solid #999999;
+        box-sizing: border-box;
+        background: #ffffff;
+        transition: all 100ms linear;
+    }   
+    .workshop_name{
+        width: auto;
+        right: 100%;
+        flex-shrink: 0;
+        font-size: 14px;
+        line-height: 14px;
+        padding-right: 6px;
+        font-family: fangsong;
+        position: absolute;
+        word-break: keep-all;
+        transition: all 100ms linear;
+    }
+}
+
+.workshop_icon{
+    top: -26px;
+    left: -26px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    cursor: pointer;
+    position: relative;
+    align-items: center;
+    border-radius: 50%;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: #ffffff;
+    transition: all 60ms linear;
+    &.workshop_icon_temp{
+        top: -16px;
+        left: -16px;
+        width: 32px;
+        height: 32px;
+        .workshop_head_icon{
+            width: 32px;
+            height: 32px;
+            img {
+                width: 32px;
+                height: 32px;
+            }
+        }
+        .workshop_name_icon{
+            font-size: 14px;
+            line-height: 14px;
+        }
+    }
+    .workshop_head_icon{
+        width: 52px;
+        height: 52px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        box-sizing: border-box;
+        background: #ffffff;
+        transition: all 60ms linear;
+        img {
+            margin: 0;
+            padding: 0;
+            width: 52px;
+            height: 52px;
+            display: block;
+        }
+    }   
+    .workshop_name_icon{
+        width: auto;
+        flex-shrink: 0;
+        font-size: 16px;
+        line-height: 16px;
+        font-weight: 800;
+        position: absolute;
+        font-family: fangsong;
+        word-break: keep-all;
+        right: calc(100% + 6px);
+        transition: all 60ms linear;
+    }
+}
+
+

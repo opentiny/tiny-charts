@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_chevron_up_lined</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="CRM详情页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1116详情页" transform="translate(-1388.000000, -12.000000)">
+            <g id="线性/ic_chevron_up_lined" transform="translate(1045.000000, 10.000000)" filter="url(#filter-1)">
+                <g transform="translate(343.000000, 2.000000)">
+                    <g id="编组" transform="translate(4.000000, 4.000000)">
+                        <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                        <path d="M1.97977994,5.02027994 C2.15729098,4.8427689 2.43506677,4.82663153 2.63080777,4.97186784 L2.68688672,5.02027994 L7.64622006,9.97961328 C7.82386053,10.1572537 8.10178722,10.1734029 8.29766155,10.0280607 L8.35377994,9.97961328 L13.3131133,5.02027994 C13.5083754,4.8250178 13.8249579,4.8250178 14.0202201,5.02027994 C14.1977311,5.19779098 14.2138685,5.47556677 14.0686322,5.67130777 L14.0202201,5.72738672 L9.06088672,10.6867201 C8.50285928,11.2447475 7.61468489,11.2713202 7.02521489,10.7664383 L6.93911328,10.6867201 L1.97977994,5.72738672 C1.7845178,5.53212458 1.7845178,5.21554209 1.97977994,5.02027994 Z" id="Stroke-1" fill="#FFFFFF"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

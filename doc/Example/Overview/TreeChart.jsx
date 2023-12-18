@@ -14,48 +14,40 @@ const TreeChart = props => {
     symbolSize: 10,
     lineType: 'curve',
     initialTreeDepth: 2,
-    data: [{
-      name: 'flare',
-      children: [
-        {
-          name: 'data',
+    data: [
+      {
+        name:'节点',
+        data:[{
+          name: 'flare',
           children: [
             {
-              name: 'converters',
+              name: 'data',
               children: [
-                { name: 'Converters', value: 721 },
-                { name: 'DelimitedTextConverter', value: 4294 }
-              ]
+                {
+                  name: 'converters',
+                  children: [
+                    { name: 'Converters', value: 721 },
+                    { name: 'DelimitedTextConverter', value: 4294 },
+                  ],
+                },
+                {
+                  name: 'DataUtil',
+                  value: 3322,
+                },
+              ],
             },
             {
-              name: 'DataUtil',
-              value: 3322
-            }
-          ]
-        },
-        {
-          name: 'display',
-          children: [
-            { name: 'DirtySprite', value: 8833 },
-          ]
-        },
-        {
-          name: 'query',
-          children: [
-            { name: 'AggregateExpression', value: 1616 },
-            { name: 'And', value: 1027 },
-            { name: 'Minimum', value: 843 },
-          ]
-        },
-        {
-          name: 'scale',
-          children: [
-            { name: 'IScaleMap', value: 2105 },
-            { name: 'LinearScale', value: 1316 },
-          ]
-        }
-      ]
-    }],
+              name: 'display',
+              children: [
+                { name: 'DirtySprite', value: 8833 },
+                { name: 'LineSprite', value: 1732 },
+                { name: 'RectSprite', value: 3623 },
+              ],
+            },
+          ],
+        }],
+      },
+    ],
   };
 
   useEffect(() => {

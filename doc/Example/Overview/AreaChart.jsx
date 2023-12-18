@@ -29,7 +29,7 @@ const AreaChart = props => {
     animationDuration: 6000,
     markLine: {
       top: 38,
-      bottom: 20,
+      // bottom: 20,
     },
     markPoint: {
       max: true,

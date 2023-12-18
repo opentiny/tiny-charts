@@ -40,12 +40,12 @@ const NAV_DATA = [
     className: 'evu_AccordionEx_resolve',
     children: [
       {
-        title: "响应式",
+        title: '响应式',
         titleId: 'ic_mediaScreen',
         value: 'mediaScreen',
       },
       {
-        title: "懒加载",
+        title: '懒加载',
         titleId: 'ic_lazyLoad',
         value: 'LazyLoad',
       },
@@ -88,6 +88,11 @@ const NAV_DATA = [
         title: '自定义主题',
         titleId: 'ic_customTheme',
         value: 'CustomTheme',
+      },
+      {
+        title: '定制主题',
+        titleId: 'ic_demo',
+        value: 'TokenDemo',
       },
       // {
       //   title: 'resize卡顿',
@@ -246,11 +251,11 @@ const NAV_DATA = [
     titleId: 'ic_FlowChart',
     value: 'FlowChart',
   },
-  // {
-  //   title: '河流图 RiverChart',
-  //   titleId: 'ic_RiverChart',
-  //   value: 'RiverChart',
-  // },
+  {
+    title: '河流图 RiverChart',
+    titleId: 'ic_RiverChart',
+    value: 'RiverChart',
+  },
   {
     title: '蜂窝图 HoneycombChart',
     titleId: 'ic_HoneycombChart',
@@ -260,6 +265,11 @@ const NAV_DATA = [
     title: '波纹图 WaveChart',
     titleId: 'ic_WaveChart',
     value: 'WaveChart',
+  },
+  {
+    title: '梯田图 TerraceChart',
+    titleId: 'ic_TerraceChart',
+    value: 'TerraceChart',
   },
   {
     title: '百度地图 BaiduMapChart',
@@ -276,6 +286,11 @@ const NAV_DATA = [
     titleId: 'ic_OrganizationChart',
     value: 'OrganizationChart',
   },
+  {
+    title: '雪花图 SnowFlakeChart',
+    titleId: 'ic_SnowFlakeChart',
+    value: 'SnowFlakeChart'
+  }
   // {
   //   title: '业务定制图表 SpecialChart',
   //   titleId: 'ic_SpecialChart',

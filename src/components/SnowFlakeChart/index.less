@@ -1,0 +1,38 @@
+.sc-container {
+  width: 100%;
+  height: 100%;
+  // position: relative;
+}
+.sc-centerNode-container,
+.sc-childNode-item {
+  position: absolute;
+  z-index: 2;
+  left: 100%;
+  top: 50%;
+}
+.sc-centerNode-container {
+  left: 50%;
+  transform: translate(-50%;-50%);
+}
+
+.sc-line-item {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+}
+
+.sc-extra-item {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+}
+
+.sc-childNode-container,
+.sc-line-container,
+.sc-extra-container {
+  width: 100%;
+}
+
+.sc-childNode-container {
+  height: 100%;
+}

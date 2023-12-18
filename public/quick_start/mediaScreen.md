@@ -27,6 +27,6 @@ const screenOption = [{
     markLine:{...}
   }
 }];
-// 开启响应式布局（类媒体查询效果）
+// 开启响应式布局（类媒体查询效果）, mediaScreen需要在 init  和 setSimpleOption 之间调用
 chartInstance.mediaScreen(screenDOM, screenOption);
 ```

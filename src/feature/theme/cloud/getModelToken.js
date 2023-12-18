@@ -60,46 +60,69 @@ function getModelToken(mapToken) {
     subtitleFontSize,
   } = mapToken;
   return {
-    // 主文本
-
-    tooltipAxisPointerTextColor: colorText,
-    //   圆盘图Serieslabel
-    seriesLabelTextColor: colorText,
-
-    // 次要文本
-
+    // 标题 token
     titleTextColor: colorText,
     titleSubTextColor: colorSubtext,
+    titleTextFontSize: titleFontSize,
+    titleSubtextFontSize: subtitleFontSize,
+    // 图例 token
     legendTextColor: colorSubtext,
     legendTextRichColor: colorSubtext,
     legendRichTextColor: colorSubtext,
+    legendTextFontSize: subtextFontSize,
+    legendTextRichFontSize: subtextFontSize,
+    // x轴 token
     xAxisNameColor: colorSubtext,
     xAxisLabelColor: colorSubtext,
-    yAxisNameColor: colorSubtext,
-    yAxisLabelColor: colorSubtext,
-    radarAxisNameColor: colorSubtext,
-    radarAxisLabelColor: colorSubtext,
-    angleAxisLabelColor: colorSubtext,
-    // 轴线的name字号
-
     xAxisNameFontSize: textFontSize,
-    yAxisNameFontSize: textFontSize,
-    radiusAxisLabelColor: colorSubtext,
-    tooltipTextFontSize: textFontSize,
-    titleTextFontSize: titleFontSize,
-    titleSubtextFontSize: subtitleFontSize,
-    // 轴线的类型
-
     xAxisLineType: axisLineType,
+    xAxisLineColor: colorAxisLine,
+    xAxisTickLineColor: colorAxisTickLine,
+    xAxisSplitLineColor: colorAxisSplitLine,
     xAxisTickLineType: axisTickLineType,
     xAxisSplitLineType: axisSplitLineType,
-
+    xAxisLabelFontSize: subtextFontSize,
+    // y轴 token
+    yAxisNameColor: colorSubtext,
+    yAxisLabelColor: colorSubtext,
+    yAxisNameFontSize: textFontSize,
     yAxisLineType: axisLineType,
+    yAxisLineColor: colorAxisLine,
+    yAxisTickLineColor: colorAxisTickLine,
+    yAxisSplitLineColor: colorAxisSplitLine,
     yAxisTickLineType: axisTickLineType,
     yAxisSplitLineType: axisSplitLineType,
-
+    yAxisLabelFontSize: subtextFontSize,
+    // 雷达轴 token
+    radarAxisNameColor: colorSubtext,
+    radarAxisLabelColor: colorSubtext,
+    // 极坐标轴 token
+    angleAxisLabelColor: colorSubtext,
     angleAxisLineType: axisLineType,
     angleAxisTickLineType: axisTickLineType,
+    // 提示窗 token
+    tooltipTextFontSize: textFontSize,
+    tooltipAxisPointerTextColor: colorText,
+
+
+
+
+    
+    
+     //   圆盘图Serieslabel
+     seriesLabelTextColor: colorText,
+
+    // 轴线的name字号
+
+    radiusAxisLabelColor: colorSubtext,
+    
+   
+
+   
+
+   
+
+    
     //* *********备注极坐标系的角度轴的分割线需要特别写成实线，和直角坐标系的使用有区别******
     angleAxisSplitLineType: axisLineType,
     radiusAxisLineType: axisLineType,
@@ -109,22 +132,16 @@ function getModelToken(mapToken) {
 
     // 次要文本的字号
 
-    xAxisLabelFontSize: subtextFontSize,
-    yAxisLabelFontSize: subtextFontSize,
-    legendTextFontSize: subtextFontSize,
-    legendTextRichFontSize: subtextFontSize,
+   
+    
     angleAxisLabelFontSize: subtextFontSize,
     radiusAxisLabelFontSize: subtextFontSize,
 
     // 轴线的颜色
 
-    xAxisLineColor: colorAxisLine,
-    xAxisTickLineColor: colorAxisTickLine,
-    xAxisSplitLineColor: colorAxisSplitLine,
+    
 
-    yAxisLineColor: colorAxisLine,
-    yAxisTickLineColor: colorAxisTickLine,
-    yAxisSplitLineColor: colorAxisSplitLine,
+   
 
     radarAxisLineColor: colorAxisLine,
     radarAxisTickLineColor: colorAxisTickLine,

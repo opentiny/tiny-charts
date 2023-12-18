@@ -3,7 +3,7 @@
 ```d
 {
     center:['50%','50%'],
-    radius:'50%'
+    radius:['35%','70%']
 }
 ```
 
@@ -18,6 +18,6 @@
 
 <p class='ev_expand_title'>position.radius<span class='ev_expand_required'>非必填</span><span class='ev_expand_defaults'>有默认值</span><span class='ev_expand_type'>String</span>
 
-<p class='ev_expand_introduce'>默认值：`50%`
+<p class='ev_expand_introduce'>默认值：`['35%','70%']`
 
 <p class='ev_expand_introduce'>说明：波浪图占容器宽度的百分比。

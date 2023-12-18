@@ -31,7 +31,10 @@ import BaiduMapChart from './BaiduMapChart';
 import AutonaviMapChart from './AutonaviMapChart';
 import CandlestickChart from './CandlestickChart';
 import GraphChart from './GraphChart';
-import AssembleBubbleChart from './AssembleBubbleChart'
+import AssembleBubbleChart from './AssembleBubbleChart';
+import TerraceChart from './TerraceChart';
+import SnowFlakeChart from './SnowFlakeChart';
+
 
 export default {
   AreaChart,
@@ -67,5 +70,7 @@ export default {
   AutonaviMapChart,
   CandlestickChart,
   GraphChart,
-  AssembleBubbleChart
+  AssembleBubbleChart,
+  TerraceChart,
+  SnowFlakeChart
 };

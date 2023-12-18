@@ -10,8 +10,7 @@ const option = {
       '负载': 8
     }
   },
-  splitNumber: 5,
-  radarMark: true,
+  radarMark: false,
   radarMax: [
     { name: '集群', max: 10 },
     { name: '节点', max: 100 },
@@ -19,13 +18,13 @@ const option = {
     { name: '外部依赖', max: 10 },
     { name: '负载', max: 10 },
   ],
-  // 自定中心dom
+  // 自定义中心dom 如需字体大小自适应，开发者需自行通过媒体查询实现
   centerDom: () => {
     const dom = `
-          <div style="font-size:18px;">
-            <span style="font-size:72px">96</span>分
+          <div style="font-size:12px;">
+            <span class="dom_text">96</span>分
           </div>
-          <div style="color:#808080; font-size:18px;">
+          <div style="color:#808080; font-size:12px;">
             健康评分
           </div>`;
     return dom;

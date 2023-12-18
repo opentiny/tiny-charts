@@ -1,5 +1,29 @@
 const option = {
     theme: 'dark',
+    radius: {
+        min: 200,  // 最小圆环半径
+        gap: 200,  // 圆环半径递增量
+        angle: 45, // 最小圆环的间隔角度
+        direction: 'bottom' // 元素球在圆圈的上下左右位置
+    },
+    position: {   // 图表在容器中的位置
+        top: '-40%'
+    },
+    render: (container, data) => {
+        let node = `
+            <div class='user_card'>
+                <div class='user_head'>
+                    ${
+                        data.head ? '<img class="user_head_img " draggable="false" src="' + data.head + '"/>' : ''
+                    }
+                </div>
+                <div class='user_name'>${data.name}</div>
+                <div class='user_id'>${data.id}</div>
+                <div class='user_address'>${data.address}</div>
+                <div class='user_subordinates'>${data.children ? data.children.length : 0}个下层组织</div>
+            </div>`;
+        container.insertAdjacentHTML('beforeend', node);
+    }, 
     data: {
         id: '00125710',
         name: '克莱恩·莫雷蒂',
