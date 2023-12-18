@@ -1,37 +1,10 @@
 import HuiChart from './chart';
 
 export { default as core } from './core';
-export { default as BarChart } from './components/BarChart';
-export { default as PieChart } from './components/PieChart';
-export { default as LineChart } from './components/LineChart';
-export { default as HillChart } from './components/HillChart';
-export { default as WaveChart } from './components/WaveChart';
-export { default as TreeChart } from './components/TreeChart';
 export { default as FlowChart } from './components/FlowChart';
-export { default as RadarChart } from './components/RadarChart';
 export { default as GanttChart } from './components/GanttChart';
-export { default as GaugeChart } from './components/GaugeChart';
-export { default as GraphChart } from './components/GraphChart';
 export { default as RiverChart } from './components/RiverChart';
-export { default as BubbleChart } from './components/BubbleChart';
-export { default as RegionChart } from './components/RegionChart';
-export { default as FunnelChart } from './components/FunnelChart';
-export { default as SankeyChart } from './components/SankeyChart';
-export { default as BoxplotChart } from './components/BoxplotChart';
-export { default as ProcessChart } from './components/ProcessChart';
-export { default as JadeJueChart } from './components/JadeJueChart';
-export { default as HeatMapChart } from './components/HeatMapChart';
-export { default as BaiduMapChart } from './components/BaiduMapChart';
-export { default as SunburstChart } from './components/SunburstChart';
-export { default as PolarBarChart } from './components/PolarBarChart';
-export { default as GraphTreeChart } from './components/GraphTreeChart';
-export { default as WordCloudChart } from './components/WordCloudChart';
 export { default as HoneycombChart } from './components/HoneycombChart';
-export { default as LiquidfillChart } from './components/LiquidfillChart';
-export { default as AutonaviMapChart } from './components/AutonaviMapChart';
-export { default as CandlestickChart } from './components/CandlestickChart';
 export { default as OrganizationChart } from './components/OrganizationChart';
-export { default as CircleProcessChart } from './components/CircleProcessChart';
-export { default as AssembleBubbleChart } from './components/AssembleBubbleChart';
 
 export default HuiChart;
