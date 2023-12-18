@@ -1,7 +1,6 @@
 import MarkdownPage from './MarkdownPage';
 import React from 'react';
-import mediaScreen from './mediaScreen';
-import TokenDemo from './tokenDemo';
+
 // 快速开始
 const quickStart = [
     {
@@ -64,15 +63,7 @@ const solution = [
         name: 'LazyLoad',
         path: 'quick_start/lazyLoad.md',
     },
-    {
-        name: 'mediaScreen',
-        component: mediaScreen,
-        path: 'quick_start/mediaScreen.md',
-    },
-    {
-        name: 'TokenDemo',
-        component: TokenDemo,
-    }
+
 ];
 
 

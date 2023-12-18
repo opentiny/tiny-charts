@@ -1,5 +1,4 @@
 import core from './core';
-import Register from './register';
 import Theme from './feature/theme';
 import { isFunction } from './util/type';
 import { mergeExtend } from './util/merge';
@@ -36,11 +35,8 @@ export default class HuiCharts extends core {
     mergeExtend(this.iChartOption, this.eChartOption);
   }
 
-
   // 获取图表类
-  getChartClass(name) {
-    return Register.getRegisteredComp(name);
-  }
+  getChartClass(name) {}
 
   // 开启响应式布局（类媒体查询效果）
   mediaScreen(dom, screenOption) {
