@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import MainPage from './Content/MainPage';
-import Overview from './Overview';
 import MarkdownPageList from './MarkdownPage/markdownPageList';
 import './index.less';
 import './dark.less';
@@ -40,7 +39,6 @@ function Example() {
             {MarkdownPageList.map((item, index) => {
               return <Route key={index} path={`/Example/${item.name}`} component={item.component} />;
             })}
-            <Route path="/Example/Overview" component={Overview} />
             <Route path={'/Example/*'} component={MainPage} />
             <Redirect to="/Example/ReadMe" />
           </Switch>
