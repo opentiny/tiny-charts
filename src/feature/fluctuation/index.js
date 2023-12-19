@@ -22,7 +22,6 @@ const fluctuation = (data, allowRange) => {
   let max = -Infinity;
   const range = allowRange || [-Infinity, Infinity];
   const dataKeys = Object.keys(data);
-
   dataKeys.forEach((key) => {
     data[key].forEach((item) => {
       if (isArray(item)) {
@@ -41,7 +40,6 @@ const fluctuation = (data, allowRange) => {
       }
     });
   });
-
   let axisMin = Math.floor(min - ((max - min) / 5) * 4);
   if (min > 0 && axisMin < 0) {
     axisMin = 0;
