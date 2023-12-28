@@ -13,24 +13,9 @@ const NAV_DATA = [
         value: 'ReadMe',
       },
       {
-        title: '皮肤主题',
-        titleId: 'ic_theme',
-        value: 'Theme',
-      },
-      {
         title: '数据状态',
         titleId: 'ic_DataStatus',
         value: 'DataStatus',
-      },
-      {
-        title: '事件监听',
-        titleId: 'ic_Events',
-        value: 'Events',
-      },
-      {
-        title: '版本发布日志',
-        titleId: 'ic_changelogs',
-        value: 'ChangeLog',
       },
     ],
   },
@@ -58,11 +43,6 @@ const NAV_DATA = [
         title: '语音读屏',
         titleId: 'ic_readScreen',
         value: 'ReadScreen',
-      },
-      {
-        title: '自定义主题',
-        titleId: 'ic_customTheme',
-        value: 'CustomTheme',
       },
     ],
   },
