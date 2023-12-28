@@ -32,7 +32,6 @@ angleAxis:{
   axisLabel: {
     show: true,
     fontSize: 12,
-    fontFamily: 'HuaweiSans',
     color: undefined,
     formatter:'percent'
   },
@@ -72,6 +71,6 @@ angleAxis:{
 
 <p class='ev_expand_title'>angleAxis.axisLabel<span class='ev_expand_required'>非必填</span><span class='ev_expand_defaults'>有默认值</span><span class='ev_expand_type'>object</span>
 
-<p class='ev_expand_introduce'>默认值：`{show:true,fontSize:12,fontFamily: 'HuaweiSans',formatter:'percent'}`
+<p class='ev_expand_introduce'>默认值：`{show:true,fontSize:12,formatter:'percent'}`
  
 <p class='ev_expand_introduce'>说明：角度轴刻度标签文本的相关设置。<br>其中`formatter`的参数可选为`percent`：刻度文本展示为百分比数据；`number`：刻度文本展示为数值数据；`回调函数/字符串模板`：'{value}单位/function(value){return value+'单位'}'，展示自定义文本

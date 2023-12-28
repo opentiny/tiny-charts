@@ -1,5 +1,5 @@
 const option = {
-  theme: 'hwCloud-light',
+  theme: 'cloud-light',
   type: 'warning',
   //位置和大小
   position: {

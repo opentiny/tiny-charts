@@ -67,8 +67,8 @@ HUI-Charts 目前内置了 5 种数据状态，包括:
 HUI-Charts 目前内置了 4 种皮肤主题色，包括：
 - ICT3.0图表浅色主题
 - ICT3.0图表深色主题
-- 华为云图表浅色主题
-- 华为云图表深色主题(待定)
+- 云领域图表浅色主题
+- 云领域图表深色主题(待定)
 
 您可以<a href="https://co.uiplus.huawei.com/components/hui-charts/index.html#/Menu/Theme" target="_blank">点击这里跳转</a>查看详细使用方式。
 

@@ -3,6 +3,7 @@
   height: 100%;
   position: relative;
   overflow-y: hidden;
+
   .ic-homepage-head {
     min-width: 920px;
     box-sizing: border-box;
@@ -19,6 +20,7 @@
     color: #fff;
     z-index: 2021;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+
     *:focus {
       outline-offset: 0;
       outline: 0 !important;
@@ -38,8 +40,9 @@
       span {
         margin-left: 0.5rem;
         vertical-align: middle;
-        font-size: 1rem /* 16/16 */;
-        font-family: 'HuaweiSans-Bold', FZLTCHJW;
+        font-size: 1rem
+          /* 16/16 */
+        ;
         font-weight: bold;
         color: #000;
       }
@@ -93,6 +96,7 @@
         }
       }
     }
+
     .resize-bar {
       z-index: 9999;
       display: flex !important;
@@ -113,29 +117,35 @@
       background-color: #ffffff;
       transition: left 0.3s ease;
     }
+
     .header_lists {
       background: #fff;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
       -webkit-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
       -moz-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+
       .header_lists_item {
         &.border {
           border-top: 1px solid #00000040;
         }
+
         .header_lists_title {
           color: #252b3a;
         }
+
         .header_lists_text {
           color: #252b3a;
         }
       }
     }
+
     //新需求
     .header-nav {
       position: relative;
       display: inline-flex;
       height: 4rem;
       line-height: 4rem;
+
       .header-nav-item {
         position: relative;
         margin-right: 4rem;
@@ -143,6 +153,7 @@
         color: #252b3a;
         width: auto;
         cursor: pointer;
+
         span {
           margin-left: 0;
         }
@@ -152,10 +163,6 @@
           font-size: 14px;
           font-weight: bold;
           margin-right: 0.5rem;
-        }
-
-        .nav-item-en {
-          font-family: HuaweiSans;
         }
 
         &:hover {
@@ -220,6 +227,7 @@
       height: 100vh;
       top: 65px;
       left: 0;
+
       div {
         background-color: #fff;
         height: 12rem;
@@ -284,22 +292,25 @@
     position: absolute;
     // top: 4rem;
     top: 0rem !important;
+
     .ic-example {
       overflow: hidden;
+
       // .ic-iframeContainer{
       //   height:100%;
       //   width: calc(100% - 21.875rem);
       //   margin-left: 21.875rem;
       //   overflow:scroll;
-        .ic-iframe{
-          width:100%;
-          border:0px;
-          height:100%;
+      .ic-iframe {
+        width: 100%;
+        border: 0px;
+        height: 100%;
         // }
       }
     }
   }
 }
+
 html,
 body,
 #root {
@@ -307,6 +318,7 @@ body,
   height: 100%;
   // scroll-behavior: smooth;
 }
+
 * {
   scrollbar-color: #bbbbbb transparent;
   /* 第一个方块颜色，第二个轨道颜色(用于更改火狐浏览器样式) */
@@ -359,35 +371,43 @@ body,
 ::-webkit-scrollbar-track {
   background: #fff;
 }
+
 .layout-size(@left-width, @header-height) {
   .ic-homepage {
     .ic-homepage-head {
       height: @header-height;
+
       .header-nav {
         height: @header-height;
         line-height: @header-height;
       }
     }
+
     .ic-homepage-route {
       top: @header-height;
     }
   }
 }
+
 /*框架页面响应式代码*/
 
 @media screen and (min-width: 1440px) {
-  .layout-size(21.875rem,4rem);
+  .layout-size(21.875rem, 4rem);
 }
+
 @media screen and (max-width: 1200px) {
   .layout-size(15rem, 3rem);
+
   .ic-homepage {
     .ic-homepage-head {
       min-width: 18.75rem;
+
       .header_btn {
         position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
+
         .header_lists {
           padding: 1rem 0 1rem 0.625rem;
           min-width: 155px;
@@ -402,19 +422,23 @@ body,
           z-index: 2;
           text-align: left;
           animation-duration: 0.5s;
+
           .header_lists_item {
             text-align: left;
+
             &.border {
               margin-top: 16px;
               padding-top: 15px;
               border-radius: 0.25px;
             }
+
             .header_lists_title {
               font-size: 0.12rem;
               font-weight: bold;
               line-height: 16px;
               cursor: pointer;
             }
+
             .header_lists_text {
               margin-top: 8px;
               opacity: 0.5;
@@ -427,6 +451,7 @@ body,
     }
   }
 }
+
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .layout-size(17.5rem, 4rem);
 }

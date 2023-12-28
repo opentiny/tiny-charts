@@ -23,7 +23,6 @@ radiusAxis:{
     show:true,
     color: undefined,
     fontSize: 12,
-    fontFamily: 'HuaweiSans',
     align: 'right',
     margin: 20,
     width:100, // 设置文本的显示宽度
@@ -47,6 +46,6 @@ radiusAxis:{
 
 <p class='ev_expand_title'>radiusAxis.axisLabel<span class='ev_expand_required'>非必填</span><span class='ev_expand_defaults'>有默认值</span><span class='ev_expand_type'>object</span>
 
-<p class='ev_expand_introduce'>默认值：`{show:true,fontSize:12,fontFamily: 'HuaweiSans',align:'right',margin:20,overflow:'truncate'}`
+<p class='ev_expand_introduce'>默认值：`{show:true,fontSize:12,align:'right',margin:20,overflow:'truncate'}`
  
 <p class='ev_expand_introduce'>说明：径向轴刻度标签文本的相关设置。
