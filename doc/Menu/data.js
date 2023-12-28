@@ -50,34 +50,14 @@ const NAV_DATA = [
         value: 'DemandLoad',
       },
       {
-        title: '网格对齐',
-        titleId: 'ic_axisMargin',
-        value: 'AxisMargin',
-      },
-      {
         title: '高阶图表',
         titleId: 'ic_highOrder',
         value: 'HighOrder',
       },
       {
-        title: '迷你图表',
-        titleId: 'ic_mini',
-        value: 'Mini',
-      },
-      {
         title: '语音读屏',
         titleId: 'ic_readScreen',
         value: 'ReadScreen',
-      },
-      {
-        title: '配置扩展',
-        titleId: 'ic_eChartsNative',
-        value: 'EChartsNative',
-      },
-      {
-        title: '刻度优化',
-        titleId: 'ic_axisOptimization',
-        value: 'AxisOptimization',
       },
       {
         title: '自定义主题',
@@ -86,7 +66,6 @@ const NAV_DATA = [
       },
     ],
   },
-
   {
     title: '甘特图 GanttChart',
     titleId: 'ic_comp_GanttChart',
@@ -107,7 +86,6 @@ const NAV_DATA = [
     titleId: 'ic_HoneycombChart',
     value: 'HoneycombChart',
   },
-
   {
     title: '梯田图 TerraceChart',
     titleId: 'ic_TerraceChart',

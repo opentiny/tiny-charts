@@ -32,28 +32,12 @@ const solution = [
         path: 'quick_start/demandLoad.md',
     },
     {
-        name: 'AxisMargin',
-        path: 'quick_start/axisMargin.md',
-    },
-    {
         name: 'HighOrder',
         path: 'quick_start/highOrder.md',
     },
     {
-        name: 'Mini',
-        path: 'quick_start/mini.md',
-    },
-    {
-        name: 'EChartsNative',
-        path: 'quick_start/echartsNative.md',
-    },
-    {
         name: 'CustomTheme',
         path: 'quick_start/customTheme.md',
-    },
-    {
-        name: 'AxisOptimization',
-        path: 'quick_start/axisOptimization.md',
     },
     {
         name: 'ReadScreen',
@@ -62,10 +46,8 @@ const solution = [
     {
         name: 'LazyLoad',
         path: 'quick_start/lazyLoad.md',
-    },
-
+    }
 ];
-
 
 const markdownList = [
     ...quickStart,
