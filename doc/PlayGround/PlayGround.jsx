@@ -1,13 +1,10 @@
 import React, { useState, useEffect, createRef, useRef } from 'react';
 // 按需引用的图表
 import OrganizationChart from '../../src/components/OrganizationChart';
-import AutonaviMapChart from '../../src/components/AutonaviMapChart';
 import HoneycombChart from '../../src/components/HoneycombChart';
-import BaiduMapChart from '../../src/components/BaiduMapChart';
 import GanttChart from '../../src/components/GanttChart';
 import RiverChart from '../../src/components/RiverChart';
 import FlowChart from '../../src/components/FlowChart';
-import WaveChart from '../../src/components/WaveChart';
 import TerraceChart from '../../src/components/TerraceChart';
 import SnowFlakeChart from '../../src/components/SnowFlakeChart';
 import IntegrateChart from '../../src/index';
