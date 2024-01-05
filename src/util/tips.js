@@ -1,4 +1,4 @@
-const packageName = 'HUI-Charts'
+const packageName = 'HUI-Charts';
 
 function warn(tip){
     console.warn(`[${packageName}] Warning: ${tip}`)

@@ -4,5 +4,4 @@ function readScreen(dom, readScreenText){
         dom.setAttribute('aria-label', readScreenText);
     }
 }
-
 export default readScreen;

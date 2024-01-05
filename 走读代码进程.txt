@@ -1,0 +1,7 @@
+1. 删除 register.js --- 完毕
+2. 删除 chart.js    --- 完毕
+3. 整理 index.js    --- 完毕
+4. 整理 feature 文件夹 ---- 除了 theme 文件夹全部审视完毕
+5. 整理 core.js    --- ing
+6. 整理 util 文件夹 
+

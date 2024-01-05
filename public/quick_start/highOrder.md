@@ -60,8 +60,6 @@ HUI-Charts 目前内置了 5 种数据状态，包括:
 - stageEmpty：阶段数据为空
 - state：自定义状态
 
-您可以<a href="https://co.uiplus.huawei.com/components/hui-charts/index.html#/Menu/DataStatus" target="_blank">点击这里跳转</a>查看详细使用方式。
-
 </br>
 
 ## 高阶图表渲染完毕的回调

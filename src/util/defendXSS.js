@@ -1,7 +1,6 @@
-/**
- *  转义字符 防止xss攻击
- */
+// 转义字符 防止xss攻击
 const matchHtmlRegExp = /["'&<>/]/;
+
 function escapeHtml(string) {
   const str = `${string}`;
   const match = matchHtmlRegExp.exec(str);
@@ -12,7 +11,6 @@ function escapeHtml(string) {
   let html = '';
   let index;
   let lastIndex = 0;
-
   for (index = match.index; index < str.length; index++) {
     switch (str.charCodeAt(index)) {
       case 34: // "
@@ -36,42 +34,14 @@ function escapeHtml(string) {
       default:
         continue;
     }
-
     if (lastIndex !== index) {
       html += str.substring(lastIndex, index);
     }
-
     lastIndex = index + 1;
     html += escape;
   }
-
   return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
 }
-
-const escapeHtmlAHO = value => {
-  if (typeof value === 'string') {
-    if (value.indexOf('&') > -1 && value.indexOf('&amp;') < 0) {
-      value = value.replace(/&/g, '&amp;');
-    }
-    if (value.indexOf('<') > -1) {
-      value = value.replace(/</g, '&lt;');
-    }
-    if (value.indexOf('>') > -1) {
-      value = value.replace(/>/g, '&gt;');
-    }
-    if (value.indexOf('/') > -1) {
-      value = value.replace(/\//g, '&#x2F;');
-    }
-    if (value.indexOf('"') > -1) {
-      value = value.replace(/"/g, '&quot;');
-    }
-    if (value.indexOf('\'') > -1) {
-      value = value.replace(/'/g, '&#x27;');
-    }
-  }
-  return value;
-};
-
 
 const defendXSS = obj => {
   if (typeof obj === 'string') {
@@ -88,5 +58,9 @@ const defendXSS = obj => {
   }
 };
 
+export { 
+  escapeHtml
+};
+
 export default defendXSS;
-export { escapeHtml, escapeHtmlAHO };
+

@@ -38,7 +38,7 @@ export default class CoreChart extends BaseChart {
     this.chartClass;
     // 图表依赖的三方插件
     this.plugins = {};
-    // 图表还没有执行render()方法
+    // 图表未执行render方法
     this.hasRender = false;
     // 图表渲染完毕的回调
     this.renderCallBack = null;

@@ -1,5 +1,5 @@
 /**
- * 循环取出颜色
+ * 从colors数组中循环取出颜色
  */
 function getColor(colors, index) {
   return colors[index % colors.length];
@@ -20,8 +20,7 @@ function codeToRGB(code, opacity) {
 }
 
 /**
- * rgba转十六进制 codeToHex('rgba(255,0,0,.5)') --> '#fffcfc'
- * 将red、blue等转换为十六进制
+ * rgba转十六进制 codeToHex('rgba(255,0,0,.5)') --> '#fffcfc'， 也将red、blue等转换为十六进制
  */
 function codeToHex(color) {
   switch (color) {
@@ -76,7 +75,7 @@ function changeRgbaOpacity(rgba, opacity) {
 
 
 /**
- * 生成过渡色的方法(c1,c2必须为十六进制颜色 c1为初始颜色，c2为末尾颜色，n表示过渡色数量，返回值为 length === n+2 的数组
+ * 生成过渡色的方法：c1，c2必须为十六进制颜色。c1为初始颜色，c2为末尾颜色，n表示过渡色数量，返回值为 length === n+2 的数组
  * 如：colorsBetween('#ff0000', '#ffffff', 10) --> ['#ff0000','#ff1717','#ff2e2e','#ff4646','#ff5d5d','#ff7474','#ff8b8b','#ffa2a2','#ffb9b9','#ffd1d1','#ffe8e8','#ffffff' ]
  */
 function colorsBetween(c1, c2, n) {
@@ -142,7 +141,6 @@ function colorsBetween(c1, c2, n) {
     return c.toHex();
   });
 }
-
 
 export {
   getColor,

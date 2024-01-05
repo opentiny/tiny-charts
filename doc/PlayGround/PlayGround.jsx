@@ -1,10 +1,8 @@
 import React, { useState, useEffect, createRef, useRef } from 'react';
 // 按需引用的图表
-import OrganizationChart from '../../src/components/OrganizationChart';
 import HoneycombChart from '../../src/components/HoneycombChart';
 import GanttChart from '../../src/components/GanttChart';
 import RiverChart from '../../src/components/RiverChart';
-import FlowChart from '../../src/components/FlowChart';
 import TerraceChart from '../../src/components/TerraceChart';
 import SnowFlakeChart from '../../src/components/SnowFlakeChart';
 import IntegrateChart from '../../src/index';
@@ -175,33 +173,10 @@ function PlayGround(props) {
 
   const renderChart = option => {
     changeBackgroundColor(option.theme);
-    if (chartName == 'FlowChart') {
-      chartRef.current.innerHTML = '';
-      instance = new FlowChart(chartRef.current, option);
-    } else if (chartName == 'AutonaviMapChart') {
-      chartRef.current.innerHTML = '';
-      integrateChart.init(chartRef.current);
-      integrateChart.setSimpleOption(AutonaviMapChart, option, {});
-      integrateChart.render();
-    } else if (chartName == 'BaiduMapChart') {
-      chartRef.current.innerHTML = '';
-      integrateChart.init(chartRef.current);
-      integrateChart.setSimpleOption(BaiduMapChart, option, {});
-      integrateChart.render();
-    } else if (chartName == 'HoneycombChart') {
+    if (chartName == 'HoneycombChart') {
       chartRef.current.innerHTML = '';
       integrateChart.init(chartRef.current);
       integrateChart.setSimpleOption(HoneycombChart, option, {});
-      integrateChart.render();
-    } else if (chartName == 'OrganizationChart') {
-      chartRef.current.innerHTML = '';
-      integrateChart.init(chartRef.current);
-      integrateChart.setSimpleOption(OrganizationChart, option, {});
-      integrateChart.render();
-    } else if (chartName == 'WaveChart') {
-      chartRef.current.innerHTML = '';
-      integrateChart.init(chartRef.current);
-      integrateChart.setSimpleOption(WaveChart, option, {});
       integrateChart.render();
     } else if (chartName == 'TerraceChart') {
       chartRef.current.innerHTML = '';
@@ -240,8 +215,8 @@ function PlayGround(props) {
       setIChartOption(response.data);
       // 当iframe传入了主题，替换option中的主题
       if (theme) {
-        if (option.theme && option.theme.indexOf('hwCloud-') !== -1) {
-          option.theme = `hwCloud-${theme}`;
+        if (option.theme && option.theme.indexOf('cloud-') !== -1) {
+          option.theme = `cloud-${theme}`;
         } else {
           option.theme = theme;
         }
