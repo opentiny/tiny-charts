@@ -1,4 +1,4 @@
-import TipManager from "./TipManager";
+import TipManager from './TipManager';
 export default class NodeManager {
     data;
     theme;
@@ -8,9 +8,9 @@ export default class NodeManager {
     hGap;
     layout;
     dom;
-    //节点宽度
+    // 节点宽度
     nodeWidth;
-    //节点dom数组
+    // 节点dom数组
     nodeCluster;
     container;
     hcContainer;
@@ -19,8 +19,8 @@ export default class NodeManager {
 
     constructor(dom, option) {
         this.dom = dom;
-        this.container = this.dom.getElementsByClassName("hc-rows")[0];
-        this.hcContainer = this.dom.getElementsByClassName("hc-container")[0];
+        this.container = this.dom.getElementsByClassName('hc-rows')[0];
+        this.hcContainer = this.dom.getElementsByClassName('hc-container')[0];
         this.data = option.data || [];
         this.theme = option.theme;
         this.render = option.render;
@@ -98,7 +98,7 @@ export default class NodeManager {
             // 位移
             let left = this.getRowLeft(index);
             rowDom.style.left = left + 'px';
-            //vGap控制节点之间垂直间距
+            // vGap控制节点之间垂直间距
             if (index !== 0) {
                 rowDom.style.marginTop = this.vGap;
             }

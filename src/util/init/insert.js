@@ -1,4 +1,4 @@
-import defendXSS from "../defendXSS";
+import defendXSS from '../defendXSS';
 
 const ERROR_SVG = (fillColor) => {
     return `<svg width="80px" height="80px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -74,8 +74,9 @@ const LOADING_SVG = (fillColor) => {
             <g transform="translate(538.000000, 402.000000)">
                 <g transform="translate(279.000000, 188.000000)">
                     <path style="transform-origin: 50% 50%;"  d="M12,0.9 C12.7455844,0.9 13.35,1.50441559 13.35,2.25 C13.35,2.99558441 12.7455844,3.6 12,3.6 C7.36058441,3.6 3.6,7.36058441 3.6,12 C3.6,16.6394156 7.36058441,20.4 12,20.4 C16.6394156,20.4 20.4,16.6394156 20.4,12 C20.4,11.2544156 21.0044156,10.65 21.75,10.65 C22.4955844,10.65 23.1,11.2544156 23.1,12 C23.1,18.1305844 18.1305844,23.1 12,23.1 C5.86941559,23.1 0.9,18.1305844 0.9,12 C0.9,5.86941559 5.86941559,0.9 12,0.9 Z" id="Stroke-2" fill="url(#huichart-loading-linearGradient)" fill-rule="nonzero">
-                    <animateTransform attributeName='transform' type="rotate" from='0' to='360' dur='1' repeatCount='indefinite'/> 
+                    <animateTransform attributeName='transform' type="rotate" from='0' to='360' dur='1' repeatCount='indefinite'/>
                     </path>
+
                 </g>
             </g>
         </g>
@@ -83,18 +84,20 @@ const LOADING_SVG = (fillColor) => {
 </svg>`;
 }
 
-function insertStateDom(container, state, option = { theme: 'light' }) {
+function hasStateDom(container, state) {
+    let doms = container.getElementsByClassName(`huicharts-${state}`);
+    if (doms.length >= 1) {
+        return true
+    } else {
+        return false;
+    }
+}
+
+function getState(state, option = { theme: 'light' }, imageColor) {
     let text = '';
     let image = '';
+    let backgroundColor = '';
     let theme = option.theme || 'light';
-    let textSize = option.textSize || 14;
-    let textShow = option.textShow === false ? false : true;
-    let imageSize = option.imageSize || 'auto';
-    let imageShow = option.imageShow === false ? false : true;
-    let textColor = option.textColor || (theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#808080');
-    let imageColor = option.imageColor || (theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#191919');
-    let backgroundColor = option.backgroundColor || (theme.indexOf('dark') !== -1 ? '#191919' : '#FFFFFF');
-    if (hasStateDom(container, state)) return;
     switch (state) {
         case 'error':
             image = ERROR_SVG(defendXSS(imageColor));
@@ -119,12 +122,27 @@ function insertStateDom(container, state, option = { theme: 'light' }) {
             text = option.text;
             break;
     }
+}
+
+function insertStateDom(container, state, option = { theme: 'light' }) {
+    let text = '';
+    let image = '';
+    let theme = option.theme || 'light';
+    let textSize = option.textSize || 14;
+    let textShow = option.textShow === false ? false : true;
+    let imageSize = option.imageSize || 'auto';
+    let imageShow = option.imageShow === false ? false : true;
+    let textColor = option.textColor || (theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#808080');
+    let imageColor = option.imageColor || (theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#191919');
+    let backgroundColor = option.backgroundColor || (theme.indexOf('dark') !== -1 ? '#191919' : '#FFFFFF');
+    if (hasStateDom(container, state)) return;
+    getState(state, option, imageColor);
     image = option.image ? `<img style="display: block;width: ${defendXSS(imageSize)}px;" src="${defendXSS(option.image)}" />` : image;
     text = option.text || text;
     let stateDom =
         `<div class="huicharts-state-container huicharts-${defendXSS(state)}" style="background-color: ${defendXSS(backgroundColor)};position:absolute;top: 0;left: 0;width: 100%;height: 100%;display: flex;align-items: center;flex-direction: column;justify-content: center;z-index: 99;">
             <div style="display: ${imageShow ? 'flex' : 'none'};width: ${defendXSS(imageSize)}px;height: ${defendXSS(imageSize)}px;padding: 0;margin: 0;align-items: center;justify-content: center;">${image}</div>
-            <div style="color: ${defendXSS(textColor)};font-size: ${defendXSS(textSize)}px;line-height: ${defendXSS(textSize)}px;display: ${textShow ? 'block' : 'none'};margin-top: 14px;letter-spacing: 0.5px;">${text}</div>
+            <div style="color: ${defendXSS(textColor)};font-size: ${defendXSS(textSize)}px;line-height: ${defendXSS(textSize)}px;display: ${textShow ? 'block' : 'none'};margin-top: 14px;letter-spacing: 0.5px;">${defendXSS(text)}</div>
         </div>`
     container.insertAdjacentHTML('beforeend', stateDom);
 }
@@ -134,15 +152,6 @@ function removeStateDom(container, state) {
     for (let index = 0; index < doms.length; index++) {
         let item = doms[index];
         container.removeChild(item)
-    }
-}
-
-function hasStateDom(container, state) {
-    let doms = container.getElementsByClassName(`huicharts-${state}`);
-    if (doms.length >= 1) {
-        return true
-    } else {
-        return false;
     }
 }
 

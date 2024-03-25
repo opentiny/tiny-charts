@@ -2,18 +2,18 @@
 
 </br>
 
-HUI-Charts 提供了两种图表组件的引用方式
+Opentiny 提供了两种图表组件的引用方式
 - 全量引入： 自动加载所有非高阶图表的其他图表，使用起来简单快速，但工程打包后体积较大。
 - 按需引入： 使用者自行引入需要的图表，工程打包候体积较小。
 
 
 ## 全量引入
 
-全量引入为 HUI-Charts 的默认引入方式。
+全量引入为 Opentiny 的默认引入方式。
 
 ```javascript
 // 直接引入图表库 --- 全量引入
-import HuiCharts from '@hui/charts';
+import HuiCharts from '@opentiny/hui-charts';
 const huiChartIns = new HuiCharts();
 const huiChartType = 'lineChart';
 const huiChartOption = {

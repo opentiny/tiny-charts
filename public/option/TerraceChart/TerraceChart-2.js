@@ -1,7 +1,7 @@
 const option = {
-  theme: 'cloud-light',
+  theme: 'light',
   type: 'warning',
-  //位置和大小
+  // 位置和大小
   position: {
     center: ['50%', '50%'],
     radius: ['30%', '70%']

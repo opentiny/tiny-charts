@@ -1,8 +1,8 @@
 const option = {
     theme: 'light',
-    padding: '0 350px',//容器padding
+    padding: '0 350px',// 容器padding
     layout: 'ellipse',
-    vGap: 2,//垂直间距
+    vGap: 2,// 垂直间距
     hGap: 6,
     render: (container, data) => {
         let status = data.status;
@@ -10,163 +10,163 @@ const option = {
         container.insertAdjacentHTML('beforeend', node);
     },
     tipHtml: (container, data) => {
-        let tagHtml;
+        let tagHtmlTwo;
         const status = data.status;
         const name = data.name;
         if (status === 'success') {
-            tagHtml = `<div class='hc-tag success'>${name}：执行成功</div>`;
+            tagHtmlTwo = `<div class='hc-tag success'>${name}：执行成功</div>`;
         } else if (status === 'error') {
-            tagHtml = `<div class='hc-tag failed'>${name}：执行失败</div>`;
+            tagHtmlTwo = `<div class='hc-tag failed'>${name}：执行失败</div>`;
         }
-        container.insertAdjacentHTML('beforeend', tagHtml);
+        container.insertAdjacentHTML('beforeend', tagHtmlTwo);
     },
     data: [
         {
-            name: 'node_1',
+            status: 'error',
+            name: 'nodes_1',
+        },
+        {
+            name: 'nodes_2',
             status: 'error',
         },
         {
-            name: 'node_2',
+            name: 'nodes_3',
             status: 'error',
         },
         {
-            name: 'node_3',
+            status: 'error',
+            name: 'nodes_4',
+        },
+        {
+            name: 'nodes_5',
             status: 'error',
         },
         {
-            name: 'node_4',
+            name: 'nodes_6',
             status: 'error',
         },
         {
-            name: 'node_5',
+            name: 'nodes_7',
             status: 'error',
         },
         {
-            name: 'node_6',
+            status: 'error',
+            name: 'nodes_8',
+        },
+        {
+            name: 'nodes_9',
             status: 'error',
         },
         {
-            name: 'node_7',
+            name: 'nodes_10',
             status: 'error',
         },
         {
-            name: 'node_8',
+            name: 'nodes_11',
             status: 'error',
         },
         {
-            name: 'node_9',
+            status: 'error',
+            name: 'nodes_12',
+        },
+        {
+            name: 'nodes_13',
             status: 'error',
         },
         {
-            name: 'node_10',
+            name: 'nodes_14',
             status: 'error',
         },
         {
-            name: 'node_11',
+            name: 'nodes_15',
             status: 'error',
         },
         {
-            name: 'node_12',
+            status: 'error',
+            name: 'nodes_16',
+        },
+        {
+            name: 'nodes_17',
             status: 'error',
         },
         {
-            name: 'node_13',
+            name: 'nodes_18',
             status: 'error',
         },
         {
-            name: 'node_14',
+            name: 'nodes_19',
             status: 'error',
         },
         {
-            name: 'node_15',
-            status: 'error',
-        },
-        {
-            name: 'node_16',
-            status: 'error',
-        },
-        {
-            name: 'node_17',
-            status: 'error',
-        },
-        {
-            name: 'node_18',
-            status: 'error',
-        },
-        {
-            name: 'node_19',
-            status: 'error',
-        },
-        {
-            name: 'node_20',
             status: 'success',
+            name: 'nodes_20',
         },
         {
             name: 'node_21',
             status: 'success',
         },
         {
-            name: 'node_22',
+            name: 'nodes_22',
             status: 'success',
         },
         {
-            name: 'node_23',
+            name: 'nodes_23',
             status: 'success',
         },
         {
-            name: 'node_24',
+            status: 'success',
+            name: 'nodes_24',
+        },
+        {
+            name: 'nodes_25',
             status: 'success',
         },
         {
-            name: 'node_25',
+            name: 'nodes_26',
             status: 'success',
         },
         {
-            name: 'node_26',
+            name: 'nodes_27',
             status: 'success',
         },
         {
-            name: 'node_27',
+            status: 'success',
+            name: 'nodes_28',
+        },
+        {
+            name: 'nodes_29',
             status: 'success',
         },
         {
-            name: 'node_28',
+            name: 'nodes_30',
             status: 'success',
         },
         {
-            name: 'node_29',
+            name: 'nodes_31',
             status: 'success',
         },
         {
-            name: 'node_30',
+            status: 'success',
+            name: 'nodes_32',
+        },
+        {
+            name: 'nodes_33',
             status: 'success',
         },
         {
-            name: 'node_31',
+            name: 'nodes_34',
             status: 'success',
         },
         {
-            name: 'node_32',
+            name: 'nodes_35',
             status: 'success',
         },
         {
-            name: 'node_33',
             status: 'success',
+            name: 'nodes_36',
         },
         {
-            name: 'node_34',
-            status: 'success',
-        },
-        {
-            name: 'node_35',
-            status: 'success',
-        },
-        {
-            name: 'node_36',
-            status: 'success',
-        },
-        {
-            name: 'node_37',
+            name: 'nodes_37',
             status: 'success',
         },
         {
@@ -174,44 +174,44 @@ const option = {
             status: 'success',
         },
         {
-            name: 'node_39',
+            name: 'nodes_39',
             status: 'success',
         },
         {
-            name: 'node_40',
+            status: 'success',
+            name: 'nodes_40',
+        },
+        {
+            name: 'nodes_41',
             status: 'success',
         },
         {
-            name: 'node_41',
+            name: 'nodes_42',
             status: 'success',
         },
         {
-            name: 'node_42',
+            name: 'nodes_43',
             status: 'success',
         },
         {
-            name: 'node_43',
+            status: 'success',
+            name: 'nodes_44',    
+        },
+        {
+            name: 'nodes_45',
             status: 'success',
         },
         {
-            name: 'node_44',
+            name: 'nodes_46',
             status: 'success',
         },
         {
-            name: 'node_45',
+            name: 'nodes_47',
             status: 'success',
         },
         {
-            name: 'node_46',
             status: 'success',
-        },
-        {
-            name: 'node_47',
-            status: 'success',
-        },
-        {
-            name: 'node_48',
-            status: 'success',
+            name: 'nodes_48',
         },
     ]
 };

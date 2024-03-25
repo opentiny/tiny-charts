@@ -1,27 +1,23 @@
 import { appendHTML } from '../../util/dom';
 
-//叠加图表dom
-const chart = `<div id='chart_container'></div>`;
-
 // 选中时刻悬浮dom
-const selectedTooltip = `<div id='selectedTooltip'></div>`;
+const selectedTooltip = '<div class=\'timeline_selectedTooltip\'></div>';
 
 // 圆点事件悬浮dom
-const alarmTooltip = `<div id='alarmTooltip'></div>`;
+const alarmTooltip = '<div class=\'timeline_alarmTooltip\'></div>';
 
 // 悬浮指针dom
-const hoverPointer = `<div id='hoverPointer'></div>`;
+const hoverPointer = '<div class=\'timeline_hoverPointer\'></div>';
 
 // 选中时间指针dom
-const selectedPointer = `<div id='selectedPointer'></div>`;
+const selectedPointer = '<div class=\'timeline_selectedPointer\'></div>';
 
 // 选中圆点dom
-const selectedCircle = `<div id='selectedCircle'></div>`;
+const selectedCircle = '<div class=\'timeline_selectedCircle\'></div>';
 
 export function initContainer(dom) {
     let container = `
-    <div class='container'>
-        ${chart}
+    <div class='timeline_container'>
         <canvas id="timeline"></canvas>
         ${hoverPointer}
         ${selectedPointer}

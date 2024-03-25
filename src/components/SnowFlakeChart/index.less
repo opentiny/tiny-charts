@@ -1,38 +1,282 @@
-.sc-container {
+.sfc-container {
   width: 100%;
   height: 100%;
-  // position: relative;
-}
-.sc-centerNode-container,
-.sc-childNode-item {
   position: absolute;
-  z-index: 2;
-  left: 100%;
-  top: 50%;
+  * {
+    box-sizing: border-box;
+    // transition: all 0.2s;
+  }
+  .sfc-branch {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: relative;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 20px -10px rgba(32,112,243,.5);
+    border: 1px solid rgba(25,65,132,.5);
+    width: 706px;
+    height: 706px;
+    .sfc-core {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 2;
+    }
+  }
+  &.disabled {
+    .sfc-branch {
+      // box-shadow: 0 0 20px -10px rgba(32, 112, 243, 0.3);
+      border: 1px solid rgba(25, 65, 132, 0.3);
+    }
+  }
+  &.overAll {
+    .sfc-branch {
+      width: 297px;
+      height: 297px;
+    }
+  }
 }
-.sc-centerNode-container {
+
+.sfc-node-container {
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.sfc-node-center {
   left: 50%;
-  transform: translate(-50%;-50%);
-}
-
-.sc-line-item {
+  transform: translate(-50%, -50%);
   position: absolute;
-  top: 50%;
-  z-index: 1;
-}
-
-.sc-extra-item {
-  position: absolute;
-  top: 50%;
   z-index: 2;
+  top: 50%;
 }
 
-.sc-childNode-container,
-.sc-line-container,
-.sc-extra-container {
-  width: 100%;
+.sfc-node-item,
+.sfc-line-item,
+.sfc-tag-item {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  transform: translate(-50%, -50%);
 }
 
-.sc-childNode-container {
-  height: 100%;
+.sfc-node-item {
+  left: 100%;
+}
+
+.sfc-line-item {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.sfc-tag-item {
+  > div {
+    background: #37325a;
+    border: 2px solid rgba(182, 43, 247, 0.6);
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 12px;
+  }
+}
+
+// 正常状态-中心node
+// 全网视口下的-叶子node
+.sfc-container .sfc-node-center > div,
+.sfc-container.overAll .sfc-node-item > div {
+  border-radius: 50%;
+  background: #000000;
+  background-image: linear-gradient(130deg, rgba(32, 112, 243, 0.2) 1%, rgba(32, 112, 243, 0) 100%);
+  box-shadow: 0 0 50px 0 #16181c, inset 0 0 11px 0 rgba(255, 255, 255, 0.12), inset 0 0 13px 0 rgba(32, 112, 243, 0.3);
+  color: #ffffff;
+  font-size: 12px;
+  position: relative;
+  border: 4px solid #18335e;
+}
+
+// 全网视口下的-错误态叶子node
+.sfc-container.overAll .sfc-node-item.sfc-node-error > div {
+  background: #000000;
+  background-image: linear-gradient(130deg, rgba(231, 67, 74, 0.2) 1%, rgba(244, 49, 70, 0) 100%);
+  box-shadow: 0 0 80px 0 #582228, inset 0 0 11px 0 rgba(255, 255, 255, 0.5), inset 0 0 28px 0 rgba(224, 67, 73, 1);
+  border: 4px solid #e7434a;
+}
+
+// 全网视口下的-黄色错误态叶子node
+.sfc-container.overAll .sfc-node-item.sfc-node-warning > div {
+  background: #000000;
+  background-image: linear-gradient(130deg, rgba(252, 215, 46, 0.2) 1%, rgba(252, 215, 46, 0) 100%);
+  box-shadow: 0 0 80px 0 #16181c, inset 0 0 11px 0 rgba(255, 255, 255, 0.12), inset 0 0 13px 0 rgba(252, 215, 46, 1);
+  border: 4px solid #a58d1e;
+}
+
+// 正常状态-叶子node
+.sfc-container .sfc-node-item > div {
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 12px;
+  position: relative;
+  background: unset;
+  background-image: unset;
+  box-shadow: unset;
+  border: unset;
+}
+
+// 规避nce/charts的样式污染
+.sfc-container .sfc-node-item.sfc-node-error > div {
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 12px;
+  position: relative;
+  background: unset;
+  background-image: unset;
+  box-shadow: unset;
+  border: unset;
+}
+
+// 错误态-中心node
+.sfc-container .sfc-node-center.sfc-node-error > div {
+  background-image: linear-gradient(130deg, rgba(231, 67, 74, 0.2) 1%, rgba(244, 49, 70, 0) 100%);
+  box-shadow: 0 0 80px 0 #582228, inset 0 0 11px 0 rgba(255, 255, 255, 0.5), inset 0 0 28px 0 #e51d0e;
+  border: 4px solid #e7434a;
+}
+
+// 黄色错误态-中心node
+.sfc-container .sfc-node-center.sfc-node-warning > div {
+  background-image: linear-gradient(130deg, rgba(252, 215, 46, 0.2) 1%, rgba(252, 215, 46, 0) 100%);
+  box-shadow: 0 0 50px 0 #161510, inset 0 0 11px 0 rgba(252, 215, 46, 0.12), inset 0 0 13px 0 rgba(252, 215, 46, 0.3);
+  border: 4px solid #a58d1e;
+}
+
+// 错误点击态-中心node
+// 错误点击态-叶子node
+.sfc-container .sfc-node-center.sfc-node-error.nodeActive > div,
+.sfc-container .sfc-node-item.sfc-node-error.nodeActive > div {
+  background: #722b2e;
+  background-image: linear-gradient(130deg, rgba(231, 67, 74, 0.2) 1%, rgba(244, 49, 70, 0) 100%);
+  border: 4px solid #e7434a;
+  box-shadow: 0 0 80px 0 #c33037, inset 0 0 11px 0 rgba(255, 255, 255, 0.5), inset 0 0 28px 0 #e04349;
+}
+
+// 黄色错误点击态-中心node
+// 黄色错误点击态-叶子node
+.sfc-container .sfc-node-center.sfc-node-warning.nodeActive > div,
+.sfc-container .sfc-node-item.sfc-node-warning.nodeActive > div {
+  background: #614500;
+  background-image: linear-gradient(130deg, rgba(252, 215, 46, 0.2) 1%, rgba(252, 215, 46, 0) 100%);
+  box-shadow: 0 0 80px 0 rgba(252, 215, 46, 0.5), inset 0 0 13px 0 #fcd72e;
+  border: 4px solid #fcd72e;
+}
+
+// 正常点击态-中心node
+// 正常点击态-叶子node
+.sfc-container .sfc-node-center.nodeActive > div,
+.sfc-container .sfc-node-item.nodeActive > div {
+  background: #153f83;
+  background-image: linear-gradient(130deg, rgba(32, 112, 243, 0.2) 1%, rgba(89, 144, 253, 0) 100%);
+  border: 4px solid #2070f3;
+  box-shadow: 0 0 80px 0 #0061ff, inset 0 0 11px 0 rgba(255, 255, 255, 0.12), inset 0 0 13px 0 #2070f3;
+}
+
+/* 白色主题*/
+
+.sfc-container.snowLight{
+  .sfc-tag-item {
+    > div {
+      background: #ffffff;
+      border: 2px solid rgba(182, 43, 247, 0.6);
+      color: #191919;
+    }
+  }
+}
+
+// 正常状态-中心node
+// 全网视口下的-叶子node
+.sfc-container.snowLight .sfc-node-center > div,
+.sfc-container.overAll.snowLight .sfc-node-item > div {
+  background: #f5f5f5;
+  // background-image: linear-gradient(130deg, rgba(32, 112, 243, 0.2) 1%, rgba(32, 112, 243, 0) 100%);
+  // box-shadow: 0 0 50px 0 #16181c, inset 0 0 11px 0 rgba(255, 255, 255, 0.12), inset 0 0 13px 0 rgba(32, 112, 243, 0.3);
+  background-image: unset;
+  box-shadow: unset;
+  color: #191919;
+  border: 4px solid #18335e;
+}
+
+// 全网视口下的-错误态叶子node
+.sfc-container.overAll.snowLight .sfc-node-item.sfc-node-error > div {
+  background: #f5f5f5;
+  // background-image: linear-gradient(130deg, rgba(231, 67, 74, 0.2) 1%, rgba(244, 49, 70, 0) 100%);
+  // box-shadow: 0 0 80px 0 #582228, inset 0 0 11px 0 rgba(255, 255, 255, 0.5), inset 0 0 28px 0 rgba(224, 67, 73, 1);
+  background-image: unset;
+  box-shadow: unset;
+  border: 4px solid #e7434a;
+}
+
+// 全网视口下的-黄色错误态叶子node
+.sfc-container.overAll.snowLight .sfc-node-item.sfc-node-warning > div {
+  background: #f5f5f5;
+  // background-image: linear-gradient(130deg, rgba(252, 215, 46, 0.2) 1%, rgba(252, 215, 46, 0) 100%);
+  // box-shadow: 0 0 80px 0 #16181c, inset 0 0 11px 0 rgba(255, 255, 255, 0.12), inset 0 0 13px 0 rgba(252, 215, 46, 1);
+  background-image: unset;
+  box-shadow: unset;
+  border: 4px solid #a58d1e;
+}
+
+// 正常状态-叶子node
+.sfc-container.snowLight .sfc-node-item > div {
+  color: #191919;
+}
+
+// 规避nce/charts的样式污染
+.sfc-container.snowLight .sfc-node-item.sfc-node-error > div {
+  color: #191919;
+}
+
+// 错误态-中心node
+.sfc-container.snowLight .sfc-node-center.sfc-node-error > div {
+  // background-image: linear-gradient(130deg, rgba(231, 67, 74, 0.2) 1%, rgba(244, 49, 70, 0) 100%);
+  // box-shadow: 0 0 80px 0 #582228, inset 0 0 11px 0 rgba(255, 255, 255, 0.5), inset 0 0 28px 0 #e51d0e;
+  background-image: unset;
+  box-shadow: unset;
+  border: 4px solid #e7434a;
+}
+
+// 黄色错误态-中心node
+.sfc-container.snowLight .sfc-node-center.sfc-node-warning > div {
+  // background-image: linear-gradient(130deg, rgba(252, 215, 46, 0.2) 1%, rgba(252, 215, 46, 0) 100%);
+  // box-shadow: 0 0 50px 0 #161510, inset 0 0 11px 0 rgba(252, 215, 46, 0.12), inset 0 0 13px 0 rgba(252, 215, 46, 0.3);
+  background-image: unset;
+  box-shadow: unset;
+  border: 4px solid #a58d1e;
+}
+
+// 错误点击态-中心node
+// 错误点击态-叶子node
+.sfc-container.snowLight .sfc-node-center.sfc-node-error.nodeActive > div,
+.sfc-container.snowLight .sfc-node-item.sfc-node-error.nodeActive > div {
+  background: #722b2e;
+  background-image: linear-gradient(130deg, rgba(231, 67, 74, 0.2) 1%, rgba(244, 49, 70, 0) 100%);
+  border: 4px solid #e7434a;
+  box-shadow: 0 0 80px 0 #c33037, inset 0 0 11px 0 rgba(255, 255, 255, 0.5), inset 0 0 28px 0 #e04349;
+}
+
+// 黄色错误点击态-中心node
+// 黄色错误点击态-叶子node
+.sfc-container.snowLight .sfc-node-center.sfc-node-warning.nodeActive > div,
+.sfc-container.snowLight .sfc-node-item.sfc-node-warning.nodeActive > div {
+  background: #614500;
+  background-image: linear-gradient(130deg, rgba(252, 215, 46, 0.2) 1%, rgba(252, 215, 46, 0) 100%);
+  box-shadow: 0 0 80px 0 rgba(252, 215, 46, 0.5), inset 0 0 13px 0 #fcd72e;
+  border: 4px solid #fcd72e;
+}
+
+// 正常点击态-中心node
+// 正常点击态-叶子node
+.sfc-container.snowLight .sfc-node-center.nodeActive > div,
+.sfc-container.snowLight .sfc-node-item.nodeActive > div {
+  background: #153f83;
+  background-image: linear-gradient(130deg, rgba(32, 112, 243, 0.2) 1%, rgba(89, 144, 253, 0) 100%);
+  border: 4px solid #2070f3;
+  box-shadow: 0 0 80px 0 #0061ff, inset 0 0 11px 0 rgba(255, 255, 255, 0.12), inset 0 0 13px 0 #2070f3;
 }

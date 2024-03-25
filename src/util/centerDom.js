@@ -1,5 +1,45 @@
-import { isString, isArray, isDOM } from "./type";
-import { appendHTML, appendDom } from "./dom";
+import { isString, isArray, isDOM } from './type';
+import { appendHTML, appendDom } from './dom';
+
+const percentToDecimal = (percent) => {
+  return parseFloat(percent) / 100;
+}
+
+const setSize = (dom, radius, width) => {
+  dom.style.width = width * radius + 'px';
+  dom.style.height = width * radius + 'px';
+}
+
+const getCenterDomRadius = (option) => {
+  let radius = option.position?.radius || '50%';
+  if (isArray(radius)) {
+    radius = percentToDecimal(radius[0])
+  } else {
+    radius = percentToDecimal(radius) * 0.5;
+  }
+  return radius;
+}
+
+const createCenterDomContainer = (containerWidth, radius) => {
+  let centerDomContainer = document.createElement('div');
+  centerDomContainer.classList.add('hui_center_dom_container')
+  centerDomContainer.style.cssText = `
+        top: 50%;
+        left: 50%;
+        display: flex;
+        color: #191919;
+        position: absolute;
+        border-radius: 50%;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        transform: translate(-50%, -50%);
+        background: rgb(255, 255, 255);
+        box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1)`;
+  // 动态计算大小
+  setSize(centerDomContainer, radius, containerWidth);
+  return centerDomContainer;
+}
 
 export function insertCenterDom(container, option) {
   if (!option.centerDom) return;
@@ -39,42 +79,3 @@ export function resizeCenterDom(container, option) {
   }
 }
 
-const getCenterDomRadius = (option) => {
-  let radius = option.position?.radius || '50%';
-  if (isArray(radius)) {
-    radius = percentToDecimal(radius[0])
-  } else {
-    radius = percentToDecimal(radius) * 0.5;
-  }
-  return radius;
-}
-
-const createCenterDomContainer = (containerWidth, radius) => {
-  let centerDomContainer = document.createElement('div');
-  centerDomContainer.classList.add('hui_center_dom_container')
-  centerDomContainer.style.cssText = `
-        top: 50%;
-        left: 50%;
-        display: flex;
-        color: #191919;
-        position: absolute;
-        border-radius: 50%;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-        transform: translate(-50%, -50%);
-        background: rgb(255, 255, 255);
-        box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1)`;
-  // 动态计算大小
-  setSize(centerDomContainer, radius, containerWidth);
-  return centerDomContainer;
-}
-
-const setSize = (dom, radius, width) => {
-  dom.style.width = width * radius + 'px';
-  dom.style.height = width * radius + 'px';
-}
-
-const percentToDecimal = (percent) => {
-  return parseFloat(percent) / 100;
-}

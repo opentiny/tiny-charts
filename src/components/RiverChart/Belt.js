@@ -121,18 +121,18 @@ export default class Belt {
     // 渐变的属性
     const lineGradientAttributes = {
       id: `linearGradient_${this.name}_node`,
-      x1: '0%',
-      y1: '0%',
       x2: '100%',
       y2: '0%',
+			x1: '0%',
+      y1: '0%',
     };
     const lineGradientDom = renderSvgDom('linearGradient', lineGradientAttributes);
     // 生成stop
     this.color.forEach(el => {
       const stopAttributes = {
         offset: el.percent,
-        'stop-color': el.color,
         'stop-opacity': 0.2,
+				'stop-color': el.color,
       };
       const stopDom = renderSvgDom('stop', stopAttributes);
       lineGradientDom.appendChild(stopDom);

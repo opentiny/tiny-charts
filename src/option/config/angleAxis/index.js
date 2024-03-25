@@ -2,7 +2,7 @@ import base from './base';
 import merge from '../../../util/merge';
 
 function angleAxis(iChartOption, chartName) {
-  let angleAxisOpt = undefined;
+  let angleAxisOpt;
   switch (chartName) {
     case 'JadeJueChart':
       angleAxisOpt = base(chartName);

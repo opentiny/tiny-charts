@@ -1,0 +1,26 @@
+.drag-container {
+  width: 10000px;
+  height: 10000px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.drag-tools {
+  display: block;
+  bottom: 48px;
+  right: 32px;
+  border-radius: 4px;
+  position: absolute;
+  border: 1px solid rgba(238, 238, 238, 0.15);
+  background-color: rgba(25, 25, 25, 0.65);
+  padding: 10px 6px 10px 6px;
+  cursor: pointer;
+
+  .drag-tool-item {
+    width: 20px;
+    height: 20px;
+    &.drag-tool-center {
+      margin: 12px 0px;
+    }
+  }
+}

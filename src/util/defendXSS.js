@@ -1,6 +1,7 @@
-// 转义字符 防止xss攻击
+/**
+ *  转义字符 防止xss攻击
+ */
 const matchHtmlRegExp = /["'&<>/]/;
-
 function escapeHtml(string) {
   const str = `${string}`;
   const match = matchHtmlRegExp.exec(str);
@@ -11,6 +12,7 @@ function escapeHtml(string) {
   let html = '';
   let index;
   let lastIndex = 0;
+
   for (index = match.index; index < str.length; index++) {
     switch (str.charCodeAt(index)) {
       case 34: // "
@@ -27,21 +29,25 @@ function escapeHtml(string) {
         break;
       case 62: // >
         escape = '&gt;';
-        break; // /
-      case 47:
+        break;
+      case 47:// /
         escape = '&#x2F;';
         break;
       default:
         continue;
     }
+
     if (lastIndex !== index) {
       html += str.substring(lastIndex, index);
     }
+
     lastIndex = index + 1;
     html += escape;
   }
+
   return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
 }
+
 
 const defendXSS = obj => {
   if (typeof obj === 'string') {
@@ -50,7 +56,9 @@ const defendXSS = obj => {
     return obj;
   } else if (typeof obj === 'object') {
     for (const key in obj) {
-      obj[key] = defendXSS(obj[key]);
+      if (Object.hasOwnProperty.call(obj, key)) {
+        obj[key] = defendXSS(obj[key]);
+      }
     }
     return obj;
   } else {
@@ -58,9 +66,5 @@ const defendXSS = obj => {
   }
 };
 
-export { 
-  escapeHtml
-};
-
 export default defendXSS;
-
+export { escapeHtml };

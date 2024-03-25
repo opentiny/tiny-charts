@@ -1,119 +1,180 @@
-import { setAttribute, setStyle, imageOnload, insertDom } from './util.js';
-import NodeManager from './NodeManager.js';
-import LineManager from './LineManager.js';
-import ExtraManager from './ExtraManager.js';
-import './index.less';
+import { insertDom, onImageLoad, setDefault, arrFlat, isDataDisabled, compareRefresh, setAttribute } from './util.js';
+import BranchManager from './BranchManager';
+import BaseChart from '../BaseChart';
+import defaultOption from './defaultOption.js';
+import { tagPosition } from './CommonConstant.js';
 
-export default class SnowFlakeChart {
-  nodeWrapper;  // 返回的节点容器
-  extraWrapper; // 返回的extra容器
-  constructor(container, option) {
+// 最顶层：用来管理所有branch和下转功能
+export default class SnowFlakeChart extends BaseChart {
+  constructor() {
+    super();
+    this.dom;
+    this.drag;
+    this.option;
+    this.data;
+    this.branchs = []; // branch的集合
+    this.renderCallBack = null; // 图表渲染完毕的回调
+  }
+
+  init(dom) {
+    this.dom = dom;
+    this.dom.innerHTML = '';
+    this.container = insertDom(this.dom);
+  }
+
+  setSimpleOption(chartName, option, { drag }) {
+    setDefault(option, defaultOption);
     this.data = option.data;
-    this.container = container;
     this.option = option;
-    this.imgList = [
-      { src: './image/charts/SnowFlakeChart/5gRight.png', name: 'image5R' },
-      { src: './image/charts/SnowFlakeChart/5gLeft.png', name: 'image5L' },
-      { src: './image/charts/SnowFlakeChart/2.4gRight.png', name: 'image2R' },
-      { src: './image/charts/SnowFlakeChart/2.4gLeft.png', name: 'image2L' },
-      { src: './image/charts/SnowFlakeChart/up.svg', name: 'imageUp' },
-      { src: './image/charts/SnowFlakeChart/down.svg', name: 'imageDown' },
-    ];
-    this.imageList = {}; // 所有图片的实例对象集合
-    this.nodes = [];
-    this.initImage();
-    this.init(option.data, container);
+    this.drag = drag;
+    setAttribute(this.container, { class: `sfc-container ${option.overAll ? 'overAll' : ''}` });
+  }
+
+  setResize() {
+
+  }
+
+  // 首次render需要等所有内置的图片全部加载完毕
+  render(assets, callback) {
+    this.initImage(assets);
+    onImageLoad(this.imageList, () => {
+      this.renderBranch();
+      callback && callback();
+    });
   }
 
   // 创建canvas用到图片的实例对象
-  initImage() {
-    this.imgList.forEach((item) => {
-      const img = new Image();
-      img.src = item.src;
-      this.imageList[item.name] = img;
-    });
-  }
-
-  init(data, container) {
-    // 雪花图外层容器
-    const wrapper = insertDom(container, { class: 'sc-container' });
-    // 创建中心节点
-    if (data && data.length > 0) {
-      data.forEach(dataItem => {
-        this.initCenterNode(dataItem, wrapper);
-      });
-    }
-  }
-
-  // 创建中心节点
-  initCenterNode(data, wrapper) {
-    const centerNode = new NodeManager(wrapper, data, this.option);
-    centerNode.init(); 
-    
-    this.nodeWrapper = centerNode.returnWrapper();
-
-    this.extraWrapper = document.createElement('div');
-    this.initContent(data);
-    if (data.children && data.children.length > 0) {
-      // 外层节点分组
-      const childNodeGroup = insertDom(wrapper, { class: 'sc-childNode-container' });
-      // canvas连线分组
-      const lineGroup = insertDom(wrapper, { class: 'sc-line-container' });
-      // 信道dom分组
-      const extraGroup = insertDom(wrapper, { class: 'sc-extra-container' });
-      // 全部图片onload完毕执行回调
-      imageOnload(this.imageList, () => {
-        this.initOther(data, childNodeGroup, centerNode, lineGroup, extraGroup);
-      });
-    }
-    this.nodes.push(centerNode);
-  }
-
-  initOther(data, childNodeGroup, centerNode, lineGroup, extraGroup) {
-    data.children.forEach((childData, index) => {
-      let deg = (360 / data.children.length) * index;
-      if (childData.children && childData.children.length > 0) {
-        // 多级嵌套的情况
-      } else {
-        // 创建外层节点
-        this.initChildNode(childData, centerNode, deg, childNodeGroup);
-        // 创建canvas连线
-        this.initLine(childData, deg, lineGroup);
-        // 创建信道节点
-        this.initExtra(childData, deg, extraGroup);
-        // 插入用户自定义内容
-        this.initContent(childData);
+  initImage(assets = {}) {
+    const { image5R, image5L, image2R, image2L, imageUp, imageDown } = assets;
+    this.imageList = {
+      'image5R': { src: image5R },
+      'image5L': { src: image5L },
+      'image2R': { src: image2R },
+      'image2L': { src: image2L },
+      'imageUp': { src: imageUp },
+      'imageDown': { src: imageDown },
+    };
+    for (let item in this.imageList) {
+      if (Object.hasOwnProperty.call(this.imageList, item)) {
+        const img = new Image();
+        img.src = this.imageList[item]['src'];
+        this.imageList[item]['image'] = img;
       }
+    }
+  }
+
+  renderBranch() {
+    if (this.option.theme !== 'dark') {
+      this.container.classList.add('snowLight');
+    }
+    if (this.data && this.data.length > 0) {
+      this.data.forEach((dataItem) => {
+        this.branchs.push(new BranchManager(dataItem, this.container, this));
+      });
+      // 判断数据的disabled，给外层容器挂上类名,设置容器外环的样式
+      isDataDisabled(arrFlat(this.data), this.container, this.option);
+    }
+    setTimeout(() => {
+      this.renderCallBack && this.renderCallBack(this);
+    }, 0);
+  }
+
+  // 切换下钻状态（需要重刷dom结构）,下钻后可以设置居中的dom。默认中心dom(允许传入mac，自定义居中的dom)下钻后居中
+  switchView(drill = true, mac, callback) {
+    this.branchs.forEach((item) => {
+      item.centerDomArr[0].drillDown(drill, true, false, mac);
+    });
+    callback && callback();
+  }
+
+  // 已经是下钻状态下且状态不变（不用重刷dom结构），设置切换居中点
+  switchCenterByDrill(mac) {
+    this.branchs.forEach((item) => {
+      // 先去遍历一遍中心dom，判断是否一致
+      item.centerDomArr.forEach((center) => {
+        if (center.data.mac === mac) {
+          this.drag.moveTargetToCenter(center.dom);
+        }
+      });
+      // 再去遍历一遍叶子dom，判断是否一致
+      item.leafsArr.forEach((leaf) => {
+        if (leaf.node.data.mac === mac) {
+          this.drag.moveTargetToCenter(leaf.node.dom);
+        }
+      });
     });
   }
 
-  // 创建外层子节点
-  initChildNode(childData, centerNode, deg, childNodeGroup) {
-    this.childNode = new NodeManager(childNodeGroup, childData, this.option, deg);
-    this.childNode.init(false);
-    this.nodeWrapper = this.childNode.returnWrapper();
-    centerNode.addChildren(this.childNode);
+  // 图表渲染完毕的回调
+  onRenderReady(callback) {
+    this.renderCallBack = callback;
   }
 
-  // 创建canvas连线
-  initLine(childData, deg, lineGroup) {
-    new LineManager(lineGroup, childData, this.option, deg, this.imageList);
+  // 销毁图表
+  uninstall() {
+    this.dom.innerHTML = '';
   }
 
-  // 创建信道节点
-  initExtra(childData, deg, extraGroup) {
-    this.extraNode = new ExtraManager(extraGroup, childData, this.option, deg,);
-    this.extraWrapper = this.extraNode.returnWrapper();
+  // 移除所有的节点高亮状态
+  removeNodeActive() {
+    this.branchs.forEach((item) => {
+      item.centerDomArr.forEach((center) => {
+        if ([...center.dom.classList].indexOf('nodeActive') !== -1) {
+          center.dom.classList.remove('nodeActive');
+        }
+      });
+      item.leafsArr.forEach((leaf) => {
+        if ([...leaf.node.dom.classList].indexOf('nodeActive') !== -1) {
+          leaf.node.dom.classList.remove('nodeActive');
+          // 叶子节点高亮前后内部的dom变更了，需要重新调用一下它的渲染内容方法
+          leaf.node.insertContent();
+          // 恢复tag的定位值
+          leaf.tag.setAngle(tagPosition);
+        }
+      });
+    });
   }
 
-  // 插入用户自定义内容
-  initContent(data) {
-    const renderFun = this.data.render || this.option.render;
-    if (renderFun) {
-      renderFun(this.nodeWrapper, this.extraWrapper, data);
-      // 子节点与extra节点回正
-      this.childNode && this.childNode.setAngle();
-      this.extraNode && this.extraNode.setAngle();
-    }
+  // 刷新line，不会重构dom
+  refreshLine(data) {
+    this.data = data;
+    compareRefresh(data, this.branchs, {
+      centerArr: 'centerLineArr',
+      target: 'line'
+    }, this);
+  }
+
+  // 刷新tag，不会重构dom
+  refreshTag(data) {
+    this.data = data;
+    compareRefresh(data, this.branchs, {
+      centerArr: 'centerTagArr',
+      target: 'tag'
+    }, this);
+  }
+
+  // 刷新node，不会重构dom
+  refreshNode(data, callback) {
+    this.data = data;
+    compareRefresh(data, this.branchs, {
+      centerArr: 'centerDomArr',
+      target: 'node'
+    }, this);
+    callback && callback();
+  }
+
+  // 刷新option,会重构dom
+  refresh(option, callback) {
+    this.branchs = [];
+    this.container.innerHTML = null;
+    this.setSimpleOption(null, option, { drag: this.drag });
+    this.renderBranch();
+    callback && callback();
+  }
+
+  // 刷新data，会重构dom
+  refreshData(data, callback) {
+    this.option.data = data;
+    this.refresh(this.option, callback);
   }
 }

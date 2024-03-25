@@ -11,14 +11,14 @@ function renderSvgDom(type, property) {
   return svgEl;
 }
 
-// 设置样式
-function setStyle(target, key, value) {
-  target.style[key] = value;
-}
-
 // 创造元素
 function createEl(elName) {
   return document.createElement(elName);
+}
+
+// 设置样式
+function setStyle(target, key, value) {
+  target.style[key] = value;
 }
 
 // 添加元素
@@ -32,13 +32,13 @@ function isArray(data) {
 }
 
 // 给指定dom添加class类名，classList为数组类型
-function addClass(dom, classes) {
+function addClass(riverDom, classes) {
   if (isArray(classes)) {
     classes.forEach(cls => {
-      dom.classList.add(cls);
+      riverDom.classList.add(cls);
     });
   } else {
-    dom.classList.add(classes);
+    riverDom.classList.add(classes);
   }
 }
 

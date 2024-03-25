@@ -1,6 +1,6 @@
-import merge from "../../util/merge";
-import { getEdge, getAngle } from "../../util/math";
-
+import merge from '../../util/merge';
+import { getEdge, getAngle } from '../../util/math';
+import defendXSS from '../../util/defendXSS';
 const INIT_RADIUS = {
     min: 200,
     gap: 200,
@@ -14,6 +14,10 @@ const DIRECTION_ANGLE = {
     right: 90,
     bottom: 0
 };
+
+const LINE_STYLE = {
+    color: '#BBBBBB'
+}
 
 export default class NodeManager {
     // 圆环容器
@@ -33,6 +37,7 @@ export default class NodeManager {
         this.data = option.data;
         this.radius = merge(INIT_RADIUS, option.radius);
         this.render = option.render;
+        this.lineStyle = merge(LINE_STYLE, option.lineStyle);
         this.angles = [];
         // 余弦定理算出第一层圆圈中两个点之间的直线距离
         this.distance = getEdge(this.radius.min, this.radius.min, this.radius.angle);
@@ -43,26 +48,19 @@ export default class NodeManager {
     // 创建层级圆环
     createWarppers() {
         // 最顶层的圆环的位置
-        // const initTop = 400; // 此处要改成高度的一半
         this.depth = this.getDataDepth(this.data, 0);
         for (let index = 0; index < this.depth; index++) {
             let radius = this.radius.min + this.radius.gap * index;
-            let width = radius * 2;
-            let zindex = 100 - index;
+            let width = defendXSS(radius * 2);
+            let zindex = defendXSS(100 - index);
             // 圆环
             let warpper = `<div class="ozc_warpper" style='width: ${width}px;height: ${width}px;z-index: ${zindex}; transform: translateX(-50%) translateY(-50%) rotate(0deg);'></div>`;
             this.dom.insertAdjacentHTML('beforeend', warpper);
-            // // 竖线
-            // let warpperLine = `<div class="ozc_warpper_line" style='top: ${top + this.radius * 2 - this.distance / 3}px;height: ${this.distance / 3}px;'></div>`;
-            // this.dom.insertAdjacentHTML('beforeend', warpperLine);
-            // // 标签
-            // let warpperRect = `<div class="ozc_warpper_rect" style='top: ${top + this.radius * 2 - this.distance / 5}px;'>N层</div>`;
-            // this.dom.insertAdjacentHTML('beforeend', warpperRect);
-            // // 空数据提示
-            // let warpperEmpty = `<div class="ozc_warpper_empty" style='top: ${top + this.radius * 2 - this.distance / 3 - 36}px;'>当前部门无子部门</div>`;
-            // this.dom.insertAdjacentHTML('beforeend', warpperEmpty);
         }
         this.warppers = this.dom.getElementsByClassName('ozc_warpper');
+        Array.from(this.warppers).forEach(element => {
+            element.style.setProperty('--lineColor', this.lineStyle.color);
+        })
     }
 
     // 创建初始节点和布局
@@ -91,20 +89,10 @@ export default class NodeManager {
      */
     createLevel(data, selectedIndex, warpperIndex){
         let warpper = this.warppers[warpperIndex];
-        // let warpperLine = this.warpperLines[warpperIndex];
-        // let warpperRect = this.warpperRects[warpperIndex];
-        // let warpperEmpty = this.warpperEmptys[warpperIndex];
         if(!data || data.length == 0){
-            // warpperEmpty.style.display = 'block';
-            // warpper.style.display = 'none';
-            // warpperLine.style.display = 'none';
-            // warpperRect.style.display = 'none';
             return;
         }else{
-            // warpperEmpty.style.display = 'none';
             warpper.style.display = 'block';
-            // warpperLine.style.display = 'block';
-            // warpperRect.style.display = 'block';
         }
         
         let radius = this.radius.min + warpperIndex * this.radius.gap;
@@ -127,7 +115,7 @@ export default class NodeManager {
     refreshWarpper(warpperIndex, selected){
         this.selected = selected;
         for (let level = warpperIndex + 1; level < this.depth; level++) {
-            this.warppers[level].style.transform = `translateX(-50%) translateY(-50%) rotate(0deg)`;
+            this.warppers[level].style.transform = 'translateX(-50%) translateY(-50%) rotate(0deg)';
             this.warppers[level].innerHTML = '';
             let depthData = this.getDepthData(this.data, level);
             let nextSelect = this.selected[level] || 0;

@@ -16,7 +16,9 @@ const createDom = (name) => {
 // 元素绑定样式
 const setStyle = (dom, option) => {
     for (let i in option) {
-        dom.setAttribute(i, option[i]);
+        if(Object.hasOwnProperty.call(option,i)){
+            dom.setAttribute(i, option[i]);
+        }      
     }
 };
 
@@ -27,7 +29,7 @@ const isParent = (targetElement, parentClass) => {
     } else if (targetElement.parentNode.classList.contains(parentClass)) {
         return targetElement.parentNode;
     } else {
-        return isParent(targetElement.parentNode, parentClass)
+        return isParent(targetElement.parentNode, parentClass);
     }
 }
 

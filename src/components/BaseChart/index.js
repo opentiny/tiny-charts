@@ -95,8 +95,8 @@ export default class BaseChart {
         if (getComputedStyle(this.dom).position == ('static' || '')) {
             this.dom.style.position = 'relative';
         }
-        let customContainer = document.createElement("div");
-        customContainer.className = "huicharts-custom-dom";
+        let customContainer = document.createElement('div');
+        customContainer.className = 'huicharts-custom-dom';
         customContainer.setAttribute('style', 'position:absolute;width:100%;height:100%;top:0px;left:0px;display:flex;justify-content:center;align-items:center');
         this.dom.appendChild(customContainer);
         callback(customContainer);
@@ -104,7 +104,7 @@ export default class BaseChart {
 
     // 删除自定义DOM
     closeCustomDom() {
-        let customContainer = this.dom.getElementsByClassName("huicharts-custom-dom");
+        let customContainer = this.dom.getElementsByClassName('huicharts-custom-dom');
         this.dom.removeChild(customContainer[0]);
     }
 }

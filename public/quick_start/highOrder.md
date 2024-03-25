@@ -1,11 +1,13 @@
 # 高阶图表
 
-HUI-Charts 提供了若干高阶图表，包括：
+Opentiny-Charts 提供了若干高阶图表，包括：
 
 - 流程图
 - 甘特图
 - 蜂窝图
 - 波浪图
+- 雪花图
+- 里程碑图
 - 组织关系图
 
 高阶图表为自研编写，使用时需按需引入。
@@ -14,10 +16,8 @@ HUI-Charts 提供了若干高阶图表，包括：
 ## 使用高阶图表
 
 ```javascript
-// 引用图表库
-import HuiCharts from '@hui/charts';
-// 按需引用波浪图
-import WaveChart from '@hui/charts/esm/WaveChart'；
+// 引用图表库和组织关系图
+import HuiCharts, { OrganizationChart } from '@opentiny/hui-charts';
 
 // 创建图表实例
 let chartIns = new HuiCharts();
@@ -29,7 +29,7 @@ chartIns.init(chartContainerDom);
 // 填入图表配置项
 let chartOption = {...};
 // 第一个参数必须为按需引入进来的 WaveChart
-chartIns.setSimpleOption(WaveChart, chartOption);
+chartIns.setSimpleOption(OrganizationChart, chartOption);
 
 // 开始渲染
 chartIns.render();
@@ -53,7 +53,7 @@ chartIns.refreshData(newData);
 ```
 
 ## 高阶图表数据状态
-HUI-Charts 目前内置了 5 种数据状态，包括:
+Opentiny-Charts 目前内置了 5 种数据状态，包括:
 - loading：数据加载中
 - error：数据加载失败
 - empty：数据为空
@@ -68,7 +68,7 @@ chartIns.onRenderReady(callback);
 ```
 
 ## 高阶图表适配屏幕宽度
-HUI-Charts 默认开启支持自动适应屏幕宽度，当您希望手动调用时，可以使用：
+Opentiny-Charts 默认开启支持自动适应屏幕宽度，当您希望手动调用时，可以使用：
 ```javascript
 chartIns.setResize();
 ```

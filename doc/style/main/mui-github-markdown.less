@@ -1,0 +1,89 @@
+.github-markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0.75rem 0 1rem 0;
+}
+
+.github-markdown-body  table {
+  display: table;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+  .new-tag {
+    color: #fff;
+    background: #ee343f;
+    border-radius: 10px;
+    font-style: italic;
+    font-size: 12px;
+    padding: 0.25rem 0.375rem;
+  }
+  .deprecated-tag {
+    color: #fff;
+    background: #949494;
+    border-radius: 10px;
+    font-style: italic;
+    font-size: 12px;
+    padding: 0.25rem 0.375rem;
+  }
+}
+
+.github-markdown-body table th {
+  padding: 12px;
+  padding-top: 14px;
+  border: 0;
+  border-top: 1px solid var(--ti-base-color-common-1);
+  border-bottom: 1px solid var(--ti-base-color-common-1);
+  display: table-cell;
+  vertical-align: top;
+  background: var(--ti-base-color-bg-1);
+  white-space: nowrap;
+  color: var(--ti-base-color-common-2);
+  font-size: 13px;
+  font-weight: 500;
+  display: table-cell;
+  text-align: left;
+  &:first-child {
+    border-left: 1px solid var(--ti-base-color-common-1);
+  }
+  &:last-child {
+    border-right: 1px solid var(--ti-base-color-common-1);
+  }
+}
+
+.github-markdown-body table tr {
+  &:hover {
+    td {
+      background: var(var(--ti-base-color-bg-1));
+    }
+  }
+}
+
+.github-markdown-body table td {
+  padding: 12px;
+  border: 0;
+  border-bottom: 1px solid var(--ti-base-color-common-1);
+  text-align: left;
+  display: table-cell;
+  vertical-align: top;
+  font-size: 13px;
+  color: var(--ti-common-color-info-normal);
+  background: var(--ti-base-color-white);
+  &:first-child {
+    white-space: nowrap;
+    font-weight: 600;
+    border-left: 1px solid var(--ti-base-color-common-1);
+  }
+  &:last-child {
+    border-right: 1px solid var(--ti-base-color-common-1);
+  }
+}
+
+.github-markdown-body table td + td {
+  color: #bf2a5c;
+}
+
+.github-markdown-body table td + td + td {
+  color: #1c1c1c;
+  word-break: break-all;
+}

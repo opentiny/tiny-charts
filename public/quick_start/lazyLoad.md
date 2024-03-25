@@ -8,7 +8,7 @@
 
 <br>
 
-本文介绍一种 JS 原生的 API：`Intersection Observer API`。它和 HUI-Charts 的接口联合起来可以快速实现懒加载。<br>
+本文介绍一种 JS 原生的 API：`Intersection Observer API`。它和 Opentiny-Charts 的接口联合起来可以快速实现懒加载。<br>
 
 ## Intersection Observer API 简介
 
@@ -21,11 +21,11 @@ Intersection Observer API 允许你配置一个回调函数，当以下情况触
 
 无论你是使用视口还是其他元素作为根(root)，API 都以相同的方式工作，只要目标元素的可见性发生变化，就会执行你提供的回调函数。
 
-## Intersection Observer 与 HUI-Charts 结合使用
+## Intersection Observer 与 Opentiny-Charts 结合使用
 
 ```javascript
 // 初始化图表实例
-import HuiCharts from '@hui/charts';
+import HuiCharts from '@opentiny/hui-charts';
 // 初始化图表
 const chartIns = new HuiCharts();
 const chartDom = ...;

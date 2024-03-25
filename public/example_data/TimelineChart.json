@@ -1,0 +1,20 @@
+{
+    "title": "时间轴 TimelineChart",
+    "paths": [
+        {
+            "title": "典型场景",
+            "children": [
+                {
+                    "name": "基础时间轴   ",
+                    "routePath": "TimelineChart-1",
+                    "imagePath": "./image/theme/light/TimelineChart/TimelineChart-1.png"
+                },
+                {
+                    "name": "叠加时间轴   ",
+                    "routePath": "TimelineChart-2",
+                    "imagePath": "./image/theme/light/TimelineChart/TimelineChart-2.png"
+                }
+            ]
+        }
+    ]
+}

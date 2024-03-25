@@ -1,0 +1,53 @@
+// 里程碑图案例的有关样式
+
+.ic-light,.light{
+  --dateColor:#707070;
+  --descColor:#707070;
+  --textColor:#707070;
+  --hoverBg:#707070;
+}
+
+.ic-dark,.dark{
+  --dateColor:#DFDFDF;
+  --descColor:#DFDFDF;
+  --textColor:#FFFFFF;
+  --hoverBg:#FFFFFF;
+
+}
+
+.mc-scales-item-tips{
+  font-size: 14px;
+  line-height: 22px;
+  margin-left: -16px;
+  margin-top: 4px;
+  .mc-scales-item-tips-date{
+    color: var(--dateColor);
+    margin-top: 2px;
+  }
+  .mc-scales-item-tips-desc{
+    color: var(--descColor);
+    margin-top: 2px;
+  }
+  .mc-scales-item-tips-text{
+    color: var(--textColor);
+    line-height: 28px;
+    margin-top: 2px;
+  }
+}
+.mc-scales-item:last-child {
+  .mc-scales-item-tips{
+    margin-right: -14px;
+  }
+  &.line{
+    .mc-scales-item-tips{
+      margin-right: 0;
+    }
+  }
+}
+.line .mc-scales-item-tips{
+  margin-left: 0;
+}
+.mc-scales-item .mc-scales-item-hover{
+  background: var(--hoverBg);
+  padding: 10px;
+}

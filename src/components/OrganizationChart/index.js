@@ -1,4 +1,3 @@
-import './index.less';
 import BaseChart from '../BaseChart';
 import NodeManager from './NodeManager';
 import RotateManager from './RotateManager';
@@ -43,7 +42,6 @@ export default class OrganizationChart extends BaseChart {
         this.renderCallBack = callback;
     }
 
-
     initDom() {
         if(!this.data) return;
         this.container = document.createElement('div');
@@ -52,7 +50,9 @@ export default class OrganizationChart extends BaseChart {
             this.container.classList.add('ozc_container_dark');
         }
         for (const styleKey in this.option.position) {
-            this.container.style[styleKey] = this.option.position[styleKey];
+            if(Object.hasOwnProperty.call(this.option.position,styleKey)){
+                this.container.style[styleKey] = this.option.position[styleKey];
+            }         
         }
         this.dom.appendChild(this.container);
         this.nodeManager = new NodeManager(this.container, this.option, this.selected);
@@ -81,11 +81,6 @@ export default class OrganizationChart extends BaseChart {
        
     }
 
-    // 刷新图表自适应宽度
-    setResize() {
-        this.resizeDom();
-    }
-
     // 销毁图表
     uninstall() {
         if (this.resizeObserver) {
@@ -93,5 +88,10 @@ export default class OrganizationChart extends BaseChart {
             this.resizeObserver = null;
         }
         this.dom.innerHTML = '';
+    }
+
+    // 刷新图表自适应宽度
+    setResize() {
+        this.resizeDom();
     }
 }

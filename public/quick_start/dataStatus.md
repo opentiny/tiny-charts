@@ -1,6 +1,6 @@
 # 数据状态
 
-HUI-Charts 目前内置了 5 种数据状态，包括：
+Opentiny-Charts 目前内置了 5 种数据状态，包括：
 
 - 数据加载中
 - 数据加载失败
@@ -33,7 +33,7 @@ chartInstance.closeLoading();
 ### showLoading方法参数
 | 参数 | 说明 | 类型 | 默认值
 | :--- | :--- | :--- | :--- |
-| theme | 选择主题，支持五种主题：`"light"`，`"dark"`，`"cloud-light"`，`"cloud-dark"`，`"bpit-light"` | string | `"light"` |
+| theme | 选择主题，支持七种主题：`"light"`，`"dark"`，`"cloud-light"`，`"hdesign-light"`，`"hdesign-dark"`，`"bpit-light"`，`"bpit-dark"` | string | `"light"` |
 | text | 数据加载时的文本内容 | string | `"加载中..."` |
 | textSize | 数据加载时的文本大小 | number | `14` |
 | textColor | 数据加载时的文本颜色 | string | `"#808080"` |
@@ -72,7 +72,7 @@ chartInstance.closeError();
 ### showError方法参数
 | 参数 | 说明 | 类型 | 默认值
 | :--- | :--- | :--- | :--- |
-| theme | 选择主题，支持五种主题：`"light"`，`"dark"`，`"cloud-light"`，`"cloud-dark"`，`"bpit-light"` | string | `"light"` |
+| theme | 选择主题，支持七种主题：`"light"`，`"dark"`，`"cloud-light"`，`"hdesign-light"`，`"hdesign-dark"`，`"bpit-light"`，`"bpit-dark"` | string | `"light"` |
 | text | 数据错误时的文本内容 | string | `"加载失败"` |
 | textSize | 数据错误时的文本大小 | number | `14` |
 | textColor | 数据错误时的文本颜色 | string | `"#808080"` |
@@ -111,7 +111,7 @@ chartInstance.closeEmpty();
 ### showEmpty方法参数
 | 参数 | 说明 | 类型 | 默认值
 | :--- | :--- | :--- | :--- |
-| theme | 选择主题，支持五种主题：`"light"`，`"dark"`，`"cloud-light"`，`"cloud-dark"`，`"bpit-light"` | string | `"light"` |
+| theme | 选择主题，支持七种主题：`"light"`，`"dark"`，`"cloud-light"`，`"hdesign-light"`，`"hdesign-dark"`，`"bpit-light"`，`"bpit-dark"` | string | `"light"` |
 | text | 空数据时的文本内容 | string | `"暂无数据"` |
 | textSize | 空数据时的文本大小 | number | `14` |
 | textColor | 空数据时的文本颜色 | string | `"#808080"` |
@@ -151,7 +151,7 @@ chartInstance.closeStageEmpty();
 ### showStageEmpty方法参数
 | 参数 | 说明 | 类型 | 默认值
 | :--- | :--- | :--- | :--- |
-| theme | 选择主题，支持五种主题：`"light"`，`"dark"`，`"cloud-light"`，`"cloud-dark"`，`"bpit-light"` | string | `"light"` |
+| theme | 选择主题，支持七种主题：`"light"`，`"dark"`，`"cloud-light"`，`"hdesign-light"`，`"hdesign-dark"`，`"bpit-light"`，`"bpit-dark"` | string | `"light"` |
 | text | 阶段空数据时的文本内容 | string | `"没有符合所选时间内的数据"` |
 | textSize | 阶段空数据时的文本大小 | number | `14` |
 | textColor | 阶段空数据时的文本颜色 | string | `"#808080"` |
@@ -181,9 +181,9 @@ chartInstance.closeStageEmpty();
 ```jsx
 // 显示自定义状态
 let option = {
-    theme: 'light',   
-    text: '自定义文本',   
-    image: './image/assets/logo.png',   
+    theme: 'light',
+    text: '自定义文本',
+    image: '../image/xx.png',
 }
 chartInstance.showState(option);
 
@@ -194,7 +194,7 @@ chartInstance.closeState();
 ### showState方法参数
 | 参数 | 说明 | 类型 | 默认值
 | :--- | :--- | :--- | :--- |
-| theme | 选择主题，支持五种主题：`"light"`，`"dark"`，`"cloud-light"`，`"cloud-dark"`，`"bpit-light"` | string | `"light"` |
+| theme | 选择主题，支持七种主题：`"light"`，`"dark"`，`"cloud-light"`，`"hdesign-light"`，`"hdesign-dark"`，`"bpit-light"`，`"bpit-dark"` | string | `"light"` |
 | text | 自定义文本内容 | string | - |
 | textSize | 自定义文本大小 | number | `14` |
 | textColor | 自定义文本颜色 | string | `"#808080"` |
@@ -218,7 +218,7 @@ chartInstance.closeState();
 // 下述代码为展示示例，用户可以自行根据场景创建内容
 chartInstance.showCustomDom(function (container) {
     // 传入自定义DOM，container 为数据状态的DOM容器
-    let customContainer = document.createElement('div'); 
+    let customContainer = document.createElement('div');
     customContainer.className = 'huicharts-custom-state';
     customContainer.innerHTML = '重新加载';
     container.appendChild(customContainer);
@@ -228,7 +228,7 @@ chartInstance.showCustomDom(function (container) {
 chartInstance.closeCustomDom();
 ```
 
-<!-- 样式 -->
+
 <style>
     .img-warpper{
         width: 650px;

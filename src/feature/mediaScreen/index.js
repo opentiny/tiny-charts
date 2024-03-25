@@ -1,7 +1,8 @@
-import merge from "../../util/merge";
-import cloneDeep from "../../util/cloneDeep";
+import merge from '../../util/merge';
+import cloneDeep from '../../util/cloneDeep';
 import { isArrayEqual } from '../../util/equal';
 class mediaScreen {
+
   constructor(dom, option, callback) {
     // 媒体查询监听的dom
     this.dom = dom;

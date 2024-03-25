@@ -7,7 +7,7 @@ const svgContainer = `<svg class="terrace_svg_container"   xmlns="http://www.w3.
     </svg>`;
 
 // 中心dom
-const domContainer = `<div class='terrace_dom_container'></div>`;
+const domContainer = '<div class=\'terrace_dom_container\'></div>';
 
 // 加载dom
 const loadingContainer = `<div class='terrace_loading_container'><div class="loading_dom"></div><div class="loading_svg">${loading}</div></div>`;

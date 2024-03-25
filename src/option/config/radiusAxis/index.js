@@ -1,9 +1,9 @@
 import base from './base';
 import merge from '../../../util/merge';
-import Theme from '../../../feature/theme';
+import Theme from '../../../feature/token';
 
 function radiusAxis(iChartOption, chartName) {
-  let radiusAxisOpt = undefined;
+  let radiusAxisOpt;
   switch (chartName) {
     case 'JadeJueChart':
       radiusAxisOpt = base(chartName);

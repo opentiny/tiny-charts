@@ -1,4 +1,3 @@
-import './index.less';
 import BaseChart from '../BaseChart';
 import NodeManager from './NodeManager';
 
@@ -42,7 +41,7 @@ export default class HoneycombChart extends BaseChart {
 
     initDom() {
         this.dom.style.padding = this.option.padding || 0;
-        this.dom.insertAdjacentHTML('beforeend', `<div class="hc-container"><div class="hc-rows"></div></div>`);
+        this.dom.insertAdjacentHTML('beforeend', '<div class="hc-container"><div class="hc-rows"></div></div>');
         if (this.data.length > 0) {
             this.nodeManager = new NodeManager(this.dom, this.option);
         }

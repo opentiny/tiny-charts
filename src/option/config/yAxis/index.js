@@ -5,6 +5,16 @@ import fluctuation from '../../../feature/fluctuation/index';
 import { transformData } from '../../../feature/fluctuation/index';
 import merge from '../../../util/merge';
 
+function isNeedTitle(yAxisOpt, yAxisName) {
+  if (yAxisName) {
+    return true;
+  }
+  if (yAxisOpt.length === 1 && yAxisOpt[0] && yAxisOpt[0].position !== 'right') {
+    return true;
+  }
+  return false;
+}
+
 function yAxis(baseOpt, iChartOpt, chartName) {
   let yAxisOpt = iChartOpt.yAxis;
   const yAxisName = iChartOpt.yAxisName;
@@ -55,16 +65,6 @@ function yAxis(baseOpt, iChartOpt, chartName) {
     yAxis.push(temp);
   });
   return yAxis;
-}
-
-function isNeedTitle(yAxisOpt, yAxisName) {
-  if (yAxisName) {
-    return true;
-  }
-  if (yAxisOpt.length === 1 && yAxisOpt[0] && yAxisOpt[0].position !== 'right') {
-    return true;
-  }
-  return false;
 }
 
 export default yAxis;

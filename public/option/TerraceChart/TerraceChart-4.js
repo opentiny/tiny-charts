@@ -1,5 +1,5 @@
 const option = {
-  theme: 'cloud-light',
+  theme: 'light',
   showTerrace: false,
   position: {
     center: ['50%', '50%'],

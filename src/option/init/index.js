@@ -1,5 +1,5 @@
 import { isArray, isString } from '../../util/type';
-import Theme, { THEMES } from '../../feature/theme';
+import Theme, { THEMES } from '../../feature/token';
 /**
  * 设置默认主题
  * @param {外部传入的配置} iChartOption
@@ -14,8 +14,23 @@ function setDefaultTheme(iChartOption) {
  */
 function setDefaultColor(iChartOption) {
   if (!iChartOption.color) {
-    iChartOption.color = Theme.config.colorGroup
+    iChartOption.color = Theme.config.colorGroup;
   }
+}
+
+/**
+ * 给x轴赋值key，兼容旧版本属性
+ */
+function setXAxisKeyName(xAxisItem, defaultKey) {
+  let keyName = defaultKey;
+  if (isString(xAxisItem.data)) {
+    keyName = xAxisItem.data;
+    delete xAxisItem.data;
+  }
+  if (xAxisItem.keyName) {
+    keyName = xAxisItem.keyName;
+  }
+  xAxisItem.keyName = keyName;
 }
 
 /**
@@ -24,7 +39,7 @@ function setDefaultColor(iChartOption) {
  */
 function setDefaultXAxis(iChartOption) {
   const data = iChartOption.data;
-  let keyName = undefined;
+  let keyName;
   if (data && data.length > 0) {
     const keys = Object.keys(data[0]);
     if (keys.length > 0) {
@@ -44,21 +59,6 @@ function setDefaultXAxis(iChartOption) {
 }
 
 /**
- * 给x轴赋值key，兼容旧版本属性
- */
-function setXAxisKeyName(xAxisItem, defaultKey) {
-  let keyName = defaultKey;
-  if (isString(xAxisItem.data)) {
-    keyName = xAxisItem.data;
-    delete xAxisItem.data;
-  }
-  if (xAxisItem.keyName) {
-    keyName = xAxisItem.keyName
-  }
-  xAxisItem.keyName = keyName;
-}
-
-/**
  * 线性图/条形图专用---设置图表的四周padding值
  * @param {外部传入的配置} iChartOption
  */
@@ -70,19 +70,9 @@ function setChartPadding(iChartOption) {
   } else if (padding.length === 1) {
     iChartOption.padding = [padding[0], 20, padding[0], 20];
   } else if (padding.length === 2) {
-    iChartOption.padding = [
-      padding[0],
-      padding[1],
-      padding[0],
-      padding[1],
-    ];
+    iChartOption.padding = [padding[0], padding[1], padding[0], padding[1]];
   } else if (padding.length === 3) {
-    iChartOption.padding = [
-      padding[0],
-      padding[1],
-      padding[2],
-      padding[1],
-    ];
+    iChartOption.padding = [padding[0], padding[1], padding[2], padding[1]];
   } else {
     iChartOption.padding = padding;
   }

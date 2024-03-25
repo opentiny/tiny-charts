@@ -1,30 +1,26 @@
 {
-  "name": "@hui/charts",
-  "version": "1.1.134",
-  "updateTime": "2023-4-18",
-  "description": "Charts for Huawei Design System",
+  "name": "@huawei/hui-charts",
+  "version": "0.1.0",
+  "updateTime": "2024-01-20",
+  "description": "hcharts library for web visualization",
   "private": false,
-  "author": "huawei-2012-UCD-wangqiang",
+  "author": "hcharts author",
   "license": "MIT",
-  "main": "cjs/index.js",
-  "module": "esm/index.js",
+  "main": "index.js",
+  "module": "index.js",
   "scripts": {},
-  "publishConfig": {
-    "registry": "https://cmc.centralrepo.rnd.huawei.com/artifactory/api/npm/product_npm/"
-  },
   "keywords": [
-    "opentiny",
+    "HUI",
     "charts",
     "components",
-    "hui-charts",
-    "nce-charts"
+    "hui-charts"
   ],
+  "peerDependencies": {},
   "browserslist": [
     "Firefox >= 40",
     "chrome >= 50",
     "ie >= 11",
     "edge >= 12"
   ],
-  "peerDependencies": {},
   "dependencies": {}
 }

@@ -1,5 +1,5 @@
-import { isObject, isArray } from "./type";
-import { getItemCount } from "./math"
+import { isObject, isArray } from './type';
+import { getItemCount } from './math';
 
 /**
  * 深比较两个对象
@@ -19,9 +19,11 @@ export function isObjEqual(obj1, obj2) {
     return false;
   }
   for (let key in obj1) {
-    const res = isObjEqual(obj1[key], obj2[key]);
-    if (!res) {
-      return false;
+    if (Object.hasOwnProperty.call(obj1, key)) {
+      const res = isObjEqual(obj1[key], obj2[key]);
+      if (!res) {
+        return false;
+      }
     }
   }
   return true;

@@ -11,7 +11,7 @@ export default class TipManager {
         this.tooltipDom = document.createElement('div');
         this.tooltipDom.classList.add('hc-tooltip');
         if (this.theme === 'dark') {
-            tooltipDom.classList.add('dark');
+            this.tooltipDom.classList.add('dark');
         }
         this.tooltipDom.addEventListener('mouseenter', (e) => {
             if (this.setTipTimeOut) { clearTimeout(this.setTipTimeOut); }

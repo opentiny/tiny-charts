@@ -1,7 +1,6 @@
 import baseOption from './baseOption';
 import Manager from './Manager';
 import { setChartSize, initWrapper } from './util';
-import './index.less';
 export default class RiverChart {
   // 配置项
   option = {};

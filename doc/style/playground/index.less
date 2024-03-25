@@ -1,0 +1,257 @@
+@import './chart-style/flow-chart.less';
+@import './chart-style/wave-chart.less';
+@import './chart-style/river-chart.less';
+@import './chart-style/honeycomb-chart.less';
+@import './chart-style/organization-chart.less';
+@import './chart-style/milestone-chart.less';
+
+html,
+body {
+  height: 100%;
+}
+
+// 编辑器字体
+.view-line span {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-size: 14px;
+}
+
+.ic-playground {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #000000;
+
+  &.ic-light {
+    background-color: #f5f5f5;
+  }
+
+  .ic-split-pane {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+  }
+
+  .ic-editor {
+    width: 36%;
+  }
+
+  .ic-split-pane-right {
+    width: 64%;
+    height: 100%;
+    padding: 12px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+
+    .ic-chart-container {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 4px;
+
+      &:focus {
+        border: 2px salmon solid;
+      }
+    }
+  }
+}
+
+.ic-playground-run,
+.ic-playground-downLoad,
+.ic-playground-screenshot {
+  position: absolute;
+  top: 6px;
+  text-align: center;
+  color: #ffffff;
+  z-index: 100;
+  margin-left: 0px !important;
+  padding: 0 20px 0 20px;
+  height: 36px;
+  font-size: 14px;
+  line-height: 36px;
+  background-color: #000000;
+  border: 1px #676767 solid;
+  border-radius: 4px;
+  transition: border 0.3s cubic-bezier(0.33, 0, 0.67, 1);
+
+  &:hover {
+    border: 1px #ffffff solid;
+  }
+}
+
+.ic-playground-changeContainer {
+  position: absolute;
+  top: 6px;
+  text-align: center;
+  color: #ffffff;
+  z-index: 100;
+  // padding: 0 20px 0 20px;
+  height: 36px;
+  font-size: 14px;
+  line-height: 36px;
+  background-color: #000000;
+  border: 1px #676767 solid;
+  border-radius: 4px;
+  transition: border 0.3s cubic-bezier(0.33, 0, 0.67, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &:hover {
+    border: 1px #ffffff solid;
+  }
+}
+
+.ic-playground-button {
+  border: none;
+  height: 34px;
+  font-size: 14px;
+  line-height: 36px;
+  display: block;
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.ic-playground-downLoad,
+.ic-playground-screenshot {
+  top: unset;
+  bottom: 6px;
+}
+
+.tiny-radio-button,
+.tiny-radio-button__inner {
+  width: 48px;
+}
+
+.ic-playground-leftInput {
+  width: 60px;
+  margin-right: 10px;
+}
+
+.ic-playground-rightInput {
+  width: 60px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.ic-playground-row {
+  margin-top: 10px;
+}
+
+.ic-light {
+
+  .ic-playground-run,
+  .ic-playground-downLoad,
+  .ic-playground-changeContainer,
+  .ic-playground-screenshot {
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px #bbbbbb solid;
+
+    &:hover {
+      border: 1px #191919 solid;
+    }
+  }
+
+  .ic-playground-button {
+    border: none;
+    font-size: 14px;
+    line-height: 36px;
+    display: block;
+    color: #000000;
+    background-color: #ffffff;
+  }
+
+  .ic-chart-container {
+    border: 1px solid #c6c6c650;
+  }
+}
+
+// 黑色背景下滚动条样式
+.ic-dark {
+  .ic-editor {
+    height: 100%;
+
+    .monaco-editor {
+      .overflow-guard {
+        .editor-scrollable {
+          .scrollbar {
+            background: #1c1c1c;
+
+            &.vertical {
+              width: 4px !important;
+
+              .slider {
+                width: 100% !important;
+                border-radius: 2px;
+                background-color: #454545;
+              }
+            }
+
+            &.horizontal {
+              height: 4px !important;
+
+              .slider {
+                height: 100% !important;
+                border-radius: 2px;
+                background-color: #454545;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 白色背景下，左侧编辑器滚动条颜色
+.ic-light {
+  .ic-editor {
+    height: 100%;
+
+    .monaco-editor {
+      .overflow-guard {
+        .editor-scrollable {
+          .scrollbar {
+            background: #fff;
+
+            &.vertical {
+              width: 4px !important;
+
+              .slider {
+                width: 100% !important;
+                border-radius: 2px;
+                background-color: #ccc;
+              }
+            }
+
+            &.horizontal {
+              height: 4px !important;
+
+              .slider {
+                height: 100% !important;
+                border-radius: 2px;
+                background-color: #ccc;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 蜂窝图示例六边形背景图
+.hc-node-example {
+  background: url('../image/charts/honeycomb/hexagon.svg');
+
+  &.error {
+    background: url('../image/charts/honeycomb/hexagon-error.svg');
+  }
+}
+
+.drag-tools{
+  display: none;
+}

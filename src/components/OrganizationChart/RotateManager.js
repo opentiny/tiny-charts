@@ -11,8 +11,12 @@ export default class RotateManager {
         this.nodeManager = nodeManager;
         this.angles = this.nodeManager.angles;
         this.drag = false;
-        this.initWarppersEvent();
-        this.initNodesEvent(this.dom);
+        if(option.autoRotate){
+            this.autoRotate(option.autoRotate);
+        }else{
+            this.initWarppersEvent();
+            this.initNodesEvent(this.dom);
+        }
     }
 
     // 绑定转轮拖动事件
@@ -197,6 +201,29 @@ export default class RotateManager {
             rotate: rotate,
             selected: selectedIndex
         };
+    }
+
+    // 自动旋转
+    autoRotate(option){
+        let current = 0;
+        let speed = option.speed || 1;
+        let direction = option.direction || 'clockwise';
+        let warppers = this.dom.getElementsByClassName('ozc_warpper');
+        function rotate(){
+            if(direction === 'clockwise'){
+                current += speed;
+            }else{
+                current -= speed;
+            }
+            Array.from(warppers).forEach((element) => {
+                element.style.transform = ` translateX(-50%) translateY(-50%) rotate(${current}deg)`;
+                Array.from(element.getElementsByClassName('ozc_card')).forEach((card) => {
+                    card.style.transform = `rotate(${-current}deg)`;
+                }); 
+            });
+            window.requestAnimationFrame(rotate);
+        }
+        window.requestAnimationFrame(rotate);
     }
 }
 

@@ -12,7 +12,7 @@ export default class Node {
   row;
   // 节点所在的列
   col;
-  //节点的配置
+  // 节点的配置
   config;
   //   节点的父节点
   parent = null;
@@ -77,7 +77,7 @@ export default class Node {
     const depthWidthNumber = depthWidth.map(item => {
       return parseInt(item) / 100;
     });
-    //获取当前的起点
+    // 获取当前的起点
     const depthWidthPercent = depthWidthNumber.slice(0, col).reduce((pre, cur) => pre + cur, 0);
     return depthWidthPercent * width;
   }
@@ -126,13 +126,13 @@ export default class Node {
     if (length - 2 > 0) {
       const step = Math.round(100 / (length - 1));
       for (let i = 0; i < length - 2; i++) {
-        const offset = step * (i + 1);
         const itemNodeColor = statusColor[nodes[i + 1].status];
-        const colorItem = {
+        const offset = step * (i + 1);
+        const colorItemData = {
           percent: `${offset}%`,
           color: itemNodeColor,
         };
-        colors.push(colorItem);
+        colors.push(colorItemData);
       }
     }
     const EndColor = statusColor[nodes[length - 1].status];
@@ -156,7 +156,7 @@ export default class Node {
     this.width = nodeWidth;
     this.height = height;
   }
-  //生成node的dom节点
+  // 生成node的dom节点
   renderDom(nodeContainer) {
     // 公共的render方法
     const renderPar = this.config.render;
@@ -181,7 +181,7 @@ export default class Node {
     let fillColor = background;
     const isNotgarident = typeof this.color === 'string';
     if (!isNotgarident) {
-      //渐变的属性
+      // 渐变的属性
       const lineGradientAttributes = {
         id: `linearGradient_${this.name}_node`,
         x1: '0%',
@@ -190,7 +190,7 @@ export default class Node {
         y2: '0%',
       };
       const lineGradientDom = renderSvgDom('linearGradient', lineGradientAttributes);
-      //生成stop
+      // 生成stop
       this.color.forEach(el => {
         const stopAttributes = {
           offset: el.percent,
@@ -389,7 +389,7 @@ export default class Node {
       this.addParentBelt(false);
     }
   }
-  //生成后部的连接带
+  // 生成后部的连接带
   setAfterBelt() {
     // 根节点
     if (!this.parent && this.children) {
@@ -406,7 +406,7 @@ export default class Node {
     }
   }
 
-  //生成对应节点的连接带
+  // 生成对应节点的连接带
   initBelts() {
     this.setBeforeBelt();
     this.setAfterBelt();

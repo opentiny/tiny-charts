@@ -1,7 +1,6 @@
 import base from './base';
 import { getTextWidth } from '../../../util/dom';
 import merge from '../../../util/merge';
-import completePadding from './titlePadding'
 
 /**
  * 配置纵轴名称
@@ -35,7 +34,7 @@ function title(iChartOption, chartName, nameTextStyle = {}) {
   }
   // y轴文本的样式需要合并到title配置上
   merge(title.textStyle, nameTextStyle);
-  merge(title.padding, completePadding(nameTextStyle.padding));
+  merge(title.padding, nameTextStyle.padding);
   delete title.textStyle.padding;
   return title;
 }

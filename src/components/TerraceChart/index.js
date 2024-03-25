@@ -1,4 +1,3 @@
-import './index.less';
 import BaseChart from '../BaseChart';
 import defaultPath from './defaultPath';
 import { initContainer } from './insert';
@@ -88,7 +87,7 @@ export default class TerraceChart extends BaseChart {
         if (centerDom) {
             this.insertCenterDom(centerDom, this.domContainer)
         }
-        //梯田图渲染
+        // 梯田图渲染
         const { type = 'health' } = this.option;
         defaultGradient.forEach(item => {
             if (item.type === type) {
@@ -160,17 +159,17 @@ export default class TerraceChart extends BaseChart {
         loadingSvg.style.height = scaleWidth;
     }
 
-    // 图表渲染完成时回调
-    onRenderReady(callback) {
-        this.renderCallBack = callback;
-    }
-
     // 监听容器变化
     setResizeObserver() {
         this.resizeObserver = new ResizeObserver(entries => {
             this.resizeDom();
         });
         this.resizeObserver.observe(this.dom);
+    }
+
+    // 图表渲染完成时回调
+    onRenderReady(callback) {
+        this.renderCallBack = callback;
     }
 
     // 图表刷新，刷新配置项
@@ -198,7 +197,7 @@ export default class TerraceChart extends BaseChart {
     showLoading(option) {
         if (this.loadingContainer) {
             this.loadingDom.innerHTML = '';
-            option = Object.assign({ theme: 'light' }, option);
+            option = { theme: 'light' , ...option};
             const text = option.text || '加载中...';
             const textSize = option.textSize || 14;
             const textShow = option.textShow === false ? false : true;

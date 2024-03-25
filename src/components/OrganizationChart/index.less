@@ -13,8 +13,24 @@
         border-radius: 50%;
         transform-origin: 50% 50%;
         transition: all 200ms linear;
-        border: 1px solid #bbbbbb;
-    }
+        border-width: 1px;
+        &::after {
+            top: 0;
+            left: 0;
+            content: "";
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            padding: 1px;
+            position: absolute;
+            border-radius: 50%;
+            background: var(--lineColor);;
+            mask-image: linear-gradient(#FFF, #FFF), linear-gradient(#FFF, #FFF);
+            mask-clip: content-box, padding-box;
+            mask-composite: exclude;
+            -webkit-mask-composite: destination-out;
+        }
+    }   
 
     .ozc_warpper_line{
         left: 50%;

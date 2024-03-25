@@ -55,7 +55,7 @@ class MapPolyfill {
   }
 
   has(key) {
-    return this.data.hasOwnProperty(key);
+    return Object.hasOwnProperty.call(this.data, key);
   }
 
   get(key) {
@@ -74,7 +74,7 @@ class MapPolyfill {
   forEach(callback) {
     const data = this.data;
     for (const key in data) {
-      if (data.hasOwnProperty(key)) {
+      if (Object.hasOwnProperty.call(data, key)) {
         callback(data[key], key);
       }
     }
@@ -90,7 +90,7 @@ function keys(obj) {
   }
   let keyList = [];
   for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
+    if (Object.hasOwnProperty.call(obj, key)) {
       keyList.push(key);
     }
   }

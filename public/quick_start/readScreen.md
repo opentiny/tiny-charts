@@ -1,6 +1,6 @@
 # 读屏
 
-HUI-Charts 提供了图表的无障碍能力，方便残障人士使用屏幕阅读器自带的语音读屏功能。<br>
+Opentiny-Charts 提供了图表的无障碍能力，方便残障人士使用屏幕阅读器自带的语音读屏功能。<br>
 
 前端Web工程的无障碍能力应用<a href="https://developer.mozilla.org/zh-CN/docs/Learn/Accessibility/WAI-ARIA_basics" target="_blank">可点击这里跳转查看</a>。
 

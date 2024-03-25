@@ -1,144 +1,122 @@
-const setStyle = (dom, styles) => {
-  for (let i in styles) {
-    dom.style[i] = styles[i];
-  }
-};
-
-const renderNode = (container, extra, data) => {
-  setStyle(container, {
-    width: '83px',
-    height: '83px',
-    ' background- image': 'linear-gradient(130deg, rgba(89,144,253,0.20) 1%, rgba(89,144,253,0.00) 100%)',
-    background: '#000',
-    borderRadius: '50%',
-    border: '4px solid #5990fd',
-    'box-shadow': '0 0 76px 0 #2E69DE, inset 0 0 11px 0 rgba(255,255,255,0.50), inset 0 0 23px 0 #5990FD'
-  });
-  if (data.children && data.children.length) {
-    setStyle(container, {
-      width: '126px',
-      height: '126px',
-    });
-    container.innerHTML = `<div style='width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;'>
-    <img src='./image/Doc/deviceImg/${data.className}.png' style='width:40px;height:40px' draggable=false></img>
-    <div style='font-size:20px;color:#ffffff;line-height:20px;margin:4px 0'>${data.name}</div>
-    <div style='font-size:10px;color:#bbbbbb;line-height:14px;margin-bottom:4px'>在线时长：${data.onLineTime}</div>
-    <div style='font-size:12px;color:#0D9458;line-height:14px'>${data.single}</div>
-    </div>`;
-  }
-  else {
-    container.innerHTML = `<div style='width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;'>
-  <img src='./image/Doc/deviceImg/${data.className}.png' style='width:20px;height:20px' draggable=false></img>
-  <div style='font-size:12px;color:#ffffff;line-height:14px;margin:4px 0'>${data.name}</div>
-  <div style='font-size:8px;color:#bbbbbb;line-height:10px'>${data.single}</div>
-  </div>`;
-  }
-
-  // 接入端口
-  if (data.connectInterface) {
-    setStyle(extra, {
-      width: '60px',
-      height: '20px',
-      borderRadius: '50%',
-      background: `url(./image/Doc/deviceImg/${data.connectInterface}.png) no-repeat center center`,
-    });
-  } else {
-    setStyle(extra, {
-      width: '28px',
-      height: '28px',
-      borderRadius: '50%',
-      background: '#232323',
-      border: '1px solid #e40cff',
-      textAlign: 'center',
-      lineHeight: '28px',
-      fontSize: '12px',
-      color: '#fff'
-    });
-    extra.innerHTML = data.channelNUm || 0;
-  }
-};
-
 const option = {
-  theme: 'dark',
-  render: (container, extra, data) => {
-    renderNode(container, extra, data);
-  },
+  theme: 'light',
+  distance: '100%', // 网关之间的间距
+  isLink: false, // 判断主网关右侧是否需要预留一个位置
+  scale: 0.6, // 递归生成节点容器的缩放比例
+  overAll: true, // 是否为全局视口（节点变小，不展示tag、line)
   data: [
     {
-      className: 'Gateway',
-      name: '主网关',
-      mac: '1',
-      single: '-24dBm',
-      onLineTime: '25天',
+      deviceType: 'ONT',
+      deviceName: '主网关',
+      mac: '111',
+      onlineDuration: '在线时长：25天',
+      signalStrength: '-24dBm', // 信号强度(单位需要图表加)
+      rxPower: '-50dBm', // (网关信号强度展示rxPower)
+      rxPowerMin: '-60',
+      rxPowerMax: '-10',
+      isRoot: true,
+      faultNumber: 3,
+      faultLevel: '1', // 1是严重   2是一般
+      trafficStatistics: '30GB',
       children: [
         {
-          className: 'SmartPhone',
-          name: 'sta-0',
-          mac: '2',
-          single: '-24dBm',
-          connectInterface: 'LAN1',
-          channelNUm: 20,
-          onLineTime: '20天',
-          children: [
-            // { className: 'PC', name: 'sta-a', upRate: '1111Kpbs', downRate: '2222Kpbs', single: '-24dBm', },
-            // { className: 'PC', name: 'sta-b', upRate: '1111Kpbs', single: '-24dBm', },
-            // { className: 'PC', name: 'sta-c', upRate: '1111Kpbs', single: '-24dBm', },
-            // { className: 'PC', name: 'sta-c', upRate: '1111Kpbs', single: '-24dBm', }
-          ]
-        },
-        // {
-        //   className: 'SmartPhone',
-        //   name: 'sta-0',
-        //   mac: '2',
-        //   isAp: 1,
-        //   single: '-24dBm',
-        //   connectInterface: 'LAN1',
-        //   channelNUm: 20,
-        //   onLineTime: '20天',
-        //   children: [
-        //     { name: 'sta-a', upRate: '1111Kpbs', downRate: '2222Kpbs', single: '-24dBm', },
-        //     { name: 'sta-b', upRate: '1111Kpbs', single: '-24dBm', }
-        //   ]
-        // },
-        {
-          className: 'PC',
-          name: 'sta-1',
-          mac: '4',
-          isAp: 0,
-          single: '-24dBm',
-          upRate: '1111Kpbs',
-          downRate: '2222Kpbs',
-          radioType: '2.4G',
-          channelNUm: 10,
+          deviceType: 'SmartPhone',
+          deviceName: 'sta-1',
+          mac: 'sta-1',
+          connectInterface: 'SSID-5G',
+          wifiChannel: 30,
+          signalStrength: '-24dBm', // (sta信号强度展示signalStrength)
+          isAP: 0,
+          faultNumber: 1,
+          faultLevel: '2',
+          trafficStatistics: '30GB',
         },
         {
-          className: 'Games',
-          name: 'sta-2',
-          mac: '5',
-          isAp: 0,
-          single: '-24dBm',
-          upRate: '1111Kpbs',
-          downRate: '2222Kpbs',
-          radioType: '2.4G',
-          channelNUm: 30,
-        },
-        {
-          className: 'PAD',
-          name: 'sta-3',
-          mac: '6',
-          isAp: 0,
-          single: '-24dBm',
-          upRate: '1111Kpbs',
+          deviceType: 'SmartPhone',
+          deviceName: 'sta-2',
+          mac: 'sta-2',
           connectInterface: 'LAN2',
+          signalStrength: '-24dBm',
+          isAP: 0,
+          trafficStatistics: '30GB',
         },
         {
-          className: 'PAD',
-          name: 'sta-4',
-          mac: '7',
-          isAp: 0,
-          single: '-24dBm',
-          upRate: '1111Kpbs',
-          radioType: '5G',
+          deviceType: 'AP',
+          deviceName: '从网关1',
+          mac: '222',
+          connectInterface: 'PON',
+          isAP: 1,
+          upRate: '1111Kpbs', // 上下行速率
+          downRate: '2222Kpbs',
+          faultNumber: 2,
+          faultLevel: '2',
+          trafficStatistics: '50GB',
+        },
+        {
+          deviceType: 'AP',
+          deviceName: '从网关2',
+          mac: '333',
+          connectInterface: 'PON',
+          rxPower: '-50dBm',
+          rxPowerMin: '-60',
+          rxPowerMax: '-10',
+          isAP: 1,
+          trafficStatistics: '40GB',
+        },
+        {
+          deviceType: 'AP',
+          deviceName: '从网关3',
+          mac: '444',
+          connectInterface: 'PON',
+          rxPower: '-70dBm',
+          rxPowerMin: '-20',
+          rxPowerMax: '0',
+          isAP: 1,
+          trafficStatistics: '20MB',
+        },
+        {
+          deviceType: 'AP',
+          deviceName: '从网关4',
+          mac: '555',
+          connectInterface: 'PON',
+          isAP: 1,
+        },
+        {
+          deviceType: 'AP',
+          deviceName: '从网关5',
+          mac: '666',
+          connectInterface: 'PON',
+          isAP: 1,
+          trafficStatistics: '100GB',
+        },
+        {
+          deviceType: 'AP',
+          deviceName: '从网关6',
+          mac: '777',
+          connectInterface: 'PON',
+          rxPower: '-50dBm',
+          isAP: 1,
+          children: [
+            {
+              deviceType: 'Other',
+              deviceName: 'sta-3-1',
+              mac: '777-1',
+              connectInterface: 'SSID-2.4G',
+              signalStrength: '-28dBm',
+              isAP: 0,
+              wifiChannel: 0, // 信道数量
+              trafficStatistics: '20GB',
+            },
+            {
+              deviceType: 'PC',
+              deviceName: 'sta-3-2',
+              mac: '777-2',
+              connectInterface: 'SSID-5G',
+              signalStrength: '-10dBm',
+              isAP: 0,
+              trafficStatistics: '10GB',
+            }
+          ]
         },
       ],
     },

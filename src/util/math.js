@@ -92,20 +92,9 @@ const getItemCount = (arr, item) => {
     return count;
 }
 
-/**
- * 生成安全随机数算法
- */
-const getRandom = () => {
-    const array = new Uint32Array(1);
-    self.crypto.getRandomValues(array);
-    const random = parseFloat(`0.${array[0].toString()}`);
-    return random;
-}
-
 export {
     getEdge,
     getAngle,
-    getRandom,
     getItemCount,
     getAngleByPoints,
     pointsDirection,

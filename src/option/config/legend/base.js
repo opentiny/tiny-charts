@@ -1,4 +1,4 @@
-import Theme from '../../../feature/theme';
+import Theme from '../../../feature/token';
 import { pageIconArr } from './pageIcon';
 function getBaseOption() {
   return {
@@ -6,6 +6,7 @@ function getBaseOption() {
     icon: 'circle',
     left: 'center',
     bottom: 12,
+    padding: Theme.config.legendPadding,
     inactiveColor: Theme.config.legendInactiveColor,
     inactiveBorderColor: Theme.config.legendInactiveBorderColor,
     inactiveBorderWidth: Theme.config.legendInactiveBorderWidth,
@@ -44,7 +45,7 @@ function getBaseOption() {
     pageIconInactiveColor: Theme.config.legendPageIconInactiveColor,
     pageIcons: {
       horizontal: pageIconArr,
-      vertical: pageIconArr
+      vertical: pageIconArr,
     },
     selectedMode: true,
     align: 'left',
@@ -52,7 +53,7 @@ function getBaseOption() {
     itemWidth: Theme.config.legendCircleItemWidth,
     itemHeight: Theme.config.legendCircleItemHeight,
     itemStyle: {
-      borderWidth: Theme.config.legendItemStyleBorderWidth,
+      borderWidth: Theme.config.legendItemBorderWidth,
     },
   };
 }
