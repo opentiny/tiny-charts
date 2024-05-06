@@ -3,8 +3,7 @@ English | [简体中文](README.zh-CN.md)
 
 ## Web Front-End Framework Technology Stack
 
-- Higher-Order Charts: RiverChart, HoneycombChart, TerraceChart, TimelineChart, OrganizationChart, SnowFlakeChart, MilestoneChart 
-They are to be referenced as required when used without relying on other libraries.
+- Higher-Order Charts: RiverChart, HoneycombChart, TerraceChart, TimelineChart, OrganizationChart, SnowFlakeChart, MilestoneChart. Reference on demand and do not depend on other libraries.
 
 ## Basic Learning
 
