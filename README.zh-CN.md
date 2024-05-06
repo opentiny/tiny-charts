@@ -1,4 +1,5 @@
 # Opentiny-Charts
+[English](README.md) | 简体中文
 
 ## Web 前端框架技术栈
 

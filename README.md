@@ -1,100 +1,101 @@
 # Opentiny-Charts
+English | [简体中文](README.zh-CN.md)
 
-## Web 前端框架技术栈
+## Web Front-End Framework Technology Stack
 
-- 高阶图表：甘特图、流程图、河流图、蜂窝图、波纹图、梯田图、时间轴、组织关系图、雪花图、里程碑图使用时要按需引用，不依赖其他库
+- Higher-Order Charts: RiverChart, HoneycombChart, TerraceChart, TimelineChart, OrganizationChart, SnowFlakeChart, MilestoneChart 
+They are to be referenced as required when used without relying on other libraries.
 
-## 基础学习
+## Basic Learning
 
-## 组件库安装
+## Component Library Installation
 
-1. 环境准备，首先确认安装了 NodeJs，并确保 NodeJs 版本是 10.13 或以上。使用`node -v`命令查看 node 版本
-2. 查看组件库当前的版本 `npm show @opentiny/hui-charts`
-3. 安装，使用 npm 安装组件库最新版本:`npm install @opentiny/hui-charts@latest --save`
+1. Prepare the environment. Ensure that NodeJs is installed and the NodeJs version is 10.13 or later. Run the `node -v` command to check the node version.
+2. Check the current version of the library `npm show @opentiny/charts`.
+3. Use the NPM to install the component library of the latest version: `npm install @opentiny/charts@latest --save`.
 
 
-## 使用用例
+## Use Cases
 
 ```javascript
-// 引用图表库
-import HuiCharts from '@opentiny/hui-charts';
+// Refer to the chart library.
+import HuiCharts from '@opentiny/charts';
 
-// 创建图表实例
+// Create a chart instance.
 let chartIns = new HuiCharts();
 
-// 初始化图表容器
-let chartContainerDom = ...;
+// Initialize the chart container.
+let chartContainerDom =...;
 chartIns.init(chartContainerDom);
 
-// 填入图表配置项
+// Enter the chart configuration items.
 let chartOption = {...};
-// 指定使用图表类型：LineChart、AreaChart、BarChart、PieChart、GaugeChart、RadarChart、ProcessChart、BubbleChart等
-// 图表类型的英文名称可以在文档左侧菜单栏看到
+// Specify the chart type, such as LineChart, AreaChart, BarChart, PieChart, GaugeChart, RadarChart, ProcessChart, and BubbleChart.
+// The English name of the chart type can be viewed in the menu bar on the left of the document.
 let chartType = 'LineChart';
 chartIns.setSimpleOption(chartType, chartOption);
 
-// 开始渲染
+// Start rendering.
 chartIns.render();
 ```
 
-## 图表数据刷新
-当您要刷新已经渲染完毕的图表时，如果您想刷新配置项和数据，可以使用：
+## Refresh Chart Data
+When you want to refresh a rendered chart, you can use the following command to refresh configuration items and data:
 ```javascript
-// 新的配置项，对象格式
+// New configuration item in object format.
 let newChartOption = {...};
 chartIns.refresh(newChartOption);
 ```
-如果您想仅仅刷新数据，可以使用：
+If you want to just refresh the data, you can use:
 ```javascript
-// 新的数据，为数组格式
+// New data in array format.
 let newData = [...];
 chartIns.refreshData(newData);
 ```
 
-## 图表数据状态
-Opentiny-Charts 目前内置了 5 种数据状态，包括:
-- loading：数据加载中
-- error：数据加载失败
-- empty：数据为空
-- stageEmpty：阶段数据为空
-- state：自定义状态
+## Chart Data Status
+Opentiny-Charts currently has five built-in data states, including:
+- loading: data is being loaded.
+- error: data loading failed.
+- empty: data is empty.
+- stageEmpty: stage data is empty.
+- state: custom status.
+
+## Chart Theme
+Opentiny-Charts currently has 7 skin-themed shades built in, including:
+- ICT3.0 Light Theme
+- ICT3.0 Dark theme
+- HUAWEI CLOUD Light Theme
+- HDesign 1.1 Light Theme
+- HDesign 1.1 Dark Theme
+- Quality & BP IT Light Theme
+- Quality & BP IT Dark Theme
 
 
-## 图表主题
-Opentiny-Charts 目前内置了 7 种皮肤主题色，包括：
-- ICT3.0图表浅色主题
-- ICT3.0图表深色主题
-- 华为云图表浅色主题
-- HDesign1.1图表浅色主题
-- HDesign1.1图表深色主题
-- 质量&流程IT图表浅色主题
-- 质量&流程IT图表深色主题
+## Chart Event Listening
+The basic diagram of Opentiny-Charts provides two types of event listening processing methods, including:
+- Mouse event triggering
+- Code event triggering
 
 
-## 图表事件监听
-Opentiny-Charts 的基础图表提供了 2 种事件监听处理方式，包括：
-- 鼠标事件触发
-- 代码事件触发
-
-
-## 图表渲染完毕的回调
+## Callback after Chart Rendering
 ```javascript
 chartIns.onRenderReady(callback);
 ```
 
-## 图表适配屏幕宽度
-Opentiny-Charts默认开启支持自动适应屏幕宽度，当您希望手动调用时，可以使用：
+## Chart Adaptation Screen Width
+By default, Opentiny-Charts is enabled to automatically adapt to the screen width. If you want to manually invoke Opentiny-Charts, run the following command:
 ```javascript
 chartIns.setResize();
 ```
 
-## 获取ECharts原生实例
-当您需要操作ECharts的原生实例时，可以使用如下方法获取：
+## Obtain the native instance of ECharts.
+To obtain a native ECharts instance, perform the following operation:
 ```javascript
 chartIns.getEchartsInstance();
 ```
 
-## 图表卸载
+## Uninstallation
 ```javascript
 chartIns.uninstall();
 ```
