@@ -1,27 +1,29 @@
-# Opentiny-Charts
+<p align="center">
+  <a href="https://opentiny.design/tiny-vue" target="_blank" rel="noopener noreferrer">
+    <img alt="OpenTiny Logo" src="logo.svg" height="100" style="max-width:100%;">
+  </a>
+</p>
+
+<p align="center">TinyCharts is a powerful set of front-end visualization chart libraries, which provides more than 40 chart components for web developers. It supports a variety of capabilities such as theme customization, responsiveness, and accessibility, and is fully compatible with ECharts's API.</p>
+
 English | [简体中文](README.zh-CN.md)
 
-## Web Front-End Framework Technology Stack
+## Usage
 
-- Higher-Order Charts: RiverChart, HoneycombChart, TerraceChart, TimelineChart, OrganizationChart, SnowFlakeChart, MilestoneChart. Reference on demand and do not depend on other libraries.
+### 1. Installation
 
-## Basic Learning
-
-## Component Library Installation
-
-1. Prepare the environment. Ensure that NodeJs is installed and the NodeJs version is 10.13 or later. Run the `node -v` command to check the node version.
+1. Prepare the environment. Ensure that Node.js is installed and the Node.js version is 10.13 or later. Run the `node -v` command to check the node version.
 2. Check the current version of the library `npm show @opentiny/charts`.
 3. Use the NPM to install the component library of the latest version: `npm install @opentiny/charts@latest --save`.
 
-
-## Use Cases
+### 2. Import component
 
 ```javascript
 // Refer to the chart library.
-import HuiCharts from '@opentiny/charts';
+import TinyCharts from '@opentiny/charts';
 
 // Create a chart instance.
-let chartIns = new HuiCharts();
+let chartIns = new TinyCharts();
 
 // Initialize the chart container.
 let chartContainerDom =...;
@@ -38,63 +40,15 @@ chartIns.setSimpleOption(chartType, chartOption);
 chartIns.render();
 ```
 
-## Refresh Chart Data
-When you want to refresh a rendered chart, you can use the following command to refresh configuration items and data:
-```javascript
-// New configuration item in object format.
-let newChartOption = {...};
-chartIns.refresh(newChartOption);
-```
-If you want to just refresh the data, you can use:
-```javascript
-// New data in array format.
-let newData = [...];
-chartIns.refreshData(newData);
-```
+## Contributing
 
-## Chart Data Status
-Opentiny-Charts currently has five built-in data states, including:
-- loading: data is being loaded.
-- error: data loading failed.
-- empty: data is empty.
-- stageEmpty: stage data is empty.
-- state: custom status.
+Welcome to join our OpenTiny community!🎉
 
-## Chart Theme
-Opentiny-Charts currently has 7 skin-themed shades built in, including:
-- ICT3.0 Light Theme
-- ICT3.0 Dark theme
-- HUAWEI CLOUD Light Theme
-- HDesign 1.1 Light Theme
-- HDesign 1.1 Dark Theme
-- Quality & BP IT Light Theme
-- Quality & BP IT Dark Theme
+If you don't know how to start, please read our [contributing guide](CONTRIBUTING.md).
 
+- Add the official assistant WeChat `opentiny-official` and join the technical exchange group.
+- Add to the mailing list `opentiny@googlegroups.com`
+## License
 
-## Chart Event Listening
-The basic diagram of Opentiny-Charts provides two types of event listening processing methods, including:
-- Mouse event triggering
-- Code event triggering
+[MIT](LICENSE)
 
-
-## Callback after Chart Rendering
-```javascript
-chartIns.onRenderReady(callback);
-```
-
-## Chart Adaptation Screen Width
-By default, Opentiny-Charts is enabled to automatically adapt to the screen width. If you want to manually invoke Opentiny-Charts, run the following command:
-```javascript
-chartIns.setResize();
-```
-
-## Obtain the native instance of ECharts.
-To obtain a native ECharts instance, perform the following operation:
-```javascript
-chartIns.getEchartsInstance();
-```
-
-## Uninstallation
-```javascript
-chartIns.uninstall();
-```

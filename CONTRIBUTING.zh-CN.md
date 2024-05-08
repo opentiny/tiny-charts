@@ -42,31 +42,24 @@
 
 #### Commit 信息
 
-commit 信息要以 `type(scope): 描述信息` 的形式填写，例如 `fix(line-chart): [xAxis, yAxis] fix xxx bug`。
+commit 信息要以 `type(scope): 描述信息` 的形式填写，例如 `fix(line-chart): fix xxx bug`。
 
 1. type: 必须是 build, chore, ci, docs, feat, fix, perf, refactor, revert, release, style, test, improvement 其中的一个。
 
 2. scope:
 
-- `packages`目录下的包名下的组件名，比如：`line-chart, bar-chart, flow-chart ......`
-- 用文件夹的名称: 比如: `gulp, internals/playwright-config, sites`
-- 组件的名称(小写，中划线): 比如: `line-chart, organization-chart ......`
+- 组件的名称(小写，中划线): 比如: `line-chart, bar-chart, flow-chart`
 
 #### Pull Request 的标题
 
 1. 标题的规范与 commit 信息一样，以`type(scope): 描述信息` 的形式填写。
 
-2. 触发组件的 **e2e 测试**: 在 Pull Request 标题里添加 `[componentName1, componentName2]`，将会执行 componentName1，componentName2 的测试用例，当改动的代码会影响组件时，需要声明这个结构。
+2. 标题示例:
 
-   - 注：本项目下的 `github action` 会用`[componentName1, componentName2]`声明的组件名匹配 `examples/sites/demos` 目录下的路径名称，识别要执行的测试e2e用例。（因为全量跑测试用例太耗费时间）
-
-   - 当修改了某个组件的子组件，比如`Bar`组件，它本身没有对应的示例以及测试用例，这时应该要测试的是`layout`组件，因为`col`组件是`layout`组件的子组件，PR 标题可以这样： `fix(col): [layout] xxxxxxxxxxxxxx`
-
-3. 标题示例:
-
-- 补充 alert 组件文档： `docs(alert): [alert] xxxxxxxxxxxxxxx`, `docs(site): [alert] xxxxxxxxxxxxxxx`
-- 补充 alet 组件测试用例: `test(alert): [alert] xxxxxxxxxxxxxx`
-- 修复 alet 组件 @opentiny/charts 下的缺陷: `fix(line-chart): [alert] xxxxxxxxxxxxxx`
+- 给 line-chart 组件增加新特性： `feat(line-chart): xxxxxxxxxxxxxxx`
+- 修复 line-chart 组件 @opentiny/charts 下的缺陷: `fix(line-chart): xxxxxxxxxxxxxx`
+- 补充 line-chart 组件文档： `docs(line-chart): xxxxxxxxxxxxxxx`
+- 补充 line-chart 组件测试用例: `test(line-chart): xxxxxxxxxxxxxx`
 
 #### Pull Request 的描述
 
@@ -82,9 +75,9 @@ PR 描述使用了模板，需要按照模板填写 PR 相关信息，主要包�
 - 点击 [TinyCharts](https://github.com/opentiny/tiny-charts) 代码仓库右上角的 Fork 按钮，将上游仓库 Fork 到个人仓库
 - Clone 个人仓库到本地
 - 关联上游仓库，方便同步上游仓库最新代码
-- 在 Tiny Charts 根目录下运行 `pnpm i`, 安装 node 依赖
-- 运行 `pnpm dev`，启动组件库网站
-- 打开浏览器访问：[http://127.0.0.1:7130/](http://127.0.0.1:7130/)
+- 在 Tiny Charts 根目录下运行 `npm i`, 安装 node 依赖
+- 运行 `npm run dev`，启动组件库网站
+- 打开浏览器访问：[http://localhost:8080/](http://localhost:8080/)
 
 ```shell
 # username 为用户名，执行前请替换
@@ -95,15 +88,15 @@ cd tiny-charts
 git remote add upstream git@github.com:opentiny/tiny-charts.git
 
 # 安装依赖
-pnpm i
+npm i --force
 
 # 启动 charts 项目
-pnpm dev
+npm run dev
 ```
 
 ### 提交 PR 的步骤
 
-- 请确保你已经完成本地启动中的步骤，并能正常访问：[http://127.0.0.1:7130/](http://127.0.0.1:7130/)
+- 请确保你已经完成本地启动中的步骤，并能正常访问：[http://localhost:8080/](http://localhost:8080/)
 - 同步上游仓库 dev 分支最新代码：git pull upstream dev
 - 从上游仓库 dev 分支创建新分支 `git checkout -b username/feature1 upstream/dev`，分支名字建议为 `username/feat-xxx` / `username/fix-xxx`
 - 本地编码
