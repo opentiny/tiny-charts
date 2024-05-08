@@ -1,6 +1,6 @@
 <!--
- * Copyright (c) 2022 - present TinyCharts Authors.
- * Copyright (c) 2022 - present Huawei Cloud Computing Technologies Co., Ltd.
+ * Copyright (c) 2024 - present TinyCharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
  *
  * Use of this source code is governed by an MIT-style license.
  *
