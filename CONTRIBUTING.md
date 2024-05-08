@@ -42,31 +42,24 @@ Before submitting pull request, please make sure that your submission is in line
 
 #### Commit Message
 
-The commit message should be in the form of a `type(scope): description of the message`, e.g. `fix(line-chart): [xAxis, yAxis] fix xxx bug`.
+The commit message should be in the form of a `type(scope): description of the message`, e.g. `fix(line-chart): fix xxx bug`.
 
 1. type: must be one of build, chore, ci, docs, feat, fix, perf, refactor, revert, release, style, test, improvement.
 
-2. scope.
+2. scope:
 
-- Component name under the package name in the `packages` directory, e.g., `line-chart, bar-chart, flow-chart ......`
-- The name of the folder to use: e.g.: `gulp, internals/playwright-config, sites`
-- The name of the component (lowercase, center dot): e.g.: `line-chart, organization-chart ......`
+- The name of the component (lowercase, center dot): e.g.: `line-chart, bar-chart, flow-chart`
 
 #### Pull Request Title
 
 1. The specification of the title is the same as the commit information, which is entered in the form of `type(scope): description information`.
 
-2. **e2e test** of trigger components: Adding '[componentName1, componentName2]' to the Pull Request title will execute test cases for componentName1, componentName2, and declare this structure when changes to code affect components.
+2. Example title:
 
-   - Note: The `github action` in this project identifies test e2e use cases to be executed by matching the component names declared by `[componentName1, componentName2]` with the path names in the `examples/sites/demos` directory. (Because running the full test case is too time consuming)
-
-   - When modifying a sub-component of a component, such as the `col` component, which has no corresponding examples and test cases, the `layout` component should be tested, because the `col` component is a sub-component of the `layout` component. The PR title can be: `fix(col): [layout] xxxxxxxxxxxxxx`
-
-3. Example title:
-
-- Supplement alert component document: `docs(alert): [alert] xxxxxxxxxxxxxxx`, `docs(site): [alert] xxxxxxxxxxxxxxx`
-- Supplement alet component test case: `test(alert): [alert] xxxxxxxxxxxxxx`
-- Fixed bug in alet component @opentiny/tiny-charts: `fix(line-chart): [alert] xxxxxxxxxxxxxx`
+- Adding new features to the line-chart component:  `feat(line-chart): xxxxxxxxxxxxxxx`
+- Fixed bug in line-chart component @opentiny/tiny-charts: `fix(line-chart): xxxxxxxxxxxxxx`
+- Supplement line-chart component document: `docs(alert): xxxxxxxxxxxxxxx`
+- Supplement line-chart component test case: `test(alert): xxxxxxxxxxxxxx`
 
 #### Pull Request Description
 
@@ -82,9 +75,9 @@ The PR description uses a template, and it is necessary to fill in the relevant 
 - Click the Fork button in the upper right corner of the [TinyCharts](https://github.com/opentiny/tiny-charts) code repository to Fork the upstream repository to the personal repository.
 - Clone personal repository to local.
 - Associated with the upstream repository to facilitate the synchronization of the latest code of the upstream repository.
-- Run `pnpm i` under the TinyCharts root directory to install node dependencies.
-- Run `pnpm dev` to launch the component library website.
-- Open the browser to visit: [http://127.0.0.1:7130/](http://127.0.0.1:7130/)
+- Run `npm i` under the TinyCharts root directory to install node dependencies.
+- Run `npm run dev` to launch the component library website.
+- Open the browser to visit: [http://localhost:8080/](http://localhost:8080/)
 
 ```shell
 # You need to replace username with your own user name
@@ -95,15 +88,15 @@ cd tiny-charts
 git remote add upstream git@github.com:opentiny/tiny-charts.git
 
 # Installation
-pnpm i
+npm i
 
 # Launch tiny-charts
-pnpm dev
+npm run dev
 ```
 
 ### Submit a PR
 
-- Make sure that you have completed the steps in local startup and can visit [http://127.0.0.1:7130/](http://127.0.0.1:7130/) normally.
+- Make sure that you have completed the steps in local startup and can visit [http://localhost:8080/](http://localhost:8080/) normally.
 - Synchronize upstream repository dev branch latest code: `git pull upstream dev`.
 - Create a new branch `git checkout-b username/feature1 upstream/ dev` from the upstream repository dev branch. The name of the branch should be `username/feat- xxx` / `username/fix- xxx`.
 - Local coding.
