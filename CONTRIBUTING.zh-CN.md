@@ -19,7 +19,7 @@
 
 如果你在使用 TinyCharts 组件过程中遇到问题，欢迎给我们提交 Issue，提交 Issue 之前，请先仔细阅读相关的[官方文档](https://opentiny.design)，确认这是一个缺陷还是尚未实现的功能。
 
-如果是一个缺陷，创建新 Issue 时选择 [Bug report](https://github.com/opentiny/tiny-charts/issues/new?template=bug-report.yml) 模板，标题遵循 `[componentName]缺陷简述` 的格式，比如：`[select]过滤功能中，选中的选项退格删除后，无法再次选中该选项`。
+如果是一个缺陷，创建新 Issue 时选择 [Bug report](https://github.com/opentiny/tiny-charts/issues/new?template=bug-report.yml) 模板，标题遵循 `[componentName]缺陷简述` 的格式，比如：`[pie-chart]在单击圆盘图的扇形区域时，无法依次选中多个扇形`。
 
 报告缺陷的 Issue 主要需要填写以下信息：
 
@@ -27,7 +27,7 @@
 - 缺陷的表现，可截图辅助说明，如果有报错可贴上报错信息
 - 缺陷的复现步骤，最好能提供一个最小可复现 demo 链接
 
-如果是一个新特性，则选择 [Feature request](https://github.com/opentiny/tiny-charts/issues/new?template=feature-request.yml) 模板，标题遵循 `[componentName]新特性简述` 的格式，比如：`[select]选择框内容太长展示不下时，希望能支持配置tips提示`。
+如果是一个新特性，则选择 [Feature request](https://github.com/opentiny/tiny-charts/issues/new?template=feature-request.yml) 模板，标题遵循 `[componentName]新特性简述` 的格式，比如：`[pie-chart]圆盘图存在非常小的数据时占比面积几乎为0，影响视觉，希望增加最小角度的设置`。
 
 新特性的 Issue 主要需要填写以下信息：
 
@@ -88,7 +88,7 @@ cd tiny-charts
 git remote add upstream git@github.com:opentiny/tiny-charts.git
 
 # 安装依赖
-npm i --force
+npm i
 
 # 启动 charts 项目
 npm run dev
@@ -97,11 +97,23 @@ npm run dev
 ### 提交 PR 的步骤
 
 - 请确保你已经完成本地启动中的步骤，并能正常访问：[http://localhost:8080/](http://localhost:8080/)
-- 同步上游仓库 dev 分支最新代码：git pull upstream dev
-- 从上游仓库 dev 分支创建新分支 `git checkout -b username/feature1 upstream/dev`，分支名字建议为 `username/feat-xxx` / `username/fix-xxx`
+- 保证当前为dev分支，同步上游仓库 dev 分支最新代码：`git pull upstream dev`
+- 从 dev 分支创建新分支 `git checkout -b username/feat-xxx`，分支名字建议为 `username/feat-xxx` / `username/fix-xxx`
 - 本地编码
-- 遵循 [Commit Message Format](https://www.conventionalcommits.org/zh-hans/v1.0.0/) 规范进行提交，不符合提交规范的 PR 将不会被合并
-- 提交到远程仓库：git push origin branchName
+- 将本地变更代码提交到远程仓库，遵循 [Commit Message Format](https://www.conventionalcommits.org/zh-hans/v1.0.0/) 规范进行提交，不符合提交规范的 PR 将不会被合并。
+```shell
+# 暂存变更
+git add .
+
+# 查看暂存的变更
+git status
+
+# 提交变更
+git commit -m 'feat(line-chart): xxx'
+
+# 变更提交到远程仓库
+git push origin branchName
+``` 
 - 打开 TinyCharts 代码仓库的 [Pull requests](https://github.com/opentiny/tiny-charts/pulls) 链接，点击 New pull request 按钮提交 PR
 - 按照 PR 模板补充相关信息，包括 PR 自检项、PR 类型、关联的 Issue 编号、是否是破坏性变更
 - 项目 Committer 进行 Code Review，并提出意见

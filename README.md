@@ -8,7 +8,14 @@
 
 English | [简体中文](README.zh-CN.md)
 
-## Usage
+🌈 Features:
+
+- 📦  Contains over 40 concise and easy-to-use chart components
+- 🖖  One set of code supports Vue, Angular, and React frameworks simultaneously
+- 🎨  Integrate multiple theme specifications and support theme customization
+- 💡  Integrated features such as adaptive, performance improvement, accessibility, and scale optimization
+
+## 🛠️ Usage
 
 ### 1. Installation
 
@@ -39,6 +46,19 @@ chartIns.setSimpleOption(chartType, chartOption);
 // Start rendering.
 chartIns.render();
 ```
+
+## 🖥️ Development
+
+```shell
+git clone git@github.com:opentiny/tiny-charts.git
+cd tiny-charts
+npm i
+
+# start project
+npm run dev
+```
+
+打开浏览器访问：[http://localhost:8080/](http://localhost:8080/)
 
 ## Contributing
 
