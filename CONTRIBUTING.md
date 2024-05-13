@@ -19,7 +19,7 @@ When you personally use the TinyCharts component library and participate in many
 
 If you encounter problems in the process of using TinyCharts components, you are welcome to submit Issue to us. Before submitting Issue, please read the relevant [official documentation](https://opentiny.design) carefully to confirm whether this is a defect or an unimplemented function.
 
-If it is a defect, select [Bug report](https://github.com/opentiny/tiny-charts/issues/new?template=bug-report.yml) template when creating a new Issue. The title follows the format of `[componentName] defect description`. For example: `[pie chart] When clicking on the sector area of the pie chart, multiple sectors cannot be selected in sequence`.
+If it is a defect, select [Bug report](https://github.com/opentiny/tiny-charts/issues/new?template=bug-report.yml) template when creating a new Issue. The title follows the format of `[componentName] defect description`. For example: `[pie-chart] When clicking on the sector area of the pie chart, multiple sectors cannot be selected in sequence`.
 
 Issue that reports defects mainly needs to fill in the following information:
 
@@ -27,7 +27,7 @@ Issue that reports defects mainly needs to fill in the following information:
 - The performance of the defect can be illustrated by screenshot, and if there is an error, the error message can be posted.
 - Defect reproduction step, preferably with a minimum reproducible demo link.
 
-If it is a new feature, select [Feature request](https://github.com/opentiny/tiny-charts/issues/new?template=feature-request.yml) template. The title follows the format of `[componentName] new feature description`. For example: `[pie-chart] When there is very small data in the disc chart, the occupied area is almost 0, which affects the vision, and I hope to increase the setting of the minimum angle.`.
+If it is a new feature, select [Feature request](https://github.com/opentiny/tiny-charts/issues/new?template=feature-request.yml) template. The title follows the format of `[componentName] new feature description`. For example: `[pie-chart] When there is very small data in the pie chart, the occupied area is almost 0, which affects the vision, and I hope to increase the setting of the minimum angle.`.
 
 The following information is required for the Issue of the new feature:
 
