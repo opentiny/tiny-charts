@@ -1,11 +1,27 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import init from '../../option/init';
-import megre from '../../util/megre';
+import merge from '../../util/merge';
 import { event } from '../../util/event';
 import { setOption } from './handleOption';
 import tooltip from '../../option/config/tooltip';
+import { CHART_TYPE } from '../../util/constants';
 
 export default class RegionChart {
-  constructor(iChartOption, plugins, chartInstance) {
+
+  static name = CHART_TYPE.REGION
+
+
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
     // 组装 iChartOption, 补全默认值
@@ -21,12 +37,12 @@ export default class RegionChart {
     // 配置悬浮提示框
     this.baseOption.tooltip = tooltip(iChartOption);
     // 兼容echarts属性
-    megre(this.baseOption, iChartOption);
+    merge(this.baseOption, iChartOption);
     // 配置图表事件
     if (iChartOption.event) {
       event(chartInstance, iChartOption.event);
     }
-    // 删除部分不需要的默认值
+    // 删除部分无用的默认值
     delete this.baseOption.legend;
     delete this.baseOption.dataZoom;
     delete this.baseOption.xAxis;

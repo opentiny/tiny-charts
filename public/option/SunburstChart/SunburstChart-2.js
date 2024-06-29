@@ -1,7 +1,7 @@
 const option = {
-    theme: 'hwCloud-light',
+    theme: 'light',
     series: {
-        radius: [60, '65%'],//自定义旭日图半径
+        radius: [60, '65%'],// 自定义旭日图半径
         label: {
             show: false,
         },
@@ -12,15 +12,15 @@ const option = {
     tipHtml: (params) => {
         let name = params.name === '' ? '--' : params.name;
         let value = params.value;
-        let htmlString = '<div>' +
-            '<span style="display:inline-block;min-width:50px;">名称：</span>' +
-            '<span style="font-weight:bold">' + name + '</span>' +
-            '</div>';
+        let htmlString = `<div>
+                <span style="display:inline-block;min-width:50px;">名称：</span>
+                <span style="font-weight:bold">${name}</span>
+            </div>`;
         htmlString +=
-            '<div>' +
-            '<span style="display:inline-block;min-width:50px;">总数：</span>' +
-            '<span style="font-weight:bold">' + value + '</span>' +
-            '</div>';
+            `<div>
+                <span style="display:inline-block;min-width:50px;">总数：</span>
+                <span style="font-weight:bold">${value}</span>
+            </div>`;
         return htmlString
     },
     data: [
@@ -68,7 +68,7 @@ const option = {
                                     value: 1,
                                 },
                                 {
-                                    value: 1
+                                    value: 2
                                 }
                             ],
                         },
@@ -121,7 +121,7 @@ const option = {
                                     value: 1
                                 },
                                 {
-                                    value: 1,
+                                    value: 2,
                                 }
                             ]
                         }

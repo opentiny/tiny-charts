@@ -1,5 +1,5 @@
 const option = {
-  theme: 'hwCloud-light',
+  theme: 'light',
   data: [
     { name: '语文', value: 70 },
     { name: '数学', value: 90 },
@@ -10,7 +10,7 @@ const option = {
   event: {
     'series': {
       click: (params) => {
-        console.log(params);
+
       },
       dblclick: (params) => {
 

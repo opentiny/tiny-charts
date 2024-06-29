@@ -25,16 +25,16 @@ const option = {
     },
     type: 'stack',
     data: [
-        { "Name": 'Elastic', "Domestic": 31, "Abroad": 20, "Other": 20 },
-        { "Name": 'Bare Metal Server', "Domestic": 30, "Abroad": 15, "Other": 20 },
-        { "Name": 'Object Store', "Domestic": 27, "Abroad": 10, "Other": 20 },
-        { "Name": 'Cloud Hard Drive', "Domestic": 33, "Abroad": 37, "Other": 20 },
+        { 'Name': 'Elastic', 'Domestic': 31, 'Abroad': 20, 'Other': 23 },
+        { 'Name': 'Bare Metal Server', 'Domestic': 30, 'Abroad': 15, 'Other': 20 },
+        { 'Name': 'Object Store', 'Domestic': 27, 'Abroad': 10, 'Other': 20 },
+        { 'Name': 'Cloud Hard Drive', 'Domestic': 33, 'Abroad': 37, 'Other': 23 },
     ],
     direction: 'horizontal',
     xAxis: {
-        data: "Name",
+        data: 'Name',
     },
     yAxis: {
-        name: "Units"
+        name: 'Units'
     }
 };

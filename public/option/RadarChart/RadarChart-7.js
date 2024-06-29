@@ -18,18 +18,18 @@ const option = {
     radarMax: 100,
     data:{
         'Domestic':{
-            'Equipment': 43,
+            'Equipment': 47,
             'VM': 90,
             'CSP': 80,
             'RD': 53,
-            'Markets': 78
+            'Markets': 77
         },
         'Abroad':{
-            'Equipment': 75,
+            'Equipment': 77,
             'VM': 55,
             'CSP': 93,
             'RD': 90,
-            'Markets': 86
+            'Markets': 87
         }
     }
 };

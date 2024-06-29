@@ -1,4 +1,15 @@
 /**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+/**
  *  转义字符 防止xss攻击
  */
 const matchHtmlRegExp = /["'&<>/]/;
@@ -29,8 +40,8 @@ function escapeHtml(string) {
         break;
       case 62: // >
         escape = '&gt;';
-        break; // /
-      case 47:
+        break;
+      case 47:// /
         escape = '&#x2F;';
         break;
       default:
@@ -48,30 +59,6 @@ function escapeHtml(string) {
   return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
 }
 
-const escapeHtmlAHO = value => {
-  if (typeof value === 'string') {
-    if (value.indexOf('&') > -1 && value.indexOf('&amp;') < 0) {
-      value = value.replace(/&/g, '&amp;');
-    }
-    if (value.indexOf('<') > -1) {
-      value = value.replace(/</g, '&lt;');
-    }
-    if (value.indexOf('>') > -1) {
-      value = value.replace(/>/g, '&gt;');
-    }
-    if (value.indexOf('/') > -1) {
-      value = value.replace(/\//g, '&#x2F;');
-    }
-    if (value.indexOf('"') > -1) {
-      value = value.replace(/"/g, '&quot;');
-    }
-    if (value.indexOf('\'') > -1) {
-      value = value.replace(/'/g, '&#x27;');
-    }
-  }
-  return value;
-};
-
 
 const defendXSS = obj => {
   if (typeof obj === 'string') {
@@ -80,7 +67,9 @@ const defendXSS = obj => {
     return obj;
   } else if (typeof obj === 'object') {
     for (const key in obj) {
-      obj[key] = defendXSS(obj[key]);
+      if (Object.hasOwnProperty.call(obj, key)) {
+        obj[key] = defendXSS(obj[key]);
+      }
     }
     return obj;
   } else {
@@ -89,4 +78,4 @@ const defendXSS = obj => {
 };
 
 export default defendXSS;
-export { escapeHtml, escapeHtmlAHO };
+export { escapeHtml };

@@ -1,4 +1,6 @@
-let option = {};
+var option = {};
+
+/* global axios, echarts, resolve*/
 axios.get('/json/house.svg').then(res => {
   let svg = res.data;
   echarts.registerMap('svg', { svg: svg });

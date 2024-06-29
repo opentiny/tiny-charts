@@ -4,7 +4,7 @@ const option = {
         show: true,
         position:{
             left: 'center',
-            bottom: 20
+            bottom: 20.7
         },
         orient:'horizontal'
     },
@@ -13,26 +13,17 @@ const option = {
     radarMax: 100,
     data:{
         'Domestic':{
-            'Equipment': 43,
+            'Equipment': 40,
             'VM': 90,
             'CSP': 80,
             'RD': 53,
-            'Markets': 78
+            'Markets': 70
         }
     },
     radar: {
         axisName: {
             formatter: indicatorName => {
-                return `{a|${indicatorName}系列}`
-            },
-            rich:{
-                a: {
-                // 指示器name的样式
-                color:'#191919',
-                align: 'center',
-                fontSize: 12,
-                lineHeight: 12,
-                }
+                return `${indicatorName}系列`
             }
         }
     }

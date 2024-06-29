@@ -1,11 +1,11 @@
 const option = {
-  animationDurationUpdate: 1500,
+  animationDurationUpdate: 1600,
   animationEasingUpdate: 'quinticInOut',
   series: [
     {
       type: 'graph',
       layout: 'none',
-      symbolSize: 50,
+      symbolSize: 48,
       color: '#42A5F5',
       roam: true,
       label: {
@@ -14,41 +14,41 @@ const option = {
         }
       },
       edgeSymbol: ['circle', 'arrow'],
-      edgeSymbolSize: [4, 10],
+      edgeSymbolSize: [3, 10],
       edgeLabel: {
         normal: {
           textStyle: {
-            fontSize: 20
+            fontSize: 18
           }
         }
       },
       data: [
         {
-          name: '节点1',
-          x: 300,
-          y: 300
+          name: '节点11',
+          x: 310,
+          y: 310
         },
         {
-          name: '节点2',
-          x: 800,
-          y: 300
+          name: '节点22',
+          x: 820,
+          y: 320
         },
         {
-          name: '节点3',
-          x: 550,
-          y: 100
+          name: '节点33',
+          x: 560,
+          y: 160
         },
         {
-          name: '节点4',
-          x: 550,
-          y: 500
+          name: '节点44',
+          x: 540,
+          y: 520
         }
       ],
       links: [
         {
           source: 0,
           target: 1,
-          symbolSize: [5, 20],
+          symbolSize: [4, 20],
           label: {
             normal: {
               show: true
@@ -56,14 +56,14 @@ const option = {
           },
           lineStyle: {
             normal: {
-              width: 5,
+              width: 6,
               curveness: 0.2
             }
           }
         },
         {
-          source: '节点2',
-          target: '节点1',
+          source: '节点22',
+          target: '节点11',
           label: {
             normal: {
               show: true
@@ -71,25 +71,25 @@ const option = {
           },
           lineStyle: {
             normal: {
-              curveness: 0.2
+              curveness: 0.3
             }
           }
         },
         {
-          source: '节点1',
-          target: '节点3'
+          source: '节点11',
+          target: '节点33'
         },
         {
-          source: '节点2',
-          target: '节点3'
+          source: '节点22',
+          target: '节点33'
         },
         {
-          source: '节点2',
-          target: '节点4'
+          source: '节点22',
+          target: '节点44'
         },
         {
-          source: '节点1',
-          target: '节点4'
+          source: '节点11',
+          target: '节点44'
         }
       ],
       lineStyle: {

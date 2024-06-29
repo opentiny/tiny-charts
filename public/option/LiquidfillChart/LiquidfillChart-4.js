@@ -2,14 +2,14 @@ const option = {
     theme: 'light',
     name: '广东省',
     data: [{
-        name: '深圳',
-        value: 0.7
+        value: 0.7,
+        name: '深圳'
     }, {
-        name: '广州',
-        value: 0.6
+        value: 0.6,
+        name: '广州'     
     }, {
-        name: '顺德',
-        value: 0.5
+        value: 0.5,
+        name: '顺德'    
     }],
     label: {
         formatter: '{a}\n{b}\n购房比: {c}',

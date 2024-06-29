@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import { createNodes, handleNodes, expandNodes, cloneNode } from './utils';
 
 /**
@@ -20,7 +31,7 @@ const handleData = (data, baseOption) => {
   // 给节点克隆虚拟节点(小黄块), 建立根节点---》克隆节点---》子节点的连接关系
   data.forEach((item, index) => {
     data_.push({
-      name: item.name + '-' + index + '-' + '_clone',
+      name: item.name + '-' + index + '-_clone',
       target: item.name,
     });
     if (item.children && item.children.length) {

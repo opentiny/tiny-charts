@@ -9,32 +9,32 @@ const option = {
     smooth: true,
     markLine: {
         top: 'average',              // 平均线
-        topLabel: (params) => {      // 平均线文本
-            return '平均值:' + params.data.value;
-        },
         topColor: 'auto',            // 平均线颜色随线条
         topUse: ['Domestic'],        // 指定'Domestic'使用平均线
+        topLabel: (paramsData) => {      // 平均线文本
+            return '平均值:' + paramsData.data.value;
+        },
         topPosition: 'insideEndTop', // 文本位置
     },
     markPoint: {
         max: true,
-        maxColor: 'auto',
         min: true,
+        maxColor: 'auto',
         minColor: 'auto',
     },
     data: [
-        { 'Month': 'Jan', 'Domestic': 33, 'Abroad': 37 },
-        { 'Month': 'Feb', 'Domestic': 27, 'Abroad': 39 },
-        { 'Month': 'Mar', 'Domestic': 31, 'Abroad': 20 },
+        { 'Month': 'Jan', 'Domestic': 34, 'Abroad': 37 },
+        { 'Month': 'Feb', 'Domestic': 25, 'Abroad': 39 },
+        { 'Month': 'Mar', 'Domestic': 31, 'Abroad': 25 },
         { 'Month': 'Apr', 'Domestic': 30, 'Abroad': 15 },
         { 'Month': 'May', 'Domestic': 37, 'Abroad': 13 },
-        { 'Month': 'Jun', 'Domestic': 36, 'Abroad': 17 },
-        { 'Month': 'Jul', 'Domestic': 42, 'Abroad': 22 },
-        { 'Month': 'Aug', 'Domestic': 22, 'Abroad': 12 },
-        { 'Month': 'Sep', 'Domestic': 17, 'Abroad': 30 },
-        { 'Month': 'Oct', 'Domestic': 40, 'Abroad': 33 },
-        { 'Month': 'Nov', 'Domestic': 42, 'Abroad': 22 },
-        { 'Month': 'Dec', 'Domestic': 32, 'Abroad': 11 }
+        { 'Month': 'Jun', 'Domestic': 35, 'Abroad': 17 },
+        { 'Month': 'Jul', 'Domestic': 45, 'Abroad': 24 },
+        { 'Month': 'Aug', 'Domestic': 23, 'Abroad': 15 },
+        { 'Month': 'Sep', 'Domestic': 15, 'Abroad': 31 },
+        { 'Month': 'Oct', 'Domestic': 40, 'Abroad': 35 },
+        { 'Month': 'Nov', 'Domestic': 42, 'Abroad': 21 },
+        { 'Month': 'Dec', 'Domestic': 35, 'Abroad': 12 }
     ],
     xAxis: {
         data: 'Month'

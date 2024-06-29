@@ -1,73 +1,100 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+import merge from '../../util/merge';
+import tooltip from '../../option/config/tooltip';
 
-import tooltip from '../../option/config/tooltip'
 /**
  * 配置鼠标悬浮提示框
  */
-export function setTooltip(iChartOpt) {
-  const basicTip=tooltip(iChartOpt)
+export function setTooltip(baseOpt, iChartOpt) {
+  const basicTip = tooltip(iChartOpt);
   basicTip.trigger = 'item';
-  return basicTip;
-}
-
-/**
- * 配置主题
- */
-export function setTheme(iChartOption) {
-  iChartOption.theme = iChartOption.theme || 'light';
-  return iChartOption.theme;
+  baseOpt.tooltip = basicTip
 }
 
 /**
  * 设置ChartPadding
  */
-export function setChartPadding(type, iChartOption) {
-  // 默认图表padding
-  let defaultPadding;
-  // 实际图表position
-  const position = { left: undefined, right: undefined, top: undefined, bottom: undefined };
-  switch (type) {
-    case 'LineTreeChart':
-      if (!iChartOption.direction) {
-        defaultPadding = [20, 150, 20, 150];
-      } else if (iChartOption.direction === 'top') {
-        defaultPadding = [80, 20, 150, 20];
-      } else if (iChartOption.direction === 'bottom') {
-        defaultPadding = [150, 20, 80, 20];
-      } else if (iChartOption.direction === 'right') {
-        defaultPadding = [20, 150, 20, 150];
-      } else {
-        defaultPadding = [20, 150, 20, 150];
-      }
-      break;
-    case 'RingTreeChart':
-      defaultPadding = [100, 150, 100, 150];
-      break;
+export function setChartPadding(seriesItem, type, iChartOption) {
+  let position;
+  // 默认值
+  if (type === 'RingTreeChart') {
+    position = {
+      top: 100,
+      right: 150,
+      bottom: 100,
+      left: 150,
+    }
   }
-  if (!iChartOption.padding) {
-    position.top = defaultPadding[0];
-    position.right = defaultPadding[1];
-    position.bottom = defaultPadding[2];
-    position.left = defaultPadding[3];
-  } else if (iChartOption.padding.length === 1) {
-    position.top = iChartOption.padding[0];
-    position.right = iChartOption.padding[0];
-    position.bottom = iChartOption.padding[0];
-    position.left = iChartOption.padding[0];
-  } else if (iChartOption.padding.length === 2) {
-    position.top = iChartOption.padding[0];
-    position.right = iChartOption.padding[1];
-    position.bottom = iChartOption.padding[0];
-    position.left = iChartOption.padding[1];
-  } else if (iChartOption.padding.length === 3) {
-    position.top = iChartOption.padding[0];
-    position.right = iChartOption.padding[1];
-    position.bottom = iChartOption.padding[2];
-    position.left = iChartOption.padding[1];
-  } else {
-    position.top = iChartOption.padding[0];
-    position.right = iChartOption.padding[1];
-    position.bottom = iChartOption.padding[2];
-    position.left = iChartOption.padding[3];
+  if (type === 'LineTreeChart') {
+    const positionMap = {
+      left: {
+        top: 100,
+        right: 150,
+        bottom: 100,
+        left: 150,
+      },
+      top: {
+        top: 80,
+        right: 20,
+        bottom: 150,
+        left: 20,
+      },
+      bottom: {
+        top: 150,
+        right: 20,
+        bottom: 80,
+        left: 20,
+      },
+      right: {
+        top: 20,
+        right: 150,
+        bottom: 20,
+        left: 150,
+      },
+
+    }
+    const direction = iChartOption.direction || 'left'
+    position = positionMap[direction]
   }
-  return position;
+
+  if (iChartOption.padding && iChartOption.padding.length > 0) {
+    if (iChartOption.padding.length === 1) {
+      position.top = iChartOption.padding[0];
+      position.right = iChartOption.padding[0];
+      position.bottom = iChartOption.padding[0];
+      position.left = iChartOption.padding[0];
+    }
+
+    if (iChartOption.padding.length === 2) {
+      position.top = iChartOption.padding[0];
+      position.right = iChartOption.padding[1];
+      position.bottom = iChartOption.padding[0];
+      position.left = iChartOption.padding[1];
+    }
+
+    if (iChartOption.padding.length === 3) {
+      position.top = iChartOption.padding[0];
+      position.right = iChartOption.padding[1];
+      position.bottom = iChartOption.padding[2];
+      position.left = iChartOption.padding[1];
+    }
+
+    if (iChartOption.padding.length === 4) {
+      position.top = iChartOption.padding[0];
+      position.right = iChartOption.padding[1];
+      position.bottom = iChartOption.padding[2];
+      position.left = iChartOption.padding[3];
+    }
+  }
+  merge(seriesItem, position);
 }

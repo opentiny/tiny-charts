@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 const VDirection = ['TB', 'BT', 'V'];
 const HDirection = ['LR', 'RL', 'H'];
 
@@ -27,13 +38,13 @@ export default class LineBezier {
         let nodesObj = data.nodesObj;
         // 起始点
         edge.startPoint = {
-            x: nodesObj[start].x + nodesObj[start].width + ( nodesObj[start].innerWidth - nodesObj[start].width ) / 2,
-            y: nodesObj[start].y + nodesObj[start].height / 2,
+            x: nodesObj[start].x + nodesObj[start].width + ( nodesObj[start].innerWidth - nodesObj[start].width ) / 2-data.minX,
+            y: nodesObj[start].y + nodesObj[start].height / 2-data.minY,
         };
         // 结束点
         edge.endPoint = {
-            x: nodesObj[end].x - ( nodesObj[end].innerWidth - nodesObj[end].width ) / 2,
-            y: nodesObj[end].y + nodesObj[end].height / 2,
+            x: nodesObj[end].x - ( nodesObj[end].innerWidth - nodesObj[end].width ) / 2-data.minX,
+            y: nodesObj[end].y + nodesObj[end].height / 2-data.minY,
         };
         let hDis = edge.endPoint.x - edge.startPoint.x;
         let vDis = edge.endPoint.y - edge.startPoint.y;
@@ -65,13 +76,13 @@ export default class LineBezier {
         let nodesObj = data.nodesObj;
         // 起始点
         edge.startPoint = {
-            x: nodesObj[start].x + nodesObj[start].width / 2,
-            y: nodesObj[start].y + nodesObj[start].height + ( nodesObj[start].innerHeight - nodesObj[start].height ) / 2,
+            x: nodesObj[start].x + nodesObj[start].width / 2-data.minX,
+            y: nodesObj[start].y + nodesObj[start].height + ( nodesObj[start].innerHeight - nodesObj[start].height ) / 2-data.minY,
         };
         // 结束点
         edge.endPoint = {
-            x: nodesObj[end].x + nodesObj[end].width / 2,
-            y: nodesObj[end].y - ( nodesObj[end].innerHeight - nodesObj[end].height ) / 2,
+            x: nodesObj[end].x + nodesObj[end].width / 2-data.minX,
+            y: nodesObj[end].y - ( nodesObj[end].innerHeight - nodesObj[end].height ) / 2-data.minY,
         };
         let hDis = edge.endPoint.x - edge.startPoint.x;
         let vDis = edge.endPoint.y - edge.startPoint.y;

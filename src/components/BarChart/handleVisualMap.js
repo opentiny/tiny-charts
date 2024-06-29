@@ -1,6 +1,18 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import min from '../../util/sort/min';
 import max from '../../util/sort/max';
 import { getColor } from '../../util/color';
+import Theme from '../../feature/token';
 
 export function setVisualMap(legendData, seriesData, markLine, colors) {
   const visualMap = [];
@@ -27,7 +39,7 @@ export function setVisualMap(legendData, seriesData, markLine, colors) {
           },
         ],
         outOfRange: {
-          color: '#f43146',
+          color:Theme.config.colorState.colorError,
         },
       });
     });

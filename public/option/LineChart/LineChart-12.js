@@ -9,28 +9,28 @@ const option = {
     // step: true, 
     // smooth:true,
     markLine: {
-        top: 38, // 上阈值
+        top: 35, // 上阈值
         topLabel: '超载线', // 上阈值线文本
         topColor: '#ff0000', // 上阈值线颜色
         topPosition: 'insideStartTop', // 上阈值线文本位置
-        bottom: 20, // 下阈值
-        bottomLabel: '告警线', // 下阈值线文本
-        bottomColor: '#00a874', // 下阈值线颜色
+        bottom: 21, // 下阈值
+        bottomColor: '#00a875', // 下阈值线颜色
+        bottomLabel: '阈值线', // 下阈值线文本
         bottomPosition: 'insideEndBottom' // 下阈值线文本位置
     },
     data: [
         { 'Month': 'Jan', 'Domestic': 33 },
-        { 'Month': 'Feb', 'Domestic': 27 },
+        { 'Month': 'Feb', 'Domestic': 12 },
         { 'Month': 'Mar', 'Domestic': 31 },
         { 'Month': 'Apr', 'Domestic': 30 },
         { 'Month': 'May', 'Domestic': 37 },
         { 'Month': 'Jun', 'Domestic': 36 },
         { 'Month': 'Jul', 'Domestic': 42 },
         { 'Month': 'Aug', 'Domestic': 22 },
-        { 'Month': 'Sep', 'Domestic': 17 },
-        { 'Month': 'Oct', 'Domestic': 40 },
-        { 'Month': 'Nov', 'Domestic': 42 },
-        { 'Month': 'Dec', 'Domestic': 32 }
+        { 'Month': 'Sep', 'Domestic': 12 },
+        { 'Month': 'Oct', 'Domestic': 24 },
+        { 'Month': 'Nov', 'Domestic': 12 },
+        { 'Month': 'Dec', 'Domestic': 12 }
     ],
     xAxis: {
         data: 'Month'

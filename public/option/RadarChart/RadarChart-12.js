@@ -4,7 +4,7 @@ const option = {
         show: true,
         position: {
             left: 'center',
-            bottom: 20
+            bottom: 20.2
         },
         orient: 'horizontal'
     },
@@ -21,13 +21,12 @@ const option = {
             formatter: (indicatorName, indicator) => {
                 return `${indicatorName}系列`
             },
-            color: '#191919'
         }
     },
     event: {
         'radar': {
             click: (params) => {
-                console.log(params.name)
+
             }
         }
     },

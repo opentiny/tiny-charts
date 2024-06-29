@@ -1,19 +1,49 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import defendXSS from '../../util/defendXSS';
 // 获取bar的series数据
-export function getSeriesData(data) {
+export function getSeriesData(data, type) {
   const seriesData = [];
-  data.forEach((item, i) => {
-    seriesData[i] = [];
-    for (let j = 0; j < data.length; j++) {
-      if (i == j) {
-        seriesData[i][j] = item.value;
-      } else {
-        seriesData[i][j] = 0;
+  if (type === 'normal') {
+    data.forEach((item, i) => {
+      seriesData[i] = [];
+      for (let j = 0; j < data.length; j++) {
+        if (i == j) {
+          seriesData[i][j] = item.value;
+        } else {
+          seriesData[i][j] = 0;
+        }
       }
-    }
-  });
+    });
+  } else {
+    data.forEach((item) => {
+      seriesData.push(item.value);
+    });
+  }
 
   return seriesData;
+}
+
+// pie文本数据旋转
+function angleText(i, num) {
+  // 每个元素的角度
+  const everyAngle = 360 / num;
+  // 文字现在所在的角度
+  const currentAngle = i * everyAngle + everyAngle / 2;
+  if (currentAngle >= 90 && currentAngle <= 270) {
+    return 180 - currentAngle;
+  } else {
+    return 360 - currentAngle;
+  }
 }
 
 // 获取pie旋转文本数据
@@ -33,21 +63,8 @@ export function getLabelData(data) {
   return labelData;
 }
 
-// pie文本数据旋转
-function angleText(i, num) {
-  // 每个元素的角度
-  const everyAngle = 360 / num;
-  // 文字现在所在的角度
-  const currentAngle = i * everyAngle + everyAngle / 2;
-  if (currentAngle >= 90 && currentAngle <= 270) {
-    return 180 - currentAngle;
-  } else {
-    return 360 - currentAngle;
-  }
-}
-
 function tooltipFormatter(params) {
-  const seriesName = params.seriesName;
+  const seriesName = params.name;
   const color = params.color;
   const value = params.value;
   const htmlString = `<div>

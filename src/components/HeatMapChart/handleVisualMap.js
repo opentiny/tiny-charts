@@ -1,24 +1,35 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import min from '../../util/sort/min';
 import max from '../../util/sort/max';
 import { VISUALMAPUNIT, CHARTTYPE } from './BaseOption';
 import cloneDeep from '../../util/cloneDeep';
-import megre from '../../util/megre';
-import Theme from '../../feature/theme';
+import merge from '../../util/merge';
+import chartToken from './chartToken';
 /**
  * 设置日历热力图视觉滑块控制手柄
  */
 function handleCalendar(iChartOption, visualMapItem, maxValue, minValue) {
-  visualMapItem.show =!!iChartOption.handle
+  visualMapItem.show = !!iChartOption.handle;
   if (iChartOption.handle) {
     visualMapItem.inverse = !!iChartOption.handle.inverse;
     visualMapItem.text = iChartOption.handle.text || [maxValue, minValue];
     visualMapItem.orient = iChartOption.handle.orient || 'vertical';
     visualMapItem.calculable = !!iChartOption.handle.calculable;
-    visualMapItem.textStyle.color = Theme.color.base.font           
+    visualMapItem.textStyle.color = chartToken.visualMapTextColor;
     visualMapItem.itemWidth = iChartOption.handle.width || 20;
     visualMapItem.itemHeight = iChartOption.handle.height || 400;
     if (iChartOption.handle.position) {
-      megre(visualMapItem, iChartOption.handle.position);
+      merge(visualMapItem, iChartOption.handle.position);
     } else {
       visualMapItem.right = '4%';
       visualMapItem.bottom = '6%';

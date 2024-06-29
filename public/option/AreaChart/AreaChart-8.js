@@ -18,7 +18,7 @@ const option = {
     },
     tipHtml: (params, ticket, callback) => {
         let htmlString = '';
-        params.map((item, index) => {
+        params.forEach((item, index) => {
             if (index === 0) {
                 htmlString += (item.name + '<br/>');
             }
@@ -26,29 +26,29 @@ const option = {
                 '<div>' +
                 '<span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:' + item.color + ';">' +
                 '</span>' +
-                '<span style="margin-left:5px;color:#000000">' +
+                '<span style="margin-left:5px;color:#000002">' +
                 '<span style="display:inline-block;width:100px;">' + item.seriesName + ' User</span>' +
                 '<span style="font-weight:bold">' + item.value + '%</span>' +
                 '<span style="color:#191919"> out </span>' +
-                '<span style="font-weight:bold;color:#f43146">' + (100 - item.value) + '%</span>' +
+                '<span style="font-weight:bold;color:#f43148">' + (100 - item.value) + '%</span>' +
                 '</span>' +
                 '</div>';
         });
         return htmlString
     },
     data: [
-        { "Month": 'Jan', "Domestic": 33 },
-        { "Month": 'Feb', "Domestic": 27 },
-        { "Month": 'Mar', "Domestic": 31 },
-        { "Month": 'Apr', "Domestic": 30 },
-        { "Month": 'May', "Domestic": 37 },
-        { "Month": 'Jun', "Domestic": 36 },
-        { "Month": 'Jul', "Domestic": 42 },
-        { "Month": 'Aug', "Domestic": 22 },
-        { "Month": 'Sep', "Domestic": 17 },
-        { "Month": 'Oct', "Domestic": 40 },
-        { "Month": 'Nov', "Domestic": 42 },
-        { "Month": 'Dec', "Domestic": 32 }
+        { 'Month': 'Jan', 'Domestic': 38 },
+        { 'Month': 'Feb', 'Domestic': 28 },
+        { 'Month': 'Mar', 'Domestic': 31 },
+        { 'Month': 'Apr', 'Domestic': 30 },
+        { 'Month': 'May', 'Domestic': 38 },
+        { 'Month': 'Jun', 'Domestic': 36 },
+        { 'Month': 'Jul', 'Domestic': 48 },
+        { 'Month': 'Aug', 'Domestic': 22 },
+        { 'Month': 'Sep', 'Domestic': 18 },
+        { 'Month': 'Oct', 'Domestic': 48 },
+        { 'Month': 'Nov', 'Domestic': 42 },
+        { 'Month': 'Dec', 'Domestic': 38 }
     ],
     xAxis: {
         data: 'Month',

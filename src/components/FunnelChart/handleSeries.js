@@ -1,30 +1,58 @@
-import Theme from '../../feature/theme';
-import cloneDeep from '../../util/cloneDeep';
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 
-export const seriesInit = {
-  type: 'funnel',
-  width: '80%',
-  min: 0,
-  max: 100,
-  minSize: '0%',
-  maxSize: '100%',
-  left: 'center',
-  top: 60,
-  bottom: 60,
-  funnelAlign: 'center',
-  orient: 'vertical',
-  sort: 'descending',
-  gap: 10,
-  itemStyle: {
-    borderColor: '',
-    borderWidth: 1,
-  },
-  label: {},
-  data: [],
-};
+import merge from '../../util/merge';
+import chartToken from './chartToken';
 
-const SIZE_NAME = ['width', 'height', 'min', 'max', 'minSize', 'maxSize'];
-const POSITION_NAME = ['left', 'right', 'top', 'bottom', 'funnelAlign', 'orient'];
+// 默认的seies配置
+function getSeriesInit() {
+  return {
+    type: 'funnel',
+    width: '80%',
+    minSize: '0%',
+    maxSize: '100%',
+    left: 'center',
+    top: 60,
+    bottom: 60,
+    funnelAlign: 'center',
+    orient: 'vertical',
+    sort: 'descending',
+    gap: 1,
+    itemStyle: {
+      borderWidth: chartToken.borderWidth,
+      borderColor: chartToken.borderColor,
+    },
+    label: {
+      color: chartToken.labelColor,
+      position: 'inside',
+      show: true
+    },
+    data: undefined,
+  };
+}
+
+function getSeriesUnit(iChartOption) {
+  const { data, sort, size, position, gap, label } = iChartOption;
+  const seriesUnit = getSeriesInit()
+  data && (seriesUnit.data = data);
+  sort && (seriesUnit.sort = sort);
+  gap && (seriesUnit.gap = gap);
+  // 配置漏斗图的label
+  label && (merge(seriesUnit.label, label));
+  // 处理漏斗图的size和position
+  size && (merge(seriesUnit, size));
+  position && (merge(seriesUnit, position));
+  return seriesUnit
+}
 
 /**
  * 组装echarts所需要的series
@@ -32,113 +60,18 @@ const POSITION_NAME = ['left', 'right', 'top', 'bottom', 'funnelAlign', 'orient'
  * @returns
  */
 export function setSeries(iChartOption) {
-  const colorBase = Theme.color.base
-  const {  data, sort, size, position, gap } = iChartOption;
-  let series = [];
-  const selfSeries = iChartOption.series;
-  // 处理series里多个数据的优先级配置方法
-  if (selfSeries !== undefined && selfSeries.length != 0) {
-    selfSeries.forEach(seriesItem => {
-      const seriesUnit = seriesItem;
-      // 处理size的优先级
-      for (let index = 0; index < SIZE_NAME.length; index++) {
-        const name = SIZE_NAME[index]
-        if (seriesUnit[name] === undefined) {
-          if (iChartOption.size && iChartOption.size[name]) {
-            // 下面说明一级属性的赋值给series
-            seriesUnit[name] = iChartOption.size[name];
-          } else {
-            // series的不存在size，把初始化的赋值给series
-            seriesUnit[name] = seriesInit[name];
-          }
-        }
-      }
-      // 处理position的优先级
-      for (let index = 0; index < POSITION_NAME.length; index++) {
-        const name = POSITION_NAME[index]
-        if (seriesUnit[name] === undefined) {
-          if (iChartOption.position && iChartOption.position[name]) {
-            // 下面说明一级属性的赋值给series
-            seriesUnit[name] = iChartOption.position[name];
-          } else {
-            // series的不存在position，把初始化的赋值给series
-            seriesUnit[name] = seriesInit[name];
-          }
-        }
-      }
-      // 处理label
-      const defaultLabel = {
-        show: true,
-        color: colorBase.font,
-      }
-      seriesUnit.label = Object.assign(defaultLabel, seriesUnit.label);
-      // 处理gap、sort的优先级
-      const config = ['gap', 'sort']
-      for (let index = 0; index < config.length; index++) {
-        const name = config[index]
-        if (seriesUnit[name] === undefined) {
-          if (iChartOption && iChartOption[name]) {
-            // 把一级属性值赋给series
-            seriesUnit[name] = iChartOption[name];
-          } else {
-            // 把初始化的赋值给series
-            seriesUnit[name] = seriesInit[name];
-          }
-        }
-      }
-      // 处理图形边框颜色
-      const defaultItemStyle = {
-        borderColor: colorBase.bg,
-        borderWidth: 1,
-      }
-      seriesUnit.itemStyle = Object.assign(defaultItemStyle, seriesUnit.itemStyle);
+  const { series: selfSeries } = iChartOption;
+  if (selfSeries && selfSeries.length !== 0) {
+    const newSelfSeries = selfSeries.map(seriesItem => {
+      const seriesUnit = getSeriesUnit(iChartOption);
+      merge(seriesUnit, seriesItem);
+      return seriesUnit
     })
-    series = selfSeries;
-  } else {
-    // 处理单个数据的默认配置
-    const seriesUnit = cloneDeep(seriesInit);
-    data && (seriesUnit.data = data);
-    // 配置项变成一级属性，处理sort和gap
-    sort && (seriesUnit.sort = sort);
-    gap && (seriesUnit.gap = gap);
-    // 配置漏斗图的label
-    setLabel(seriesUnit, iChartOption);
-    // 处理漏斗图的size和position
-    setSize(size, seriesUnit);
-    setPosition(position, seriesUnit);
-    // 处理图形边框颜色
-    seriesUnit.itemStyle.borderColor = colorBase.bg;
-    series.push(seriesUnit);
+    return newSelfSeries
   }
+  const series = [];
+  const seriesUnit = getSeriesUnit(iChartOption);
+  series.push(seriesUnit);
   return series;
 }
-
-// 处理漏斗图的大小
-function setSize(size, seriesUnit) {
-  for (let index = 0; index < SIZE_NAME.length; index++) {
-    const name = SIZE_NAME[index];
-    if (size !== undefined && size[name] !== undefined) {
-      seriesUnit[name] = size[name];
-    }
-  }
-}
-
-// 处理漏斗图的位置
-function setPosition(position, seriesUnit) {
-  for (let index = 0; index < POSITION_NAME.length; index++) {
-    const name = POSITION_NAME[index];
-    if (position !== undefined && position[name] !== undefined) {
-      seriesUnit[name] = position[name];
-    }
-  }
-}
-
-// 设置label的属性主要是formatter
-function setLabel(seriesUnit, iChartOption) {
-  seriesUnit.label.color = Theme.color.base.font;
-  seriesUnit.label.position = 'inside';
-  seriesUnit.label.show = true;
-  Object.assign(seriesUnit.label, iChartOption.label);
-}
-
 

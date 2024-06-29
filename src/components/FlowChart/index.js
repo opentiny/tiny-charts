@@ -1,9 +1,24 @@
-import './index.less';
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+import BaseChart from '../BaseChart';
 import NodeManager from './NodeManager';
 import LineManager from './LineManager';
 import { initContainer } from './insert.js'
+import { CHART_TYPE } from '../../util/constants';
 
-export default class FlowChart {
+export default class FlowChart extends BaseChart{
+
+    static name = CHART_TYPE.FLOW
+
     // 图表渲染容器
     dom;
     // 图表所需数据
@@ -39,20 +54,74 @@ export default class FlowChart {
      */
     nodeManager;
 
-    constructor(dom, option) {
-        this.dom = dom;
-        this.option = option;
-        initContainer(this.dom);
-        this.container = this.dom.getElementsByClassName("fc-container")[0];
-        this.svgContainer = this.dom.getElementsByClassName("fc-line-container")[0];
-        this.htmlContainer = this.dom.getElementsByClassName("fc-node-container")[0];
-        this.containerPosn = this.container.getBoundingClientRect();
-        this.createNodes();
-        this.createLines(); 
-        this.setResizeObserver();
+    constructor() {
+        super();
+        this.dom = null;
+        this.option = null;
+        this.resizeObserver = null;
     }
 
-      
+    // 初始化图表渲染容器
+    init(dom) {
+        this.dom = dom;
+    }
+
+    // 初始化图表渲染配置
+    setSimpleOption(name, option) {
+        this.option = option;
+    }
+
+    // 图表渲染回调
+    render() {
+        initContainer(this.dom);
+        this.container = this.dom.getElementsByClassName('fc-container')[0];
+        this.svgContainer = this.dom.getElementsByClassName('fc-line-container')[0];
+        this.tagContainer = this.dom.getElementsByClassName('fc-tag-container')[0];
+        this.htmlContainer = this.dom.getElementsByClassName('fc-node-container')[0];
+        this.containerPosn = this.container.getBoundingClientRect();
+        this.resetContainerPosn();
+        this.createNodes();
+        this.createLines();
+        this.setResizeObserver();
+        setTimeout(() => {
+          this.svgContainer.setAttribute('style',`height:${this.container.scrollHeight}px`);
+        }, 10);
+    }
+
+    // 图表渲染完成时回调
+    onRenderReady(callback) {
+        this.renderCallBack = callback;
+    }
+
+    // 图表刷新，刷新配置项
+    refresh(option) {
+        this.option = option;
+        if(this.resizeObserver){
+            this.resizeObserver.disconnect();
+            this.resizeObserver = null;
+        }
+        this.dom.innerHTML = '';
+        this.nodeManager=null;
+        this.lineManager=null;
+        this.render();
+    }
+
+    // 图表刷新，仅刷新数据
+    refreshData(data) {
+        this.option.data = data;
+        this.refresh(this.option);
+    }
+
+    // 刷新图表自适应宽度
+    setResize() {
+        if(this.nodeManager && this.lineManager){
+            this.containerPosn = this.container.getBoundingClientRect();
+            this.nodeManager.layoutNodes(this.data, this.containerPosn);
+            this.lineManager.updateAllLine();
+        }
+    }
+
+
     /**
      * 1.创建和渲染节点
      * 2.处理数据，并计算出节点位置
@@ -60,8 +129,6 @@ export default class FlowChart {
      */
     createNodes(){
         this.data = this.option.data;
-        // this.padding = this.option.padding || this.padding;
-        // this.containerPosn = Object.assign(this.containerPosn, { padding: this.padding });
         this.nodeManager = new NodeManager(this.data, this.option, this.htmlContainer);
         // 此时节点已经渲染在dom上，可以获取到宽高，计算布局
         setTimeout(()=>{
@@ -76,10 +143,11 @@ export default class FlowChart {
     createLines(){
         setTimeout(()=>{
             let gContainer = this.svgContainer.getElementsByClassName('fc-line-g')[0];
-            this.lineManager = new LineManager(this.data, gContainer, this.containerPosn, this.option);
-            if(this.option.slient !== true){
-                this.initEvent();
-            }
+            this.lineManager = new LineManager(this.data, gContainer, this.tagContainer, this.containerPosn, this.option);
+            // if(this.option.slient !== true){
+            //     this.initEvent();
+            // }
+            this.renderCallBack && this.renderCallBack(this);
         },10)
     }
 
@@ -101,11 +169,11 @@ export default class FlowChart {
         });
         // 鼠标移动
         document.onmousemove = (mousemoveEvent) => {
-            if (this.draggingNode.node) {
+          if (this.draggingNode.node) {
                 // requestAnimationFrame(() => {
                 let moveX = mousemoveEvent.clientX - this.draggingNode.initDisX;
                 let moveY = mousemoveEvent.clientY - this.draggingNode.initDisY;
-                //边界处理
+                // 边界处理
                 if (moveX <= 0) {
                     moveX = 0;
                 }
@@ -115,8 +183,8 @@ export default class FlowChart {
                 if (moveY <= 0) {
                     moveY = 0;
                 }
-                if (moveY + this.draggingNode.nodePosn.height >= this.containerPosn.height) {
-                    moveY = this.containerPosn.height - this.draggingNode.nodePosn.height;
+                if (moveY + this.draggingNode.nodePosn.height >= this.container.scrollHeight) {
+                  moveY = this.container.scrollHeight - this.draggingNode.nodePosn.height;
                 }
                 // 设置定位
                 this.draggingNode.node.style.left = moveX + 'px';
@@ -132,10 +200,10 @@ export default class FlowChart {
             if (this.draggingNode.node) {
                 this.draggingNode.node.style.zIndex = 1;
                 this.draggingNode = {
+                    initDisX: 0,
+                    initDisY: 0,
                     node: null,
                     nodePosn: null,
-                    initDisX: 0,
-                    initDisY: 0
                 };
             }
         }
@@ -155,9 +223,10 @@ export default class FlowChart {
     // 监听容器样式变化
     setResizeObserver(){
         this.resizeObserver = new ResizeObserver(entries => {
-          // 此处需要补充节流函数
+          // TODO: 补充节流函数
           if(this.nodeManager && this.lineManager){
             this.containerPosn = this.container.getBoundingClientRect();
+            this.resetContainerPosn()
             this.nodeManager.layoutNodes(this.data, this.containerPosn);
             this.lineManager.updateAllLine();
           }
@@ -165,9 +234,31 @@ export default class FlowChart {
         this.resizeObserver.observe(this.dom);
     }
 
+    resetContainerPosn(){
+        let transformOption = getComputedStyle(this.dom)['transform'];
+        let scaleX = 1;
+        let scaleY = 1;
+        if (transformOption !== 'none') {
+            const transfromStr = transformOption.replace('matrix(', '').split(',');
+            scaleX = Number(transfromStr[0]);
+            scaleY = Number(transfromStr[3]);
+        }
+        this.containerPosn = {
+            ...this.containerPosn,
+            width: this.containerPosn.width / scaleX,
+            height: this.containerPosn.height / scaleY,
+            scaleX,
+            scaleY
+        };
+    }
+
     // 销毁图表
     destory(){
         this.resizeObserver.disconnect();
         this.dom.innerHTML = '';
+    }
+
+    uninstall(){
+        this.destory();
     }
 }

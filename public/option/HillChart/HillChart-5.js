@@ -3,7 +3,7 @@ const option = {
     color: ['#1F55B5'],
     chartPadding: [50, 120, 50, 120],
     data: [
-        { name: 'BRAS 01', value: 80 },
+        { name: 'BRAS 01', value: 85 },
         { name: 'BRAS 02', value: 60 },
         { name: 'BRAS 03', value: 40 },
         { name: 'BRAS 04', value: 31 },

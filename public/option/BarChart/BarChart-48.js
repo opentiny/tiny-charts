@@ -6,24 +6,24 @@ const option = {
     },
     color: ['#5CB300'],
     data: [
-        { "Month": 'Jan', "Domestic": 28, },
-        { "Month": 'Feb', "Domestic": 25, },
-        { "Month": 'Mar', "Domestic": 35, },
-        { "Month": 'Apr', "Domestic": 30, },
-        { "Month": 'May', "Domestic": 37, },
-        { "Month": 'Jun', "Domestic": -14, },
-        { "Month": 'Jul', "Domestic": 20, },
-        { "Month": 'Aug', "Domestic": 22, },
-        { "Month": 'Sep', "Domestic": 29, },
-        { "Month": 'Oct', "Domestic": 27, },
-        { "Month": 'Nov', "Domestic": 30, },
-        { "Month": 'Dec', "Domestic": 26, }
+        { 'Month': 'Jan', 'Domestic': 48, },
+        { 'Month': 'Feb', 'Domestic': 25, },
+        { 'Month': 'Mar', 'Domestic': 35, },
+        { 'Month': 'Apr', 'Domestic': 30, },
+        { 'Month': 'May', 'Domestic': 48, },
+        { 'Month': 'Jun', 'Domestic': -14, },
+        { 'Month': 'Jul', 'Domestic': 20, },
+        { 'Month': 'Aug', 'Domestic': 22, },
+        { 'Month': 'Sep', 'Domestic': 29, },
+        { 'Month': 'Oct', 'Domestic': 27, },
+        { 'Month': 'Nov', 'Domestic': 30, },
+        { 'Month': 'Dec', 'Domestic': 48, }
     ],
     xAxis: {
-        data: "Month",
+        data: 'Month',
     },
     yAxis: {
-        name: "Percent(%)"
+        name: 'Percent(%)'
     },
     series: [
         {

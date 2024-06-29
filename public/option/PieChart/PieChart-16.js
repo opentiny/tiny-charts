@@ -1,25 +1,23 @@
 const option = {
     theme: 'light',
-    color: [
-        "#10c7c1",
-        "#ff8800"
-    ],
-    position:{
-        radius:['12%','15%'],
-        center:['50%','50%']
+    position: {
+        center: ['50%', '50%'],
     },
-    silent:true,
-    itemStyle:{
-        borderWidth:1
+    legend: {
+        show: true,
+        position: {
+            right: '15%',
+            top: 'center'
+        },
+        itemGap: 10, // itemGap:控制图例之间的间隔
+        width: 100,
+        orient: 'vertical',
     },
-    label:{
-        show:false
-    },
-    legend:{
-        show:false
-    },
-    data:[                             
-        {value: 37,name: 'VPC'},
-        {value: 3, name: 'IM' },
-    ],
+    data: [
+        { value: 100, name: 'VPC' },
+        { value: 94, name: 'IM' },
+        { value: 44, name: 'EIP' },
+        { value: 14, name: 'SG' },
+    ]
 };
+

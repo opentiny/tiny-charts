@@ -12,11 +12,11 @@ const option = {
     [0.75, '#ec6f1a'],
     [1, '#f43146'],
   ],
-   
+  pointer: true,
   itemStyle: {
-    width: 10,
+    width: 16,
     lineStyle: {
-      color: '#191919',
+      color: '#fff',
       width: 4,
     },
     // 去掉外层光晕

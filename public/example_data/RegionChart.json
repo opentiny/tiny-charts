@@ -1,0 +1,15 @@
+{
+  "title": "区域图 RegionChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "区域图",
+          "routePath": "RegionChart-1",
+          "imagePath": "./image/theme/light/RegionChart/RegionChart-1.png"
+        }
+      ]
+    }
+  ]
+}

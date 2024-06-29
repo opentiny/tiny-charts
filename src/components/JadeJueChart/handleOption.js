@@ -1,9 +1,21 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import cloneDeep from '../../util/cloneDeep';
 import { getColor } from '../../util/color';
 import defendXSS from '../../util/defendXSS';
+
 // 配置玉玦图默认线宽为8
 export function setbarWidth(iChartOption, baseOpt) {
-  const { barWidth = 8 } = iChartOption;
+  const { barWidth = 16 } = iChartOption;
   baseOpt.series.forEach(series => {
     series.barWidth = barWidth;
   });
@@ -57,48 +69,15 @@ export function handleLegendData(iChartOption, baseOpt) {
   }
 }
 
-/**
- * 允许自定义柱体最小占比（场景不支持使用原生的barMinAngle），设置了之后，需要变更传入的data
- * @param {*} iChartOption
- * @param {*} baseOpt
- */
-export function handleMinRatio(iChartOption, baseOpt) {
-  const { barMinRatio, data, tipHtml } = iChartOption;
-  if (barMinRatio) {
-    const minValue = (barMinRatio * baseOpt.angleAxis.sum) / 100;
-    baseOpt.series.forEach((series, index) => {
-      series.data.forEach((dataItem, index_) => {
-        if (series.name === dataItem.name) {
-          dataItem.beforeChangeValue = dataItem.value;
-          if (dataItem.value <= minValue) {
-            dataItem.value = minValue;
-            data[index].value = minValue;
-          }
-        }
-      });
-    });
-    // 配置了barMinRatio会修改data中的value值，需要重新设置tooltip进行覆盖
-    baseOpt.tooltip = setTooltip(tipHtml, baseOpt);
-  }
-}
-
-// 配置悬浮提示框样式
-export function setTooltip(formatter, baseOpt) {
-  const JadeJueTooltip = cloneDeep(baseOpt.tooltip);
-  if (formatter) {
-    JadeJueTooltip.formatter = formatter;
-  } else {
-    handleJadeJueFormatter(JadeJueTooltip);
-  }
-  JadeJueTooltip.trigger = 'item';
-  return JadeJueTooltip;
-}
-
-function handleJadeJueFormatter(JadeJueTooltip) {
+function handleJadeJueFormatter(JadeJueTooltip, baseOpt, type) {
   JadeJueTooltip.formatter = params => {
     let htmlString = '';
-    const value = params.data.beforeChangeValue;
-    const name = params.data.name || params.name;
+    let value = params.data.beforeChangeValue;
+    let name = params.data.name || params.name;
+    if (type === 'process') {
+      value = baseOpt.series[params.seriesIndex].beforeChangeValue;
+      name = baseOpt.series[params.seriesIndex].name;
+    }
     htmlString +=
       `<span style="display:inline-block;margin-right:5px;margin-left:8px;border-radius:50%;height:10px;">${defendXSS(name)}</span>` +
       '<br/>' +
@@ -109,3 +88,53 @@ function handleJadeJueFormatter(JadeJueTooltip) {
     return htmlString;
   };
 }
+
+// 配置悬浮提示框样式
+export function setTooltip(formatter, baseOpt, type) {
+  const JadeJueTooltip = cloneDeep(baseOpt.tooltip);
+  if (formatter) {
+    JadeJueTooltip.formatter = formatter;
+  } else {
+    handleJadeJueFormatter(JadeJueTooltip, baseOpt, type);
+  }
+  JadeJueTooltip.trigger = 'item';
+  return JadeJueTooltip;
+}
+
+/**
+ * 允许自定义柱体最小占比（场景不支持使用原生的barMinAngle），设置了之后，需要变更传入的data
+ * @param {*} iChartOption
+ * @param {*} baseOpt
+ */
+export function handleMinRatio(iChartOption, baseOpt, type) {
+  const { barMinRatio, data, tipHtml } = iChartOption;
+  if (barMinRatio) {
+    const minValue = (barMinRatio * baseOpt.angleAxis.sum) / 100;
+    if (type === 'process') {
+      baseOpt.series.forEach(item => {
+        item.beforeChangeValue = item.data[0];
+        if (item.data[0] <= minValue) {
+          item.data[0] = minValue;
+        }
+      });
+    } else {
+      baseOpt.series.forEach((series, index) => {
+        series.data.forEach((dataItem, index_) => {
+          if (series.name === dataItem.name) {
+            dataItem.beforeChangeValue = dataItem.value;
+            if (dataItem.value <= minValue) {
+              dataItem.value = minValue;
+              data[index].value = minValue;
+            }
+          }
+        });
+      });
+    }
+    // 配置了barMinRatio会修改data中的value值，需要重新设置tooltip进行覆盖
+    baseOpt.tooltip = setTooltip(tipHtml, baseOpt, type);
+  }
+}
+
+
+
+

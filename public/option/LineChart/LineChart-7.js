@@ -15,16 +15,16 @@ const option = {
     data: [
         { 'Month': 'Jan', 'Domestic': 33 },
         { 'Month': 'Feb', 'Domestic': 27 },
-        { 'Month': 'Mar', 'Domestic': 31 },
+        { 'Month': 'Mar', 'Domestic': 32 },
         { 'Month': 'Apr', 'Domestic': 30 },
         { 'Month': 'May', 'Domestic': 37 },
         { 'Month': 'Jun', 'Domestic': 36 },
-        { 'Month': 'Jul', 'Domestic': 42 },
+        { 'Month': 'Jul', 'Domestic': 43 },
         { 'Month': 'Aug', 'Domestic': 22 },
         { 'Month': 'Sep', 'Domestic': 17 },
-        { 'Month': 'Oct', 'Domestic': 40 },
+        { 'Month': 'Oct', 'Domestic': 41 },
         { 'Month': 'Nov', 'Domestic': 42 },
-        { 'Month': 'Dec', 'Domestic': 32 }
+        { 'Month': 'Dec', 'Domestic': 33 }
     ],
     xAxis: {
         data: 'Month'

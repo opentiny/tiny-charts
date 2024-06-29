@@ -1,5 +1,5 @@
 const option = {
-  theme: 'hwCloud-light',
+  theme: 'light',
   color: ['#454bb3', '#a17131', '#a3a71a', '#0aa75b', '#0a7fb3'],
   data: [
     { name: '语文', value: 70 },

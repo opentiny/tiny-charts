@@ -4,7 +4,7 @@ const option = {
         show: true,
         position:{
             left: 'center',
-            bottom: 20
+            bottom: 20.2
         },
         orient:'horizontal'
     },
@@ -15,7 +15,7 @@ const option = {
             'VM': 90,
             'CSP': 80,
             'RD': 53,
-            'Markets': 78
+            'Markets': 73
         }
     }
 };

@@ -1,12 +1,24 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import { isArray } from '../../util/type';
 import cloneDeep from '../../util/cloneDeep';
 import { VOLUMEGRID } from './BaseOption';
-import megre from '../../util/megre';
-import Theme from '../../feature/theme';
-import { xkey } from '../../option/RectangularCoordinateSystem';
+import merge from '../../util/merge';
+import chartToken from './chartToken';
+import { xkey } from '../../option/RectSys';
+
 function handleData(iChartOpt) {
-  const { data} = iChartOpt;
-  const xAxisDataName=xkey(iChartOpt)
+  const { data } = iChartOpt;
+  const xAxisDataName = xkey(iChartOpt);
   if (data && data.length !== 0) {
     const time = [];
     const total = [];
@@ -41,7 +53,7 @@ function handleAxis(baseOpt, data, volume) {
       if (xIndex === 1) {
         x.axisLabel.show = false;
         x.axisTick.show = false;
-        x.gridIndex=1
+        x.gridIndex = 1;
       }
     });
   } else {
@@ -61,7 +73,7 @@ function handleAxis(baseOpt, data, volume) {
     if (yIndex === 1) {
       y.axisLabel.show = false;
       y.splitLine.show = false;
-      y.gridIndex=1
+      y.gridIndex = 1;
     }
   });
 }
@@ -72,14 +84,14 @@ function handleDataZoom(baseOpt, iChartOpt) {
   baseOpt.dataZoom[0].xAxisIndex = [0, 1];
   baseOpt.dataZoom[0].bottom = '6%';
   if (dataZoom) {
-    megre(baseOpt.dataZoom[0], dataZoom);
+    merge(baseOpt.dataZoom[0], dataZoom);
   }
 }
 
 function handleLegend(baseOpt, iChartOpt) {
   const { legend } = iChartOpt;
   if (legend) {
-    megre(baseOpt.legend, legend);
+    merge(baseOpt.legend, legend);
   }
 }
 
@@ -89,7 +101,7 @@ function handleTooltip(baseOpt, iChartOpt) {
   inerTooltip.axisPointer = { type: 'cross' };
   baseOpt.tooltip = inerTooltip;
   if (iChartOpt.tooltip) {
-    megre(baseOpt.tooltip, iChartOpt.tooltip);
+    merge(baseOpt.tooltip, iChartOpt.tooltip);
   }
 }
 
@@ -101,8 +113,7 @@ function handleGrid(baseOpt, iChartOpt) {
   }
 }
 
-function handleAxisPointer(baseOpt, theme) {
-  const baseColor = Theme.color.base  
+function handleAxisPointer(baseOpt) {
   const axisPointer = {
     link: [
       {
@@ -110,8 +121,7 @@ function handleAxisPointer(baseOpt, theme) {
       },
     ],
     label: {
-      color: baseColor.subfont,
-      backgroundColor: baseColor.subg,
+      color: chartToken.axisPointerLabelColor,
     },
   };
   baseOpt.axisPointer = axisPointer;

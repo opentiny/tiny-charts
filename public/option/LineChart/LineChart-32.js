@@ -13,19 +13,21 @@ const option = {
     data: 'time'
   },
   yAxis: {
-    interval: 15,
     max: 45,
-    name: 'Ad%'
+    name: '百分比',
+    interval: 15
   },
   markLine: {
+    top: 80,
     bottom: 27.5,
     bottomLabel: '达标红线：目标27.5',
   },
   series: [
     {
       name: 'Domestic',
-      showSymbol: true,
       symbolSize: 15,
+      showSymbol: true,
+      hoverAnimation: false,
       label: {
         show: true,
         textStyle: {
@@ -34,8 +36,8 @@ const option = {
           lineHeight: 16
         },
         formatter: params => {
-          if (params.name === '11:00') return '-0.23' + '\n煤质变化';
-          if (params.name === '14:00') return '+0.17' + '\n煤质变化';
+          if (params.name === '11:00') return '-0.23\n煤质变化';
+          if (params.name === '14:00') return '+0.17\n煤质变化';
           return '';
         }
       },
@@ -46,14 +48,14 @@ const option = {
             yAxis: 0,
             symbolSize: [30, 119],
             symbolOffset: [0, -60],
-            symbol: 'image://public/image/charts/legend/rectangle-blue.png'
+            symbol: 'image://image/charts/markPoint/rectangle-blue.png'
           },
           {
             xAxis: 5,
             yAxis: 0,
             symbolSize: [30, 119],
             symbolOffset: [0, -60],
-            symbol: 'image://public/image/charts/legend/rectangle-blue.png'
+            symbol: 'image://image/charts/markPoint/rectangle-blue.png'
           }
         ]
       }

@@ -1,4 +1,4 @@
 const option = {
-    theme: 'hwCloud-light',
+    theme: 'light',
     data: [0.6, 0.5, 0.4]
 };

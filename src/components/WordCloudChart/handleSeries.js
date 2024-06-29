@@ -1,7 +1,19 @@
-import {  getRandom } from '../../util/util';
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import { getColor } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
-import Theme from '../../feature/theme';
+import chartToken from './chartToken';
+import random from '../../util/random';
+
 export const seriesInit = {
   type: 'wordCloud',
   // 网格大小，各项之间间距
@@ -30,7 +42,7 @@ export const seriesInit = {
   // 文字颜色
   textStyle: {
     color() {
-      return `rgb(${[Math.round(getRandom * 256), Math.round(getRandom * 256), Math.round(getRandom * 256)].join(
+      return `rgb(${[Math.round(random() * 256), Math.round(random() * 256), Math.round(random() * 256)].join(
         ',',
       )})`;
     },
@@ -55,21 +67,9 @@ export const seriesInit = {
  * @returns
  */
 function handleSeries(params) {
-  const {
-    theme,
-    data,
-    width,
-    height,
-    gridSize,
-    sizeRange,
-    rotationRange,
-    rotationStep,
-    shape,
-    maskImage,
-    textColor,
-    colors,
-  } = params;
-  seriesInit.emphasis.textStyle.textShadowColor =Theme.color.base.subg;
+  const { data, width, height, gridSize, sizeRange, rotationRange, rotationStep, shape, maskImage, textColor, colors } =
+    params;
+  seriesInit.emphasis.textStyle.textShadowColor = chartToken.emphasisTextShadowColor;
   // 组装数据
   const series = [];
   const seriesUnit = cloneDeep(seriesInit);

@@ -22,8 +22,6 @@
 			<rect name="阳台1" x="61" y="16.83" class="st4" width="84.78" height="23.07"/>
 			<rect name="阳台2" x="41.61" y="269.27" class="st4" width="100.75" height="32.49"/>
 			<polygon name="厨房" class="st5" points="61,40.1 61,121.32 6.93,121.32 6.93,40.1 		"/>
-			<!-- <image xlink:href='./image/Doc/main_wifi.png' x="45" y ="180" height="80" width="40"></image>
-			<image xlink:href='./image/Doc/wifi.png' x="205" y ="210" height="50" width="30"></image> -->
 			<!-- <polygon class="st6" points="61,16.83 61,40.1 6.93,40.1 6.93,156.15 41.61,156.15 41.61,301.76 142.36,301.76 142.36,261.81 237.86,261.81 237.86,16.83 "/> -->
 		</g>
 	</g>

@@ -1,0 +1,25 @@
+{
+    "title": "里程碑 MilestoneChart",
+    "paths": [
+        {
+            "title": "基础形态",
+            "children": [
+                {
+                    "name": "基础里程碑",
+                    "routePath": "MilestoneChart-1",
+                    "imagePath": "./image/theme/light/MilestoneChart/MilestoneChart-1.png"
+                },
+                {
+                    "name": "基础里程碑(超长折叠)",
+                    "routePath": "MilestoneChart-2",
+                    "imagePath": "./image/theme/light/MilestoneChart/MilestoneChart-2.png"
+                },
+                {
+                    "name": "精简里程碑",
+                    "routePath": "MilestoneChart-3",
+                    "imagePath": "./image/theme/light/MilestoneChart/MilestoneChart-3.png"
+                }
+            ]
+        }
+    ]
+}

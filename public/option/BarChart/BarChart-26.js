@@ -15,18 +15,18 @@ const option = {
         offset: [6, 1]
     },
     data: [
-        { "Name": 'NLE', "Man": [5, 20], "Female": [5, 23] },
-        { "Name": 'HIN', "Man": [10, 30], "Female": [8, 25] },
-        { "Name": 'FBP', "Man": [8, 25], "Female": [2, 20] },
-        { "Name": 'VEDIO', "Man": [20, 40], "Female": [15, 35] },
-        { "Name": 'SASS', "Man": [6, 35], "Female": [10, 22] },
-        { "Name": 'RDS', "Man": [12, 30], "Female": [15, 35] },
-        { "Name": 'E-SYS', "Man": [15, 20], "Female": [12, 22] },
+        { 'Name': 'NLE', 'Man': [5, 26], 'Female': [5, 26] },
+        { 'Name': 'HIN', 'Man': [10, 30], 'Female': [8, 25] },
+        { 'Name': 'FBP', 'Man': [8, 25], 'Female': [2, 20] },
+        { 'Name': 'VEDIO', 'Man': [20, 40], 'Female': [15, 35] },
+        { 'Name': 'SASS', 'Man': [6, 35], 'Female': [10, 22] },
+        { 'Name': 'RDS', 'Man': [12, 30], 'Female': [15, 35] },
+        { 'Name': 'E-SYS', 'Man': [15, 26], 'Female': [12, 26] },
     ],
     xAxis: {
-        data: "Name",
+        data: 'Name',
     },
     yAxis: {
-        name: "Number"
+        name: 'Number'
     }
 };

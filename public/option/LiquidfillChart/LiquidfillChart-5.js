@@ -17,7 +17,7 @@ const option = {
         color: 'green',
     },
     tipHtml: (params, ticket, callback) => {
-        let htmlString = `城市：${params.name}<br/>` + `购房比：${params.value}`;
+        let htmlString = `城市：${params.name}<br/>购房比：${params.value}`;
         return htmlString
     },
     legend: {

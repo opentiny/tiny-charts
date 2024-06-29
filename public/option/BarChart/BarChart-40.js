@@ -9,15 +9,15 @@ const option = {
     theme: 'light',
     padding: [40, 10, 40, 10],
     data: [
-        { "Month": 'Jan', "Domestic": 33, "Abroad": 37 },
-        { "Month": 'Feb', "Domestic": 27, "Abroad": 39 },
-        { "Month": 'Mar', "Domestic": 31, "Abroad": 20 },
-        { "Month": 'Apr', "Domestic": 30, "Abroad": 15 },
-        { "Month": 'May', "Domestic": 37, "Abroad": 13 },
-        { "Month": 'Jun', "Domestic": 36, "Abroad": 17 }
+        { 'Month': 'Jan', 'Domestic': 40, 'Abroad': 37 },
+        { 'Month': 'Feb', 'Domestic': 27, 'Abroad': 39 },
+        { 'Month': 'Mar', 'Domestic': 31, 'Abroad': 20 },
+        { 'Month': 'Apr', 'Domestic': 30, 'Abroad': 15 },
+        { 'Month': 'May', 'Domestic': 37, 'Abroad': 13 },
+        { 'Month': 'Jun', 'Domestic': 40, 'Abroad': 17 }
     ],
     xAxis: {
-        data: "Month",
+        data: 'Month',
     },
     yAxis: {
         name: 'Percentage(%)'

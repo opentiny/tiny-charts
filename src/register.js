@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import LineChart from './components/LineChart';
 import BarChart from './components/BarChart';
 import PieChart from './components/PieChart';
@@ -6,10 +17,11 @@ import GaugeChart from './components/GaugeChart';
 import BubbleChart from './components/BubbleChart';
 import WordCloudChart from './components/WordCloudChart';
 import SankeyChart from './components/SankeyChart';
-import SpecialChart from './components/SpecialChart';
 import HeatMapChart from './components/HeatMapChart';
+import ScatterChart from './components/ScatterChart';
 import JadeJueChart from './components/JadeJueChart';
 import TreeChart from './components/TreeChart';
+import TreeMapChart from './components/TreeMapChart';
 import HillChart from './components/HillChart';
 import GraphTreeChart from './components/GraphTreeChart';
 import ProcessChart from './components/ProcessChart';
@@ -22,7 +34,9 @@ import BoxplotChart from './components/BoxplotChart';
 import RegionChart from './components/RegionChart';
 import CandlestickChart from './components/CandlestickChart';
 import GraphChart from './components/GraphChart';
-import AssembleBubbleChart from './components/AssembleBubbleChart'
+import AssembleBubbleChart from './components/AssembleBubbleChart';
+import BulletChart from './components/BulletChart';
+
 function Register() {
   this.registeredComp = {};
 }
@@ -65,11 +79,6 @@ const components = [
     component: GaugeChart,
   },
   {
-    // 该图表已于1.1.56版本废弃
-    name: 'SpecialChart',
-    component: SpecialChart,
-  },
-  {
     name: 'BubbleChart',
     component: BubbleChart,
   },
@@ -86,6 +95,10 @@ const components = [
     component: HeatMapChart,
   },
   {
+    name: 'ScatterChart',
+    component: ScatterChart,
+  },
+  {
     name: 'SankeyChart',
     component: SankeyChart,
   },
@@ -96,6 +109,10 @@ const components = [
   {
     name: 'TreeChart',
     component: TreeChart,
+  },
+  {
+    name: 'TreeMapChart',
+    component: TreeMapChart,
   },
   {
     name: 'HillChart',
@@ -143,12 +160,16 @@ const components = [
   },
   {
     name: 'GraphChart',
-    component: GraphChart
+    component: GraphChart,
   },
   {
     name: 'AssembleBubbleChart',
-    component: AssembleBubbleChart
-  }
+    component: AssembleBubbleChart,
+  },
+  {
+    name: 'BulletChart',
+    component: BulletChart,
+  },
 ];
 
 components.forEach(comp => {

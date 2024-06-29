@@ -1,29 +1,21 @@
 const option = {
     theme: 'light',
-    padding: [50, 30, 50, 20],
-    smooth: true,
+    padding: [50, 30, 20, 20],
     area: true,
+    smooth: true,
+    predict: '17:05',
     legend: {
         show: false,
     },
-    // predict 表示从 'Time'：'17:05'之后的数据都为预测值
-    predict: '17:05',
     markLine: {
         top: 1
-    },
-    // 调整图元的大小
-    itemStyle: {
-        symbolSize: '15',
     },
     xAxis: {
         data: 'Time',
         fullGrid: true,
-        // 设置x轴label,第一个值类目的 index，第二个值是类目名称
+        // 自定义x轴label文本是否显示,参数index为数据下标，参数value为文本内容
         interval: (index, value) => {
-            if (index % 24 === 0) {
-                return true;
-            }
-            if (index === 61) {
+            if (index % 24 === 0 || index === 61) {
                 return true;
             }
             return false;
@@ -31,13 +23,6 @@ const option = {
     },
     yAxis: [
         {
-            formatter: (val) => {
-                if (val === 0) {
-                    return val;
-                } else {
-                    return parseFloat(val).toFixed(1);
-                }
-            },
             min: 0,
             max: 1.5,
             name: '%',

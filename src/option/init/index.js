@@ -1,11 +1,24 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import { isArray, isString } from '../../util/type';
-import Theme, { THEMES } from '../../feature/theme';
+import Theme from '../../feature/token';
+import { DEFAULT_THEME_NAME } from '../../util/constants'
+
 /**
  * 设置默认主题
  * @param {外部传入的配置} iChartOption
  */
 function setDefaultTheme(iChartOption) {
-  iChartOption.theme = iChartOption.theme || Theme.themeName || THEMES.LIGHT;
+  iChartOption.theme = iChartOption.theme || Theme.themeName || DEFAULT_THEME_NAME;
 }
 
 /**
@@ -14,8 +27,23 @@ function setDefaultTheme(iChartOption) {
  */
 function setDefaultColor(iChartOption) {
   if (!iChartOption.color) {
-    iChartOption.color = Theme.color.group
+    iChartOption.color = Theme.config.colorGroup;
   }
+}
+
+/**
+ * 给x轴赋值key，兼容旧版本属性
+ */
+function setXAxisKeyName(xAxisItem, defaultKey) {
+  let keyName = defaultKey;
+  if (isString(xAxisItem.data)) {
+    keyName = xAxisItem.data;
+    delete xAxisItem.data;
+  }
+  if (xAxisItem.keyName) {
+    keyName = xAxisItem.keyName;
+  }
+  xAxisItem.keyName = keyName;
 }
 
 /**
@@ -24,7 +52,7 @@ function setDefaultColor(iChartOption) {
  */
 function setDefaultXAxis(iChartOption) {
   const data = iChartOption.data;
-  let keyName = undefined;
+  let keyName;
   if (data && data.length > 0) {
     const keys = Object.keys(data[0]);
     if (keys.length > 0) {
@@ -44,21 +72,6 @@ function setDefaultXAxis(iChartOption) {
 }
 
 /**
- * 给x轴赋值key，兼容旧版本属性
- */
-function setXAxisKeyName(xAxisItem, defaultKey) {
-  let keyName = defaultKey;
-  if (isString(xAxisItem.data)) {
-    keyName = xAxisItem.data;
-    delete xAxisItem.data;
-  }
-  if (xAxisItem.keyName) {
-    keyName = xAxisItem.keyName
-  }
-  xAxisItem.keyName = keyName;
-}
-
-/**
  * 线性图/条形图专用---设置图表的四周padding值
  * @param {外部传入的配置} iChartOption
  */
@@ -70,19 +83,9 @@ function setChartPadding(iChartOption) {
   } else if (padding.length === 1) {
     iChartOption.padding = [padding[0], 20, padding[0], 20];
   } else if (padding.length === 2) {
-    iChartOption.padding = [
-      padding[0],
-      padding[1],
-      padding[0],
-      padding[1],
-    ];
+    iChartOption.padding = [padding[0], padding[1], padding[0], padding[1]];
   } else if (padding.length === 3) {
-    iChartOption.padding = [
-      padding[0],
-      padding[1],
-      padding[2],
-      padding[1],
-    ];
+    iChartOption.padding = [padding[0], padding[1], padding[2], padding[1]];
   } else {
     iChartOption.padding = padding;
   }

@@ -9,6 +9,14 @@ const option = {
         [0.75, '#ec6f1a'],
         [1, '#f43146'],
     ],
+    itemStyle: {
+        outerGauge: {
+            show: false
+        }
+    },
+    splitLine: {
+        show: false
+    },
     pointer: true,
     data: [
         {

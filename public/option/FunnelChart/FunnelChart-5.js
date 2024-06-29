@@ -1,6 +1,5 @@
 const option = {
     theme: 'light',
-    gap: 10,
     legend: {
         show: true,
         icon: 'circle',
@@ -10,9 +9,8 @@ const option = {
     },
     data: [
         { value: 100, name: 'Show' },
-        { value: 80, name: 'Click' },
-        { value: 60, name: 'Visit' },
-        { value: 40, name: 'Inquiry' },
-        { value: 20, name: 'Order' }
+        { value: 75, name: 'Click' },
+        { value: 50, name: 'Visit' },
+        { value: 25, name: 'Order' }
     ]
 };

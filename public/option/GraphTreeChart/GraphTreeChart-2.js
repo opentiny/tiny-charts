@@ -1,7 +1,7 @@
 const option = {
   theme: 'light',
   chartPosition: ['center', 'center'],
-  // categories:设置节点样式，顺序不可颠倒,且length至少为3。如果某个部分不需要调整，在对应位置写{}
+  // categories:设置节点样式，顺序不可颠倒,且length至少为3。如果某个部分不设置，在对应位置写{}
   // 索引为0---根节点样式
   // 索引为1---全部子节点样式
   // 索引为length-1---虚拟节点样式（默认为方形小黄块），正常虚拟节点和箭头之间是有一点间隙的，箭头和虚拟节点都是path路径实现的，且虚拟节点的symbolSize为20。如果需要调整虚拟节点的symbolSize和symbol，箭头可能也要进行修正
@@ -155,9 +155,9 @@ const option = {
                     { name: 'F1-4-2', children: [] },
                     { name: 'F1-4-3', children: [] }
                   ]
-                }
+                },
               ]
-            }
+            },
           ]
         }
       ]

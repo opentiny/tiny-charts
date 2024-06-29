@@ -3,13 +3,13 @@ const option = {
     series: [
         {
             name: 'Expected',
-            gap: 5,
-            sort: 'ascending',
             type: 'funnel',
+            minSize: '10%',
             left: '10%',
             width: '80%',
             label: {
-                formatter: '{b}Expected'
+                formatter: '{b}Expected',
+                position: 'outside'
             },
             itemStyle: {
                 opacity: 0.7,
@@ -21,21 +21,19 @@ const option = {
                 }
             },
             data: [
-                { value: 60, name: 'Visit' },
-                { value: 40, name: 'Inquiry' },
-                { value: 20, name: 'Order' },
+                { value: 100, name: 'Show' },
                 { value: 80, name: 'Click' },
-                { value: 100, name: 'Show' }
+                { value: 60, name: 'Visit' },
+                { value: 40, name: 'Order' },
             ]
         },
         {
             name: 'Actual',
             type: 'funnel',
-            sort: 'ascending',
-            gap: 5,
+            minSize: '10%',
             left: '10%',
             width: '80%',
-            maxSize: '80%',
+            maxSize: '100%',
             label: {
                 position: 'inside',
                 formatter: '{c}%',
@@ -52,10 +50,9 @@ const option = {
             },
             data: [
                 { value: 30, name: 'Visit' },
-                { value: 10, name: 'Inquiry' },
-                { value: 5, name: 'Order' },
-                { value: 50, name: 'Click' },
-                { value: 80, name: 'Show' }
+                { value: 20, name: 'Order' },
+                { value: 60, name: 'Click' },
+                { value: 100, name: 'Show' }
             ],
             z: 100
         }

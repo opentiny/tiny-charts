@@ -17,7 +17,7 @@ const option = {
     text: {
         offset: [3, 3],
         formatter: function (value) {
-            return '{value|' + value + '}' + '\t' + '{unit|%}'
+            return '{value|' + value + '}\t{unit|%}'
         },
         formatterStyle: {
             value: {

@@ -1,7 +1,7 @@
 const option = {
     theme: 'light',
     padding: [50, 30, 50, 20],
-    step: true, //true属性配置阶梯线
+    step: true, // true属性配置阶梯线
     legend: {
         show: false,
     },
@@ -31,16 +31,14 @@ const option = {
     },
     tipHtml: (params, ticket, callback) => {
         let htmlString = '';
-        let name = '';
         let status = ['Unknow', 'Failed', 'Successed', 'Running', 'Pending'];
-        params.map((item, index) => {
+        params.forEach((item, index) => {
             htmlString = '<div>' +
-                '<span style="display:inline-block;width:10px;height:10px;border-radius:5px;margin-right:5px;background-color:' + item.color + ';">' +
-                '</span>' +
-                '<span>' + item.name + ' </span>' +
-                '<span style="font-weight:bold">' + status[item.data] + '</span>' +
+                    '<span style="display:inline-block;width:10px;height:10px;border-radius:5px;margin-right:5px;background-color:' + item.color + ';">' +
+                    '</span>' +
+                    '<span>' + item.name + ' </span>' +
+                    '<span style="font-weight:bold">' + status[item.data] + '</span>' +
                 '</div>';
-
         });
         return htmlString
     },

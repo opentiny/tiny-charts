@@ -1,5 +1,5 @@
 const option = {
-  theme: 'hwCloud-light',
+  theme: 'light',
   data: [
     { name: 'cluster-1', value: 9.02 },
     { name: 'cluster-2', value: 8.56 },

@@ -1,6 +1,17 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import init from '../../option/init';
 import { event } from '../../util/event';
-import RectCoordSys from '../../option/RectangularCoordinateSystem';
+import RectCoordSys from '../../option/RectSys';
 import {
   handleData,
   handleAxis,
@@ -11,11 +22,14 @@ import {
   handleAxisPointer,
 } from './hanleOption';
 import { handleSeries } from './hanleSeries';
-import megreSeries from '../../util/megreSeries';
-
+import { mergeSeries } from '../../util/merge';
+import { CHART_TYPE } from '../../util/constants';
 
 class CandlestickChart {
-  constructor(iChartOption, _, chartInstance) {
+
+  static name = CHART_TYPE.CANDLESTICK
+
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
     this.chartInstance = chartInstance;
@@ -26,12 +40,11 @@ class CandlestickChart {
   }
 
   updateOption() {
-    const theme = this.iChartOption.theme;
     const iChartOption = this.iChartOption;
     const volume = this.iChartOption.volume;
     const data = handleData(iChartOption);
     if (!data) return;
-    handleSeries(this.baseOption,  iChartOption, data, this.chartInstance);
+    handleSeries(this.baseOption, iChartOption, data, this.chartInstance);
     RectCoordSys(this.baseOption, iChartOption);
     // 装载除series之外的其他配置
     handleGrid(this.baseOption, iChartOption);
@@ -40,9 +53,9 @@ class CandlestickChart {
     handleTooltip(this.baseOption, iChartOption);
     handleDataZoom(this.baseOption, iChartOption);
     handleLegend(this.baseOption, iChartOption);
-    handleAxisPointer(this.baseOption, theme);
+    handleAxisPointer(this.baseOption);
     event(this.chartInstance, iChartOption.event);
-    megreSeries(iChartOption, this.baseOption)
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   getOption() {

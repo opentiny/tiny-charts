@@ -9,18 +9,18 @@ const option = {
     // 横向形态
     direction: 'horizontal',
     data: [
-        { "Name": 'NLE', "User": 10 },
-        { "Name": 'HIN', "User": 20 },
-        { "Name": 'FBP', "User": 15 },
-        { "Name": 'VEDIO', "User": 35 },
-        { "Name": 'SASS', "User": 20 },
-        { "Name": 'RDS', "User": 35 },
-        { "Name": 'E-SYS', "User": 35 },
+        { 'Name': 'NLE', 'User': 10 },
+        { 'Name': 'HIN', 'User': 20 },
+        { 'Name': 'FBP', 'User': 10 },
+        { 'Name': 'VEDIO', 'User': 35 },
+        { 'Name': 'SASS', 'User': 20 },
+        { 'Name': 'RDS', 'User': 35 },
+        { 'Name': 'E-SYS', 'User': 10 },
     ],
     xAxis: {
-        data: "Name",
+        data: 'Name',
     },
     yAxis: {
-        name: "Number"
+        name: 'Number'
     }
 };

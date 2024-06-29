@@ -1,42 +1,39 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import tooltip from '../../option/config/tooltip';
-import legend from '../../option/PolarCoordinateSystem/legend';
+import legend from '../../option/config/legend';
 import defendXSS from '../../util/defendXSS';
+
 // 配置图表图例位置信息
-export function setLegend(iChartOption, selfLegend) {
-  const { show, position, orient, formatter, width, itemGap, textStyle, itemWidth, itemHeight } = selfLegend;
-  const SpBubbleLegend = legend(iChartOption);
-  if (!show) {
-    SpBubbleLegend.show = false;
-  }
-  if (orient) {
-    SpBubbleLegend.orient = orient;
-  }
-  if (formatter) {
-    SpBubbleLegend.formatter = formatter;
-  }
-  SpBubbleLegend.top = position.top || 'auto';
-  SpBubbleLegend.left = position.left || 'auto';
-  SpBubbleLegend.right = position.right || 'auto';
-  SpBubbleLegend.bottom = position.bottom || 'auto';
-  // SpBubbleLegend 不需要 data 属性， 因为默认全部显示
-  delete SpBubbleLegend.data;
-  SpBubbleLegend.itemGap = itemGap !== undefined ? itemGap : 28;
-  SpBubbleLegend.width = width;
-  SpBubbleLegend.textStyle = Object.assign(SpBubbleLegend.textStyle, textStyle);
-  SpBubbleLegend.itemWidth = itemWidth || 14;
-  SpBubbleLegend.itemHeight = itemHeight || 14;
-  Object.assign(SpBubbleLegend, selfLegend);
-  return SpBubbleLegend;
+export function setLegend(iChartOption) {
+  const { itemGap, itemWidth, itemHeight } = iChartOption.legend;
+  const chartLegend = legend(iChartOption);
+  chartLegend.itemGap = itemGap !== undefined ? itemGap : 28;
+  chartLegend.itemWidth = itemWidth || 14;
+  chartLegend.itemHeight = itemHeight || 14;
+  Object.assign(chartLegend, iChartOption.legend);
+  return chartLegend;
 }
+
 // 配置鼠标悬浮提示框
-export function setTooltip(iChartOption, formatter) {
-  const SpBubbleTooltip = tooltip(iChartOption);
-  if (formatter) {
-    SpBubbleTooltip.formatter = formatter;
+export function setTooltip(iChartOption) {
+  const { tipHtml } = iChartOption;
+  let formatter;
+  if (tipHtml) {
+    formatter = tipHtml;
   } else {
-    SpBubbleTooltip.formatter = params => {
+    formatter = params => {
       let htmlString = '';
-      const bgColor = params.data.colorSec || params.data.color;
+      const bgColor = params.data.borderColor || params.data.color;
       htmlString +=
         `<span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color
         :${defendXSS(bgColor)};">` +
@@ -49,6 +46,5 @@ export function setTooltip(iChartOption, formatter) {
       return htmlString;
     };
   }
-  SpBubbleTooltip.trigger = 'item';
-  return SpBubbleTooltip;
+  return { ...tooltip(iChartOption), formatter, trigger: 'item' };
 }

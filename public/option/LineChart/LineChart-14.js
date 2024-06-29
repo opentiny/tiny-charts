@@ -4,34 +4,34 @@ const option = {
     legend: {
         show: false,
     },
-    // 配置折线图每个拐点样式
+    // 折线图每个拐点样式
     itemStyle: {
         symbolSize: '15',
     },
     // 当值为 null 时表示该线不显示，当值为 0 时表示该线仍然有值
     data: [
         { 'Month': 'Jan', 'Domestic': 33 },
-        { 'Month': 'Feb', 'Domestic': 27 },
+        { 'Month': 'Feb', 'Domestic': 24 },
         { 'Month': 'Mar', 'Domestic': 31 },
         { 'Month': 'Apr', 'Domestic': 30 },
         { 'Month': 'May', 'Domestic': 37 },
         { 'Month': 'Jun', 'Domestic': 36 },
         { 'Month': 'Jul', 'Domestic': 42 },
         { 'Month': 'Aug', 'Domestic': 22 },
-        { 'Month': 'Sep', 'Domestic': 17 },
+        { 'Month': 'Sep', 'Domestic': 14 },
         { 'Month': 'Oct', 'Domestic': null },
-        { 'Month': 'Nov', 'Domestic': null },
+        { 'Month': 'Nov', 'Domestic': 14 },
         { 'Month': 'Dec', 'Domestic': null }
     ],
     xAxis: {
         data: 'Month'
     },
     yAxis: {
-        name: 'Units'
+        name: 'Unit'
     },
-    series: [
+    series: [ 
         {
-            name: 'Domestic',
+            name: 'Domestic', // 覆盖 Domestic 线条的样式
             showSymbol: true,
             label: {
                 show: true,

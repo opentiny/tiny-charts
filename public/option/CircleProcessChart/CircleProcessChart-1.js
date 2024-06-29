@@ -1,12 +1,12 @@
 const option = {
-  theme: 'hwCloud-light',
+  theme: 'light',
   data: [
     {
-      name: "VPC",
+      name: 'VPC',
       value: 10,
     },
     {
-      name: "EM",
+      name: 'EM',
       value: 20,
     },
   ],

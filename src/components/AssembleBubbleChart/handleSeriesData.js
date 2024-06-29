@@ -1,85 +1,58 @@
-export function handleSeriesData(iChartOption, type, seriesData) {
-  // 处理seriesData数据，添加id、判断用户传入数据是否齐全等
-  const rootData = [
-    {
-      depth: 0,
-      id: 'option',
-      value: 1255,
-      type: '',
-      label: 0,
-    },
-  ];
-  const rootArr = [];
-  // 判断是否定义data数据
-  if (iChartOption.data.length) {
-    // 如果为非嵌套聚合气泡图，处理数据
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+export function handleSeriesData(iChartOption, baseOption) {
+  const { data, type } = iChartOption;
+  if (!data || !data.length) throw new Error('聚合气泡图必须定义data数据');
+  if (!type) throw new Error('聚合气泡图必须定义type,值为nested或non-nested或non-nested-aggregate');
+
+  const rootData = [{
+    depth: 0,
+    id: 'option',
+    value: 1255,
+    type: '',
+    label: 0,
+  }];
+  let depthFirst = [];
+  let depthMore = [];
+
+  if (data.length) {
     if (type === 'non-nested' || type === 'non-nested-aggregate') {
       // 在数据循环遍历时，为他们赋予唯一id
       let nurId = 0;
-      iChartOption.data.forEach(item => {
+      data.forEach(item => {
         nurId++;
         item.depth = 1;
         item.id = `option.${nurId}`;
+        depthFirst.push(item);
       });
-      // 获取全部的数据
-      seriesData = rootData.concat(iChartOption.data);
-      // 如果为嵌套聚合气泡图，处理数据
+      baseOption.dataset[0].source = [...rootData, ...depthFirst, ...depthMore];
     } else if (type === 'nested') {
+      let nurId = 0;
       let _nurId = 0;
-      let __nurId = 0;
-      iChartOption.data.forEach(item => {
-        _nurId++;
+      data.forEach(item => {
+        nurId++;
         item.depth = 1;
-        item.id = `option.${_nurId}`;
-        rootArr.push(item);
-        item.children.forEach(items => {
-          items.type = item.type;
-          __nurId++;
-          items.depth = 2;
-          items.id = `${item.id}.${__nurId}`;
+        item.id = `option.${nurId}`;
+        depthFirst.push(item);
+        item.children.forEach(i => {
+          i.type = item.type;
+          _nurId++;
+          i.depth = 2;
+          i.id = `${item.id}.${_nurId}`;
+          depthMore.push(i);
         });
       });
-      const typeArr = [];
-      // 获取全部的数据
-      seriesData = rootData.concat(iChartOption.data);
-      seriesData.forEach(item => {
-        if (!typeArr.includes(item.type)) {
-          typeArr.push(item.type);
-        }
-      });
-      // 不存在type则提示报错
-    } else {
-      throw new Error('聚合气泡图必须定义type,值为nested或non-nested或non-nested-aggregate');
+      baseOption.dataset[0].source = [...rootData, ...depthFirst, ...depthMore];
     }
-    // 不存在data则报错
-  } else {
-    throw new Error('聚合气泡图必须定义data数据');
   }
-  return seriesData;
-}
-export function changeSeriesData(seriesData) {
-  // 对seriesData改变数组的结构，方便后续处理
-  const depthFirst = seriesData.filter(item => {
-    return item.depth === 1;
-  });
-  const findColor = [];
-  const muchColor = [];
-  const colorData = [];
-  const colorLegend = [];
-  const depthMore = [];
-  seriesData.forEach(item => {
-    if (item.children) {
-      Object.keys(item.children).forEach(items => {
-        depthMore.push(item.children[items]);
-      });
-    }
-  });
-  seriesData.forEach(item => {
-    depthMore.forEach(itemd => {
-      if (itemd.type === item.type) {
-        seriesData.push(itemd);
-      }
-    });
-  });
-  return { depthFirst, depthMore, findColor, muchColor, colorData, colorLegend };
+  return { depthFirst, depthMore };
 }

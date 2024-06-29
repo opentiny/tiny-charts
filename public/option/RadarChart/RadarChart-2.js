@@ -4,7 +4,7 @@ const option = {
         show: true,
         position:{
             left: 'center',
-            bottom: 20
+            bottom: 20.1
         }
     },
     // radarMax 用来设置雷达图最外圈代表的数值
@@ -12,18 +12,18 @@ const option = {
     radarMax: 100,
     data:{
         'Domestic':{
-            'Equipment': 43,
+            'Equipment': 42,
             'VM': 90,
             'CSP': 80,
             'RD': 53,
-            'Markets': 78
+            'Markets': 72
         },
         'Abroad':{
-            'Equipment': 75,
+            'Equipment': 72,
             'VM': 55,
             'CSP': 93,
             'RD': 90,
-            'Markets': 86
+            'Markets': 82
         }
     }
 };

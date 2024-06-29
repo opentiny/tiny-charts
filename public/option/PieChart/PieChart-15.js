@@ -1,41 +1,32 @@
 const option = {
     theme: 'light',
-    title:{
-        text:`{a|253}\n{b|总数量}\n{b|(用户数)}`,
-        textStyle: {
-            rich: {
-                a: {
-                    color: '#191919',
-                    fontSize: 50,
-                },
-                b: {
-                    fontSize: 16,
-                    color: '#999',
-                    padding: [10, 0, 0, 0]
-                },
-            }
-        },
-    },
     legend: {
         show: true,
-        orient:'horizontal',
-        // 统一对图例图标设置类型,默认circle,可选值:rect、roundRect、triangle、diamond;若定义了legend.data,则此属性失效。
-        icon:'circle',
-        // 控制图例图标的高度,
-        itemHeight:20,
-        // 控制图例图标的宽度
-        itemWidth:20,
+        // 可滚动的图例,生成切换按钮
+        type: 'scroll',
+        // 切换按钮在图例的位置
+        pageButtonPosition: 'end',
+        // 图例的宽度
+        width: '80%',
+        position: {
+            left: 'center',
+            bottom: 40
+        },
     },
-    label:{
+    label: {
         show: true,
-        type:'percent',
-        line: false
     },
-    data:[                             
-        {value: 100,name: 'VPC'},
-        {value: 90, name: 'IM' },
-        {value: 49, name: 'EIP'},
-        {value: 14, name: 'SG' },
+    data: [
+        { value: 20, name: '系列1' },
+        { value: 9, name: '系列2' },
+        { value: 14, name: '系列3' },
+        { value: 8, name: '系列4' },
+        { value: 16, name: '系列5' },
+        { value: 10, name: '系列6' },
+        { value: 16, name: '系列7' },
+        { value: 4, name: '系列8' },
+        { value: 6, name: '系列9' },
+        { value: 13, name: '系列10' },
     ]
 };
 

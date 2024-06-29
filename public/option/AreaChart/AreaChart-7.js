@@ -6,26 +6,24 @@
 */
 const option = {
     theme: 'light',
-    // step: true, 
-    // smooth:true,
     area: true,
     markLine: {
         top: 38,
         bottom: 20
     },
     data: [
-        { 'Month': 'Jan', 'Domestic': 33 },
+        { 'Month': 'Jan', 'Domestic': 37 },
         { 'Month': 'Feb', 'Domestic': 27 },
         { 'Month': 'Mar', 'Domestic': 31 },
         { 'Month': 'Apr', 'Domestic': 30 },
         { 'Month': 'May', 'Domestic': 37 },
-        { 'Month': 'Jun', 'Domestic': 36 },
+        { 'Month': 'Jun', 'Domestic': 37 },
         { 'Month': 'Jul', 'Domestic': 42 },
         { 'Month': 'Aug', 'Domestic': 22 },
         { 'Month': 'Sep', 'Domestic': 17 },
-        { 'Month': 'Oct', 'Domestic': 40 },
+        { 'Month': 'Oct', 'Domestic': 47 },
         { 'Month': 'Nov', 'Domestic': 42 },
-        { 'Month': 'Dec', 'Domestic': 32 }
+        { 'Month': 'Dec', 'Domestic': 37 }
     ],
     xAxis: {
         data: 'Month',

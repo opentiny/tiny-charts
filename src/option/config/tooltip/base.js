@@ -1,38 +1,59 @@
-import cloneDeep from '../../../util/cloneDeep';
-import Theme from '../../../feature/theme'
-const baseOption = {
-  trigger: 'axis',
-  confine: true,
-  axisPointer: {
-    z: 0,
-    type: 'line',
-    lineStyle: {
-      type: 'solid',
-      width: 1,
-      color: undefined,
-    },
-    shadowStyle: {
-      color: undefined,
-    },
-  },
-  textStyle: {
-    color: undefined,
-    fontSize: 14,
-  },
-  borderWidth: 0,
-  padding: [14, 16],
-  backgroundColor: undefined,
-  formatter: undefined,
-};
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+import Theme from '../../../feature/token';
 
-function base(theme) {
-  const option = cloneDeep(baseOption);
-  const colorBase =Theme.color.base
-  option.axisPointer.lineStyle.color = colorBase.subfont;
-  option.axisPointer.shadowStyle.color = colorBase.subg;
-  option.backgroundColor = colorBase.bg;
-  option.textStyle.color = colorBase.font;
-  return option;
+const chartType = [
+  'CircleProcessChart',
+  'GaugeChart',
+  'RadarChart',
+  'FunnelChart',
+  'JadeJueChart',
+  'LiquidfillChart',
+  'PieChart',
+  'PolarBarChart',
+  'SunburstChart',
+  'BulletChart'
+];
+
+function base(chartName) {
+  const trigger = chartName && chartType.includes(chartName) ? 'item' : 'axis';
+  return {
+    trigger,
+    confine: true,
+    borderRadius: Theme.config.tooltipBorderRaduis,
+    axisPointer: {
+      z: 0,
+      type: 'line',
+      lineStyle: {
+        type: Theme.config.tooltipAxisPointerLineType,
+        width: Theme.config.tooltipAxisPointerLineWidth,
+        color: Theme.config.tooltipAxisPointerLineColor,
+      },
+      shadowStyle: {
+        color: Theme.config.tooltipAxisPointerShadowColor,
+      },
+    },
+    textStyle: {
+      color: Theme.config.tooltipTextColor,
+      fontSize: Theme.config.tooltipTextFontSize,
+    },
+    borderWidth: Theme.config.tooltipBorderWidth,
+    padding: Theme.config.tooltipPadding,
+    backgroundColor: Theme.config.tooltipBg,
+    formatter: undefined,
+    extraCssText: `box-shadow:0 ${Theme.config.tooltipShadowOffsetY}px ${Theme.config.tooltipShadowBlur}px 0 ${Theme.config.tooltipShadowColor};`,
+  };
 }
+
+
 
 export default base;

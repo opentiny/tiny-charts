@@ -11,19 +11,19 @@ const option = {
         { 'Month': 'Mar', 'Domestic': 31 },
         { 'Month': 'Apr', 'Domestic': 30 },
         { 'Month': 'May', 'Domestic': 37 },
-        { 'Month': 'Jun', 'Domestic': 36 },
+        { 'Month': 'Jun', 'Domestic': 33 },
         { 'Month': 'Jul', 'Domestic': 42 },
         { 'Month': 'Aug', 'Domestic': 22 },
         { 'Month': 'Sep', 'Domestic': 17 },
         { 'Month': 'Oct', 'Domestic': 20 },
         { 'Month': 'Nov', 'Domestic': 25 },
-        { 'Month': 'Dec', 'Domestic': 16 }
+        { 'Month': 'Dec', 'Domestic': 33 }
     ],
     xAxis: {
         data: 'Month'
     },
     yAxis: {
-        name: 'Units'
+        name: 'UnitC'
     },
     series: [
         {

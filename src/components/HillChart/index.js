@@ -1,5 +1,15 @@
-import cloneDeep from '../../util/cloneDeep';
-import BaseOption from './baseOption';
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+import getBaseOption from './baseOption';
 import {
   handleData,
   handleColor,
@@ -10,34 +20,35 @@ import {
   handleMarkLine,
 } from './handleOption';
 import { handleEmphasis } from './handleSeries';
-
 import { event } from '../../util/event';
 import init from '../../option/init';
-import title from '../../option/config/title';
+import title from '../../option/config/rectTitle';
 import toolTip from '../../option/config/tooltip';
 import xAxis from '../../option/config/xAxis';
 import yAxis from '../../option/config/yAxis';
-
-const CHART_NAME = 'HillChart';
+import { CHART_TYPE } from '../../util/constants';
 
 class HillChart {
-  constructor(iChartOption, _, chartInstance) {
+
+  static name = CHART_TYPE.HILL
+
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
-    this.baseOption = cloneDeep(BaseOption);
+    this.baseOption = getBaseOption();
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
-    this.updateOption(iChartOption, _, chartInstance);
+    this.updateOption(iChartOption, chartInstance);
   }
 
-  updateOption(iChartOption, _, chartInstance) {
+  updateOption(iChartOption, chartInstance) {
     // 是否显示坐标轴
     // 配置x轴
-    this.baseOption.xAxis = xAxis(iChartOption, CHART_NAME)[0];
+    this.baseOption.xAxis = xAxis(iChartOption, CHART_TYPE.HILL)[0];
     if (iChartOption.axis && iChartOption.axis.show) {
       // 配置y轴
-      this.baseOption.yAxis = yAxis(this.baseOption, iChartOption, CHART_NAME);
+      this.baseOption.yAxis = yAxis(this.baseOption, iChartOption, CHART_TYPE.HILL);
     } else {
       this.baseOption.xAxis['axisLine'] = {
         show: false,
@@ -60,7 +71,7 @@ class HillChart {
     // 配置相邻山峰间隔
     handleCoincide(iChartOption, this.baseOption);
     // 配置悬浮提示框
-    this.baseOption.tooltip = toolTip(iChartOption, CHART_NAME);
+    this.baseOption.tooltip = toolTip(iChartOption, CHART_TYPE.HILL);
     this.baseOption.tooltip.trigger = 'item';
     // 配置渐变色
     setGradientColor(
@@ -78,10 +89,6 @@ class HillChart {
     handleEmphasis(this.baseOption, iChartOption);
   }
 
-  // 根据渲染出的结果，二次计算option
-  // secondaryUpdateOption(YAxiMax, YAxiMin) {
-  // }
-
   getOption() {
     return this.baseOption;
   }
@@ -90,6 +97,3 @@ class HillChart {
 }
 
 export default HillChart;
-
-
-

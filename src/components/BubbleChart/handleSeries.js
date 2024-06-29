@@ -1,7 +1,20 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import { getColor, codeToRGB } from '../../util/color';
-import cloneDeep from '../../util/cloneDeep'
-import { markLineDefault } from '../../option/config/mark';
-import Theme from '../../feature/theme';
+import cloneDeep from '../../util/cloneDeep';
+import { getMarkLineDefault } from '../../option/config/mark';
+import chartToken from './chartToken';
+import merge from '../../util/merge';
+
 export const seriesInit = {
   // 数据
   data: [],
@@ -19,34 +32,24 @@ export const seriesInit = {
       position: 'top',
     },
   },
+  // 气泡失去焦点时，配置样式
+  blur:{},
   // 气泡样式
   itemStyle: {},
 };
 
-/**
- * 组装echarts所需要的series
- * @param {图表数据} seriesData
- * @param {图例数据} legendData
- * @param {主题} theme
- * @param {是否面积图} isArea
- * @param {是否曲线} isSmooth
- * @param {是否阶梯线} isStep
- * @param {阈值线} markLine
- * @param {阈值箭头} markPoint
- * @param {颜色集合} colors
- * @returns
- */
-export function setSeries({ theme, legendData, data, markLine, color }) {
+export function setSeries({ legendData, data, markLine, color, iChartOption }) {
   // 更改hover时显示的label颜色
-  seriesInit.emphasis.label.color = Theme.color.base.axislabel
+  seriesInit.emphasis.label.color = chartToken.emphasisLabelColor;
   const series = [];
   legendData.forEach((legend, index) => {
     const seriesUnit = cloneDeep(seriesInit);
-    const itemColor = getColor(color, index);
-    const itemBorderColor = codeToRGB(itemColor, 0.2);
+    const itemBorderColor = getColor(color, index);
+    // 设置图元透明度
+    const itemColor = codeToRGB(itemBorderColor, iChartOption.symbolOpacity || 0.2);
     // 阈值线
     if (markLine) {
-      seriesUnit.markLine = cloneDeep(markLineDefault);
+      seriesUnit.markLine = cloneDeep(getMarkLineDefault());
       if (markLine.y) {
         seriesUnit.markLine.data.push({ yAxis: markLine.y });
       }
@@ -58,11 +61,26 @@ export function setSeries({ theme, legendData, data, markLine, color }) {
     seriesUnit.name = legend;
     seriesUnit.data = data[legend];
     seriesUnit.itemStyle = {
-      color: itemBorderColor,
-      borderColor: itemColor,
+      color: itemColor,
+      borderColor: itemBorderColor,
       borderWidth: 1,
     };
     series.push(seriesUnit);
   });
   return series;
+}
+
+// 添加seires属性
+export function handleSeriesExtra(baseOpt, iChartOption) {
+  const { symbol, symbolRotate, symbolOffset, cursor, label, itemStyle, blur, emphasis } = iChartOption;
+  baseOpt.series.forEach(item => {
+    item.symbol = symbol;
+    item.symbolRotate = symbolRotate;
+    item.symbolOffset = symbolOffset;
+    item.cursor = cursor;
+    item.label = label;
+    merge(item.itemStyle, itemStyle);
+    merge(item.blur, blur);
+    merge(item.emphasis, emphasis);
+  });
 }

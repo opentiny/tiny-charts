@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import BaseOption from './BaseOption';
 import cloneDeep from '../../util/cloneDeep';
 import { getData } from './handleData';
@@ -13,11 +24,16 @@ import {
   setHeatMapDeaultIchartOption,
 } from './handleOptipn';
 import init from '../../option/init';
+import { CHART_TYPE } from '../../util/constants';
 
 class HeatMapChart {
-  constructor(iChartOption, _, chartInstance) {
+
+  static name = CHART_TYPE.HEAT_MAP
+
+  constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
+    this.initIchartOption = cloneDeep(iChartOption);
     this.baseOption = cloneDeep(BaseOption);
     setHeatMapDeaultIchartOption(iChartOption);
     this.iChartOption = init(iChartOption);
@@ -37,9 +53,9 @@ class HeatMapChart {
     if (!data) return;
     handleColor(this.baseOption, iChartOption);
     // 图表x轴
-    handleXaxis(this.baseOption, type, data, iChartOption);
+    handleXaxis(this.baseOption, type, data, iChartOption,this.initIchartOption);
     // 图表y轴
-    handleYaxis(this.baseOption, type, data, iChartOption);
+    handleYaxis(this.baseOption, type, data, iChartOption,this.initIchartOption);
     // 设置chartpadding
     handleGrid(this.baseOption, iChartOption);
     //  图表鼠标悬浮提示框

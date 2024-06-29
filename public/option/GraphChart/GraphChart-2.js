@@ -1,7 +1,6 @@
 let axisData = ['周一', '周二', '周三', '很长很长的周四', '周五', '周六', '周日'];
-let data = axisData.map((item, i) => {
-  return Math.round(Math.random() * 1000 * (i + 1));
-});
+
+const data=[800,600,900,1500,3200,4800,900]
 
 let links = data.map((item, i) => {
   return {

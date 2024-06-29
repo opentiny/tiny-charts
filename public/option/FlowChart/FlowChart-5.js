@@ -29,33 +29,33 @@ const option = {
     data: {
           nodes: [
             {
-                id: "1",
+                id: '5',
             }, {
-                id: "2",
+                id: '4',
             }, {
-                id: "3",
+                id: '3',
             }, {
-                id: "4",
+                id: '2',
             }, {
-                id: "5",
+                id: '1',
             }
         ],
         edges: [
             {
-                source: "1",
-                target: "2",
+                source: '1',
+                target: '2',
                 lineStyle: {
                     dash: false,
                 },
             }, {
-                source: "2",
-                target: "3"
+                source: '2',
+                target: '3'
             },  {
-                source: "4",
-                target: "5"
+                source: '4',
+                target: '5'
             },  {
-                source: "5",
-                target: "3"
+                source: '5',
+                target: '3'
             }
         ]
     }

@@ -1,0 +1,126 @@
+.ic-example {
+  &-explore {
+    padding: 2rem;
+    background: var(--ti-base-color-bg-1);
+
+    .card-title {
+      margin-bottom: 16px;
+      color: var(--ti-base-color-common-7);
+    }
+  }
+
+  &-chartProperty {
+    .table-title {
+      margin-bottom: 16px;
+      color: var(--ti-base-color-common-7);
+    }
+
+    .table-cell-tag {
+      background: #fbe5e1;
+      color: #c0341d;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.875rem;
+    }
+
+    .tiny-grid,
+    .tiny-grid-header__column {
+      font-size: 1rem;
+    }
+
+    .tiny-grid-body__expanded-cell {
+      background: var(--ti-base-color-brand-1);
+      padding: 12px 44px 24px 44px;
+    }
+
+    .table-link {
+      color: #007dff
+    }
+  }
+
+  &-chart-item {
+
+    .card-content {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+      width: calc(100% + 2rem);
+      margin: 0 -1rem;
+
+      .ic-example-chart {
+        width: calc(20% - 2rem);
+        border: 1px solid var(--ti-base-color-common-1);
+        border-radius: 0.125rem;
+        cursor: pointer;
+        height: 12rem;
+        overflow: hidden;
+        margin: 0 1rem;
+        margin-bottom: 1.25rem;
+        background: var(--ti-base-color-bg-2);
+
+        &:hover {
+          box-shadow: 0 0 0.6rem 0.1rem var(--ti-base-color-common-1);
+        }
+      }
+
+      .chart-title {
+        font-size: 0.875rem;
+        font-weight: bold;
+        padding: 0 0.625rem;
+        height: 2rem;
+        line-height: 2rem;
+        color: var(--ti-base-color-common-2);
+        border-bottom: 1px solid var(--ti-base-color-common-1);
+      }
+
+      .chart-content {
+        height: 10rem;
+        text-align: center;
+
+        img {
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width:1440px) and (min-width:901px) {
+  .ic-example-chart-item {
+    .card-content {
+      .ic-example-chart {
+        width: calc(25% - 2rem);
+      }
+    }
+  }
+}
+
+@media screen and (max-width:900px) {
+  .ic-example-chart-item {
+    .card-content {
+      .ic-example-chart {
+        width: calc(33.33% - 2rem);
+      }
+    }
+  }
+}
+
+@media screen and (max-width:768px) {
+  .ic-example-chart-item {
+    .card-content {
+      .ic-example-chart {
+        width: calc(50% - 2rem);
+      }
+    }
+  }
+}
+
+@media screen and (max-width:460px) {
+  .ic-example-chart-item {
+    .card-content {
+      .ic-example-chart {
+        width: 100%;
+      }
+    }
+  }
+}

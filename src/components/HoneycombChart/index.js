@@ -1,7 +1,22 @@
-import './index.less';
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import BaseChart from '../BaseChart';
 import NodeManager from './NodeManager';
+import { CHART_TYPE } from '../../util/constants';
+
 export default class HoneycombChart extends BaseChart {
+
+    static name = CHART_TYPE.HONEYCOMB
+
     constructor() {
         super();
         // 图表渲染容器
@@ -41,12 +56,11 @@ export default class HoneycombChart extends BaseChart {
 
     initDom() {
         this.dom.style.padding = this.option.padding || 0;
-        this.dom.insertAdjacentHTML('beforeend', `<div class="hc-container"><div class="hc-rows"></div></div>`);
+        this.dom.insertAdjacentHTML('beforeend', '<div class="hc-container"><div class="hc-rows"></div></div>');
         if (this.data.length > 0) {
             this.nodeManager = new NodeManager(this.dom, this.option);
         }
     }
-
 
     resizeDom() {
         if (this.data.length > 0) {

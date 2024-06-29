@@ -1,6 +1,18 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+import Theme from '../../feature/token';
 import { codeToHex, codeToRGB } from '../../util/color';
-import megre from '../../util/megre';
-import Theme from '../../feature/theme';
+import merge from '../../util/merge';
+import chartToken from './chartToken';
 
 // 配置数据
 export function handleData(iChartOption, baseOpt) {
@@ -43,15 +55,6 @@ export function handleColor(iChartOption, baseOpt) {
 
 // 配置文本
 export function handleText(iChartOption, baseOpt) {
-  const colorBase= Theme.color.base
-  // x轴坐标文本
-  // baseOpt.xAxis.axisLabel = {
-  //   color:
-  //     iChartOption.text && iChartOption.text.fontColor
-  //       ? iChartOption.text.fontColor
-  //       : colorBase.axislabel,
-  //   fontSize: iChartOption.text && iChartOption.text.fontSize ? iChartOption.text && iChartOption.text.fontSize : 12,
-  // };
   // 山峰头部文本
   baseOpt.series[0].label = {
     normal: {
@@ -60,10 +63,7 @@ export function handleText(iChartOption, baseOpt) {
       textStyle: {
         fontSize:
           iChartOption.text && iChartOption.text.fontSize ? iChartOption.text && iChartOption.text.fontSize : 12,
-        color:
-          iChartOption.text && iChartOption.text.fontColor
-            ? iChartOption.text.fontColor
-            : colorBase.axislabel,
+        color: iChartOption.text && iChartOption.text.fontColor ? iChartOption.text.fontColor : chartToken.labelColor,
       },
     },
   };
@@ -117,77 +117,86 @@ export function setGradientColor(baseOpt, color, gradientColor, opacity, iChartO
   }
 }
 
+const colorWhole = (baseOpt, item, markLine, colorError, index) => {
+  baseOpt.series[0].data[index] = {
+    value: item,
+    itemStyle: {
+      color: markLine.color || colorError,
+    },
+  };
+};
+
+const colorExcess = (baseOpt, iChartOpt, item, index, i) => {
+  const { markLine, color, opacity } = iChartOpt;
+  const { colorError } = Theme.config.colorState;
+  baseOpt.series[0].data[index] = {
+    value: item,
+    itemStyle: {
+      color: {
+        x: 0,
+        y: 0,
+        x2: 0,
+        y2: 1,
+        type: 'linear',
+        colorStops: [
+          {
+            offset: 0,
+            color: markLine.color || colorError,
+          },
+          {
+            offset: (item - markLine[i]) / item,
+            color: markLine.color || colorError,
+          },
+          {
+            offset: (item - markLine[i]) / item,
+            color: codeToRGB(codeToHex(color[index % color.length]), opacity || 0.8),
+          },
+          {
+            offset: 1,
+            color: codeToRGB(codeToHex(color[index % color.length]), opacity || 0.8),
+          },
+        ],
+      },
+    },
+  };
+};
+
+const reviseMarkLineData = (baseOpt, iChartOpt, i) => {
+  const { markLine } = iChartOpt;
+  const { colorError } = Theme.config.colorState;
+  baseOpt.series[0].data.forEach((item, index) => {
+    if (item > markLine[i] && i === 'top') {
+      // 整体变色
+      if (markLine.topWholeColor) {
+        colorWhole(baseOpt, item, markLine, colorError, index);
+      } else {
+        // 超出部分变色
+        colorExcess(baseOpt, iChartOpt, item, index, i);
+      }
+    } else if (item < markLine[i] && i === 'bottom') {
+      // 低于bottom的直接整体变色，不用判断
+      colorWhole(baseOpt, item, markLine, colorError, index)
+    }
+  });
+};
+
+
 // 配置阈值线(整体变色，超过部分变色)
 export function handleMarkLine(baseOpt, iChartOpt) {
-  const { markLine, color, opacity } = iChartOpt;
+  const { markLine } = iChartOpt;
   if (markLine) {
     for (const i in markLine) {
       if (i === 'top' || i === 'bottom') {
         // series插入阈值线
         baseOpt.series[0].markLine.data.push({ yAxis: markLine[i] });
         // 重置数据
-        baseOpt.series[0].data.forEach((item, index) => {
-          if (item > markLine[i] && i === 'top') {
-            // 整体变色
-            if (markLine.topWholeColor) {
-              baseOpt.series[0].data[index] = {
-                value: item,
-                itemStyle: {
-                  color: markLine.color || '#F43146',
-                },
-              };
-            } else {
-              // 超出部分变色
-              baseOpt.series[0].data[index] = {
-                value: item,
-                itemStyle: {
-                  color: {
-                    x: 0,
-                    y: 0,
-                    x2: 0,
-                    y2: 1,
-                    type: 'linear',
-                    colorStops: [
-                      {
-                        offset: 0,
-                        color: markLine.color || '#F43146',
-                      },
-                      {
-                        offset: (item - markLine[i]) / item,
-                        color: markLine.color || '#F43146',
-                      },
-                      {
-                        offset: (item - markLine[i]) / item,
-                        color: codeToRGB(
-                          codeToHex(color[index % color.length]),
-                          opacity || 0.8,
-                        ),
-                      },
-                      {
-                        offset: 1,
-                        color: codeToRGB(
-                          codeToHex(color[index % color.length]),
-                          opacity || 0.8,
-                        ),
-                      },
-                    ],
-                  },
-                },
-              };
-            }
-          } else if (item < markLine[i] && i === 'bottom') {
-            // 低于bottom的直接整体变色，不用判断
-            baseOpt.series[0].data[index] = {
-              value: item,
-              itemStyle: {
-                color: markLine.color || '#F43146',
-              },
-            };
-          }
-        });
+        reviseMarkLineData(baseOpt, iChartOpt, i);
       }
     }
     // 合并属性
-    megre(baseOpt.series[0].markLine, markLine);
+    merge(baseOpt.series[0].markLine, markLine);
   }
 }
+
+
+

@@ -7,19 +7,19 @@ const option = {
     data:[
         {
           name: 'visualMap',
-          value: 122199,
+          value: 122191,
         },
         {
           name: 'continuous',
-          value: 10288,
+          value: 10281,
         },
         {
           name: 'contoller',
-          value: 620,
+          value: 621,
         },
         {
           name: 'series',
-          value: 274470,
+          value: 274471,
         },
         {
           name: 'gauge',
@@ -27,51 +27,51 @@ const option = {
         },
         {
           name: 'detail',
-          value: 7206,
+          value: 7201,
         },
         {
           name: 'piecewise',
-          value: 4885,
+          value: 4881,
         },
         {
           name: 'textStyle',
-          value: 32294,
+          value: 32291,
         },
         {
           name: 'markPoint',
-          value: 38574,
+          value: 38571,
         },
         {
           name: 'pie',
-          value: 88929,
+          value: 88921,
         },
         {
           name: 'roseType',
-          value: 969,
+          value: 961,
         },
         {
           name: 'label',
-          value: 37517,
+          value: 37511,
         },
         {
           name: 'emphasis',
-          value: 12053,
+          value: 12051,
         },
         {
           name: 'yAxis',
-          value: 127299,
+          value: 127291,
         },
         {
           name: 'name',
-          value: 15418,
+          value: 15411,
         },
         {
           name: 'type',
-          value: 22905,
+          value: 22901,
         },
         {
           name: 'gridIndex',
-          value: 5146,
+          value: 5141,
         }
     ]
 };

@@ -14,18 +14,18 @@ const option = {
         show: true,
     },
     data: [
-        { 'Month': 'Jan', 'Train': 83, 'Bus': 56, 'Aircraft': 20 },
-        { 'Month': 'Feb', 'Train': 55, 'Bus': 39, 'Aircraft': 15 },
-        { 'Month': 'Mar', 'Train': 63, 'Bus': 20, 'Aircraft': 21 },
-        { 'Month': 'Apr', 'Train': 30, 'Bus': 46, 'Aircraft': 75 },
-        { 'Month': 'May', 'Train': 37, 'Bus': 33, 'Aircraft': 42 },
+        { 'Month': 'Jan', 'Train': 84, 'Bus': 54, 'Aircraft': 20 },
+        { 'Month': 'Feb', 'Train': 54, 'Bus': 39, 'Aircraft': 15 },
+        { 'Month': 'Mar', 'Train': 63, 'Bus': 20, 'Aircraft': 24 },
+        { 'Month': 'Apr', 'Train': 30, 'Bus': 44, 'Aircraft': 75 },
+        { 'Month': 'May', 'Train': 34, 'Bus': 33, 'Aircraft': 42 },
         { 'Month': 'Jun', 'Train': 70, 'Bus': 37, 'Aircraft': 32 },
-        { 'Month': 'Jul', 'Train': 42, 'Bus': 52, 'Aircraft': 76 },
-        { 'Month': 'Aug', 'Train': 52, 'Bus': 12, 'Aircraft': 60 },
+        { 'Month': 'Jul', 'Train': 42, 'Bus': 54, 'Aircraft': 76 },
+        { 'Month': 'Aug', 'Train': 54, 'Bus': 12, 'Aircraft': 60 },
         { 'Month': 'Sep', 'Train': 34, 'Bus': 38, 'Aircraft': 65 },
-        { 'Month': 'Oct', 'Train': 40, 'Bus': 33, 'Aircraft': 88 },
-        { 'Month': 'Nov', 'Train': 60, 'Bus': 22, 'Aircraft': 65 },
-        { 'Month': 'Dec', 'Train': 62, 'Bus': 42, 'Aircraft': 56 }
+        { 'Month': 'Oct', 'Train': 40, 'Bus': 34, 'Aircraft': 88 },
+        { 'Month': 'Nov', 'Train': 60, 'Bus': 22, 'Aircraft': 64 },
+        { 'Month': 'Dec', 'Train': 64, 'Bus': 42, 'Aircraft': 56 }
     ],
     xAxis: {
         data: 'Month',

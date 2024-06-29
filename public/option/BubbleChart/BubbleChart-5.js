@@ -8,14 +8,14 @@
 */
 const option = {
     theme: 'light',
-    padding: [55, 30, 15, 20], //padding控制图表距离容器的上、右、下、左padding值
+    padding: [55, 30, 15, 20], // padding控制图表距离容器的上、右、下、左padding值
     legend: {
-        show: true, //图例是否显示
-        position: { //图例在容器中的上下左右的位置
+        show: true, // 图例是否显示
+        position: { // 图例在容器中的上下左右的位置
             top: 20,
             right: 25,
         },
-        orient: 'horizontal'//图例排布方向
+        orient: 'horizontal'// 图例排布方向
     },
     data: {
         'Bus': [

@@ -1,13 +1,27 @@
-import BaseOption from './BaseOption';
-import cloneDeep from '../../util/cloneDeep';
-import { setTooltip, setTheme } from './handleOptipn';
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+import { setTooltip } from './handleOptipn';
 import { setSeries } from './handleSeries';
+import { mergeSeries } from '../../util/merge';
+import { CHART_TYPE } from '../../util/constants';
 
 class TreeChart {
+
+  static name = CHART_TYPE.TREE
+
+
   constructor(iChartOption) {
     this.baseOption = {};
     this.iChartOption = {};
-    this.baseOption = cloneDeep(BaseOption);
     this.iChartOption = iChartOption;
     // 根据 iChartOption 组装 baseOption
     this.updateOption();
@@ -19,19 +33,18 @@ class TreeChart {
     if (!type) {
       throw new Error('TreeChart must have a name');
     }
-    // 设置主题
-    const theme = setTheme(iChartOption);
     // 图表的series
-    this.baseOption.series = setSeries(type, theme, iChartOption);
+    setSeries(this.baseOption, type, iChartOption);
     //  图表鼠标悬浮提示框
-    this.baseOption.tooltip = setTooltip(iChartOption);
+    setTooltip(this.baseOption, iChartOption);
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   getOption() {
     return this.baseOption;
   }
 
-  setOption() {}
+  setOption() { }
 }
 
 export default TreeChart;

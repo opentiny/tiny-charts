@@ -5,8 +5,8 @@
 对于直角坐标系类图表，通常需要将图表左右两侧与容器左右两侧顶格对齐：
 
 <div class="img-warpper">
-    <div class="img-container">
-        <img src="./image/md/axisMarginDesign.png"/>
+    <div class="img-container" style="padding-top: 32px;padding-bottom: 32px;">
+        <img src="{{VITE_BASEROUTER}}./image/md/axisMarginDesign.png"/>
     </div>
 </div>
 
@@ -14,8 +14,8 @@
 但是实际场景中，x轴的刻度label文本经常会因为容器的限制而被截断：
 
 <div class="img-warpper">
-    <div class="img-container" style="padding: 32px;">
-        <img src="./image/md/axisMarginTruncation.png"/>
+    <div class="img-container" style="padding-top: 32px;padding-bottom: 32px;">
+        <img src="{{VITE_BASEROUTER}}./image/md/axisMarginTruncation.png" style="width: 88%"/>
     </div>
 </div>
 
@@ -23,14 +23,14 @@
 因此我们需要将x轴的绘制区域向内缩进，以完全显示刻度label。同时拉满图表网格使其占满容器，保证两端顶格对齐(下图为使用 `xAxis.axisMargin` 实现)：
 
 <div class="img-warpper">
-    <div class="img-container" style="padding: 32px;">
-        <img src="./image/md/axisMargin.png"/>
+    <div class="img-container" style="padding-top: 32px;padding-bottom: 32px;">
+        <img src="{{VITE_BASEROUTER}}./image/md/axisMargin.png" style="width: 88%"/>
     </div>
 </div>
 
 </br>
 
-HUI-Charts 提供了若干网格对齐方式，您可以根据页面开发场景，选择对应的对齐方式。
+{{VITE_BASECOPYRIGHTS}} HUICharts 提供了若干网格对齐方式，您可以根据页面开发场景，选择对应的对齐方式。
 
 
 ## padding 属性
@@ -54,17 +54,17 @@ let chartOption = {
 ```
 
 ## xAxis.fullGrid 属性
-图表配置项 option 中的 `xAxis.fullGrid` 属性用来控制图表x轴两边留白，在HUI-Charts中该属性默认为 `false` ，即默认x轴两边有留白。
+图表配置项 option 中的 `xAxis.fullGrid` 属性用来控制图表x轴两边留白，在{{VITE_BASECOPYRIGHTS}} HUICharts中该属性默认为 `false` ，即默认x轴两边有留白。
 
 当 `fullGrid` 为 `true` 时，图表曲线占满整个x轴，此时通常搭配 `padding` 一起使用，否则x轴刻度label有可能会被容器截断
 
 <div class="img-warpper img-double">
     <div class="img-container">
-        <img src="./image/md/axisMarginFullGrid.png"/>
+        <img src="{{VITE_BASEROUTER}}./image/md/axisMarginFullGrid.png"/>
         <span>xAxis.fullGrid = true ：图形占满x轴两边</span>
     </div>
     <div class="img-container" style="margin-left: 3rem;">
-        <img src="./image/md/axisMarginFullGridFalse.png"/>
+        <img src="{{VITE_BASEROUTER}}./image/md/axisMarginFullGridFalse.png"/>
         <span>xAxis.fullGrid = false ：x轴两边有留白</span>
     </div>
 </div>
@@ -89,15 +89,15 @@ let chartOption = {
 
 <div class="img-warpper img-three">
     <div class="img-container">
-        <img src="./image/md/axisMargin1.png"/>
+        <img src="{{VITE_BASEROUTER}}./image/md/axisMargin1.png"/>
         <span>两侧留白距离0，默认使用 xAxis.fullGrid = false</span>
     </div>
     <div class="img-container" style="margin-left: 3rem;">
-        <img src="./image/md/axisMargin2.png"/>
+        <img src="{{VITE_BASEROUTER}}./image/md/axisMargin2.png"/>
         <span>两侧留白距离1</span>
     </div>
     <div class="img-container" style="margin-left: 3rem;">
-        <img src="./image/md/axisMargin3.png"/>
+        <img src="{{VITE_BASEROUTER}}./image/md/axisMargin3.png"/>
         <span>两侧留白距离2</span>
     </div>
 </div>
@@ -120,7 +120,6 @@ let chartOption = {
 };
 ```
 
-<!-- 样式 -->
 <style>
     .markdown-body p{
         line-height: 24px;
@@ -133,17 +132,16 @@ let chartOption = {
         margin-bottom: 16px;
         align-items: center;
         flex-direction: row;
-        background-color:#ffffff;
         justify-content: space-between;
     }
     .img-double{
         width: 900px;
     }
     .img-three{
-        width: 1200px;
+        width: 100%;
     }
     .img-container{
-        border:1px solid #ccc;
+        border:1px solid var(--ti-base-color-common-1);
         position:relative;
         margin:0 auto;
         width: 650px;

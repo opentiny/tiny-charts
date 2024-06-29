@@ -1,10 +1,20 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import base from './base';
-import megre from '../../../util/megre';
+import merge from '../../../util/merge';
 
 function datazoom(iChartOption) {
-  let theme = iChartOption.theme;
-  let self = iChartOption.dataZoom;
-  let dataZoom = base(theme);
+  const self = iChartOption.dataZoom;
+  const dataZoom = base();
   const { show, position, start, end, startValue, endValue, style, zoomOnMouseWheel, height } = self;
   if (show) {
     end && (dataZoom[0].end = end);
@@ -28,15 +38,16 @@ function datazoom(iChartOption) {
       const { backgroundColor, dataBackground, selectedDataBackground, fillerColor } = dataZoom[0];
       dataZoom[0].backgroundColor = style.backgroundColor || backgroundColor;
       dataZoom[0].dataBackground.areaStyle.color = style.unSelectDataColor || dataBackground.areaStyle.color;
-      dataZoom[0].selectedDataBackground.areaStyle.color = style.selectDataColor || selectedDataBackground.areaStyle.color;
+      dataZoom[0].selectedDataBackground.areaStyle.color =
+        style.selectDataColor || selectedDataBackground.areaStyle.color;
       dataZoom[0].fillerColor = style.middleFillerColor || fillerColor;
       // 用户自定义手柄样式
       if (style.handleStyle) {
         dataZoom[0].handleStyle = Object.assign(dataZoom[0].handleStyle, style.handleStyle);
       }
     }
+    merge(dataZoom[0], self);
   }
-  // dataZoom = self;
   return dataZoom;
 }
 

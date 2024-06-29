@@ -1,9 +1,20 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 const VDirection = ['TB', 'BT', 'V'];
 const HDirection = ['LR', 'RL', 'H'];
 
 // 圆角曲线连线
 export default class LineRound {
-    // 默认圆弧拐角的 radius 为 20  
+    // 默认圆弧拐角的 radius 为 20
     radius = 10;
     // 连线向前多少开始拐弯
     dis = 15;
@@ -37,66 +48,71 @@ export default class LineRound {
     }
 
     // 计算出以目标节点为对齐方式的连线数据
-    setTargetData(edge, data){
-        let end = edge.target;
-        let start = edge.source;
+    setTargetData(targetEdge, data){
+        let end = targetEdge.target;
+        let start = targetEdge.source;
         let nodesObj = data.nodesObj;
+        let startWidth = nodesObj[start].width || 50;
+        let startInnerWidth = nodesObj[start].innerWidth || 50;
+        let startHeight = nodesObj[start].height || 50;
+        let endWidth = nodesObj[end].width || 50;
+        let endInnerWidth = nodesObj[end].innerWidth || 50;
+        let endHeight = nodesObj[end].height || 50;
         // 拐角半径
-        edge.radius = this.radius;
+        targetEdge.radius = this.radius;
         // 起始点
-        edge.startPoint = {
-            x: nodesObj[start].x + nodesObj[start].width + ( nodesObj[start].innerWidth - nodesObj[start].width ) / 2,
-            y: nodesObj[start].y + nodesObj[start].height / 2,
+        targetEdge.startPoint = {
+            x: nodesObj[start].x + startWidth + ( startInnerWidth - startWidth ) / 2-data.minX,
+            y: nodesObj[start].y + startHeight / 2-data.minY,
         };
         // 结束点
-        edge.endPoint = {
-            x: nodesObj[end].x - ( nodesObj[end].innerWidth - nodesObj[end].width ) / 2,
-            y: nodesObj[end].y + nodesObj[end].height / 2,
+        targetEdge.endPoint = {
+            x: nodesObj[end].x - ( endInnerWidth - endWidth ) / 2-data.minX,
+            y: nodesObj[end].y + endHeight / 2-data.minY,
         };
-        // let hDis = edge.endPoint.x - edge.startPoint.x;
-        let vDis = edge.endPoint.y - edge.startPoint.y;
+        let vDis = targetEdge.endPoint.y - targetEdge.startPoint.y;
         // endPoint向左距离20点位置开始绘制曲线
         let hDis = this.dis;
 
         // radius 根据 vDis 大小而动态调整
         if(Math.abs(vDis) <= this.radius * 2){
-            edge.radius = Math.abs(vDis) / 2;
+            targetEdge.radius = Math.abs(vDis) / 2;
         }
-        
-        let revise = edge.radius;
+
+        let revise = targetEdge.radius;
         // 当end节点在start节点下方时，个别点的位置需要修正
-        if(edge.endPoint.y < edge.startPoint.y){
-            revise = -edge.radius
+        if(targetEdge.endPoint.y < targetEdge.startPoint.y){
+            revise = -targetEdge.radius
         }
         // 第一个圆弧起始点
-        edge.firstRoundStartPoint = {
-            x: edge.endPoint.x  - hDis - edge.radius * 2,
-            y: edge.startPoint.y,
+        targetEdge.firstRoundStartPoint = {
+            x: targetEdge.endPoint.x  - hDis - targetEdge.radius * 2,
+            y: targetEdge.startPoint.y,
         }
         // 第一个圆弧控制点
-        edge.firstRoundControlPoint = {
-            x: edge.endPoint.x - hDis - edge.radius,
-            y: edge.startPoint.y,
+        targetEdge.firstRoundControlPoint = {
+            x: targetEdge.endPoint.x - hDis - targetEdge.radius,
+            y: targetEdge.startPoint.y,
         }
         // 第一个圆弧结束点
-        edge.firstRoundEndPoint = {
-            x: edge.endPoint.x - hDis - edge.radius,
-            y: edge.startPoint.y + revise,
+        targetEdge.firstRoundEndPoint = {
+            x: targetEdge.endPoint.x - hDis - targetEdge.radius,
+            y: targetEdge.startPoint.y + revise,
         };
         // 第二个圆弧起始点
-        edge.secondRoundStartPoint = {
-            x: edge.endPoint.x - hDis - edge.radius,
-            y: edge.endPoint.y - revise,
+        targetEdge.secondRoundStartPoint = {
+            x: targetEdge.endPoint.x - hDis - targetEdge.radius,
+            y: targetEdge.endPoint.y - revise,
         };
         // 第二个圆弧控制点
-        edge.secondRoundControlPoint = {
-            x: edge.endPoint.x - hDis - edge.radius,
-            y: edge.endPoint.y,
+        targetEdge.secondRoundControlPoint = {
+            x: targetEdge.endPoint.x - hDis - targetEdge.radius,
+            y: targetEdge.endPoint.y,
         };
         // 第二个圆弧结束点
-        edge.secondRoundEndPoint = {
-            x: edge.endPoint.x - hDis,
-            y: edge.endPoint.y,
+        targetEdge.secondRoundEndPoint = {
+            x: targetEdge.endPoint.x - hDis,
+            y: targetEdge.endPoint.y,
         };
     }
 
@@ -105,19 +121,24 @@ export default class LineRound {
         let end = edge.target;
         let start = edge.source;
         let nodesObj = data.nodesObj;
+        let startWidth = nodesObj[start].width || 50;
+        let startInnerWidth = nodesObj[start].innerWidth || 50;
+        let startHeight = nodesObj[start].height || 50;
+        let endWidth = nodesObj[end].width || 50;
+        let endInnerWidth = nodesObj[end].innerWidth || 50;
+        let endHeight = nodesObj[end].height || 50;
         // 拐角半径
         edge.radius = this.radius;
         // 起始点
         edge.startPoint = {
-            x: nodesObj[start].x + nodesObj[start].width + ( nodesObj[start].innerWidth - nodesObj[start].width ) / 2,
-            y: nodesObj[start].y + nodesObj[start].height / 2,
+            x: nodesObj[start].x + startWidth + ( startInnerWidth - startWidth ) / 2-data.minX,
+            y: nodesObj[start].y + startHeight / 2-data.minY,
         };
         // 结束点
         edge.endPoint = {
-            x: nodesObj[end].x - ( nodesObj[end].innerWidth - nodesObj[end].width ) / 2,
-            y: nodesObj[end].y + nodesObj[end].height / 2,
+            x: nodesObj[end].x - ( endInnerWidth - endWidth ) / 2-data.minX,
+            y: nodesObj[end].y + endHeight / 2-data.minY,
         };
-        // let hDis = edge.endPoint.x - edge.startPoint.x;
         let vDis = edge.endPoint.y - edge.startPoint.y;
         // endPoint向左距离20点位置开始绘制曲线
         let hDis = this.dis;
@@ -126,7 +147,7 @@ export default class LineRound {
         if(Math.abs(vDis) <= this.radius * 2){
             edge.radius = Math.abs(vDis) / 2;
         }
-        
+
         let revise = edge.radius;
         // 当end节点在start节点下方时，个别点的位置需要修正
         if(edge.endPoint.y < edge.startPoint.y){
@@ -165,65 +186,71 @@ export default class LineRound {
     }
 
     // 计算出以目标节点为对齐方式的连线数据 --- 纵向
-    setTargetDataV(edge, data){
-        let end = edge.target;
-        let start = edge.source;
+    setTargetDataV(targetEdge, data){
+        let end = targetEdge.target;
+        let start = targetEdge.source;
         let nodesObj = data.nodesObj;
+        let startWidth = nodesObj[start].width || 50;
+        let startInnerHeight = nodesObj[start].innerHeight || 50;
+        let startHeight = nodesObj[start].height || 50;
+        let endWidth = nodesObj[end].width || 50;
+        let endInnerHeight = nodesObj[end].innerHeight || 50;
+        let endHeight = nodesObj[end].height || 50;
         // 拐角半径
-        edge.radius = this.radius;
+        targetEdge.radius = this.radius;
         // 起始点
-        edge.startPoint = {
-            x: nodesObj[start].x + nodesObj[start].width / 2,
-            y: nodesObj[start].y + nodesObj[start].height + ( nodesObj[start].innerHeight - nodesObj[start].height ) / 2,
+        targetEdge.startPoint = {
+            x: nodesObj[start].x + startWidth / 2-data.minX,
+            y: nodesObj[start].y + startHeight + ( startInnerHeight - startHeight ) / 2-data.minY,
         };
         // 结束点
-        edge.endPoint = {
-            x: nodesObj[end].x + nodesObj[end].width / 2,
-            y: nodesObj[end].y - ( nodesObj[end].innerHeight - nodesObj[end].height ) / 2,
+        targetEdge.endPoint = {
+            x: nodesObj[end].x + endWidth / 2-data.minX,
+            y: nodesObj[end].y - ( endInnerHeight - endHeight ) / 2-data.minY,
         };
-        let hDis = edge.endPoint.x - edge.startPoint.x;
+        let hDis = targetEdge.endPoint.x - targetEdge.startPoint.x;
         // endPoint向上距离20点位置开始绘制曲线
         let vDis = this.dis;
 
         // radius 根据 vDis 大小而动态调整
         if(Math.abs(hDis) <= this.radius * 2){
-            edge.radius = Math.abs(hDis) / 2;
+            targetEdge.radius = Math.abs(hDis) / 2;
         }
-        
-        let revise = edge.radius;
+
+        let revise = targetEdge.radius;
         // 当end节点在start节点左方时，个别点的位置需要修正
-        if(edge.endPoint.x < edge.startPoint.x){
-            revise = -edge.radius
+        if(targetEdge.endPoint.x < targetEdge.startPoint.x){
+            revise = -targetEdge.radius
         }
         // 第一个圆弧起始点
-        edge.firstRoundStartPoint = {
-            x: edge.startPoint.x,
-            y: edge.endPoint.y  - vDis - edge.radius * 2,
+        targetEdge.firstRoundStartPoint = {
+            x: targetEdge.startPoint.x,
+            y: targetEdge.endPoint.y  - vDis - targetEdge.radius * 2,
         }
         // 第一个圆弧控制点
-        edge.firstRoundControlPoint = {
-            x: edge.startPoint.x,
-            y: edge.endPoint.y  - vDis - edge.radius,
+        targetEdge.firstRoundControlPoint = {
+            x: targetEdge.startPoint.x,
+            y: targetEdge.endPoint.y  - vDis - targetEdge.radius,
         }
         // 第一个圆弧结束点
-        edge.firstRoundEndPoint = {
-            x: edge.startPoint.x + revise,
-            y: edge.endPoint.y - vDis - edge.radius,
+        targetEdge.firstRoundEndPoint = {
+            x: targetEdge.startPoint.x + revise,
+            y: targetEdge.endPoint.y - vDis - targetEdge.radius,
         };
         // 第二个圆弧起始点
-        edge.secondRoundStartPoint = {
-            x: edge.endPoint.x - revise,
-            y: edge.endPoint.y - vDis - edge.radius,
+        targetEdge.secondRoundStartPoint = {
+            x: targetEdge.endPoint.x - revise,
+            y: targetEdge.endPoint.y - vDis - targetEdge.radius,
         };
         // 第二个圆弧控制点
-        edge.secondRoundControlPoint = {
-            x: edge.endPoint.x,
-            y: edge.endPoint.y - vDis - edge.radius,
+        targetEdge.secondRoundControlPoint = {
+            x: targetEdge.endPoint.x,
+            y: targetEdge.endPoint.y - vDis - targetEdge.radius,
         };
         // 第二个圆弧结束点
-        edge.secondRoundEndPoint = {
-            x: edge.endPoint.x,
-            y: edge.endPoint.y - vDis,
+        targetEdge.secondRoundEndPoint = {
+            x: targetEdge.endPoint.x,
+            y: targetEdge.endPoint.y - vDis,
         };
     }
 
@@ -232,17 +259,23 @@ export default class LineRound {
         let end = edge.target;
         let start = edge.source;
         let nodesObj = data.nodesObj;
+        let startWidth = nodesObj[start].width || 50;
+        let startInnerHeight = nodesObj[start].innerHeight || 50;
+        let startHeight = nodesObj[start].height || 50;
+        let endWidth = nodesObj[end].width || 50;
+        let endInnerHeight = nodesObj[end].innerHeight || 50;
+        let endHeight = nodesObj[end].height || 50;
         // 拐角半径
         edge.radius = this.radius;
         // 起始点
         edge.startPoint = {
-            x: nodesObj[start].x + nodesObj[start].width / 2,
-            y: nodesObj[start].y + nodesObj[start].height  + ( nodesObj[start].innerHeight - nodesObj[start].height ) / 2,
+            x: nodesObj[start].x + startWidth / 2-data.minX,
+            y: nodesObj[start].y + startHeight  + ( startInnerHeight - startHeight ) / 2-data.minY,
         };
         // 结束点
         edge.endPoint = {
-            x: nodesObj[end].x + nodesObj[end].width / 2,
-            y: nodesObj[end].y - ( nodesObj[end].innerHeight - nodesObj[end].height ) / 2,
+            x: nodesObj[end].x + endWidth / 2-data.minX,
+            y: nodesObj[end].y - ( endInnerHeight - endHeight ) / 2-data.minY,
         };
         let hDis = edge.endPoint.x - edge.startPoint.x;
         // endPoint向上距离20点位置开始绘制曲线
@@ -252,7 +285,7 @@ export default class LineRound {
         if(Math.abs(hDis) <= this.radius * 2){
             edge.radius = Math.abs(hDis) / 2;
         }
-        
+
         let revise = edge.radius;
         // 当end节点在start节点左方时，个别点的位置需要修正
         if(edge.endPoint.x < edge.startPoint.x){

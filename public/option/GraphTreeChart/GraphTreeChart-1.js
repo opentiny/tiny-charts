@@ -19,123 +19,75 @@ const option = {
       name: 'Z',
       children: [
         {
-          name: 'A',
+          name: 'a',
           children: [
-            { name: 'A1', children: [] },
+            { name: 'a1', children: [] },
             {
-              name: 'A2',
+              name: 'a2',
               children: [
-                { name: 'A2-1', children: [] },
+                { name: 'a2-1', children: [] },
                 {
-                  name: 'A2-2', children: [
-                    { name: 'A2-2-1', children: [] },
-                    { name: 'A2-2-2', children: [] },
-                    { name: 'A2-2-3', children: [] }
+                  name: 'a2-2', children: [
+                    { name: 'a2-2-1', children: [] },
+                    { name: 'a2-2-2', children: [] },
+                    { name: 'a2-2-3', children: [] }
                   ]
                 },
-                { name: 'A2-3', children: [] },
-                { name: 'A2-4', children: [] },
+                { name: 'a2-3', children: [] },
+                { name: 'a2-4', children: [] },
               ]
             },
             {
-              name: 'A3',
+              name: 'a3',
               children: [
-                { name: 'A3-1', children: [] },
-                { name: 'A3-2', children: [] },
-                { name: 'A3-3', children: [] }
+                { name: 'a3-1', children: [] },
+                { name: 'a3-2', children: [] },
+                { name: 'a3-3', children: [] }
               ]
             }
           ]
         },
         {
-          name: 'B',
+          name: 'b',
           children: [
             {
-              name: 'B1', children: [
-                { name: 'B1-1', children: [] },
+              name: 'b1', children: [
+                { name: 'b1-1', children: [] },
                 {
-                  name: 'B1-2', children: [
-                    { name: 'B1-2-1', children: [] }
+                  name: 'b1-2', children: [
+                    { name: 'b1-2-1', children: [] }
                   ]
                 },
-                { name: 'B1-3', children: [] },
-                { name: 'B1-4', children: [] },
+                { name: 'b1-3', children: [] },
+                { name: 'b1-4', children: [] },
               ]
             },
           ]
         },
         {
-          name: 'C',
+          name: 'c',
           children: [
             {
-              name: 'C1', children: [
+              name: 'c1', children: [
                 {
-                  name: 'C1-1', children: [
+                  name: 'c1-1', children: [
                     {
-                      name: 'C1-1-1', children: [
-                        { name: 'C1-1-1-1', children: [] },
-                        { name: 'C1-1-1-2', children: [] }
+                      name: 'c1-1-1', children: [
+                        { name: 'c1-1-1-1', children: [] },
+                        { name: 'c1-1-1-2', children: [] }
                       ]
                     }
                   ]
                 },
                 {
-                  name: 'C1-2', children: [
+                  name: 'c1-2', children: [
                     {
-                      name: 'C1-2-1', children: [
-                        { name: 'C1-2-1-1', children: [] }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-          ]
-        },
-      ]
-    },
-    {
-      name: 'Z', children: [
-        { name: 'D', children: [] }
-      ]
-    },
-    {
-      name: 'Z', children: [
-        {
-          name: 'E', children: [
-            {
-              name: 'E1', children: [
-                { name: 'E1-1', children: [] },
-                { name: 'E1-2', children: [] },
-                {
-                  name: 'E1-3', children: [
-                    {
-                      name: 'E1-3-1', children: [
-                        { name: 'E1-3-1-1', children: [] },
-                        { name: 'E1-3-1-2', children: [] },
-                        { name: 'E1-3-1-3', children: [] }
+                      name: 'c1-2-1', children: [
+                        { name: 'c1-2-1-1', children: [] }
                       ]
                     }
                   ]
                 },
-              ]
-            }
-          ]
-        },
-        {
-          name: 'F', children: [
-            {
-              name: 'F1', children: [
-                { name: 'F1-1', children: [] },
-                { name: 'F1-2', children: [] },
-                { name: 'F1-3', children: [] },
-                {
-                  name: 'F1-4', children: [
-                    { name: 'F1-4-1', children: [] },
-                    { name: 'F1-4-2', children: [] },
-                    { name: 'F1-4-3', children: [] }
-                  ]
-                }
               ]
             }
           ]
@@ -144,25 +96,73 @@ const option = {
     },
     {
       name: 'Z', children: [
+        { name: 'd', children: [] }
+      ]
+    },
+    {
+      name: 'Z', children: [
         {
-          name: 'G', children: [
+          name: 'e', children: [
             {
-              name: 'G1', children: [
-                { name: 'G1-1', children: [] },
-                { name: 'G1-2', children: [] },
-                { name: 'G1-3', children: [] }
+              name: 'e1', children: [
+                { name: 'e1-1', children: [] },
+                { name: 'e1-2', children: [] },
+                {
+                  name: 'e1-3', children: [
+                    {
+                      name: 'e1-3-1', children: [
+                        { name: 'e1-3-1-1', children: [] },
+                        { name: 'e1-3-1-2', children: [] },
+                        { name: 'e1-3-1-3', children: [] }
+                      ]
+                    }
+                  ]
+                },
               ]
             }
           ]
         },
         {
-          name: 'H', children: [
+          name: 'f', children: [
             {
-              name: 'H1', children: [
+              name: 'f1', children: [
+                { name: 'f1-1', children: [] },
+                { name: 'f1-2', children: [] },
+                { name: 'f1-3', children: [] },
                 {
-                  name: 'H1-1', children: [
-                    { name: 'H1-1-1', children: [] },
-                    { name: 'H1-1-2', children: [] }
+                  name: 'f1-4', children: [
+                    { name: 'f1-4-1', children: [] },
+                    { name: 'f1-4-2', children: [] },
+                    { name: 'f1-4-3', children: [] }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+      ]
+    },
+    {
+      name: 'Z', children: [
+        {
+          name: 'g', children: [
+            {
+              name: 'g1', children: [
+                { name: 'g1-1', children: [] },
+                { name: 'g1-2', children: [] },
+                { name: 'g1-3', children: [] }
+              ]
+            }
+          ]
+        },
+        {
+          name: 'h', children: [
+            {
+              name: 'h1', children: [
+                {
+                  name: 'h1-1', children: [
+                    { name: 'h1-1-1', children: [] },
+                    { name: 'h1-1-2', children: [] }
                   ]
                 }
               ]
@@ -170,35 +170,35 @@ const option = {
           ]
         },
         {
-          name: 'I', children: [
+          name: 'i', children: [
             {
-              name: 'I1', children: [
+              name: 'i1', children: [
                 {
-                  name: 'I1-1', children: [
-                    { name: 'I1-1-1', children: [] },
+                  name: 'i1-1', children: [
+                    { name: 'i1-1-1', children: [] },
                     {
-                      name: 'I1-1-2', children: [
-                        { name: 'I1-1-2-1', children: [] },
-                        { name: 'I1-1-2-2', children: [] },
-                        { name: 'I1-1-2-3', children: [] }
+                      name: 'i1-1-2', children: [
+                        { name: 'i1-1-2-1', children: [] },
+                        { name: 'i1-1-2-2', children: [] },
+                        { name: 'i1-1-2-3', children: [] }
                       ]
                     },
                     {
-                      name: 'I1-1-3', children: [
+                      name: 'i1-1-3', children: [
                         {
-                          name: 'I1-1-3-1', children: [
-                            { name: 'I1-1-3-1-1', children: [] },
-                            { name: 'I1-1-3-1-2', children: [] }
+                          name: 'i1-1-3-1', children: [
+                            { name: 'i1-1-3-1-1', children: [] },
+                            { name: 'i1-1-3-1-2', children: [] }
                           ]
                         }
                       ]
                     },
-                    { name: 'I1-1-4', children: [] },
+                    { name: 'i1-1-4', children: [] },
                   ]
                 }
               ]
             },
-            { name: 'I2', children: [] }
+            { name: 'i2', children: [] }
           ]
         }
       ]
@@ -206,10 +206,10 @@ const option = {
     {
       name: 'Z', children: [
         {
-          name: 'J', children: [
-            { name: 'J1', children: [] },
-            { name: 'J2', children: [] },
-            { name: 'J3', children: [] },
+          name: 'j', children: [
+            { name: 'j1', children: [] },
+            { name: 'j2', children: [] },
+            { name: 'j3', children: [] },
           ]
         }
       ]
@@ -217,32 +217,32 @@ const option = {
     {
       name: 'Z', children: [
         {
-          name: 'K', children: [
-            { name: 'K1', children: [] },
+          name: 'k', children: [
+            { name: 'k1', children: [] },
             {
-              name: 'K2', children: [
+              name: 'k2', children: [
                 {
-                  name: 'K2-1', children: [
+                  name: 'k2-1', children: [
                     {
-                      name: 'K2-1-1', children: [
-                        { name: 'K2-1-1-1', children: [] }
+                      name: 'k2-1-1', children: [
+                        { name: 'k2-1-1-1', children: [] }
                       ]
                     }
                   ]
                 },
-                { name: 'K2-2', children: [] },
-                { name: 'K2-3', children: [] },
-                { name: 'K2-4', children: [] },
+                { name: 'k2-2', children: [] },
+                { name: 'k2-3', children: [] },
+                { name: 'k2-4', children: [] },
                 {
-                  name: 'K2-5', children: [
-                    { name: 'K2-5-1', children: [] }
+                  name: 'k2-5', children: [
+                    { name: 'k2-5-1', children: [] }
                   ]
                 },
                 {
-                  name: 'K2-6', children: [
-                    { name: 'K2-6-1', children: [] },
-                    { name: 'K2-6-2', children: [] },
-                    { name: 'K2-6-3', children: [] }
+                  name: 'k2-6', children: [
+                    { name: 'k2-6-1', children: [] },
+                    { name: 'k2-6-2', children: [] },
+                    { name: 'k2-6-3', children: [] }
                   ]
                 }
               ]
@@ -252,10 +252,10 @@ const option = {
         {
           name: 'L', children: [
             {
-              name: 'L1', children: [
-                { name: 'L1-1', children: [] },
-                { name: 'L1-2', children: [] },
-                { name: 'L1-3', children: [] },
+              name: 'l1', children: [
+                { name: 'l1-1', children: [] },
+                { name: 'l1-2', children: [] },
+                { name: 'l1-3', children: [] },
               ]
             },
           ]
@@ -265,52 +265,52 @@ const option = {
     {
       name: 'Z', children: [
         {
-          name: 'M', children: [
+          name: 'm', children: [
             {
-              name: 'M1', children: [
+              name: 'm1', children: [
                 {
-                  name: 'M1-1', children: [
-                    { name: 'M1-1-1', children: [] },
+                  name: 'm1-1', children: [
+                    { name: 'm1-1-1', children: [] },
                     {
-                      name: 'M1-1-2', children: [
-                        { name: 'M1-1-2-1', children: [] },
-                        { name: 'M1-1-2-2', children: [] },
-                        { name: 'M1-1-2-3', children: [] },
-                        { name: 'M1-1-2-4', children: [] },
+                      name: 'm1-1-2', children: [
+                        { name: 'm1-1-2-1', children: [] },
+                        { name: 'm1-1-2-2', children: [] },
+                        { name: 'm1-1-2-3', children: [] },
+                        { name: 'm1-1-2-4', children: [] },
                       ]
                     },
                   ]
                 },
               ]
             },
-            { name: 'M2', children: [] },
+            { name: 'm2', children: [] },
           ]
         },
         {
           name: 'N', children: [
             {
-              name: 'N1', children: [
+              name: 'n1', children: [
                 {
-                  name: 'N1-1', children: [
-                    { name: 'N1-1-1', children: [] },
-                    { name: 'N1-1-2', children: [] },
-                    { name: 'N1-1-3', children: [] },
-                    { name: 'N1-1-4', children: [] },
+                  name: 'n1-1', children: [
+                    { name: 'n1-1-1', children: [] },
+                    { name: 'n1-1-2', children: [] },
+                    { name: 'n1-1-3', children: [] },
+                    { name: 'n1-1-4', children: [] },
                   ]
                 },
-                { name: 'N1-2', children: [] }
+                { name: 'n1-2', children: [] }
               ]
             },
-            { name: 'N2', children: [] }
+            { name: 'n2', children: [] }
           ]
         },
         {
-          name: 'O', children: [
-            { name: 'O1', children: [] },
-            { name: 'O2', children: [] },
-            { name: 'O3', children: [] },
-            { name: 'O4', children: [] },
-            { name: 'O5', children: [] },
+          name: 'o', children: [
+            { name: 'o1', children: [] },
+            { name: 'o2', children: [] },
+            { name: 'o3', children: [] },
+            { name: 'o4', children: [] },
+            { name: 'o5', children: [] },
           ]
         }
       ]
@@ -318,20 +318,20 @@ const option = {
     {
       name: 'Z', children: [
         {
-          name: 'P', children: [
+          name: 'p', children: [
             {
-              name: 'P1', children: [
-                { name: 'P1-1', children: [] },
+              name: 'p1', children: [
+                { name: 'p1-1', children: [] },
                 {
-                  name: 'P1-2', children: [
-                    { name: 'P1-2-1', children: [] },
-                    { name: 'P1-2-2', children: [] },
+                  name: 'p1-2', children: [
+                    { name: 'p1-2-1', children: [] },
+                    { name: 'p1-2-2', children: [] },
                   ]
                 },
-                { name: 'P1-3', children: [] },
+                { name: 'p1-3', children: [] },
               ]
             },
-            { name: 'P2', children: [] },
+            { name: 'p2', children: [] },
           ]
         }
       ]
@@ -339,13 +339,13 @@ const option = {
     {
       name: 'Z', children: [
         {
-          name: 'Q', children: [
+          name: 'q', children: [
             {
-              name: 'Q1', children: [
+              name: 'q1', children: [
                 {
-                  name: 'Q1-1', children: [
-                    { name: 'Q1-1-1', children: [] },
-                    { name: 'Q1-1-2', children: [] },
+                  name: 'q1-1', children: [
+                    { name: 'q1-1-1', children: [] },
+                    { name: 'q1-1-2', children: [] },
                   ]
                 }
               ]
@@ -353,10 +353,10 @@ const option = {
           ]
         },
         {
-          name: 'R', children: [
-            { name: 'R1', children: [] },
-            { name: 'R2', children: [] },
-            { name: 'R3', children: [] },
+          name: 'r', children: [
+            { name: 'r1', children: [] },
+            { name: 'r2', children: [] },
+            { name: 'r3', children: [] },
           ]
         }
       ]

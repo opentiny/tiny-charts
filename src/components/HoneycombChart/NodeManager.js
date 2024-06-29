@@ -1,4 +1,15 @@
-import TipManager from "./TipManager";
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+import TipManager from './TipManager';
 export default class NodeManager {
     data;
     theme;
@@ -7,11 +18,10 @@ export default class NodeManager {
     vGap;
     hGap;
     layout;
-    //dom
     dom;
-    //节点宽度
+    // 节点宽度
     nodeWidth;
-    //节点dom数组
+    // 节点dom数组
     nodeCluster;
     container;
     hcContainer;
@@ -20,8 +30,8 @@ export default class NodeManager {
 
     constructor(dom, option) {
         this.dom = dom;
-        this.container = this.dom.getElementsByClassName("hc-rows")[0];
-        this.hcContainer = this.dom.getElementsByClassName("hc-container")[0];
+        this.container = this.dom.getElementsByClassName('hc-rows')[0];
+        this.hcContainer = this.dom.getElementsByClassName('hc-container')[0];
         this.data = option.data || [];
         this.theme = option.theme;
         this.render = option.render;
@@ -99,7 +109,7 @@ export default class NodeManager {
             // 位移
             let left = this.getRowLeft(index);
             rowDom.style.left = left + 'px';
-            //vGap控制节点之间垂直间距
+            // vGap控制节点之间垂直间距
             if (index !== 0) {
                 rowDom.style.marginTop = this.vGap;
             }

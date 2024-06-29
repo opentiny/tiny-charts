@@ -1,0 +1,15 @@
+{
+    "title": "百度地图 BaiduMapChart",
+    "paths": [
+        {
+            "title": "基础形态",
+            "children": [
+                {
+                    "name": "百度地图",
+                    "routePath": "BaiduMapChart-1",
+                    "imagePath": "./image/theme/light/BaiduMapChart/BaiduMapChart-1.png"
+                }
+            ]
+        }
+    ]
+}

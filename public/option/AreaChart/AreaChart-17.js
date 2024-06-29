@@ -24,15 +24,15 @@ const option = {
         { 'Month': 'Jan', 'Domesticxxxxxxxxxxxx': 33, 'Abroadxxxxxxxxxxxx': 37 },
         { 'Month': 'Feb', 'Domesticxxxxxxxxxxxx': 27, 'Abroadxxxxxxxxxxxx': 39 },
         { 'Month': 'Mar', 'Domesticxxxxxxxxxxxx': 31, 'Abroadxxxxxxxxxxxx': 20 },
-        { 'Month': 'Apr', 'Domesticxxxxxxxxxxxx': 30, 'Abroadxxxxxxxxxxxx': 15 },
+        { 'Month': 'Apr', 'Domesticxxxxxxxxxxxx': 30, 'Abroadxxxxxxxxxxxx': 17 },
         { 'Month': 'May', 'Domesticxxxxxxxxxxxx': 37, 'Abroadxxxxxxxxxxxx': 13 },
         { 'Month': 'Jun', 'Domesticxxxxxxxxxxxx': 36, 'Abroadxxxxxxxxxxxx': 17 },
         { 'Month': 'Jul', 'Domesticxxxxxxxxxxxx': 42, 'Abroadxxxxxxxxxxxx': 22 },
         { 'Month': 'Aug', 'Domesticxxxxxxxxxxxx': 22, 'Abroadxxxxxxxxxxxx': 12 },
-        { 'Month': 'Sep', 'Domesticxxxxxxxxxxxx': 17, 'Abroadxxxxxxxxxxxx': 30 },
+        { 'Month': 'Sep', 'Domesticxxxxxxxxxxxx': 17, 'Abroadxxxxxxxxxxxx': 37 },
         { 'Month': 'Oct', 'Domesticxxxxxxxxxxxx': 40, 'Abroadxxxxxxxxxxxx': 33 },
-        { 'Month': 'Nov', 'Domesticxxxxxxxxxxxx': 42, 'Abroadxxxxxxxxxxxx': 22 },
-        { 'Month': 'Dec', 'Domesticxxxxxxxxxxxx': 32, 'Abroadxxxxxxxxxxxx': 11 }
+        { 'Month': 'Nov', 'Domesticxxxxxxxxxxxx': 42, 'Abroadxxxxxxxxxxxx': 27 },
+        { 'Month': 'Dec', 'Domesticxxxxxxxxxxxx': 32, 'Abroadxxxxxxxxxxxx': 17 }
     ],
     xAxis: {
         data: 'Month'

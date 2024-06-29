@@ -1,0 +1,1 @@
+此属性配置和eCharts一致，详细配置请参考：https://echarts.apache.org/en/option.html#series-scatter

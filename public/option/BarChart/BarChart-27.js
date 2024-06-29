@@ -13,18 +13,18 @@ const option = {
         bottom: 22
     },
     data: [
-        { "Name": 'NLE', "User": [5, 20] },
-        { "Name": 'HIN', "User": [10, 30] },
-        { "Name": 'FBP', "User": [8, 25] },
-        { "Name": 'VEDIO', "User": [20, 40] },
-        { "Name": 'SASS', "User": [6, 35] },
-        { "Name": 'RDS', "User": [12, 30] },
-        { "Name": 'E-SYS', "User": [15, 20] },
+        { 'Name': 'NLE', 'User': [5, 27] },
+        { 'Name': 'HIN', 'User': [10, 30] },
+        { 'Name': 'FBPTSE', 'User': [8, 25] },
+        { 'Name': 'VEDIO', 'User': [20, 40] },
+        { 'Name': 'SASS', 'User': [6, 35] },
+        { 'Name': 'RDS', 'User': [12, 30] },
+        { 'Name': 'E-SYSTSE', 'User': [15, 27] },
     ],
     xAxis: {
-        data: "Name",
+        data: 'Name',
     },
     yAxis: {
-        name: "Number"
+        name: 'Number'
     }
 };

@@ -1,17 +1,27 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import base from './base';
 import name from './name';
 import axisLine from './axisLine';
 import axisLabel from './axisLabel';
 import axisMargin from './axisMargin';
 import boundaryGap from './boundaryGap';
-import megre from '../../../util/megre';
+import merge from '../../../util/merge';
 import { toArray } from '../../../util/type';
 
 function xAxis(iChartOpt, chartName) {
-  const theme = iChartOpt.theme;
   let xAxisResult = iChartOpt.xAxis || {};
   xAxisResult = toArray(xAxisResult).map(xAxisItem => {
-    let xAxisUnit = base(theme);
+    const xAxisUnit = base();
     // 坐标轴名称
     name(xAxisUnit, xAxisItem, iChartOpt);
     // 坐标轴两边留白策略
@@ -23,7 +33,7 @@ function xAxis(iChartOpt, chartName) {
     // 坐标轴前后留白
     axisMargin(xAxisUnit, xAxisItem, iChartOpt);
     // 覆盖属性
-    megre(xAxisUnit, xAxisItem);
+    merge(xAxisUnit, xAxisItem);
     return xAxisUnit;
   });
   return xAxisResult;

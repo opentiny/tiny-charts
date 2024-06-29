@@ -3,15 +3,15 @@ function makeData() {
     for (let i = 0; i < 18; i++) {
         let cate = [];
         for (let j = 0; j < 100; j++) {
-            cate.push(Math.random() * 200);
+            cate.push(parseFloat('0.'+window.crypto.getRandomValues(new Uint32Array(1))[0])* 200);
         }
         data.push(cate);
     }
     return data;
 }
-const data0 = makeData();
-const data1 = makeData();
-const data2 = makeData();
+const sourceData0 = makeData();
+const sourceData1 = makeData();
+const sourceData2 = makeData();
 
 const option = {
     theme: 'light',
@@ -43,40 +43,40 @@ const option = {
     },
     dataset: [
         {
-            source: data0
+            source: sourceData0
         },
         {
-            source: data1
+            source: sourceData1
         },
         {
-            source: data2
+            source: sourceData2
         },
         {
             fromDatasetIndex: 0,
-            transform: { type: 'boxplot' }
+            transform: { 'type': 'boxplot' }
         },
         {
             fromDatasetIndex: 1,
-            transform: { type: 'boxplot' }
+            transform: { 'type': 'boxplot' }
         },
         {
             fromDatasetIndex: 2,
-            transform: { type: 'boxplot' }
+            transform: { 'type': 'boxplot' }
         }
     ],
     series: [
         {
-            name: 'category0',
+            name: 'category_0',
             type: 'boxplot',
             datasetIndex: 3
         },
         {
-            name: 'category1',
+            name: 'category_1',
             type: 'boxplot',
             datasetIndex: 4
         },
         {
-            name: 'category2',
+            name: 'category_2',
             type: 'boxplot',
             datasetIndex: 5
         }

@@ -1,4 +1,15 @@
-import { getRandom } from '../../util/util';
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+import random from '../../util/random';
 
 function overallLayout(params, api, distance, displayRoot, d3) {
   const context = params.context;
@@ -63,8 +74,9 @@ function setChartPosition(params) {
   return { radius, widthDis, heightDis };
 }
 
-function returnValue(params) {
+function returnValue(params, iChartOption) {
   const { node, radius, widthDis, heightDis, nodeName, type, z2 } = params;
+  const textStyle = iChartOption.textStyle || {};
   const value = {
     type: 'circle',
     // 定义球的坐标及半径
@@ -80,15 +92,16 @@ function returnValue(params) {
     textContent: {
       type: 'text',
       style: {
-        text: nodeName,
+        text: (node.depth !== 0 && node.data.showLabel) ? (textStyle.formatter && textStyle.formatter(node) || nodeName) : '',
         fontFamily: 'Arial',
         width: node.r,
         height: node.r,
         borderRadius: node.r,
         // 文本溢出显示
         overflow: 'visible',
-        fontSize: node.r / 3 > 12 ? node.r / 3 : '12px',
-        fill: node.data.textColor,
+        fontSize: Math.max(node.r / 3, 12),
+        fill: '#ffffff' || node.data.textColor, // 设计稿白主题默认白色
+        ...textStyle
       },
       // 在非文本溢出显示前提下，鼠标划入时展示省略号的内容
       emphasis: {
@@ -102,15 +115,15 @@ function returnValue(params) {
     textConfig: { position: 'inside' },
     style: {
       // 设置球的边框色
-      stroke: node.depth >= 1 && type === 'nested' ? node.data.colorSec : null,
+      stroke: node.depth >= 1 && type === 'nested' ? node.data.borderColor : null,
       // 设置球的背景色
-      fill: node.depth === 1 ? node.data.color : node.data.colorBg,
+      fill: node.data.color,
     },
     // 设置球的跳动范围
     keyframeAnimation: {
       duration: 3000,
       loop: true,
-      delay: getRandom() * 2000,
+      delay: random() * 2000,
       keyframes: [
         { y: -3, percent: 0.5, easing: 'cubicOut' },
         { y: 0, percent: 1, easing: 'bounceOut' },
@@ -123,7 +136,9 @@ function returnValue(params) {
 }
 
 export function handleRootData(params) {
-  const { d3, seriesData, baseOpt, distance, length, type, chartInstance, iChartOption } = params;
+  const { d3, baseOption, chartInstance, iChartOption } = params;
+  let { type, distance } = iChartOption;
+  distance = distance !== undefined ? distance : (type === 'non-nested' ? 50 : 5);
 
   function stratify() {
     // d3函数：定义球的大小排列与id名处理等
@@ -131,7 +146,7 @@ export function handleRootData(params) {
       .stratify()
       .parentId(function (d) {
         return d.id.substring(0, d.id.lastIndexOf('.'));
-      })(seriesData)
+      })(baseOption.dataset[0].source)
       .sum(function (d) {
         return d.value || 0;
       })
@@ -154,7 +169,7 @@ export function handleRootData(params) {
     }
     const isLeaf = !node.children || !node.children.length;
     // 设置label值是否显示，若有嵌套则不显示，否则显示
-    const nodeName = isLeaf ? node.data.labelS : '';
+    const nodeName = isLeaf ? node.data.label : '';
     const z2 = api.value('depth') * 2;
     // 获取实例的宽高
     const width = chartInstance.getWidth();
@@ -165,10 +180,10 @@ export function handleRootData(params) {
     radius = setChartPosition({ iChartOption, height, width, widthDis, heightDis, radius }).radius;
     widthDis = setChartPosition({ iChartOption, height, width, widthDis, heightDis, radius }).widthDis;
     heightDis = setChartPosition({ iChartOption, height, width, widthDis, heightDis, radius }).heightDis;
-    return returnValue({ node, radius, widthDis, heightDis, nodeName, type, z2 });
+    return returnValue({ node, radius, widthDis, heightDis, nodeName, type, z2 }, iChartOption);
   }
-  // 给BaseOption设置renderItem,且只能设置一次，多次则会造成视图重叠
-  baseOpt.series[length].renderItem = renderItem;
+  // 给baseOptionion设置renderItem,且只能设置一次，多次则会造成视图重叠
+  baseOption.series[baseOption.legend.data.length].renderItem = renderItem;
 }
 
 

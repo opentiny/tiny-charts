@@ -1,7 +1,7 @@
-const handleData= () => {
+const handleData = () => {
     let xData = [];
     const yData = [];
-    function getNoiseHelper(global) {
+    function getNoiseHelper() {
         const module = {};
         function Grad(x, y, z) {
             this.x = x;
@@ -10,9 +10,6 @@ const handleData= () => {
         }
         Grad.prototype.dot2 = function (x, y) {
             return this.x * x + this.y * y;
-        };
-        Grad.prototype.dot3 = function (x, y, z) {
-            return this.x * x + this.y * y + this.z * z;
         };
         const grad3 = [
             new Grad(1, 1, 0),
@@ -89,8 +86,8 @@ const handleData= () => {
         return module;
     }
     const noise = getNoiseHelper();
-    noise.seed(Math.random());
-    function generateData(theta, min, max) {
+    noise.seed(parseFloat('0.' + window.crypto.getRandomValues(new Uint32Array(1))[0]));
+    function generateData() {
         const data = [];
         for (let i = 0; i <= 420; i++) {
             for (let j = 0; j <= 136; j++) {
@@ -114,16 +111,17 @@ const handleData= () => {
                 }
                 hour = j;
                 if (j === 17 && i === 0) {
-                    (min = '00'), (hour = '        17');
+                    min = '00'
+                    hour = '17'
                 }
                 hour -= 3;
                 xData.push(`${hour}:${min}`);
             }
         }
-        xData.push('17:00        ');
+        xData.push('17:00');
         return xData;
     }
-    const data = generateData(2, -5, 5);
+    const data = generateData();
     xData = setXData();
     const initData = data.map((item, index) => {
         return {
@@ -132,9 +130,10 @@ const handleData= () => {
             Value: item[2],
         };
     });
-    const demoData = initData.filter(item => {
+    const demoData = []
+    initData.forEach(item => {
         if (item.Time != undefined && item.Number != undefined) {
-            return item;
+            demoData.push(item);
         }
     });
     const defaultData = [];
@@ -204,7 +203,7 @@ const option = {
             padding: [0, -38, 0, 0],
         },
     },
-    showLabel:false,
+    showLabel: false,
     // 控制热力图根据什么来体现热力的变化,取值'opcity','color',默认值'opcity'
     changeProperty: 'color',
     // data数据
@@ -212,7 +211,7 @@ const option = {
     // Number:y轴数据类别,属性名称自定义
     // Value:体现热力颜色变化的数据,属性名称自定义
     // x,y轴的数据类别显示顺序按照data中书写顺序决定
-    data:handleData(),
+    data: handleData(),
 };
 
 

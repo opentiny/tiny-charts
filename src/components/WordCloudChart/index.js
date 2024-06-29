@@ -1,9 +1,25 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import BaseOption from './BaseOption';
 import cloneDeep from '../../util/cloneDeep';
 import { setTooltip } from './handleOptipn';
 import handleSeries from './handleSeries';
-import init from  '../../option/init'
+import init from '../../option/init';
+import { CHART_TYPE } from '../../util/constants';
+
 class WordCloudChart {
+ 
+  static name = CHART_TYPE.WORD_CLOUD
+
   constructor(iChartOption) {
     this.baseOption = {};
     this.iChartOption = {};
@@ -16,14 +32,12 @@ class WordCloudChart {
 
   updateOption() {
     const iChartOption = this.iChartOption;
-    const theme = iChartOption.theme;
     // 图表基础颜色
     this.baseOption.color = iChartOption.color;
     // 图表鼠标悬浮提示框
     this.baseOption.tooltip = setTooltip(iChartOption);
     // 数据
     this.baseOption.series = handleSeries({
-      theme,
       data: iChartOption.data,
       width: iChartOption.width,
       height: iChartOption.height,
@@ -42,10 +56,6 @@ class WordCloudChart {
     this.baseOption.grid.bottom = iChartOption.padding[2];
     this.baseOption.grid.left = iChartOption.padding[3];
   }
-
-  // 根据渲染出的结果，二次计算option
-  // secondaryUpdateOption(YAxiMax, YAxiMin) {
-  // }
 
   getOption() {
     return this.baseOption;

@@ -9,33 +9,33 @@
 * 详细参数解释见： https://echarts.apache.org/zh/option.html#tooltip.formatter 
 */
 const option = {
-    theme: 'hwCloud-light',
-    padding: [50, 30, 55, 20],
+    theme: 'light',
+    padding: [50, 30, 54, 20],
     smooth: true,
     tipHtml: (params, ticket, callback) => {
         let htmlString = '';
-        params.map((item, index) => {
+        params.forEach((item, index) => {
             if (index === 0) {
                 htmlString += (item.name + '<br/>');
             }
             htmlString +=
                 '<div>' +
-                '<span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:' + item.color + ';">' +
-                '</span>' +
-                '<span style="margin-left:5px;>' +
-                '<span style="display:inline-block;width:100px;">' + item.seriesName + ' User</span>' +
-                '<span style="font-weight:bold"> ' + item.value + '%</span>' +
-                '<span style="color:gray"> out </span>' +
-                '<span style="color:red">' + (100 - item.value) + '%</span>' +
-                '</span>' +
+                    '<span style="width:10px;display:inline-block;height:10px;border-radius:5px; background-color:' + item.color + ';">' +
+                    '</span>' +
+                    '<span style="margin-left:5px;>' +
+                        '<span style="width:100px;display:inline-block;">' + item.seriesName + ' User</span>' +
+                        '<span style="font-weight:bold"> ' + item.value + '%</span>' +
+                        '<span style="color:gray"> out </span>' +
+                        '<span style="color:red">' + (100 - item.value) + '%</span>' +
+                    '</span>' +
                 '</div>';
         });
         return htmlString
     },
     data: [
-        { 'Month': 'Jan', 'Domestic': 33, 'Abroad': 37 },
+        { 'Month': 'Jan', 'Domestic': 31, 'Abroad': 37 },
         { 'Month': 'Feb', 'Domestic': 27, 'Abroad': 39 },
-        { 'Month': 'Mar', 'Domestic': 31, 'Abroad': 20 },
+        { 'Month': 'Mar', 'Domestic': 32, 'Abroad': 21 },
         { 'Month': 'Apr', 'Domestic': 30, 'Abroad': 15 },
         { 'Month': 'May', 'Domestic': 37, 'Abroad': 13 },
         { 'Month': 'Jun', 'Domestic': 36, 'Abroad': 17 },
@@ -43,8 +43,8 @@ const option = {
         { 'Month': 'Aug', 'Domestic': 22, 'Abroad': 12 },
         { 'Month': 'Sep', 'Domestic': 17, 'Abroad': 30 },
         { 'Month': 'Oct', 'Domestic': 40, 'Abroad': 33 },
-        { 'Month': 'Nov', 'Domestic': 42, 'Abroad': 22 },
-        { 'Month': 'Dec', 'Domestic': 32, 'Abroad': 11 }
+        { 'Month': 'Nov', 'Domestic': 43, 'Abroad': 22 },
+        { 'Month': 'Dec', 'Domestic': 32, 'Abroad': 12 }
     ],
     xAxis: {
         data: 'Month'

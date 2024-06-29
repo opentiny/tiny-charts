@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 class HashMap {
   data;
 
@@ -55,7 +66,7 @@ class MapPolyfill {
   }
 
   has(key) {
-    return this.data.hasOwnProperty(key);
+    return Object.hasOwnProperty.call(this.data, key);
   }
 
   get(key) {
@@ -74,7 +85,7 @@ class MapPolyfill {
   forEach(callback) {
     const data = this.data;
     for (const key in data) {
-      if (data.hasOwnProperty(key)) {
+      if (Object.hasOwnProperty.call(data, key)) {
         callback(data[key], key);
       }
     }
@@ -90,7 +101,7 @@ function keys(obj) {
   }
   let keyList = [];
   for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
+    if (Object.hasOwnProperty.call(obj, key)) {
       keyList.push(key);
     }
   }

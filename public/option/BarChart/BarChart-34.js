@@ -7,24 +7,24 @@ const option = {
         barGap: '60%',
     },
     data: [
-        { "Month": 'Jan', "Domestic": 33, "Abroad": 27, 'Exit': 23 },
-        { "Month": 'Feb', "Domestic": 27, "Abroad": 19, 'Exit': 14 },
-        { "Month": 'Mar', "Domestic": 31, "Abroad": 20, 'Exit': 10 },
-        { "Month": 'Apr', "Domestic": 30, "Abroad": 15, 'Exit': 6 },
-        { "Month": 'May', "Domestic": 37, "Abroad": 13, 'Exit': 31 },
-        { "Month": 'Jun', "Domestic": 36, "Abroad": 17, 'Exit': 20 },
-        { "Month": 'Jul', "Domestic": 42, "Abroad": 22, 'Exit': 14 },
-        { "Month": 'Aug', "Domestic": 22, "Abroad": 32, 'Exit': 13 },
-        { "Month": 'Sep', "Domestic": 47, "Abroad": 30, 'Exit': 40 },
-        { "Month": 'Oct', "Domestic": 40, "Abroad": 33, 'Exit': 25 },
-        { "Month": 'Nov', "Domestic": 42, "Abroad": 22, 'Exit': 29 },
-        { "Month": 'Dec', "Domestic": 32, "Abroad": 11, 'Exit': 13 }
+        { 'Month': 'Jan', 'Domestic': 33, 'Abroad': 57, 'Exit': 52 },
+        { 'Month': 'Feb', 'Domestic': 27, 'Abroad': 19, 'Exit': 14 },
+        { 'Month': 'Mar', 'Domestic': 31, 'Abroad': 20, 'Exit': 10 },
+        { 'Month': 'Apr', 'Domestic': 34, 'Abroad': 15, 'Exit': 6 },
+        { 'Month': 'May', 'Domestic': 37, 'Abroad': 13, 'Exit': 34 },
+        { 'Month': 'Jun', 'Domestic': 36, 'Abroad': 17, 'Exit': 20 },
+        { 'Month': 'Jul', 'Domestic': 42, 'Abroad': 22, 'Exit': 14 },
+        { 'Month': 'Aug', 'Domestic': 34, 'Abroad': 32, 'Exit': 13 },
+        { 'Month': 'Sep', 'Domestic': 57, 'Abroad': 30, 'Exit': 50 },
+        { 'Month': 'Oct', 'Domestic': 40, 'Abroad': 33, 'Exit': 25 },
+        { 'Month': 'Nov', 'Domestic': 42, 'Abroad': 22, 'Exit': 29 },
+        { 'Month': 'Dec', 'Domestic': 34, 'Abroad': 11, 'Exit': 13 }
     ],
     xAxis: {
-        data: "Month",
+        data: 'Month',
     },
     yAxis: {
-        name: "Percent(%)"
+        name: 'Percent(%)'
     },
 
     // stepGradient为分段渐变，可在内部配置多个对象，循环取色

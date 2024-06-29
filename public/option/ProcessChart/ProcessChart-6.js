@@ -2,7 +2,7 @@ const option = {
     name: 'ProcessBarChart',
     theme: 'light',
     type:'double-sides',
-    padding: [48, '6%', 20, '6%'], 
+    padding: [48, 48, 20, 48], 
     color:[ '#00aaee','#41ba41'],
     legend:{
         show:true,

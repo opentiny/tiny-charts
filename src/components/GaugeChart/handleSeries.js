@@ -1,6 +1,19 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import { codeToHex, codeToRGB } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
-import Theme from '../../feature/theme';
+import chartToken from './chartToken';
+import Theme from '../../feature/token';
+
 export const emptySeriesUnit = {
   type: 'gauge',
   startAngle: 0,
@@ -20,6 +33,7 @@ export const emptySeriesUnit = {
 };
 
 export const seriesInit = {
+  name: '',
   type: 'gauge',
   // 仪表盘轨道底色
   axisLine: {
@@ -62,10 +76,10 @@ export const seriesInit = {
   // 指针样式
   pointer: {
     show: false,
-    icon: 'path://M511.999488 819.413462 72.8374 204.586538 951.1626 204.586538Z',
-    length: '10%',
+    icon: 'path://M4.49 10.21L0.1 1.44C-0.23 0.78 0.25 0 1 0L9.76 0C10.5 0 10.99 0.78 10.65 1.44C9.14 4.47 7.33 8.09 6.28 10.21C5.91 10.94 4.86 10.94 4.49 10.21Z',
+    length: '5%',
     width: 16,
-    offsetCenter: [0, '-108%'],
+    offsetCenter: [0, '-105%'],
   },
   title: {
     show: false,
@@ -97,14 +111,14 @@ function handleSplitLine(iChartOption, seriesUnit) {
     seriesUnit.splitLine.length = (lineStyle && lineStyle.length) || width || 10;
     seriesUnit.splitLine.distance = width ? width * -1 : -3;
   } else {
-    seriesUnit.splitLine.length = 10;
-    seriesUnit.splitLine.distance = -3;
+    seriesUnit.splitLine.length = 7;
+    seriesUnit.splitLine.distance = 0;
   }
   if (iChartOption.itemStyle && iChartOption.itemStyle.lineStyle) {
     if (iChartOption.itemStyle.lineStyle.color) {
       seriesUnit.splitLine.lineStyle.color = iChartOption.itemStyle.lineStyle.color;
     } else {
-      seriesUnit.splitLine.lineStyle.color = Theme.color.base.subfont
+      seriesUnit.splitLine.lineStyle.color = chartToken.splitLineColor;
     }
     seriesUnit.splitLine.lineStyle.width = iChartOption.itemStyle.lineStyle.width || 4;
   }
@@ -113,15 +127,13 @@ function handleSplitLine(iChartOption, seriesUnit) {
 // 根据主题设置刻度线的颜色
 function handleTheme(iChartOption) {
   const { orbitalColor } = iChartOption;
-  const colorBase=Theme.color.base
-  seriesInit.axisLine.lineStyle.color = [[1, orbitalColor || colorBase.subg]];
-  seriesInit.splitLine.lineStyle.color = colorBase.axis;
-  seriesInit.axisLabel.color =colorBase.axislabel;
+  seriesInit.axisLine.lineStyle.color = [[1, orbitalColor || chartToken.axisLineColor]];
+  seriesInit.splitLine.lineStyle.color = chartToken.splitLineColor;
+  seriesInit.axisLabel.color = chartToken.axisLabelColor;
 }
 
 // 配置仪表盘中心文本
 function handleDetail(seriesUnit, text, data) {
-  const colorBase=Theme.color.base
   seriesUnit.detail.formatter =
     text.formatter ||
     function (value) {
@@ -132,11 +144,11 @@ function handleDetail(seriesUnit, text, data) {
     value: {
       fontSize: 60,
       fontWeight: 'bolder',
-      color: colorBase.font,
+      color: chartToken.detailRichColor,
     },
     name: {
       fontSize: 14,
-      color: colorBase.font,
+      color: chartToken.detailRichColor,
       padding: [24, 0, 0, 0],
     },
   };
@@ -145,7 +157,8 @@ function handleDetail(seriesUnit, text, data) {
 // 设置仪表盘进度条宽度
 function handleProgress(seriesUnit, iChartOption, data) {
   const { itemStyle } = iChartOption;
-  seriesUnit.progress.width = itemStyle ? (itemStyle.width ? itemStyle.width : 10) : 10;
+
+  seriesUnit.progress.width = itemStyle ? (itemStyle.width ? itemStyle.width : 16) : 16;
   if (data && data.length !== 0 && data[0].value === 0) {
     seriesUnit.progress.roundCap = false;
   }
@@ -154,7 +167,7 @@ function handleProgress(seriesUnit, iChartOption, data) {
 // 设置仪表盘进度条宽度
 function handleAxisLine(seriesUnit, iChartOption) {
   const { itemStyle } = iChartOption;
-  seriesUnit.axisLine.lineStyle.width = itemStyle ? (itemStyle.width ? itemStyle.width : 10) : 10;
+  seriesUnit.axisLine.lineStyle.width = itemStyle ? (itemStyle.width ? itemStyle.width : 16) : 16;
 }
 
 // 轨道颜色分块
@@ -193,7 +206,7 @@ function setGradientColor(series, gradientColor) {
 }
 
 // 轨道颜色分块外环光晕效果
-function setOuterHalo(seriesHalo, splitColor, theme) {
+function setOuterHalo(seriesHalo, splitColor) {
   const temp = cloneDeep(emptySeriesUnit);
   const outerGaugeHalo = cloneDeep(temp);
   outerGaugeHalo.startAngle = seriesHalo.startAngle;
@@ -219,19 +232,13 @@ function setOuterHalo(seriesHalo, splitColor, theme) {
     },
   };
   // 2022/7/18 暂时把分割颜色屏蔽掉 darkColor、lightColor
-  switch (theme) {
-    case 'dark':
-      outerGaugeHalo.splitLine.lineStyle.color = 'transparent';
-      break;
-    default:
-      outerGaugeHalo.splitLine.lineStyle.color = 'transparent';
-      break;
-  }
+  outerGaugeHalo.splitLine.lineStyle.color = 'transparent';
+
   return outerGaugeHalo;
 }
 
 // progress渐变色外环光晕效果
-function setProgressOuterHalo(series, gradientColor, mask, iChartOption) {
+function setProgressOuterHalo(series, outerGradientColor, mask, iChartOption) {
   const temp = cloneDeep(emptySeriesUnit);
   const linearColor = {
     type: 'linear',
@@ -239,9 +246,9 @@ function setProgressOuterHalo(series, gradientColor, mask, iChartOption) {
     y: 0,
     x2: 1,
     y2: 0,
-    colorStops: gradientColor.map((item, index) => {
+    colorStops: outerGradientColor.map((item, index) => {
       return {
-        offset: index === 0 ? 0 : index / (gradientColor.length - 1),
+        offset: index === 0 ? 0 : index / (outerGradientColor.length - 1),
         color: item,
       };
     }),
@@ -376,15 +383,14 @@ function setMarkLine(series, markLine, marklineColor) {
   return markGauge;
 }
 
-function handleOther(iChartOption, seriesUnit, series, theme, data) {
-  const colorState= Theme.color.state   
-  const marklineColor=colorState.error
+function handleOther(iChartOption, seriesUnit, series, data) {
+  const  marklineColor = Theme.config.colorState.colorError
   if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
     setSplitColor(seriesUnit, iChartOption.splitColor);
   } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 0) {
     setGradientColor(seriesUnit, iChartOption.gradientColor);
   }
-  // 若有阈值线，超过阈值线时为告警红色
+  // 若有阈值线，超过阈值线时为红色
   if (iChartOption.markLine && data[0].value >= iChartOption.markLine) {
     seriesUnit.pointer.itemStyle = { color: marklineColor };
     seriesUnit.progress.itemStyle = { color: marklineColor };
@@ -392,7 +398,7 @@ function handleOther(iChartOption, seriesUnit, series, theme, data) {
   series.push(seriesUnit);
   // 轨道颜色分块、progress外环光晕效果
   if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
-    const outerGauge = setOuterHalo(seriesUnit, iChartOption.splitColor, theme);
+    const outerGauge = setOuterHalo(seriesUnit, iChartOption.splitColor);
     // 是否展示外层光晕
     if (iChartOption.itemStyle && iChartOption.itemStyle.outerGauge) {
       if (iChartOption.itemStyle.outerGauge.show === false) {
@@ -422,6 +428,31 @@ function handleOther(iChartOption, seriesUnit, series, theme, data) {
   }
 }
 
+function setSeriesInit(seriesUnit, iChartOption){
+  const chartPosition = iChartOption.position || iChartOption.chartPosition || {};
+  const { pointerStyle, pointer, min, max, startAngle, endAngle } = iChartOption;
+  seriesUnit.name = iChartOption.seriesName || iChartOption.name;
+  seriesUnit.data = iChartOption.data;
+   // 指针
+   seriesUnit.pointer.show = pointer || false;
+   seriesUnit.pointer.width = (pointerStyle && pointerStyle.width) || 16;
+   seriesUnit.pointer.length = (pointerStyle && pointerStyle.length) || '5%';
+   seriesUnit.pointer.offsetCenter[1] = (pointerStyle && pointerStyle.pointerDistance) || '-108%';
+   seriesUnit.pointer.lineDistance = (pointerStyle && pointerStyle.lineDistance) || '5%';
+   // 位置
+   seriesUnit.center = chartPosition.center || ['50%', '50%'];
+   // 半径
+   seriesUnit.radius = chartPosition.radius || '70%';
+   // 最小值
+   seriesUnit.min = min || 0;
+   // 最大值
+   seriesUnit.max = max || 100;
+   // 开始角度
+   seriesUnit.startAngle = startAngle === undefined ? 225 : startAngle;
+   // 结束角度
+   seriesUnit.endAngle = endAngle === undefined ? -45 : endAngle;
+}
+
 /**
  * 组装echarts所需要的series
  * @param {主题} theme
@@ -429,27 +460,25 @@ function handleOther(iChartOption, seriesUnit, series, theme, data) {
  * @returns
  */
 function handleSeries(iChartOption) {
-  const theme = iChartOption.theme;
   const data = iChartOption.data;
   const text = iChartOption.text || {};
-  const chartPosition = iChartOption.position || iChartOption.chartPosition || {};
   const axisLabelStyle = iChartOption.axisLabelStyle || {};
-  const { pointerStyle, pointer, min, max, startAngle, endAngle, silent } = iChartOption;
+  const { silent } = iChartOption;
   // 更改仪表盘轨道底色
-  handleTheme( iChartOption);
+  handleTheme(iChartOption);
   // 更换刻度文本颜色、字号、字体宽度等样式
   if (axisLabelStyle['color']) {
     seriesInit.axisLabel['color'] = axisLabelStyle['color'];
   } else {
-    seriesInit.axisLabel['color'] = Theme.color.base.axislabel
+    seriesInit.axisLabel['color'] = chartToken.axisLabelColor;
   }
-  seriesInit.axisLabel['distance'] = axisLabelStyle['distance'] || 16;
+  seriesInit.axisLabel['distance'] = axisLabelStyle['distance'] || 22;
   seriesInit.axisLabel['fontWeight'] = axisLabelStyle['fontWeight'] || 400;
   seriesInit.axisLabel['fontSize'] = axisLabelStyle['fontSize'] || 14;
   // 组装数据
   const series = [];
   const seriesUnit = cloneDeep(seriesInit);
-  seriesUnit.data = data;
+  setSeriesInit(seriesUnit, iChartOption);
   // 控制刻度线及刻度文本是否展示;大刻度数量以及判断刻度文本是否显示
   handleSplitLine(iChartOption, seriesUnit);
   // 中间文本
@@ -457,26 +486,9 @@ function handleSeries(iChartOption) {
   // 进度条宽度
   handleProgress(seriesUnit, iChartOption, data);
   handleAxisLine(seriesUnit, iChartOption);
-  // 指针
-  seriesUnit.pointer.show = pointer || false;
-  seriesUnit.pointer.width = (pointerStyle && pointerStyle.width) || 16;
-  seriesUnit.pointer.length = (pointerStyle && pointerStyle.length) || '10%';
-  seriesUnit.pointer.offsetCenter[1] = (pointerStyle && pointerStyle.pointerDistance) || '-108%';
-  seriesUnit.pointer.lineDistance = (pointerStyle && pointerStyle.lineDistance) || '5%';
-  // 位置
-  seriesUnit.center = chartPosition.center || ['50%', '50%'];
-  // 半径
-  seriesUnit.radius = chartPosition.radius || '70%';
-  // 最小值
-  seriesUnit.min = min || 0;
-  // 最大值
-  seriesUnit.max = max || 100;
-  // 开始角度
-  seriesUnit.startAngle = startAngle === undefined ? 225 : startAngle;
-  // 结束角度
-  seriesUnit.endAngle = endAngle === undefined ? -45 : endAngle;
+
   // 轨道颜色分块、progress渐变只能二选一
-  handleOther(iChartOption, seriesUnit, series, theme, data);
+  handleOther(iChartOption, seriesUnit, series, data);
   // 是否关闭hover态的效果，默认为false
   series[0].silent = silent || false;
   return series;

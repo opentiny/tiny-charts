@@ -10,16 +10,6 @@ const option = {
     borderColor: '#6D8FF0',
     // 是否显示文本,默认值true
     showLabel: true,
-    /*
-    * tipHtml 回调函数控制自定义悬浮框：
-    * ( params: Array, 
-    *   ticket: string, 
-    *   callback: (ticket: string, html: string)
-    * ) => string | HTMLElement | HTMLElement[]
-    *
-    * 通过回调函数的参数,自行制作一个 HTML 片段
-    * 详细参数解释见: https://echarts.apache.org/zh/option.html#tooltip.formatter 
-    */
     tipHtml: (params, ticket, callback) => {
         const color = params.color;
         const data = params.data;
@@ -37,25 +27,25 @@ const option = {
     // Name:x轴数据类别
     // Week:y轴数据类别
     // Value:显示的文本
-    //x,y轴的数据类别显示顺序按照data中书写顺序决定
+    // x,y轴的数据类别显示顺序按照data中书写顺序决定
     data: [
         { Name: 'Q1', Week: 'Monday', Value: 88, },
         { Name: 'Q1', Week: 'Tuesday', Value: 66, },
         { Name: 'Q1', Week: 'Wednesday', Value: 78, },
         { Name: 'Q1', Week: 'Thursday', Value: 58, },
-        { Name: 'Q1', Week: 'Friday', Value: 62, },
+        { Name: 'Q1', Week: 'Friday', Value: 68, },
 
         { Name: 'Q2', Week: 'Monday', Value: 36, },
         { Name: 'Q2', Week: 'Tuesday', Value: 22, },
         { Name: 'Q2', Week: 'Wednesday', Value: 99, },
         { Name: 'Q2', Week: 'Thursday', Value: 67, },
-        { Name: 'Q2', Week: 'Friday', Value: 46, },
+        { Name: 'Q2', Week: 'Friday', Value: 48, },
 
         { Name: 'Q3', Week: 'Monday', Value: 77, },
         { Name: 'Q3', Week: 'Tuesday', Value: 46, },
         { Name: 'Q3', Week: 'Wednesday', Value: 30, },
         { Name: 'Q3', Week: 'Thursday', Value: 31, },
-        { Name: 'Q3', Week: 'Friday', Value: 54, },
+        { Name: 'Q3', Week: 'Friday', Value: 58, },
 
         { Name: 'Q4', Week: 'Monday', Value: 59, },
         { Name: 'Q4', Week: 'Tuesday', Value: 48, },
@@ -73,31 +63,31 @@ const option = {
         { Name: 'Q6', Week: 'Tuesday', Value: 10, },
         { Name: 'Q6', Week: 'Wednesday', Value: 47, },
         { Name: 'Q6', Week: 'Thursday', Value: 5, },
-        { Name: 'Q6', Week: 'Friday', Value: 76, },
+        { Name: 'Q6', Week: 'Friday', Value: 78, },
 
         { Name: 'Q7', Week: 'Monday', Value: 30, },
         { Name: 'Q7', Week: 'Tuesday', Value: 78, },
         { Name: 'Q7', Week: 'Wednesday', Value: 67, },
         { Name: 'Q7', Week: 'Thursday', Value: 54, },
-        { Name: 'Q7', Week: 'Friday', Value: 46, },
+        { Name: 'Q7', Week: 'Friday', Value: 48, },
 
         { Name: 'Q8', Week: 'Monday', Value: 43, },
         { Name: 'Q8', Week: 'Tuesday', Value: 4, },
         { Name: 'Q8', Week: 'Wednesday', Value: 63, },
         { Name: 'Q8', Week: 'Thursday', Value: 33, },
-        { Name: 'Q8', Week: 'Friday', Value: 20, },
+        { Name: 'Q8', Week: 'Friday', Value: 28, },
 
         { Name: 'Q9', Week: 'Monday', Value: 66, },
         { Name: 'Q9', Week: 'Tuesday', Value: 78, },
         { Name: 'Q9', Week: 'Wednesday', Value: 31, },
         { Name: 'Q9', Week: 'Thursday', Value: 88, },
-        { Name: 'Q9', Week: 'Friday', Value: 92, },
+        { Name: 'Q9', Week: 'Friday', Value: 98, },
 
         { Name: 'Q10', Week: 'Monday', Value: 78, },
         { Name: 'Q10', Week: 'Tuesday', Value: 50, },
         { Name: 'Q10', Week: 'Wednesday', Value: 66, },
         { Name: 'Q10', Week: 'Thursday', Value: 59, },
-        { Name: 'Q10', Week: 'Friday', Value: 89, },
+        { Name: 'Q10', Week: 'Friday', Value: 88, },
     ],
 };
 

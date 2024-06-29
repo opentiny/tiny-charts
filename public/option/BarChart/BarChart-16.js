@@ -7,13 +7,6 @@
 */
 const option = {
     theme: 'light',
-    color: [
-        '#fa2a2d',
-        '#ff7500',
-        '#ffbf00',
-        '#41ba41',
-        '#00aaee'
-    ],
     padding: [40, 80, 20, 10],
     legend: {
         show: true,          // 图例是否显示
@@ -27,16 +20,16 @@ const option = {
         }
     },
     data: [
-        { "Name": 'Elastic', "Domestic": 31, "Abroad": 20 },
-        { "Name": 'Bare Metal Server', "Domestic": 30, "Abroad": 15 },
-        { "Name": 'Object Store', "Domestic": 27, "Abroad": 39 },
-        { "Name": 'Cloud Hard Drive', "Domestic": 33, "Abroad": 37 },
+        { 'Name': 'Elastic', 'Domestic': 31, 'Abroad': 20 },
+        { 'Name': 'Bare Metal Server', 'Domestic': 30, 'Abroad': 16 },
+        { 'Name': 'Object Store', 'Domestic': 27, 'Abroad': 39 },
+        { 'Name': 'Cloud Hard Drive', 'Domestic': 16, 'Abroad': 37 },
     ],
     direction: 'horizontal',
     xAxis: {
-        data: "Name",
+        data: 'Name',
     },
     yAxis: {
-        name: "Units"
+        name: 'Units'
     }
 };

@@ -1,34 +1,49 @@
-import  cloneDeep  from '../../util/cloneDeep';
-import Theme from '../../feature/theme';
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+import cloneDeep from '../../util/cloneDeep';
+
 const datasetInit = [
-    {
-        source: [],
+  {
+    source: [],
+  },
+  {
+    transform: {
+      type: 'boxplot',
     },
-    {
-        transform: {
-            type: 'boxplot',
-        },
-    },
-    {
-        fromDatasetIndex: 1,
-        fromTransformResult: 1,
-    },
+  },
+  {
+    fromDatasetIndex: 1,
+    fromTransformResult: 1,
+  },
 ];
 
 const seriesInit = [
-    {
-        name: 'boxplot',
-        type: 'boxplot',
-        datasetIndex: 1,
-        itemStyle: {
-            color: '',
-        },
+  {
+    name: 'boxplot',
+    type: 'boxplot',
+    datasetIndex: 1,
+    itemStyle: {
+      color: '',
+      borderColor: ''
     },
-    {
-        name: 'outlier',
-        type: 'scatter',
-        datasetIndex: 2,
+  },
+  {
+    name: 'outlier',
+    type: 'scatter',
+    datasetIndex: 2,
+    itemStyle: {
+      color: '',
     },
+  },
 ];
 
 /**
@@ -37,18 +52,15 @@ const seriesInit = [
  * @returns
  */
 export function setDataset(data) {
-    const dataset = cloneDeep(datasetInit);
-    dataset[0].source = data;
-    return dataset;
+  const dataset = cloneDeep(datasetInit);
+  dataset[0].source = data;
+  return dataset;
 }
 
-/**
- * 组装echarts所需要的series
- * @param {传入主题} theme
- * @returns
- */
-export function setSeries(theme) {
-    const series = cloneDeep(seriesInit);
-    series[0].itemStyle.color = Theme.color.base.bg;
-    return series;
+export function setSeries() {
+  const series = cloneDeep(seriesInit);
+  series[0].itemStyle.color = 'rgb(238, 243, 254)';
+  series[0].itemStyle.borderColor = 'rgb(32, 112, 243)';
+  series[1].itemStyle.color = 'rgb(32, 112, 243)';
+  return series;
 }

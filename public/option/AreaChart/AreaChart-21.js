@@ -13,23 +13,23 @@ const option = {
         topColor: '#ff0000', // 上阈值线颜色
         topPosition: 'insideStartTop', // 上阈值线文本位置
         bottom: 20, // 下阈值
-        bottomLabel: '告警线', // 下阈值线文本
+        bottomLabel: '阈值线', // 下阈值线文本
         bottomColor: '#00a874', // 下阈值线颜色
         bottomPosition: 'insideEndBottom' // 下阈值线文本位置
     },
     data: [
-        { 'Month': 'Jan', 'Domestic': 33 },
+        { 'Month': 'Jan', 'Domestic': 11 },
         { 'Month': 'Feb', 'Domestic': 27 },
         { 'Month': 'Mar', 'Domestic': 31 },
-        { 'Month': 'Apr', 'Domestic': 30 },
+        { 'Month': 'Apr', 'Domestic': 11 },
         { 'Month': 'May', 'Domestic': 37 },
         { 'Month': 'Jun', 'Domestic': 36 },
         { 'Month': 'Jul', 'Domestic': 42 },
-        { 'Month': 'Aug', 'Domestic': 22 },
+        { 'Month': 'Aug', 'Domestic': 11 },
         { 'Month': 'Sep', 'Domestic': 17 },
         { 'Month': 'Oct', 'Domestic': 40 },
         { 'Month': 'Nov', 'Domestic': 42 },
-        { 'Month': 'Dec', 'Domestic': 32 }
+        { 'Month': 'Dec', 'Domestic': 11 }
     ],
     xAxis: {
         data: 'Month'

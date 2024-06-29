@@ -1,34 +1,28 @@
 const option = {
     theme: 'light',
-    type:'circle', // type = 'circle' 表示为圆环图
-    // 是否关闭hover态的效果，默认为false
-    silent:true,
-    //数据总和为0时只显示背景色
-    stillShowZeroSum:false,
-    title:{
-        text:`{a|0}\n{b|链路总数}`,
-        textStyle: {
-            rich: {
-                a: {
-                    color: '#191919',
-                    fontSize: 50,
-                },
-                b: {
-                    fontSize: 16,
-                    color: '#999',
-                    padding: [10, 0, 0, 0]
-                },
-            }
-        },
-    },
     legend: {
         show: true,
+        position: {
+            left: 'center',
+            bottom: '10%'
+        },
+        orient: 'horizontal',
+        // 统一对图例图标设置类型,默认circle,可选值:rect、roundRect、triangle、diamond;若定义了legend.data,则此属性失效。
+        icon: 'circle',
+        // 控制图例图标的高度,
+        itemHeight: 20,
+        // 控制图例图标的宽度
+        itemWidth: 20,
     },
-    label:{
-        show: false,
+    label: {
+        show: true,
+        type: 'percent',
+        line: true
     },
-    data:[                             
-        {value: 0,name: 'VPC'},
-        {value: 0,name: 'EIP'},
-    ],
+    data: [
+        { value: 100, name: 'VPC' },
+        { value: 95, name: 'IM' },
+        { value: 49, name: 'EIP' },
+        { value: 15, name: 'SG' },
+    ]
 };

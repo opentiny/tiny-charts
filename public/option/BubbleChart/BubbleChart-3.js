@@ -6,11 +6,11 @@ const option = {
     theme: 'light',
     padding: [50, 30, 50, 20],
     legend: {
-        show: true,
         position: {
             left: 'center',
             bottom: 15
         },
+        show: true,
         orient: 'horizontal'
     },
     tipHtml: (params, ticket, callback) => {

@@ -1,10 +1,9 @@
 const option = {
     theme: 'light',
-    gap: 10,
     label: {
         show: true,
         position: 'outside',
-        formatter: `{b|{b}:}{c|{c}%}`,
+        formatter: '{b|{b}:}{c|{c}%}',
         rich: {
             b: {
                 padding: [2, 4, 0, 0]
@@ -17,9 +16,8 @@ const option = {
     },
     data: [
         { value: 100, name: 'Show' },
-        { value: 80, name: 'Click' },
-        { value: 60, name: 'Visit' },
-        { value: 40, name: 'Inquiry' },
-        { value: 20, name: 'Order' }
+        { value: 75, name: 'Click' },
+        { value: 50, name: 'Visit' },
+        { value: 25, name: 'Order' }
     ]
 };

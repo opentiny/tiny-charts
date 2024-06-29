@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import { virtualNodeSymbol, darkArrow, lightArrow, lightColor, darkColor } from './BaseOption';
 
 /**
@@ -21,7 +32,7 @@ const handleCategories = (iChartOption, baseOption, theme) => {
       symbol: 'circle',
       symbolSize: 12,
       itemStyle: {
-        color: theme === 'light' ? lightColor : darkColor,
+        color: theme.indexOf('light') !== -1 ? lightColor : darkColor,
       },
     },
     // 虚拟节点样式(方形小黄块)
@@ -77,7 +88,7 @@ const handleArrow = (iChartOption, baseOption, theme) => {
   baseOption.series[0].edgeSymbol =
     iChartOption.edgeSymbol !== undefined
       ? iChartOption.edgeSymbol
-      : theme === 'light'
+      : theme.indexOf('light') !== -1
       ? [lightArrow, 'none']
       : [darkArrow, 'none'];
 };
@@ -117,7 +128,7 @@ const handleLineStyle = (iChartOption, baseOption, theme) => {
   const baseLineStyle = {
     width: 1,
     type: 'solid',
-    color: theme === 'light' ? lightColor : darkColor,
+    color: theme.indexOf('light') !== -1 ? lightColor : darkColor,
     opacity: 1,
   };
   const { lineStyle } = iChartOption;

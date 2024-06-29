@@ -1,12 +1,26 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import { changeRgbaOpacity } from '../../util/color';
-import { SYMBOLCOLOR } from './BaseOption';
+import { SYMBOLCOLOR, CHARTTYPE } from './BaseOption';
 import xAxis from '../../option/config/xAxis';
 import yAxis from '../../option/config/yAxis';
 import grid from '../../option/config/grid';
 import tooltip from '../../option/config/tooltip';
-import { CHARTTYPE } from './BaseOption';
+
 import defendXSS from '../../util/defendXSS';
-import Theme from '../../feature/theme';
+import chartToken from './chartToken';
+import merge from '../../util/merge';
+import { isArray } from '../../util/type';
+
 function setHeatMapDeaultIchartOption(iChartOpt) {
   if (!iChartOpt.color) {
     iChartOpt.color = SYMBOLCOLOR[iChartOpt.type];
@@ -30,7 +44,9 @@ function rectangularFormatter(params) {
   htmlString += `<div style="margin-bottom:4px;">
                             <span style="display:inline-block;width:10px;height:10px;
                             margin-right:8px;border-style: solid;border-width:1px;
-                            border-color:${defendXSS(changeRgbaOpacity(color, 1))};background-color:${defendXSS(color)};"></span>
+                            border-color:${defendXSS(changeRgbaOpacity(color, 1))};background-color:${defendXSS(
+    color,
+  )};"></span>
                             <span>${defendXSS(name)}</span>
                         </div>`;
   htmlString += `
@@ -67,7 +83,7 @@ function calendarFormatter(params) {
                             <span style="display:inline-block;width:10px;
                             height:10px;margin-right:8px;border-style: solid;
                             border-width:1px;border-color:${defendXSS(
-                              changeRgbaOpacity(color, 1)
+                              changeRgbaOpacity(color, 1),
                             )};background-color:${defendXSS(color)};"></span>
                             <span>${defendXSS(name)}</span>
                         </div>`;
@@ -94,7 +110,7 @@ function hexagonFormatter(params) {
                             <span style="display:inline-block;width:10px;
                             height:10px;margin-right:8px;border-style: solid;
                             border-width:1px;border-color:${defendXSS(
-                              changeRgbaOpacity(color, 1)
+                              changeRgbaOpacity(color, 1),
                             )};background-color:${defendXSS(color)};"></span>
                             <span>${defendXSS(name)}</span>
                         </div>`;
@@ -144,10 +160,15 @@ const xAxisHandler = {
   HexagonHeatMapChart: handleHexagonXaxis,
 };
 
-function handleXaxis(baseOpt, type, data, iChartOpt) {
+function handleXaxis(baseOpt, type, data, iChartOpt,initIchartOpt) {
   const basicXaxis = xAxis(iChartOpt);
   xAxisHandler[type](basicXaxis[0], data);
   baseOpt.xAxis = basicXaxis;
+  if (initIchartOpt.xAxis) {
+    baseOpt.xAxis.forEach((item, index) => {
+      merge(item, isArray(initIchartOpt.xAxis) ? initIchartOpt.xAxis[index] : initIchartOpt.xAxis);
+    });
+  }
 }
 
 function handleCalendarYaxis(yAxis, data) {
@@ -159,7 +180,7 @@ function handleCalendarYaxis(yAxis, data) {
     show: true,
     lineStyle: {
       width: 2,
-      color: Theme.color.base.subaxis,
+      color: chartToken.axisLineColor,
     },
   };
 }
@@ -178,12 +199,17 @@ const yAxisHandler = {
   HexagonHeatMapChart: handleHexagonYaxis,
 };
 
-function handleYaxis(baseOpt, type, data, iChartOpt) {
+function handleYaxis(baseOpt, type, data, iChartOpt,initIchartOpt) {
   const basicYaxis = yAxis(baseOpt, iChartOpt);
   if (type !== CHARTTYPE[0]) {
     yAxisHandler[type](basicYaxis[0], data, iChartOpt);
   }
   baseOpt.yAxis = basicYaxis;
+  if (initIchartOpt.yAxis) {
+    baseOpt.yAxis.forEach((item, index) => {
+      merge(item, isArray(initIchartOpt.yAxis) ? initIchartOpt.yAxis[index] : initIchartOpt.yAxis);
+    });
+  }
 }
 
 function handleColor(baseOpt, iChartOpt) {

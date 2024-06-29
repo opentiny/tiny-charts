@@ -1,0 +1,152 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+.timeline_container {
+  // margin-top: 200px;
+  width: 100%;
+  height: 100%;
+  max-height: 80px;
+  min-height: 68px;
+  position: relative;
+}
+
+.timeline_hoverPointer {
+  pointer-events: none;
+  height: 26px;
+  width: 0;
+  position: absolute;
+  display: none;
+  border-left: 1px dashed #ccc;
+}
+
+.timeline_hoverTooltip {
+  pointer-events: none;
+  /* 允许鼠标事件穿透该元素 */
+  position: absolute;
+  background-color: rgba(57, 57, 57, 1.00);
+  color: #F5F5F5;
+  width: 142px;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'HarmonyOS_Sans';
+  display: none;
+}
+
+.timeline_selectedPointer {
+  width: 2px;
+  height: 26px;
+  background: #9FFDE7;
+  position: absolute;
+  display: none;
+}
+
+.timeline_selectedCircle {
+  width: 8px;
+  height: 8px;
+  border-radius: 10px;
+  background-color: #9FFDE7;
+  // box-shadow: 0px 0px 10px 5px rgba(245, 245, 245, 0.5);
+  position: absolute;
+  display: none;
+}
+
+.timeline_selectedTooltip {
+  position: absolute;
+  background-color: #36C18D;
+  color: #fff;
+  width: 42px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 12px;
+  font-family: 'HarmonyOS_Sans';
+  display: none;
+}
+
+.timeline_alarmTooltip {
+  background-color: rgba(0, 0, 0, 0.50);
+  color: #fff;
+  position: absolute;
+}
+
+.timeline_tipDom {
+  color: #393939;
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.50);
+  backdrop-filter: blur(0px);
+  background: #393939;
+  padding: 0.75rem 1rem;
+
+  .tip {
+    position: relative;
+    box-sizing: border-box;
+    min-width: 2.5rem;
+    font-size: 0.875rem;
+    color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    justify-items: left;
+    gap: .75rem;
+
+    div {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      span {
+        display: inline-block;
+      }
+
+      .point {
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+      }
+
+      .processed {
+        background: #36C18D;
+      }
+
+      .important {
+        background: #EC6F1A;
+      }
+
+      .emergency {
+        background: #E54545;
+      }
+
+    }
+
+    :nth-child(1) {
+      gap: 0.25rem;
+    }
+
+    :nth-child(2) {
+      gap: 0.5rem;
+    }
+  }
+
+  &::after {
+    position: absolute;
+    z-index: 3;
+    bottom: -0.875rem;
+    left: calc(50% - 0.5rem);
+    content: "";
+    border: 0.5rem solid transparent;
+    border-top-color: initial;
+  }
+}

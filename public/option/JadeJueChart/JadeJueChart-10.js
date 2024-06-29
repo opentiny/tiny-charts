@@ -1,5 +1,5 @@
 const option = {
-  theme: 'hwCloud-light',
+  theme: 'light',
   data: [
     { name: '语文', value: 0 },
     { name: '数学', value: 0 },
@@ -14,9 +14,4 @@ const option = {
       show: false
     }
   },
-  radiusAxis: {
-    axisLabel: {
-      show: false
-    }
-  }
 };

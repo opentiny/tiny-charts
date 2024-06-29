@@ -27,11 +27,11 @@ const option = {
     markLine: 81,
     data:{
         'Domestic':{
-            'Equipment': 43,
+            'Equipment': 45,
             'VM': 90,
             'CSP': 80,
             'RD': 53,
-            'Markets': 78
+            'Markets': 75
         }
     }
 };

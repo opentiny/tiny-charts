@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
 import init from '../../option/init';
 import { event } from '../../util/event';
 import { BaseOption } from './BaseOption';
@@ -5,18 +16,22 @@ import cloneDeep from '../../util/cloneDeep';
 import { handleData, updateData } from './handleData';
 import { handleCategories, handleForce, handleArrow, handlePosition, handleLineStyle } from './handleOption';
 import { mixTree } from './mixTree';
+import { CHART_TYPE } from '../../util/constants';
 
 class GraphTreeChart {
-  constructor(iChartOption, _, chartInstance) {
+
+  static name = CHART_TYPE.GRAPH_TREE
+
+  constructor(iChartOption, chartInstance) {
     this.rootData = {};
     this.baseOption = cloneDeep(BaseOption);
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
-    this.updateOption(iChartOption, _, chartInstance);
+    this.updateOption(iChartOption, chartInstance);
   }
 
-  updateOption(iChartOption, _, chartInstance) {
+  updateOption(iChartOption, chartInstance) {
     // 配置主题
     const theme = iChartOption.theme || 'light';
     // 处理节点类目样式

@@ -4,7 +4,7 @@ const option = {
         show: true,
         position:{
             left: 'center',
-            bottom: 20
+            bottom: 20.5
         },
         orient:'horizontal'
     },
@@ -13,7 +13,7 @@ const option = {
     radarMax: 100,
     data:{
         'Domestic':{
-            'Equipment': 43,
+            'Equipment': 48,
             'VM': 90,
             'CSP': 80,
             'RD': 53,
