@@ -1,0 +1,49 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+.hc-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .hc-row {
+        position: relative;
+    }
+
+    .hc-node {
+        display: inline-block;
+        position: relative;
+        vertical-align: bottom;
+    }
+
+    .hc-tooltip {
+        display: none;
+        z-index: 999;
+        left: -9999px;
+        top: -9999px;
+        padding: 16px;
+        min-width: 200px;
+        position: absolute;
+        border-radius: 4px;
+        background: #FAFAFA;
+        transition: all 200ms linear;
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+        user-select: text;
+        &.dark {
+            color: #FFFFFF;
+            background: #393939;
+            box-shadow: 0px 0px 8px rgba(210, 210, 210, 0.2);
+        }
+    }
+}

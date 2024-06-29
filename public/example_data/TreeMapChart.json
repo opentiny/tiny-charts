@@ -1,0 +1,40 @@
+{
+  "title": "矩形树图 TreeMapChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "基础矩形树图",
+          "routePath": "TreeMapChart-1",
+          "imagePath": "./image/theme/light/TreeMapChart/TreeMapChart-1.png"
+        }
+      ]
+    },
+    {
+      "title": "基础能力",
+      "children": [
+        {
+          "name": "鼠标悬浮提示框",
+          "routePath": "TreeMapChart-2",
+          "imagePath": "./image/theme/light/TreeMapChart/TreeMapChart-2.png"
+        },
+        {
+          "name": "图表可平移和缩放",
+          "routePath": "TreeMapChart-3",
+          "imagePath": "./image/theme/light/TreeMapChart/TreeMapChart-3.png"
+        },
+        {
+          "name": "自定义label标签样式",
+          "routePath": "TreeMapChart-4",
+          "imagePath": "./image/theme/light/TreeMapChart/TreeMapChart-4.png"
+        },
+        {
+          "name": "title标题样式",
+          "routePath": "TreeMapChart-5",
+          "imagePath": "./image/theme/light/TreeMapChart/TreeMapChart-5.png"
+        }
+      ]
+    }
+  ]
+}

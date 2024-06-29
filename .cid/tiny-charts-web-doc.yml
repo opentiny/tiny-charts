@@ -1,0 +1,23 @@
+version: 1.0
+name: tiny-charts-web-doc
+language: nodejs
+
+#  构建工具
+dependencies:
+  base:
+    nodejs: 18.14.1
+
+#  构建机器
+machine:
+  standard:
+    x86_euler2.9:
+      - default
+
+#  构建脚本
+scripts:
+  - sh build-doc.sh
+
+#  构建产物
+artifacts:
+  static:
+    - output: dist

@@ -1,0 +1,46 @@
+<svg width="64.000000" height="64.000000" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<filter id="filter_4_4808_dd" x="0.704590" y="0.704590" width="62.590820" height="62.590820" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="0"/>
+			<feGaussianBlur stdDeviation="2"/>
+			<feComposite in2="hardAlpha" operator="out" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.95686 0 0 0 0 0.19216 0 0 0 0 0.27451 0 0 0 0.48 0"/>
+			<feBlend mode="normal" in2="BackgroundImageFix" result="effect_dropShadow_1"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="effect_dropShadow_1" result="shape"/>
+		</filter>
+		<clipPath id="clip4_4770">
+			<rect id="严重告警终端选中" width="64.000000" height="64.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+		<linearGradient x1="13.990756" y1="14.815619" x2="51.246479" y2="47.947075" id="paint_linear_4_4808_0" gradientUnits="userSpaceOnUse">
+			<stop offset="0.005560" stop-color="#F43146" stop-opacity="0.400000"/>
+			<stop offset="0.994263" stop-color="#F43146" stop-opacity="0.160784"/>
+		</linearGradient>
+		<linearGradient x1="6.704605" y1="55.349586" x2="42.701874" y2="12.055543" id="paint_linear_4_4808_1" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#F43146"/>
+			<stop offset="1.000000" stop-color="#F43146" stop-opacity="0.039216"/>
+		</linearGradient>
+		<linearGradient x1="6.704605" y1="55.349586" x2="42.701874" y2="12.055543" id="paint_linear_4_4809_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#F43146" stop-opacity="0.000000"/>
+			<stop offset="1.000000" stop-color="#F43146" stop-opacity="0.239216"/>
+		</linearGradient>
+		<linearGradient x1="37.837872" y1="16.920042" x2="11.083117" y2="52.917313" id="paint_linear_4_4810_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#F43146" stop-opacity="0.015686"/>
+			<stop offset="1.000000" stop-color="#F43146" stop-opacity="0.400000"/>
+		</linearGradient>
+	</defs>
+	<rect id="严重告警终端选中" width="64.000000" height="64.000000" fill="#000000" fill-opacity="0"/>
+	<g clip-path="url(#clip4_4770)">
+		<g filter="url(#filter_4_4808_dd)">
+			<rect id="矩形 18" x="6.704590" y="6.704590" rx="6.323848" width="50.590786" height="50.590786" fill="#000000" fill-opacity="1.000000"/>
+			<rect id="矩形 18" x="6.704590" y="6.704590" rx="6.323848" width="50.590786" height="50.590786" fill="url(#paint_linear_4_4808_0)" fill-opacity="1.000000"/>
+			<rect id="矩形 18" x="8.163940" y="8.163818" rx="6.323848" width="47.672089" height="47.672089" stroke="url(#paint_linear_4_4808_1)" stroke-opacity="1.000000" stroke-width="2.918699"/>
+		</g>
+		<rect id="矩形 18" x="7.204590" y="7.204590" rx="6.323848" width="49.590786" height="49.590786" stroke="url(#paint_linear_4_4809_0)" stroke-opacity="1.000000" stroke-width="1.000000"/>
+		<path id="减去顶层" d="M13.0289 9.62329L50.972 9.62329C52.8527 9.62329 54.3772 11.1479 54.3772 13.0283L54.3772 50.9714C54.3772 52.8521 52.8527 54.3767 50.972 54.3767L13.0289 54.3767C11.1483 54.3767 9.62378 52.8521 9.62378 50.9714L9.62378 13.0283C9.62378 11.1479 11.1483 9.62329 13.0289 9.62329ZM46.5935 15.4602L17.4065 15.4602C16.3319 15.4602 15.4607 16.3313 15.4607 17.406L15.4607 46.593C15.4607 47.6677 16.3319 48.5388 17.4065 48.5388L46.5935 48.5388C47.6681 48.5388 48.5393 47.6677 48.5393 46.593L48.5393 17.406C48.5393 16.3313 47.6681 15.4602 46.5935 15.4602Z" clip-rule="evenodd" fill="url(#paint_linear_4_4810_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+	</g>
+</svg>

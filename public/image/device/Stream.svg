@@ -1,0 +1,115 @@
+<svg width="64.000000" height="64.000000" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<filter id="filter_3_1841_dd" x="10.000000" y="46.857422" width="44.000000" height="3.142334" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="0" result="effect_layerBlur_1"/>
+		</filter>
+		<filter id="filter_3_1846_dd" x="27.809570" y="39.525635" width="8.380981" height="8.379395" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="-1"/>
+			<feGaussianBlur stdDeviation="0.666667"/>
+			<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.78824 0 0 0 0 0.78824 0 0 0 0 0.79608 0 0 0 1 0"/>
+			<feBlend mode="normal" in2="shape" result="effect_innerShadow_1"/>
+		</filter>
+		<clipPath id="clip3_10">
+			<rect id="终端设备" width="64.000000" height="64.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+		<radialGradient gradientTransform="translate(31.7629 48.4286) rotate(90) scale(1.00608 21.8151)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_1841_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#73757F" stop-opacity="0.313726"/>
+			<stop offset="0.525180" stop-color="#37383C" stop-opacity="0.082353"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<linearGradient x1="46.277157" y1="43.715370" x2="21.608818" y2="43.578629" id="paint_linear_3_1843_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#DBDBDB"/>
+			<stop offset="0.339959" stop-color="#C1C1C1"/>
+			<stop offset="0.749660" stop-color="#FFFFFF"/>
+			<stop offset="1.000000" stop-color="#EAEAEA"/>
+		</linearGradient>
+		<linearGradient x1="31.128027" y1="48.999077" x2="31.128027" y2="41.935673" id="paint_linear_3_1843_1" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C8C8C8"/>
+			<stop offset="1.000000" stop-color="#808080"/>
+			<stop offset="1.000000" stop-color="#979797"/>
+		</linearGradient>
+		<linearGradient x1="32.000072" y1="37.657402" x2="32.000072" y2="49.535820" id="paint_linear_3_1846_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#A0A0A0"/>
+			<stop offset="0.555324" stop-color="#B4B4B4"/>
+			<stop offset="1.000000" stop-color="#FFFFFF"/>
+		</linearGradient>
+		<linearGradient x1="6.000734" y1="0.000000" x2="6.000734" y2="4.167138" id="paint_linear_3_1847_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#DBDBDB"/>
+			<stop offset="1.000000" stop-color="#FFFFFF"/>
+		</linearGradient>
+		<linearGradient x1="32.927235" y1="43.127758" x2="32.927235" y2="17.000000" id="paint_linear_3_1848_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#BABABA"/>
+			<stop offset="1.000000" stop-color="#C0C0C0"/>
+		</linearGradient>
+		<linearGradient x1="5.894184" y1="5.644119" x2="81.043945" y2="66.955368" id="paint_linear_3_1849_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFFFFF"/>
+			<stop offset="1.000000" stop-color="#D5D5D5"/>
+		</linearGradient>
+		<linearGradient x1="45.466343" y1="31.497023" x2="52.662346" y2="46.834251" id="paint_linear_3_1853_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#EBEBEB"/>
+			<stop offset="1.000000" stop-color="#D6D6D6"/>
+		</linearGradient>
+		<radialGradient gradientTransform="translate(28.4137 11.6218) rotate(65.0319) scale(46.4451 46.4451)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_1853_1" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFFFFF" stop-opacity="0.901961"/>
+			<stop offset="1.000000" stop-color="#FFFFFF" stop-opacity="0.000000"/>
+		</radialGradient>
+		<linearGradient x1="49.023804" y1="30.098633" x2="49.023804" y2="49.999905" id="paint_linear_3_1853_2" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#B7B4B4"/>
+			<stop offset="1.000000" stop-color="#B7B6B6"/>
+		</linearGradient>
+		<linearGradient x1="45.466343" y1="31.497023" x2="52.662346" y2="46.834251" id="paint_linear_3_1855_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#EBEBEB"/>
+			<stop offset="1.000000" stop-color="#D6D6D6"/>
+		</linearGradient>
+		<radialGradient gradientTransform="translate(33.7502 13.5327) rotate(66.5124) scale(41.4281 41.4281)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_1855_1" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFFFFF" stop-opacity="0.901961"/>
+			<stop offset="1.000000" stop-color="#FFFFFF" stop-opacity="0.000000"/>
+		</radialGradient>
+	</defs>
+	<rect id="终端设备" width="64.000000" height="64.000000" fill="#000000" fill-opacity="0"/>
+	<g clip-path="url(#clip3_10)">
+		<g opacity="0.000000">
+			<rect id="矩形" x="8.000000" y="8.000000" width="48.000000" height="48.000000" fill="#D8D8D8" fill-opacity="1.000000"/>
+			<rect id="矩形" x="8.500000" y="8.500000" width="47.000000" height="47.000000" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		</g>
+		<g filter="url(#filter_3_1841_dd)">
+			<path id="椭圆形备份 2" d="M32 49.99C44.15 49.99 54 49.29 54 48.42C54 47.56 44.15 46.85 32 46.85C19.84 46.85 10 47.56 10 48.42C10 49.29 19.84 49.99 32 49.99Z" fill="url(#paint_radial_3_1841_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+			<path id="椭圆形备份 2" d="" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+		</g>
+		<mask id="mask_3_1843" fill="white">
+			<path id="形状结合" d="M35.4047 39.5256L28.5952 39.5256L27.9069 46.8667L25.2375 46.8594C24.9225 46.8594 24.6666 47.1135 24.6666 47.4287L24.6666 47.905L39.3333 47.905L39.2854 47.4109C39.2572 47.1199 39.0128 46.8965 38.7202 46.8965L36.0952 46.8892L35.4047 39.5256Z" clip-rule="evenodd" fill="" fill-opacity="1.000000" fill-rule="evenodd"/>
+		</mask>
+		<path id="形状结合" d="M35.4047 39.5256L28.5952 39.5256L27.9069 46.8667L25.2375 46.8594C24.9225 46.8594 24.6666 47.1135 24.6666 47.4287L24.6666 47.905L39.3333 47.905L39.2854 47.4109C39.2572 47.1199 39.0128 46.8965 38.7202 46.8965L36.0952 46.8892L35.4047 39.5256Z" clip-rule="evenodd" fill="url(#paint_linear_3_1843_0)" fill-opacity="1.000000" fill-rule="evenodd" mask="url(#mask_3_1843)"/>
+		<path id="形状结合" d="M35.4047 39.8398L28.5952 39.8398L28.5952 39.5256L28.9081 39.5549L28.193 47.1816L25.2367 47.1736Q25.131 47.1736 25.0558 47.2485Q24.981 47.323 24.981 47.4287L24.981 47.905L24.6666 47.905L24.6666 47.5908L39.3333 47.5908L39.3333 47.905L39.0205 47.9355L38.9725 47.4412Q38.963 47.3433 38.8903 47.2769Q38.8179 47.2109 38.7202 47.2109L35.809 47.2029L35.0918 39.5549L35.4047 39.5256L35.4047 39.8398ZM35.6909 39.2114L36.4081 46.8599L36.0952 46.8892L36.0961 46.575L38.7202 46.5823Q39.0613 46.5823 39.3136 46.8123Q39.5653 47.0415 39.5983 47.3806L39.6796 48.2195L24.3523 48.2195L24.3523 47.4287Q24.3523 47.2488 24.4222 47.084Q24.4895 46.9253 24.6122 46.8032Q24.7345 46.6812 24.8934 46.6143Q25.058 46.5449 25.2384 46.5449L27.9077 46.5522L27.9069 46.8667L27.594 46.8374L28.309 39.2114L35.4047 39.2114L35.6909 39.2114Z" fill="url(#paint_linear_3_1843_1)" fill-opacity="1.000000" fill-rule="nonzero"/>
+		<g filter="url(#filter_3_1846_dd)">
+			<rect id="矩形" x="27.809570" y="39.525635" width="8.380953" height="8.379483" fill="#D8D8D8" fill-opacity="0"/>
+			<rect id="矩形" x="27.809570" y="39.525635" width="8.380953" height="8.379483" fill="url(#paint_linear_3_1846_0)" fill-opacity="1.000000"/>
+		</g>
+		<rect id="矩形" x="28.309570" y="40.025635" width="7.380953" height="7.379483" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		<path id="矩形备份 2" d="M24.66 47.9L39.33 47.9L39.33 47.42C39.33 47.11 39.07 46.85 38.76 46.85L25.23 46.85C24.92 46.85 24.66 47.11 24.66 47.42L24.66 47.9Z" fill="url(#paint_linear_3_1847_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="矩形备份 2" d="M39.33 47.9L39.33 47.42C39.33 47.11 39.07 46.85 38.76 46.85L25.23 46.85C24.92 46.85 24.66 47.11 24.66 47.42L24.66 47.9L39.33 47.9Z" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+		<rect id="矩形" x="11.536987" y="17.000000" rx="1.000000" width="42.000000" height="26.127758" fill="#979797" fill-opacity="1.000000"/>
+		<rect id="矩形" x="11.275024" y="16.738037" rx="1.000000" width="42.523811" height="26.651567" stroke="url(#paint_linear_3_1848_0)" stroke-opacity="1.000000" stroke-width="0.523810"/>
+		<rect id="矩形" x="12.095215" y="17.529541" rx="1.000000" width="40.857143" height="25.138449" fill="url(#paint_linear_3_1849_0)" fill-opacity="1.000000"/>
+		<rect id="矩形" x="12.345215" y="17.779541" rx="1.000000" width="40.357143" height="24.638449" stroke="#2C2C2C" stroke-opacity="1.000000" stroke-width="0.500000"/>
+		<rect id="矩形" x="43.523804" y="30.098633" rx="1.047619" width="11.000000" height="19.901272" fill="url(#paint_linear_3_1853_0)" fill-opacity="1.000000"/>
+		<rect id="矩形" x="43.523804" y="30.098633" rx="1.047619" width="11.000000" height="19.901272" fill="#191919" fill-opacity="1.000000"/>
+		<rect id="矩形" x="43.523804" y="30.098633" rx="1.047619" width="11.000000" height="19.901272" fill="url(#paint_radial_3_1853_1)" fill-opacity="1.000000"/>
+		<rect id="矩形" x="43.261841" y="29.836670" rx="1.047619" width="11.523809" height="20.425081" stroke="url(#paint_linear_3_1853_2)" stroke-opacity="1.000000" stroke-width="0.523810"/>
+		<path id="椭圆形" d="M49.02 32.01C49.29 32.01 49.52 31.78 49.52 31.51C49.52 31.23 49.29 31.01 49.02 31.01C48.74 31.01 48.52 31.23 48.52 31.51C48.52 31.78 48.74 32.01 49.02 32.01Z" fill="#000000" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="椭圆形" d="" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+		<rect id="矩形" x="43.523804" y="30.098633" rx="1.047619" width="11.000000" height="19.901272" fill="url(#paint_linear_3_1855_0)" fill-opacity="0"/>
+		<rect id="矩形" x="43.523804" y="30.098633" rx="1.047619" width="11.000000" height="19.901272" fill="#191919" fill-opacity="0"/>
+		<rect id="矩形" x="43.523804" y="30.098633" rx="1.047619" width="11.000000" height="19.901272" fill="url(#paint_radial_3_1855_1)" fill-opacity="0"/>
+		<rect id="矩形" x="43.773804" y="30.348633" rx="1.047619" width="10.500000" height="19.401272" stroke="#060606" stroke-opacity="1.000000" stroke-width="0.500000"/>
+	</g>
+</svg>

@@ -1,0 +1,35 @@
+{
+    "title": "子弹图 BulletChart",
+    "paths": [
+        {
+            "title": "基础形态",
+            "children": [
+                {
+                    "name": "标准子弹图",
+                    "routePath": "BulletChart-1",
+                    "imagePath": "./image/theme/light/BulletChart/BulletChart-1.png"
+                },
+                {
+                    "name": "标准子弹图-横向形态",
+                    "routePath": "BulletChart-2",
+                    "imagePath": "./image/theme/light/BulletChart/BulletChart-2.png"
+                },
+                {
+                    "name": "无柱状背景-显示数值",
+                    "routePath": "BulletChart-4",
+                    "imagePath": "./image/theme/light/BulletChart/BulletChart-4.png"
+                }
+            ]
+        },
+        {
+            "title": "基础能力",
+            "children": [
+                {
+                    "name": "图例属性配置",
+                    "routePath": "BulletChart-3",
+                    "imagePath": "./image/theme/light/BulletChart/BulletChart-3.png"
+                }
+            ]
+        }
+    ]
+}

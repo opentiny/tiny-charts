@@ -1,0 +1,30 @@
+{
+  "title": "散点图 ScatterChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "基础散点图",
+          "routePath": "ScatterChart-1",
+          "imagePath": "./image/theme/light/ScatterChart/ScatterChart-1.png"
+        },
+        {
+          "name": "基础散点图-多组数据",
+          "routePath": "ScatterChart-2",
+          "imagePath": "./image/theme/light/ScatterChart/ScatterChart-2.png"
+        }
+      ]
+    },
+    {
+      "title": "基础能力",
+      "children": [
+        {
+          "name": "基础散点图--阈值点",
+          "routePath": "ScatterChart-3",
+          "imagePath": "./image/theme/light/ScatterChart/ScatterChart-3.png"
+        }
+      ]
+    }
+  ]
+}

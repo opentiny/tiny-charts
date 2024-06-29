@@ -1,0 +1,30 @@
+{
+  "title": "桑基图 SankeyChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "桑基图",
+          "routePath": "SankeyChart-1",
+          "imagePath": "./image/theme/light/SankeyChart/SankeyChart-1.png"
+        }
+      ]
+    },
+    {
+      "title": "基础能力",
+      "children": [
+        {
+          "name": "桑基图-自定义鼠标悬浮提示框",
+          "routePath": "SankeyChart-2",
+          "imagePath": "./image/theme/light/SankeyChart/SankeyChart-2.png"
+        },
+        {
+          "name": "桑基图-右对齐布局",
+          "routePath": "SankeyChart-4",
+          "imagePath": "./image/theme/light/SankeyChart/SankeyChart-4.png"
+        }
+      ]
+    }
+  ]
+}

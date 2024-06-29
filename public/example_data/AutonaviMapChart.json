@@ -1,0 +1,15 @@
+{
+    "title": "高德地图 AutonaviMapChart",
+    "paths": [
+        {
+            "title": "基础形态",
+            "children": [
+                {
+                    "name": "高德地图",
+                    "routePath": "AutonaviMapChart-1",
+                    "imagePath": "./image/theme/light/AutonaviMapChart/AutonaviMapChart-1.png"
+                }
+            ]
+        }
+    ]
+}

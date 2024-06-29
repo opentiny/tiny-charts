@@ -1,0 +1,140 @@
+const option = {
+  theme: 'light',
+  // 图表类型(线型树图)
+  type: 'LineTreeChart',
+  // padding控制图表距离容器的上、右、下、左padding值
+  padding: [20, 150, 20, 150],
+  // 树图的起点方向,仅type为LineTreeChart有效,取值'left','right','top','bottom',默认值'left'
+  direction: 'left',
+  // 图元的大小,默认值10
+  symbolSize: 15,
+  // 连线的形状,仅type为LineTreeChart有效,'curve'或'polyline',默认值'curve'
+  lineType: 'curve',
+  // 初始树图的展开层级,最小值为1,默认值1
+  initialTreeDepth: 2,
+  data: [
+    {
+      name: '节点树',
+      data: [
+        {
+          name: 'flare',
+          children: [
+            {
+              name: 'data3',
+              children: [
+                {
+                  name: 'converters',
+                  children: [
+                    { name: 'Converters', value: 723 },
+                    { name: 'DelimitedTextConverter', value: 4293 },
+                  ],
+                },
+                {
+                  name: 'DataUtil',
+                  value: 3323,
+                },
+              ],
+            },
+            {
+              name: 'display',
+              children: [
+                { name: 'DirtySprite', value: 8833 },
+                { name: 'LineSprite', value: 1733 },
+                { name: 'RectSprite', value: 3623 },
+              ],
+            },
+            {
+              name: 'flex',
+              children: [{ name: 'FlareVis', value: 4113 }],
+            },
+            {
+              name: 'query',
+              children: [
+                { name: 'AggregateExpression', value: 1613 },
+                { name: 'And', value: 1023 },
+                { name: 'Arithmetic', value: 3893 },
+                { name: 'Average', value: 893 },
+                { name: 'BinaryExpression', value: 2893 },
+                { name: 'Comparison', value: 5103 },
+                { name: 'CompositeExpression', value: 3673 },
+                { name: 'Count', value: 783 },
+                { name: 'DateUtil', value: 4143 },
+                { name: 'Distinct', value: 933 },
+                { name: 'Expression', value: 5133 },
+                { name: 'ExpressionIterator', value: 3613 },
+                { name: 'Fn', value: 3243 },
+                { name: 'If', value: 2733 },
+                { name: 'IsA', value: 2033 },
+                { name: 'Literal', value: 1213 },
+                { name: 'Match', value: 3743 },
+                { name: 'Maximum', value: 843 },
+                {
+                  name: 'methods',
+                  children: [
+                    { name: 'add', value: 593 },
+                    { name: 'and', value: 333 },
+                    { name: 'average', value: 283 },
+                    { name: 'count', value: 273 },
+                    { name: 'distinct', value: 293 },
+                    { name: 'div', value: 593 },
+                    { name: 'eq', value: 593 },
+                    { name: 'fn', value: 463 },
+                    { name: 'gt', value: 603 },
+                    { name: 'gte', value: 623 },
+                    { name: 'iff', value: 743 },
+                    { name: 'isa', value: 463 },
+                    { name: 'lt', value: 593 },
+                    { name: 'lte', value: 613 },
+                    { name: 'max', value: 283 },
+                    { name: 'min', value: 283 },
+                    { name: 'mod', value: 593 },
+                    { name: 'mul', value: 603 },
+                    { name: 'neq', value: 593 },
+                    { name: 'not', value: 383 },
+                    { name: 'or', value: 323 },
+                    { name: 'orderby', value: 303 },
+                    { name: 'range', value: 773 },
+                    { name: 'select', value: 293 },
+                    { name: 'stddev', value: 363 },
+                    { name: 'sub', value: 603 },
+                    { name: 'sum', value: 283 },
+                    { name: 'update', value: 303 },
+                    { name: 'variance', value: 333 },
+                    { name: 'where', value: 293 },
+                    { name: 'xor', value: 353 },
+                    { name: 'x_x', value: 263 },
+                  ],
+                },
+                { name: 'Minimum', value: 843 },
+                { name: 'Not', value: 1553 },
+                { name: 'Or', value: 973 },
+                { name: 'Query', value: 13893 },
+                { name: 'Range', value: 1593 },
+                { name: 'StringUtil', value: 4133 },
+                { name: 'Sum', value: 793 },
+                { name: 'Variable', value: 1123 },
+                { name: 'Variance', value: 1873 },
+                { name: 'Xor', value: 1103 },
+              ],
+            },
+            {
+              name: 'scale',
+              children: [
+                { name: 'IScaleMap', value: 2103 },
+                { name: 'LinearScale', value: 1313 },
+                { name: 'LogScale', value: 3153 },
+                { name: 'OrdinalScale', value: 3773 },
+                { name: 'QuantileScale', value: 2433 },
+                { name: 'QuantitativeScale', value: 4833 },
+                { name: 'RootScale', value: 1753 },
+                { name: 'Scale', value: 4263 },
+                { name: 'ScaleType', value: 1823 },
+                { name: 'TimeScale', value: 5833 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};

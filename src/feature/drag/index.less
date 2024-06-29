@@ -1,0 +1,50 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+.drag-container {
+  width: 10000px;
+  height: 10000px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.drag-tools {
+  display: block;
+  bottom: 3rem /* 48/16 */;
+  right: 2rem;
+  position: absolute;
+  cursor: pointer;
+  color: #f5f5f5;
+  width: 2.5rem /* 40/16 */;
+  font-size: 0.75rem;
+
+  .drag-scale,
+  .drag-reset {
+    border: 1px solid rgba(238, 238, 238, 0.15);
+    background-color: rgba(25, 25, 25, 0.65);
+    padding: 0.625rem /* 10/16 */ 0.375rem /* 6/16 */;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-radius: 0.25rem;
+  }
+
+  .drag-reset {
+    margin-top: 0.5rem;
+  }
+
+  .drag-tool-item {
+    width: 1.25rem /* 20/16 */;
+    height: 1.25rem /* 20/16 */;
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "title": "进度图 ProcessChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "进度图",
+          "routePath": "ProcessChart-1",
+          "imagePath": "./image/theme/light/ProcessChart/ProcessChart-1.png"
+        },
+        {
+          "name": "进度图-数据状态",
+          "routePath": "ProcessChart-4",
+          "imagePath": "./image/theme/light/ProcessChart/ProcessChart-4.png"
+        },
+        {
+          "name": "进度图-数据缺省",
+          "routePath": "ProcessChart-5",
+          "imagePath": "./image/theme/light/ProcessChart/ProcessChart-5.png"
+        }
+      ]
+    },
+    {
+      "title": "基础能力",
+      "children": [
+        {
+          "name": "进度图-自定义",
+          "routePath": "ProcessChart-2",
+          "imagePath": "./image/theme/light/ProcessChart/ProcessChart-2.png"
+        }
+      ]
+    },
+    {
+      "title": "堆叠",
+      "children": [
+        {
+          "name": "进度图-堆叠",
+          "routePath": "ProcessChart-3",
+          "imagePath": "./image/theme/light/ProcessChart/ProcessChart-3.png"
+        },
+        {
+          "name": "进度图-堆叠数据缺省",
+          "routePath": "ProcessChart-7",
+          "imagePath": "./image/theme/light/ProcessChart/ProcessChart-7.png"
+        }
+      ]
+    },
+    {
+      "title": "双向",
+      "children": [
+        {
+          "name": "进度图-双向",
+          "routePath": "ProcessChart-6",
+          "imagePath": "./image/theme/light/ProcessChart/ProcessChart-6.png"
+        }
+      ]
+    }
+  ]
+}

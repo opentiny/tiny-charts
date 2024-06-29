@@ -1,0 +1,63 @@
+<svg width="64.000000" height="64.000000" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<filter id="filter_3_1817_dd" x="-12.892822" y="-7.506592" width="89.797119" height="80.918457" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="0"/>
+			<feGaussianBlur stdDeviation="7.78333"/>
+			<feComposite in2="hardAlpha" operator="out" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.9451 0 0 0 0 0.19216 0 0 0 0 0.27451 0 0 0 1 0"/>
+			<feBlend mode="normal" in2="BackgroundImageFix" result="effect_dropShadow_1"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="effect_dropShadow_1" result="shape"/>
+		</filter>
+		<filter id="filter_3_1821_dd" x="10.000000" y="48.934570" width="44.000000" height="2.065430" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="0" result="effect_layerBlur_1"/>
+		</filter>
+		<clipPath id="clip3_8">
+			<rect id="终端设备/智能电视" width="64.000000" height="64.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+		<radialGradient gradientTransform="translate(32 49.9673) rotate(90) scale(0.452198 20.7074)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_1821_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#73757F" stop-opacity="0.313726"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<linearGradient x1="32.004040" y1="15.843262" x2="32.004040" y2="45.843262" id="paint_linear_3_1825_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#E2E2E2"/>
+			<stop offset="1.000000" stop-color="#B7B6B6"/>
+		</linearGradient>
+		<radialGradient gradientTransform="translate(10.9524 -50.8017) rotate(90) scale(96.9126 96.9125)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_1826_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFFFFF" stop-opacity="0.901961"/>
+			<stop offset="1.000000" stop-color="#FFFFFF" stop-opacity="0.000000"/>
+		</radialGradient>
+	</defs>
+	<rect id="终端设备/智能电视" width="64.000000" height="64.000000" fill="#000000" fill-opacity="0"/>
+	<g clip-path="url(#clip3_8)">
+		<g opacity="0.000000">
+			<rect id="矩形" x="8.000000" y="8.000000" width="48.000000" height="48.000000" fill="#D8D8D8" fill-opacity="1.000000"/>
+			<rect id="矩形" x="8.500000" y="8.500000" width="47.000000" height="47.000000" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		</g>
+		<g filter="url(#filter_3_1817_dd)">
+			<path id="合并" d="M52.5066 15.8435L11.5049 15.8435C10.9263 15.8435 10.4573 16.3125 10.4573 16.8911L10.4573 44.7959C10.4573 45.3745 10.9263 45.8435 11.5049 45.8435L52.5066 45.8435C53.0852 45.8435 53.5542 45.3745 53.5542 44.7959L53.5542 16.8911C53.5542 16.3125 53.0852 15.8435 52.5066 15.8435ZM16.4856 46.0002L17.4849 46.0002L15.0015 50.0618L16.4856 46.0002ZM47.9985 46.0002L46.9995 46.0002L49.4829 50.0618L47.9985 46.0002Z" clip-rule="evenodd" fill="#979797" fill-opacity="1.000000" fill-rule="evenodd"/>
+		</g>
+		<g filter="url(#filter_3_1821_dd)">
+			<ellipse id="椭圆形备份 2" cx="32.000000" cy="49.967285" rx="22.000000" ry="1.032727" fill="url(#paint_radial_3_1821_0)" fill-opacity="1.000000"/>
+			<ellipse id="椭圆形备份 2" cx="32.000000" cy="49.967285" rx="21.500000" ry="0.532727" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		</g>
+		<path id="矩形" d="M16.48 46L17.48 46L15 50.06L16.48 46Z" fill="#D8D8D8" fill-opacity="0" fill-rule="evenodd"/>
+		<path id="矩形" d="M16.48 46L17.48 46L15 50.06L16.48 46Z" fill="#A8A8A8" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="矩形" d="M15.42 50.32L17.9 46.26C17.93 46.22 17.95 46.17 17.96 46.13C17.97 46.09 17.98 46.04 17.98 46C17.98 45.86 17.93 45.74 17.83 45.64C17.73 45.54 17.62 45.5 17.48 45.5L16.48 45.5C16.37 45.5 16.28 45.53 16.19 45.59C16.11 45.65 16.05 45.72 16.01 45.82L14.53 49.88C14.48 50 14.48 50.11 14.52 50.22C14.56 50.33 14.63 50.42 14.73 50.48C14.85 50.55 14.98 50.57 15.11 50.54C15.25 50.51 15.35 50.43 15.42 50.32ZM16.89 46L16.48 46L15.87 47.67L15 50.06L17.17 46.5L17.48 46L16.89 46Z" fill="#A4A4A4" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="矩形备份 19" d="M47.99 46L47 46L49.48 50.06L47.99 46Z" fill="#D8D8D8" fill-opacity="0" fill-rule="evenodd"/>
+		<path id="矩形备份 19" d="M47.99 46L47 46L49.48 50.06L47.99 46Z" fill="#A8A8A8" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="矩形备份 19" d="M49.05 50.32L46.57 46.26C46.54 46.22 46.53 46.17 46.51 46.13C46.5 46.09 46.5 46.04 46.5 46C46.5 45.86 46.54 45.74 46.64 45.64C46.74 45.54 46.86 45.5 47 45.5L47.99 45.5C48.1 45.5 48.19 45.53 48.28 45.59C48.37 45.65 48.43 45.72 48.46 45.82L49.95 49.88C49.99 50 49.99 50.11 49.95 50.22C49.91 50.33 49.84 50.42 49.74 50.48C49.62 50.55 49.5 50.57 49.36 50.54C49.23 50.51 49.12 50.43 49.05 50.32ZM47.58 46L47.99 46L48.61 47.67L49.48 50.06L47.3 46.5L47 46L47.58 46Z" fill="#A4A4A4" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<rect id="矩形" x="10.455566" y="15.843262" rx="1.047619" width="43.096947" height="30.000000" fill="#979797" fill-opacity="1.000000"/>
+		<rect id="矩形" x="9.955566" y="15.343262" rx="1.047619" width="44.096947" height="31.000000" stroke="url(#paint_linear_3_1825_0)" stroke-opacity="1.000000" stroke-width="1.000000"/>
+		<rect id="矩形" x="10.952393" y="16.222900" rx="1.047619" width="42.000000" height="28.930670" fill="#191919" fill-opacity="1.000000"/>
+		<rect id="矩形" x="10.952393" y="16.222900" rx="1.047619" width="42.000000" height="28.930670" fill="url(#paint_radial_3_1826_0)" fill-opacity="1.000000"/>
+		<rect id="矩形" x="11.214355" y="16.484863" rx="1.047619" width="41.476189" height="28.406860" stroke="#000000" stroke-opacity="1.000000" stroke-width="0.523810"/>
+		<rect id="矩形" x="11.214355" y="16.484863" rx="1.047619" width="41.476189" height="28.406860" stroke="#191919" stroke-opacity="0" stroke-width="0.523810"/>
+	</g>
+</svg>

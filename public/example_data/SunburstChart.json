@@ -1,0 +1,25 @@
+{
+    "title": "旭日图 SunburstChart",
+    "paths": [
+        {
+            "title": "基础形态",
+            "children": [
+                {
+                    "name": "基础旭日图",
+                    "routePath": "SunburstChart-1",
+                    "imagePath": "./image/theme/light/SunburstChart/SunburstChart-1.png"
+                },
+                {
+                    "name": "旭日图-无文本",
+                    "routePath": "SunburstChart-2",
+                    "imagePath": "./image/theme/light/SunburstChart/SunburstChart-2.png"
+                },
+                {
+                    "name": "旭日图-复杂示例",
+                    "routePath": "SunburstChart-3",
+                    "imagePath": "./image/theme/light/SunburstChart/SunburstChart-3.png"
+                }
+            ]
+        }
+    ]
+}

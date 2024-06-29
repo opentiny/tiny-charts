@@ -1,0 +1,107 @@
+.code-container {
+  margin-top: 1.75rem;
+  .tiny-form{
+    width: 400px;
+    &-item{
+      margin-bottom: 0;
+    }
+  }
+  .code-header {
+    font-size: 20px;
+    margin-bottom: 1rem;
+    color: var(--ti-base-color-common-7);
+  }
+  .code-content {
+    border: 1px solid var(--ti-base-color-common-1);
+    border-bottom: 0px;
+    padding: 1rem;
+    border-radius: 4px 4px 0 0;
+  }
+  .code-footer {
+    border: 1px solid var(--ti-base-color-common-1);
+    border-radius: 0 0 4px 4px;
+    code {
+      border: 0;
+    }
+    .code-btn-container {
+      height: 32px;
+      position: relative;
+      &.expand {
+        border-bottom: 1px solid var(--ti-base-color-common-1);
+      }
+      .show-code{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 32px;
+        cursor: pointer;
+        color: var(--ti-base-color-common-7);
+        path{
+          fill: var(--ti-base-color-common-7);
+        }
+      }
+      .tiny-svg{
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+.chart-container {
+  position: relative;
+  .chart {
+    margin: 0 auto;
+    margin-top: 1rem;
+    position: relative;
+  }
+}
+
+// 黑色主题样式
+.ic-dark {
+  .codeHeader {
+    color: #f5f5f5;
+  }
+  .codeBtnContainer {
+    > div {
+      color: #f5f5f5;
+      .codeBtn {
+        background-image: url('./arrowDark.svg') !important;
+      }
+    }
+  }
+}
+
+.tiny-select-dropdown{
+  background: var(--ti-common-color-bg-white-normal);
+}
+
+
+.code-block-box {
+  &.md-editor{
+    background-color: transparent;
+  }
+  .md-editor-preview {
+    &-wrapper{
+      height: 600px;
+      overflow: auto;
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      
+    }
+    pre{
+      margin-top: 0;
+      box-shadow: none;
+      &::before{
+        background-color: transparent;
+      }
+    }
+    code{
+      padding: 1rem 0;
+      background-color: transparent;
+      
+
+    }
+  }
+}

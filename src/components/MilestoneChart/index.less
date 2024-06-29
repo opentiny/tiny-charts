@@ -1,0 +1,244 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+.mc-container{
+  width: calc(100% - 60px);
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  padding:var(--newPitch);
+  .mc-content{
+    width: 100%;
+    height: 100%;
+    
+    margin: 0 auto;
+    position: relative;
+  }
+}
+.mc-current{
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  line-height: 24px;
+  margin-top: -48px;
+  .mc-current-text{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    color: var(--currentTextColor);
+  }
+  &.bottom{
+    margin-top: 20px;
+    .mc-current-text{
+      line-height: 36px;
+    }
+    .mc-current-bg,svg{
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.mc-scales{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  .mc-scales-item{
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top:0;
+    display: inline-block;
+    vertical-align: middle;
+    .mc-scales-item-tooltip{
+      position: absolute;
+      min-width: 200px;
+      min-height: 100px;
+      top: 37%;
+      transform: translateY(-50%);
+      background: var(--tooltipBgColor);
+      box-shadow: var(--tooltipBoxShadow);
+      border-radius: 9px;
+      padding: 12px;
+      color: var(--textColor);
+      display: none;
+      z-index: 3;
+      &::after{
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid var(--tooltipBgColor);
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+    .mc-scales-item-icon{
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      width: auto;
+      z-index: 2;
+    }
+    &.sub{
+      .mc-scales-item-icon{
+        width: 16px;
+      }
+    } 
+    .mc-scales-item-icon {
+      img{
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      svg{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .mc-scales-item-line{
+      width: 100%;
+      height: 8px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    &:last-child{
+      .mc-scales-item-line{
+        display: none;
+      }
+    }
+    &.down-right,&.down-left,&.down-center{
+      .mc-scales-item-icon{
+        .prompt{
+          margin-top: -38px;
+        }
+      } 
+    } 
+    &.up-right,&.up-left,&.up-center{
+      .mc-scales-item-icon{
+        .prompt{
+          margin-top: 38px;
+        }
+      } 
+    } 
+    .mc-scales-item-tips{
+      white-space: nowrap;
+      position: absolute;
+      top: 50%;
+      margin-top: 12px;
+      display: inline-block;
+      color: #fff;
+      max-height: var(--maxHeight);
+      overflow-x: hidden;
+      overflow-y: scroll;
+      padding: var(--itemPadding);
+    }
+    &.down-left .mc-scales-item-tips{
+      left: 0px;
+    }
+    &.line.down-left .mc-scales-item-tips{
+      padding-left: 8px;
+      border-left: 2px dotted;
+    }
+    &.up-left .mc-scales-item-tips{
+      left: -1px;
+      bottom: 50%;
+      top: auto;
+      padding-top: 0;
+      margin-bottom: 12px;
+    }
+    &.line.up-left .mc-scales-item-tips{
+      padding-left: 8px;
+      border-left: 2px dotted;
+    }
+    &.up-right .mc-scales-item-tips{
+      text-align: right;
+      right: -1px;
+      left: auto;
+      bottom: 50%;
+      top: auto;
+      padding-top: 0;
+      margin-bottom: 12px;
+      border:none;
+      padding-left: 0;
+    }
+    &.line.up-right .mc-scales-item-tips{
+      border-right: 2px dotted;
+      padding-right: 8px;
+    }
+    &.down-right .mc-scales-item-tips{
+      text-align: right;
+      right: -1px;
+      left: auto;
+      border:none;
+      padding-left: 0;
+    }
+    &.down-center .mc-scales-item-tips,
+    &.up-center .mc-scales-item-tips{
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      margin-left: 0;
+    }
+    &.up-center .mc-scales-item-tips{
+      bottom: 50%;
+      top: auto;
+      margin-bottom: 12px;
+    }
+    &.line.down-right .mc-scales-item-tips{
+      border-right: 2px dotted;
+      padding-right: 8px;
+    }
+  }
+}
+.mc-scales-item-tips{
+  position: absolute;
+}
+.mc-btn{
+  width: 20px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--operationButtonBgColor);
+  z-index: 5;
+  display: none;
+  border-radius: 2px;
+  cursor: pointer;
+  img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+  &.mc-btn-prev{
+    left: 4px;
+  }
+  &.mc-btn-next{
+    right: 4px;
+  }
+}

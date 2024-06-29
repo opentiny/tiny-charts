@@ -1,0 +1,26 @@
+{
+  "name": "@hui-charts",
+  "version": "0.1.0",
+  "updateTime": "2024-01-20",
+  "description": "hcharts library for web visualization",
+  "private": false,
+  "author": "hcharts author",
+  "license": "MIT",
+  "main": "index.js",
+  "module": "index.js",
+  "scripts": {},
+  "keywords": [
+    "HUI",
+    "charts",
+    "components",
+    "hui-charts"
+  ],
+  "peerDependencies": {},
+  "browserslist": [
+    "Firefox >= 40",
+    "chrome >= 50",
+    "ie >= 11",
+    "edge >= 12"
+  ],
+  "dependencies": {}
+}
