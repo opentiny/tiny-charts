@@ -18,7 +18,7 @@
   "dependencies": {
     "@opentiny/vue": "3.13.0",
     "@vitejs/plugin-vue": "4.0.0",
-    "axios": "0.24.0",
+    "axios": "0.28.0",
     "d3": "6.6.2",
     "echarts": "5.4.3",
     "highlight.js": "11.9.0",
