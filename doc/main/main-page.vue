@@ -1,5 +1,5 @@
 <template>
-  <div class="doc-container">
+  <div class="doc-container" :class="{ 'has-header': isHeader}">
     <div id="header"></div>
     <sidebar :comps-data="menuList" :version="version" />
     <div class="doc-content" style="width: 100%">
@@ -43,6 +43,7 @@ windowTheme.addEventListener('change', () => {
   }
 });
 const isDarkTheme = ref(false);
+const isHeader = ref(false);
 const themeOptions = ref([
   {
     label: 'H Design1.1图表浅色主题',
@@ -133,6 +134,7 @@ onMounted(() => {
         show: true
       },
     })
+    isHeader.value = true;
     common.renderHeader()
   }
 })
@@ -171,8 +173,16 @@ watch(
   left: 0;
   right: 0;
   overflow: hidden;
-  height: calc(100% - 60px);
-  margin-top: 60px;
+  height: 100%;
+  &.has-header {
+    height: calc(100% - 60px);
+    margin-top: 60px;
+    :deep(.tiny-input) {
+      &.tiny-input-prefix {
+        top: calc(5rem + 60px);
+      }
+    }
+  }
   .side-bar-wrap {
     position: relative;
     height: 100%;
