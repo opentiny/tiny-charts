@@ -49,7 +49,7 @@ export default {
       chartCode: [],
       activeName: 'DEMO',
       chartData: ['MediaScreenBar', 'MediaScreenPie'],
-      theme: localStorage.getItem('chartTheme'),
+      theme: localStorage.getItem('chartTheme') || 'hdesign-light',
       tabsBtnACtiveBg: '#fff',
       tabsBtnACtiveColor: '#000',
       tabsBtnColor: '#595959',
@@ -62,7 +62,7 @@ export default {
         this.chartCode[index] = res.data
       })
     })
-    this.setTheme(this.theme.indexOf('light') > -1);
+    this.setTheme(this.theme?.indexOf('light') > -1);
     this.$bus.on('themeChange', (val) => {
       this.setTheme(val.indexOf('light') > -1)
     })
