@@ -1,0 +1,15 @@
+{
+  "title": "河流图 RiverChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "河流图",
+          "routePath": "RiverChart-1",
+          "imagePath": "./image/theme/light/RiverChart/RiverChart-1.png"
+        }
+      ]
+    }
+  ]
+}

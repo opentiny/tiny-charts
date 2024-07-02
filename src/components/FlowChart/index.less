@@ -1,0 +1,90 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+.fc-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.fc-node-container {
+    width: 100%;
+    height: 100%;
+}
+
+.fc-tag-container {
+    width: 100%;
+    height: 100%;
+}
+
+.fc-absolute {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.fc-line {
+    fill: transparent;
+    stroke-linejoin: round;
+    pointer-events: stroke;
+    marker-end: url(#markerArrow);
+    &.fc-noArrow{
+        marker-end: unset;
+    }
+}
+
+.fc-arrow {
+    /* fill: #c2c2c2; */
+}
+
+
+.fc-node {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    & > div{
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+}
+
+.fc-line-up-tag{
+    position: absolute;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #494949;
+    .fc-line-tag-main{
+        color: #ffffff;
+        font-size: 12px;
+    }
+    .fc-line-tag-unit{
+        color: #999999;
+        font-size: 12px;
+    }
+}
+
+.fc-trans-point {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 8px;
+  offset-distance: 0%;
+  background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iOHB4IiBoZWlnaHQ9IjhweCIgdmlld0JveD0iMCAwIDggOCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KICAgIDx0aXRsZT7lnIbop5JXaUZp5aSH5Lu9IDE3PC90aXRsZT4KICAgIDxnIGlkPSLnlKjmiLfmpoLop4giIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSLnlLvmnb8iIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMzU2LjAwMDAwMCwgLTYwNi4wMDAwMDApIj4KICAgICAgICAgICAgPGcgaWQ9IuWchuinkldpRmnlpIfku70tMTciIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzNjAuMDAwMDU5LCA2MTAuMDAwMDAwKSBzY2FsZSgtMSwgMSkgdHJhbnNsYXRlKC0yMzYwLjAwMDA1OSwgLTYxMC4wMDAwMDApIHRyYW5zbGF0ZSgyMzU2LjAwMDA1OSwgNjA1Ljk5OTk0MSkiPgogICAgICAgICAgICAgICAgPGcgaWQ9IuWchuinkldpRmnlpIfku70tMTYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQuMDAwMDAwLCA0LjAwMDA1OSkgc2NhbGUoLTEsIDEpIHRyYW5zbGF0ZSgtNC4wMDAwMDAsIC00LjAwMDA1OSkgdHJhbnNsYXRlKDAuMDAwMDAwLCAwLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxyZWN0IGlkPSLnn6nlvaIiIHg9IjAiIHk9IjAiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjwvcmVjdD4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMi4yMDAwNTg4NSwwLjQwMDA1ODg1MiBDMi41MzE0Mjk3LC0wLjA0MTc2ODk0ODEgMy4xNTgyMzEwNSwtMC4xMzEzMTE5OTggMy42MDAwNTg4NSwwLjIwMDA1ODg1MiBDNS42OTg3NDA5LDEuNzc0MDcwMzkgNi4xMjQwNzAzOSw0Ljc1MTM3NjggNC41NTAwNTg4NSw2Ljg1MDA1ODg1IEM0LjI4MDAwMTE3LDcuMjEwMTM1NzcgMy45NjAxMzU3Nyw3LjUzMDAwMTE3IDMuNjAwMDU4ODUsNy44MDAwNTg4NSBDMy4xNTgyMzEwNSw4LjEzMTQyOTcgMi41MzE0Mjk3LDguMDQxODg2NjUgMi4yMDAwNTg4NSw3LjYwMDA1ODg1IEMxLjg2ODY4OCw3LjE1ODIzMTA1IDEuOTU4MjMxMDUsNi41MzE0Mjk3IDIuNDAwMDU4ODUsNi4yMDAwNTg4NSBDMi42MDg1MjQ0Myw2LjA0MzcwOTY3IDIuNzkzNzA5NjcsNS44NTg1MjQ0MyAyLjk1MDA1ODg1LDUuNjUwMDU4ODUgQzMuODYxMzI4NjksNC40MzUwMzI0IDMuNjE1MDg1MywyLjcxMTMyODY5IDIuNDAwMDU4ODUsMS44MDAwNTg4NSBDMS45NTgyMzEwNSwxLjQ2ODY4OCAxLjg2ODY4OCwwLjg0MTg4NjY1MiAyLjIwMDA1ODg1LDAuNDAwMDU4ODUyIFoiIGlkPSLot6/lvoQtNiIgZmlsbD0iIzA1ODM1OCIgZmlsbC1ydWxlPSJub256ZXJvIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==');
+}
+

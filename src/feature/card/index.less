@@ -1,0 +1,166 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+.card-container {
+  padding: 24px 24px 16px;
+  border-radius: 8px;
+  color: var(--labelColor);
+    &.adaptation-bottom {
+        margin-bottom: -30px;
+    }
+	.card-top {
+		padding-bottom: 8px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		&.divider {
+			border-bottom: 1px solid var(--selectSplitLineColor);
+		}
+		.card-title {
+			font-size: 16px;
+			display: flex;
+			align-items: center;
+            color: var(--titleColor);
+			.icon-tip {
+				margin-left: 8px;
+			}
+			.large {
+				font-size: 18px;
+			}
+		}
+		.operation {
+			display: flex;
+			align-items: center;
+			border-radius: 4px;
+			.card {
+				display: flex;
+				margin: 0 10px;
+				position: relative;
+                border-radius: 4px;
+				.item {
+					cursor: pointer !important;
+				}
+				&::after {
+					content: '';
+					position: absolute;
+					width: 1px;
+					height: 16px;
+					background: var(--selectSplitLineColor);
+					right: -12px;
+					top: 50%;
+					margin-top: -8px;
+				}
+				&:last-child {
+					margin-right: 0;
+				}
+				&:last-child::after {
+					content: none;
+				}
+				&.button {
+					background: var(--selectBgAInactive);
+                    color: var(--selectTextDisabled);
+                    padding: 2px;
+					.item {
+						padding: 3px 16px;
+						font-size: 12px;
+						line-height: 18px;
+					}
+				}
+				&.icon-button {
+					background: var(--selectBgAInactive);
+                    padding: 2px;
+					.item {
+						display: flex;
+						width: 24px;
+						height: 24px;
+						justify-content: center;
+						align-items: center;
+						
+					}
+				}
+				&.icon {
+					.item {
+						margin-right: 26px;
+						&:last-child {
+							margin-right: 0;
+						}
+					}
+				}
+				.active {
+					color: #0067D1;
+					border-radius: 4px;
+                    background-color: var(--selectBgActive);
+                    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.08);
+				}
+			}
+		}
+	}
+	.valueArea {
+		padding-top: 16px;
+		display: flex;
+		.item {
+			margin-left: 32px;
+			&:first-child {
+				margin-left: 0px;
+			}
+			.main {
+				font-size: 18px;
+				line-height: 28px;
+			}
+			.sub {
+				font-size: 12px;
+				line-height: 18px;
+				color: var(--selectTextDisabled);
+			}
+		}
+	}
+}
+// .hdesign-dark {
+//     .card-container {
+//         color: #ffffff;
+//         .card-top {
+//             &.divider {
+//                 border-bottom: 1px solid #393939;
+//             }
+//             .card-title {
+//                 color: #ffffff;
+//             }
+//             .operation {
+//                 .card {
+//                     &::after {
+//                         background: #393939;
+//                     }
+//                     &.button {
+//                         background: rgba(243,243,243,0.2);
+//                         color: #AEAEAE;
+//                     }
+//                     &.icon-button {
+//                         background: rgba(243,243,243,0.2);
+//                     }
+//                     .active {
+//                         background: #2E86DE;
+//                         color: #191919;
+//                         box-shadow: 1px 1px 1px 1px rgba(255,255,255,0.08);
+//                     }
+//                 }
+//             }
+//         }
+//         .valueArea {
+//             .item {
+//                 .sub {
+//                     color: #c9c9c9;
+//                 }
+//             }
+//         }
+//     }
+// }
+  
+

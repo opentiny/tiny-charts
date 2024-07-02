@@ -1,0 +1,1 @@
+export default '关系图目前仅支持 eCharts 原生属性配置，使用方式和 eCharts 一致。详细配置请参考：https://echarts.apache.org/examples/zh/index.html#chart-type-graph'

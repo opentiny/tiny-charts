@@ -1,0 +1,428 @@
+<svg width="64.000000" height="64.000000" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<filter id="filter_3_2031_dd" x="10.000000" y="45.871094" width="44.000000" height="4.129150" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="0" result="effect_layerBlur_1"/>
+		</filter>
+		<filter id="filter_3_2046_dd" x="25.000000" y="16.000000" width="15.076904" height="5.344727" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="0"/>
+			<feGaussianBlur stdDeviation="0.666667"/>
+			<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.85882 0 0 0 0 0.85882 0 0 0 0 0.8902 0 0 0 1 0"/>
+			<feBlend mode="normal" in2="shape" result="effect_innerShadow_1"/>
+		</filter>
+		<filter id="filter_3_2047_dd" x="20.409058" y="24.244629" width="13.489502" height="13.441650" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="0"/>
+			<feGaussianBlur stdDeviation="1"/>
+			<feComposite in2="hardAlpha" operator="out" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.85882 0 0 0 0 0.85882 0 0 0 0 0.8902 0 0 0 1 0"/>
+			<feBlend mode="normal" in2="BackgroundImageFix" result="effect_dropShadow_1"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="effect_dropShadow_1" result="shape"/>
+		</filter>
+		<filter id="filter_3_2053_dd" x="32.373413" y="25.415283" width="11.660156" height="11.674316" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="9.53674e-07"/>
+			<feGaussianBlur stdDeviation="1"/>
+			<feComposite in2="hardAlpha" operator="out" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.85882 0 0 0 0 0.85882 0 0 0 0 0.8902 0 0 0 1 0"/>
+			<feBlend mode="normal" in2="BackgroundImageFix" result="effect_dropShadow_1"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="effect_dropShadow_1" result="shape"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0.5" dy="0.866026"/>
+			<feGaussianBlur stdDeviation="0.333333"/>
+			<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"/>
+			<feBlend mode="normal" in2="shape" result="effect_innerShadow_2"/>
+		</filter>
+		<filter id="filter_3_2054_dd" x="16.219604" y="17.932617" width="11.660156" height="11.674316" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="-4.76837e-07"/>
+			<feGaussianBlur stdDeviation="1"/>
+			<feComposite in2="hardAlpha" operator="out" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.85882 0 0 0 0 0.85882 0 0 0 0 0.8902 0 0 0 1 0"/>
+			<feBlend mode="normal" in2="BackgroundImageFix" result="effect_dropShadow_1"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="effect_dropShadow_1" result="shape"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0.5" dy="0.866025"/>
+			<feGaussianBlur stdDeviation="0.333333"/>
+			<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"/>
+			<feBlend mode="normal" in2="shape" result="effect_innerShadow_2"/>
+		</filter>
+		<filter id="filter_3_2055_dd" x="33.873291" y="31.167725" width="25.188721" height="25.944580" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="2.42684" result="effect_layerBlur_1"/>
+		</filter>
+		<filter id="filter_3_2056_dd" x="4.937988" y="31.167725" width="25.188721" height="25.944580" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="2.42684" result="effect_layerBlur_1"/>
+		</filter>
+		<filter id="filter_3_2057_dd" x="15.307739" y="37.379150" width="34.461426" height="10.689697" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="0"/>
+			<feGaussianBlur stdDeviation="0.333333"/>
+			<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.85882 0 0 0 0 0.85882 0 0 0 0 0.8902 0 0 0 1 0"/>
+			<feBlend mode="normal" in2="shape" result="effect_innerShadow_1"/>
+		</filter>
+		<filter id="filter_3_2060_dd" x="4.129028" y="13.428467" width="20.774170" height="37.211914" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="1.21342" result="effect_layerBlur_1"/>
+		</filter>
+		<filter id="filter_3_2061_dd" x="38.837402" y="14.497559" width="19.956665" height="37.211914" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="1.21342" result="effect_layerBlur_1"/>
+		</filter>
+		<filter id="filter_3_2063_dd" x="36.000000" y="20.482666" width="8.153809" height="8.137939" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="0"/>
+			<feGaussianBlur stdDeviation="1"/>
+			<feComposite in2="hardAlpha" operator="out" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.85882 0 0 0 0 0.85882 0 0 0 0 0.8902 0 0 0 1 0"/>
+			<feBlend mode="normal" in2="BackgroundImageFix" result="effect_dropShadow_1"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="effect_dropShadow_1" result="shape"/>
+		</filter>
+		<filter id="filter_3_2066_dd" x="38.153809" y="18.344727" width="8.153809" height="8.137939" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="0"/>
+			<feGaussianBlur stdDeviation="1"/>
+			<feComposite in2="hardAlpha" operator="out" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.85882 0 0 0 0 0.85882 0 0 0 0 0.8902 0 0 0 1 0"/>
+			<feBlend mode="normal" in2="BackgroundImageFix" result="effect_dropShadow_1"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="effect_dropShadow_1" result="shape"/>
+		</filter>
+		<filter id="filter_3_2069_dd" x="38.153809" y="22.620605" width="8.153809" height="8.137939" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="0"/>
+			<feGaussianBlur stdDeviation="1"/>
+			<feComposite in2="hardAlpha" operator="out" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.85882 0 0 0 0 0.85882 0 0 0 0 0.8902 0 0 0 1 0"/>
+			<feBlend mode="normal" in2="BackgroundImageFix" result="effect_dropShadow_1"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="effect_dropShadow_1" result="shape"/>
+		</filter>
+		<filter id="filter_3_2072_dd" x="40.307617" y="20.482666" width="8.153809" height="8.137939" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="0" dy="0"/>
+			<feGaussianBlur stdDeviation="1"/>
+			<feComposite in2="hardAlpha" operator="out" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0.85882 0 0 0 0 0.85882 0 0 0 0 0.8902 0 0 0 1 0"/>
+			<feBlend mode="normal" in2="BackgroundImageFix" result="effect_dropShadow_1"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="effect_dropShadow_1" result="shape"/>
+		</filter>
+		<clipPath id="clip3_19">
+			<rect id="终端设备/游戏机" width="64.000000" height="64.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+		<radialGradient gradientTransform="translate(32 47.9356) rotate(90) scale(0.903984 24.6787)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2031_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#73757F" stop-opacity="0.313726"/>
+			<stop offset="0.525180" stop-color="#37383C" stop-opacity="0.082353"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<linearGradient x1="32.000000" y1="16.000000" x2="32.000000" y2="46.999809" id="paint_linear_3_2032_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#E3E2E2"/>
+			<stop offset="1.000000" stop-color="#B5B5B5"/>
+		</linearGradient>
+		<linearGradient x1="24.371387" y1="32.469303" x2="30.384632" y2="32.469303" id="paint_linear_3_2047_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#191919"/>
+			<stop offset="0.453786" stop-color="#191919"/>
+			<stop offset="1.000000" stop-color="#FFFFFF" stop-opacity="0.101961"/>
+		</linearGradient>
+		<linearGradient x1="24.371387" y1="32.502750" x2="30.384632" y2="32.502750" id="paint_linear_3_2050_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#191919"/>
+			<stop offset="0.453786" stop-color="#191919"/>
+			<stop offset="1.000000" stop-color="#FFFFFF" stop-opacity="0.101961"/>
+		</linearGradient>
+		<radialGradient gradientTransform="translate(25.7302 28.7238) rotate(68.9468) scale(2.89901 1.75224)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2050_1" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFFFFF"/>
+			<stop offset="1.000000" stop-color="#FFFFFF" stop-opacity="0.000000"/>
+		</radialGradient>
+		<linearGradient x1="23.923096" y1="31.499815" x2="24.461557" y2="31.499815" id="paint_linear_3_2051_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#EEEEEE"/>
+			<stop offset="1.000000" stop-color="#D8D8D8" stop-opacity="0.000000"/>
+		</linearGradient>
+		<linearGradient x1="24.371387" y1="29.461609" x2="30.384632" y2="29.461609" id="paint_linear_3_2052_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#191919"/>
+			<stop offset="0.453786" stop-color="#191919"/>
+			<stop offset="1.000000" stop-color="#FFFFFF" stop-opacity="0.101961"/>
+		</linearGradient>
+		<radialGradient gradientTransform="translate(26.0974 33.4654) rotate(-68.9468) scale(2.89901 1.06433)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2052_1" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFFFFF"/>
+			<stop offset="1.000000" stop-color="#FFFFFF" stop-opacity="0.000000"/>
+		</radialGradient>
+		<radialGradient gradientTransform="rotate(62.463) scale(1.75213 1.75213)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2053_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#D8D8D8" stop-opacity="0.172549"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<radialGradient gradientTransform="rotate(62.4631) scale(1.75213 1.75213)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2054_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#D8D8D8" stop-opacity="0.172549"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<linearGradient x1="32.538483" y1="37.379150" x2="32.538483" y2="48.068806" id="paint_linear_3_2057_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#EBEBEB"/>
+			<stop offset="1.000000" stop-color="#E8E8E8" stop-opacity="0.000000"/>
+		</linearGradient>
+		<linearGradient x1="14.769287" y1="41.678120" x2="11.558019" y2="42.314064" id="paint_linear_3_2060_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#EEEEEE" stop-opacity="0.000000"/>
+			<stop offset="1.000000" stop-color="#DBDBE3"/>
+		</linearGradient>
+		<linearGradient x1="48.692272" y1="42.747211" x2="51.656521" y2="43.383156" id="paint_linear_3_2061_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#EEEEEE" stop-opacity="0.000000"/>
+			<stop offset="1.000000" stop-color="#DBDBE3"/>
+		</linearGradient>
+		<radialGradient gradientTransform="translate(39.9117 24.4246) rotate(62.1568) scale(0.730532 0.730532)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2063_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#D8D8D8" stop-opacity="0.172549"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<radialGradient gradientTransform="translate(38.9327 23.3556) rotate(62.1568) scale(0.730532 0.730532)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2064_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#D8D8D8" stop-opacity="0.172549"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<radialGradient gradientTransform="translate(42.0655 22.2867) rotate(62.1568) scale(0.730532 0.730532)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2066_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#D8D8D8" stop-opacity="0.172549"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<radialGradient gradientTransform="translate(41.0865 21.2176) rotate(62.1568) scale(0.730532 0.730532)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2067_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#D8D8D8" stop-opacity="0.172549"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<radialGradient gradientTransform="translate(42.0655 26.5626) rotate(62.1568) scale(0.730532 0.730532)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2069_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#D8D8D8" stop-opacity="0.172549"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<radialGradient gradientTransform="translate(41.0865 25.4935) rotate(62.1568) scale(0.730532 0.730532)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2070_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#D8D8D8" stop-opacity="0.172549"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<radialGradient gradientTransform="translate(44.2193 24.4246) rotate(62.1568) scale(0.730532 0.730532)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2072_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#D8D8D8" stop-opacity="0.172549"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<radialGradient gradientTransform="translate(43.2403 23.3556) rotate(62.1568) scale(0.730532 0.730532)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2073_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#D8D8D8" stop-opacity="0.172549"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+	</defs>
+	<rect id="终端设备/游戏机" width="64.000000" height="64.000000" fill="#000000" fill-opacity="0"/>
+	<g clip-path="url(#clip3_19)">
+		<g opacity="0.000000">
+			<rect id="矩形" x="8.000000" y="8.000000" width="48.000000" height="48.000000" fill="#D8D8D8" fill-opacity="1.000000"/>
+			<rect id="矩形" x="8.500000" y="8.500000" width="47.000000" height="47.000000" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		</g>
+		<g filter="url(#filter_3_2031_dd)">
+			<ellipse id="椭圆形备份 2" cx="32.000000" cy="47.935547" rx="22.000000" ry="2.064516" fill="url(#paint_radial_3_2031_0)" fill-opacity="1.000000"/>
+			<ellipse id="椭圆形备份 2" cx="32.000000" cy="47.935547" rx="21.500000" ry="1.564516" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		</g>
+		<mask id="mask_3_2032" fill="white">
+			<path id="形状结合" d="M31.4615 17.9617L31.4615 16.8928L27.3861 16.8928L25.7538 16.0786C25.2096 15.8074 23.5483 16.2998 22.4889 16.6213C21.4294 16.9431 19.4961 17.9783 19.224 18.2498C19.1006 18.3728 19.0332 18.5518 18.9709 18.7358C18.5125 18.9883 18.1553 19.2122 18.05 19.3186C17.7816 19.5898 17.7816 20.1326 17.5133 20.4041L16.4398 21.4895L16.2102 22C13.4861 28.0898 11.8629 32.895 11.3406 36.4158L11.3169 36.5774C10.5789 41.6821 11.2914 43.1108 11.8197 44.1699C11.8392 44.209 11.8584 44.2478 11.8773 44.2859L11.908 44.3457C12.4822 45.4302 14.3123 46.9998 15.3662 46.9998C16.057 46.9998 17.6643 45.2302 20.1881 41.6914L20.5396 41.1953C21.7811 39.4563 23.3667 38.5869 25.2961 38.5869L38.7039 38.5869C40.6719 38.5869 42.2822 39.4915 43.5345 41.3008L43.6278 41.4324C46.2577 45.144 47.9264 46.9998 48.6338 46.9998C49.7073 46.9998 51.5859 45.3716 52.1227 44.2859C52.1416 44.2478 52.1608 44.209 52.1803 44.1699C52.7031 43.1218 53.4062 41.7119 52.7058 36.7366L52.6594 36.4158C52.1371 32.895 50.5139 28.0898 47.7898 22L47.5602 21.4895L46.4867 20.4041C46.2184 20.1326 46.2184 19.5898 45.95 19.3186C45.8625 19.23 45.6011 19.0605 45.2522 18.8611C45.1776 18.6355 45.1123 18.4006 44.965 18.2498C44.7001 17.9783 42.8179 16.9431 41.7864 16.6213C40.7549 16.2998 39.1376 15.8074 38.6078 16.0786L37.0186 16.8928L31.4615 16.8928L31.4615 17.9617L31.4615 17.9617Z" clip-rule="evenodd" fill="" fill-opacity="1.000000" fill-rule="evenodd"/>
+		</mask>
+		<path id="形状结合" d="M31.4615 17.9617L31.4615 16.8928L27.3861 16.8928L25.7538 16.0786C25.2096 15.8074 23.5483 16.2998 22.4889 16.6213C21.4294 16.9431 19.4961 17.9783 19.224 18.2498C19.1006 18.3728 19.0332 18.5518 18.9709 18.7358C18.5125 18.9883 18.1553 19.2122 18.05 19.3186C17.7816 19.5898 17.7816 20.1326 17.5133 20.4041L16.4398 21.4895L16.2102 22C13.4861 28.0898 11.8629 32.895 11.3406 36.4158L11.3169 36.5774C10.5789 41.6821 11.2914 43.1108 11.8197 44.1699C11.8392 44.209 11.8584 44.2478 11.8773 44.2859L11.908 44.3457C12.4822 45.4302 14.3123 46.9998 15.3662 46.9998C16.057 46.9998 17.6643 45.2302 20.1881 41.6914L20.5396 41.1953C21.7811 39.4563 23.3667 38.5869 25.2961 38.5869L38.7039 38.5869C40.6719 38.5869 42.2822 39.4915 43.5345 41.3008L43.6278 41.4324C46.2577 45.144 47.9264 46.9998 48.6338 46.9998C49.7073 46.9998 51.5859 45.3716 52.1227 44.2859C52.1416 44.2478 52.1608 44.209 52.1803 44.1699C52.7031 43.1218 53.4062 41.7119 52.7058 36.7366L52.6594 36.4158C52.1371 32.895 50.5139 28.0898 47.7898 22L47.5602 21.4895L46.4867 20.4041C46.2184 20.1326 46.2184 19.5898 45.95 19.3186C45.8625 19.23 45.6011 19.0605 45.2522 18.8611C45.1776 18.6355 45.1123 18.4006 44.965 18.2498C44.7001 17.9783 42.8179 16.9431 41.7864 16.6213C40.7549 16.2998 39.1376 15.8074 38.6078 16.0786L37.0186 16.8928L31.4615 16.8928L31.4615 17.9617L31.4615 17.9617Z" clip-rule="evenodd" fill="#DBDBE3" fill-opacity="1.000000" fill-rule="evenodd" mask="url(#mask_3_2032)"/>
+		<path id="形状结合" d="M30.9475 16.8928L37.0186 16.8928L38.6078 16.0786C39.1376 15.8074 40.7549 16.2998 41.7864 16.6213C42.8179 16.9431 44.7001 17.9783 44.965 18.2498C45.1123 18.4006 45.1776 18.6355 45.2522 18.8611C45.6011 19.0605 45.8625 19.23 45.95 19.3186C46.2184 19.5898 46.2184 20.1326 46.4867 20.4041L47.5602 21.4895L47.7898 22C50.5139 28.0898 52.1371 32.895 52.6594 36.4158L52.7058 36.7366C53.4062 41.7119 52.7031 43.1218 52.1803 44.1699C52.1608 44.209 52.1416 44.2478 52.1227 44.2859C51.5859 45.3716 49.7073 46.9998 48.6338 46.9998C47.9264 46.9998 46.2577 45.144 43.6278 41.4324L43.5345 41.3008C42.2822 39.4915 40.6719 38.5869 38.7039 38.5869L25.2961 38.5869C23.3667 38.5869 21.7811 39.4563 20.5396 41.1953L20.1881 41.6914C17.6643 45.2302 16.057 46.9998 15.3662 46.9998C14.3123 46.9998 12.4822 45.4302 11.908 44.3457L11.8773 44.2859C11.8584 44.2478 11.8392 44.209 11.8197 44.1699C11.2914 43.1108 10.5789 41.6821 11.3169 36.5774L11.3406 36.4158C11.8629 32.895 13.4861 28.0898 16.2102 22L16.4398 21.4895L17.5133 20.4041C17.7816 20.1326 17.7816 19.5898 18.05 19.3186C18.1553 19.2122 18.5125 18.9883 18.9709 18.7358C19.0332 18.5518 19.1006 18.3728 19.224 18.2498C19.4961 17.9783 21.4294 16.9431 22.4889 16.6213C23.5483 16.2998 25.2096 15.8074 25.7538 16.0786L27.3861 16.8928L30.9475 16.8928ZM27.5074 16.3789L36.8943 16.3789L38.3734 15.6211Q38.684 15.4622 39.2106 15.4905Q39.587 15.5107 40.1174 15.6252Q40.7701 15.7661 41.9393 16.1309Q42.7058 16.3696 43.9025 16.9995Q44.394 17.2583 44.7693 17.4873Q45.189 17.7434 45.3328 17.8906Q45.4856 18.0474 45.592 18.2874Q45.6296 18.372 45.6788 18.5145Q46.1594 18.7993 46.3154 18.957Q46.4702 19.1135 46.5781 19.3538Q46.631 19.4714 46.7065 19.7004Q46.8029 19.9927 46.8522 20.0427L47.991 21.1941L48.259 21.7903Q52.374 30.9895 53.1681 36.3423L53.2147 36.665Q53.6863 40.0142 53.4109 41.9968Q53.3018 42.782 53.0652 43.4399Q52.9264 43.8257 52.6405 44.3989L52.5834 44.5137Q52.3545 44.9766 51.8881 45.5073Q51.4463 46.0098 50.9027 46.4495Q50.329 46.9136 49.7882 47.187Q49.1421 47.5137 48.6338 47.5137Q48.1915 47.5137 47.6066 47.0569Q47.1255 46.6812 46.4695 45.9517Q45.1981 44.5376 43.2083 41.7292L43.1119 41.5933Q42.2401 40.3337 41.1359 39.7134Q40.8836 39.5717 40.6178 39.4627Q39.735 39.1008 38.7039 39.1008L25.2961 39.1008Q24.264 39.1008 23.3806 39.4634Q23.1382 39.5629 22.907 39.6897Q21.8208 40.2854 20.959 41.4924L20.6066 41.9897Q18.696 44.6687 17.4702 46.0183Q16.8368 46.7156 16.3698 47.0752Q15.8003 47.5137 15.3662 47.5137Q14.8662 47.5137 14.2324 47.1975Q13.7019 46.9326 13.1365 46.481Q12.6021 46.0542 12.1598 45.561Q11.6964 45.0447 11.4504 44.5801L11.4171 44.5149L11.3597 44.3994Q11.2208 44.1208 11.1484 43.9624Q11.0238 43.689 10.9304 43.4275Q10.6919 42.7598 10.584 41.9595Q10.3116 39.938 10.8083 36.5029L10.8322 36.3403Q11.626 30.9895 15.7415 21.7893L16.009 21.1941L17.1478 20.0427Q17.1971 19.9927 17.2935 19.7004Q17.369 19.4714 17.4219 19.3538Q17.5298 19.1135 17.6846 18.957Q17.8782 18.7613 18.5537 18.3801Q18.5835 18.305 18.6115 18.2468Q18.7155 18.031 18.8611 17.8857Q19.0079 17.7393 19.4374 17.4841Q19.8224 17.2554 20.3268 16.9971Q21.5543 16.3679 22.3396 16.1296Q23.5394 15.7654 24.2089 15.6248Q24.7515 15.5105 25.1361 15.4905Q25.6699 15.4624 25.9832 15.6187L27.5074 16.3789Z" clip-rule="evenodd" fill="#979797" fill-opacity="0.000000" fill-rule="evenodd"/>
+		<path id="形状结合" d="M30.9475 16.8928L37.0186 16.8928L38.6078 16.0786C39.1376 15.8074 40.7549 16.2998 41.7864 16.6213C42.8179 16.9431 44.7001 17.9783 44.965 18.2498C45.1123 18.4006 45.1776 18.6355 45.2522 18.8611C45.6011 19.0605 45.8625 19.23 45.95 19.3186C46.2184 19.5898 46.2184 20.1326 46.4867 20.4041L47.5602 21.4895L47.7898 22C50.5139 28.0898 52.1371 32.895 52.6594 36.4158L52.7058 36.7366C53.4062 41.7119 52.7031 43.1218 52.1803 44.1699C52.1608 44.209 52.1416 44.2478 52.1227 44.2859C51.5859 45.3716 49.7073 46.9998 48.6338 46.9998C47.9264 46.9998 46.2577 45.144 43.6278 41.4324L43.5345 41.3008C42.2822 39.4915 40.6719 38.5869 38.7039 38.5869L25.2961 38.5869C23.3667 38.5869 21.7811 39.4563 20.5396 41.1953L20.1881 41.6914C17.6643 45.2302 16.057 46.9998 15.3662 46.9998C14.3123 46.9998 12.4822 45.4302 11.908 44.3457L11.8773 44.2859C11.8584 44.2478 11.8392 44.209 11.8197 44.1699C11.2914 43.1108 10.5789 41.6821 11.3169 36.5774L11.3406 36.4158C11.8629 32.895 13.4861 28.0898 16.2102 22L16.4398 21.4895L17.5133 20.4041C17.7816 20.1326 17.7816 19.5898 18.05 19.3186C18.1553 19.2122 18.5125 18.9883 18.9709 18.7358C19.0332 18.5518 19.1006 18.3728 19.224 18.2498C19.4961 17.9783 21.4294 16.9431 22.4889 16.6213C23.5483 16.2998 25.2096 15.8074 25.7538 16.0786L27.3861 16.8928L30.9475 16.8928ZM27.5074 16.3789L36.8943 16.3789L38.3734 15.6211Q38.684 15.4622 39.2106 15.4905Q39.587 15.5107 40.1174 15.6252Q40.7701 15.7661 41.9393 16.1309Q42.7058 16.3696 43.9025 16.9995Q44.394 17.2583 44.7693 17.4873Q45.189 17.7434 45.3328 17.8906Q45.4856 18.0474 45.592 18.2874Q45.6296 18.372 45.6788 18.5145Q46.1594 18.7993 46.3154 18.957Q46.4702 19.1135 46.5781 19.3538Q46.631 19.4714 46.7065 19.7004Q46.8029 19.9927 46.8522 20.0427L47.991 21.1941L48.259 21.7903Q52.374 30.9895 53.1681 36.3423L53.2147 36.665Q53.6863 40.0142 53.4109 41.9968Q53.3018 42.782 53.0652 43.4399Q52.9264 43.8257 52.6405 44.3989L52.5834 44.5137Q52.3545 44.9766 51.8881 45.5073Q51.4463 46.0098 50.9027 46.4495Q50.329 46.9136 49.7882 47.187Q49.1421 47.5137 48.6338 47.5137Q48.1915 47.5137 47.6066 47.0569Q47.1255 46.6812 46.4695 45.9517Q45.1981 44.5376 43.2083 41.7292L43.1119 41.5933Q42.2401 40.3337 41.1359 39.7134Q40.8836 39.5717 40.6178 39.4627Q39.735 39.1008 38.7039 39.1008L25.2961 39.1008Q24.264 39.1008 23.3806 39.4634Q23.1382 39.5629 22.907 39.6897Q21.8208 40.2854 20.959 41.4924L20.6066 41.9897Q18.696 44.6687 17.4702 46.0183Q16.8368 46.7156 16.3698 47.0752Q15.8003 47.5137 15.3662 47.5137Q14.8662 47.5137 14.2324 47.1975Q13.7019 46.9326 13.1365 46.481Q12.6021 46.0542 12.1598 45.561Q11.6964 45.0447 11.4504 44.5801L11.4171 44.5149L11.3597 44.3994Q11.2208 44.1208 11.1484 43.9624Q11.0238 43.689 10.9304 43.4275Q10.6919 42.7598 10.584 41.9595Q10.3116 39.938 10.8083 36.5029L10.8322 36.3403Q11.626 30.9895 15.7415 21.7893L16.009 21.1941L17.1478 20.0427Q17.1971 19.9927 17.2935 19.7004Q17.369 19.4714 17.4219 19.3538Q17.5298 19.1135 17.6846 18.957Q17.8782 18.7613 18.5537 18.3801Q18.5835 18.305 18.6115 18.2468Q18.7155 18.031 18.8611 17.8857Q19.0079 17.7393 19.4374 17.4841Q19.8224 17.2554 20.3268 16.9971Q21.5543 16.3679 22.3396 16.1296Q23.5394 15.7654 24.2089 15.6248Q24.7515 15.5105 25.1361 15.4905Q25.6699 15.4624 25.9832 15.6187L27.5074 16.3789Z" clip-rule="evenodd" fill="url(#paint_linear_3_2032_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<mask id="mask_3_2039" fill="white">
+			<path id="形状结合" d="M31.4615 34.1721L31.4615 16.8928L37.0184 16.8928L38.6078 16.0786C39.1375 15.8074 40.7549 16.2998 41.7863 16.6213C42.8177 16.9431 44.7 17.9783 44.9648 18.2498C45.2297 18.5212 45.2297 19.064 45.4946 19.3352C46.1954 20.0532 46.7645 20.8894 47.1547 21.8137C48.2452 24.3977 50.5177 30.0459 51.3762 34.1721L31.4615 34.1721L31.4615 34.1721ZM31.4615 34.1721L31.4615 16.8928L27.3861 16.8928L25.7537 16.0786C25.2095 15.8074 23.5483 16.2998 22.4888 16.6213C21.4293 16.9431 19.4961 17.9783 19.224 18.2498C18.9519 18.5212 18.9519 19.064 18.6798 19.3352C17.9601 20.0532 17.3735 20.8936 16.9692 21.8264C15.847 24.416 13.5189 30.0525 12.6385 34.1721L31.4615 34.1721Z" clip-rule="evenodd" fill="" fill-opacity="1.000000" fill-rule="evenodd"/>
+		</mask>
+		<path id="形状结合" d="M31.4615 34.1721L31.4615 16.8928L37.0184 16.8928L38.6078 16.0786C39.1375 15.8074 40.7549 16.2998 41.7863 16.6213C42.8177 16.9431 44.7 17.9783 44.9648 18.2498C45.2297 18.5212 45.2297 19.064 45.4946 19.3352C46.1954 20.0532 46.7645 20.8894 47.1547 21.8137C48.2452 24.3977 50.5177 30.0459 51.3762 34.1721L31.4615 34.1721L31.4615 34.1721ZM31.4615 34.1721L31.4615 16.8928L27.3861 16.8928L25.7537 16.0786C25.2095 15.8074 23.5483 16.2998 22.4888 16.6213C21.4293 16.9431 19.4961 17.9783 19.224 18.2498C18.9519 18.5212 18.9519 19.064 18.6798 19.3352C17.9601 20.0532 17.3735 20.8936 16.9692 21.8264C15.847 24.416 13.5189 30.0525 12.6385 34.1721L31.4615 34.1721Z" clip-rule="evenodd" fill="#E8E8E8" fill-opacity="1.000000" fill-rule="evenodd" mask="url(#mask_3_2039)"/>
+		<path id="形状结合" d="" clip-rule="evenodd" fill="#979797" fill-opacity="0.000000" fill-rule="evenodd"/>
+		<mask id="mask3_2045" mask-type="alpha" maskUnits="userSpaceOnUse" x="11.000000" y="17.068848" width="42.000000" height="29.931152">
+			<path id="蒙版" d="M26.1 17.96L37.89 17.96L39.5 17.14C40.04 16.87 41.68 17.36 42.72 17.69C43.77 18.01 45.68 19.04 45.95 19.31C46.21 19.59 46.21 20.13 46.48 20.4L47.56 21.48L47.78 22C50.51 28.08 52.13 32.89 52.65 36.41L52.7 36.73C53.43 41.89 52.64 43.22 52.12 44.28C51.58 45.37 49.7 47 48.63 47C47.92 47 46.25 45.14 43.62 41.43L43.53 41.3C42.28 39.49 40.67 38.58 38.7 38.58L25.29 38.58C23.36 38.58 21.78 39.45 20.53 41.19L20.18 41.69C17.66 45.23 16.05 47 15.36 47C14.31 47 12.48 45.43 11.9 44.34L11.87 44.28C11.34 43.21 10.55 41.87 11.31 36.57L11.34 36.41C11.86 32.89 13.48 28.08 16.21 22L16.43 21.48L17.51 20.4C17.78 20.13 17.78 19.59 18.04 19.31C18.31 19.05 20.14 18.05 21.2 17.71L21.66 17.56C22.69 17.26 24.01 16.9 24.49 17.14L26.1 17.96Z" fill="#FFFFFF" fill-opacity="0" fill-rule="evenodd"/>
+			<path id="蒙版" d="M26.1 17.96L37.89 17.96L39.5 17.14C40.04 16.87 41.68 17.36 42.72 17.69C43.77 18.01 45.68 19.04 45.95 19.31C46.21 19.59 46.21 20.13 46.48 20.4L47.56 21.48L47.78 22C50.51 28.08 52.13 32.89 52.65 36.41L52.7 36.73C53.43 41.89 52.64 43.22 52.12 44.28C51.58 45.37 49.7 47 48.63 47C47.92 47 46.25 45.14 43.62 41.43L43.53 41.3C42.28 39.49 40.67 38.58 38.7 38.58L25.29 38.58C23.36 38.58 21.78 39.45 20.53 41.19L20.18 41.69C17.66 45.23 16.05 47 15.36 47C14.31 47 12.48 45.43 11.9 44.34L11.87 44.28C11.34 43.21 10.55 41.87 11.31 36.57L11.34 36.41C11.86 32.89 13.48 28.08 16.21 22L16.43 21.48L17.51 20.4C17.78 20.13 17.78 19.59 18.04 19.31C18.31 19.05 20.14 18.05 21.2 17.71L21.66 17.56C22.69 17.26 24.01 16.9 24.49 17.14L26.1 17.96Z" fill="#F8F8F8" fill-opacity="1.000000" fill-rule="evenodd"/>
+			<path id="蒙版" d="" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+		</mask>
+		<path id="蒙版" d="M26.1 17.96L37.89 17.96L39.5 17.14C40.04 16.87 41.68 17.36 42.72 17.69C43.77 18.01 45.68 19.04 45.95 19.31C46.21 19.59 46.21 20.13 46.48 20.4L47.56 21.48L47.78 22C50.51 28.08 52.13 32.89 52.65 36.41L52.7 36.73C53.43 41.89 52.64 43.22 52.12 44.28C51.58 45.37 49.7 47 48.63 47C47.92 47 46.25 45.14 43.62 41.43L43.53 41.3C42.28 39.49 40.67 38.58 38.7 38.58L25.29 38.58C23.36 38.58 21.78 39.45 20.53 41.19L20.18 41.69C17.66 45.23 16.05 47 15.36 47C14.31 47 12.48 45.43 11.9 44.34L11.87 44.28C11.34 43.21 10.55 41.87 11.31 36.57L11.34 36.41C11.86 32.89 13.48 28.08 16.21 22L16.43 21.48L17.51 20.4C17.78 20.13 17.78 19.59 18.04 19.31C18.31 19.05 20.14 18.05 21.2 17.71L21.66 17.56C22.69 17.26 24.01 16.9 24.49 17.14L26.1 17.96Z" fill="#FFFFFF" fill-opacity="0" fill-rule="evenodd"/>
+		<path id="蒙版" d="M26.1 17.96L37.89 17.96L39.5 17.14C40.04 16.87 41.68 17.36 42.72 17.69C43.77 18.01 45.68 19.04 45.95 19.31C46.21 19.59 46.21 20.13 46.48 20.4L47.56 21.48L47.78 22C50.51 28.08 52.13 32.89 52.65 36.41L52.7 36.73C53.43 41.89 52.64 43.22 52.12 44.28C51.58 45.37 49.7 47 48.63 47C47.92 47 46.25 45.14 43.62 41.43L43.53 41.3C42.28 39.49 40.67 38.58 38.7 38.58L25.29 38.58C23.36 38.58 21.78 39.45 20.53 41.19L20.18 41.69C17.66 45.23 16.05 47 15.36 47C14.31 47 12.48 45.43 11.9 44.34L11.87 44.28C11.34 43.21 10.55 41.87 11.31 36.57L11.34 36.41C11.86 32.89 13.48 28.08 16.21 22L16.43 21.48L17.51 20.4C17.78 20.13 17.78 19.59 18.04 19.31C18.31 19.05 20.14 18.05 21.2 17.71L21.66 17.56C22.69 17.26 24.01 16.9 24.49 17.14L26.1 17.96Z" fill="#F8F8F8" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="蒙版" d="" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+		<g mask="url(#mask3_2045)">
+			<g filter="url(#filter_3_2046_dd)">
+				<path id="矩形" d="M25 16L40.07 16L36.95 20.43C36.54 21 35.89 21.34 35.19 21.34L29.88 21.34C29.18 21.34 28.52 21 28.12 20.43L25 16Z" fill="#F8F8FC" fill-opacity="1.000000" fill-rule="evenodd"/>
+			</g>
+			<path id="矩形" d="" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+		</g>
+		<g mask="url(#mask3_2045)">
+			<g filter="url(#filter_3_2047_dd)">
+				<mask id="mask_3_2047" fill="white">
+					<path id="形状结合" d="M26.6127 27.7585L27.6951 27.7585C27.991 27.7585 28.2308 27.9983 28.2308 28.2942L28.2308 29.8965L29.849 29.8965C30.1448 29.8965 30.3846 30.1362 30.3846 30.4321L30.3846 31.4133C30.3846 31.709 30.1448 31.949 29.849 31.949L28.2308 31.949L28.2308 33.6367C28.2308 33.9326 27.991 34.1724 27.6951 34.1724L26.6127 34.1724C26.3168 34.1724 26.0769 33.9326 26.0769 33.6367L26.0769 31.949L24.4587 31.949C24.163 31.949 23.9231 31.709 23.9231 31.4133L23.9231 30.4321C23.9231 30.1362 24.163 29.8965 24.4587 29.8965L26.0769 29.8965L26.0769 28.2942C26.0769 27.9983 26.3168 27.7585 26.6127 27.7585Z" clip-rule="evenodd" fill="" fill-opacity="1.000000" fill-rule="evenodd"/>
+				</mask>
+				<path id="形状结合" d="M26.6127 27.7585L27.6951 27.7585C27.991 27.7585 28.2308 27.9983 28.2308 28.2942L28.2308 29.8965L29.849 29.8965C30.1448 29.8965 30.3846 30.1362 30.3846 30.4321L30.3846 31.4133C30.3846 31.709 30.1448 31.949 29.849 31.949L28.2308 31.949L28.2308 33.6367C28.2308 33.9326 27.991 34.1724 27.6951 34.1724L26.6127 34.1724C26.3168 34.1724 26.0769 33.9326 26.0769 33.6367L26.0769 31.949L24.4587 31.949C24.163 31.949 23.9231 31.709 23.9231 31.4133L23.9231 30.4321C23.9231 30.1362 24.163 29.8965 24.4587 29.8965L26.0769 29.8965L26.0769 28.2942C26.0769 27.9983 26.3168 27.7585 26.6127 27.7585Z" clip-rule="evenodd" fill="#303030" fill-opacity="1.000000" fill-rule="evenodd" mask="url(#mask_3_2047)"/>
+				<path id="形状结合" d="M26.6127 27.7585L27.6951 27.7585C27.991 27.7585 28.2308 27.9983 28.2308 28.2942L28.2308 29.8965L29.849 29.8965C30.1448 29.8965 30.3846 30.1362 30.3846 30.4321L30.3846 31.4133C30.3846 31.709 30.1448 31.949 29.849 31.949L28.2308 31.949L28.2308 33.6367C28.2308 33.9326 27.991 34.1724 27.6951 34.1724L26.6127 34.1724C26.3168 34.1724 26.0769 33.9326 26.0769 33.6367L26.0769 31.949L24.4587 31.949C24.163 31.949 23.9231 31.709 23.9231 31.4133L23.9231 30.4321C23.9231 30.1362 24.163 29.8965 24.4587 29.8965L26.0769 29.8965L26.0769 28.2942C26.0769 27.9983 26.3168 27.7585 26.6127 27.7585Z" clip-rule="evenodd" fill="url(#paint_linear_3_2047_0)" fill-opacity="0.000000" fill-rule="evenodd" mask="url(#mask_3_2047)"/>
+			</g>
+			<path id="形状结合" d="M27.6951 27.2446L26.6127 27.2446Q26.4997 27.2446 26.3916 27.2678Q26.2958 27.2884 26.2039 27.3271Q26.1121 27.366 26.0307 27.4203Q25.9448 27.4775 25.8704 27.552Q25.7957 27.6267 25.7383 27.7129Q25.6843 27.7941 25.6456 27.8855Q25.6064 27.9784 25.5858 28.0753Q25.563 28.1823 25.563 28.2942L25.563 29.3826L24.4587 29.3826Q24.3466 29.3826 24.2393 29.4054Q24.1427 29.426 24.05 29.4651Q23.9583 29.5039 23.8769 29.5582Q23.791 29.6155 23.7166 29.6899Q23.6419 29.7646 23.5845 29.8508Q23.5305 29.932 23.4918 30.0234Q23.4524 30.1167 23.4317 30.2139Q23.4091 30.3206 23.4091 30.4321L23.4091 31.4133Q23.4091 31.5249 23.4317 31.6316Q23.4524 31.7288 23.4918 31.822Q23.5305 31.9134 23.5845 31.9946Q23.6419 32.0808 23.7166 32.1555Q23.7915 32.2304 23.8779 32.2879Q23.9589 32.3416 24.05 32.3801Q24.1433 32.4196 24.2405 32.4402Q24.3472 32.4629 24.4587 32.4629L25.563 32.4629L25.563 33.6367Q25.563 33.7486 25.5858 33.8556Q25.6064 33.9525 25.6456 34.0454Q25.6843 34.1368 25.7383 34.218Q25.7957 34.3042 25.8704 34.3789Q25.9453 34.4538 26.0318 34.5113Q26.1127 34.565 26.2039 34.6035Q26.2964 34.6427 26.3928 34.6633Q26.5003 34.6863 26.6127 34.6863L27.6951 34.6863Q27.8074 34.6863 27.9149 34.6633Q28.0114 34.6427 28.1039 34.6035Q28.195 34.565 28.276 34.5113Q28.3625 34.4538 28.4374 34.3789Q28.5121 34.3042 28.5694 34.218Q28.6234 34.1368 28.6621 34.0454Q28.7014 33.9525 28.722 33.8556Q28.7448 33.7486 28.7448 33.6367L28.7448 32.4629L29.849 32.4629Q29.9605 32.4629 30.0673 32.4402Q30.1645 32.4196 30.2577 32.3801Q30.3488 32.3416 30.4298 32.2879Q30.5163 32.2304 30.5912 32.1555Q30.6659 32.0808 30.7232 31.9946Q30.7773 31.9134 30.8159 31.822Q30.8552 31.7291 30.8758 31.6322Q30.8986 31.5252 30.8986 31.4133L30.8986 30.4321Q30.8986 30.3203 30.8758 30.2133Q30.8552 30.1164 30.8159 30.0234Q30.7773 29.932 30.7232 29.8508Q30.6659 29.7646 30.5912 29.6899Q30.5167 29.6155 30.4308 29.5582Q30.3494 29.5039 30.2577 29.4651Q30.1651 29.426 30.0685 29.4054Q29.9612 29.3826 29.849 29.3826L28.7448 29.3826L28.7448 28.2942Q28.7448 28.1823 28.722 28.0753Q28.7014 27.9784 28.6621 27.8855Q28.6234 27.7941 28.5694 27.7129Q28.5121 27.6267 28.4374 27.552Q28.3629 27.4775 28.277 27.4203Q28.1956 27.366 28.1039 27.3271Q28.012 27.2884 27.9161 27.2678Q27.8081 27.2446 27.6951 27.2446ZM28.2308 29.3826L28.2308 28.2942C28.2308 27.9983 27.991 27.7585 27.6951 27.7585L26.6127 27.7585C26.3168 27.7585 26.0769 27.9983 26.0769 28.2942L26.0769 29.8965L24.4587 29.8965C24.163 29.8965 23.9231 30.1362 23.9231 30.4321L23.9231 31.4133C23.9231 31.709 24.163 31.949 24.4587 31.949L26.0769 31.949L26.0769 33.6367C26.0769 33.9326 26.3168 34.1724 26.6127 34.1724L27.6951 34.1724C27.991 34.1724 28.2308 33.9326 28.2308 33.6367L28.2308 31.949L29.849 31.949C30.1448 31.949 30.3846 31.709 30.3846 31.4133L30.3846 30.4321C30.3846 30.1362 30.1448 29.8965 29.849 29.8965L28.2308 29.8965L28.2308 29.3826Z" clip-rule="evenodd" fill="#FFFFFF" fill-opacity="1.000000" fill-rule="evenodd"/>
+		</g>
+		<g mask="url(#mask3_2045)">
+			<g opacity="0.500000">
+				<path id="路径" d="M27.67 27.79C27.95 27.79 28.18 28.02 28.18 28.3L28.18 29.97L29.86 29.97C30.15 29.97 30.38 30.2 30.38 30.48L30.38 31.51C30.38 31.79 30.15 32.02 29.86 32.02L28.18 32.02L28.18 33.69C28.18 33.97 27.95 34.2 27.67 34.2L26.63 34.2C26.35 34.2 26.12 33.97 26.12 33.69L26.11 32.02L24.44 32.02C24.15 32.02 23.92 31.79 23.92 31.51L23.92 30.48C23.92 30.2 24.15 29.97 24.44 29.97L26.01 29.97C26.07 29.97 26.11 29.92 26.11 29.86L26.12 28.3C26.12 28.02 26.35 27.79 26.63 27.79L27.67 27.79Z" fill="#303030" fill-opacity="0" fill-rule="evenodd"/>
+				<path id="路径" d="M27.67 27.79C27.95 27.79 28.18 28.02 28.18 28.3L28.18 29.97L29.86 29.97C30.15 29.97 30.38 30.2 30.38 30.48L30.38 31.51C30.38 31.79 30.15 32.02 29.86 32.02L28.18 32.02L28.18 33.69C28.18 33.97 27.95 34.2 27.67 34.2L26.63 34.2C26.35 34.2 26.12 33.97 26.12 33.69L26.11 32.02L24.44 32.02C24.15 32.02 23.92 31.79 23.92 31.51L23.92 30.48C23.92 30.2 24.15 29.97 24.44 29.97L26.01 29.97C26.07 29.97 26.11 29.92 26.11 29.86L26.12 28.3C26.12 28.02 26.35 27.79 26.63 27.79L27.67 27.79Z" fill="url(#paint_linear_3_2050_0)" fill-opacity="0" fill-rule="evenodd"/>
+				<path id="路径" d="M28.18 29.97L28.18 28.3C28.18 28.02 27.95 27.79 27.67 27.79L26.63 27.79C26.35 27.79 26.12 28.02 26.12 28.3L26.11 29.86C26.11 29.92 26.07 29.97 26.01 29.97L24.44 29.97C24.15 29.97 23.92 30.2 23.92 30.48L23.92 31.51C23.92 31.79 24.15 32.02 24.44 32.02L26.11 32.02L26.12 33.69C26.12 33.97 26.35 34.2 26.63 34.2L27.67 34.2C27.95 34.2 28.18 33.97 28.18 33.69L28.18 32.53L28.18 32.02L28.7 32.02L29.86 32.02C30.15 32.02 30.38 31.79 30.38 31.51L30.38 30.48C30.38 30.2 30.15 29.97 29.86 29.97L28.18 29.97ZM27.67 28.3C27.67 28.3 27.67 28.3 27.67 28.3L26.63 28.3C26.63 28.3 26.63 28.3 26.63 28.3L26.63 29.86C26.63 29.95 26.61 30.02 26.58 30.1C26.55 30.17 26.51 30.24 26.45 30.3C26.39 30.36 26.32 30.41 26.24 30.44C26.17 30.47 26.09 30.48 26.01 30.48L24.44 30.48C24.43 30.48 24.43 30.48 24.43 30.48L24.43 31.51C24.43 31.51 24.43 31.51 24.43 31.51L26.63 31.51L26.63 33.69C26.63 33.69 26.63 33.69 26.63 33.69L27.67 33.69C27.67 33.69 27.67 33.69 27.67 33.69L27.67 31.51L29.86 31.51C29.86 31.51 29.86 31.51 29.87 31.51L29.87 30.48C29.86 30.48 29.86 30.48 29.86 30.48L27.67 30.48L27.67 28.3Z" fill="url(#paint_radial_3_2050_1)" fill-opacity="1.000000" fill-rule="evenodd"/>
+			</g>
+		</g>
+		<g mask="url(#mask3_2045)">
+			<path id="矩形" d="M24.19 30.96L25 30.96L25 32.03L24.19 32.03C24.04 32.03 23.92 31.91 23.92 31.76L23.92 31.23C23.92 31.08 24.04 30.96 24.19 30.96Z" fill="url(#paint_linear_3_2051_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+			<path id="矩形" d="M25 30.96L25 32.03L24.19 32.03C24.04 32.03 23.92 31.91 23.92 31.76L23.92 31.23C23.92 31.08 24.04 30.96 24.19 30.96L25 30.96Z" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+		</g>
+		<g mask="url(#mask3_2045)">
+			<g opacity="0.500000">
+				<path id="路径" d="M27.67 34.17C27.95 34.17 28.18 33.94 28.18 33.65L28.18 31.99L29.86 31.99C30.15 31.99 30.38 31.76 30.38 31.47L30.38 30.45C30.38 30.16 30.15 29.93 29.86 29.93L28.18 29.93L28.18 28.27C28.18 27.98 27.95 27.75 27.67 27.75L26.63 27.75C26.35 27.75 26.12 27.98 26.12 28.27L26.11 29.93L24.44 29.93C24.15 29.93 23.92 30.16 23.92 30.45L23.92 31.47C23.92 31.76 24.15 31.99 24.44 31.99L26.01 31.99C26.07 31.99 26.11 32.04 26.11 32.1L26.12 33.65C26.12 33.94 26.35 34.17 26.63 34.17L27.67 34.17Z" fill="#303030" fill-opacity="0" fill-rule="evenodd"/>
+				<path id="路径" d="M27.67 34.17C27.95 34.17 28.18 33.94 28.18 33.65L28.18 31.99L29.86 31.99C30.15 31.99 30.38 31.76 30.38 31.47L30.38 30.45C30.38 30.16 30.15 29.93 29.86 29.93L28.18 29.93L28.18 28.27C28.18 27.98 27.95 27.75 27.67 27.75L26.63 27.75C26.35 27.75 26.12 27.98 26.12 28.27L26.11 29.93L24.44 29.93C24.15 29.93 23.92 30.16 23.92 30.45L23.92 31.47C23.92 31.76 24.15 31.99 24.44 31.99L26.01 31.99C26.07 31.99 26.11 32.04 26.11 32.1L26.12 33.65C26.12 33.94 26.35 34.17 26.63 34.17L27.67 34.17Z" fill="url(#paint_linear_3_2052_0)" fill-opacity="0" fill-rule="evenodd"/>
+				<path id="路径" d="M28.18 31.99L28.18 33.65C28.18 33.94 27.95 34.17 27.67 34.17L26.63 34.17C26.35 34.17 26.12 33.94 26.12 33.65L26.11 32.1C26.11 32.04 26.07 31.99 26.01 31.99L24.44 31.99C24.15 31.99 23.92 31.76 23.92 31.47L23.92 30.45C23.92 30.16 24.15 29.93 24.44 29.93L26.11 29.93L26.12 28.27C26.12 27.98 26.35 27.75 26.63 27.75L27.67 27.75C27.95 27.75 28.18 27.98 28.18 28.27L28.18 29.42L28.18 29.93L28.7 29.93L29.86 29.93C30.15 29.93 30.38 30.16 30.38 30.45L30.38 31.47C30.38 31.76 30.15 31.99 29.86 31.99L28.18 31.99ZM27.67 33.65C27.67 33.65 27.67 33.65 27.67 33.65L26.63 33.65C26.63 33.65 26.63 33.65 26.63 33.65L26.63 32.1C26.63 32.01 26.61 31.93 26.58 31.86C26.55 31.78 26.51 31.72 26.45 31.66C26.39 31.59 26.32 31.55 26.24 31.52C26.17 31.49 26.09 31.47 26.01 31.47L24.44 31.47C24.43 31.47 24.43 31.47 24.43 31.47L24.43 30.45C24.43 30.45 24.43 30.45 24.43 30.45L26.63 30.45L26.63 28.27C26.63 28.27 26.63 28.27 26.63 28.27L27.67 28.27C27.67 28.27 27.67 28.27 27.67 28.27L27.67 30.45L29.86 30.45C29.86 30.45 29.86 30.45 29.87 30.45L29.87 31.47C29.86 31.47 29.86 31.47 29.86 31.47L27.67 31.47L27.67 33.65Z" fill="url(#paint_radial_3_2052_1)" fill-opacity="1.000000" fill-rule="evenodd"/>
+			</g>
+		</g>
+		<g mask="url(#mask3_2045)">
+			<g filter="url(#filter_3_2053_dd)">
+				<ellipse id="椭圆形" rx="2.556752" ry="2.571044" transform="matrix(0.866025 -0.5 0.5 0.866025 38.2035 31.2524)" fill="#303030" fill-opacity="1.000000"/>
+				<ellipse id="椭圆形" rx="2.556752" ry="2.571044" transform="matrix(0.866025 -0.5 0.5 0.866025 38.2035 31.2524)" fill="url(#paint_radial_3_2053_0)" fill-opacity="0"/>
+			</g>
+			<ellipse id="椭圆形" rx="2.556752" ry="2.571044" transform="matrix(0.866025 -0.5 0.5 0.866025 38.2035 31.2524)" stroke="#191919" stroke-opacity="1.000000" stroke-width="0.538462"/>
+			<ellipse id="椭圆形" rx="2.556752" ry="2.571044" transform="matrix(0.866025 -0.5 0.5 0.866025 38.2035 31.2524)" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="0.538462"/>
+		</g>
+		<g mask="url(#mask3_2045)">
+			<g filter="url(#filter_3_2054_dd)">
+				<ellipse id="椭圆形备份" rx="2.556752" ry="2.571044" transform="matrix(0.866025 -0.5 0.5 0.866025 22.0497 23.7698)" fill="#303030" fill-opacity="1.000000"/>
+				<ellipse id="椭圆形备份" rx="2.556752" ry="2.571044" transform="matrix(0.866025 -0.5 0.5 0.866025 22.0497 23.7698)" fill="url(#paint_radial_3_2054_0)" fill-opacity="0"/>
+			</g>
+			<ellipse id="椭圆形备份" rx="2.556752" ry="2.571044" transform="matrix(0.866025 -0.5 0.5 0.866025 22.0497 23.7698)" stroke="#191919" stroke-opacity="1.000000" stroke-width="0.538462"/>
+			<ellipse id="椭圆形备份" rx="2.556752" ry="2.571044" transform="matrix(0.866025 -0.5 0.5 0.866025 22.0497 23.7698)" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="0.538462"/>
+		</g>
+		<g mask="url(#mask3_2045)">
+			<g filter="url(#filter_3_2055_dd)">
+				<path id="路径 13" d="M41.15 38.44C41.15 38.44 48 40.31 51.16 46.99C54.32 53.67 44.31 46.46 44.31 46.46L41.15 38.44Z" fill="#DBDBE3" fill-opacity="1.000000" fill-rule="evenodd"/>
+				<path id="路径 13" d="" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+			</g>
+		</g>
+		<g mask="url(#mask3_2045)">
+			<g filter="url(#filter_3_2056_dd)">
+				<path id="路径 13" d="M22.84 38.44C22.84 38.44 15.99 40.31 12.83 46.99C9.67 53.67 19.68 46.46 19.68 46.46L22.84 38.44Z" fill="#DBDBE3" fill-opacity="1.000000" fill-rule="evenodd"/>
+				<path id="路径 13" d="" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+			</g>
+		</g>
+		<g mask="url(#mask3_2045)">
+			<g filter="url(#filter_3_2057_dd)">
+				<mask id="mask_3_2057" fill="white">
+					<path id="形状结合" d="M15.3077 48.0688L15.577 46.9443C15.577 46.9443 17.0408 44.4807 18.0035 43.2898C18.5032 42.6716 19.7896 41.1028 20.9113 39.7368C22.1372 38.2437 23.9681 37.3792 25.9001 37.3792L39.0896 37.3792C41.0029 37.3792 42.8181 38.2271 44.0444 39.6958C45.193 41.0713 46.522 42.6655 47.0348 43.2898C48.0128 44.4807 49.4956 46.9443 49.4956 46.9443L49.7692 48.0688L15.3077 48.0688Z" clip-rule="evenodd" fill="" fill-opacity="1.000000" fill-rule="evenodd"/>
+				</mask>
+				<path id="形状结合" d="M15.3077 48.0688L15.577 46.9443C15.577 46.9443 17.0408 44.4807 18.0035 43.2898C18.5032 42.6716 19.7896 41.1028 20.9113 39.7368C22.1372 38.2437 23.9681 37.3792 25.9001 37.3792L39.0896 37.3792C41.0029 37.3792 42.8181 38.2271 44.0444 39.6958C45.193 41.0713 46.522 42.6655 47.0348 43.2898C48.0128 44.4807 49.4956 46.9443 49.4956 46.9443L49.7692 48.0688L15.3077 48.0688Z" clip-rule="evenodd" fill="url(#paint_linear_3_2057_0)" fill-opacity="1.000000" fill-rule="evenodd" mask="url(#mask_3_2057)"/>
+			</g>
+			<path id="形状结合" d="" clip-rule="evenodd" fill="#979797" fill-opacity="0.000000" fill-rule="evenodd"/>
+		</g>
+		<g mask="url(#mask3_2045)">
+			<g opacity="0.870000" filter="url(#filter_3_2060_dd)">
+				<path id="路径" d="M20.22 17.06C20.22 17.06 8.85 39.92 17.78 43.46C26.71 47 15.61 47 15.61 47L10.47 45.91L7.76 41.83L11.01 24.95L15.89 18.42L20.22 17.06Z" fill="url(#paint_linear_3_2060_0)" fill-opacity="0" fill-rule="evenodd"/>
+				<path id="路径" d="M20.22 17.06C20.22 17.06 8.85 39.92 17.78 43.46C26.71 47 15.61 47 15.61 47L10.47 45.91L7.76 41.83L11.01 24.95L15.89 18.42L20.22 17.06Z" fill="#D7D7D7" fill-opacity="1.000000" fill-rule="evenodd"/>
+				<path id="路径" d="" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+			</g>
+		</g>
+		<g mask="url(#mask3_2045)">
+			<g opacity="0.873585" filter="url(#filter_3_2061_dd)">
+				<path id="路径" d="M42.71 18.13C42.71 18.13 54.07 40.99 45.14 44.53C44.67 44.71 44.24 44.89 43.85 45.07C39.35 47.06 47.31 48.06 47.31 48.06L52.44 46.98L55.15 42.89L51.9 26.02L47.04 19.49L42.71 18.13Z" fill="url(#paint_linear_3_2061_0)" fill-opacity="0" fill-rule="evenodd"/>
+				<path id="路径" d="M42.71 18.13C42.71 18.13 54.07 40.99 45.14 44.53C44.67 44.71 44.24 44.89 43.85 45.07C39.35 47.06 47.31 48.06 47.31 48.06L52.44 46.98L55.15 42.89L51.9 26.02L47.04 19.49L42.71 18.13Z" fill="#E0E0E0" fill-opacity="1.000000" fill-rule="evenodd"/>
+				<path id="路径" d="" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+			</g>
+		</g>
+		<mask id="mask3_2063" mask-type="alpha" maskUnits="userSpaceOnUse" x="39.000000" y="23.482666" width="2.153809" height="2.137939">
+			<g filter="url(#filter_3_2063_dd)">
+				<ellipse id="蒙版" cx="40.076904" cy="24.551514" rx="1.076923" ry="1.068966" fill="#303030" fill-opacity="1.000000"/>
+				<ellipse id="蒙版" cx="40.076904" cy="24.551514" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2063_0)" fill-opacity="0"/>
+			</g>
+			<ellipse id="蒙版" cx="40.076904" cy="24.551514" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+			<ellipse id="蒙版" cx="40.076904" cy="24.551514" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+		</mask>
+		<g filter="url(#filter_3_2063_dd)">
+			<ellipse id="蒙版" cx="40.076904" cy="24.551514" rx="1.076923" ry="1.068966" fill="#303030" fill-opacity="1.000000"/>
+			<ellipse id="蒙版" cx="40.076904" cy="24.551514" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2063_0)" fill-opacity="0"/>
+		</g>
+		<ellipse id="蒙版" cx="40.076904" cy="24.551514" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+		<ellipse id="蒙版" cx="40.076904" cy="24.551514" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+		<g mask="url(#mask3_2063)">
+			<g opacity="0.200000">
+				<ellipse id="椭圆形备份 6" cx="39.097900" cy="23.482422" rx="1.076923" ry="1.068966" fill="#FFFFFF" fill-opacity="1.000000"/>
+				<ellipse id="椭圆形备份 6" cx="39.097900" cy="23.482422" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2064_0)" fill-opacity="0"/>
+				<ellipse id="椭圆形备份 6" cx="39.097900" cy="23.482422" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+				<ellipse id="椭圆形备份 6" cx="39.097900" cy="23.482422" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+			</g>
+		</g>
+		<mask id="mask3_2066" mask-type="alpha" maskUnits="userSpaceOnUse" x="41.153809" y="21.344727" width="2.153809" height="2.137939">
+			<g filter="url(#filter_3_2066_dd)">
+				<ellipse id="蒙版" cx="42.230713" cy="22.413574" rx="1.076923" ry="1.068966" fill="#303030" fill-opacity="1.000000"/>
+				<ellipse id="蒙版" cx="42.230713" cy="22.413574" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2066_0)" fill-opacity="0"/>
+			</g>
+			<ellipse id="蒙版" cx="42.230713" cy="22.413574" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+			<ellipse id="蒙版" cx="42.230713" cy="22.413574" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+		</mask>
+		<g filter="url(#filter_3_2066_dd)">
+			<ellipse id="蒙版" cx="42.230713" cy="22.413574" rx="1.076923" ry="1.068966" fill="#303030" fill-opacity="1.000000"/>
+			<ellipse id="蒙版" cx="42.230713" cy="22.413574" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2066_0)" fill-opacity="0"/>
+		</g>
+		<ellipse id="蒙版" cx="42.230713" cy="22.413574" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+		<ellipse id="蒙版" cx="42.230713" cy="22.413574" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+		<g mask="url(#mask3_2066)">
+			<g opacity="0.200000">
+				<ellipse id="椭圆形备份 6" cx="41.251709" cy="21.344482" rx="1.076923" ry="1.068966" fill="#FFFFFF" fill-opacity="1.000000"/>
+				<ellipse id="椭圆形备份 6" cx="41.251709" cy="21.344482" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2067_0)" fill-opacity="0"/>
+				<ellipse id="椭圆形备份 6" cx="41.251709" cy="21.344482" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+				<ellipse id="椭圆形备份 6" cx="41.251709" cy="21.344482" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+			</g>
+		</g>
+		<mask id="mask3_2069" mask-type="alpha" maskUnits="userSpaceOnUse" x="41.153809" y="25.620605" width="2.153809" height="2.137939">
+			<g filter="url(#filter_3_2069_dd)">
+				<ellipse id="蒙版" cx="42.230713" cy="26.689453" rx="1.076923" ry="1.068966" fill="#303030" fill-opacity="1.000000"/>
+				<ellipse id="蒙版" cx="42.230713" cy="26.689453" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2069_0)" fill-opacity="0"/>
+			</g>
+			<ellipse id="蒙版" cx="42.230713" cy="26.689453" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+			<ellipse id="蒙版" cx="42.230713" cy="26.689453" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+		</mask>
+		<g filter="url(#filter_3_2069_dd)">
+			<ellipse id="蒙版" cx="42.230713" cy="26.689453" rx="1.076923" ry="1.068966" fill="#303030" fill-opacity="1.000000"/>
+			<ellipse id="蒙版" cx="42.230713" cy="26.689453" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2069_0)" fill-opacity="0"/>
+		</g>
+		<ellipse id="蒙版" cx="42.230713" cy="26.689453" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+		<ellipse id="蒙版" cx="42.230713" cy="26.689453" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+		<g mask="url(#mask3_2069)">
+			<g opacity="0.200000">
+				<ellipse id="椭圆形备份 6" cx="41.251709" cy="25.620361" rx="1.076923" ry="1.068966" fill="#FFFFFF" fill-opacity="1.000000"/>
+				<ellipse id="椭圆形备份 6" cx="41.251709" cy="25.620361" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2070_0)" fill-opacity="0"/>
+				<ellipse id="椭圆形备份 6" cx="41.251709" cy="25.620361" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+				<ellipse id="椭圆形备份 6" cx="41.251709" cy="25.620361" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+			</g>
+		</g>
+		<mask id="mask3_2072" mask-type="alpha" maskUnits="userSpaceOnUse" x="43.307617" y="23.482666" width="2.153809" height="2.137939">
+			<g filter="url(#filter_3_2072_dd)">
+				<ellipse id="蒙版" cx="44.384521" cy="24.551514" rx="1.076923" ry="1.068966" fill="#303030" fill-opacity="1.000000"/>
+				<ellipse id="蒙版" cx="44.384521" cy="24.551514" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2072_0)" fill-opacity="0"/>
+			</g>
+			<ellipse id="蒙版" cx="44.384521" cy="24.551514" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+			<ellipse id="蒙版" cx="44.384521" cy="24.551514" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+		</mask>
+		<g filter="url(#filter_3_2072_dd)">
+			<ellipse id="蒙版" cx="44.384521" cy="24.551514" rx="1.076923" ry="1.068966" fill="#303030" fill-opacity="1.000000"/>
+			<ellipse id="蒙版" cx="44.384521" cy="24.551514" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2072_0)" fill-opacity="0"/>
+		</g>
+		<ellipse id="蒙版" cx="44.384521" cy="24.551514" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+		<ellipse id="蒙版" cx="44.384521" cy="24.551514" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+		<g mask="url(#mask3_2072)">
+			<g opacity="0.200000">
+				<ellipse id="椭圆形备份 6" cx="43.405518" cy="23.482422" rx="1.076923" ry="1.068966" fill="#FFFFFF" fill-opacity="1.000000"/>
+				<ellipse id="椭圆形备份 6" cx="43.405518" cy="23.482422" rx="1.076923" ry="1.068966" fill="url(#paint_radial_3_2073_0)" fill-opacity="0"/>
+				<ellipse id="椭圆形备份 6" cx="43.405518" cy="23.482422" rx="0.576923" ry="0.568966" stroke="#191919" stroke-opacity="0" stroke-width="1.000000"/>
+				<ellipse id="椭圆形备份 6" cx="43.405518" cy="23.482422" rx="0.576923" ry="0.568966" stroke="#FFFFFF" stroke-opacity="0" stroke-width="1.000000"/>
+			</g>
+		</g>
+	</g>
+</svg>

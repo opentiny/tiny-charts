@@ -1,0 +1,74 @@
+.hc-node-example {
+    width: 32px;
+    height: 36px;
+    position: relative;
+    cursor: pointer;
+}
+
+.hc-tag {
+    position: relative;
+
+    &::before {
+        content: '';
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 8px;
+        border-radius: 50%;
+        background: #5CB300;
+    }
+
+    &.failed {
+        &::before {
+            background: #F23030;
+        }
+    }
+}
+
+.hc-circle-example {
+    width: 32px;
+    height: 32px;
+    background: rgba(92, 179, 0, 0.10);
+    border: 1.5px solid rgba(92, 179, 0, 0.60);
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(92, 179, 0, 0.4);
+    }
+
+    &.error {
+        background: rgba(242, 48, 48, 0.10);
+        border-color: rgba(242, 48, 48, 0.90);
+
+        &:hover {
+            background: rgba(242, 48, 48, 0.4);
+        }
+    }
+}
+
+.hc-rect-example {
+    width: 32px;
+    height: 32px;
+    background: rgba(92, 179, 0, 0.10);
+    border: 1.5px solid rgba(92, 179, 0, 0.60);
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(92, 179, 0, 0.4);
+    }
+
+    &.error {
+        background: rgba(242, 48, 48, 0.10);
+        border-color: rgba(242, 48, 48, 0.90);
+
+        &:hover {
+            background: rgba(242, 48, 48, 0.4);
+        }
+    }
+}
+
+.hc-label {
+    color: #808080;
+}

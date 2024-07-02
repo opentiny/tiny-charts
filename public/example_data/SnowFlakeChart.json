@@ -1,0 +1,30 @@
+{
+  "title": "雪花图 SnowFlakeChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "雪花图",
+          "routePath": "SnowFlakeChart-1",
+          "imagePath": "./image/theme/light/SnowFlakeChart/SnowFlakeChart-1.png"
+        },
+        {
+          "name": "雪花图-多分支场景",
+          "routePath": "SnowFlakeChart-2",
+          "imagePath": "./image/theme/light/SnowFlakeChart/SnowFlakeChart-2.png"
+        },
+        {
+          "name": "雪花图-多设备场景-1",
+          "routePath": "SnowFlakeChart-3",
+          "imagePath": "./image/theme/light/SnowFlakeChart/SnowFlakeChart-3.png"
+        },
+        {
+          "name": "雪花图-多设备场景-2",
+          "routePath": "SnowFlakeChart-4",
+          "imagePath": "./image/theme/light/SnowFlakeChart/SnowFlakeChart-4.png"
+        }
+      ]
+    }
+  ]
+}

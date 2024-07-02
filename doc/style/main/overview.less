@@ -1,0 +1,64 @@
+.overview {
+  .charts-wrap {
+    margin: 0 -0.5rem;
+  }
+  .tiny-col {
+    margin-bottom: 2rem;
+  }
+  .tiny-col .chart-item {
+    height: 23rem;
+    border: 1px solid var(--ti-base-color-common-1);
+    border-radius: 0.125rem;
+    cursor: pointer;
+    overflow: hidden;
+    background: var(--ti-base-color-bg-2);
+    &:hover {
+      box-shadow: 0 0 0.6rem 0.1rem #bebebebf;
+    }
+    .chart-title {
+      font-size: 0.875rem;
+      font-weight: bold;
+      padding: 0 0.625rem;
+      height: 2rem;
+      line-height: 2rem;
+      color: var(--ti-base-color-common-2);
+      border-bottom: 1px solid var(--ti-base-color-common-1);
+    }
+    .chart-container {
+      height: 21rem;
+    }
+
+    .fc-node-example {
+      width: 30px;
+      height: 25px;
+      border: 1px solid transparent;
+      box-sizing: border-box;
+      border-radius: 3px;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      font-weight: bolder;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      color: #ffffff;
+      box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+      &.fc-node-example-blue{
+          border-color: #5990fd;
+          background-color: rgba(89,144,253, 0.9);
+      }
+      &.fc-node-example-red{
+          border-color: #f43146;
+          background-color: rgba(244,49,70, 0.9);
+      }
+      &.fc-node-example-orange{
+          border-color: #ec6f1a;
+          background-color: rgba(236,111,26, 0.9);
+      }
+      &.fc-node-example-green{
+          border-color: #2da769;
+          background-color: rgba(45,167,105, 0.9);
+      }
+    }
+  }
+}

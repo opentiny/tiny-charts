@@ -1,0 +1,150 @@
+<svg width="64.000000" height="64.000000" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<filter id="filter_3_2660_dd" x="9.771973" y="42.612793" width="44.456055" height="13.615234" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="1.07599" result="effect_layerBlur_1"/>
+		</filter>
+		<clipPath id="clip3_46">
+			<rect id="终端设备/智能扬声器" width="64.000000" height="64.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+		<radialGradient gradientTransform="translate(32 49.4204) rotate(90) scale(3.57955 15.4649)" cx="0.000000" cy="0.000000" r="1.000000" id="paint_radial_3_2660_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#73757F"/>
+			<stop offset="1.000000" stop-color="#000000" stop-opacity="0.000000"/>
+		</radialGradient>
+		<linearGradient x1="13.965839" y1="28.544121" x2="46.250000" y2="28.544121" id="paint_linear_3_2661_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#DBDBE3"/>
+			<stop offset="0.245238" stop-color="#F8F8FC"/>
+			<stop offset="1.000000" stop-color="#DADAE3"/>
+		</linearGradient>
+		<linearGradient x1="32.000000" y1="11.000000" x2="32.000000" y2="50.375000" id="paint_linear_3_2661_1" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#E2E2E2"/>
+			<stop offset="0.901975" stop-color="#BCBBBB"/>
+			<stop offset="1.000000" stop-color="#828282"/>
+		</linearGradient>
+		<linearGradient x1="17.750000" y1="28.544121" x2="46.250000" y2="28.544121" id="paint_linear_3_2663_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C9C9C9"/>
+			<stop offset="0.274827" stop-color="#FFFFFF"/>
+			<stop offset="0.707062" stop-color="#FFFEFE"/>
+			<stop offset="1.000000" stop-color="#CACACA"/>
+		</linearGradient>
+		<linearGradient x1="32.000000" y1="48.591625" x2="32.000000" y2="50.374886" id="paint_linear_3_2664_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#DBDBE3" stop-opacity="0.000000"/>
+			<stop offset="1.000000" stop-color="#DBDBE3"/>
+		</linearGradient>
+		<linearGradient x1="44.355503" y1="36.515930" x2="18.206158" y2="36.515930" id="paint_linear_3_2667_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C6C6C6"/>
+			<stop offset="0.499026" stop-color="#B3B3B3"/>
+			<stop offset="1.000000" stop-color="#D9D9D9"/>
+		</linearGradient>
+		<linearGradient x1="44.355503" y1="37.709045" x2="18.206158" y2="37.709045" id="paint_linear_3_2668_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C6C6C6"/>
+			<stop offset="0.499026" stop-color="#B3B3B3"/>
+			<stop offset="1.000000" stop-color="#D9D9D9"/>
+		</linearGradient>
+		<linearGradient x1="44.355503" y1="38.902405" x2="18.206158" y2="38.902405" id="paint_linear_3_2669_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C6C6C6"/>
+			<stop offset="0.499026" stop-color="#B3B3B3"/>
+			<stop offset="1.000000" stop-color="#D9D9D9"/>
+		</linearGradient>
+		<linearGradient x1="44.355503" y1="40.095520" x2="18.206158" y2="40.095520" id="paint_linear_3_2670_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C6C6C6"/>
+			<stop offset="0.499026" stop-color="#B3B3B3"/>
+			<stop offset="1.000000" stop-color="#D9D9D9"/>
+		</linearGradient>
+		<linearGradient x1="44.355503" y1="41.288635" x2="18.206158" y2="41.288635" id="paint_linear_3_2671_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C6C6C6"/>
+			<stop offset="0.499026" stop-color="#B3B3B3"/>
+			<stop offset="1.000000" stop-color="#D9D9D9"/>
+		</linearGradient>
+		<linearGradient x1="44.355503" y1="42.481995" x2="18.206158" y2="42.481995" id="paint_linear_3_2672_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C6C6C6"/>
+			<stop offset="0.499026" stop-color="#B3B3B3"/>
+			<stop offset="1.000000" stop-color="#D9D9D9"/>
+		</linearGradient>
+		<linearGradient x1="44.355503" y1="43.675110" x2="18.206158" y2="43.675110" id="paint_linear_3_2673_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C6C6C6"/>
+			<stop offset="0.499026" stop-color="#B3B3B3"/>
+			<stop offset="1.000000" stop-color="#D9D9D9"/>
+		</linearGradient>
+		<linearGradient x1="44.355503" y1="44.868225" x2="18.206158" y2="44.868225" id="paint_linear_3_2674_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C6C6C6"/>
+			<stop offset="0.499026" stop-color="#B3B3B3"/>
+			<stop offset="1.000000" stop-color="#D9D9D9"/>
+		</linearGradient>
+		<linearGradient x1="44.355503" y1="46.061340" x2="18.206158" y2="46.061340" id="paint_linear_3_2675_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C6C6C6"/>
+			<stop offset="0.499026" stop-color="#B3B3B3"/>
+			<stop offset="1.000000" stop-color="#D9D9D9"/>
+		</linearGradient>
+		<linearGradient x1="44.355503" y1="47.254700" x2="18.206158" y2="47.254700" id="paint_linear_3_2676_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C6C6C6"/>
+			<stop offset="0.499026" stop-color="#B3B3B3"/>
+			<stop offset="1.000000" stop-color="#D9D9D9"/>
+		</linearGradient>
+		<linearGradient x1="44.355503" y1="48.447815" x2="18.206158" y2="48.447815" id="paint_linear_3_2677_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#C6C6C6"/>
+			<stop offset="0.499026" stop-color="#B3B3B3"/>
+			<stop offset="1.000000" stop-color="#D9D9D9"/>
+		</linearGradient>
+		<linearGradient x1="32.000000" y1="48.746181" x2="32.000000" y2="51.706024" id="paint_linear_3_2678_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#DDDDDD"/>
+			<stop offset="1.000000" stop-color="#A8A8A8"/>
+		</linearGradient>
+	</defs>
+	<rect id="终端设备/智能扬声器" width="64.000000" height="64.000000" fill="#000000" fill-opacity="0"/>
+	<g clip-path="url(#clip3_46)">
+		<g opacity="0.000000">
+			<rect id="矩形" x="8.000000" y="8.000000" width="48.000000" height="48.000000" fill="#D8D8D8" fill-opacity="1.000000"/>
+			<rect id="矩形" x="8.500000" y="8.500000" width="47.000000" height="47.000000" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		</g>
+		<g filter="url(#filter_3_2660_dd)">
+			<ellipse id="椭圆形" cx="32.000000" cy="49.420410" rx="19.000000" ry="3.579545" fill="url(#paint_radial_3_2660_0)" fill-opacity="1.000000"/>
+			<ellipse id="椭圆形" cx="32.000000" cy="49.420410" rx="18.500000" ry="3.079545" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		</g>
+		<rect id="蒙版" x="17.750000" y="11.000000" rx="7.125000" width="28.500000" height="39.375000" fill="url(#paint_linear_3_2661_0)" fill-opacity="1.000000"/>
+		<rect id="蒙版" x="17.500000" y="10.750000" rx="7.125000" width="29.000000" height="39.875000" stroke="url(#paint_linear_3_2661_1)" stroke-opacity="1.000000" stroke-width="0.500000"/>
+		<mask id="mask3_2663" mask-type="alpha" maskUnits="userSpaceOnUse" x="17.750000" y="11.000000" width="28.500000" height="39.375000">
+			<rect id="蒙版" x="17.750000" y="11.000000" rx="7.125000" width="28.500000" height="39.375000" fill="url(#paint_linear_3_2663_0)" fill-opacity="1.000000"/>
+			<rect id="蒙版" x="18.250000" y="11.500000" rx="7.125000" width="27.500000" height="38.375000" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		</mask>
+		<rect id="蒙版" x="17.750000" y="11.000000" rx="7.125000" width="28.500000" height="39.375000" fill="url(#paint_linear_3_2663_0)" fill-opacity="1.000000"/>
+		<rect id="蒙版" x="18.250000" y="11.500000" rx="7.125000" width="27.500000" height="38.375000" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		<g mask="url(#mask3_2663)">
+			<rect id="矩形" x="17.750000" y="34.863525" width="28.500000" height="15.511364" fill="#D3D3D3" fill-opacity="0.600000"/>
+			<rect id="矩形" x="17.750000" y="34.863525" width="28.500000" height="15.511364" fill="url(#paint_linear_3_2664_0)" fill-opacity="1.000000"/>
+			<rect id="矩形" x="18.250000" y="35.363525" width="27.500000" height="14.511364" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		</g>
+		<g mask="url(#mask3_2663)">
+			<path id="直线 2" d="M17.09 35.71L16.82 35.71L16.82 35.21L17.09 35.21L17.09 35.71ZM46.49 35.21L46.76 35.21L46.76 35.71L46.49 35.71L46.49 35.21Z" fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero"/>
+			<path id="直线 2" d="M17.07 35.46L46.51 35.46" stroke="url(#paint_linear_3_2667_0)" stroke-opacity="1.000000" stroke-width="0.500000" stroke-linecap="square"/>
+			<path id="直线 2" d="M17.09 36.9L16.82 36.9L16.82 36.4L17.09 36.4L17.09 36.9ZM46.49 36.4L46.76 36.4L46.76 36.9L46.49 36.9L46.49 36.4Z" fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero"/>
+			<path id="直线 2" d="M17.07 36.65L46.51 36.65" stroke="url(#paint_linear_3_2668_0)" stroke-opacity="1.000000" stroke-width="0.500000" stroke-linecap="square"/>
+			<path id="直线 2" d="M17.09 38.09L16.82 38.09L16.82 37.59L17.09 37.59L17.09 38.09ZM46.49 37.59L46.76 37.59L46.76 38.09L46.49 38.09L46.49 37.59Z" fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero"/>
+			<path id="直线 2" d="M17.07 37.84L46.51 37.84" stroke="url(#paint_linear_3_2669_0)" stroke-opacity="1.000000" stroke-width="0.500000" stroke-linecap="square"/>
+			<path id="直线 2" d="M17.09 39.28L16.82 39.28L16.82 38.78L17.09 38.78L17.09 39.28ZM46.49 38.78L46.76 38.78L46.76 39.28L46.49 39.28L46.49 38.78Z" fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero"/>
+			<path id="直线 2" d="M17.07 39.03L46.51 39.03" stroke="url(#paint_linear_3_2670_0)" stroke-opacity="1.000000" stroke-width="0.500000" stroke-linecap="square"/>
+			<path id="直线 2" d="M17.09 40.48L16.82 40.48L16.82 39.98L17.09 39.98L17.09 40.48ZM46.49 39.98L46.76 39.98L46.76 40.48L46.49 40.48L46.49 39.98Z" fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero"/>
+			<path id="直线 2" d="M17.07 40.23L46.51 40.23" stroke="url(#paint_linear_3_2671_0)" stroke-opacity="1.000000" stroke-width="0.500000" stroke-linecap="square"/>
+			<path id="直线 2" d="M17.09 41.67L16.82 41.67L16.82 41.17L17.09 41.17L17.09 41.67ZM46.49 41.17L46.76 41.17L46.76 41.67L46.49 41.67L46.49 41.17Z" fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero"/>
+			<path id="直线 2" d="M17.07 41.42L46.51 41.42" stroke="url(#paint_linear_3_2672_0)" stroke-opacity="1.000000" stroke-width="0.500000" stroke-linecap="square"/>
+			<path id="直线 2" d="M17.09 42.86L16.82 42.86L16.82 42.36L17.09 42.36L17.09 42.86ZM46.49 42.36L46.76 42.36L46.76 42.86L46.49 42.86L46.49 42.36Z" fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero"/>
+			<path id="直线 2" d="M17.07 42.61L46.51 42.61" stroke="url(#paint_linear_3_2673_0)" stroke-opacity="1.000000" stroke-width="0.500000" stroke-linecap="square"/>
+			<path id="直线 2" d="M17.09 44.06L16.82 44.06L16.82 43.56L17.09 43.56L17.09 44.06ZM46.49 43.56L46.76 43.56L46.76 44.06L46.49 44.06L46.49 43.56Z" fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero"/>
+			<path id="直线 2" d="M17.07 43.81L46.51 43.81" stroke="url(#paint_linear_3_2674_0)" stroke-opacity="1.000000" stroke-width="0.500000" stroke-linecap="square"/>
+			<path id="直线 2" d="M17.09 45.25L16.82 45.25L16.82 44.75L17.09 44.75L17.09 45.25ZM46.49 44.75L46.76 44.75L46.76 45.25L46.49 45.25L46.49 44.75Z" fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero"/>
+			<path id="直线 2" d="M17.07 45L46.51 45" stroke="url(#paint_linear_3_2675_0)" stroke-opacity="1.000000" stroke-width="0.500000" stroke-linecap="square"/>
+			<path id="直线 2" d="M17.09 46.44L16.82 46.44L16.82 45.94L17.09 45.94L17.09 46.44ZM46.49 45.94L46.76 45.94L46.76 46.44L46.49 46.44L46.49 45.94Z" fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero"/>
+			<path id="直线 2" d="M17.07 46.19L46.51 46.19" stroke="url(#paint_linear_3_2676_0)" stroke-opacity="1.000000" stroke-width="0.500000" stroke-linecap="square"/>
+			<path id="直线 2" d="M17.09 47.64L16.82 47.64L16.82 47.14L17.09 47.14L17.09 47.64ZM46.49 47.14L46.76 47.14L46.76 47.64L46.49 47.64L46.49 47.14Z" fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero"/>
+			<path id="直线 2" d="M17.07 47.39L46.51 47.39" stroke="url(#paint_linear_3_2677_0)" stroke-opacity="1.000000" stroke-width="0.500000" stroke-linecap="square"/>
+		</g>
+		<g mask="url(#mask3_2663)">
+			<path id="矩形" d="M17.75 47.62L46.25 47.62L46.25 50.79L17.75 50.79L17.75 47.62Z" fill="url(#paint_linear_3_2678_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+			<path id="矩形" d="" fill="#979797" fill-opacity="0" fill-rule="evenodd"/>
+		</g>
+	</g>
+</svg>

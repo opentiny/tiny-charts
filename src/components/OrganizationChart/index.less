@@ -1,0 +1,112 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+.ozc_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .ozc_warpper{
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        border-radius: 50%;
+        transform-origin: 50% 50%;
+        transition: all 200ms linear;
+        border-width: 1px;
+        &.ozc_no_inertia{
+            transition: none;
+        }
+        &::after {
+            top: 0;
+            left: 0;
+            content: "";
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            padding: 1px;
+            position: absolute;
+            border-radius: 50%;
+            background: var(--lineColor);;
+            mask-image: linear-gradient(#FFF, #FFF), linear-gradient(#FFF, #FFF);
+            mask-clip: content-box, padding-box;
+            mask-composite: exclude;
+            -webkit-mask-composite: destination-out;
+        }
+    }   
+
+    .ozc_warpper_line{
+        left: 50%;
+        width: 1px;
+        position: absolute;
+        transform: translateX(-50%);
+        background-color: #bbbbbb;
+    }
+
+    .ozc_warpper_rect{
+        left: 50%;
+        color: #5cacff;
+        line-height: 25px;
+        height: 25px;
+        width: 40px;
+        text-align: center;
+        font-size: 12px;
+        background-color: #fff;
+        position: absolute;
+        border-radius: 4px;
+        transform: translateX(-50%);
+        border: 1px solid #5cacff;
+    }
+
+    .ozc_warpper_empty{
+        left: 50%;
+        display: none;
+        font-size: 18px;
+        color: #bbbbbb;
+        text-align: center;
+        position: absolute;
+        transform: translateX(-50%);
+    }
+}
+
+// 深色主题
+.ozc_container_dark.ozc_container {
+    .ozc_warpper{
+        border-color: #676767;
+    }
+    .ozc_warpper_line{
+        background-color: #676767;
+    }
+    .ozc_warpper_rect{
+        color: #eeeeee;
+        border-color: #eeeeee;
+        background-color: #2e94ff;
+    }
+    .ozc_warpper_empty{
+        color: #bbbbbb;
+    }
+}
+
+.ozc_card{
+    width: 0;
+    height: 0;
+    position: absolute;
+    transition: all 100ms linear;
+    &.ozc_no_inertia{
+        transition: none;
+    }
+    img{
+        -webkit-user-drag:none;
+    }
+}
