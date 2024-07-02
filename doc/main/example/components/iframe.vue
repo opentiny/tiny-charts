@@ -93,7 +93,7 @@ export default {
       let loactionHref = window.location.href.split('/')
       let name = loactionHref[loactionHref.length - 1]
       if (window.self.name === 'hdesignFrame') {
-        this.iframeSrc = `https://hdesign.ucd.huawei.com/components/hui-charts/Example#/Example/${name}?theme=${this.currentTheme}`
+        this.iframeSrc = `${import.meta.env.VITE_HDESIGN_URL}/Example#/Example/${name}?theme=${this.currentTheme}`
         } else {
         this.iframeSrc = `Example#/Example/${name}?theme=${this.currentTheme}`;
       }
