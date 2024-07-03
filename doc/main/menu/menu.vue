@@ -141,9 +141,6 @@ export default {
     .tiny-input__prefix {
       left: 20px;
     }
-    &.tiny-input-prefix{
-      top: calc(5rem + 60px);
-    }
   }
 
   .tiny-tree-menu:before {
