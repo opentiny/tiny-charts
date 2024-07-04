@@ -338,4 +338,26 @@ export default class CoreChart extends BaseChart {
   getEchartsOption() {
     return this.eChartOption;
   }
+
+  // 触发图表行为
+  dispatchAction(payload) {
+    this.echartsIns && this.echartsIns.dispatchAction(payload)
+  }
+
+  // 激活toolbox中的zoom缩放
+  toggleZoomSelectCursor(payload = {}) {
+    const mixPayload = {
+      type: 'takeGlobalCursor',
+      key: 'dataZoomSelect',
+      // 启动或关闭
+      dataZoomSelectActive: true,
+      ...payload
+    }
+    this.dispatchAction(mixPayload)
+  }
+
+  // 重置数据
+  restoreToolbox() {
+    this.dispatchAction({ type: 'restore' })
+  }
 }
