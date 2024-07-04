@@ -48,8 +48,8 @@ chartIns.render();
 | animation |  是否开启动画   | `true` |
 | animationThreshold | 是否关闭动画的阈值  | `2000` |
 | animationDuration |  进场动画的时长 |`750` |
-| animationEasing |  进场动画的时长 | `'quinticInOut'` |
-| animationDelay |  进场动画的时长  | `0` |
+| animationEasing |  进场动画的缓动效果 | `'quinticInOut'` |
+| animationDelay |  进场动画的延迟  | `0` |
 | animationDurationUpdate |  数据更新动画的时长  | `300` |
 | animationEasingUpdate |  数据更新动画的缓动效果 | `'quinticInOut'` |
 | animationDelayUpdate |  数据更新动画的延迟  | `0` |
