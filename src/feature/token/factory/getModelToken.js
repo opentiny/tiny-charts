@@ -65,7 +65,8 @@ function getModelToken(aliasToken) {
     colorAxisLineSecondary,
     colorBgTertiary,
     colorFill,
-    axisLineWidthSecondary
+    axisLineWidthSecondary,
+    labelFontSize
   } = aliasToken;
 
   return {
@@ -295,7 +296,12 @@ function getModelToken(aliasToken) {
     visualMapPiecesColor: colorTextTransparent,
     // dashColor
     visualMapDashColor: colorDash,
-
+    // 以上两个属性用于线形图，后续要变更
+    // 文本颜色
+    visualMapTextColor:colorTextPrimary,
+    // 文本字号
+    visualMapTextFontSize:labelFontSize,
+    
     /** -----markPoint------ */
     // markPoint标签文本
     markPointLabelColor: colorTextTransparent,
