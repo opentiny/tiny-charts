@@ -16,7 +16,7 @@ import merge from '../../../util/merge';
 /**
  * tipHtml 和 tipHtmlStyle 为旧属性，后续逐步废弃
  */
-function tooltip(iChartOption, chartName) {
+function tooltip(iChartOption, chartName, callBack) {
   const formatter = iChartOption.tipHtml;
   const formatterStyle = iChartOption.tipHtmlStyle;
   const tooltip = base(chartName);
@@ -28,6 +28,7 @@ function tooltip(iChartOption, chartName) {
     tooltip.backgroundColor = formatterStyle.backgroundColor || tooltip.backgroundColor;
   }
   axisPointer(tooltip, chartName);
+  callBack && callBack(tooltip)
   merge(tooltip, iChartOption.tooltip);
   return tooltip;
 }

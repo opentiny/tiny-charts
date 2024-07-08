@@ -20,7 +20,6 @@ class ScatterChart {
 
   static name = CHART_TYPE.SCATTER
 
-
   constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
@@ -39,7 +38,7 @@ class ScatterChart {
     });
     if (!data.length) return;
     // 图例数据
-    RectCoordSys(this.baseOption, iChartOption, 'ScatterChart');
+    RectCoordSys(this.baseOption, iChartOption, CHART_TYPE.SCATTER);
     // 图表x轴
     handleXaxis(this.baseOption, iChartOption);
     // 图表y轴
@@ -58,7 +57,7 @@ class ScatterChart {
     return this.baseOption;
   }
 
-  setOption() {}
+  setOption() { }
 }
 
 export default ScatterChart;

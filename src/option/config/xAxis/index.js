@@ -18,9 +18,15 @@ import boundaryGap from './boundaryGap';
 import merge from '../../../util/merge';
 import { toArray } from '../../../util/type';
 
-function xAxis(iChartOpt, chartName) {
+/**
+ * 
+ * @param {object} iChartOpt  图标的配置项
+ * @param {Function} callBack 用于在merge外部iChartOpt的配置和内部默认配置之前根据不用类型图表对默认配置进行操作
+ * @returns x轴的配置
+ */
+function xAxis(iChartOpt, callBack) {
   let xAxisResult = iChartOpt.xAxis || {};
-  xAxisResult = toArray(xAxisResult).map(xAxisItem => {
+  xAxisResult = toArray(xAxisResult).map((xAxisItem, xAxisItemIndex) => {
     const xAxisUnit = base();
     // 坐标轴名称
     name(xAxisUnit, xAxisItem, iChartOpt);
@@ -32,6 +38,7 @@ function xAxis(iChartOpt, chartName) {
     axisLine(xAxisUnit, xAxisItem, iChartOpt);
     // 坐标轴前后留白
     axisMargin(xAxisUnit, xAxisItem, iChartOpt);
+    callBack && callBack(xAxisUnit, xAxisItemIndex)
     // 覆盖属性
     merge(xAxisUnit, xAxisItem);
     return xAxisUnit;

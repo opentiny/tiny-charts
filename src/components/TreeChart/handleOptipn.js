@@ -11,12 +11,13 @@
  */
 import merge from '../../util/merge';
 import tooltip from '../../option/config/tooltip';
+import { CHART_TYPE } from '../../util/constants';
 
 /**
  * 配置鼠标悬浮提示框
  */
 export function setTooltip(baseOpt, iChartOpt) {
-  const basicTip = tooltip(iChartOpt);
+  const basicTip = tooltip(iChartOpt,CHART_TYPE.TREE);
   basicTip.trigger = 'item';
   baseOpt.tooltip = basicTip
 }

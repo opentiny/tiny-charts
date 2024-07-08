@@ -35,7 +35,7 @@ export default class RegionChart {
     // 装载除series以外的一级属性
     setOption(this.iChartOption);
     // 配置悬浮提示框
-    this.baseOption.tooltip = tooltip(iChartOption);
+    this.baseOption.tooltip = tooltip(iChartOption, CHART_TYPE.REGION);
     // 兼容echarts属性
     merge(this.baseOption, iChartOption);
     // 配置图表事件

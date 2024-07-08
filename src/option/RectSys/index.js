@@ -29,7 +29,7 @@ function RectCoordSys(baseOpt, iChartOpt, chartName) {
     // 图表基础颜色
     baseOpt.color = iChartOpt.color;
     // 图表x坐标轴
-    baseOpt.xAxis = xAxis(iChartOpt, chartName);
+    baseOpt.xAxis = xAxis(iChartOpt);
     // 图表y坐标轴
     baseOpt.yAxis = yAxis(baseOpt, iChartOpt, chartName);
     // 图表鼠标悬浮提示框

@@ -33,6 +33,7 @@ function base() {
       },
     },
     axisLabel: {
+      show: true,
       color: Theme.config.yAxisLabelColor,
       fontSize: Theme.config.yAxisLabelFontSize,
     },

@@ -21,7 +21,9 @@ const chartType = [
   'PieChart',
   'PolarBarChart',
   'SunburstChart',
-  'BulletChart'
+  'BulletChart',
+  'HeatMapChart',
+  'WordCloudChart'
 ];
 
 function base(chartName) {

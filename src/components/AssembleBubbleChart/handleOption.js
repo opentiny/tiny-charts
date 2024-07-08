@@ -12,6 +12,7 @@
 import tooltip from '../../option/config/tooltip';
 import legend from '../../option/config/legend';
 import defendXSS from '../../util/defendXSS';
+import { CHART_TYPE } from '../../util/constants';
 
 // 配置图表图例位置信息
 export function setLegend(iChartOption) {
@@ -46,5 +47,5 @@ export function setTooltip(iChartOption) {
       return htmlString;
     };
   }
-  return { ...tooltip(iChartOption), formatter, trigger: 'item' };
+  return { ...tooltip(iChartOption,  CHART_TYPE.ASSEMBLE_BUBBLE), formatter, trigger: 'item' };
 }

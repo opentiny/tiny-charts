@@ -32,10 +32,10 @@ function getCommonProperty() {
         inRange: undefined,
         // 定义 在选中范围外 的视觉元素
         outOfRange: undefined,
-        left: 0,
+        left: 'auto',
         top: 'auto',
         right: 'auto',
-        bottom: 0,
+        bottom: 'auto',
         // 放置 visualMap 组件，水平（'horizontal'）或者竖直（'vertical'）。
         orient: 'vertical',
         // visualMap内边距,默认各方向内边距为5
@@ -46,7 +46,7 @@ function getCommonProperty() {
         // borderWidth: 0,
         // visualMap 文字样式
         textStyle: {
-            color:Theme.config.visualMapTextColor,
+            color: Theme.config.visualMapTextColor,
             fontSize: Theme.config.visualMapTextFontSize
         },
         formatter: undefined,
@@ -70,7 +70,7 @@ function visualMap(type = 'piecewise') {
             // 是否显示每项的文本标签
             showLabel: true,
             // 每两个图元之间的间隔距离
-            itemGap: 10,
+            itemGap: 1,
             // 默认的图形
             itemSymbol: 'rect',
             ...getCommonProperty()

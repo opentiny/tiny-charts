@@ -11,43 +11,45 @@
  */
 import min from '../../util/sort/min';
 import max from '../../util/sort/max';
-import { VISUALMAPUNIT, CHARTTYPE } from './BaseOption';
-import cloneDeep from '../../util/cloneDeep';
+import { CHARTTYPE } from './BaseOption';
 import merge from '../../util/merge';
-import chartToken from './chartToken';
+import visualMap from '../../option/config/visualMap';
+
 /**
  * 设置日历热力图视觉滑块控制手柄
  */
-function handleCalendar(iChartOption, visualMapItem, maxValue, minValue) {
-  visualMapItem.show = !!iChartOption.handle;
+function handleCalendar(iChartOption, visualUnit, maxValue, minValue) {
+  visualUnit.show = !!iChartOption.handle;
+  visualUnit.inverse = true
+  visualUnit.itemWidth = 20
+  visualUnit.itemHeight = 400
+  visualUnit.text = [maxValue, minValue]
+  visualUnit.right = '4%';
+  visualUnit.bottom = '6%';
   if (iChartOption.handle) {
-    visualMapItem.inverse = !!iChartOption.handle.inverse;
-    visualMapItem.text = iChartOption.handle.text || [maxValue, minValue];
-    visualMapItem.orient = iChartOption.handle.orient || 'vertical';
-    visualMapItem.calculable = !!iChartOption.handle.calculable;
-    visualMapItem.textStyle.color = chartToken.visualMapTextColor;
-    visualMapItem.itemWidth = iChartOption.handle.width || 20;
-    visualMapItem.itemHeight = iChartOption.handle.height || 400;
+    merge(visualUnit, iChartOption.handle);
+    if (iChartOption.handle.width) {
+      visualUnit.itemWidth = iChartOption.handle.width
+      delete visualUnit.width
+    }
+    if (iChartOption.handle.height) {
+      visualUnit.itemHeight = iChartOption.handle.height
+      delete visualUnit.height
+    }
     if (iChartOption.handle.position) {
-      merge(visualMapItem, iChartOption.handle.position);
-    } else {
-      visualMapItem.right = '4%';
-      visualMapItem.bottom = '6%';
+      merge(visualUnit, iChartOption.handle.position);
+      delete visualUnit.position
     }
   }
-  if (!iChartOption.changeProperty || iChartOption.changeProperty === 'opcity') {
-    visualMapItem.inRange = { opacity: [0, 1] };
-  } else {
-    visualMapItem.inRange = { color: iChartOption.color };
-  }
+  visualUnit.inRange = (!iChartOption.changeProperty || iChartOption.changeProperty === 'opcity') ? { opacity: [0, 1] } : { color: iChartOption.color }
 }
 
 /**
  * 组装echarts所需要的series
  */
 export function setVisualMap(baseOpt, type, data, iChartOption) {
-  const visualMap = [];
-  const visualMapItem = cloneDeep(VISUALMAPUNIT[type]);
+  const baseVisualMap = [];
+  const visualUnit = visualMap('continuous')
   const intervalData = {
     RectangularHeatMapChart: data,
     CalendarHeatMapChart: data[2],
@@ -58,15 +60,26 @@ export function setVisualMap(baseOpt, type, data, iChartOption) {
   });
   const minValue = min(intervalArr);
   const maxValue = max(intervalArr);
-  visualMapItem.min = minValue;
-  visualMapItem.max = maxValue;
+  visualUnit.min = minValue;
+  visualUnit.max = maxValue;
+  visualUnit.dimension = 2
+  if (type === CHARTTYPE[0]) {
+    visualUnit.inRange = {
+      colorAlpha: [0, 1]
+    }
+  }
   if (type === CHARTTYPE[1]) {
     // 设置视觉滑块控制手柄  设置VisualMap控制的热力变化属性
-    handleCalendar(iChartOption, visualMapItem, maxValue, minValue);
+    handleCalendar(iChartOption, visualUnit, maxValue, minValue);
   }
   if (type === CHARTTYPE[2]) {
-    visualMapItem.inRange.color = iChartOption.color;
+    visualUnit.inRange = {
+      color: iChartOption.color
+    }
   }
-  visualMap.push(visualMapItem);
-  baseOpt.visualMap = visualMap;
+  if(iChartOption.visualMap){
+    merge(visualUnit,iChartOption.visualMap)
+  }
+  baseVisualMap.push(visualUnit);
+  baseOpt.visualMap = baseVisualMap;
 }
