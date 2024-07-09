@@ -46,7 +46,7 @@ const SERIESUNIT = {
   },
   HexagonHeatMapChart: {
     type: 'custom',
-    name: 'hexago',
+    name: 'hexagon',
     renderItem: undefined,
     data: [],
   },
