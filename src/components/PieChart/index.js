@@ -10,7 +10,6 @@
  *
  */
 import init from '../../option/init';
-import { event } from '../../util/event';
 import handleMulti from './handleMulti';
 import handleSeries from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
@@ -41,10 +40,6 @@ class PieChart {
     this.baseOption.series = handleSeries(type, iChartOption, chartInstance, position);
     // 针对多重圆环图表需求，图表需要进行特殊处理
     handleMulti(type, this.baseOption, iChartOption.legend, iChartOption.data);
-    // 配置图表事件
-    if (iChartOption.event) {
-      event(chartInstance, iChartOption.event);
-    }
     // 是否关闭hover态的效果，默认为false
     if (iChartOption.silent) {
       this.baseOption.tooltip = {};

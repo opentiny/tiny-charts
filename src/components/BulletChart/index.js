@@ -10,7 +10,6 @@
  *
  */
 import { handleSeries } from './handleSeries';
-import { event } from '../../util/event';
 import init from '../../option/init';
 import updateWidth from './bulletChartOption';
 import { handleTooltip, setDirection } from './handleOptipn';
@@ -51,8 +50,6 @@ class BulletChart {
     handleSeries(this.baseOption, iChartOption, legendData, seriesData);
     // 设置柱状图的方向
     setDirection(this.baseOption, iChartOption.direction);
-    // 配置图表事件
-    event(this.chartInstance, iChartOption.event);
   }
 
   // 根据渲染出的结果，二次计算option

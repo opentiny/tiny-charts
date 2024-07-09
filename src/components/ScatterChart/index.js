@@ -10,7 +10,6 @@
  *
  */
 import { handleSeries } from './handleSeries';
-import { event } from '../../util/event';
 import { handleXaxis, handleYaxis, handleGrid, handleTooltip } from './handleOptipn';
 import init from '../../option/init';
 import RectCoordSys from '../../option/RectSys';
@@ -49,8 +48,6 @@ class ScatterChart {
     handleTooltip(this.baseOption, iChartOption);
     // 图表的series
     handleSeries(this.baseOption, iChartOption);
-    // 配置图表事件
-    event(this.chartInstance, iChartOption.event);
   }
 
   getOption() {

@@ -10,7 +10,6 @@
  *
  */
 import init from '../../option/init';
-import { event } from '../../util/event';
 import { setDataset, setSeries } from './handleSeries';
 import { setDirection, setTooltip } from './handleOption';
 import RectCoordSys from '../../option/RectSys';
@@ -55,10 +54,6 @@ export default class BoxplotChart {
     setDirection(this.baseOption, iChartOption.direction);
     // 提示框
     setTooltip(this.baseOption);
-    // 配置图表事件
-    if (iChartOption.event) {
-      event(chartInstance, iChartOption.event);
-    }
   }
 
   getOption() {

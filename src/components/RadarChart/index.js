@@ -9,7 +9,6 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import { event } from '../../util/event';
 import init from '../../option/init';
 import { isArray } from '../../util/type';
 import { setSeries, setMarkLineSeries } from './handleSeries';
@@ -58,7 +57,6 @@ class RadarChart {
     setMarkLineSeries(this.baseOption, iChartOption, radarKeys);
     // 目前只允许合并基础的雷达图的series，对于阈值线和红点所在的series不处理，普通雷达图用series.name='data'标识，目前本接口只给opentinty和aui使用
     mergeSeries(iChartOption, this.baseOption);
-    event(chartInstance, iChartOption.event);
     if (iChartOption.gradient) {
       this.gradientRadar.init()
       this.gradientRadar.setLegend()

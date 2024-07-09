@@ -22,6 +22,7 @@ import animation from './option/config/animation';
 import merge, { mergeExtend } from './util/merge';
 import WcagObserver from './feature/wcag';
 import chartLinter from './feature/linter';
+import { event } from './util/event'
 
 const SELF_CHART = [
   'FlowChart',
@@ -164,6 +165,8 @@ export default class CoreChart extends BaseChart {
     this.iChartOption = iChartOption;
     this.ichartsIns = new ChartClass(iChartOption, this.echartsIns, this.plugins);
     this.eChartOption = this.ichartsIns.getOption();
+    // 配置图表事件
+    event(this.echartsIns, iChartOption.event);
     axistip(this.dom, this.echartsIns, this.eChartOption, this.iChartOption.axistip);
     mergeExtend(this.iChartOption, this.eChartOption);
   }

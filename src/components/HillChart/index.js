@@ -20,7 +20,6 @@ import {
   handleMarkLine,
 } from './handleOption';
 import { handleEmphasis } from './handleSeries';
-import { event } from '../../util/event';
 import init from '../../option/init';
 import title from '../../option/config/rectTitle';
 import toolTip from '../../option/config/tooltip';
@@ -81,8 +80,6 @@ class HillChart {
       iChartOption.opacity,
       iChartOption,
     );
-    // 配置图表事件
-    event(chartInstance, iChartOption.event);
     // 配置阈值线
     handleMarkLine(this.baseOption, iChartOption);
     // 配置高亮状态
