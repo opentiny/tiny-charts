@@ -15,12 +15,10 @@ import { getData } from './handleData';
 import { handleSeries } from './handleSeries';
 import { setVisualMap } from './handleVisualMap';
 import { event } from '../../util/event';
-import {
-  setHeatMapDeaultIchartOption,
-  initRectSys
-} from './handleOptipn';
+import { setHeatMapDeaultIchartOption, initRectSys } from './handleOptipn';
 import init from '../../option/init';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 class HeatMapChart {
 
@@ -53,6 +51,7 @@ class HeatMapChart {
     setVisualMap(this.baseOption, type, data, iChartOption);
     // 配置图表事件
     event(this.chartInstance, iChartOption.event);
+    mergeSeries(iChartOption, this.baseOption)
   }
 
   // 页面需要重新resize

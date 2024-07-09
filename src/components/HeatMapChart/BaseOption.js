@@ -21,9 +21,10 @@ const SERIESUNIT = {
     symbolSize: '',
     cursor: 'pointer',
     data: [],
+    name:'rectangular'
   },
   CalendarHeatMapChart: {
-    name: '',
+    name: 'calendar',
     type: 'heatmap',
     cursor: 'pointer',
     label: {
@@ -45,7 +46,7 @@ const SERIESUNIT = {
   },
   HexagonHeatMapChart: {
     type: 'custom',
-    name: '',
+    name: 'hexago',
     renderItem: undefined,
     data: [],
   },
