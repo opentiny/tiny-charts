@@ -9,22 +9,16 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import BaseOption from './BaseOption';
+
 import cloneDeep from '../../util/cloneDeep';
 import { getData } from './handleData';
 import { handleSeries } from './handleSeries';
 import { setVisualMap } from './handleVisualMap';
 import { event } from '../../util/event';
-import {
-  handleXaxis,
-  handleYaxis,
-  handleColor,
-  handleGrid,
-  handleTooltip,
-  setHeatMapDeaultIchartOption,
-} from './handleOptipn';
+import { setHeatMapDeaultIchartOption, initRectSys } from './handleOptipn';
 import init from '../../option/init';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 class HeatMapChart {
 
@@ -34,7 +28,6 @@ class HeatMapChart {
     this.baseOption = {};
     this.iChartOption = {};
     this.initIchartOption = cloneDeep(iChartOption);
-    this.baseOption = cloneDeep(BaseOption);
     setHeatMapDeaultIchartOption(iChartOption);
     this.iChartOption = init(iChartOption);
     this.chartInstance = chartInstance;
@@ -44,28 +37,21 @@ class HeatMapChart {
 
   updateOption() {
     const iChartOption = this.iChartOption;
-    const {type } = iChartOption;
+    const { type } = iChartOption;
     if (!type) {
       throw new Error('HeatMapChart must have a name');
     }
     // 图表数据
     const data = getData(type, iChartOption, this.chartInstance);
     if (!data) return;
-    handleColor(this.baseOption, iChartOption);
-    // 图表x轴
-    handleXaxis(this.baseOption, type, data, iChartOption,this.initIchartOption);
-    // 图表y轴
-    handleYaxis(this.baseOption, type, data, iChartOption,this.initIchartOption);
-    // 设置chartpadding
-    handleGrid(this.baseOption, iChartOption);
-    //  图表鼠标悬浮提示框
-    handleTooltip(this.baseOption, iChartOption, type);
+    initRectSys(this.baseOption, iChartOption, type, data)
     // 图表的series
     handleSeries(this.baseOption, iChartOption, data, type);
     // 图表VisualMap
     setVisualMap(this.baseOption, type, data, iChartOption);
     // 配置图表事件
     event(this.chartInstance, iChartOption.event);
+    mergeSeries(iChartOption, this.baseOption)
   }
 
   // 页面需要重新resize
@@ -81,7 +67,7 @@ class HeatMapChart {
     return this.baseOption;
   }
 
-  setOption() {}
+  setOption() { }
 }
 
 export default HeatMapChart;

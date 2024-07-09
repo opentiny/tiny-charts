@@ -15,11 +15,8 @@ import xAxis from '../../option/config/xAxis';
 import yAxis from '../../option/config/yAxis';
 import grid from '../../option/config/grid';
 import tooltip from '../../option/config/tooltip';
-
 import defendXSS from '../../util/defendXSS';
-import chartToken from './chartToken';
-import merge from '../../util/merge';
-import { isArray } from '../../util/type';
+import { CHART_TYPE } from '../../util/constants';
 
 function setHeatMapDeaultIchartOption(iChartOpt) {
   if (!iChartOpt.color) {
@@ -83,8 +80,8 @@ function calendarFormatter(params) {
                             <span style="display:inline-block;width:10px;
                             height:10px;margin-right:8px;border-style: solid;
                             border-width:1px;border-color:${defendXSS(
-                              changeRgbaOpacity(color, 1),
-                            )};background-color:${defendXSS(color)};"></span>
+    changeRgbaOpacity(color, 1),
+  )};background-color:${defendXSS(color)};"></span>
                             <span>${defendXSS(name)}</span>
                         </div>`;
   htmlDom += `
@@ -110,8 +107,8 @@ function hexagonFormatter(params) {
                             <span style="display:inline-block;width:10px;
                             height:10px;margin-right:8px;border-style: solid;
                             border-width:1px;border-color:${defendXSS(
-                              changeRgbaOpacity(color, 1),
-                            )};background-color:${defendXSS(color)};"></span>
+    changeRgbaOpacity(color, 1),
+  )};background-color:${defendXSS(color)};"></span>
                             <span>${defendXSS(name)}</span>
                         </div>`;
   html += `
@@ -130,6 +127,51 @@ function hexagonFormatter(params) {
                                 <span>${defendXSS(z)}</span>
                             </div>`;
   return html;
+}
+
+
+const heatMapTooltipFormatter = {
+  RectangularHeatMapChart: rectangularFormatter,
+  CalendarHeatMapChart: calendarFormatter,
+  HexagonHeatMapChart: hexagonFormatter,
+};
+
+function setTooltip(baseOpt, iChartOpt, type) {
+  function setChartTooltip(opt) {
+    if (!iChartOpt.tipHtml && !iChartOpt?.tooltip?.formatter) {
+      opt.formatter = heatMapTooltipFormatter[type];
+    }
+  }
+  baseOpt.tooltip = tooltip(iChartOpt, CHART_TYPE.HEAT_MAP, setChartTooltip);
+}
+
+function handleCalendarYaxis(yAxis, data) {
+  yAxis.type = 'category';
+  yAxis.data = data[1];
+  yAxis.splitLine.show = false;
+  yAxis.axisLine.show = true
+}
+
+function handleHexagonYaxis(yAxis, data) {
+  yAxis.splitLine.show = false;
+  yAxis.axisLabel.show = false;
+  yAxis.min = 0;
+  yAxis.max = data[2];
+}
+
+// y轴的处理函数
+const yAxisHandler = {
+  CalendarHeatMapChart: handleCalendarYaxis,
+  HexagonHeatMapChart: handleHexagonYaxis,
+};
+
+function setYaxis(baseOpt, iChartOpt, chartType, data) {
+  function setChartYaxis(opt, index) {
+    if (chartType !== CHARTTYPE[0] && index === 0) {
+      yAxisHandler[chartType](opt, data);
+    }
+  }
+  baseOpt.yAxis = yAxis(baseOpt, iChartOpt, CHART_TYPE.HEAT_MAP, setChartYaxis);
 }
 
 function handleRectangularXaxis(xAxis) {
@@ -160,80 +202,28 @@ const xAxisHandler = {
   HexagonHeatMapChart: handleHexagonXaxis,
 };
 
-function handleXaxis(baseOpt, type, data, iChartOpt,initIchartOpt) {
-  const basicXaxis = xAxis(iChartOpt);
-  xAxisHandler[type](basicXaxis[0], data);
-  baseOpt.xAxis = basicXaxis;
-  if (initIchartOpt.xAxis) {
-    baseOpt.xAxis.forEach((item, index) => {
-      merge(item, isArray(initIchartOpt.xAxis) ? initIchartOpt.xAxis[index] : initIchartOpt.xAxis);
-    });
+function setXaxis(baseOpt, iChartOpt, chartType, data) {
+  function setChartXaxis(opt, index) {
+    if (index === 0) xAxisHandler[chartType](opt, data);
   }
+  baseOpt.xAxis = xAxis(iChartOpt, setChartXaxis);
 }
 
-function handleCalendarYaxis(yAxis, data) {
-  yAxis.type = 'category';
-  yAxis.data = data[1];
-  yAxis.splitLine.show = false;
-  yAxis.axisLabel.margin = 20;
-  yAxis.axisLine = {
-    show: true,
-    lineStyle: {
-      width: 2,
-      color: chartToken.axisLineColor,
-    },
-  };
-}
-
-function handleHexagonYaxis(yAxis, data) {
-  yAxis.axisLine.show = false;
-  yAxis.splitLine.show = false;
-  yAxis.axisLabel.show = false;
-  yAxis.min = 0;
-  yAxis.max = data[2];
-}
-
-// y轴的处理函数
-const yAxisHandler = {
-  CalendarHeatMapChart: handleCalendarYaxis,
-  HexagonHeatMapChart: handleHexagonYaxis,
-};
-
-function handleYaxis(baseOpt, type, data, iChartOpt,initIchartOpt) {
-  const basicYaxis = yAxis(baseOpt, iChartOpt);
-  if (type !== CHARTTYPE[0]) {
-    yAxisHandler[type](basicYaxis[0], data, iChartOpt);
-  }
-  baseOpt.yAxis = basicYaxis;
-  if (initIchartOpt.yAxis) {
-    baseOpt.yAxis.forEach((item, index) => {
-      merge(item, isArray(initIchartOpt.yAxis) ? initIchartOpt.yAxis[index] : initIchartOpt.yAxis);
-    });
-  }
-}
-
-function handleColor(baseOpt, iChartOpt) {
-  baseOpt.color = iChartOpt.color;
-}
-
-function handleGrid(baseOpt, iChartOpt) {
+function setGrid(baseOpt, iChartOpt) {
   const basicGrid = grid(iChartOpt);
   baseOpt.grid = basicGrid;
 }
 
-const heatMapTooltipFormatter = {
-  RectangularHeatMapChart: rectangularFormatter,
-  CalendarHeatMapChart: calendarFormatter,
-  HexagonHeatMapChart: hexagonFormatter,
-};
-
-function handleTooltip(baseOpt, iChartOpt, type) {
-  const basicTooltip = tooltip(iChartOpt);
-  if (!iChartOpt.tipHtml && !iChartOpt?.tooltip?.formatter) {
-    basicTooltip.formatter = heatMapTooltipFormatter[type];
-  }
-  basicTooltip.trigger = 'item';
-  baseOpt.tooltip = basicTooltip;
+function initRectSys(baseOpt, iChartOpt, chartType, data) {
+  baseOpt.color = iChartOpt.color;
+  // 设置chartpadding
+  setGrid(baseOpt, iChartOpt);
+  // 图表x轴
+  setXaxis(baseOpt, iChartOpt, chartType, data)
+  // 图表y轴
+  setYaxis(baseOpt, iChartOpt, chartType, data);
+  // 图表鼠标悬浮提示框
+  setTooltip(baseOpt, iChartOpt, chartType);
 }
 
-export { handleXaxis, setHeatMapDeaultIchartOption, handleYaxis, handleColor, handleGrid, handleTooltip };
+export { setHeatMapDeaultIchartOption, initRectSys };

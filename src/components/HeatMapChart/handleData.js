@@ -9,12 +9,6 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-/**
- * 从数据中拿出key
- */
-function getDataKeys(data) {
-  return Object.keys(data);
-}
 
 /**
  * 处理矩阵热力图data
@@ -50,7 +44,7 @@ function handlecalendarSeriesData(xAxisData, yAxisData, data, keyName) {
  */
 function handleCalendarData(data) {
   const calendarData = [];
-  const keyName = getDataKeys(data[0]);
+  const keyName = Object.keys(data[0]);
   // x轴类目数据
   const xCategoryName = data.map(item => {
     return item[keyName[0]];
@@ -136,8 +130,8 @@ const dataHandler = {
  */
 export function getData(type, iChartOption, chartInstance) {
   // 蜂窝热力图数据特殊处理
-  if (iChartOption.data&&iChartOption.data.length>0){
-    const chartData =dataHandler[type](iChartOption.data, iChartOption, chartInstance)
+  if (iChartOption.data && iChartOption.data.length > 0) {
+    const chartData = dataHandler[type](iChartOption.data, iChartOption, chartInstance)
     return chartData;
   }
   return null

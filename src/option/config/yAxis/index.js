@@ -26,7 +26,7 @@ function isNeedTitle(yAxisOpt, yAxisName) {
   return false;
 }
 
-function yAxis(baseOpt, iChartOpt, chartName) {
+function yAxis(baseOpt, iChartOpt, chartName, callback) {
   let yAxisOpt = iChartOpt.yAxis;
   const yAxisName = iChartOpt.yAxisName;
   const data = iChartOpt.data;
@@ -69,8 +69,9 @@ function yAxis(baseOpt, iChartOpt, chartName) {
       temp.min = value[0];
       temp.max = value[1];
     }
+    callback && callback(temp, index)
     temp = merge(temp, item);
-    if (index == 0 && yAxisOpt.length == 1 && temp.position !== 'right') {
+    if (index === 0 && yAxisOpt.length === 1 && temp.position !== 'right') {
       delete temp.name;
     }
     yAxis.push(temp);

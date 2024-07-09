@@ -11,6 +11,7 @@
  */
 import tooltip from '../../option/config/tooltip';
 import defendXSS from '../../util/defendXSS';
+import { CHART_TYPE } from '../../util/constants';
 
 function defaultFormatter(params, iChartOption) {
   const { emptyStatus = 'node' } = iChartOption;
@@ -45,7 +46,7 @@ function handleSankeyFormatter(formatter, sankeyTooltip, iChartOption) {
 
 // 配置桑基图的自定义悬浮提示框
 export function setTooltip(iChartOption, formatter, baseOpt) {
-  const sankeyTooltip = tooltip(iChartOption);
+  const sankeyTooltip = tooltip(iChartOption,CHART_TYPE.SANKEY);
   handleSankeyFormatter(formatter, sankeyTooltip, iChartOption);
   sankeyTooltip.trigger = 'item';
   baseOpt.tooltip = sankeyTooltip;

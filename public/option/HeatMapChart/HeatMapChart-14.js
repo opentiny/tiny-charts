@@ -181,28 +181,6 @@ const option = {
             bottom: '6%',
         },
     },
-    // 设置x轴label刻度显示,第一个值类目的 index，第二个值是类目名称
-    xAxisInterval: (index, value) => {
-        if (index % 24 === 0) {
-            return true;
-        }
-        return false;
-    },
-    // 自定义y轴
-    yAxis: {
-        // 设置刻度文本间隔
-        interval: 29,
-        // 坐标轴的位置
-        position: 'right',
-        // 坐标轴的名称
-        name: 'Number',
-        // 坐标轴的名称位置调整
-        nameTextStyle: {
-            align: 'right',
-            // 用于调整y轴标题的位置
-            padding: [0, -38, 0, 0],
-        },
-    },
     showLabel: false,
     // 控制热力图根据什么来体现热力的变化,取值'opcity','color',默认值'opcity'
     changeProperty: 'color',

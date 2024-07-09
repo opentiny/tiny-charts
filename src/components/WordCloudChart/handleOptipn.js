@@ -10,11 +10,11 @@
  *
  */
 import tooltip from '../../option/config/tooltip'
+import { CHART_TYPE } from '../../util/constants';
 /**
  * 配置鼠标悬浮提示框
  */
 export function setTooltip(iChartOpt) {
-  const basicTip=tooltip(iChartOpt)
-  basicTip.trigger = 'item';
+  const basicTip=tooltip(iChartOpt,CHART_TYPE.WORD_CLOUD)
   return basicTip;
 }

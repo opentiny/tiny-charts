@@ -45,7 +45,7 @@ class HillChart {
   updateOption(iChartOption, chartInstance) {
     // 是否显示坐标轴
     // 配置x轴
-    this.baseOption.xAxis = xAxis(iChartOption, CHART_TYPE.HILL)[0];
+    this.baseOption.xAxis = xAxis(iChartOption)[0];
     if (iChartOption.axis && iChartOption.axis.show) {
       // 配置y轴
       this.baseOption.yAxis = yAxis(this.baseOption, iChartOption, CHART_TYPE.HILL);
