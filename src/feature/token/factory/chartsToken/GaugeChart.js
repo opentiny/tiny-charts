@@ -10,13 +10,13 @@
  *
  */
 function GaugeChart (aliasToken){
-  const { colorAxisLine, colorBgEmpty, colorTextSecondary, colorTextPrimary } = aliasToken;
+  const { colorAxisLine, colorBgEmpty, colorTextTertiary, colorTextPrimary } = aliasToken;
   
   return {
     axisLineColor: colorAxisLine,
     // 用于轨道，特殊使用空数据颜色
     splitLineColor: colorBgEmpty,
-    axisLabelColor: colorTextSecondary,
+    axisLabelColor: colorTextTertiary,
     detailRichColor: colorTextPrimary,
   };
 
