@@ -11,7 +11,6 @@
  */
 import init from '../../option/init';
 import mini from '../../feature/mini/miniLineChart';
-import { event } from '../../util/event';
 import { setSeries } from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../option/base';
@@ -81,10 +80,6 @@ class LineChart {
       iChartOption.tipHtml,
       iChartOption.lineStyle,
     );
-    // 配置图表事件
-    if (iChartOption.event) {
-      event(chartInstance, iChartOption.event);
-    }
     // 是否关闭hover态的效果，默认为false
     if (iChartOption.silent) {
       this.baseOption.tooltip = {};

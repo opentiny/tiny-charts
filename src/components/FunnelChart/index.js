@@ -10,7 +10,6 @@
  *
  */
 import init from '../../option/init';
-import { event } from '../../util/event';
 import { setLegend } from './handleLegend.js';
 import { setSeries } from './handleSeries.js';
 import PolarCoordSys from '../../option/PolarSys';
@@ -37,10 +36,6 @@ export default class FunnelChart {
     this.baseOption.series = setSeries(iChartOption);
     // 组装legend.data
     this.baseOption.legend.data ? this.baseOption.legend.data : setLegend(this.baseOption);
-    // 配置图表事件
-    if (iChartOption.event) {
-      event(chartInstance, iChartOption.event);
-    }
   }
 
   getOption() {

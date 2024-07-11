@@ -18,7 +18,6 @@ import { setTooltip } from './handleOptipn';
 import { handleTrendLine } from './handleTrendLine';
 import { setDataset, setVisualMap } from './handleVisualMap';
 import RectCoordSys from '../../option/RectSys';
-import { event } from '../../util/event';
 import { mergeSeries, mergeVisualMap } from '../../util/merge';
 import { CHART_TYPE } from '../../util/constants';
 
@@ -81,10 +80,6 @@ class BubbleChart {
     handleTrendLine(this.baseOption, iChartOption, plugins);
     // 添加seires属性
     handleSeriesExtra(this.baseOption, iChartOption);
-    // 配置图表事件
-    if (iChartOption.event) {
-      event(this.chartInstance, iChartOption.event);
-    }
     // 合并用户自定义series
     mergeSeries(iChartOption, this.baseOption);
     // 合并用户自定义visualMap

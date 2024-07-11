@@ -12,7 +12,6 @@
 import LineChart from '../LineChart';
 import mini from '../../feature/mini/miniBarChart';
 import init from '../../option/init';
-import { event } from '../../util/event';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../option/base';
 import updateWidth from './barChartOption';
@@ -68,10 +67,6 @@ class BarChart {
     setDirection(this.baseOption, iChartOption.direction);
     // 对 tooltip.formatter 进行二次封装
     setLimitFormatter(this.baseOption, iChartOption, seriesData);
-    // 配置图表事件
-    if (iChartOption.event) {
-      event(this.chartInstance, iChartOption.event);
-    }
     // 是否关闭hover态的效果，默认为false
     if (iChartOption.silent) {
       this.baseOption.tooltip = {};

@@ -11,7 +11,6 @@
  */
 import init from '../../option/init';
 import mini from '../../feature/mini/miniCircleProcessChart';
-import { event } from '../../util/event';
 import { getSeriesData, setTooltip } from './handleOption';
 import { setSeries } from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
@@ -41,10 +40,6 @@ export default class CircleProcessChart {
     // series bar数据
     const seriesData = getSeriesData(iChartOption.data);
     this.baseOption.series = setSeries(seriesData, iChartOption);
-    // 配置图表事件
-    if (iChartOption.event) {
-      event(chartInstance, iChartOption.event);
-    }
     mini(iChartOption, this.baseOption);
   }
   getOption() {

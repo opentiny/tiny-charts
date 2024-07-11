@@ -14,7 +14,6 @@ import cloneDeep from '../../util/cloneDeep';
 import { getData } from './handleData';
 import { handleSeries } from './handleSeries';
 import { setVisualMap } from './handleVisualMap';
-import { event } from '../../util/event';
 import { setHeatMapDeaultIchartOption, initRectSys } from './handleOptipn';
 import init from '../../option/init';
 import { CHART_TYPE } from '../../util/constants';
@@ -49,8 +48,6 @@ class HeatMapChart {
     handleSeries(this.baseOption, iChartOption, data, type);
     // 图表VisualMap
     setVisualMap(this.baseOption, type, data, iChartOption);
-    // 配置图表事件
-    event(this.chartInstance, iChartOption.event);
     mergeSeries(iChartOption, this.baseOption)
   }
 

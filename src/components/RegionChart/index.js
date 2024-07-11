@@ -11,7 +11,6 @@
  */
 import init from '../../option/init';
 import merge from '../../util/merge';
-import { event } from '../../util/event';
 import { setOption } from './handleOption';
 import tooltip from '../../option/config/tooltip';
 import { CHART_TYPE } from '../../util/constants';
@@ -38,10 +37,6 @@ export default class RegionChart {
     this.baseOption.tooltip = tooltip(iChartOption, CHART_TYPE.REGION);
     // 兼容echarts属性
     merge(this.baseOption, iChartOption);
-    // 配置图表事件
-    if (iChartOption.event) {
-      event(chartInstance, iChartOption.event);
-    }
     // 删除部分无用的默认值
     delete this.baseOption.legend;
     delete this.baseOption.dataZoom;

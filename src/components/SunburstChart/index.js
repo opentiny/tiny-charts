@@ -10,13 +10,11 @@
  *
  */
 import init from '../../option/init';
-import { event } from '../../util/event';
 import { setSeries } from './handleSeries';
 import merge from '../../util/merge';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
 
-const CHART_NAME = 'SunburstChart';
 export default class SunburstChart {
 
     static name = CHART_TYPE.SUNBURST
@@ -31,13 +29,9 @@ export default class SunburstChart {
     updateOption(chartInstance) {
         const iChartOption = this.iChartOption;
         // 装载除series之外的其他配置
-        PolarCoordSys(this.baseOption, iChartOption, CHART_NAME);
+        PolarCoordSys(this.baseOption, iChartOption, CHART_TYPE.SUNBURST);
         this.baseOption.color = ['', ...iChartOption.color];
         this.baseOption.series = setSeries(iChartOption);
-        // 配置图表事件
-        if (iChartOption.event) {
-            event(chartInstance, iChartOption.event);
-        }
         // 合并用户自定义series
         merge(this.baseOption.series, iChartOption.series);
     }

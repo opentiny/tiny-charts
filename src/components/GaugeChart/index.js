@@ -13,7 +13,6 @@ import BaseOption from './BaseOption';
 import handleSeries from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import { handleTooltip } from './handleOptipn';
-import { event } from '../../util/event';
 import { mergeSeries } from '../../util/merge';
 import init from '../../option/init'
 import { CHART_TYPE } from '../../util/constants';
@@ -39,8 +38,6 @@ class GaugeChart {
     this.baseOption.tooltip = handleTooltip(iChartOption, CHART_TYPE.GAUGE);
     // 赋值数据
     this.baseOption.series = handleSeries(iChartOption, this.baseOption.color);
-    // 配置图表事件
-    event(chartInstance, iChartOption.event);
     // 合并用户自定义series
     this.baseOption.legend.show = false;
     mergeSeries(iChartOption, this.baseOption);
