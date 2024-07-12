@@ -8,7 +8,6 @@ import { xAxisMd, xAxis } from '../common/xAxis'
 import { yAxisMd, yAxis } from '../common/yAxis'
 import { dataZoomMd, dataZoom } from '../common/dataZoom'
 import { eventMd, event } from '../common/event'
-import { linearGradientMd, linearGradient } from '../common/linearGradient'
 import dataMd from './data.md?raw'
 import itemStyleMd from './itemStyle.md?raw'
 import smoothMd from './smooth.md?raw'
@@ -35,7 +34,6 @@ const data = {
         xAxis,
         yAxis,
         dataZoom,
-        linearGradient,
         event,
         ['markline', '阈值线配置', 'object', '无'],
         ['markPoint', '峰值标记', 'object', '{max:false,min:false}'],
@@ -56,7 +54,6 @@ const data = {
         xAxisMd,
         yAxisMd,
         dataZoomMd,
-        linearGradientMd,
         eventMd,
         marklineMd,
         markpointMd,

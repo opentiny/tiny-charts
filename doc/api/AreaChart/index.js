@@ -8,7 +8,6 @@ import { xAxisMd, xAxis } from '../common/xAxis'
 import { yAxisMd, yAxis } from '../common/yAxis'
 import { dataZoomMd, dataZoom } from '../common/dataZoom'
 import { eventMd, event } from '../common/event'
-import { linearGradientMd, linearGradient } from '../common/linearGradient'
 import dataMd from '../LineChart/data.md?raw'
 import itemStyleMd from '../LineChart/itemStyle.md?raw'
 import smoothMd from '../LineChart/smooth.md?raw'
@@ -31,7 +30,6 @@ const data = {
         xAxis,
         yAxis,
         dataZoom,
-        linearGradient,
         event,
         ['data', '图表数据(必填)', 'array', '无'],
         ['area', '面积图是否更改为折线图', 'boolean', 'false'],
@@ -54,7 +52,6 @@ const data = {
         xAxisMd,
         yAxisMd,
         dataZoomMd,
-        linearGradientMd,
         eventMd,
         dataMd,
         areaMd,

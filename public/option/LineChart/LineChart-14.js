@@ -6,7 +6,7 @@ const option = {
     },
     // 折线图每个拐点样式
     itemStyle: {
-        symbolSize: '15',
+        symbolSize: 15,
     },
     // 当值为 null 时表示该线不显示，当值为 0 时表示该线仍然有值
     data: [
@@ -29,10 +29,11 @@ const option = {
     yAxis: {
         name: 'Unit'
     },
-    series: [ 
+    series: [
         {
             name: 'Domestic', // 覆盖 Domestic 线条的样式
             showSymbol: true,
+            symbol:'circle',
             label: {
                 show: true,
                 formatter: (params) => {
