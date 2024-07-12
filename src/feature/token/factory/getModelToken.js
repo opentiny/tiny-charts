@@ -66,7 +66,8 @@ function getModelToken(aliasToken) {
     colorBgTertiary,
     colorFill,
     axisLineWidthSecondary,
-    labelFontSize
+    labelFontSize,
+    colorTextTertiary
   } = aliasToken;
 
   return {
@@ -132,7 +133,7 @@ function getModelToken(aliasToken) {
     // x轴名称字号
     xAxisNameFontSize: textFontSize,
     // x轴标签文本颜色
-    xAxisLabelColor: colorTextSecondary,
+    xAxisLabelColor: colorTextTertiary,
     // x轴标签文本字号
     xAxisLabelFontSize: subtextFontSize,
     // x轴轴线颜色
@@ -162,7 +163,7 @@ function getModelToken(aliasToken) {
     // y轴名称字号
     yAxisNameFontSize: textFontSize,
     // y轴标签文本颜色
-    yAxisLabelColor: colorTextSecondary,
+    yAxisLabelColor: colorTextTertiary,
     // y轴标签文本字号
     yAxisLabelFontSize: subtextFontSize,
     // y轴轴线颜色
@@ -190,7 +191,7 @@ function getModelToken(aliasToken) {
     // radar轴名字号
     radarAxisNameFontSize: subtextFontSize,
     // radar轴标签文本颜色
-    radarAxisLabelColor: colorTextSecondary,
+    radarAxisLabelColor: colorTextTertiary,
     // radar轴标签文本字号
     radarAxisLabelFontSize: subtextFontSize,
     // radar轴线颜色
@@ -214,7 +215,7 @@ function getModelToken(aliasToken) {
 
     /** -----极坐标系角度轴------ */
     // 角度轴标签文本颜色
-    angleAxisLabelColor: colorTextSecondary,
+    angleAxisLabelColor: colorTextTertiary,
     // 角度轴标签文本字号
     angleAxisLabelFontSize: subtextFontSize,
     // 角度轴轴线颜色
@@ -241,7 +242,7 @@ function getModelToken(aliasToken) {
     // 径向轴标签间距
     radiusAxisLabelGap: axisLabelSpace,
     // 径向轴标签颜色
-    radiusAxisLabelColor: colorTextSecondary,
+    radiusAxisLabelColor: colorTextTertiary,
     // 径向轴标签字号
     radiusAxisLabelFontSize: subtextFontSize,
     // 径向轴轴线颜色
@@ -298,10 +299,10 @@ function getModelToken(aliasToken) {
     visualMapDashColor: colorDash,
     // 以上两个属性用于线形图，后续要变更
     // 文本颜色
-    visualMapTextColor:colorTextPrimary,
+    visualMapTextColor: colorTextPrimary,
     // 文本字号
-    visualMapTextFontSize:labelFontSize,
-    
+    visualMapTextFontSize: labelFontSize,
+
     /** -----markPoint------ */
     // markPoint标签文本
     markPointLabelColor: colorTextTransparent,
