@@ -30,7 +30,6 @@
     "vue-router": "4.2.5",
     "mitt": "3.0.1",
     "default-passive-events": "2.0.0",
-    "echarts-liquidfill": "3.1.0",
     "echarts-wordcloud": "2.1.0"
   },
   "devDependencies": {

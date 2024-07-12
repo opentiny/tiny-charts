@@ -51,7 +51,6 @@
 import * as d3 from 'd3';
 import axios from 'axios';
 import 'echarts-wordcloud';
-import 'echarts-liquidfill';
 import '../../src/index.less';
 //import 'echarts-extension-amap';
 import * as echarts from 'echarts';

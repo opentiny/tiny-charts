@@ -13,6 +13,8 @@ import init from '../../option/init';
 import { setSeries } from './handleSeries.js';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
+import './plugSeries.js';
+import './plugView.js';
 
 export default class LiquidfillChart {
 
