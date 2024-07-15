@@ -5,7 +5,7 @@ import typeMd from './type.md?raw';
 import chartPositionMd from './chartPosition.md?raw';
 import distanceMd from './distance.md?raw';
 import { legendMd, legend } from '../common/legend';
-import { tipHtmlMd, tipHtml } from '../common/tipHtml';
+import { tooltipMd, tooltip } from '../common/tooltip';
 import dataMd from './data.md?raw';
 import textStyleMd from './textStyle.md?raw';
 
@@ -18,7 +18,7 @@ const data = {
     ['chartPosition', '设置图表的位置及半径大小', 'object', '{center: [\'50%\',\'50%\'] , radius : \'80%\'}'],
     ['distance', '设置气泡之间的距离', 'number', '50'],
     legend,
-    tipHtml,
+    tooltip,
     ['data', '图表数据', 'array', '见详情，(必填)'],
     ['textStyle', '文本样式', 'object', '见详情']
   ],
@@ -30,7 +30,7 @@ const data = {
     chartPositionMd,
     distanceMd,
     legendMd,
-    tipHtmlMd,
+    tooltipMd,
     dataMd,
     textStyleMd
   ],

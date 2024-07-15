@@ -1,8 +1,7 @@
 import { themeMd, theme } from '../common/theme';
 import { colorMd, color } from '../common/color';
 import { paddingMd, padding } from '../common/padding';
-import { tipHtmlMd, tipHtml } from '../common/tipHtml';
-import { tipHtmlStyleMd, tipHtmlStyle } from '../common/tipHtmlStyle';
+import { tooltipMd, tooltip } from '../common/tooltip';
 import { eventMd, event } from '../common/event';
 import dataMd from './data.md?raw';
 import bubbleSizeMd from './bubbleSize.md?raw';
@@ -26,7 +25,7 @@ const data = {
         theme,
         color,
         padding,
-        tipHtml,
+        tooltip,
         event,
         ['data', '图表数据', 'array', '无'],
         ['bubbleSize', '气泡大小范围', 'array', '[10, 70]'],
@@ -52,7 +51,7 @@ const data = {
         themeMd,
         colorMd,
         paddingMd,
-        tipHtmlMd,
+        tooltipMd,
         eventMd,
         dataMd,
         bubbleSizeMd,
