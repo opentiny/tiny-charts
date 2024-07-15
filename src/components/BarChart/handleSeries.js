@@ -67,6 +67,7 @@ export const seriesInit = () => {
       show: false,
       color: chartToken.labelColor,
       fontSize: chartToken.fontSize,
+      distance: 0,
     },
     // 数据
     data: [],
@@ -349,11 +350,11 @@ function handleBottomObj(d, direction, percent, originColor, markLineColor) {
   return bottomObj;
 }
 
-function getColorStopsOrigin(){
-return  [
-  { offset: 0, color: Theme.config.colorState.colorError },
-  { offset: 1, color: Theme.config.colorState.colorError },
-];
+function getColorStopsOrigin() {
+  return [
+    { offset: 0, color: Theme.config.colorState.colorError },
+    { offset: 1, color: Theme.config.colorState.colorError },
+  ];
 }
 
 
