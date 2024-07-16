@@ -13,6 +13,7 @@ import { handleSeries } from './handleSeries';
 import { handleGrid, handleTooltip, handleTitle } from './handleOptipn';
 import init from '../../option/init';
 import { CHART_TYPE } from '../../util/constants';
+import { handleVisualMap } from './handleVisualMap';
 
 class TreeMapChart {
 
@@ -41,6 +42,8 @@ class TreeMapChart {
     handleTitle(this.baseOption, treeMapiChartOption);
     // 图表的series
     handleSeries(this.baseOption, treeMapiChartOption);
+    // 图表的visualMap
+    handleVisualMap(this.baseOption, treeMapiChartOption);
   }
 
   getOption() {
