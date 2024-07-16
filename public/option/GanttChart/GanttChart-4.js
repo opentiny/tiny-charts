@@ -1,23 +1,25 @@
 const option = {
   theme: 'light',
   type: 'minute',
-  tipHtml: (data, dataIndex, postIndex) => {
-    let tagHtml;
-    const status = data[dataIndex].data[postIndex].status;
-    if (status === 'success') {
-      tagHtml = '<span class=\'tag success\'>执行成功</span>';
-    } else if (status === 'during') {
-      tagHtml = '<span class=\'tag\'>执行中</span>';
-    } else {
-      tagHtml = '<span class=\'tag failed\'>执行失败</span>';
-    }
-    return `
+  tooltip: {
+    formatter: (data, dataIndex, postIndex) => {
+      let tagHtml;
+      const status = data[dataIndex].data[postIndex].status;
+      if (status === 'success') {
+        tagHtml = '<span class=\'tag success\'>执行成功</span>';
+      } else if (status === 'during') {
+        tagHtml = '<span class=\'tag\'>执行中</span>';
+      } else {
+        tagHtml = '<span class=\'tag failed\'>执行失败</span>';
+      }
+      return `
             <p class='title'>${data[dataIndex].name}</p>
             ${tagHtml}
             <p class='time'>操作人员：xxx</p>
             <p class='time'>开始时间：${data[dataIndex].data[postIndex].startTime}</p>
             <p class='time'>结束时间：${data[dataIndex].data[postIndex].endTime}</p>
             <span class='ev_linkField'>查看报告</span>`;
+    },
   },
   currentTime: '2022-8-25 14:30:00',
   data: [

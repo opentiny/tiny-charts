@@ -1,27 +1,18 @@
-/*
-* tipHtml 回调函数控制自定义悬浮框：
-* ( params: Array, 
-*   ticket: string, 
-*   callback: (ticket: string, html: string)
-* ) => string | HTMLElement | HTMLElement[]
-*
-* 通过回调函数的参数，自行制作一个 HTML 片段
-* 详细参数解释见： https://echarts.apache.org/zh/option.html#tooltip.formatter 
-*/
 const option = {
     theme: 'light',
     padding: [50, 30, 50, 20],
     legend: {
         show: true,
     },
-    tipHtml: (params, ticket, callback) => {
-        let htmlString = '';
-        params.forEach((itemSeventeen, index) => {
-            if (index === 0) {
-                htmlString += (itemSeventeen.name + '<br/>');
-            }
-            htmlString +=
-                `<div>
+    tooltip: {
+        formatter: (params, ticket, callback) => {
+            let htmlString = '';
+            params.forEach((itemSeventeen, index) => {
+                if (index === 0) {
+                    htmlString += (itemSeventeen.name + '<br/>');
+                }
+                htmlString +=
+                    `<div>
                     <span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:${itemSeventeen.color};"></span>
                     <span style="margin-left:5px;">
                         <span style="display:inline-block;width:110px;">${itemSeventeen.seriesName} User</span>
@@ -30,8 +21,9 @@ const option = {
                     <span style="color:red">${100 - itemSeventeen.value}%</span>
                     </span>
                 </div>`;
-        });
-        return htmlString
+            });
+            return htmlString
+        },
     },
     data: [
         { 'Month': 'Jan', 'Domestic': 33, 'Abroad': 17 },

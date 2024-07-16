@@ -3,7 +3,7 @@ function makeData() {
     for (let i = 0; i < 18; i++) {
         let cate = [];
         for (let j = 0; j < 100; j++) {
-            cate.push(parseFloat('0.'+window.crypto.getRandomValues(new Uint32Array(1))[0])* 200);
+            cate.push(parseFloat('0.' + window.crypto.getRandomValues(new Uint32Array(1))[0]) * 200);
         }
         data.push(cate);
     }
@@ -81,21 +81,23 @@ const option = {
             datasetIndex: 5
         }
     ],
-    tipHtml: (params) => {
-        const { data, color, seriesName } = params;
-        const labels = ['lower', 'Q3', 'median', 'Q1', 'upper'];
-        let htmlString = `<div style="font-weight:bold">${seriesName}</div>`;
-        let arr = [];
-        labels.forEach((item, index) => {
-            let string = `<div>
+    tooltip: {
+        formatter: (params) => {
+            const { data, color, seriesName } = params;
+            const labels = ['lower', 'Q3', 'median', 'Q1', 'upper'];
+            let htmlString = `<div style="font-weight:bold">${seriesName}</div>`;
+            let arr = [];
+            labels.forEach((item, index) => {
+                let string = `<div>
                             <span style="display:inline-block;width:10px;height:10px;
                             margin-right:4px;border-radius:5px;border-style: solid;border-width:1px;
                             border-color:${color};background-color:${color};"></span>
                             <span style="display:inline-block;width:90px">${item}:</span><span>${data[index + 1]}</span>
                        </div>`;
-            arr.push(string)
-        })
-        htmlString += arr.join('');
-        return htmlString;
+                arr.push(string)
+            })
+            htmlString += arr.join('');
+            return htmlString;
+        },
     },
 };

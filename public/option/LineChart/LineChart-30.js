@@ -29,17 +29,19 @@ const option = {
             }
         }
     },
-    tipHtml: (params, ticket, callback) => {
-        let htmlString = '';
-        let status = ['Unknow', 'Failed', 'Successed', 'Running', 'Pending'];
-        params.forEach((item, index) => {
-            htmlString = '<div>' +
+    tooltip: {
+        formatter: (params, ticket, callback) => {
+            let htmlString = '';
+            let status = ['Unknow', 'Failed', 'Successed', 'Running', 'Pending'];
+            params.forEach((item, index) => {
+                htmlString = '<div>' +
                     '<span style="display:inline-block;width:10px;height:10px;border-radius:5px;margin-right:5px;background-color:' + item.color + ';">' +
                     '</span>' +
                     '<span>' + item.name + ' </span>' +
                     '<span style="font-weight:bold">' + status[item.data] + '</span>' +
-                '</div>';
-        });
-        return htmlString
+                    '</div>';
+            });
+            return htmlString
+        }
     },
 };

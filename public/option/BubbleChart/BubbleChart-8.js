@@ -84,26 +84,28 @@ const option = {
       }
     }
   ],
-  tipHtml: (params) => {
-    const { data } = params;
-    let htmlStr = '';
+  tooltip: {
+    formatter: (params) => {
+      const { data } = params;
+      let htmlStr = '';
 
-    if (Array.isArray(params)) {
-      // trigger===axis的悬浮提示框内容
-      params.forEach((item) => {
-        htmlStr += `<div>${item.data[3]}：${item.data[1]}</div>`;
-      });
-    } else {
-      // trigger===item的悬浮提示框内容
-      htmlStr = `<div>
+      if (Array.isArray(params)) {
+        // trigger===axis的悬浮提示框内容
+        params.forEach((item) => {
+          htmlStr += `<div>${item.data[3]}：${item.data[1]}</div>`;
+        });
+      } else {
+        // trigger===item的悬浮提示框内容
+        htmlStr = `<div>
       <div>${data[3]}</div>
       <div>事件名称：${data[4]}</div>
       <div>产生时间：${data[5]}</div>
       <div>恢复时间：${data[6]}</div>
       <div>位置：${data[7]}</div>
       </div>`;
-    }
-    return htmlStr;
+      }
+      return htmlStr;
+    },
   },
   // tooltip的显示状态 默认：item
   trigger: 'item'

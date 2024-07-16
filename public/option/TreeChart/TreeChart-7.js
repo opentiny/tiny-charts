@@ -4,21 +4,23 @@ const option = {
   type: 'LineTreeChart',
   // padding控制图表距离容器的上、右、下、左padding值
   padding: [20, 150, 20, 150],
-  tipHtml: (params, ticket, callback) => {
-    const data = params.data;
-    const name = data.name;
-    const value = data.value;
-    let htmlString = '<div style="margin-bottom:4px;">提示框</div>';
-    htmlString += `${'<div style="margin-bottom:4px;">' +
-      '<span>'}${  name  }</span>` +
-      '</div>';
-    if (value) {
+  tooltip: {
+    formatter: (params, ticket, callback) => {
+      const data = params.data;
+      const name = data.name;
+      const value = data.value;
+      let htmlString = '<div style="margin-bottom:4px;">提示框</div>';
       htmlString += `${'<div style="margin-bottom:4px;">' +
-        '<span style="display:inline-block;margin-right:8px;min-width:60px;">Value</span>' +
-        '<span>'}${  value  }</span>` +
+        '<span>'}${name}</span>` +
         '</div>';
+      if (value) {
+        htmlString += `${'<div style="margin-bottom:4px;">' +
+          '<span style="display:inline-block;margin-right:8px;min-width:60px;">Value</span>' +
+          '<span>'}${value}</span>` +
+          '</div>';
+      }
+      return htmlString
     }
-    return htmlString
   },
   // 树图的起点方向,仅type为LineTreeChart有效,取值'left','right','top','bottom',默认值'left'
   direction: 'left',
