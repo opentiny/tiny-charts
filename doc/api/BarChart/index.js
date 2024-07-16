@@ -7,6 +7,7 @@ import { tipHtmlStyleMd, tipHtmlStyle } from '../common/tipHtmlStyle'
 import { xAxisMd, xAxis } from '../common/xAxis'
 import { yAxisMd, yAxis } from '../common/yAxis'
 import { dataZoomMd, dataZoom } from '../common/dataZoom'
+import { dataRulesMd, dataRules } from '../common/dataRules'
 import { eventMd, event } from '../common/event'
 import dataMd from './data.md?raw'
 import itemStyleMd from './itemStyle.md?raw'
@@ -28,6 +29,7 @@ const data = {
         tipHtml,
         tipHtmlStyle,
         dataZoom,
+        dataRules,
         event,
         ['data', '图表数据(必填)', 'array', '无'],
         ['type', '配置柱状图类型', 'string', 'bar'],
@@ -48,6 +50,7 @@ const data = {
         tipHtmlMd,
         tipHtmlStyleMd,
         dataZoomMd,
+        dataRulesMd,
         eventMd,
         dataMd,
         typeMd,
