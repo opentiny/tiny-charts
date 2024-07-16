@@ -10,24 +10,23 @@
  *
  */
 import init from '../../option/init';
-import { setDataset, setSeries } from './handleSeries';
+import  setSeries from './handleSeries';
 import { setDirection, setTooltip } from './handleOption';
 import RectCoordSys from '../../option/RectSys';
-import { getColor, codeToRGB } from '../../util/color';
 import { CHART_TYPE } from '../../util/constants';
 
 export default class BoxplotChart {
 
   static name = CHART_TYPE.BOXPLOT
 
-  constructor(iChartOption, chartInstance) {
+  constructor(iChartOption) {
     this.baseOption = {};
     this.iChartOption = {};
     this.iChartOption = init(iChartOption);
-    this.updateOption(chartInstance);
+    this.updateOption();
   }
 
-  updateOption(chartInstance) {
+  updateOption() {
     const iChartOption = this.iChartOption;
     // 装载除series之外的其他配置
     RectCoordSys(this.baseOption, this.iChartOption, CHART_TYPE.BOXPLOT);
@@ -35,21 +34,7 @@ export default class BoxplotChart {
     this.baseOption.xAxis[0].data = undefined;
     // 提示框trigger设为item
     this.baseOption.tooltip.trigger = 'item';
-    // 配置默认dataset
-    if (iChartOption.data && !iChartOption.dataset) {
-      this.baseOption.dataset = setDataset(iChartOption.data);
-      this.baseOption.series = setSeries();
-    }
-    // 自定义dataset和series
-    if (iChartOption.dataset && iChartOption.series) {
-      this.baseOption.dataset = iChartOption.dataset;
-      this.baseOption.series = iChartOption.series;
-      this.baseOption.series.forEach((item,index) => {
-        item.itemStyle = {};
-        const color = getColor(this.iChartOption.color, index)
-        item.itemStyle.color = codeToRGB(color, 0.15);
-      });
-    }
+    setSeries(this.baseOption,iChartOption)
     // 横向
     setDirection(this.baseOption, iChartOption.direction);
     // 提示框
