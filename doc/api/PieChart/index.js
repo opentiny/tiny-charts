@@ -15,6 +15,7 @@ import minAngleMd from './minAngle.md?raw'
 import stillShowZeroSumMd from './stillShowZeroSum.md?raw'
 import selectedModeMd from './selectedMode.md?raw'
 import roseTypeMd from './roseType.md?raw'
+import dataRulesMd from './dataRulesMd?raw'
 
 const data = {
     dataset: [
@@ -35,6 +36,7 @@ const data = {
         ['stillShowZeroSum', '是否在数据和为0的时候仍显示扇区', 'boolean', 'true'],
         ['selectedMode', '扇区选中模式配置', 'boolean', 'false'],
         ['roseType', '是否展示成南丁格尔图', 'boolean', 'false'],
+        ['dataRules', '设置特定颜色', 'object', '无'],
 
     ],
     markdown: [
@@ -55,6 +57,7 @@ const data = {
         stillShowZeroSumMd,
         selectedModeMd,
         roseTypeMd,
+        dataRulesMd,
     ],
 };
 

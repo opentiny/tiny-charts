@@ -128,6 +128,23 @@ function mergeDefaultSeries(seriesUnit) {
   }
 }
 
+// 设置给定color
+function setColor(iChartOption){
+  const data = iChartOption.data;
+  let initColorGroup = iChartOption.initColor.concat();
+  const colorData = iChartOption.dataSeting && iChartOption.dataSeting.color;
+  if(colorData && isArray(initColorGroup)) {
+    for(let key in  colorData) {
+      data.forEach((item,index) => {
+        if(item.name === key && initColorGroup[index] && colorData[key]) {
+          initColorGroup[index] = colorData[key];
+        }
+      })
+    }
+  }
+  iChartOption.color = initColorGroup;
+}
+
 /**
  * 组装echarts所需要的series
  * @param {数据} data
@@ -160,6 +177,10 @@ function handleSeries(pieType, iChartOption, chartInstance, position) {
   if (selfSeries === undefined) {
     selfSeries = [{}];
   }
+  // 保留初始的颜色数组
+  iChartOption.initColor = iChartOption.color;
+  // 设置给定的颜色
+  setColor(iChartOption);
   selfSeries.forEach(seriesItem => {
     const seriesUnit = seriesItem;
     const temp = cloneDeep(iChartOption);
