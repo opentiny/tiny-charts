@@ -56,9 +56,9 @@ class HillChart {
         show: false,
       };
       this.baseOption.yAxis.show = false;
+      // 配置标题
+      this.baseOption.title = title(iChartOption, CHART_TYPE.HILL, iChartOption.yAxis && iChartOption.yAxis.nameTextStyle);
     }
-    // 配置标题
-    this.baseOption.title = title(iChartOption);
     // 配置数据
     handleData(iChartOption, this.baseOption);
     // 配置山峰颜色及透明度
