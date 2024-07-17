@@ -146,6 +146,35 @@ function setDefaultDataZoom(iChartOption) {
   }
 }
 
+/**
+ * 筛选符合规则的data
+ * @param {外部传入的配置} iChartOption
+ */
+function filterDisplayData(iChartOption) {
+  if (!iChartOption.data || !iChartOption.dataRules || !iChartOption.dataRules.display)  return;
+  let displayData = iChartOption.dataRules.display;
+  let data = iChartOption.data;
+  let newData = [];
+  if(displayData.length>0){
+    data.forEach( item => {
+      let obj = {};
+      for (const key in item) {
+        if (Object.hasOwnProperty.call(item, key)) {
+          const element = item[key];
+          if(iChartOption.xAxis && (key === iChartOption.xAxis[0].keyName || key ===  iChartOption.xAxis.name)) {
+            obj[key] = element
+          }
+          if(displayData.includes(key)){
+            obj[key] = element
+          }
+        }
+      }
+      newData.push(obj)
+    })
+    iChartOption.data = newData;
+  }
+}
+
 // 初始化 iChartOption 的默认配置
 function init(iChartOption) {
   setDefaultTheme(iChartOption);
@@ -154,6 +183,7 @@ function init(iChartOption) {
   setChartPadding(iChartOption);
   setDefaultLegend(iChartOption);
   setDefaultDataZoom(iChartOption);
+  filterDisplayData(iChartOption);
   return iChartOption;
 }
 
