@@ -3,19 +3,21 @@ const option = {
     position: {
         radius: ['8%', '60%'],
     },
-    tipHtml: (params) => {
-        let name = params.name;
-        let value = params.value;
-        let htmlString = '<div>' +
-            '<span style="display:inline-block;min-width:50px;">名称：</span>' +
-            '<span style="font-weight:bold">' + name + '</span>' +
-            '</div>';
-        htmlString +=
-            '<div>' +
-            '<span style="display:inline-block;min-width:50px;">数值：</span>' +
-            '<span style="font-weight:bold">' + value + '</span>' +
-            '</div>';
-        return htmlString
+    tooltip: {
+        formatter: (params) => {
+            let name = params.name;
+            let value = params.value;
+            let htmlString = '<div>' +
+                '<span style="display:inline-block;min-width:50px;">名称：</span>' +
+                '<span style="font-weight:bold">' + name + '</span>' +
+                '</div>';
+            htmlString +=
+                '<div>' +
+                '<span style="display:inline-block;min-width:50px;">数值：</span>' +
+                '<span style="font-weight:bold">' + value + '</span>' +
+                '</div>';
+            return htmlString
+        }
     },
     legend: {
         show: false,

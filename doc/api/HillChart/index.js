@@ -1,6 +1,6 @@
 import { themeMd, theme } from '../common/theme';
 import { colorMd, color } from '../common/color';
-import { tipHtmlMd, tipHtml } from '../common/tipHtml';
+import { tooltipMd, tooltip } from '../common/tooltip';
 import { xAxisMd, xAxis } from '../common/xAxis';
 import { yAxisMd, yAxis } from '../common/yAxis';
 import { eventMd, event } from '../common/event';
@@ -25,7 +25,7 @@ const data = {
     dataset: [
         theme,
         color,
-        tipHtml,
+        tooltip,
         xAxis,
         yAxis,
         event,
@@ -49,7 +49,7 @@ const data = {
     markdown: [
         themeMd,
         colorMd,
-        tipHtmlMd,
+        tooltipMd,
         xAxisMd,
         yAxisMd,
         eventMd,

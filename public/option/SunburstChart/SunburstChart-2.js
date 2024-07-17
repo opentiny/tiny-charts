@@ -9,19 +9,21 @@ const option = {
             focus: 'ancestor'
         },
     },
-    tipHtml: (params) => {
-        let name = params.name === '' ? '--' : params.name;
-        let value = params.value;
-        let htmlString = `<div>
+    tooltip: {
+        formatter: (params) => {
+            let name = params.name === '' ? '--' : params.name;
+            let value = params.value;
+            let htmlString = `<div>
                 <span style="display:inline-block;min-width:50px;">名称：</span>
                 <span style="font-weight:bold">${name}</span>
             </div>`;
-        htmlString +=
-            `<div>
+            htmlString +=
+                `<div>
                 <span style="display:inline-block;min-width:50px;">总数：</span>
                 <span style="font-weight:bold">${value}</span>
             </div>`;
-        return htmlString
+            return htmlString
+        }
     },
     data: [
         {

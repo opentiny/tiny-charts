@@ -2,8 +2,7 @@ import { themeMd, theme } from '../common/theme'
 import { paddingMd, padding } from '../common/padding'
 import { colorMd, color } from '../common/color'
 import { legendMd, legend } from '../common/legend'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
-import { tipHtmlStyleMd, tipHtmlStyle } from '../common/tipHtmlStyle'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import { xAxisMd, xAxis } from '../common/xAxis'
 import { yAxisMd, yAxis } from '../common/yAxis'
 import { dataZoomMd, dataZoom } from '../common/dataZoom'
@@ -25,8 +24,7 @@ const data = {
         padding,
         color,
         legend,
-        tipHtml,
-        tipHtmlStyle,
+        tooltip,
         xAxis,
         yAxis,
         dataZoom,
@@ -47,8 +45,7 @@ const data = {
         paddingMd,
         colorMd,
         legendMd,
-        tipHtmlMd,
-        tipHtmlStyleMd,
+        tooltipMd,
         xAxisMd,
         yAxisMd,
         dataZoomMd,

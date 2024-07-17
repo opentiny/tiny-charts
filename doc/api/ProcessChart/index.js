@@ -1,8 +1,7 @@
 import { themeMd, theme } from '../common/theme'
 import { colorMd, color } from '../common/color'
 import { paddingMd, padding } from '../common/padding'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
-import { tipHtmlStyleMd, tipHtmlStyle } from '../common/tipHtmlStyle'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import { eventMd, event } from '../common/event'
 import dataMd from './data.md?raw'
 import nameMd from './name.md?raw'
@@ -20,7 +19,7 @@ const data = {
         theme,
         color,
         padding,
-        tipHtml,
+        tooltip,
         event,
         ['data', '图表数据', 'array', '无'],
         ['name', '图表名称(必填)', 'array', '无'],
@@ -38,7 +37,7 @@ const data = {
         themeMd,
         colorMd,
         paddingMd,
-        tipHtmlMd,
+        tooltipMd,
         eventMd,
         dataMd,
         nameMd,

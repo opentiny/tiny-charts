@@ -1,6 +1,6 @@
 import { themeMd, theme } from '../common/theme'
 import { colorMd, color } from '../common/color'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import { eventMd, event } from '../common/event'
 import dataMd from './data.md?raw'
 import seriesMd from './series.md?raw'
@@ -15,7 +15,7 @@ const data = {
   dataset: [
     theme,
     color,
-    tipHtml,
+    tooltip,
     event,
     ['legend', '图例配置', 'object', '默认显示'],
     ['gap', '数据图形间距', 'number', '1'],
@@ -29,7 +29,7 @@ const data = {
   markdown: [
     themeMd,
     colorMd,
-    tipHtmlMd,
+    tooltipMd,
     eventMd,
     legendMd,
     gapMd,

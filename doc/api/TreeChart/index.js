@@ -1,7 +1,7 @@
 import { themeMd, theme } from '../common/theme'
 import { colorMd, color } from '../common/color'
 import { paddingMd, padding } from '../common/padding'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import { eventMd, event } from '../common/event'
 import dataMd from './data.md?raw'
 import typeMd from './type.md?raw'
@@ -14,7 +14,7 @@ const data = {
     dataset: [
         theme,
         padding,
-        tipHtml,
+        tooltip,
         ['data', '图表数据', 'array', '无'],
         ['type', '树图类型', 'string', '无'],
         ['direction', '线性树图起点方向', 'string', 'left'],
@@ -26,7 +26,7 @@ const data = {
     markdown: [
         themeMd,
         paddingMd,
-        tipHtmlMd,
+        tooltipMd,
         dataMd,
         typeMd,
         directionMd,

@@ -1,8 +1,7 @@
 import { themeMd, theme } from '../common/theme'
 import { colorMd, color } from '../common/color'
 import { legendMd, legend } from '../common/legend'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
-import { tipHtmlStyleMd, tipHtmlStyle } from '../common/tipHtmlStyle'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import { eventMd, event } from '../common/event'
 import { titleMd, title } from '../common/title'
 import dataMd from './data.md?raw'
@@ -22,8 +21,7 @@ const data = {
         color,
         title,
         legend,
-        tipHtml,
-        tipHtmlStyle,
+        tooltip,
         event,
         ['data', '图表数据(必填)', 'array', '无'],
         ['type', '圆盘图类型', 'string', 'circle'],
@@ -42,8 +40,7 @@ const data = {
         colorMd,
         titleMd,
         legendMd,
-        tipHtmlMd,
-        tipHtmlStyleMd,
+        tooltipMd,
         eventMd,
         dataMd,
         typeMd,

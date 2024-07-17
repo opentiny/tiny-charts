@@ -2,8 +2,7 @@ import { themeMd, theme } from '../common/theme'
 import { paddingMd, padding } from '../common/padding'
 import { colorMd, color } from '../common/color'
 import { legendMd, legend } from '../common/legend'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
-import { tipHtmlStyleMd, tipHtmlStyle } from '../common/tipHtmlStyle'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import { xAxisMd, xAxis } from '../common/xAxis'
 import { yAxisMd, yAxis } from '../common/yAxis'
 import { dataZoomMd, dataZoom } from '../common/dataZoom'
@@ -29,8 +28,7 @@ const data = {
         ['itemStyle', '图表数据点文本样式', 'object', '{symbolSize:20,borderColor:\'#fff\'}'],
         ['step', '折线是否更改为阶梯线', 'boolean', 'false'],
         ['predict', '折线更改为预测线的数据名', 'string', '无'],
-        tipHtml,
-        tipHtmlStyle,
+        tooltip,
         xAxis,
         yAxis,
         dataZoom,
@@ -49,8 +47,7 @@ const data = {
         itemStyleMd,
         stepMd,
         predictMd,
-        tipHtmlMd,
-        tipHtmlStyleMd,
+        tooltipMd,
         xAxisMd,
         yAxisMd,
         dataZoomMd,

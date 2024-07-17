@@ -16,14 +16,16 @@ const option = {
     },
     coincide: '-100%',
     yAxisName: 'Units',
-    tipHtml: (params, ticket, callback) => {
-        let htmlString = '';
-        htmlString +=
-            `<span style="display:inline-block;margin-right:5px;height:10px;">name : ${params.name}</span>` +
-            '<br/>' +
-            '<span style="display:inline-block;margin-right:5px;height:10px;">' +
-            'value' +
-            `  :  ${params.value}</span>`;
-        return htmlString;
+    tooltip: {
+        formatter: (params, ticket, callback) => {
+            let htmlString = '';
+            htmlString +=
+                `<span style="display:inline-block;margin-right:5px;height:10px;">name : ${params.name}</span>` +
+                '<br/>' +
+                '<span style="display:inline-block;margin-right:5px;height:10px;">' +
+                'value' +
+                `  :  ${params.value}</span>`;
+            return htmlString;
+        }
     }
 };

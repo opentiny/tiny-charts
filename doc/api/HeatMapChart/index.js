@@ -1,7 +1,7 @@
 import { themeMd, theme } from '../common/theme'
 import { colorMd, color } from '../common/color'
 import { paddingMd, padding } from '../common/padding'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import { eventMd, event } from '../common/event'
 import dataMd from './data.md?raw'
 import typeMd from './type.md?raw'
@@ -24,7 +24,7 @@ const data = {
         theme,
         color,
         padding,
-        tipHtml,
+        tooltip,
         event,
         ['data', '图表数据', 'array', '无'],
         ['type', '配置热力图类型(必填)', 'string', '无'],
@@ -47,7 +47,7 @@ const data = {
         themeMd,
         colorMd,
         paddingMd,
-        tipHtmlMd,
+        tooltipMd,
         eventMd,
         dataMd,
         typeMd,

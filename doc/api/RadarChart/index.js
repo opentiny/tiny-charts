@@ -1,8 +1,7 @@
 import { themeMd, theme } from '../common/theme';
 import { colorMd, color } from '../common/color';
 import { legendMd, legend } from '../common/legend';
-import { tipHtmlMd, tipHtml } from '../common/tipHtml';
-import { tipHtmlStyleMd, tipHtmlStyle } from '../common/tipHtmlStyle';
+import { tooltipMd, tooltip } from '../common/tooltip';
 import { titleMd, title } from '../common/title';
 import { eventMd, event } from '../common/event';
 import dataMd from './data.md?raw';
@@ -20,10 +19,9 @@ const data = {
     color,
     title,
     legend,
-    tipHtml,
+    tooltip,
     ['markLine', '阈值线配置', 'number | Array', '无'],
     ['radarMax', '最外圈代表的数值', 'number | Array', '坐标系的最外圈为数据中的最大值'],
-    tipHtmlStyle,
     event,
     ['position', '图表位置及大小', 'object', '{center:[\'50%\',\'50%\'],radius: \'50%\'}'],
     ['radarMark', '底部坐标系刻度值显示', 'boolean', 'true'],
@@ -36,10 +34,9 @@ const data = {
     colorMd,
     titleMd,
     legendMd,
-    tipHtmlMd,
+    tooltipMd,
     markLineMd,
     radarMaxMd,
-    tipHtmlStyleMd,
     eventMd,
     positionMd,
     radarMarkMd,
