@@ -9,13 +9,19 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-function  BoxplotChart (aliasToken) {
-  const { colorBgPrimary } = aliasToken;
+function BoxplotChart(aliasToken) {
+  const { lineWidth, symbolSize, symbolBorderWidthNone, colorBorderTransparent, symbolBorderWidth,colorFillSecondary } = aliasToken;
 
   return {
-    itemColor: colorBgPrimary,
+    boxplotItemStyleBorderWidth: lineWidth,
+    boxplotEmphasisItemStyleBorderWidth: lineWidth,
+    scatterSymbolSize: symbolSize,
+    scatterItemBorderWidth: symbolBorderWidthNone,
+    scatterItemBorderColor: colorBorderTransparent,
+    scatterEmphasisItemBorderWidth: symbolBorderWidth,
+    scatterEmphasisItemColor: colorFillSecondary,
   };
-  
+
 };
 
 export default BoxplotChart;
