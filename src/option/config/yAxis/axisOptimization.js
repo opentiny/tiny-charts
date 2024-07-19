@@ -19,7 +19,7 @@ export default function axisOptimization(yAxis, baseYaxis, data) {
         if (equalSplit) {
             const interval = (value[1] - value[0]) / (splitNumber ?? 5)
             baseYaxis.interval = interval
-            baseYaxis.axisLabel.formatter = defaultFormatter || labelFormatter
+            baseYaxis.axisLabel.formatter = labelFormatter || defaultFormatter
         }
     }
     // 动态优化y轴范围
