@@ -1,6 +1,7 @@
 # 刻度优化
 
 ## 场景1：数据波动不明显
+
 当数据波动很小，但是轴范围很大时，会导致波动不明显，无法直观感受到数据波动：
 
 <div class="img-warpper">
@@ -11,8 +12,22 @@
 
 </br>
 
-## 优化方案:
-通过添加y轴配置项`yAxis:{ fluctuation:true }`优化波动区间，将波动范围控制在轴的50%范围，上方留10%，下方留40%的余量。
+## 优化方案
+
+通过添加y轴配置项`yAxis:{ fluctuation:{...}}`优化波动区间，将波动范围控制在轴的50%范围，上方留10%，下方留40%的余量。
+
+```js
+ fluctuation: {
+    // 是否开启优化功能
+    active:true,
+    //是否均分刻度，默认值为false
+    equalSplit:true,
+    //刻度均分的区间段数，默认值为5
+    splitNumber:5,
+    // 格式化轴文本
+    labelFormatter:(val,index)=>{return ...}
+ }
+```
 
 <div class="img-warpper">
     <div class="img-container" >
@@ -32,7 +47,8 @@
 
 </br>
 
-### 优化方案1: 
+### 优化方案1
+
 通过添加y轴配置项类似`yAxis:{ type:'log'，logBase: 2 }`对数轴优化，展现出明显波动差异。
 
 <div class="img-warpper">
@@ -43,7 +59,8 @@
 
 </br>
 
-### 优化方案2:  
+### 优化方案2  
+
 通过添加y轴配置项`yAxis:{ allowRange:[min,max] }`，设置用户允许呈现的正常数据的最大值max以及最小值min，仅对[min,max]数据进行波动区间优化，展示不包含噪点的情况。
 
 <div class="img-warpper">
@@ -53,7 +70,6 @@
 </div>
 
 </br>
-
 
 <style>
     .markdown-body p{
@@ -71,7 +87,7 @@
     }
     .img-container{
         width: 800px;  
-        height: 322px; 
+        height: 322px;
         border: 1px solid #ccc;
         position: relative;
         margin: 0 auto;
