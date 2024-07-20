@@ -267,8 +267,9 @@ export function setSeries(seriesData, legendData, iChartOption) {
     // 如果设置了 barMinHeight，那么就把数据里面的0设置成null
     if (iChartOption.itemStyle && iChartOption.itemStyle.barMinHeight) {
       seriesUnit.data = seriesData[legend].map((item) => {
-        return item === 0 ? undefined : item;
+        return item === 0 ? undefined : item < iChartOption.itemStyle.barMinHeight ? iChartOption.itemStyle.barMinHeight : item
       })
+      
     } else {
       seriesUnit.data = seriesData[legend];
     }
@@ -602,15 +603,23 @@ export function setWaterFall(baseOption, iChartOption) {
  * 因此对 tooltip.formatter 进行二次封装
  */
 export function setLimitFormatter(baseOption, iChartOption, seriesData) {
-
   const type = iChartOption.type;
   const toolTipFormatter = baseOption.tooltip.formatter;
   const exclude = ['Placeholder'];
   const colors = baseOption.color;
+  const barMinHeight = iChartOption.itemStyle && iChartOption.itemStyle.barMinHeight;
   baseOption.tooltip.formatter = (params, ticket, callback) => {
     const newParams = params.filter(item => {
       return exclude.indexOf(item.seriesName) === -1;
     });
+    // 如果设置了最小高度高度，将newParams值重新校正
+    if(barMinHeight) {
+      newParams.forEach((item) => {
+        if(iChartOption.data && iChartOption.data[item.dataIndex] && isNumber(iChartOption.data[item.dataIndex][item.seriesName])){
+          item.data = item.value = iChartOption.data[item.dataIndex][item.seriesName]
+        }
+      })
+    }
     if (toolTipFormatter) {
       return toolTipFormatter(newParams, ticket, callback);
     }
@@ -633,8 +642,8 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
                             <span style="font-weight:bold">
                               ${defendXSS(
         type === 'range' ?
-          `${`${`[${params[index * 2].value}`}-${params[index * 2].value + item.value}`}]`
-          : (item.value || seriesData[item.seriesName][item.dataIndex]),
+        `${`${`[${params[index * 2].value}`}-${params[index * 2].value + item.value}`}]`
+        : (item.value || seriesData[item.seriesName][item.dataIndex]),
       )}
                             </span>
                         </span>
