@@ -30,7 +30,6 @@ function handleLabelLine(hasLabelLine, seriesUnit, label) {
         lineStyle: {
           color: lineColor ? lineColor : chartToken.labelLineColor,
         },
-        smooth: 0.3,
         length: lineLength,
         length2: lineLength,
       },
