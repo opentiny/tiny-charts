@@ -19,7 +19,7 @@ When you personally use the OpenTiny HUICharts component library and participate
 
 If you encounter problems in the process of using OpenTiny HUICharts components, you are welcome to submit Issue to us. Before submitting Issue, please read the relevant [official documentation](https://opentiny.design) carefully to confirm whether this is a defect or an unimplemented function.
 
-If it is a defect, select [Bug report](https://github.com/opentiny/tiny-charts/issues/new?template=bug-report.yml) template when creating a new Issue. The title follows the format of `[componentName] defect description`. For example: `[pie-chart] When clicking on the sector area of the pie chart, multiple sectors cannot be selected in sequence`.
+If it is a defect, select [Bug report](https://github.com/opentiny/tiny-charts/issues/new?template=bug-report.yml) template when creating a new Issue. The title follows the format of `[componentName] defect description`. For example: `[PieChart] When clicking on the sector area of the pie chart, multiple sectors cannot be selected in sequence`.
 
 Issue that reports defects mainly needs to fill in the following information:
 
@@ -27,7 +27,7 @@ Issue that reports defects mainly needs to fill in the following information:
 - The performance of the defect can be illustrated by screenshot, and if there is an error, the error message can be posted.
 - Defect reproduction step, preferably with a minimum reproducible demo link.
 
-If it is a new feature, select [Feature request](https://github.com/opentiny/tiny-charts/issues/new?template=feature-request.yml) template. The title follows the format of `[componentName] new feature description`. For example: `[pie-chart] When there is very small data in the pie chart, the occupied area is almost 0, which affects the vision, and I hope to increase the setting of the minimum angle.`.
+If it is a new feature, select [Feature request](https://github.com/opentiny/tiny-charts/issues/new?template=feature-request.yml) template. The title follows the format of `[componentName] new feature description`. For example: `[PieChart] When there is very small data in the pie chart, the occupied area is almost 0, which affects the vision, and I hope to increase the setting of the minimum angle.`.
 
 The following information is required for the Issue of the new feature:
 
@@ -42,13 +42,20 @@ Before submitting pull request, please make sure that your submission is in line
 
 #### Commit Message
 
-The commit message should be in the form of a `type(scope): description of the message`, e.g. `fix(line-chart): fix xxx bug`.
+The commit message should be in the form of a `type(scope): description of the message`, e.g. `fix(LineChart): fix xxx bug`.
 
 1. type: must be one of build, chore, ci, docs, feat, fix, perf, refactor, revert, release, style, test, improvement.
+- feat: Add new features
+- fix: fix problems
+- docs: Modify documents
+- style: Modify code format without changing code logic
+- refactor: Refactor code without affecting existing functionality
+- perf: Improve performance
+- test: Add or modify test cases
 
 2. scope:
 
-- The name of the component (lowercase, center dot): e.g.: `line-chart, bar-chart, flow-chart`
+- The name of the component (UpperCamelCase): e.g.: `LineChart, BarChart, FlowChart`
 
 #### Pull Request Title
 
@@ -56,10 +63,10 @@ The commit message should be in the form of a `type(scope): description of the m
 
 2. Example title:
 
-- Adding new features to the line-chart component:  `feat(line-chart): xxxxxxxxxxxxxxx`
-- Fixed bug in line-chart component @opentiny/tiny-charts: `fix(line-chart): xxxxxxxxxxxxxx`
-- Supplement line-chart component document: `docs(alert): xxxxxxxxxxxxxxx`
-- Supplement line-chart component test case: `test(alert): xxxxxxxxxxxxxx`
+- Adding new features to the LineChart component:  `feat(LineChart): xxxxxxxxxxxxxxx`
+- Fixed bug in LineChart component @opentiny/tiny-charts: `fix(LineChart): xxxxxxxxxxxxxx`
+- Supplement LineChart component document: `docs(LineChart): xxxxxxxxxxxxxxx`
+- Supplement LineChart component test case: `test(LineChart): xxxxxxxxxxxxxx`
 
 #### Pull Request Description
 
@@ -98,7 +105,7 @@ npm run dev
 
 - Make sure that you have completed the steps in local startup and can visit [http://localhost:8080/](http://localhost:8080/) normally.
 - Ensure that you are currently on the dev branch, and synchronize your dev branch with the latest code from your upstream repository: `git pull upstream dev`.
-- Create a new branch from the dev branch `git checkout -b username/feat-xxx` with a suggested branch name of `username/feat-xxx` / `username/fix-xxx`.
+- Create a new branch from the dev branch `git checkout -b branchName`, the branch name is recommended to be `username/feat-xxx` / `username/fix-xxx`, if you're developing in a forked repository, you don't need to add a username to the branch name, just `feat-xxx`.
 - Local coding.
 - Local change code is committed to the remote repository, following the [Commit Message Format](https://www.conventionalcommits.org/zh-hans/v1.0.0/) specification for commits, PRs that do not meet the commit specification will not be merged.
 ```shell
@@ -109,11 +116,11 @@ git add .
 git status
 
 # Commit changes
-git commit -m 'feat(line-chart): xxx'
+git commit -m 'feat(LineChart): xxx'
 
 # Commit the changes to the remote repository
 git push origin branchName
-``` 
+```
 - Open the [Pull requests](https://github.com/opentiny/tiny-charts/pulls) link of the OpenTiny HUICharts code repository and click the New pull request button to submit the PR.
 - According to the PR template, please provide the following information: PR self-check items, PR type, related Issue ID, whether it is a destructive change.
 - Project Committer conducts Code Review and makes comments.
