@@ -9,7 +9,7 @@ const option = {
             width: '80%',
             label: {
                 formatter: '{b}Expected',
-                position: 'outside'
+                position: 'outside',
             },
             itemStyle: {
                 opacity: 0.7,
@@ -37,10 +37,7 @@ const option = {
             label: {
                 position: 'inside',
                 formatter: '{c}%',
-            },
-            itemStyle: {
-                opacity: 1,
-                borderWidth: 2
+                color: '#ffffff'
             },
             emphasis: {
                 label: {

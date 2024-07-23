@@ -1,6 +1,9 @@
 const option = {
     theme: 'light',
     sort: 'ascending',
+    label: {
+        color: '#ffffff'
+    },
     data: [
         { value: 100, name: 'Show' },
         { value: 75, name: 'Click' },
