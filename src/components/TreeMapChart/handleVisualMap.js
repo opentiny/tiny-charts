@@ -13,9 +13,19 @@ import merge from '../../util/merge';
 import visualMap from '../../option/config/visualMap'
 
 export function handleVisualMap(option, iChartOption) {
-  let defaultVisualMap = visualMap();
+  let defaultVisualMap = visualMap(iChartOption.type || 'piecewise');
   if (iChartOption.visualMap) {
-    defaultVisualMap.show = true;
+    const baseVisualMap = {
+      show: true,
+      right: 20,
+      top: 'middle',
+      align: 'left',
+      itemHeight:30,
+      inRange:{
+        color: iChartOption.color
+      }
+    }
+    merge(defaultVisualMap, baseVisualMap)
     option.visualMap = merge(defaultVisualMap, iChartOption.visualMap)
   }
 }
