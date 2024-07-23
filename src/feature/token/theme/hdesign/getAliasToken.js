@@ -118,7 +118,7 @@ function getAliasToken(globalToken, light = true) {
     // 无数据占位背景
     colorBgEmpty: light ? colorGray10 : codeToRGB(colorGray10, 0.1),
     // labelLine颜色
-    colorLabelLine: light ? colorGray90 : colorGray5,
+    colorLabelLine: light ? colorGray10 : codeToRGB(colorGray5, 0.15),
     // 线透明
     colorLineTransparent: colorTransparent,
     // tip阴影垂直偏移
