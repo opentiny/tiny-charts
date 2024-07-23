@@ -1,7 +1,12 @@
 const option = {
     theme: 'light',
-    maxSize: '80%',
-    minSize: '10%',
+    size:{
+        maxSize: '80%',
+        minSize: '10%'
+    },
+    label: {
+        color: '#ffffff'
+    },
     data: [
         { value: 100, name: 'Show' },
         { value: 50, name: 'Click' },

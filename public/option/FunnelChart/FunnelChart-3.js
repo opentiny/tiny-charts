@@ -1,6 +1,9 @@
 const option = {
     theme: 'light',
     gap: 10,
+    label: {
+        color: '#ffffff'
+    },
     size: {
         width: '80%',
         height: '80%',
