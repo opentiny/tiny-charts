@@ -31,26 +31,25 @@ export function onlyOnePoint(baseOption) {
   });
 }
 
-export function defaultFormatter(params, dataLength) {
+export function defaultFormatter(params) {
   let htmlString = '';
+  // 只选取前半部分真实的series数据
+  params = params.slice(0, params.length/2);
   params.forEach((item, index) => {
-    // 只显示实线数据的tooltip
-    if (index < dataLength) {
-      if (index === 0) {
-        htmlString += `<div style="margin-bottom:4px;">${defendXSS(item.name)}</div>`;
-      }
-      htmlString += `<div>
-                              <span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:${defendXSS(
-        item.color,
-      )};"></span>
-                              <span style="margin-left:5px;>
-                                  <span style="display:inline-block; margin-right:8px;min-width:60px;">${defendXSS(
-        item.seriesName,
-      )}</span>
-                                  <span style="font-weight:bold">${defendXSS(item.value)}</span>
-                              </span>
-                          </div>`;
+    if (index === 0) {
+      htmlString += `<div style="margin-bottom:4px;">${defendXSS(item.name)}</div>`;
     }
+    htmlString += `<div>
+                            <span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:${defendXSS(
+      item.color,
+    )};"></span>
+                            <span style="margin-left:5px;>
+                                <span style="display:inline-block; margin-right:8px;min-width:60px;">${defendXSS(
+      item.seriesName,
+    )}</span>
+                                <span style="font-weight:bold">${defendXSS(item.value)}</span>
+                            </span>
+                        </div>`;
   });
   return htmlString;
 }
@@ -114,12 +113,11 @@ export function discrete(iChartOption, baseOption) {
     baseOption.visualMap = [...baseOption.visualMap, ...discreteVisualMap]
     // 覆盖tipHtml，过滤同名Series
     const tipFormatter = baseOption.tooltip.formatter;
-    const dataLength = baseOption.legend.data.length;
     baseOption.tooltip.formatter = (params, ticket, callback) => {
       if (tipFormatter) {
-        return tipFormatter(params.slice(0, dataLength), ticket, callback);
+        return tipFormatter(params.slice(0, params.length/2), ticket, callback);
       } else {
-        return defaultFormatter(params, dataLength);
+        return defaultFormatter(params);
       }
     };
   }
