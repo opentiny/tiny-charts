@@ -30,6 +30,9 @@ function tooltip(iChartOption, chartName, callBack) {
   axisPointer(tooltip, chartName);
   callBack && callBack(tooltip)
   merge(tooltip, iChartOption.tooltip);
+  if (tooltip.enterable) {
+    tooltip.extraCssText = tooltip.extraCssText + 'user-select:text;-webkit-user-select:text';
+  }
   return tooltip;
 }
 
