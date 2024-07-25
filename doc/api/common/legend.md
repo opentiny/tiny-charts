@@ -92,7 +92,7 @@ bottom 的值可以是 20 这样的具体像素值 ， 可以是 '20%' 这样相
 
 <p class='ev_expand_introduce'>默认值：<code>circle</code>（圆形）
 
-<p class='ev_expand_introduce'>可选值：<code>circle</code>（圆形） 、<code>rect</code>（长方形） 、 <code>roundRect</code>（圆角长方形） 、 <code>triangle</code>（三角形） 、 <code>diamond</code>（菱形）
+<p class='ev_expand_introduce'>可选值：<code>circle</code>（圆形）、<code>line</code>（线段） 、<code>rect</code>（长方形） 、 <code>roundRect</code>（圆角长方形） 、 <code>triangle</code>（三角形） 、 <code>diamond</code>（菱形）
 
 <p class='ev_expand_introduce'>说明：图例的图标 ， 若定义了 <code>legend.data</code> ， 则此属性失效
 
