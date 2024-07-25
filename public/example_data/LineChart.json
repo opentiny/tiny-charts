@@ -51,6 +51,11 @@
           "imagePath": "./image/theme/light/LineChart/LineChart-9.png"
         },
         {
+          "name": "可交互悬浮提示框",
+          "routePath": "LineChart-34",
+          "imagePath": "./image/theme/light/LineChart/LineChart-34.png"
+        },
+        {
           "name": "自定义配色",
           "routePath": "LineChart-4",
           "imagePath": "./image/theme/light/LineChart/LineChart-4.png"

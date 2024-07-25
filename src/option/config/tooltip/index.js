@@ -20,6 +20,8 @@ function tooltip(iChartOption, chartName, callBack) {
   const formatter = iChartOption.tipHtml;
   const formatterStyle = iChartOption.tipHtmlStyle;
   const tooltip = base(chartName);
+  // 组件默认的extraCssText样式
+  const extraCssText = tooltip.extraCssText;
   if (formatter) {
     tooltip.formatter = formatter;
   }
@@ -30,6 +32,9 @@ function tooltip(iChartOption, chartName, callBack) {
   axisPointer(tooltip, chartName);
   callBack && callBack(tooltip)
   merge(tooltip, iChartOption.tooltip);
+  if (tooltip.extraCssText) {
+    tooltip.extraCssText = tooltip.extraCssText + extraCssText;
+  }
   return tooltip;
 }
 
