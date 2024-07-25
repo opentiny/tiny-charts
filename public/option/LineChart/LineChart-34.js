@@ -9,6 +9,8 @@ const option = {
         position:(point)=>{
             return point
         },
+        // 增加可复制的css样式
+        extraCssText:'user-select:text;-webkit-user-select:text;',
         formatter: (params) => {
             let htmlString = '';
             params.forEach((item, i) => {
@@ -22,8 +24,6 @@ const option = {
                     '<span style="margin-left:6px;>' +
                     '<span style="width:100px;display:inline-block;">' + item.seriesName + ' User</span>' +
                     '<span style="font-weight:bold"> ' + item.value + '%</span>' +
-                    '<span style="color:gray"> out </span>' +
-                    '<span style="color:red">' + (100 - item.value) + '%</span>' +
                     '</span>' +
                     '</div>';
             });
