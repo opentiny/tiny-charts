@@ -1,15 +1,15 @@
 ﻿# 高阶图表
 
-{{VITE_BASECOPYRIGHTS}} HUICharts 提供了若干高阶图表，包括：
+{{VITE_BASECOPYRIGHTS}} 提供了若干高阶图表，包括：
 
+- 甘特图
+- 流程图
 - 河流图
 - 蜂窝图
+- 波纹图
 - 梯田图
 - 时间轴
 - 雪花图
-- 甘特图
-- 流程图
-- 波纹图
 - 里程碑图
 - 组织关系图
 
@@ -64,7 +64,7 @@ chartIns.refreshData(newData);
 ```
 
 ## 高阶图表数据状态
-{{VITE_BASECOPYRIGHTS}} HUICharts 目前内置了 5 种数据状态，包括:
+{{VITE_BASECOPYRIGHTS}} 目前内置了 5 种数据状态，包括:
 - loading：数据加载中
 - error：数据加载失败
 - empty：数据为空
@@ -79,7 +79,7 @@ chartIns.onRenderReady(callback);
 ```
 
 ## 高阶图表适配屏幕宽度
-{{VITE_BASECOPYRIGHTS}} HUICharts 默认开启支持自动适应屏幕宽度，当您希望手动调用时，可以使用：
+{{VITE_BASECOPYRIGHTS}} 默认开启支持自动适应屏幕宽度，当您希望手动调用时，可以使用：
 ```javascript
 chartIns.setResize();
 ```

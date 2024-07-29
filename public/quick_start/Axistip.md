@@ -10,7 +10,7 @@
 </div>
 
 ## 文本显示方案
-{{VITE_BASECOPYRIGHTS}} HUICharts提供了以下几种解决方案
+{{VITE_BASECOPYRIGHTS}} 提供了以下几种解决方案
      
 <div class="img-warpper img-three">
     <div class="img-container">
@@ -62,7 +62,7 @@ let chartOption = {
 ```
 ## 文本气泡提示
 但是某些场景下，当文字显示不全时，希望超出显示省略号(...), 鼠标悬停在文字上面的时候显示全部名称
-因此{{VITE_BASECOPYRIGHTS}} HUICharts 提供了 axistip 属性，设置 xAxis(X轴) 为 true 时， 可配合 xAxis 中的 `ellipsis` 属性使用
+因此{{VITE_BASECOPYRIGHTS}}  提供了 axistip 属性，设置 xAxis(X轴) 为 true 时， 可配合 xAxis 中的 `ellipsis` 属性使用
 
  - axistip 设置为 true，表示 xAxis(X轴) 和 yAxis(Y轴) 鼠标悬停时均可显示文字气泡提示, 
  - axistip 为对象时，可选择配置 xAxis 或者 yAxis
