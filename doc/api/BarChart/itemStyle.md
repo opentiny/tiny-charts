@@ -27,3 +27,12 @@
 ```
 
 <p class='ev_expand_introduce'>说明：根据数据数组下标配置特定的柱型颜色
+
+<p class='ev_expand_title'>itemStyle.barMinHeight<span class='ev_expand_required'>非必填</span><span class='ev_expand_defaults'>无默认值</span><span class='ev_expand_type'>Number | string</span>
+
+<p class='ev_expand_introduce'>格式<code>2 | '2%'</code>
+
+<p class='ev_expand_introduce'>说明：根据数值设置柱子的最小高度，可以填具体的值或者百分比，当数据较大的时候，建议使用百分比
+
+
+
