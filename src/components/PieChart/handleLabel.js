@@ -51,7 +51,8 @@ function hasLabelFormatterFun(labelFormatterType, seriesUnit, sum) {
         if (params.value === 0) {
           return '0(0 %)';
         } else {
-          return `${params.value}(${Math.round(((params.value * 100) / sum) * 100) / 100} %)`;
+          const percent = ((params.value * 100) / sum).toFixed(2);
+          return `${percent} %`;
         }
       };
       break;

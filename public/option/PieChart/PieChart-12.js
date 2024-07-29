@@ -2,7 +2,6 @@ const option = {
     theme: 'light',
     label: {
         show: true,
-        type: 'percent',
         line: true,
         labelHtml: '{a|}{b|{b}:}{c|{d}%}',
         rich: {
