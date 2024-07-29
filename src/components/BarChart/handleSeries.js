@@ -237,9 +237,9 @@ function handleStack(type, seriesUnit, index, legendData, iChartOption) {
 
 function percentToDecimal(percentStr) {
   // 移除百分号
-  var numberStr = percentStr.replace(/%/, '');
+  let numberStr = percentStr.replace(/%/, '');
   // 转换为小数
-  var decimal = Number(numberStr) / 100;
+  let decimal = Number(numberStr) / 100;
   return decimal;
 }
 
@@ -284,11 +284,13 @@ export function setSeries(seriesData, legendData, iChartOption) {
           itemMaxData.push(Math.max.apply(null,seriesData[legend]))
         })
         const MaxData = Math.max.apply(null,itemMaxData)
-        seriesUnit.data = seriesData[legend].map((item) => {
-          let minNum = MaxData*percentToDecimal(barMinHeight);
-          // 如果设置了 barMinHeight，那么就把数据里面的0设置成null
-          return item === 0 ? undefined : item < minNum ? minNum : item
-        })
+        seriesUnit.data = seriesData[legend];
+        let minNum = MaxData*percentToDecimal(barMinHeight);
+        for (let i = 0; i < seriesUnit.data.length; i++) {
+          if(!seriesUnit.data[i] == 0) {
+            seriesUnit.data[i]  = seriesUnit.data[i]  < minNum ? minNum : seriesUnit.data[i];
+          }
+        }
       } else {
         seriesUnit.data = seriesData[legend].map((item) => {
           return item === 0 ? undefined : item < barMinHeight ? barMinHeight : item
