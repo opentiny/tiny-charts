@@ -2,7 +2,7 @@
 
 <br>
 
-可视化图表中经常遇到大批量数据的情况，通常在10万+数据分析决策场景会引起加载时间慢，卡顿等现象，{{VITE_BASECOPYRIGHTS}} HUICharts针对大数据场景进行了特殊优化。
+可视化图表中经常遇到大批量数据的情况，通常在10万+数据分析决策场景会引起加载时间慢，卡顿等现象，{{VITE_BASECOPYRIGHTS}} 针对大数据场景进行了特殊优化。
 
 <br>
 
@@ -13,7 +13,7 @@
 
 <br>
 
-## {{VITE_BASECOPYRIGHTS}} HUICharts 优化方案：
+## {{VITE_BASECOPYRIGHTS}} 优化方案：
 
 配置massive属性为true
 1、结合lttb算法提前采样处理，提升渲染性能，支持悬浮提示框tooltip正常显示。

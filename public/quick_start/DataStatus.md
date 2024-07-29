@@ -1,6 +1,6 @@
 # 数据状态
 
-{{VITE_BASECOPYRIGHTS}} HUICharts 目前内置了 5 种数据状态，包括：
+{{VITE_BASECOPYRIGHTS}} 目前内置了 5 种数据状态，包括：
 
 - 数据加载中
 - 数据加载失败

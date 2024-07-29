@@ -1,6 +1,6 @@
 # 迷你图表
 
-在很多场景中，一些图表不显示坐标系，无交互能力，不显示任何文字，`只需要显示核心图元`来反映数据走势或数据占比，{{VITE_BASECOPYRIGHTS}} HUICharts 中定义这种图表为`迷你图表`。如下图：
+在很多场景中，一些图表不显示坐标系，无交互能力，不显示任何文字，`只需要显示核心图元`来反映数据走势或数据占比，{{VITE_BASECOPYRIGHTS}} 中定义这种图表为`迷你图表`。如下图：
 
 </br>
 
@@ -10,7 +10,7 @@
 
 ## mini属性
 
-{{VITE_BASECOPYRIGHTS}} HUICharts 提供了 `mini` 属性来一键配置迷你图表。
+{{VITE_BASECOPYRIGHTS}} 提供了 `mini` 属性来一键配置迷你图表。
  
 ```javascript
 // 引入图表库
