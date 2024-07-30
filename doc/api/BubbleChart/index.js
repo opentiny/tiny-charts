@@ -2,7 +2,9 @@ import { themeMd, theme } from '../common/theme';
 import { colorMd, color } from '../common/color';
 import { paddingMd, padding } from '../common/padding';
 import { tooltipMd, tooltip } from '../common/tooltip';
+import { legendMd, legend } from '../common/legend';
 import { eventMd, event } from '../common/event';
+import { yAxisMd, yAxis } from '../common/yAxis';
 import dataMd from './data.md?raw';
 import bubbleSizeMd from './bubbleSize.md?raw';
 import trendLineConfigMd from './trendLineConfig.md?raw';
@@ -16,9 +18,11 @@ import xAxisFullGridMd from '../special/xAxisFullGrid.md?raw';
 import xAxisTypeMd from './xAxisType.md?raw';
 import symbolMd from './symbol.md?raw';
 import symbolRotateMd from './symbolRotate.md?raw';
+import symbolOpacityMd from './symbolOpacity.md?raw';
 import symbolOffsetMd from './symbolOffset.md?raw';
 import cursorMd from './cursor.md?raw';
 import echartsMd from './echarts.md?raw';
+import markLineMd from './markLine.md?raw';
 
 const data = {
     dataset: [
@@ -26,6 +30,7 @@ const data = {
         color,
         padding,
         tooltip,
+        legend,
         event,
         ['data', '图表数据', 'array', '无'],
         ['bubbleSize', '气泡大小范围', 'array', '[10, 70]'],
@@ -36,12 +41,15 @@ const data = {
         ['xAxisInterval', '配置x轴label间距(建议使用xAxis.interval)', 'number | function', '0'],
         ['xAxisFullGrid', 'x轴坐标是否顶格(建议使用xAxis.fullGrid)', 'boolean', 'false'],
         ['xAxisName', '配置x轴文本(建议使用xAxis.name)', 'string', '无'],
-        ['yAxisName', '配置y轴文本', 'string', '无'],
         ['xAxisType', 'x轴类型', 'string', '自适应'],
+        yAxis,
+        ['yAxisName', '配置y轴文本', 'string', '无'],
         ['symbol', '节点图形类型', 'string', 'circle'],
+        ['symbolOpacity', '图元设置透明度', 'number', '0.2'],
         ['symbolRotate', '节点图形旋转角度', 'number', '0'],
         ['symbolOffset', '节点图形偏移值', 'array', '[0,0]'],
         ['cursor', '鼠标悬浮在节点图形的样式', 'string', 'pointer'],
+        ['markLine', '阈值线', 'object', '见详情'],
         ['label', '节点图形的文本样式', 'object', '见详情'],
         ['itemStyle', '节点图形的样式', 'object', '见详情'],
         ['blur', '节点图形失去焦点的样式', 'object', '见详情'],
@@ -52,6 +60,7 @@ const data = {
         colorMd,
         paddingMd,
         tooltipMd,
+        legendMd,
         eventMd,
         dataMd,
         bubbleSizeMd,
@@ -62,12 +71,15 @@ const data = {
         xAxisIntervalMd,
         xAxisFullGridMd,
         xAxisNameMd,
-        yAxisNameMd,
         xAxisTypeMd,
+        yAxisMd,
+        yAxisNameMd,
         symbolMd,
+        symbolOpacityMd,
         symbolRotateMd,
         symbolOffsetMd,
         cursorMd,
+        markLineMd,
         echartsMd,
         echartsMd,
         echartsMd

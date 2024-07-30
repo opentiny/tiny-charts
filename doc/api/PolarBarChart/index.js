@@ -2,6 +2,8 @@ import { themeMd, theme } from '../common/theme';
 import { colorMd, color } from '../common/color';
 import { legendMd, legend } from '../common/legend';
 import { tooltipMd, tooltip } from '../common/tooltip';
+import { angleAxis, angleAxisMd } from '../common/angleAxis';
+import { radiusAxis, radiusAxisMd } from '../common/radiusAxis';
 import { eventMd, event } from '../common/event';
 import dataMd from './data.md?raw';
 import positionMd from './position.md?raw';
@@ -18,6 +20,8 @@ const data = {
         color,
         ['legend','图例配置','object','默认显示(扇面图不可配)'],
         tooltip,
+        angleAxis,
+        radiusAxis,
         ['type', '图表类型', 'string', 'normal'],
 
     ],
@@ -30,6 +34,8 @@ const data = {
         colorMd,
         legendMd,
         tooltipMd,
+        angleAxisMd,
+        radiusAxisMd,
         typeMd,
     ],
 };
