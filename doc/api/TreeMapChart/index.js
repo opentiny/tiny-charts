@@ -7,6 +7,7 @@ import dataMd from './data.md?raw';
 import roamMd from './roam.md?raw';
 import labelMd from './label.md?raw';
 import titleMd from './title.md?raw';
+import echartsMd from './echarts.md?raw';
 
 const data = {
   dataset: [
@@ -19,6 +20,7 @@ const data = {
     ['roam', '是否开启移动和缩放', 'boolean | string', 'false'],
     ['label', '自定义lable标签样式', 'object', '无'],
     ['title', '图表标题样式', 'object', '无'],
+    ['visualMap', '视觉映射组件', 'object', '见详情']
   ],
   markdown: [
     themeMd,
@@ -29,7 +31,8 @@ const data = {
     dataMd,
     roamMd,
     labelMd,
-    titleMd
+    titleMd,
+    echartsMd,
   ],
 };
 
