@@ -25,7 +25,7 @@
           "imagePath": "./image/theme/light/PieChart/PieChart-4.png"
         },
         {
-          "name": "数据和为0时不显示扇区",
+          "name": "数据和为0时均分扇区",
           "routePath": "PieChart-5",
           "imagePath": "./image/theme/light/PieChart/PieChart-5.png"
         },

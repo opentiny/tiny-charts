@@ -116,7 +116,7 @@ function getAliasToken(globalToken, light = true) {
     // 背景透明
     colorBgTransparent: colorTransparent,
     // 无数据占位背景
-    colorBgEmpty: light ? colorGray10 : codeToRGB(colorGray10, 0.1),
+    colorBgEmpty: light ? colorGray5 : codeToRGB(colorGray5, 0.05),
     // labelLine颜色
     colorLabelLine: light ? colorGray10 : codeToRGB(colorGray5, 0.15),
     // 线透明

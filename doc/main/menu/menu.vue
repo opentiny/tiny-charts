@@ -2,7 +2,7 @@
   <div class="side-bar-wrap">
     <div class="page-info-box">
       <p class="title">
-        {{ title }} HUICharts
+        {{ title }}
       </p>
       <p class="version">
         <span class="version-text">版本号：{{ version.versionNumber }}</span>

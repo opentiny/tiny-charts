@@ -139,9 +139,9 @@ function handleItemStyle(direction, itemStyle) {
   if (direction && direction === 'horizontal') {
     seriesInit_.itemStyle.borderRadius = [0, chartToken.borderRadius, chartToken.borderRadius, 0];
   }
-  if (itemStyle?.barMinHeight) {
-    seriesInit_.barMinHeight = itemStyle.barMinHeight;
-  }
+  // if (itemStyle?.barMinHeight) {
+  //   seriesInit_.barMinHeight = itemStyle.barMinHeight;
+  // }
   if (itemStyle?.barWidth) {
     seriesInit_.barWidth = itemStyle.barWidth;
   }
@@ -237,9 +237,9 @@ function handleStack(type, seriesUnit, index, legendData, iChartOption) {
 
 function percentToDecimal(percentStr) {
   // 移除百分号
-  var numberStr = percentStr.replace(/%/, '');
+  let numberStr = percentStr.replace(/%/, '');
   // 转换为小数
-  var decimal = Number(numberStr) / 100;
+  let decimal = Number(numberStr) / 100;
   return decimal;
 }
 
@@ -277,6 +277,7 @@ export function setSeries(seriesData, legendData, iChartOption) {
 
     if (iChartOption.itemStyle && iChartOption.itemStyle.barMinHeight ) {
       const barMinHeight = iChartOption.itemStyle.barMinHeight;
+      seriesUnit.data = seriesData[legend];
       // 如果有%根据数据最大值来计算最小高度，是数值就按数值来计算
       if(barMinHeight.toString().indexOf('%') !== -1){
         let itemMaxData = []
@@ -284,15 +285,20 @@ export function setSeries(seriesData, legendData, iChartOption) {
           itemMaxData.push(Math.max.apply(null,seriesData[legend]))
         })
         const MaxData = Math.max.apply(null,itemMaxData)
-        seriesUnit.data = seriesData[legend].map((item) => {
-          let minNum = MaxData*percentToDecimal(barMinHeight);
-          // 如果设置了 barMinHeight，那么就把数据里面的0设置成null
-          return item === 0 ? undefined : item < minNum ? minNum : item
-        })
+       
+        let minNum = MaxData*percentToDecimal(barMinHeight);
+        for (let i = 0; i < seriesUnit.data.length; i++) {
+          if(!seriesUnit.data[i] == 0) {
+            seriesUnit.data[i]  = seriesUnit.data[i]  < minNum ? minNum : seriesUnit.data[i];
+          }
+        }
       } else {
-        seriesUnit.data = seriesData[legend].map((item) => {
-          return item === 0 ? undefined : item < barMinHeight ? barMinHeight : item
-        })
+        for (let i = 0; i < seriesUnit.data.length; i++) {
+          if(!seriesUnit.data[i] == 0) {
+            seriesUnit.data[i]  = seriesUnit.data[i]  < barMinHeight ? barMinHeight : seriesUnit.data[i];
+          }
+        }
+        
       }
     } else {
       seriesUnit.data = seriesData[legend];

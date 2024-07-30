@@ -37,7 +37,7 @@ class PieChart {
     // 兼容旧属性chartPosition
     const position = iChartOption.position || iChartOption.chartPosition;
     // 处理series数据
-    this.baseOption.series = handleSeries(type, iChartOption, chartInstance, position);
+    this.baseOption.series = handleSeries(type, iChartOption, chartInstance, position, this.baseOption.legend);
     // 针对给定的color值，需要进行特殊处理
     this.baseOption.color = iChartOption.color;
     // 针对多重圆环图表需求，图表需要进行特殊处理
@@ -52,7 +52,7 @@ class PieChart {
     return this.baseOption;
   }
 
-  setOption() {}
+  setOption() { }
 }
 
 export default PieChart;
