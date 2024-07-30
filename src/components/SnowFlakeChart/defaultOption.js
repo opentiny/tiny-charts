@@ -16,8 +16,8 @@ import defendXSS from '../../util/defendXSS';
 const rootDefault = (data, nodeContainer, isRoot, option, scale) => {
   const { theme, overAll } = option;
   setStyle(nodeContainer, {
-    width: overAll ? isRoot ? '150px' : '118px' : '150px',
-    height: overAll ? isRoot ? '150px' : '118px' : "150px",
+    width: isRoot ? '150px' : '110px',
+    height: isRoot ? '150px' : '110px',
   });
   const { single, singleTextColor } = getSingle(data, isRoot ? 'root' : 'ap');
   let mainColor = theme.indexOf('dark') !== -1 ? '#f5f5f5' : '#191919';

@@ -82,6 +82,10 @@ class BranchManager {
         this.leafData.push({ ...dataItem, level: data.level + 1 });
       }
     });
+    const { coreWrapper } = group
+    if(!this.leafData.length){// 没有叶子节点的分支添加额外类名
+       coreWrapper.classList.add('noLeafChild')
+    }
     // 分支节点平分角度，将整个圆分为几个区间，几个区间再去分布叶子
     let degInterval = this.arrangSubRoot(this.branchData, group);
     // 在平分的区间内排布叶子节点

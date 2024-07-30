@@ -87,7 +87,7 @@ export default class NodeManager {
   }
 
   containerClick = (e) => {
-    if (this.drag.draging) {
+    if (this.drag.draging || this.container.parentNode.classList.contains('noLeafChild')) {
       return;
     }
     if (e.target === this.container) {
@@ -167,7 +167,7 @@ export default class NodeManager {
       }
 
       this.container.addEventListener('mousemove', (e) => {
-        if (this.drag.startPos) {
+        if (this.drag.startPos || this.container.parentNode.classList.contains('noLeafChild')) {
           toolTip.style.display = 'none';
           return;
         }
