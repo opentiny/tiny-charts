@@ -162,9 +162,9 @@ function handleMarkLine(seriesUnit, iChartOption, direction) {
   const isBottomMarkLine =
     markLine && markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(name) === -1);
   if (isTopMarkLine || isBottomMarkLine) {
-    seriesUnit.markLine = cloneDeep(getMarkLineDefault());
+    seriesUnit.markLine = getMarkLineDefault(true)
     merge(seriesUnit.markLine, markLine);
-    seriesUnit.markLine.lineStyle.color = markLine.color || Theme.config.colorState.colorError;
+    if (markLine.color) seriesUnit.markLine.lineStyle.color = markLine.color
   }
   if (isTopMarkLine) {
     if (direction && direction === 'horizontal') {
