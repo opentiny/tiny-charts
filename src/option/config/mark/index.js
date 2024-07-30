@@ -9,18 +9,54 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../feature/token';
 
-export function getMarkLineDefault() {
+import Theme from '../../../feature/token';
+import merge from '../../../util/merge';
+
+function getThresholdLabelBgColor() {
+  const redGroup = Theme.config.colorBoard.red
+  return Object.values(redGroup)[0];
+}
+
+function getThresholdMarkLineLabel() {
+  const { colorError } = Theme.config.colorState
+  const bg = getThresholdLabelBgColor()
+  return {
+    label: {
+      color: colorError,
+      backgroundColor: bg,
+      fontSize: Theme.config.markLineLabelFontSize,
+      borderColor: colorError,
+      borderWidth: Theme.config.markLineLabelBorderWidth,
+      borderRadius: Theme.config.markLineLabelBorderRadius,
+      padding: Theme.config.markLineLabelPadding,
+      position: 'insideEnd'
+    },
+    lineStyle: {
+      color: colorError,
+    },
+  }
+}
+
+
+function setThresholdMarkLineLabel(markLine) {
+  const thresholdLabel = getThresholdMarkLineLabel()
+  merge(markLine, thresholdLabel)
+}
+
+// 默认场景就是阈值线
+function getMarkLineDefault(isThreshold = false) {
+  const lineStyle = {
+    width: Theme.config.markLineWidth,
+  }
+  if (isThreshold) lineStyle.color = Theme.config.colorState.colorError
   return {
     symbol: 'none',
     silent: true,
     label: {
       show: false,
     },
-    lineStyle: {
-      width: Theme.config.markLineWidth,
-    },
+    lineStyle: lineStyle,
     emphasis: {
       label: {
         show: false,
@@ -33,7 +69,7 @@ export function getMarkLineDefault() {
   };
 }
 
-export function getMarkPointDefault() {
+function getMarkPointDefault() {
   return {
     symbol: 'path://M50 0 L0 50 L100 50 Z',
     symbolSize: [10, 6],
@@ -43,3 +79,6 @@ export function getMarkPointDefault() {
     data: [],
   };
 }
+
+
+export { getMarkLineDefault, getMarkPointDefault, setThresholdMarkLineLabel }

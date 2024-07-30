@@ -67,7 +67,10 @@ function getModelToken(aliasToken) {
     colorFill,
     axisLineWidthSecondary,
     labelFontSize,
-    colorTextTertiary
+    colorTextTertiary,
+    borderRadius,
+    paddingSM,
+    borderWidthLG
   } = aliasToken;
 
   return {
@@ -99,11 +102,9 @@ function getModelToken(aliasToken) {
     // 图例每项之间的间隔
     legendItemGap: legendSpace,
     // 圆形图例时每项的宽度
-    legendCircleItemWidth: legendItemSize * 12,
+    legendItemWidth: legendItemSize * 6,
     // 圆形图例时每项的高度
     legendCircleItemHeight: legendCircleItemSize,
-    // 方形图例时每项的宽度
-    legendReactItemWidth: legendItemSize * 6,
     // 方形图例时每项的高度
     legendReactItemHeight: legendItemSize,
     // 图例翻页文本颜色
@@ -312,6 +313,15 @@ function getModelToken(aliasToken) {
     markLineWidth,
     // 标记线高亮粗细
     markLineEmphasisWidth,
+     // 标记线文本字号
+    markLineLabelFontSize:labelFontSize,
+     // 标记线文本圆角
+    markLineLabelBorderRadius:borderRadius,
+     // 标记线文本Padding
+    markLineLabelPadding: [ paddingSM,paddingSM*2,paddingSM,paddingSM*2],  
+     // 标记线文本borderWidth
+    markLineLabelBorderWidth:borderWidthLG,
+    
 
     /** ----- dataZoom------ */
     // dataZoom背景色
