@@ -34,7 +34,7 @@ const data = {
         ['stillShowZeroSum', '是否在数据和为0的时候仍显示扇区', 'boolean', 'true'],
         ['selectedMode', '扇区选中模式配置', 'boolean', 'false'],
         ['roseType', '是否展示成南丁格尔图', 'boolean', 'false'],
-        ['dataRules', '设置特定颜色', 'object', '无'],
+        ['dataRules', '某个数据设置指定颜色', 'object', '无'],
 
     ],
     markdown: [

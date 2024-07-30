@@ -18,12 +18,12 @@ const option = {
                 b: {
                     fontSize: 36,
                     fontWeight: 'bold',
-                    padding: [10, 0, 0, 20]
+                    padding: [10, 0, -20, 20]
                 },
                 c: {
                     fontSize: 24,
                     color: '#bbbbbb',
-                    padding: [10, 10, 0, 0]
+                    padding: [10, 0, -20, 0]
                 },
                 d: {
                     width: 12,

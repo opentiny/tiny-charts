@@ -135,11 +135,11 @@ function mergeDefaultSeries(seriesUnit) {
   }
 }
 
-// 设置给定color
+// 给某个data指定的颜色
 function setColor(iChartOption) {
   const data = iChartOption.data;
   let initColorGroup = iChartOption.initColor.concat();
-  const colorData = iChartOption.dataSeting && iChartOption.dataSeting.color;
+  const colorData = iChartOption.dataRules && iChartOption.dataRules.color;
   if (colorData && isArray(initColorGroup)) {
     for (let key in colorData) {
       data.forEach((item, index) => {
@@ -186,7 +186,7 @@ function handleSeries(pieType, iChartOption, chartInstance, position, legend) {
   }
   // 保留初始的颜色数组
   iChartOption.initColor = iChartOption.color;
-  // 设置给定的颜色
+  // 给某个data指定的颜色
   setColor(iChartOption);
   selfSeries.forEach(seriesItem => {
     const seriesUnit = seriesItem;
