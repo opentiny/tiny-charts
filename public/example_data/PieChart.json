@@ -73,11 +73,6 @@
           "name": "label文本配置",
           "routePath": "PieChart-12",
           "imagePath": "./image/theme/light/PieChart/PieChart-12.png"
-        },
-        {
-          "name": "调整label与图表的距离",
-          "routePath": "PieChart-13",
-          "imagePath": "./image/theme/light/PieChart/PieChart-13.png"
         }
       ]
     },
