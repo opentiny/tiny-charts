@@ -38,7 +38,6 @@ export default class RegionChart {
     // 兼容echarts属性
     merge(this.baseOption, iChartOption);
     // 删除部分无用的默认值
-    delete this.baseOption.legend;
     delete this.baseOption.dataZoom;
     delete this.baseOption.xAxis;
   }
