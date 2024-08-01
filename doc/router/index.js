@@ -27,7 +27,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/ReadMe',
+      redirect: '/QuickStart',
       name: '快速开始',
     },
     {
@@ -54,7 +54,7 @@ const router = createRouter({
     },
     {
       path: '/:pathMatch(.*)*', // 此处需特别注意至于最底部
-      redirect: { path: 'ReadMe' },
+      redirect: { path: 'QuickStart' },
     }
   ],
 });
