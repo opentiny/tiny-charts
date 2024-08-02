@@ -170,7 +170,11 @@ export default {
                 if (item.children) {
                     item.children.forEach(item => {
                         if (process.env.NODE_ENV === 'production') {
-                            item.imagePath = import.meta.env.VITE_PUBLISH_URL + item.imagePath.replace(item.imagePath.split('/')[3], theme);
+                            if(item.imagePath.indexOf(`${import.meta.env.VITE_PUBLISH_URL}./`) == -1){
+                                item.imagePath = import.meta.env.VITE_PUBLISH_URL + item.imagePath.replace(item.imagePath.split('/')[3], theme);
+                            }else{
+                                item.imagePath = item.imagePath.replace(item.imagePath.split('theme/')[1].split('/')[0], theme);
+                            }
                         } else {
                             item.imagePath = item.imagePath.replace(item.imagePath.split('/')[3], theme);
                         }
