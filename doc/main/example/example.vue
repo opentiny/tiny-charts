@@ -83,7 +83,7 @@ export default {
             theme: localStorage.getItem('chartTheme') || 'hdesign-light',
             jsiframe: 'origin',
             APIData: [],
-            mdName: 'ReadMe',
+            mdName: 'QuickStart',
             showMarkdown: false,
             pageName: ''
         };

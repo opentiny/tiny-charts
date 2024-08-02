@@ -9,8 +9,8 @@ const NAV_DATA = [
     children: [
       {
         title: '快速开始',
-        titleId: 'ic_readme',
-        value: 'ReadMe',
+        titleId: 'ic_quickstart',
+        value: 'QuickStart',
       },
       {
         title: '生命周期',

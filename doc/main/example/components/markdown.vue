@@ -8,7 +8,7 @@ export default {
   props: {
     mdName: {
       type: String,
-      default: 'readme'
+      default: 'quickstart'
     }
   },
   data() {
