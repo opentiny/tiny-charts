@@ -30,9 +30,9 @@
 
 <p class='ev_expand_title'>itemStyle.barMinHeight<span class='ev_expand_required'>非必填</span><span class='ev_expand_defaults'>无默认值</span><span class='ev_expand_type'>Number | string</span>
 
-<p class='ev_expand_introduce'>格式<code>2 | '2%'</code>
+<p class='ev_expand_introduce'>格式<code>2% | 2</code>
 
-<p class='ev_expand_introduce'>说明：根据数值设置柱子的最小高度，可以填具体的值或者百分比，当数据较大的时候，建议使用百分比
+<p class='ev_expand_introduce'>说明：设置柱子的最小高度，可以填具体的值或者百分比，如果填数值，将按echarts原生功能以像素来显示，如果填百分比，则是按数据最大值的百分比计算最小数据，如果小于最小数据就按最小数据显示，建议使用百分比
 
 
 

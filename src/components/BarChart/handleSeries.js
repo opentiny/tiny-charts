@@ -139,9 +139,9 @@ function handleItemStyle(direction, itemStyle) {
   if (direction && direction === 'horizontal') {
     seriesInit_.itemStyle.borderRadius = [0, chartToken.borderRadius, chartToken.borderRadius, 0];
   }
-  // if (itemStyle?.barMinHeight) {
-  //   seriesInit_.barMinHeight = itemStyle.barMinHeight;
-  // }
+  if (itemStyle?.barMinHeight) {
+    seriesInit_.barMinHeight = itemStyle.barMinHeight;
+  }
   if (itemStyle?.barWidth) {
     seriesInit_.barWidth = itemStyle.barWidth;
   }
@@ -278,7 +278,7 @@ export function setSeries(seriesData, legendData, iChartOption) {
     if (iChartOption.itemStyle && iChartOption.itemStyle.barMinHeight ) {
       const barMinHeight = iChartOption.itemStyle.barMinHeight;
       seriesUnit.data = seriesData[legend];
-      // 如果有%根据数据最大值来计算最小高度，是数值就按数值来计算
+      // 如果有%根据数据最大值来计算最小高度，是数值则按echarts原生属性控制
       if(barMinHeight.toString().indexOf('%') !== -1){
         let itemMaxData = []
         legendData.forEach((legend) => {
@@ -293,16 +293,14 @@ export function setSeries(seriesData, legendData, iChartOption) {
           }
         }
       } else {
-        for (let i = 0; i < seriesUnit.data.length; i++) {
-          if(!seriesUnit.data[i] == 0) {
-            seriesUnit.data[i]  = seriesUnit.data[i]  < barMinHeight ? barMinHeight : seriesUnit.data[i];
-          }
-        }
-        
+        // 如果设置了 barMinHeight，那么就把数据里面的0设置成null
+        seriesUnit.data = seriesData[legend].map((item) => {
+          return item === 0 ? undefined : item;
+        })
       }
     } else {
       seriesUnit.data = seriesData[legend];
-    }
+    } 
     // 阈值线
     handleMarkLine(seriesUnit, iChartOption, direction);
     // 堆叠图
@@ -642,8 +640,8 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
     const newParams = params.filter(item => {
       return exclude.indexOf(item.seriesName) === -1;
     });
-    // 如果设置了最小高度高度，将newParams值重新校正
-    if(barMinHeight) {
+    // 如果设置了最小高度高度，并按%计算，将newParams值重新校正
+    if(barMinHeight && barMinHeight.toString().indexOf('%') !== -1) {
       newParams.forEach((item) => {
         if(iChartOption.data && iChartOption.data[item.dataIndex] && isNumber(iChartOption.data[item.dataIndex][item.seriesName])){
           item.data = item.value = iChartOption.data[item.dataIndex][item.seriesName]
