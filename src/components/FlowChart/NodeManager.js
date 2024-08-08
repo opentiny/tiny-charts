@@ -11,6 +11,7 @@
  */
 import Layout from './Layout';
 import { isFunction } from '../../util/type';
+import { createVueApp,createElement,renderToString } from './frameworkFn';
 
 export const NODE_ID_PREFIX = 'fc-node-';
 
@@ -79,6 +80,28 @@ export default class NodeManager {
         });
     }
 
+
+    // Vue 组件渲染
+    renderVueComponentToString(Component) {
+        const app = createVueApp({
+        render() {
+            return createElement(Component);
+        }
+        });
+    
+        const container = document.createElement('div');
+        app.mount(container);
+        const html = container.innerHTML;
+        app.unmount();
+        return html;
+    }
+
+
+    // React 组件渲染
+    renderReactComponentToString(Component) {
+        return ReactDOMServer.renderToString(<Component />);
+    }
+
     /**
      * 创建节点
      **/
@@ -89,7 +112,8 @@ export default class NodeManager {
         nodeDom.id = NODE_ID_PREFIX + id;
         let renderFun = render || this.render;
         if (renderFun) {
-            let dom = renderFun(nodeDom, ndata);
+            const vueDOM = renderFun(nodeDom, ndata);
+            const  dom = nodeDom.insertAdjacentHTML('beforeend', this.renderReactComponentToString(vueDOM));
             dom && nodeDom.appendChild(dom)
         }
         return nodeDom;
