@@ -1,6 +1,11 @@
-
+// Vue 框架依赖配置
 import { createApp, h } from 'vue';
+
+// React 框架依赖配置
 import ReactDOMServer from 'react-dom/server';
+
+// Angular 框架依赖配置
+import { ViewContainerRef } from '@angular/core';
 
 export function createVueApp(options) {
   if (!createApp) {
@@ -23,4 +28,11 @@ export function renderToString(Component) {
     throw new Error('react-dom is not installed. Please install react-dom to use the renderToString function.');
   }
   return renderToString(Component);
+}
+
+export function AngularViewContainerRef() {
+  if (!ViewContainerRef) {
+    throw new Error('@angular/core is not installed. Please install @angular/core to use the renderToString function.');
+  }
+  return ViewContainerRef;
 }

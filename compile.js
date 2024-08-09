@@ -35,7 +35,7 @@ const copyConfig = {
 // JS输入编译配置
 const inputOptions = {
     // 编译需要排除的第三方依赖，未来增加新的依赖需要增加相应的依赖项
-    external: ['echarts', 'echarts/extension/bmap/bmap'],
+    external: ['echarts', 'echarts/extension/bmap/bmap', 'vue',],
     input: './src/index.js',
     plugins: [
         // 解析第三方依赖模块

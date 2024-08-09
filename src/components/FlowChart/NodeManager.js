@@ -11,8 +11,16 @@
  */
 import Layout from './Layout';
 import { isFunction } from '../../util/type';
-import { createVueApp,createElement,renderToString } from './frameworkFn';
+// Vue 依赖配置
+import { createVueApp, createElement } from './frameworkFn';
 
+// React 依赖配置
+import { renderToString } from './frameworkFn';
+
+// Angular 依赖配置
+import { AngularViewContainerRef } from './frameworkFn';
+
+const framework = '';
 export const NODE_ID_PREFIX = 'fc-node-';
 
 export default class NodeManager {
@@ -99,7 +107,15 @@ export default class NodeManager {
 
     // React 组件渲染
     renderReactComponentToString(Component) {
-        return ReactDOMServer.renderToString(<Component />);
+        return renderToString(Component);
+    }
+
+    // Angular 组件渲染
+    renderAngularNode(component, injector, ndata) {
+        const viewContainerRef = injector.get(AngularViewContainerRef());
+        const componentRef = viewContainerRef.createComponent(component);    
+        componentRef.instance.id = ndata.id;
+        return componentRef.location.nativeElement;
     }
 
     /**
@@ -111,9 +127,32 @@ export default class NodeManager {
         nodeDom.classList.add('fc-node');
         nodeDom.id = NODE_ID_PREFIX + id;
         let renderFun = render || this.render;
+
+
+        // 原生DOM下的渲染
         if (renderFun) {
+            let dom = renderFun(nodeDom, ndata);
+            dom && nodeDom.appendChild(dom)
+        }
+
+        // Vue 框架下的渲染
+        if ( framework === 'vue' && renderFun ) {
             const vueDOM = renderFun(nodeDom, ndata);
-            const  dom = nodeDom.insertAdjacentHTML('beforeend', this.renderReactComponentToString(vueDOM));
+            const  dom = nodeDom.insertAdjacentHTML('beforeend', this.renderVueComponentToString(vueDOM));
+            dom && nodeDom.appendChild(dom);
+        }
+
+        // React 框架下的渲染
+        if (framework === 'react' && renderFun) {
+            const reactDOM = renderFun(nodeDom, ndata);
+            const  dom = nodeDom.insertAdjacentHTML('beforeend', this.renderReactComponentToString(reactDOM));
+            dom && nodeDom.appendChild(dom);
+        }
+
+        // Angular 框架下的渲染
+        if (framework === 'angular' && renderFun) {
+            const {component, injector} = renderFun(nodeDom, ndata);
+            const dom = this.renderAngularNode(component, injector, ndata);
             dom && nodeDom.appendChild(dom)
         }
         return nodeDom;
