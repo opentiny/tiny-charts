@@ -14,11 +14,13 @@ import { radioType, direction, interval, textStyle, tagPosition } from '../Commo
 import LineStraight from './LineStraight.js';
 import LineArrow from './LineArrow.js';
 import LineDashed from './LineDashed.js';
+import LineDotted from './LineDotted.js';
 
 const LineFactory = {
   [radioType.TYPE_Straight]: LineStraight,
   [radioType.TYPE_Arrow]: LineArrow,
   [radioType.TYPE_Dashed]: LineDashed,
+  [radioType.TYPE_Dotted]: LineDotted,
 };
 export default class LineManager {
   constructor({ lineWrapper, leafNode }, data, deg, { imageList, option, centerDom, distance, drag }, isSubRoot, tagWidth) {
@@ -133,6 +135,8 @@ export default class LineManager {
       intervalType = 'wireless';
     } else if (connectInterface.indexOf('Dashed') !== -1) {
       lineType = 'Dashed';
+    } else if (connectInterface.indexOf('Dotted') !== -1) {
+      lineType = 'Dotted';
     } else {
       lineType = 'Straight';
     }

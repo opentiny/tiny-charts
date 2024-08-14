@@ -13,7 +13,8 @@
 const radioType = {
   TYPE_Straight: 'Straight',
   TYPE_Arrow: 'Arrow',
-  TYPE_Dashed: 'Dashed'
+  TYPE_Dashed: 'Dashed',
+  TYPE_Dotted: 'Dotted',
 };
 
 // 不同的箭头间隔
