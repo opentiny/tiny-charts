@@ -40,7 +40,7 @@ const option = {
           deviceType: 'SmartPhone',
           deviceName: 'sta-2',
           mac: 'sta-2',
-          connectInterface: 'Straight-LAN2',
+          connectInterface: 'Dotted',
           lineStrokeColor: '#777777',
           signalStrength: '-24dBm',
           isAP: 0,
