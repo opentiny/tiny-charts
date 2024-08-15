@@ -2,7 +2,7 @@
   <tiny-grid ref="apitable" :data="tableData" v-if="apiDescription.markdown">
     <tiny-grid-column type="expand" width="60">
       <template #default="data" v-if="tableData.length > 1">
-        <MdPreview :modelValue="apiDescription.markdown[data.row.id]" class="main-editor api-table"></MdPreview>
+        <v-md-preview :text="apiDescription.markdown[data.row.id]" class="main-editor api-table"></v-md-preview>
       </template>
     </tiny-grid-column>
     <tiny-grid-column field="props" title="参数"></tiny-grid-column>
