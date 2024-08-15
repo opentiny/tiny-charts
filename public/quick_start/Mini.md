@@ -42,4 +42,8 @@ chartIns.render();
         flex-direction: row;
         justify-content: center;
     }
+    .img-mini img{
+        margin: 0 auto;
+        max-width: 100%;
+    }
 </style>
