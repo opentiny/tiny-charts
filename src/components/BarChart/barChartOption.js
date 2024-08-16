@@ -10,12 +10,18 @@
  *
  */
 // 柱状图柱条响应式配置
-const BarChartOption = (width, option) => {
+const BarChartOption = (width, option, type) => {
 
   // 计算柱子宽度
   let barWidth;
+  let columns;
+  // 包含柱状图只有一个柱子
+  if (type === 'contain') {
+    columns = 1;
+  } else {
+    columns = option.series.length;
+  }
   const rows = option.series[0].data.length;
-  const columns = option.series.length;
   const intervalRows = rows;
 
   // 柱子宽度为16px的初始间距 
@@ -29,7 +35,13 @@ const BarChartOption = (width, option) => {
     barWidth = flag > 2 ? flag : 2
   }
 
-  const barGap = `${4 / barWidth * 100}%`
+  // 不同系列柱子之间的距离
+  let barGap;
+  if (type === 'contain') {
+    barGap = `-100%`;
+  } else {
+    barGap = `${4 / barWidth * 100}%`
+  }
 
   option.series.forEach(item => {
     Object.assign(item, {
@@ -48,7 +60,7 @@ const updateWidth = (baseOption, chartInstance, iChartOption) => {
     } else {
       width = chartInstance.getModel().getComponent('grid').coordinateSystem.getRect().width;
     }
-    BarChartOption(width, baseOption);
+    BarChartOption(width, baseOption, iChartOption.type);
   }
 }
 
