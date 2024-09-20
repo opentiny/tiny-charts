@@ -37,7 +37,7 @@ class CardManager {
         
     }
     changeTheme(){
-        let cardContainer = this.container.querySelector('.card-container');
+        let cardContainer = this.container.querySelector('.card-operatetion');
         cardContainer.style.setProperty('--titleColor', chartToken.titleColor);
         cardContainer.style.setProperty('--labelColor', chartToken.labelColor);
         cardContainer.style.setProperty('--selectBgActive', chartToken.selectBgActive);
@@ -50,14 +50,14 @@ class CardManager {
     // 创建容器
     createDom() {
 
-        let cardContainerDom = this.container.querySelector('.card-container');
+        let cardContainerDom = this.container.querySelector('.card-operatetion');
         if(cardContainerDom) {
             cardContainerDom.outerHTML = '';
         }
 
         let titleOption = this.option.title;
         let cardContainer = document.createElement('div');
-        cardContainer.setAttribute('class','card-container');
+        cardContainer.setAttribute('class','card-operatetion');
         let cardTop = document.createElement('div');
         cardTop.className = `card-top ${this.option.divider ? 'divider': ''}`
         let cardTitle = document.createElement('div');
@@ -90,13 +90,14 @@ class CardManager {
     createOperation(operation) {
         
         let data = operation.data;
-        let active = operation.active || 0;
+        
         let onChange = operation.onChange;
         let activeClass;
         let operationItem = '';
         for(var i = 0;i < data.length; i++) {
             let type = data[i].type;
             let itemData = data[i].data;
+            let active = data[i].active || 0;
             if(type === 'button') {
                 let buttonItem = ''
                 itemData.forEach((element,index) => {
@@ -173,7 +174,7 @@ class CardManager {
                 itemDiv.appendChild(subDiv);
                 valueAreaDiv.appendChild(itemDiv);
             }
-            const containerDom = this.container.querySelector('.card-container');
+            const containerDom = this.container.querySelector('.card-operatetion');
             containerDom.insertAdjacentHTML('beforeend',valueAreaDiv.outerHTML);      
             containerDom.classList.add('adaptation-bottom');
             let valueAreaDom = this.container.querySelector('.valueArea');

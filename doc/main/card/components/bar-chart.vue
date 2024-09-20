@@ -1,11 +1,11 @@
 <template>
-	<div class="chart-container" ref="container">
-		<div class="card-con" ref="airportCardConRef" style="width: 50%;display: inline-block;border-right: 1px solid #ccc;">
-			<div class='charts' ref="airportChartContainer" style="height: 400px" :style="{ height: '400px' }">
+	<div class="containers">
+		<div class="card-container" ref="airportCardConRef" style="width: 50%;display: inline-block;border-right: 1px solid #ccc;">
+			<div class='chart-container' ref="airportChartContainer" style="height: 400px" :style="{ height: '400px' }">
 			</div>
 		</div>
-		<div class="card-con" ref="productCardConRef" style="width: 50%;display: inline-block;">
-			<div class='charts' ref="productChartContainer" style="height: 400px" :style="{ height: '400px' }">
+		<div class="card-container" ref="productCardConRef" style="width: 50%;display: inline-block;">
+			<div class='chart-container' ref="productChartContainer" style="height: 400px" :style="{ height: '400px' }">
 			</div>
 		</div>
 	</div>
