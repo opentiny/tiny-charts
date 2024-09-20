@@ -34,7 +34,7 @@ export function onlyOnePoint(baseOption) {
 export function defaultFormatter(params) {
   let htmlString = '';
   // 只选取前半部分真实的series数据
-  params = params.slice(0, params.length/2);
+  params = params.slice(0, params.length / 2);
   params.forEach((item, index) => {
     if (index === 0) {
       htmlString += `<div style="margin-bottom:4px;">${defendXSS(item.name)}</div>`;
@@ -84,7 +84,7 @@ export function discrete(iChartOption, baseOption) {
     baseOption.series.forEach((series, seriesIndex) => {
       const newSeries = cloneDeep(series);
       newSeries.symbol = 'circle';
-      newSeries.symbolSize = chartToken.symbolSizeSM;
+      newSeries.symbolSize = chartToken.symbolSizeSM-4;
       newSeries.itemStyle.borderWidth = chartToken.borderZero;
       newSeries.showSymbol = true;
       newSeries.showAllSymbol = true;
@@ -115,7 +115,7 @@ export function discrete(iChartOption, baseOption) {
     const tipFormatter = baseOption.tooltip.formatter;
     baseOption.tooltip.formatter = (params, ticket, callback) => {
       if (tipFormatter) {
-        return tipFormatter(params.slice(0, params.length/2), ticket, callback);
+        return tipFormatter(params.slice(0, params.length / 2), ticket, callback);
       } else {
         return defaultFormatter(params);
       }
