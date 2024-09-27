@@ -182,8 +182,6 @@ function handleRectangularXaxis(xAxis) {
 function handleCalendarXaxis(xAxis, data) {
   xAxis.data = data[0];
   xAxis.axisTick.show = false;
-  // 给文本设置左侧padding，使其不溢出
-  xAxis.axisLabel.padding = [0, 0, 0, (10 * data[0][0].length) / 2];
 }
 
 function handleHexagonXaxis(xAxis, data) {
