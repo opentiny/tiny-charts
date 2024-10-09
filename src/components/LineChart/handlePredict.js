@@ -36,15 +36,16 @@ function setDashedLineVisualMap(seriesIndex, lineColor, predictIndex) {
 }
 
 // htmlString中判断item.color.colorStops是判读是否为折柱混合的图表，如果是需要从item.color.colorStops对象中获取颜色
-function setToolTip(dataLength, fontColor, selfFormatter) {
+function setToolTip(fontColor, selfFormatter) {
   if (selfFormatter) {
     return selfFormatter;
   }
   const tipHtml = params => {
     let htmlString = '';
+    const legendLength = params.length / 2;
     params.forEach((item, index) => {
       // 只显示实线数据的tooltip
-      if (index < dataLength) {
+      if (index < legendLength) {
         if (index === 0) {
           htmlString += `${defendXSS(item.name)}<br/>`;
         }
@@ -76,7 +77,7 @@ export function handlePredict(option, predict, tipHtml, lineStyle) {
   if (!predict) return
   // VisualMap只能处理线的颜色，不能处理面积的颜色
   let dashColor = Theme.config.visualMapDashColor;
-  if (lineStyle && lineStyle.dashColor) {                                                                                                                  
+  if (lineStyle && lineStyle.dashColor) {
     dashColor = lineStyle.dashColor;
   }
   // 取出数据
@@ -106,5 +107,5 @@ export function handlePredict(option, predict, tipHtml, lineStyle) {
     }
   }
   // 修改tooltip,不显示虚线的tooltip
-  option.tooltip.formatter = setToolTip(dataLength, Theme.config.tooltipTextColor, tipHtml);
+  option.tooltip.formatter = setToolTip(Theme.config.tooltipTextColor, tipHtml);
 }
