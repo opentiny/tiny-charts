@@ -21,7 +21,7 @@ import Sidebar from './menu/menu.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { THEMES } from '../../src/util/constants';
 import { ref, computed, getCurrentInstance, watch } from 'vue';
-import { CUSTOM_DARK_THEME } from './theme/dark-theme.js';
+// import { CUSTOM_DARK_THEME } from './theme/dark-theme.js';
 import { NAV_DATA, versionNumber, updateTime } from './menu/menu.js';
 // import {
 //   Dropdown as TinyDropdown,
@@ -33,15 +33,18 @@ const router = useRouter();
 const theme = getCurrentInstance().appContext.config.globalProperties.theme;
 // 系统颜色主题
 const windowTheme = window.matchMedia('(prefers-color-scheme:dark)');
+
 windowTheme.addEventListener('change', () => {
   if (!route.query.theme) {
+  
     if (windowTheme.matches) {
-      theme.changeTheme(CUSTOM_DARK_THEME);
+      theme.changeTheme();
     } else {
       theme.changeTheme();
     }
   }
 });
+
 const isDarkTheme = ref(false);
 const isHeader = ref(false);
 const themeOptions = ref([
@@ -145,7 +148,7 @@ watch(
     if (newVal.query.theme?.toLowerCase().includes('dark')) {
       // 切换为深色模式
       isDarkTheme.value = true;
-      theme.changeTheme(CUSTOM_DARK_THEME);
+      theme.changeTheme();
     } else if (newVal.query.theme?.toLocaleLowerCase().includes('light')) {
       isDarkTheme.value = false;
       // 切换为默认模式
@@ -153,7 +156,7 @@ watch(
     } else if (windowTheme.matches) {
       // 系统深色模式
       isDarkTheme.value = true;
-      theme.changeTheme(CUSTOM_DARK_THEME);
+      theme.changeTheme();
     } else {
       isDarkTheme.value = false;
       // 默认正常模式

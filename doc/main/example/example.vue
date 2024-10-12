@@ -118,12 +118,8 @@ export default {
                     }
                 }
                 const isDarkTheme = val.href.includes('dark');
-                this.theme = isDarkTheme ? 'hdesign-dark' : 'hdesign-light';
-                if (isDarkTheme) {
-                    new TinyThemeTool(CUSTOM_DARK_THEME, 'tinyStyleSheetId');
-                } else {
-                    new TinyThemeTool('', 'tinyStyleSheetId');
-                }
+                this.theme = 'hdesign-light';
+                new TinyThemeTool('', 'tinyStyleSheetId');
             },
             immediate: true,
         },
