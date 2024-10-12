@@ -36,13 +36,12 @@ export default {
       },
       immediate: true,
     },
-    isDarkTheme(val){
-      if(val) {
-        this.currentTheme = 'hdesign-dark'
-      } else {
+    isDarkTheme: {
+      handler(){
         this.currentTheme = 'hdesign-light'
-      }
-      this.updateIframeSrc();
+        this.updateIframeSrc();
+      },
+      immediate: true,
     }
   },
   mounted() {
@@ -50,7 +49,6 @@ export default {
       target: document.getElementById('loading-mark'),
       text: '加载中...',
       size: 'large',
-      customClass: this.isDarkTheme && this.$route.query.theme !== 'light' ? 'dark-loading' : '',
     });
 
     this.$nextTick(() => {
@@ -71,7 +69,7 @@ export default {
     windowTheme.addEventListener('change', () => {
       this.iframe.contentWindow?.postMessage({
         chartName: this.chartName,
-        theme: this.$route.query.theme || (windowTheme.matches ? 'hdesign-dark' : 'hdesign-light'),
+        theme: this.$route.query.theme || 'hdesign-light',
       });
     });
     const __self = this;
@@ -85,7 +83,7 @@ export default {
     sendMessage() {
       this.iframe.contentWindow.postMessage({
         chartName: this.chartName,
-        theme: this.$route.query.theme || (this.isDarkTheme ? 'hdesign-dark' : 'hdesign-light'),
+        theme: this.$route.query.theme || 'hdesign-light',
       });
     },
 
@@ -112,7 +110,4 @@ export default {
   z-index: 100;
 }
 
-.dark-loading {
-  background-color: #141414;
-}
 </style>
