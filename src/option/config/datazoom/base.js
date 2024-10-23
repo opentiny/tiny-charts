@@ -13,8 +13,7 @@ import Theme from '../../../feature/token';
 import { codeToRGB } from '../../../util/color';
 
 function getBaseOption() {
-  return [
-    {
+  return {
       end: 100,
       start: 0,
       height: 24,
@@ -70,8 +69,7 @@ function getBaseOption() {
           borderColor: Theme.config.dataZoomEmphasisHandleBorderColor,
         },
       },
-    },
-  ];
+    }
 }
 
 function base() {
@@ -79,12 +77,12 @@ function base() {
   const option = getBaseOption()
   if (theme.includes('dark')) {
     // 选中区域内的线条颜色和面积颜色
-    option[0].selectedDataBackground.lineStyle.color = '#1B3F86';
-    option[0].selectedDataBackground.areaStyle.color = '#1B3F86'
+    option.selectedDataBackground.lineStyle.color = '#1B3F86';
+    option.selectedDataBackground.areaStyle.color = '#1B3F86'
   } else {
     // 选中区域内的线条颜色和面积颜色
-    option[0].selectedDataBackground.lineStyle.color = '#8CA3FA';
-    option[0].selectedDataBackground.areaStyle.color = '#8CA3FA';
+    option.selectedDataBackground.lineStyle.color = '#8CA3FA';
+    option.selectedDataBackground.areaStyle.color = '#8CA3FA';
   }
   return option;
 }
