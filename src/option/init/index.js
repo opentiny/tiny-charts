@@ -126,6 +126,20 @@ function setDefaultLegend(iChartOption) {
  * @param {外部传入的配置} iChartOption
  */
 function setDefaultDataZoom(iChartOption) {
+  if (isArray(iChartOption.dataZoom)) {
+    iChartOption.dataZoom.forEach(item => {
+      if (item.show === undefined) {
+        item.show = false
+      }
+      if (!item.position) {
+        item.position = {
+          left: 'center',
+          bottom: 20,
+        };
+      }
+    })
+    return
+  }
   if (!iChartOption.dataZoom) {
     iChartOption.dataZoom = {
       show: false,
@@ -151,20 +165,20 @@ function setDefaultDataZoom(iChartOption) {
  * @param {外部传入的配置} iChartOption
  */
 function filterDisplayData(iChartOption) {
-  if (!iChartOption.data || !iChartOption.dataRules || !iChartOption.dataRules.display)  return;
+  if (!iChartOption.data || !iChartOption.dataRules || !iChartOption.dataRules.display) return;
   let displayData = iChartOption.dataRules.display;
   let data = iChartOption.data;
   let newData = [];
-  if(displayData.length>0){
-    data.forEach( item => {
+  if (displayData.length > 0) {
+    data.forEach(item => {
       let obj = {};
       for (const key in item) {
         if (Object.hasOwnProperty.call(item, key)) {
           const element = item[key];
-          if(iChartOption.xAxis && (key === iChartOption.xAxis[0].keyName || key ===  iChartOption.xAxis.name)) {
+          if (iChartOption.xAxis && (key === iChartOption.xAxis[0].keyName || key === iChartOption.xAxis.name)) {
             obj[key] = element
           }
-          if(displayData.includes(key)){
+          if (displayData.includes(key)) {
             obj[key] = element
           }
         }

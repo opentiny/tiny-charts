@@ -11,19 +11,25 @@
  */
 import * as echarts from 'echarts';
 import chartToken from './chartToken';
-/**
- * 针对趋势线需求，图表需要进行特殊处理
- */
-export function handleTrendLine(option, iChartOption, plugins) {
-  const ecStat = plugins.ecStat;
-  if (iChartOption.trendLineConfig) {
-    if (ecStat) {
-      echarts.registerTransform(ecStat.transform.regression);
-      // 集合数据
+import { isArray } from '../../util/type'
+import { getColor } from '../../util/color';
+
+// 针对数据系列单独设置趋势线
+function setSeparateTrendLine(legendData, iChartOption, option) {
+  //dataset中原有就有一条数据集用于visualmap，此处索引从1开始
+  let initIndex = 1
+  const { trendLineConfig, data, color } = iChartOption
+  trendLineConfig.forEach(item => {
+    const { dataName, ...other } = item
+    if (dataName && legendData.includes(dataName)) {
+      const dataIndex = legendData.indexOf(dataName)
+      const lineColor = getColor(color, dataIndex)
+
       option.dataset.push({
         transform: {
+          source: data[dataName],
           type: 'ecStat:regression',
-          config: iChartOption.trendLineConfig,
+          config: other,
         },
       });
       // 趋势线
@@ -31,7 +37,7 @@ export function handleTrendLine(option, iChartOption, plugins) {
         name: 'trendline',
         type: 'line',
         smooth: true,
-        datasetIndex: 1,
+        datasetIndex: initIndex,
         symbolSize: 0.1,
         symbol: 'circle',
         label: {
@@ -47,7 +53,59 @@ export function handleTrendLine(option, iChartOption, plugins) {
           tooltip: 1,
         },
         silent: true,
-      });
+        itemStyle: {
+          color: lineColor
+        }
+      })
+      initIndex++
+    }
+  })
+}
+
+
+
+/**
+ * 针对趋势线需求，图表需要进行特殊处理
+ */
+export function handleTrendLine(option, iChartOption, plugins, legendData) {
+  const ecStat = plugins.ecStat;
+  if (iChartOption.trendLineConfig) {
+    if (ecStat) {
+      echarts.registerTransform(ecStat.transform.regression);
+      const isArrayConfig = isArray(iChartOption.trendLineConfig)
+      if (isArrayConfig) {
+        setSeparateTrendLine(legendData, iChartOption, option)
+      } else {
+        // 集合数据
+        option.dataset.push({
+          transform: {
+            type: 'ecStat:regression',
+            config: iChartOption.trendLineConfig,
+          },
+        });
+        // 趋势线
+        option.series.push({
+          name: 'trendline',
+          type: 'line',
+          smooth: true,
+          datasetIndex: 1,
+          symbolSize: 0.1,
+          symbol: 'circle',
+          label: {
+            show: true,
+            fontSize: 14,
+            color: chartToken.labelColor,
+          },
+          labelLayout: {
+            dx: -20,
+          },
+          encode: {
+            label: 2,
+            tooltip: 1,
+          },
+          silent: true,
+        });
+      }
     } else {
       throw new Error('您必须安装echarts-stat才可以使用趋势线功能');
     }

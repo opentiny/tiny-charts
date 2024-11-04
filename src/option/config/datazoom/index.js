@@ -17,7 +17,7 @@ function datazoom(iChartOption) {
   const self = iChartOption.dataZoom || {}
   const dataZoom = toArray(self).map((item, index) => {
     if (index === 0) {
-      const { show, position, start, end, startValue, endValue, style, height } = item;
+      const { show, position, start, end, startValue, endValue, style, height, top, left, right, bottom } = item;
       const baseZoom = base()
       if (show) {
         end && (baseZoom.end = end);
@@ -32,10 +32,10 @@ function datazoom(iChartOption) {
         }
         height && (baseZoom.height = height);
         baseZoom.show = true;
-        baseZoom.top = position.top || 'auto';
-        baseZoom.left = position.left || 'auto';
-        baseZoom.right = position.right || 'auto';
-        baseZoom.bottom = position.bottom || 'auto';
+        baseZoom.top = position?.top || top || 'auto';
+        baseZoom.left = position?.left || left || 'auto';
+        baseZoom.right = position?.right || right || 'auto';
+        baseZoom.bottom = position?.bottom || bottom || 'auto';
         // 用户自定义样式
         if (style) {
           const { backgroundColor, unSelectDataColor, selectDataColor, middleFillerColor, handleStyle } = style
@@ -46,11 +46,16 @@ function datazoom(iChartOption) {
           if (handleStyle) Object.assign(baseZoom.handleStyle, handleStyle);
         }
         merge(baseZoom, item);
+        // 删除dataZoom封装的position属性
+        if (position) {
+          delete baseZoom.position
+        }
       }
       return baseZoom
     }
     return item
   })
+  console.log(dataZoom, 'dataZoom');
   return dataZoom;
 }
 

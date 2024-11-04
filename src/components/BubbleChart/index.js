@@ -73,11 +73,11 @@ class BubbleChart {
       iChartOption,
     });
     // 添加dataset
-    this.baseOption.dataset = setDataset(this.baseOption, iChartOption);
+    this.baseOption.dataset = setDataset(iChartOption);
     // 设置VisualMap，通过数值映射气泡大小
     this.baseOption.visualMap = setVisualMap(this.baseOption, iChartOption, legendData);
     // 针对趋势线的需求，图表需要进行特殊处理
-    handleTrendLine(this.baseOption, iChartOption, plugins);
+    handleTrendLine(this.baseOption, iChartOption, plugins, legendData);
     // 添加seires属性
     handleSeriesExtra(this.baseOption, iChartOption);
     // 合并用户自定义series
