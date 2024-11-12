@@ -132,11 +132,16 @@ function setSeries(baseOpt, iChartOpt) {
   if (iChartOpt.dataset && iChartOpt.series) {
     baseOpt.dataset = iChartOpt.dataset;
     const series = iChartOpt.series.map((item, index) => {
-      const boxplotUnitSeries = getBoxplotSeries(iChartOpt, index)
-      merge(boxplotUnitSeries, item)
-      return boxplotUnitSeries
+      if (item.type === 'boxplot') {
+        const boxplotUnitSeries = getBoxplotSeries(iChartOpt, index);
+        merge(boxplotUnitSeries, item);
+        return boxplotUnitSeries;
+      }
+      else {
+        return item;
+      }
     });
-    baseOpt.series = series
+    baseOpt.series = series;
   }
 }
 
