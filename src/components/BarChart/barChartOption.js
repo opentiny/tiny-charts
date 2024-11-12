@@ -21,7 +21,7 @@ const BarChartOption = (width, option, type) => {
   } else {
     columns = option.series.length;
   }
-  const rows = option.series[0].data.length;
+  const rows = option.series[0]?.data?.length;
   const intervalRows = rows;
 
   // 柱子宽度为16px的初始间距 

@@ -106,6 +106,6 @@ const CHART_TYPE = {
   CHART_CARD: 'ChartCard'
 }
 
-const ADAPTIVE_THEME = ['hdesign-light', 'hdesign-dark', 'bpit-light', 'bpit-dark'];
+const ADAPTIVE_THEME = ['hdesign-light', 'hdesign-dark'];
 
 export { THEMES, CURRENT_THEME, DEFAULT_THEME_NAME, THEME_ERROR_TIP_MESSAGE, TOKENCHARTNAMES, CHART_TYPE, ADAPTIVE_THEME };
