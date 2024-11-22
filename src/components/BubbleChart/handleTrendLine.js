@@ -16,28 +16,31 @@ import { getColor } from '../../util/color';
 
 // 针对数据系列单独设置趋势线
 function setSeparateTrendLine(legendData, iChartOption, option) {
-  //dataset中原有就有一条数据集用于visualmap，此处索引从1开始
-  let initIndex = 1
   const { trendLineConfig, data, color } = iChartOption
-  trendLineConfig.forEach(item => {
+  trendLineConfig.forEach((item,index) => {
+     //dataset中原有就有一条数据集用于visualmap，此处索引从1开始
+    const setIndex=index+1
     const { dataName, ...other } = item
     if (dataName && legendData.includes(dataName)) {
       const dataIndex = legendData.indexOf(dataName)
       const lineColor = getColor(color, dataIndex)
-
+      const setUnit = {
+        source: data[dataName]
+      }
+      option.dataset.push(setUnit);
       option.dataset.push({
         transform: {
-          source: data[dataName],
           type: 'ecStat:regression',
           config: other,
         },
+        fromDatasetIndex:setIndex*2-1
       });
       // 趋势线
       option.series.push({
         name: 'trendline',
         type: 'line',
         smooth: true,
-        datasetIndex: initIndex,
+        datasetIndex: setIndex*2,
         symbolSize: 0.1,
         symbol: 'circle',
         label: {
@@ -57,7 +60,7 @@ function setSeparateTrendLine(legendData, iChartOption, option) {
           color: lineColor
         }
       })
-      initIndex++
+
     }
   })
 }
@@ -111,3 +114,6 @@ export function handleTrendLine(option, iChartOption, plugins, legendData) {
     }
   }
 }
+
+
+
