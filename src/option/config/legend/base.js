@@ -63,7 +63,7 @@ function getBaseOption() {
     selectedMode: true,
     align: 'left',
     itemGap: Theme.config.legendItemGap,
-    itemWidth: Theme.config.legendCircleItemWidth,
+    itemWidth: Theme.config.legendItemWidth,
     itemHeight: Theme.config.legendCircleItemHeight,
     itemStyle: {
       borderWidth: Theme.config.legendItemBorderWidth,

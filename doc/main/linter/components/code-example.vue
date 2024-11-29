@@ -12,7 +12,7 @@
           <IconChevronUp v-if="!showOption"></IconChevronUp>
           <IconChevronDown v-else></IconChevronDown>查看代码</div>
       </div>
-      <MdPreview class="markdown code-block-box" :modelValue="code" :style="{display: showOption ? 'block' : 'none'}"></MdPreview >
+      <v-md-preview class="markdown code-block-box" :text="code" :style="{display: showOption ? 'block' : 'none'}"></v-md-preview >
     </div>
   </div>
 </template>

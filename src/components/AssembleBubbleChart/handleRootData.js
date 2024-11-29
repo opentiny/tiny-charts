@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import random from '../../util/random';
+import {random} from '../../util/math';
 
 function overallLayout(params, api, distance, displayRoot, d3) {
   const context = params.context;

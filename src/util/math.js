@@ -103,6 +103,73 @@ const getItemCount = (arr, item) => {
     return count;
 }
 
+/**
+ * 获取安全的随机数，替代Math.random()
+ */
+function random() {
+    return parseFloat('0.' + window.crypto.getRandomValues(new Uint32Array(1))[0])
+}
+/**
+ * @returns {string}
+ *  生成uuid，用于标记数据，推荐给数据添加唯一标识的场景使用
+ */
+function uuid() {
+    if (typeof crypto === "object") {
+        if (typeof crypto.randomUUID === "function") {
+            return crypto.randomUUID();
+        }
+        if (typeof crypto.getRandomValues === "function" && typeof Uint8Array === "function") {
+            const callback = (c) => {
+                const num = Number(c);
+                return (num ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (num / 4)))).toString(16);
+            };
+            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, callback);
+        }
+    }
+    let timestamp = new Date().getTime();
+    let perforNow = (typeof performance !== "undefined" && performance.now && performance.now() * 1000) || 0;
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+        let random = random() * 16;
+        if (timestamp > 0) {
+            random = (timestamp + random) % 16 | 0;
+            timestamp = Math.floor(timestamp / 16);
+        } else {
+            random = (perforNow + random) % 16 | 0;
+            perforNow = Math.floor(perforNow / 16);
+        }
+        return (c === "x" ? random : (random & 0x3) | 0x8).toString(16);
+    });
+}
+/**
+ * 
+ * @param {number} length  字符串的长度
+ * @returns {string} 
+ * 生成16位hash字符串，用于标记节点 参考crypto-random-string
+ */
+function hashString(length = 16) {
+    function toHex(uInt8Array) {
+        const array = Array.from(uInt8Array);
+        const arrayString = array.map(byte => {
+            return byte.toString(16).padStart(2, '0')
+        }).join('');
+        return arrayString
+    }
+    // `crypto.getRandomValues` throws an error if too much entropy is requested at once. (https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues#exceptions)
+    const maxEntropy = 65_536;
+    function getRandomValues(byteLength) {
+        const generatedBytes = new Uint8Array(byteLength);
+        for (let totalGeneratedBytes = 0; totalGeneratedBytes < byteLength; totalGeneratedBytes += maxEntropy) {
+            generatedBytes.set(
+                window.crypto.getRandomValues(new Uint8Array(Math.min(maxEntropy, byteLength - totalGeneratedBytes))),
+                totalGeneratedBytes,
+            );
+        }
+        return generatedBytes;
+    }
+    const byteLength = Math.ceil(length * 0.5)// Needs 0.5 bytes of entropy per character
+    const generatedBytes = getRandomValues(byteLength);
+    return toHex(generatedBytes).slice(0, length);
+}
 export {
     getEdge,
     getAngle,
@@ -110,4 +177,7 @@ export {
     getAngleByPoints,
     pointsDirection,
     percentToDecimal,
+    random,
+    uuid,
+    hashString
 }

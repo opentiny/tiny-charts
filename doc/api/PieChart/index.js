@@ -1,8 +1,7 @@
 import { themeMd, theme } from '../common/theme'
 import { colorMd, color } from '../common/color'
 import { legendMd, legend } from '../common/legend'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
-import { tipHtmlStyleMd, tipHtmlStyle } from '../common/tipHtmlStyle'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import { eventMd, event } from '../common/event'
 import { titleMd, title } from '../common/title'
 import dataMd from './data.md?raw'
@@ -15,6 +14,7 @@ import minAngleMd from './minAngle.md?raw'
 import stillShowZeroSumMd from './stillShowZeroSum.md?raw'
 import selectedModeMd from './selectedMode.md?raw'
 import roseTypeMd from './roseType.md?raw'
+import dataRulesMd from './dataRulesMd?raw'
 
 const data = {
     dataset: [
@@ -22,8 +22,7 @@ const data = {
         color,
         title,
         legend,
-        tipHtml,
-        tipHtmlStyle,
+        tooltip,
         event,
         ['data', '图表数据(必填)', 'array', '无'],
         ['type', '圆盘图类型', 'string', 'circle'],
@@ -35,6 +34,7 @@ const data = {
         ['stillShowZeroSum', '是否在数据和为0的时候仍显示扇区', 'boolean', 'true'],
         ['selectedMode', '扇区选中模式配置', 'boolean', 'false'],
         ['roseType', '是否展示成南丁格尔图', 'boolean', 'false'],
+        ['dataRules', '某个数据设置指定颜色', 'object', '无'],
 
     ],
     markdown: [
@@ -42,8 +42,7 @@ const data = {
         colorMd,
         titleMd,
         legendMd,
-        tipHtmlMd,
-        tipHtmlStyleMd,
+        tooltipMd,
         eventMd,
         dataMd,
         typeMd,
@@ -55,6 +54,7 @@ const data = {
         stillShowZeroSumMd,
         selectedModeMd,
         roseTypeMd,
+        dataRulesMd,
     ],
 };
 

@@ -11,7 +11,16 @@
  */
 import Layout from './Layout';
 import { isFunction } from '../../util/type';
+// Vue 依赖配置
+// import { createVueApp, createElement } from './frameworkFn';
 
+// React 依赖配置
+// import { renderToString } from './frameworkFn';
+
+// Angular 依赖配置
+// import { AngularViewContainerRef } from './frameworkFn';
+
+// const framework = '';
 export const NODE_ID_PREFIX = 'fc-node-';
 
 export default class NodeManager {
@@ -71,13 +80,43 @@ export default class NodeManager {
             let size = node.dom && node.dom.getBoundingClientRect();
             let innerSize = node.dom && node.dom.firstChild &&  node.dom.firstChild.getBoundingClientRect();
             // 外层容器的宽高目前是定死为50
-            node.width = size && size.width/containerPosn.scaleX;
-            node.height = size && size.height/containerPosn.scaleY;
+            node.width = size && size.width/containerPosn.scaleX || node.width;
+            node.height = size && size.height/containerPosn.scaleY || node.height;
             // 内层容器的宽高则根据实际情况计算
-            node.innerWidth = innerSize && innerSize.width/containerPosn.scaleX;
-            node.innerHeight = innerSize && innerSize.height/containerPosn.scaleY;
+            node.innerWidth = innerSize && innerSize.width/containerPosn.scaleX || node.innerWidth;
+            node.innerHeight = innerSize && innerSize.height/containerPosn.scaleY || node.innerHeight;
         });
     }
+
+
+    // // Vue 组件渲染
+    // renderVueComponentToString(Component) {
+    //     const app = createVueApp({
+    //     render() {
+    //         return createElement(Component);
+    //     }
+    //     });
+    
+    //     const container = document.createElement('div');
+    //     app.mount(container);
+    //     const html = container.innerHTML;
+    //     app.unmount();
+    //     return html;
+    // }
+
+
+    // // React 组件渲染
+    // renderReactComponentToString(Component) {
+    //     return renderToString(Component);
+    // }
+
+    // // Angular 组件渲染
+    // renderAngularNode(component, injector, ndata) {
+    //     const viewContainerRef = injector.get(AngularViewContainerRef());
+    //     const componentRef = viewContainerRef.createComponent(component);    
+    //     componentRef.instance.id = ndata.id;
+    //     return componentRef.location.nativeElement;
+    // }
 
     /**
      * 创建节点
@@ -88,10 +127,34 @@ export default class NodeManager {
         nodeDom.classList.add('fc-node');
         nodeDom.id = NODE_ID_PREFIX + id;
         let renderFun = render || this.render;
+
+
+        // 原生DOM下的渲染
         if (renderFun) {
             let dom = renderFun(nodeDom, ndata);
             dom && nodeDom.appendChild(dom)
         }
+
+        // Vue 框架下的渲染
+        // if ( framework === 'vue' && renderFun ) {
+        //     const vueDOM = renderFun(nodeDom, ndata);
+        //     const  dom = nodeDom.insertAdjacentHTML('beforeend', this.renderVueComponentToString(vueDOM));
+        //     dom && nodeDom.appendChild(dom);
+        // }
+
+        // // React 框架下的渲染
+        // if (framework === 'react' && renderFun) {
+        //     const reactDOM = renderFun(nodeDom, ndata);
+        //     const  dom = nodeDom.insertAdjacentHTML('beforeend', this.renderReactComponentToString(reactDOM));
+        //     dom && nodeDom.appendChild(dom);
+        // }
+
+        // // Angular 框架下的渲染
+        // if (framework === 'angular' && renderFun) {
+        //     const {component, injector} = renderFun(nodeDom, ndata);
+        //     const dom = this.renderAngularNode(component, injector, ndata);
+        //     dom && nodeDom.appendChild(dom)
+        // }
         return nodeDom;
     }
 

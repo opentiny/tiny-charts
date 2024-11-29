@@ -2,24 +2,26 @@ const option = {
   theme: 'light',
   padding: [70, 70, 70, 70],
   widthSpace: [10, 30],
-  tipHtml: (params, ticket, callback) => {
-    if (params.data.value !== 0 && params.data.valueBfb !== '0%') {
-      let htmlString = '';
-      if (params.name.includes('>')) {
-        params.name = params.name.replace('>', '---');
+  tooltip: {
+    formatter: (params, ticket, callback) => {
+      if (params.data.value !== 0 && params.data.valueBfb !== '0%') {
+        let htmlString = '';
+        if (params.name.includes('>')) {
+          params.name = params.name.replace('>', '---');
+        }
+        var value = params.data.value || params.value;
+        htmlString +=
+          '<span style="display:inline-block;margin-right:5px;border-radius:50%;height:10px;">' +
+          params.name +
+          '</span>' +
+          '<br/>' +
+          '<span style="display:inline-block;margin-right:5px;border-radius:50%;height:10px;">' +
+          'value' +
+          '  :  ' +
+          value +
+          '</span>';
+        return htmlString;
       }
-      var value = params.data.value || params.value;
-      htmlString +=
-        '<span style="display:inline-block;margin-right:5px;border-radius:50%;height:10px;">' +
-        params.name +
-        '</span>' +
-        '<br/>' +
-        '<span style="display:inline-block;margin-right:5px;border-radius:50%;height:10px;">' +
-        'value' +
-        '  :  ' +
-        value +
-        '</span>';
-      return htmlString;
     }
   },
   data: {

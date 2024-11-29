@@ -15,10 +15,11 @@ import router from './router';
 import main from './main.vue';
 import VueAxios from 'vue-axios';
 import { createApp, h } from 'vue';
-import { MdPreview }  from 'md-editor-v3';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-light.css';
+import VMdPreview from '@kangc/v-md-editor/lib/preview';
+import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
 import TinyThemeTool from '@opentiny/vue-theme/theme-tool';
-import 'md-editor-v3/lib/style.css';
-import 'md-editor-v3/lib/preview.css';
 
 Axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? import.meta.env.VITE_PUBLISH_URL : `/`
 const app = createApp({
@@ -26,8 +27,11 @@ const app = createApp({
     return h(main);
   },
 });
+VMdPreview.use(githubTheme, {
+  Hljs: hljs
+})
 const theme = new TinyThemeTool('', 'tinyStyleSheetId'); // 初始化主题
 app.config.globalProperties.theme = theme; // 将 theme 对象挂到 vue 实例中
 app.config.globalProperties.$bus = new mitt()
-app.use(MdPreview).use(router).use(VueAxios, Axios)
+app.use(VMdPreview).use(router).use(VueAxios, Axios)
 app.mount('#app');

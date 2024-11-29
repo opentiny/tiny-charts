@@ -64,6 +64,8 @@ function getAliasToken(globalToken, light = true) {
     colorTextPrimary: light ? colorGray90 : colorGray5, // 确定
     // 次级文本色
     colorTextSecondary: light ? colorGray60 : colorGray20, // 确定
+    // 三级文本色
+    colorTextTertiary: light ? colorGray60 : colorGray20, // 确定
     // 禁用文本色
     colorTextDisabled: light ? codeToRGB(colorGray90, 0.3) : codeToRGB(colorGray10, 0.3), // 确定
     // 图标激活色（legend翻页的颜色）
@@ -129,7 +131,7 @@ function getAliasToken(globalToken, light = true) {
     // 坐标轴线宽 2
     axisLineWidth: border2x, // 确定
     // 用于极坐标系和雷达坐标系
-    axisLineWidthSecondary:borderBase,// 确定
+    axisLineWidthSecondary: borderBase,// 确定
     // 刻度线线宽 2
     axisTickLineWidth: border2x, // 确定
     // 分隔线线宽 1
@@ -168,7 +170,7 @@ function getAliasToken(globalToken, light = true) {
     symbolSizeSM: size2x,
     // 图元的边框0
     symbolBorderWidthNone: borderNone,
-     // 图元的边框
+    // 图元的边框
     symbolBorderWidth: border2x,
     // 柱条的宽度
     barWidth: size2x,

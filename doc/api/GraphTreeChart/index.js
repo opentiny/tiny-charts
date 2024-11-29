@@ -1,7 +1,7 @@
 import { themeMd, theme } from '../common/theme'
 import { colorMd, color } from '../common/color'
 import { paddingMd, padding } from '../common/padding'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import { eventMd, event } from '../common/event'
 import dataMd from './data.md?raw'
 import chartPositionMd from './chartPosition.md?raw'

@@ -5,7 +5,7 @@
 对于直角坐标系类图表，通常需要将图表左右两侧与容器左右两侧顶格对齐：
 
 <div class="img-warpper">
-    <div class="img-container" style="padding-top: 32px;padding-bottom: 32px;">
+    <div class="img-container">
         <img src="{{VITE_BASEROUTER}}./image/md/axisMarginDesign.png"/>
     </div>
 </div>
@@ -30,7 +30,7 @@
 
 </br>
 
-{{VITE_BASECOPYRIGHTS}} HUICharts 提供了若干网格对齐方式，您可以根据页面开发场景，选择对应的对齐方式。
+{{VITE_BASECOPYRIGHTS}} 提供了若干网格对齐方式，您可以根据页面开发场景，选择对应的对齐方式。
 
 
 ## padding 属性
@@ -54,7 +54,7 @@ let chartOption = {
 ```
 
 ## xAxis.fullGrid 属性
-图表配置项 option 中的 `xAxis.fullGrid` 属性用来控制图表x轴两边留白，在{{VITE_BASECOPYRIGHTS}} HUICharts中该属性默认为 `false` ，即默认x轴两边有留白。
+图表配置项 option 中的 `xAxis.fullGrid` 属性用来控制图表x轴两边留白，在{{VITE_BASECOPYRIGHTS}} 中该属性默认为 `false` ，即默认x轴两边有留白。
 
 当 `fullGrid` 为 `true` 时，图表曲线占满整个x轴，此时通常搭配 `padding` 一起使用，否则x轴刻度label有可能会被容器截断
 
@@ -132,6 +132,7 @@ let chartOption = {
         margin-bottom: 16px;
         align-items: center;
         flex-direction: row;
+        background-color:#ffffff;
         justify-content: space-between;
     }
     .img-double{
@@ -141,7 +142,7 @@ let chartOption = {
         width: 100%;
     }
     .img-container{
-        border:1px solid var(--ti-base-color-common-1);
+        border:1px solid #ccc;
         position:relative;
         margin:0 auto;
         width: 650px;

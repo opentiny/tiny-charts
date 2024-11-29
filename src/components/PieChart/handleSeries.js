@@ -65,30 +65,37 @@ function setPieRadius(pieType, radius) {
 /**
  * 数据为零时添加背景
  */
-function handleEmptyData(data, series, center, radius) {
+function handleEmptyData(data, series, center, radius, stillShowZeroSum, legend, colorArr) {
   const total = data.reduce((pre, cur) => {
     pre = pre + cur.value;
     return pre;
   }, 0);
 
   if (total === 0) {
-    series.forEach(item => {
-      item.stillShowZeroSum = false;
-      item.itemStyle.borderWidth = chartToken.borderWidthShowZero;
-    });
-    series.push({
-      type: 'pie',
-      radius,
-      center,
-      label: {
-        show: false,
-      },
-      emptyCircleStyle: {
-        color: chartToken.colorShowZero,
-      },
-      silent: true,
-      animation: false,
-    });
+    if (stillShowZeroSum === false) {
+      series.forEach(item => {
+        item.label = false;
+        item.itemStyle.borderWidth = chartToken.borderWidthShowZero;
+      });
+      series.push({
+        type: 'pie',
+        radius,
+        center,
+        emptyCircleStyle: {
+          color: chartToken.colorShowZero,
+        },
+        silent: true,
+        animation: false,
+      });
+    } else {
+      (legend.data !== undefined) && legend.data.forEach((item, index) => {
+        item.itemStyle = { color: colorArr[index] };
+      });
+      series.forEach(item => {
+        item.animation = false;
+        item.color = chartToken.colorShowZero;
+      });
+    }
   }
 }
 
@@ -128,6 +135,23 @@ function mergeDefaultSeries(seriesUnit) {
   }
 }
 
+// 给某个data指定的颜色
+function setColor(iChartOption) {
+  const data = iChartOption.data;
+  let initColorGroup = iChartOption.initColor.concat();
+  const colorData = iChartOption.dataRules && iChartOption.dataRules.color;
+  if (colorData && isArray(initColorGroup)) {
+    for (let key in colorData) {
+      data.forEach((item, index) => {
+        if (item.name === key && initColorGroup[index] && colorData[key]) {
+          initColorGroup[index] = colorData[key];
+        }
+      })
+    }
+  }
+  iChartOption.color = initColorGroup;
+}
+
 /**
  * 组装echarts所需要的series
  * @param {数据} data
@@ -148,7 +172,7 @@ const config = [
   'minAngle',
 ];
 
-function handleSeries(pieType, iChartOption, chartInstance, position) {
+function handleSeries(pieType, iChartOption, chartInstance, position, legend) {
   const { data, stillShowZeroSum } = iChartOption;
   position = position || {};
   iChartOption.center = position?.center;
@@ -160,6 +184,10 @@ function handleSeries(pieType, iChartOption, chartInstance, position) {
   if (selfSeries === undefined) {
     selfSeries = [{}];
   }
+  // 保留初始的颜色数组
+  iChartOption.initColor = iChartOption.color;
+  // 给某个data指定的颜色
+  setColor(iChartOption);
   selfSeries.forEach(seriesItem => {
     const seriesUnit = seriesItem;
     const temp = cloneDeep(iChartOption);
@@ -178,10 +206,8 @@ function handleSeries(pieType, iChartOption, chartInstance, position) {
     // 默认样式合并
     mergeDefaultSeries(seriesUnit);
   });
-  // 数据和为0时不显示扇区 数据和为0时series属性都是一级
-  if (stillShowZeroSum === false) {
-    handleEmptyData(data, selfSeries, selfSeries[0].center, selfSeries[0].radius);
-  }
+  // 数据和为0
+  handleEmptyData(data, selfSeries, selfSeries[0].center, selfSeries[0].radius, stillShowZeroSum, legend, iChartOption.color);
   series = selfSeries;
   return series;
 }

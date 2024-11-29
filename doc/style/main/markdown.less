@@ -48,7 +48,7 @@
   h6 {
     color: var(--ti-base-color-common-7);
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 4px;
     line-height: 1.1;
   }
 
@@ -66,8 +66,9 @@
 
     li {
       list-style: disc;
+      line-height: 1.6;
       color: var(--ti-base-color-common-6);
-      margin: 5px 0;
+      margin: 0.5em 0;
     }
   }
 
@@ -76,14 +77,81 @@
     padding-left: 25px;
 
     li {
-      color: var(--ti-base-color-common-2);
       margin: 5px 0;
       list-style: decimal;
     }
   }
 
   table {
-    color: var(--ti-base-color-common-2);
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    tr {
+      th {
+        color: var(--ti-base-color-common-2);
+        font-weight: normal;
+
+        &:not(:last-child) {
+          border-right-color: transparent;
+        }
+      }
+
+      td {
+        color: var(--ti-common-color-info-normal);
+
+        &:nth-child(2) {
+          color: #bf2a5c;
+        }
+
+        &:first-child {
+          font-weight: 600;
+        }
+
+        &:not(:last-child) {
+          border-right-color: transparent;
+        }
+      }
+
+      th,
+      td {
+        padding: 8px 14px;
+        border-top: 1px solid var(--ti-common-color-line-dividing);
+
+        &:first-child {
+          border-left: 1px solid var(--ti-common-color-line-dividing);
+        }
+
+        &:last-child {
+          border-right: 1px solid var(--ti-common-color-line-dividing);
+        }
+      }
+
+    }
+
+    thead tr {
+      background: var(--ti-base-color-bg-1);
+    }
+
+    td:not(:last-child) {
+      border-right-color: transparent;
+    }
+
+    tbody {
+
+      tr,
+      tr:nth-child(2n) {
+        background: var(--ti-common-color-bg-white-normal);
+
+        &:hover {
+          background-color: var(--ti-base-color-bg-1);
+        }
+      }
+
+      tr:last-child td {
+        border-bottom: 1px solid var(--ti-common-color-line-dividing);
+      }
+    }
   }
 
   code {
@@ -100,7 +168,7 @@
       font-size: 14px;
       max-width: initial;
       overflow: initial;
-      line-height: 2;
+      line-height: 1.5;
       word-wrap: normal;
       display: block;
       overflow-x: auto;
@@ -124,6 +192,13 @@
     margin: 0 3rem;
   }
 }
-
+.markdown-layout {
+    .github-markdown-body {
+        pre {
+            code {
+                max-height: 600px;
+            }
+        }
+    }
+}
 // 子级标题样式
-

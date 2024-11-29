@@ -1,6 +1,6 @@
 import { themeMd, theme } from '../common/theme'
 import { colorMd, color } from '../common/color'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import dataMd from './data.md?raw'
 import seriesMd from './series.md?raw'
 import backgroundStyleMd from './backgroundStyle.md?raw'
@@ -13,7 +13,7 @@ const data = {
   dataset: [
     theme,
     color,
-    tipHtml,
+    tooltip,
     ['waveAnimation', '图表动画', 'boolean', 'true'],
     ['backgroundStyle', '图表背景配置', 'object', '默认显示'],
     ['shape', '图表形状', 'string', '默认显示'],
@@ -26,7 +26,7 @@ const data = {
   markdown: [
     themeMd,
     colorMd,
-    tipHtmlMd,
+    tooltipMd,
     waveAnimationMd,
     backgroundStyleMd,
     shapeMd,

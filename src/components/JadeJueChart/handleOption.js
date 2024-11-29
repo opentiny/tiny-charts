@@ -15,7 +15,7 @@ import defendXSS from '../../util/defendXSS';
 
 // 配置玉玦图默认线宽为8
 export function setbarWidth(iChartOption, baseOpt) {
-  const { barWidth = 16 } = iChartOption;
+  const { barWidth = 8 } = iChartOption;
   baseOpt.series.forEach(series => {
     series.barWidth = barWidth;
   });

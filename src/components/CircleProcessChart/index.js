@@ -11,15 +11,15 @@
  */
 import init from '../../option/init';
 import mini from '../../feature/mini/miniCircleProcessChart';
-import { event } from '../../util/event';
 import { getSeriesData, setTooltip } from './handleOption';
 import { setSeries } from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 export default class CircleProcessChart {
 
-  static name = CHART_TYPE.CIRCLE_PROCESS
+  static name = CHART_TYPE.CIRCLE_PROCESS;
 
   constructor(iChartOption, chartInstance) {
     this.baseOption = {};
@@ -41,10 +41,7 @@ export default class CircleProcessChart {
     // series bar数据
     const seriesData = getSeriesData(iChartOption.data);
     this.baseOption.series = setSeries(seriesData, iChartOption);
-    // 配置图表事件
-    if (iChartOption.event) {
-      event(chartInstance, iChartOption.event);
-    }
+    mergeSeries(iChartOption, this.baseOption);
     mini(iChartOption, this.baseOption);
   }
   getOption() {

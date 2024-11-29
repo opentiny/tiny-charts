@@ -2,7 +2,7 @@
 
 ## 内置主题
 
-{{VITE_BASECOPYRIGHTS}} HUICharts 目前内置了7种皮肤主题色，包括：
+{{VITE_BASECOPYRIGHTS}} 目前内置了7种皮肤主题色，包括：
 - ICT3.0图表浅色主题`light`
 - ICT3.0图表深色主题`dark`
 - 华为云图表浅色主题`cloud-light`
@@ -16,7 +16,7 @@
 您可以通过 `HuiCharts.theme(name)` 方法设置全局主题，此时图表会自动应用全局主题。
 
 ```javascript
-// 引用图表库。
+// 引用图表库
 import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
 // 全局设置图表主题，该方法需要传入主题名称。
 HuiCharts.theme('cloud-light');
@@ -27,7 +27,7 @@ HuiCharts.theme('cloud-light');
 
 ## 自定义全局主题
 
-当 {{VITE_BASECOPYRIGHTS}} HUICharts 的内置主题无法满足您的场景时，您可以通过`HuiCharts.registerTheme(name, config)` 全局注册自定义主题来使用。
+当 {{VITE_BASECOPYRIGHTS}} 的内置主题无法满足您的场景时，您可以通过`HuiCharts.registerTheme(name, config)` 全局注册自定义主题来使用。
 
 ```javascript
 // 引用图表库

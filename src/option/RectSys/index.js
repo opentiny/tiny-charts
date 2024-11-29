@@ -15,6 +15,7 @@ import yAxis from '../config/yAxis';
 import legend from '../config/legend';
 import tooltip from '../config/tooltip';
 import datazoom from '../config/datazoom';
+import toolbox from '../config/toolbox'
 // 暴露出去的方法
 import xkey from '../config/xAxis/xkey';
 import xdata from '../config/xAxis/xdata';
@@ -28,7 +29,7 @@ function RectCoordSys(baseOpt, iChartOpt, chartName) {
     // 图表基础颜色
     baseOpt.color = iChartOpt.color;
     // 图表x坐标轴
-    baseOpt.xAxis = xAxis(iChartOpt, chartName);
+    baseOpt.xAxis = xAxis(iChartOpt);
     // 图表y坐标轴
     baseOpt.yAxis = yAxis(baseOpt, iChartOpt, chartName);
     // 图表鼠标悬浮提示框
@@ -37,6 +38,8 @@ function RectCoordSys(baseOpt, iChartOpt, chartName) {
     baseOpt.legend = legend(iChartOpt, chartName);
     // 图表datazoom
     baseOpt.dataZoom = datazoom(iChartOpt);
+    // 图表toolbox
+    baseOpt.toolbox = toolbox(iChartOpt)
 }
 
 export default RectCoordSys;

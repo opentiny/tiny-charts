@@ -2,8 +2,14 @@ const option = {
     theme: 'light',
     type: 'circle',
     silent: true,
-    minAngle: 0,
-    stillShowZeroSum: false,
+    stillShowZeroSum: true,
+    legend: {
+        show: true,
+        data: [
+            { name: 'VPC' },
+            { name: 'EIP' },
+        ],
+    },
     title: {
         text: '{a|0}\n{b|链路总数}',
         top: '40%',
@@ -19,12 +25,6 @@ const option = {
                 },
             }
         },
-    },
-    label: {
-        show: false,
-    },
-    legend: {
-        show: false
     },
     data: [
         { value: 0, name: 'VPC' },

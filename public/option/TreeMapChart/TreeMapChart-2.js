@@ -1,17 +1,19 @@
 const option = {
     theme: 'light',
-    tipHtml: (params, ticket, callback) => {
-        let htmlString = '';
-        let data = params.data;
-        htmlString +=
-            '<div>' +
-            '<span style="width:10px;display:inline-block;height:10px;border-radius:5px; background-color:' + params.color + ';">' +
-            '</span>' +
-            '<span style="margin-left:5px;>' +
-            '<span style="display:inline-block;">' + data.name + '</span>' +
-            '<span> ' + data.value + '</span>' +
-            '</div>';
-        return htmlString
+    tooltip: {
+        formatter: (params, ticket, callback) => {
+            let htmlString = '';
+            let data = params.data;
+            htmlString +=
+                '<div>' +
+                '<span style="width:10px;display:inline-block;height:10px;border-radius:5px; background-color:' + params.color + ';">' +
+                '</span>' +
+                '<span style="margin-left:5px;>' +
+                '<span style="display:inline-block;">' + data.name + '</span>' +
+                '<span> ' + data.value + '</span>' +
+                '</div>';
+            return htmlString
+        }
     },
     data: [{
         value: 40,

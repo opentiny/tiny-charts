@@ -67,6 +67,7 @@ export const seriesInit = () => {
       show: false,
       color: chartToken.labelColor,
       fontSize: chartToken.fontSize,
+      distance: 0,
     },
     // 数据
     data: [],
@@ -161,9 +162,9 @@ function handleMarkLine(seriesUnit, iChartOption, direction) {
   const isBottomMarkLine =
     markLine && markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(name) === -1);
   if (isTopMarkLine || isBottomMarkLine) {
-    seriesUnit.markLine = cloneDeep(getMarkLineDefault());
+    seriesUnit.markLine = getMarkLineDefault(true)
     merge(seriesUnit.markLine, markLine);
-    seriesUnit.markLine.lineStyle.color = markLine.color || Theme.config.colorState.colorError;
+    if (markLine.color) seriesUnit.markLine.lineStyle.color = markLine.color
   }
   if (isTopMarkLine) {
     if (direction && direction === 'horizontal') {
@@ -234,6 +235,14 @@ function handleStack(type, seriesUnit, index, legendData, iChartOption) {
   }
 }
 
+function percentToDecimal(percentStr) {
+  // 移除百分号
+  let numberStr = percentStr.replace(/%/, '');
+  // 转换为小数
+  let decimal = Number(numberStr) / 100;
+  return decimal;
+}
+
 /**
  * 组装echarts所需要的series
  * @param {图表数据} seriesData
@@ -255,6 +264,7 @@ export function setSeries(seriesData, legendData, iChartOption) {
   const seriesInit_ = handleItemStyle(direction, iChartOption.itemStyle);
   // 拼装series
   const series = [];
+  
   legendData.forEach((legend, index) => {
     const seriesUnit = cloneDeep(seriesInit_);
     // 数值显示
@@ -263,14 +273,34 @@ export function setSeries(seriesData, legendData, iChartOption) {
     handleFocus(seriesUnit, iChartOption);
     // 数据 / 数据名称
     seriesUnit.name = legend;
-    // 如果设置了 barMinHeight，那么就把数据里面的0设置成null
-    if (iChartOption.itemStyle && iChartOption.itemStyle.barMinHeight) {
-      seriesUnit.data = seriesData[legend].map((item) => {
-        return item === 0 ? undefined : item;
-      })
+    
+
+    if (iChartOption.itemStyle && iChartOption.itemStyle.barMinHeight ) {
+      const barMinHeight = iChartOption.itemStyle.barMinHeight;
+      seriesUnit.data = seriesData[legend];
+      // 如果有%根据数据最大值来计算最小高度，是数值则按echarts原生属性控制
+      if(barMinHeight.toString().indexOf('%') !== -1){
+        let itemMaxData = []
+        legendData.forEach((legend) => {
+          itemMaxData.push(Math.max.apply(null,seriesData[legend]))
+        })
+        const MaxData = Math.max.apply(null,itemMaxData)
+       
+        let minNum = MaxData*percentToDecimal(barMinHeight);
+        for (let i = 0; i < seriesUnit.data.length; i++) {
+          if(!seriesUnit.data[i] == 0) {
+            seriesUnit.data[i]  = seriesUnit.data[i]  < minNum ? minNum : seriesUnit.data[i];
+          }
+        }
+      } else {
+        // 如果设置了 barMinHeight，那么就把数据里面的0设置成null
+        seriesUnit.data = seriesData[legend].map((item) => {
+          return item === 0 ? undefined : item;
+        })
+      }
     } else {
       seriesUnit.data = seriesData[legend];
-    }
+    } 
     // 阈值线
     handleMarkLine(seriesUnit, iChartOption, direction);
     // 堆叠图
@@ -349,11 +379,11 @@ function handleBottomObj(d, direction, percent, originColor, markLineColor) {
   return bottomObj;
 }
 
-function getColorStopsOrigin(){
-return  [
-  { offset: 0, color: Theme.config.colorState.colorError },
-  { offset: 1, color: Theme.config.colorState.colorError },
-];
+function getColorStopsOrigin() {
+  return [
+    { offset: 0, color: Theme.config.colorState.colorError },
+    { offset: 1, color: Theme.config.colorState.colorError },
+  ];
 }
 
 
@@ -601,15 +631,23 @@ export function setWaterFall(baseOption, iChartOption) {
  * 因此对 tooltip.formatter 进行二次封装
  */
 export function setLimitFormatter(baseOption, iChartOption, seriesData) {
-
   const type = iChartOption.type;
   const toolTipFormatter = baseOption.tooltip.formatter;
   const exclude = ['Placeholder'];
   const colors = baseOption.color;
+  const barMinHeight = iChartOption.itemStyle && iChartOption.itemStyle.barMinHeight;
   baseOption.tooltip.formatter = (params, ticket, callback) => {
     const newParams = params.filter(item => {
       return exclude.indexOf(item.seriesName) === -1;
     });
+    // 如果设置了最小高度高度，并按%计算，将newParams值重新校正
+    if(barMinHeight && barMinHeight.toString().indexOf('%') !== -1) {
+      newParams.forEach((item) => {
+        if(iChartOption.data && iChartOption.data[item.dataIndex] && isNumber(iChartOption.data[item.dataIndex][item.seriesName])){
+          item.data = item.value = iChartOption.data[item.dataIndex][item.seriesName]
+        }
+      })
+    }
     if (toolTipFormatter) {
       return toolTipFormatter(newParams, ticket, callback);
     }
@@ -632,8 +670,8 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
                             <span style="font-weight:bold">
                               ${defendXSS(
         type === 'range' ?
-          `${`${`[${params[index * 2].value}`}-${params[index * 2].value + item.value}`}]`
-          : (item.value || seriesData[item.seriesName][item.dataIndex]),
+        `${`${`[${params[index * 2].value}`}-${params[index * 2].value + item.value}`}]`
+        : (item.value || seriesData[item.seriesName][item.dataIndex]),
       )}
                             </span>
                         </span>

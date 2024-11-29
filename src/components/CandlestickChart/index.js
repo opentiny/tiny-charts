@@ -10,7 +10,6 @@
  *
  */
 import init from '../../option/init';
-import { event } from '../../util/event';
 import RectCoordSys from '../../option/RectSys';
 import {
   handleData,
@@ -54,7 +53,6 @@ class CandlestickChart {
     handleDataZoom(this.baseOption, iChartOption);
     handleLegend(this.baseOption, iChartOption);
     handleAxisPointer(this.baseOption);
-    event(this.chartInstance, iChartOption.event);
     mergeSeries(iChartOption, this.baseOption);
   }
 

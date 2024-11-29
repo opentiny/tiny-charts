@@ -1,6 +1,6 @@
 # 皮肤主题
 
-{{VITE_BASECOPYRIGHTS}} HUICharts目前内置了7种皮肤主题色，包括：
+{{VITE_BASECOPYRIGHTS}} 目前内置了7种皮肤主题色，包括：
 - ICT3.0图表浅色主题
 - ICT3.0图表深色主题
 - 华为云图表浅色主题

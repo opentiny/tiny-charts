@@ -4,7 +4,6 @@
 
 <script>
 import 'echarts-wordcloud';
-import 'echarts-liquidfill';
 import '../../../src/index.less';
 import IntegrateChart from '../../../src/index';
 import WaveChart from '../../../src/components/WaveChart';

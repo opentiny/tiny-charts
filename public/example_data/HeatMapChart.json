@@ -63,6 +63,11 @@
           "name": "日历热力图-颜色变化",
           "routePath": "HeatMapChart-14",
           "imagePath": "./image/theme/light/HeatMapChart/HeatMapChart-14.png"
+        },
+        {
+          "name": "日历热力图-分段类型视觉滑块",
+          "routePath": "HeatMapChart-15",
+          "imagePath": "./image/theme/light/HeatMapChart/HeatMapChart-15.png"
         }
       ]
     },

@@ -12,6 +12,7 @@
 import xAxis from '../../option/config/xAxis';
 import yAxis from '../../option/config/yAxis';
 import defendXSS from '../../util/defendXSS';
+import { CHART_TYPE } from '../../util/constants';
 
 /**
  * Tips提示框回调函数
@@ -49,7 +50,7 @@ function handleXaxis(baseOpt, iChartOpt) {
 }
 
 function handleYaxis(baseOpt, iChartOpt) {
-  const basicYaxis = yAxis(baseOpt, iChartOpt);
+  const basicYaxis = yAxis(baseOpt, iChartOpt, CHART_TYPE.BULLET);
   baseOpt.yAxis = basicYaxis;
 }
 

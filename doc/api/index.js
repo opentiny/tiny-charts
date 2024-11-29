@@ -80,5 +80,5 @@ export default {
     OrganizationChart,
     CircleProcessChart,
     AssembleBubbleChart,
-    BulletChart,
+    BulletChart
 };

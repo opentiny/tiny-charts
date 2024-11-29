@@ -8,8 +8,6 @@ const option = {
       type: 'Round',
       radius: 8,
     },
-    // 禁止节点拖拽
-    slient: true,
     render: (container, data) => {
         let id = data.id;
         let node = `<div class="flowChart-node">${data.text}<div class="user">审批人：赵一</div></div>`;

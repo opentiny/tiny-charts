@@ -29,5 +29,5 @@ series:{
       }
 ```
 
-说明：自定义series，{{VITE_BASECOPYRIGHTS}} HUICharts仅对此部分的series进行覆盖，详细参数解释见： 
+说明：自定义series，{{VITE_BASECOPYRIGHTS}} 仅对此部分的series进行覆盖，详细参数解释见： 
 <a href='https://echarts.apache.org/zh/option.html#series-funnel' target="_blank">https://echarts.apache.org/zh/option.html#series-funnel</a>。

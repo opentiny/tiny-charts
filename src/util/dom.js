@@ -9,6 +9,8 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
+import { isArray } from './type';
+
 // 插入HTML元素
 const appendHTML = (dom, child) => {
     dom.insertAdjacentHTML('beforeend', child);
@@ -27,11 +29,27 @@ const createDom = (name) => {
 // 元素绑定样式
 const setStyle = (dom, option) => {
     for (let i in option) {
-        if(Object.hasOwnProperty.call(option,i)){
+        if (Object.hasOwnProperty.call(option, i)) {
             dom.setAttribute(i, option[i]);
-        }      
+        }
     }
 };
+
+//给指定dom添加class类名，classList为数组类型
+function addClass(dom, classes) {
+    if (isArray(classes)) {
+        classes.forEach(cls => {
+            dom.classList.add(cls);
+        });
+    } else {
+        dom.classList.add(classes);
+    }
+}
+
+//给指定dom添加或更改属性
+function attr(dom, key, value) {
+    dom.setAttribute(key, value);
+}
 
 // 判断父元素是否为指定的 class
 const isParent = (targetElement, parentClass) => {
@@ -64,6 +82,8 @@ export {
     appendHTML,
     appendDom,
     createDom,
+    addClass,
+    attr,
     setStyle,
     isParent,
     getTextWidth

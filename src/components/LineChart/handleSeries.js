@@ -11,7 +11,7 @@
  */
 import cloneDeep from '../../util/cloneDeep';
 import { isString, isObject } from '../../util/type';
-import { getMarkLineDefault, getMarkPointDefault } from '../../option/config/mark';
+import { getMarkLineDefault, getMarkPointDefault, setThresholdMarkLineLabel } from '../../option/config/mark';
 import chartToken from './chartToken';
 import Theme from '../../feature/token';
 
@@ -70,12 +70,13 @@ function handleItemStyle(seriesUnit, itemStyle) {
   }
 }
 
-function isTopOrBottom(markLine, seriesUnit, colorError, flag) {
+function isTopOrBottom(markLine, seriesUnit, flag) {
   let position = '';
   let markLinePosition = '';
   let markLineLabel = '';
   let markLineColor = '';
   let markLinelLineStyle;
+  let markLineData = {};
   if (flag === 'top') {
     position = markLine.top;
     markLinePosition = markLine.topPosition
@@ -89,27 +90,31 @@ function isTopOrBottom(markLine, seriesUnit, colorError, flag) {
     markLineColor = markLine.bottomColor
     markLinelLineStyle = markLine.bottomLine
   }
-
-  var markLineData = {};
   if (isString(position)) {
     markLineData = { type: position };
   } else {
     markLineData = { yAxis: position };
   }
+
   markLineData.label = { show: false, position: 'insideEndTop' };
   markLineData.lineStyle = {};
-  markLinePosition && (markLineData.label.position = markLinePosition || 'insideStartTop');
-  markLineLabel && (markLineData.label.show = true);
-  markLineLabel && (markLineData.label.color = 'auto');
-  markLineLabel && (markLineData.label.formatter = markLineLabel);
+  // 没有配置颜色，认为是阈值线，加载阈值线的label配置
   if (!markLineColor) {
-    markLineColor = colorError;
+    setThresholdMarkLineLabel(markLineData)
+  }
+  markLinePosition && (markLineData.label.position = markLinePosition);
+  if (markLineLabel) {
+    markLineData.label.show = true
+    markLineData.label.color = 'inherit'
+    markLineData.label.formatter = markLineLabel
   }
   if (markLineColor === 'auto') {
     markLineColor = undefined;
   }
-  markLineColor && (markLineData.label.color = markLineColor);
-  markLineColor && (markLineData.lineStyle.color = markLineColor);
+  if (markLineColor) {
+    markLineData.label.color = markLineColor
+    markLineData.lineStyle.color = markLineColor
+  }
   if (markLinelLineStyle === false) {
     markLineData.lineStyle.color = chartToken.color;
   }
@@ -117,18 +122,17 @@ function isTopOrBottom(markLine, seriesUnit, colorError, flag) {
 }
 
 function handleMarkLine(markLine, seriesUnit, seriesName) {
-  seriesUnit.markLine = cloneDeep(getMarkLineDefault());
-  const { colorError } = Theme.config.colorState
+  seriesUnit.markLine = getMarkLineDefault()
   if (markLine.top && !(markLine.topUse && markLine.topUse.indexOf(seriesName) === -1)) {
-    isTopOrBottom(markLine, seriesUnit, colorError, 'top')
+    isTopOrBottom(markLine, seriesUnit, 'top')
   }
   if (markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(seriesName) === -1)) {
-    isTopOrBottom(markLine, seriesUnit, colorError, 'bottom')
+    isTopOrBottom(markLine, seriesUnit, 'bottom')
   }
 }
 
 function handleMarkPoint(markPoint, seriesUnit, seriesName) {
-  seriesUnit.markPoint = cloneDeep(getMarkPointDefault());
+  seriesUnit.markPoint = getMarkPointDefault();
   const { colorError } = Theme.config.colorState
   if (markPoint.max && !(markPoint.maxUse && markPoint.maxUse.indexOf(seriesName) === -1)) {
     const max = {

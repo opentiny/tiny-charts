@@ -1,7 +1,7 @@
 import { themeMd, theme } from '../common/theme'
 import { colorMd, color } from '../common/color'
 import { paddingMd, padding } from '../common/padding'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import { eventMd, event } from '../common/event'
 import dataMd from './data.md?raw'
 import gridSizeMd from './gridSize.md?raw'
@@ -19,7 +19,7 @@ const data = {
     dataset: [
         theme,
         color,
-        tipHtml,
+        tooltip,
         ['data', '图表数据', 'array', '无'],
         ['gridSize', '词云图文本间距', 'number', '16'],
         ['sizeRange', '字体范围', 'array', '[14,60]'],
@@ -35,7 +35,7 @@ const data = {
     markdown: [
         themeMd,
         colorMd,
-        tipHtmlMd,
+        tooltipMd,
         dataMd,
         gridSizeMd,
         sizeRangeMd,

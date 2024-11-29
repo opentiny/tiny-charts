@@ -12,9 +12,8 @@
 import base from './base';
 import title from '../rectTitle';
 import { isArray } from '../../../util/type';
-import fluctuation from '../../../feature/fluctuation/index';
-import { transformData } from '../../../feature/fluctuation/index';
 import merge from '../../../util/merge';
+import axisOptimization from './axisOptimization'
 
 function isNeedTitle(yAxisOpt, yAxisName) {
   if (yAxisName) {
@@ -26,7 +25,7 @@ function isNeedTitle(yAxisOpt, yAxisName) {
   return false;
 }
 
-function yAxis(baseOpt, iChartOpt, chartName) {
+function yAxis(baseOpt, iChartOpt, chartName, callback) {
   let yAxisOpt = iChartOpt.yAxis;
   const yAxisName = iChartOpt.yAxisName;
   const data = iChartOpt.data;
@@ -55,22 +54,10 @@ function yAxis(baseOpt, iChartOpt, chartName) {
     if (item && item.splitLine) {
       item.splitLine = Object.assign(temp.splitLine, item.splitLine);
     }
-    // 静态给定y轴优化范围
-    if (item && item.fluctuation == true) {
-      const newdata = transformData(data);
-      const value = fluctuation(newdata);
-      temp.min = value[0];
-      temp.max = value[1];
-    }
-    // 动态优化y轴范围
-    if (item && item.allowRange) {
-      const newdata = transformData(data);
-      const value = fluctuation(newdata, item.allowRange);
-      temp.min = value[0];
-      temp.max = value[1];
-    }
+    axisOptimization(item, temp, data)
+    callback && callback(temp, index)
     temp = merge(temp, item);
-    if (index == 0 && yAxisOpt.length == 1 && temp.position !== 'right') {
+    if (index === 0 && yAxisOpt.length === 1 && temp.position !== 'right') {
       delete temp.name;
     }
     yAxis.push(temp);

@@ -20,7 +20,7 @@ chartIns.onRenderReady(callback);
 ```
 
 ## 图表适配屏幕宽度
-{{VITE_BASECOPYRIGHTS}} HUICharts默认开启支持自动适应屏幕宽度，当您希望手动调用时，可以使用：
+{{VITE_BASECOPYRIGHTS}} 默认开启支持自动适应屏幕宽度，当您希望手动调用时，可以使用：
 ```javascript
 chartIns.setResize();
 ```

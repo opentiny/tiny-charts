@@ -10,7 +10,6 @@
  *
  */
 import init from '../../option/init';
-import { event } from '../../util/event';
 import { getSeriesData, getLabelData, setTooltip } from './handleOption';
 import { setSeries } from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
@@ -53,11 +52,6 @@ export default class PolarBarChart {
             // pie数据
             const labelData = getLabelData(data);
             this.baseOption.series = setSeries(seriesData, labelData, iChartOption, this.baseOption.polar, type);
-        }
-
-        // 配置图表事件
-        if (iChartOption.event) {
-            event(chartInstance, iChartOption.event);
         }
     }
     getOption() {

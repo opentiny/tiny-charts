@@ -9,9 +9,9 @@ const prefixNameSource = [
 const suffixSourceThirteen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const nameSource = []
 prefixNameSource.forEach(i => {
-    suffixSourceThirteen.forEach(j => {
-      const name = `${i}${j}`
-      nameSource.push(name)
+  suffixSourceThirteen.forEach(j => {
+    const name = `${i}${j}`
+    nameSource.push(name)
   })
 })
 const valueSource = [
@@ -79,8 +79,8 @@ const valueSource = [
 
 const data = nameSource.map((itemThirteen, index) => {
   return {
-      name: itemThirteen,
-      value: valueSource[index]
+    name: itemThirteen,
+    value: valueSource[index]
   }
 })
 const option = {
@@ -93,20 +93,21 @@ const option = {
   color: ['#FFFFFF', '#448DFF', '#4350EA', '#33307C', '#242648', '#973152', '#F8364D'],
   // 蜂窝的排列数量,默认值40,
   quantity: 40,
-  tipHtml: (params, ticket, callback) => {
-    const color = params.color;
-    const data = params.data;
-    const [x, y, z, r, dataItem, ...others] = data;
-    let htmlString = '<div style="margin-bottom:4px;">自定义蜂窝热力图提示框</div>';
-    htmlString +=
-      `${
-        '<div style="margin-bottom:4px;">' +
+  tooltip: {
+    formatter: (params, ticket, callback) => {
+      const color = params.color;
+      const data = params.data;
+      const [x, y, z, r, dataItem, ...others] = data;
+      let htmlString = '<div style="margin-bottom:4px;">自定义蜂窝热力图提示框</div>';
+      htmlString +=
+        `${'<div style="margin-bottom:4px;">' +
         '<span style="display:inline-block;width:10px;height:10px;margin-right:8px;border-radius:5px;border-style:solid;border-width:1px;border-color:'
-      }${color};background-color:${color};"></span>` +
-      `<span style="margin-right:40px;">${dataItem.name}:</span>` +
-      `<span>${z}</span>` +
-      '</div>';
-    return htmlString;
+        }${color};background-color:${color};"></span>` +
+        `<span style="margin-right:40px;">${dataItem.name}:</span>` +
+        `<span>${z}</span>` +
+        '</div>';
+      return htmlString;
+    },
   },
   data: data,
   event: {

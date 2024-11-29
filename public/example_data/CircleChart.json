@@ -1,0 +1,16 @@
+{
+  "title": "环形图 CircleChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "环形图-默认布局",
+          "routePath": "CircleChart-1",
+          "imagePath": "./image/theme/light/CircleChart/CircleChart-1.png"
+        }
+        
+      ]
+    }
+  ]
+}

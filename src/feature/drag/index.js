@@ -22,25 +22,32 @@ let enableWheel = true;
 // 支持鼠标拖拽和鼠标滚轮缩放
 class DragManager {
     constructor(container, option) {
-        option = merge({ scale: 1 }, option);
+        option = merge({
+            scale: 1, // 初始缩放值
+            scaleLimit: { min: 0.5, max: 1.5 }, // 缩放范围
+            size: DOM_WIDTH, // 画布尺寸
+            isScale: true, // 允许缩放
+            scaleThrottle: false, // 缩放节流
+        }, option);
         // 画布容器
         this.container = container;
-        DOM_WIDTH = option.size || DOM_WIDTH;
-        DOM_HEIGHT = option.size || DOM_HEIGHT;
+        DOM_WIDTH = option.size;
+        DOM_HEIGHT = option.size;
         this.isScale = option.isScale;
-        // 当前缩放值
-        this.scale = option.scale || 1;
+        // 当前缩放值(初始化时，将其约束在极值范围之内)
+        this.scale = Math.min(Math.max(option.scale, option.scaleLimit.min), option.scaleLimit.max);
         // 创建被拖拽画布
         this.insertDragDom();
         // 初始化画布位置到屏幕正中心
         this.initPosition();
         // 创建操作按钮
         this.createTools(option);
-        this.scalePauseArr = [0.5, 0.7, 0.9, 1, 1.5]; // 缩放停顿值 三个区间，每个区间停顿两次
+        this.scaleThrottle = option.scaleThrottle;
+        this.scalePauseArr = [option.scaleLimit.min, 0.7, 0.9, 1, option.scaleLimit.max]; // 缩放停顿值 三个区间，每个区间停顿两次
         this.scaleRefreshArr = [0.75, 0.95]; // 在这两处会刷新视图。视图分为三个区间0.5-0.75 0.75-0.95 0.95-1.5
         this.scaleLimit = {
-            min: 0.5,
-            max: 1.5
+            min: option.scaleLimit.min,
+            max: option.scaleLimit.max
         };
         this.throldHold = 200;
         this.draging = false;
@@ -120,8 +127,6 @@ class DragManager {
 
     // 每次scale变化都暴露给雪花图去刷新视图
     dragScaleChange(lastScale, newScale) {
-        const dragCurrentVal = this.container.querySelector('.drag-currentVal');
-        dragCurrentVal.innerHTML = (this.scale * 100).toFixed(0) + '%';
         let shouldUpdate = false;
         // 判断前后变化是否经过了this.scaleRefreshArr,否则不暴露事件，减少性能损耗
         this.scaleRefreshArr.forEach(item => {
@@ -139,41 +144,56 @@ class DragManager {
         e.stopPropagation();
         e.preventDefault();
         if (this.isScale === false) return;
-        if (enableWheel) {
-            enableWheel = false;
-            // 设置延迟，一定时间内只触发一次滚轮事件(待修复，不能写死1200)
-            setTimeout(() => {
-                enableWheel = true;
-            }, 1200);
-            let lastScale = this.scale;
-            let scaleUnit;
-            let pauseIndex; // 当前的缩放倍数在区间中的索引
-            for (let i = this.scalePauseArr.length - 1; i >= 0; i--) {
-                if (e.deltaY < 0) {
-                    if (this.scale < this.scalePauseArr[i]) {
-                        pauseIndex = i;
-                    } else if (this.scale === this.scalePauseArr[i]) {
-                        pauseIndex = i + 1;
-                    }
-                } else {
-                    if (this.scale < this.scalePauseArr[i]) {
-                        pauseIndex = i;
-                    } else if (this.scale === this.scalePauseArr[i]) {
-                        pauseIndex = i - 1;
+        if (this.scaleThrottle) {
+            if (enableWheel) {
+                enableWheel = false;
+                // 设置延迟，一定时间内只触发一次滚轮事件(待修复，不能写死1200)
+                setTimeout(() => {
+                    enableWheel = true;
+                }, 1200);
+                let lastScale = this.scale;
+                let scaleUnit;
+                let pauseIndex; // 当前的缩放倍数在区间中的索引
+                for (let i = this.scalePauseArr.length - 1; i >= 0; i--) {
+                    if (e.deltaY < 0) {
+                        if (this.scale < this.scalePauseArr[i]) {
+                            pauseIndex = i;
+                        } else if (this.scale === this.scalePauseArr[i]) {
+                            pauseIndex = i + 1;
+                        }
+                    } else {
+                        if (this.scale < this.scalePauseArr[i]) {
+                            pauseIndex = i;
+                        } else if (this.scale === this.scalePauseArr[i]) {
+                            pauseIndex = i - 1;
+                        }
                     }
                 }
+                if (e.deltaY < 0) { // 放大
+                    if (this.scale == this.scaleLimit.max) return;
+                } else if (e.deltaY > 0) { // 缩小
+                    if (this.scale == this.scaleLimit.min) return;
+                }
+                scaleUnit = (this.scalePauseArr[pauseIndex] - this.scale);
+                this.scale += scaleUnit;
+                this.scale = Math.max(this.scale, this.scaleLimit.min);
+                this.scale = Math.min(this.scale, this.scaleLimit.max);
+                this.scaleDom(e.clientX, e.clientY, scaleUnit);
+                this.dragScaleChange(lastScale, this.scale);
             }
+        } else {
+            let scaleUnit;
             if (e.deltaY < 0) { // 放大
+                scaleUnit = 0.1;
                 if (this.scale == this.scaleLimit.max) return;
             } else if (e.deltaY > 0) { // 缩小
+                scaleUnit = -0.1;
                 if (this.scale == this.scaleLimit.min) return;
             }
-            scaleUnit = (this.scalePauseArr[pauseIndex] - this.scale);
             this.scale += scaleUnit;
             this.scale = Math.max(this.scale, this.scaleLimit.min);
             this.scale = Math.min(this.scale, this.scaleLimit.max);
             this.scaleDom(e.clientX, e.clientY, scaleUnit);
-            this.dragScaleChange(lastScale, this.scale);
         }
     }
 
@@ -203,7 +223,7 @@ class DragManager {
     }
 
     // 画布以x、y(client类型)为中心进行缩放, size是指每次更改了多少缩放值
-    scaleDom(x, y, size, needToTransition = true) {
+    scaleDom(x, y, size, needToTransition = this.scaleThrottle ? true : false) {
         let domRect = this.dom.getBoundingClientRect();
         // 缩放前位置
         let mouseInDom = {
@@ -222,6 +242,8 @@ class DragManager {
                 this.dom.style['transition'] = 'unset';
             }, this.throldHold);
         }
+        const dragCurrentVal = this.container.querySelector('.drag-currentVal');
+        dragCurrentVal.innerHTML = (this.scale * 100).toFixed(0) + '%';
     }
 
     // 移动画布，使target显示在容器正中心的位置

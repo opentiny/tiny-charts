@@ -16,23 +16,18 @@ const option = {
       bottom: 15
     }
   },
-  // textStyle: {
-  //   fill: 'red',
-  //   // 自定义label
-  //   formatter: (params) => {
-  //     return `${params.data.type}:${params.data.label}`;
-  //   },
-  // },
-  tipHtml: (params, ticket, callback) => {
-    let htmlString = '';
-    var bgColor = params.data.color;
-    htmlString +=
-      '<span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color:' +
-      bgColor + ';"></span>' +
-      '<span style="display:inline-block;margin-left:5px">' + params.data.type + '</span><br/>' +
-      '<span style="display:inline-block;">' + params.data.label + '</span>' +
-      '<span style="display:inline-block;margin-left:10px;">' + params.data.value + '</span><br/>';
-    return htmlString;
+  tooltip: {
+    formatter: (params, ticket, callback) => {
+      let htmlString = '';
+      var bgColor = params.data.color;
+      htmlString +=
+        '<span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color:' +
+        bgColor + ';"></span>' +
+        '<span style="display:inline-block;margin-left:5px">' + params.data.type + '</span><br/>' +
+        '<span style="display:inline-block;">' + params.data.label + '</span>' +
+        '<span style="display:inline-block;margin-left:10px;">' + params.data.value + '</span><br/>';
+      return htmlString;
+    },
   },
   data: [
     { type: 'VPC', value: 1076, label: '1076', showLabel: true },

@@ -6,6 +6,9 @@ const option = {
         '#ffbf00',
         '#41ba41',
     ],// 自定义颜色组，循环使用该颜色组
+    label: {
+        color: '#ffffff'
+    },
     data: [
         { value: 100, name: 'Show' },
         { value: 75, name: 'Click' },

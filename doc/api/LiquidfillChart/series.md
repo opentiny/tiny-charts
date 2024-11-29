@@ -22,4 +22,4 @@ series:{
 }
 ```
 
-说明：自定义 series，{{VITE_BASECOPYRIGHTS}} HUICharts仅对此部分的series进行覆盖，详细参数解释见：<a href='https://github.com/ecomfe/echarts-liquidfill' target="_blank">https://github.com/ecomfe/echarts-liquidfill</a>。
+说明：自定义 series，{{VITE_BASECOPYRIGHTS}} 仅对此部分的series进行覆盖，详细参数解释见：<a href='https://github.com/ecomfe/echarts-liquidfill' target="_blank">https://github.com/ecomfe/echarts-liquidfill</a>。

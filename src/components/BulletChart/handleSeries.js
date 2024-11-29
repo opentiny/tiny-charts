@@ -88,7 +88,6 @@ export function handleSeries(baseOpt, iChartOpt, legendData ,seriesData) {
     const barObj = {
         name: legendData[0],
         type: 'bar',
-        //type: 'pictorialBar',
         barWidth: barWidth,
         z: 10,
         data: barData,
@@ -119,22 +118,24 @@ export function handleSeries(baseOpt, iChartOpt, legendData ,seriesData) {
     if(iChartOpt.background) {
         iChartOpt.background.forEach(item => {
             const rectData = isArray(item.data) ? item.data : iChartOpt.data.map(() => { return item.data });
-            series.push({
+            let totalData = {
                 type: 'bar',
                 barWidth: backgroundWidth,
                 stack: 'total',
                 data: rectData,
-                color: iChartOpt.theme.indexOf('dark')!== -1 ? handleSetColor(item,0.3) : handleSetColor(item,0.15)
-            })
+                color: iChartOpt.theme.indexOf('dark')!== -1 ? handleSetColor(item,0.3) : handleSetColor(item,0.15),
+                barGap: 0
+            }
+            if(iChartOpt.direction === 'horizontal') {
+                totalData.yAxisIndex = 1;
+            } else {
+                totalData.xAxisIndex = 1;
+            }
+            series.push(totalData);
         });
-        // 计算柱子的偏移量
-        baseOpt.barGap = -((backgroundWidth - barWidth) / 2 / barWidth * 100 + 100) + '%';
-        // 计算阈值的偏移量
-        if(iChartOpt.direction === 'horizontal') {
-            scatterObj.symbolOffset[1] = - ( backgroundWidth - barWidth ) / 4;
-        } else {
-            scatterObj.symbolOffset[0] = - ( backgroundWidth - barWidth ) / 4;
-        }
+        let xaxisData = Object.assign({},baseOpt.xAxis[0]);
+        xaxisData.show = false;
+        baseOpt.xAxis.push(xaxisData);
     }
     series.unshift(scatterObj);
     series.unshift(barObj);

@@ -18,6 +18,7 @@ export function handleSeries(baseOpt, iChartOpt) {
   const data = iChartOpt.data;
   const color = iChartOpt.color;
   const roam = iChartOpt.roam;
+  const padding = iChartOpt.padding;
   const optionLabel = iChartOpt.label || {};
   const label = Object.assign({
     fontFamily: 'HarmonyHeiTi',
@@ -36,6 +37,10 @@ export function handleSeries(baseOpt, iChartOpt) {
       breadcrumb: {
         show: false,
       },
+      top: padding[0],
+      right: padding[1],
+      bottom: padding[2],
+      left: padding[3],
       label,
       itemStyle: {
         borderRadius: 4,

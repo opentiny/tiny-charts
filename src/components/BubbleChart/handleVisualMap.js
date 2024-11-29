@@ -37,7 +37,7 @@ export function setVisualMap(baseOption, iChartOption, legendData) {
 }
 
 // 设置数据集
-export function setDataset(baseOption, iChartOption) {
+export function setDataset(iChartOption) {
   let source = [];
   Object.keys(iChartOption.data).forEach(key => {
     source = source.concat(iChartOption.data[key]);

@@ -1,6 +1,6 @@
 /*
 * 由于气泡图的数据往往表示多个维度的信息，内置的tipbox很难描述清楚需要表达的信息
-* 因此使用气泡图时强烈建议自定义tip，使用 tipHtml
+* 因此使用气泡图时强烈建议自定义tip，使用 tooltip
 */
 const option = {
     theme: 'light',
@@ -13,28 +13,30 @@ const option = {
         show: true,
         orient: 'horizontal'
     },
-    tipHtml: (params, ticket, callback) => {
-        let seriesName = params.seriesName;
-        let color = params.color;
-        let data = params.data;
-        let [x, y, radius, name, ...others] = data;
-        let htmlString = '<div style="margin-bottom:4px;">' + seriesName + '</div>';
-        htmlString +=
-            '<div>' +
-            '<span style="display:inline-block;margin-right:8px;min-width:60px;">季度：</span>' +
-            '<span>' + x + '</span>' +
-            '</div>';
-        htmlString +=
-            '<div>' +
-            '<span style="display:inline-block;margin-right:8px;min-width:60px;">销售额： </span>' +
-            '<span>' + y + ' 辆</span>' +
-            '</div>';
-        htmlString +=
-            '<div>' +
-            '<span style="display:inline-block;margin-right:8px;min-width:60px;">毛利润：</span>' +
-            '<span>' + radius + ' 万元</span>' +
-            '</div>';
-        return htmlString
+    tooltip: {
+        formatter: (params, ticket, callback) => {
+            let seriesName = params.seriesName;
+            let color = params.color;
+            let data = params.data;
+            let [x, y, radius, name, ...others] = data;
+            let htmlString = '<div style="margin-bottom:4px;">' + seriesName + '</div>';
+            htmlString +=
+                '<div>' +
+                '<span style="display:inline-block;margin-right:8px;min-width:60px;">季度：</span>' +
+                '<span>' + x + '</span>' +
+                '</div>';
+            htmlString +=
+                '<div>' +
+                '<span style="display:inline-block;margin-right:8px;min-width:60px;">销售额： </span>' +
+                '<span>' + y + ' 辆</span>' +
+                '</div>';
+            htmlString +=
+                '<div>' +
+                '<span style="display:inline-block;margin-right:8px;min-width:60px;">毛利润：</span>' +
+                '<span>' + radius + ' 万元</span>' +
+                '</div>';
+            return htmlString
+        },
     },
     data: {
         '大巴车': [

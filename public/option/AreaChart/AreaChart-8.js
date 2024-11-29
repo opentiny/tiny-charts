@@ -16,25 +16,27 @@ const option = {
         max: true,
         min: true
     },
-    tipHtml: (params, ticket, callback) => {
-        let htmlString = '';
-        params.forEach((item, index) => {
-            if (index === 0) {
-                htmlString += (item.name + '<br/>');
-            }
-            htmlString +=
-                '<div>' +
-                '<span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:' + item.color + ';">' +
-                '</span>' +
-                '<span style="margin-left:5px;color:#000002">' +
-                '<span style="display:inline-block;width:100px;">' + item.seriesName + ' User</span>' +
-                '<span style="font-weight:bold">' + item.value + '%</span>' +
-                '<span style="color:#191919"> out </span>' +
-                '<span style="font-weight:bold;color:#f43148">' + (100 - item.value) + '%</span>' +
-                '</span>' +
-                '</div>';
-        });
-        return htmlString
+    tooltip: {
+        formatter: (params, ticket, callback) => {
+            let htmlString = '';
+            params.forEach((item, index) => {
+                if (index === 0) {
+                    htmlString += (item.name + '<br/>');
+                }
+                htmlString +=
+                    '<div>' +
+                    '<span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:' + item.color + ';">' +
+                    '</span>' +
+                    '<span style="margin-left:5px;color:#000002">' +
+                    '<span style="display:inline-block;width:100px;">' + item.seriesName + ' User</span>' +
+                    '<span style="font-weight:bold">' + item.value + '%</span>' +
+                    '<span style="color:#191919"> out </span>' +
+                    '<span style="font-weight:bold;color:#f43148">' + (100 - item.value) + '%</span>' +
+                    '</span>' +
+                    '</div>';
+            });
+            return htmlString
+        },
     },
     data: [
         { 'Month': 'Jan', 'Domestic': 38 },

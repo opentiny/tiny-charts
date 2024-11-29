@@ -33,6 +33,11 @@
           "name": "title标题样式",
           "routePath": "TreeMapChart-5",
           "imagePath": "./image/theme/light/TreeMapChart/TreeMapChart-5.png"
+        },
+        {
+          "name": "自定义visualMap",
+          "routePath": "TreeMapChart-6",
+          "imagePath": "./image/theme/light/TreeMapChart/TreeMapChart-6.png"
         }
       ]
     }

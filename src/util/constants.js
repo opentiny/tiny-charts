@@ -51,8 +51,15 @@ const TOKENCHARTNAMES = [
   'WaveChart',
   'WordCloudChart',
   'TimelineChart',
+  'MindmapChart',
   'ChartCard',
-  'BulletChart'
+  'BulletChart',
+  'ForceDirectedChart',
+  'GridChart',
+  'CircleChart',
+  'LinearArcChart',
+  'CircleArcChart',
+  'CustomizeChart'
 ];
 
 // 默认主题
@@ -103,9 +110,16 @@ const CHART_TYPE = {
   TREE_MAP: 'TreeMapChart',
   WAVE: 'WaveChart',
   WORD_CLOUD: 'WordCloudChart',
-  CHART_CARD: 'ChartCard'
+  CHART_CARD: 'ChartCard',
+  MINDMAP: 'MindmapChart',
+  FORCE_DIRECTED: 'ForceDirectedChart',
+  GRID: 'GridChart',
+  CIRCLE: 'CircleChart',
+  LINEARARC: 'LinearArcChart',
+  CIRCLEARC: 'CircleArcChart',
+  CUSTOMIZE: 'CustomizeChart'
 }
 
-const ADAPTIVE_THEME = ['hdesign-light', 'hdesign-dark', 'bpit-light', 'bpit-dark'];
+const ADAPTIVE_THEME = ['hdesign-light', 'hdesign-dark'];
 
 export { THEMES, CURRENT_THEME, DEFAULT_THEME_NAME, THEME_ERROR_TIP_MESSAGE, TOKENCHARTNAMES, CHART_TYPE, ADAPTIVE_THEME };

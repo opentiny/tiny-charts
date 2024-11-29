@@ -34,7 +34,7 @@ xAxis:{
     nameLocation:'end',
     nameTextStyle:{
         fontSize:12,
-        color:#4e4e4e
+        color:'#4e4e4e'
     }
 }
 ```

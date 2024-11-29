@@ -9,12 +9,10 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-function  HeatMapChart  (aliasToken) {
-  const { colorAxisLine, colorTextPrimary, colorLabel, colorBorder } = aliasToken;
+function HeatMapChart(aliasToken) {
+  const { colorLabel, colorBorder } = aliasToken;
 
   return {
-    axisLineColor: colorAxisLine,
-    visualMapTextColor: colorTextPrimary,
     labelColor: colorLabel,
     hexagonStrokeColor: colorBorder,
   };

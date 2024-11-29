@@ -1,6 +1,6 @@
 ## 使用方式
 
-{{VITE_BASECOPYRIGHTS}} HUICharts图表配置中开启自动检测和修复
+{{VITE_BASECOPYRIGHTS}} 图表配置中开启自动检测和修复
 ```javascript
 // 引用图表库
 import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';

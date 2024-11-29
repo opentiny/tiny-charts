@@ -23,8 +23,9 @@ export function setDirection(baseOption, direction) {
 }
 
 function tooltipFormatter(params) {
-  const { data, color, seriesType } = params;
-  const labels = ['下限', '下四分位数', '中位数', '上四分位数', '上限'];
+  const { data, color, seriesType } = params
+  const labels = ['最大值', '上四分位数', '中位数', '下四分位数', '最小值'];
+  const labeLen = labels.length
   let htmlString = '';
   if (seriesType === 'boxplot') {
     const arr = [];
@@ -34,7 +35,7 @@ function tooltipFormatter(params) {
                             margin-right:4px;border-radius:5px;border-style: solid;border-width:1px;
                             border-color:${defendXSS(color)};background-color:${defendXSS(color)};"></span>
                             <span style="display:inline-block;width:90px">${defendXSS(item)}:</span><span>${defendXSS(
-        data[index + 1]
+        data[labeLen - index]
       )}</span>
                        </div>`;
       arr.push(htmlString);
@@ -45,9 +46,9 @@ function tooltipFormatter(params) {
                             <span style="display:inline-block;width:10px;height:10px;
                             margin-right:4px;border-radius:5px;border-style: solid;border-width:1px;
                             border-color:${defendXSS(color)};background-color:${defendXSS(color)};"></span>
-                            <span style="display:inline-block;width:90px">离散点:</span><span>${defendXSS(
-                              data[1]
-                            )}</span>
+                            <span style="display:inline-block;width:90px">离散点</span><span>${defendXSS(
+      data[1]
+    )}</span>
                        </div>`;
   }
   return htmlString;

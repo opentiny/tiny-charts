@@ -10,18 +10,20 @@ const option = {
     borderColor: '#6D8FF0',
     // 是否显示文本,默认值true
     showLabel: true,
-    tipHtml: (params, ticket, callback) => {
-        const color = params.color;
-        const data = params.data;
-        const [x, y, z, ...others] = data;
-        let htmlString = '<div style="margin-bottom:4px;">自定义日历热力图提示框</div>';
-        htmlString +=
-            '<div style="margin-bottom:4px;">' +
-            '<span style="display:inline-block;width:10px;height:10px;margin-right:8px;border-radius:5px;border-style:solid;border-width:1px;border-color:' + color + ';background-color:' + color + ';"></span>' +
-            '<span style="display:inline-block;margin-right:8px;min-width:60px;">Value</span>' +
-            '<span>' + z + '</span>' +
-            '</div>';
-        return htmlString
+    tooltip: {
+        formatter: (params, ticket, callback) => {
+            const color = params.color;
+            const data = params.data;
+            const [x, y, z, ...others] = data;
+            let htmlString = '<div style="margin-bottom:4px;">自定义日历热力图提示框</div>';
+            htmlString +=
+                '<div style="margin-bottom:4px;">' +
+                '<span style="display:inline-block;width:10px;height:10px;margin-right:8px;border-radius:5px;border-style:solid;border-width:1px;border-color:' + color + ';background-color:' + color + ';"></span>' +
+                '<span style="display:inline-block;margin-right:8px;min-width:60px;">Value</span>' +
+                '<span>' + z + '</span>' +
+                '</div>';
+            return htmlString
+        },
     },
     // data数据
     // Name:x轴数据类别

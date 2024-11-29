@@ -49,7 +49,7 @@ export function setSeries({ legendData, data, markLine, color, iChartOption }) {
     const itemColor = codeToRGB(itemBorderColor, iChartOption.symbolOpacity || 0.2);
     // 阈值线
     if (markLine) {
-      seriesUnit.markLine = cloneDeep(getMarkLineDefault());
+      seriesUnit.markLine = getMarkLineDefault(true);
       if (markLine.y) {
         seriesUnit.markLine.data.push({ yAxis: markLine.y });
       }

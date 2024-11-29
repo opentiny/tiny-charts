@@ -14,6 +14,7 @@ import yAxis from '../../option/config/yAxis';
 import grid from '../../option/config/grid';
 import tooltip from '../../option/config/tooltip';
 import defendXSS from '../../util/defendXSS';
+import { CHART_TYPE } from '../../util/constants';
 
 /**
  * Tips提示框回调函数
@@ -44,12 +45,12 @@ function handleXaxis(baseOpt, iChartOpt) {
 }
 
 function handleYaxis(baseOpt, iChartOpt) {
-  const basicYaxis = yAxis(baseOpt, iChartOpt);
+  const basicYaxis = yAxis(baseOpt, iChartOpt, CHART_TYPE.SCATTER);
   baseOpt.yAxis = basicYaxis;
 }
 
 function handleTooltip(baseOpts, iChartOpt) {
-  const basicTooltip = tooltip(iChartOpt);
+  const basicTooltip = tooltip(iChartOpt, CHART_TYPE.SCATTER);
   if (!iChartOpt.tipHtml && !iChartOpt?.tooltip?.formatter) {
     basicTooltip.formatter = toolTipFormatter;
   }

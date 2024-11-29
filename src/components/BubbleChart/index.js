@@ -18,7 +18,6 @@ import { setTooltip } from './handleOptipn';
 import { handleTrendLine } from './handleTrendLine';
 import { setDataset, setVisualMap } from './handleVisualMap';
 import RectCoordSys from '../../option/RectSys';
-import { event } from '../../util/event';
 import { mergeSeries, mergeVisualMap } from '../../util/merge';
 import { CHART_TYPE } from '../../util/constants';
 
@@ -74,17 +73,13 @@ class BubbleChart {
       iChartOption,
     });
     // 添加dataset
-    this.baseOption.dataset = setDataset(this.baseOption, iChartOption);
+    this.baseOption.dataset = setDataset(iChartOption);
     // 设置VisualMap，通过数值映射气泡大小
     this.baseOption.visualMap = setVisualMap(this.baseOption, iChartOption, legendData);
     // 针对趋势线的需求，图表需要进行特殊处理
-    handleTrendLine(this.baseOption, iChartOption, plugins);
+    handleTrendLine(this.baseOption, iChartOption, plugins, legendData);
     // 添加seires属性
     handleSeriesExtra(this.baseOption, iChartOption);
-    // 配置图表事件
-    if (iChartOption.event) {
-      event(this.chartInstance, iChartOption.event);
-    }
     // 合并用户自定义series
     mergeSeries(iChartOption, this.baseOption);
     // 合并用户自定义visualMap

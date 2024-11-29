@@ -18,10 +18,12 @@ import axistip from './feature/axistip';
 import BaseChart from './components/BaseChart';
 import readScreen from './feature/readScreen';
 import MediaScreen from './feature/mediaScreen';
+import expandLegend from './feature/expandLegend';
 import animation from './option/config/animation';
 import merge, { mergeExtend } from './util/merge';
 import WcagObserver from './feature/wcag';
 import chartLinter from './feature/linter';
+import { event } from './util/event'
 
 const SELF_CHART = [
   'FlowChart',
@@ -36,6 +38,13 @@ const SELF_CHART = [
   'SnowFlakeChart',
   'TimelineChart',
   'MilestoneChart',
+  'MindmapChart',
+  'ForceDirectedChart',
+  'GridChart',
+  'CircleChart',
+  'LinearArcChart',
+  'CircleArcChart',
+  'CustomizeChart'
 ];
 
 // 图表核心对象，按需引入图表 class 给 CoreChart 渲染，打包容量较小
@@ -107,7 +116,7 @@ export default class CoreChart extends BaseChart {
   }
 
   // 初始化echarts，并同时监听容器和窗口的大小变化
-  init(chartDom, initOpts) {
+  init(chartDom, initOpts, theme = {}) {
     const defaultInit = {
       domResize: true,
       windowResize: true,
@@ -115,7 +124,7 @@ export default class CoreChart extends BaseChart {
     };
     initOpts = merge(defaultInit, initOpts);
     this.dom = chartDom;
-    this.echartsIns = echarts.init(chartDom, {}, initOpts);
+    this.echartsIns = echarts.init(chartDom, theme, initOpts);
     // resize节流函数
     this.throttleResize = initOpts.resizeThrottle === 0 ? this.setResize.bind(this) : throttle(initOpts.resizeThrottle, this.setResize.bind(this));
     // 容器大小变化监听
@@ -164,6 +173,8 @@ export default class CoreChart extends BaseChart {
     this.iChartOption = iChartOption;
     this.ichartsIns = new ChartClass(iChartOption, this.echartsIns, this.plugins);
     this.eChartOption = this.ichartsIns.getOption();
+    // 配置图表事件
+    event(this.echartsIns, iChartOption.event);
     axistip(this.dom, this.echartsIns, this.eChartOption, this.iChartOption.axistip);
     mergeExtend(this.iChartOption, this.eChartOption);
   }
@@ -201,6 +212,8 @@ export default class CoreChart extends BaseChart {
     this.setOption(this.eChartOption, option);
     // 第二次渲染
     this.setOptionAgain(this.eChartOption);
+    // 引用拓展图例
+    expandLegend(this);
     // 图表渲染完成时回调
     this.renderCallBack && this.renderCallBack(this.echartsIns);
     // 监听全键盘事件
@@ -337,5 +350,27 @@ export default class CoreChart extends BaseChart {
   // 获取到ECharts配置项
   getEchartsOption() {
     return this.eChartOption;
+  }
+
+  // 触发图表行为
+  dispatchAction(payload) {
+    this.echartsIns && this.echartsIns.dispatchAction(payload)
+  }
+
+  // 激活toolbox中的zoom缩放
+  toggleZoomSelectCursor(payload = {}) {
+    const mixPayload = {
+      type: 'takeGlobalCursor',
+      key: 'dataZoomSelect',
+      // 启动或关闭
+      dataZoomSelectActive: true,
+      ...payload
+    }
+    this.dispatchAction(mixPayload)
+  }
+
+  // 重置数据
+  restoreToolbox() {
+    this.dispatchAction({ type: 'restore' })
   }
 }

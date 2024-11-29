@@ -10,7 +10,6 @@
  *
  */
 import { handleSeries } from './handleSeries';
-import { event } from '../../util/event';
 import { handleXaxis, handleYaxis, handleGrid, handleTooltip } from './handleOptipn';
 import init from '../../option/init';
 import RectCoordSys from '../../option/RectSys';
@@ -19,7 +18,6 @@ import { CHART_TYPE } from '../../util/constants';
 class ScatterChart {
 
   static name = CHART_TYPE.SCATTER
-
 
   constructor(iChartOption, chartInstance) {
     this.baseOption = {};
@@ -39,7 +37,7 @@ class ScatterChart {
     });
     if (!data.length) return;
     // 图例数据
-    RectCoordSys(this.baseOption, iChartOption, 'ScatterChart');
+    RectCoordSys(this.baseOption, iChartOption, CHART_TYPE.SCATTER);
     // 图表x轴
     handleXaxis(this.baseOption, iChartOption);
     // 图表y轴
@@ -50,15 +48,13 @@ class ScatterChart {
     handleTooltip(this.baseOption, iChartOption);
     // 图表的series
     handleSeries(this.baseOption, iChartOption);
-    // 配置图表事件
-    event(this.chartInstance, iChartOption.event);
   }
 
   getOption() {
     return this.baseOption;
   }
 
-  setOption() {}
+  setOption() { }
 }
 
 export default ScatterChart;

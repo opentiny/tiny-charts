@@ -41,24 +41,17 @@ const BulletChartOption = (width, option, iChartOption) => {
   }
 
   // 计算阈值的偏移量和阈值宽度
-  let symbolOffset;
   let symbolSize;
   option.series.forEach(item => {
     if (item.type === 'scatter') {
       symbolSize = item.symbolSize;
-      symbolOffset = item.symbolOffset
     }
   });
   if (iChartOption.direction === 'horizontal') {
-    symbolOffset[1] = - (backgroundWidth - barWidth) / 4;
     symbolSize[1] = backgroundWidth;
   } else {
-    symbolOffset[0] = - (backgroundWidth - barWidth) / 4;
     symbolSize[0] = backgroundWidth;
   }
-
-  // 计算柱子的偏移量
-  option.barGap = -((backgroundWidth - barWidth) / 2 / barWidth * 100 + 100) + '%';
 
   option.series.forEach(item => {
     if (item.color) {

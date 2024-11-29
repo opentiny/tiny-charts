@@ -1,6 +1,5 @@
 const option = {
     theme: 'dark',
-    // 节点内容是否显示引线
     line: true,
     alignment: 'left',
     layout: 'down',
@@ -10,25 +9,21 @@ const option = {
         maxWidth: 160
     },
     assign: 'date',
-    // ‘今天’ 配置
     current: {
         tip: '今天',
         date: 1680481201,
     },
-    // 节点回调
     render: (container, data) => {
         let templateStr = `<div class="mc-scales-item-tips-date">${defendXSS(data.tips.year) || ''}</div>
             <div class="mc-scales-item-tips-desc">${defendXSS(data.tips.date) || '04/1'}</div>
             <div class="mc-scales-item-tips-text">${defendXSS(data.tips.text) || '21:00'}</div>`
         container.insertAdjacentHTML('beforeend', templateStr);
     },
-    // 鼠标悬浮提示回调
     tooltip: (container, data) => {
         let templateStr = `<div class="mc-scales-item-hover-desc">${defendXSS(data.title) || '2023'}${defendXSS(data.desc) || '04/1'}</div>
             <div class="mc-scales-item-hover-text">当前状态：${defendXSS(data.text) || '21:00'}</div>`
         container.insertAdjacentHTML('beforeend', templateStr);
     },
-    // 鼠标点击节点事件
     onClick: (container, data) => { },
     data: [
         {

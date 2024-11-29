@@ -11,22 +11,24 @@ const option = {
     type: 'RectangularHeatMapChart',
     // padding控制图表距离容器的上、右、下、左padding值
     padding: [50, 30, 20, 20],
-    tipHtml: (params, ticket, callback) => {
-        const color = params.color;
-        const data = params.data;
-        const [x, y, z, name, ...others] = data;
-        let htmlString = '<div style="margin-bottom:4px;">自定义矩形热力图提示框</div>';
-        htmlString +=
-            '<div style="margin-bottom:4px;">' +
-            '<span style="display:inline-block;width:10px;height:10px;margin-right:8px;border-style:solid;border-width:1px;border-color:' + color + ';background-color:' + color + ';"></span>' +
-            '<span>' + name + '</span>' +
-            '</div>';
-        htmlString +=
-            '<div>' +
-            '<span style="display:inline-block;margin-right:8px;min-width:60px;">透明度维度:</span>' +
-            '<span>' + z + '</span>' +
-            '</div>';
-        return htmlString
+    tooltip: {
+        formatter: (params, ticket, callback) => {
+            const color = params.color;
+            const data = params.data;
+            const [x, y, z, name, ...others] = data;
+            let htmlString = '<div style="margin-bottom:4px;">自定义矩形热力图提示框</div>';
+            htmlString +=
+                '<div style="margin-bottom:4px;">' +
+                '<span style="display:inline-block;width:10px;height:10px;margin-right:8px;border-style:solid;border-width:1px;border-color:' + color + ';background-color:' + color + ';"></span>' +
+                '<span>' + name + '</span>' +
+                '</div>';
+            htmlString +=
+                '<div>' +
+                '<span style="display:inline-block;margin-right:8px;min-width:60px;">透明度维度:</span>' +
+                '<span>' + z + '</span>' +
+                '</div>';
+            return htmlString
+        },
     },
     // 矩形的颜色,默认值'#F43146'
     color: '#F43146',

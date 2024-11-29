@@ -14,7 +14,6 @@ import mini from '../../feature/mini/miniProcessChart';
 import RectCoordSys from '../../option/RectSys';
 import { PROCESSBARTYPE } from './BaseOption';
 import handleData from './handleData';
-import { event } from '../../util/event';
 import { handleGrid, handleYaxis, handleXaxis, handleDataZoom, handleLegend, handleTooltip } from './handleOption';
 import handleSeries from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
@@ -61,10 +60,6 @@ class ProcessChart {
     handleSeries(this.baseOption, iChartOption, dataSet, doubleSide);
 
     handleTooltip(this.baseOption, iChartOption, dataSet, doubleSide);
-
-    //  加载事件
-    event(this.chartInstance, iChartOption.event);
-
     // 处理特性
     mini(iChartOption, this.baseOption);
   }

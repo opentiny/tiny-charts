@@ -12,6 +12,7 @@
 import grid from '../../option/config/grid';
 import tooltip from '../../option/config/tooltip';
 import defendXSS from '../../util/defendXSS';
+import { CHART_TYPE } from '../../util/constants';
 
 /**
  * Tips提示框回调函数
@@ -45,7 +46,7 @@ function handleTitle(baseOpt, iChartOpt) {
 }
 
 function handleTooltip(baseOpt, iChartOpt) {
-  const basicTooltip = tooltip(iChartOpt);
+  const basicTooltip = tooltip(iChartOpt, CHART_TYPE.TREE_MAP);
   if (!iChartOpt.tipHtml && !iChartOpt?.tooltip?.formatter) {
     basicTooltip.formatter = toolTipFormatter;
   }

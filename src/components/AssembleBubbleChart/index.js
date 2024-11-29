@@ -17,13 +17,12 @@ import { handleRootData } from './handleRootData';
 import { handleVirtualLengend } from './handleVirtualLengend';
 import { handleSeriesData } from './handleSeriesData';
 import { legendDisappear, legendShow } from './legendSelectChanged';
-import { event } from '../../util/event';
 import init from '../../option/init';
 import { isArray } from '../../util/type';
 import { CHART_TYPE } from '../../util/constants';
 
 class AssembleBubbleChart {
-  
+
   static name = CHART_TYPE.ASSEMBLE_BUBBLE
 
   constructor(iChartOption, chartInstance, plugins) {
@@ -32,8 +31,6 @@ class AssembleBubbleChart {
     this.chartInstance = chartInstance;
     this.plugins = plugins;
     this.updateOption(chartInstance);
-    // 配置图表事件
-    event(chartInstance, this.iChartOption.event);
   }
 
   updateOption(chartInstance) {

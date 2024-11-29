@@ -19,7 +19,7 @@
 
 如果你在使用 OpenTiny HUICharts 组件过程中遇到问题，欢迎给我们提交 Issue，提交 Issue 之前，请先仔细阅读相关的[官方文档](https://opentiny.design)，确认这是一个缺陷还是尚未实现的功能。
 
-如果是一个缺陷，创建新 Issue 时选择 [Bug report](https://github.com/opentiny/tiny-charts/issues/new?template=bug-report.yml) 模板，标题遵循 `[componentName]缺陷简述` 的格式，比如：`[pie-chart]在单击圆盘图的扇形区域时，无法依次选中多个扇形`。
+如果是一个缺陷，创建新 Issue 时选择 [Bug report](https://github.com/opentiny/tiny-charts/issues/new?template=bug-report.yml) 模板，标题遵循 `[componentName]缺陷简述` 的格式，比如：`[PieChart]在单击圆盘图的扇形区域时，无法依次选中多个扇形`。
 
 报告缺陷的 Issue 主要需要填写以下信息：
 
@@ -27,7 +27,7 @@
 - 缺陷的表现，可截图辅助说明，如果有报错可贴上报错信息
 - 缺陷的复现步骤，最好能提供一个最小可复现 demo 链接
 
-如果是一个新特性，则选择 [Feature request](https://github.com/opentiny/tiny-charts/issues/new?template=feature-request.yml) 模板，标题遵循 `[componentName]新特性简述` 的格式，比如：`[pie-chart]圆盘图存在非常小的数据时占比面积几乎为0，影响视觉，希望增加最小角度的设置`。
+如果是一个新特性，则选择 [Feature request](https://github.com/opentiny/tiny-charts/issues/new?template=feature-request.yml) 模板，标题遵循 `[componentName]新特性简述` 的格式，比如：`[PieChart]圆盘图存在非常小的数据时占比面积几乎为0，影响视觉，希望增加最小角度的设置`。
 
 新特性的 Issue 主要需要填写以下信息：
 
@@ -42,24 +42,30 @@
 
 #### Commit 信息
 
-commit 信息要以 `type(scope): 描述信息` 的形式填写，例如 `fix(line-chart): fix xxx bug`。
+commit 信息要以 `type(scope): 描述信息` 的形式填写，例如 `fix(LineChart): fix xxx bug`。
 
 1. type: 必须是 build, chore, ci, docs, feat, fix, perf, refactor, revert, release, style, test, improvement 其中的一个。
+- feat: 增加新功能
+- fix: 修复问题
+- docs: 修改文档
+- style: 修改代码格式，不改变代码逻辑
+- refactor: 重构代码，不影响现有功能
+- perf: 提升性能
+- test: 添加或修改测试用例
 
 2. scope:
 
-- 组件的名称(小写，中划线): 比如: `line-chart, bar-chart, flow-chart`
+- 组件的名称(大驼峰): 比如: `LineChart, BarChart, FlowChart`
 
 #### Pull Request 的标题
 
 1. 标题的规范与 commit 信息一样，以`type(scope): 描述信息` 的形式填写。
-
 2. 标题示例:
 
-- 给 line-chart 组件增加新特性： `feat(line-chart): xxxxxxxxxxxxxxx`
-- 修复 line-chart 组件 @opentiny/huicharts 下的缺陷: `fix(line-chart): xxxxxxxxxxxxxx`
-- 补充 line-chart 组件文档： `docs(line-chart): xxxxxxxxxxxxxxx`
-- 补充 line-chart 组件测试用例: `test(line-chart): xxxxxxxxxxxxxx`
+- 给 LineChart 组件增加新特性： `feat(LineChart): xxxxxxxxxxxxxxx`
+- 修复 LineChart 组件 @opentiny/huicharts 下的缺陷: `fix(LineChart): xxxxxxxxxxxxxx`
+- 补充 LineChart 组件文档： `docs(LineChart): xxxxxxxxxxxxxxx`
+- 补充 LineChart 组件测试用例: `test(LineChart): xxxxxxxxxxxxxx`
 
 #### Pull Request 的描述
 
@@ -98,7 +104,7 @@ npm run dev
 
 - 请确保你已经完成本地启动中的步骤，并能正常访问：[http://localhost:8080/](http://localhost:8080/)
 - 保证当前为dev分支，同步上游仓库 dev 分支最新代码：`git pull upstream dev`
-- 从 dev 分支创建新分支 `git checkout -b username/feat-xxx`，分支名字建议为 `username/feat-xxx` / `username/fix-xxx`
+- 从 dev 分支创建新分支 `git checkout -b branchName`，分支名称建议为 `username/feat-xxx` / `username/fix-xxx`，若是在fork下来的仓库开发，分支名称无需添加username，直接`feat-xxx`。
 - 本地编码
 - 将本地变更代码提交到远程仓库，遵循 [Commit Message Format](https://www.conventionalcommits.org/zh-hans/v1.0.0/) 规范进行提交，不符合提交规范的 PR 将不会被合并。
 ```shell
@@ -109,11 +115,11 @@ git add .
 git status
 
 # 提交变更
-git commit -m 'feat(line-chart): xxx'
+git commit -m 'feat(LineChart): xxx'
 
 # 变更提交到远程仓库
 git push origin branchName
-``` 
+```
 - 打开 OpenTiny HUICharts 代码仓库的 [Pull requests](https://github.com/opentiny/tiny-charts/pulls) 链接，点击 New pull request 按钮提交 PR
 - 按照 PR 模板补充相关信息，包括 PR 自检项、PR 类型、关联的 Issue 编号、是否是破坏性变更
 - 项目 Committer 进行 Code Review，并提出意见

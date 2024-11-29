@@ -10,18 +10,6 @@ const option = {
             top: 'center'
         },
         orient:'vertical',
-        // legend.tipHtml 用于自定义鼠标悬浮提示
-        tipHtml: (params, ticket, callback)=>{
-            let data =  { 'VPC': 100, 'EIP': 49, 'IM': 90, 'SG': 14 };
-            let htmlString = 
-                '<div>' + 
-                    '<span style="color:#ffffff">' + 
-                        '<span style="display:inline-block;padding-right:5px;">' + params.name +' : </span>' + 
-                        '<span style="font-weight:normal">' + data[params.name] + '</span>' +
-                    '</span>' + 
-                '</div>';
-             return htmlString
-        },
         // legend.formatter 用于自定义图例文本
         formatter: (name)=>{
             let data =  [                             

@@ -16,7 +16,6 @@ import { setSeriesData } from './handleSeries';
 import { handleLabelFormatter } from './labelFormatter';
 import PolarCoordSys from '../../option/PolarSys';
 import { setStartAngle, setbarWidth, handleLegendData } from './handleOption';
-import { event } from '../../util/event';
 import { CHART_TYPE } from '../../util/constants';
 
 class JadeJueChart {
@@ -49,8 +48,6 @@ class JadeJueChart {
     setStartAngle(iChartOption, this.baseOption);
     // 为第一种数据类型单独配置legend.data和对应颜色
     handleLegendData(iChartOption, this.baseOption);
-    // 配置图表事件
-    event(chartInstance, iChartOption.event);
   }
 
   getOption() {

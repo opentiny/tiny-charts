@@ -17,24 +17,11 @@ import chartToken from './chartToken';
 // 配置数据
 export function handleData(iChartOption, baseOpt) {
   const dataName = [];
-  const dataValue = [];
   iChartOption.data.forEach(item => {
-    const data = iChartOption.data;
-    if (data && data.length > 0) {
-      const data = iChartOption.data;
-      if (data && data.length > 0) {
-        const keys = Object.keys(data[0]);
-        for (let i = 0; i < keys.length; i++) {
-          iChartOption.xAxis = keys[i];
-          break;
-        }
-      }
-    }
-    dataName.push(item[iChartOption.xAxis]);
-    dataValue.push(item.value);
+    dataName.push(item.name);
   });
   baseOpt.xAxis.data = dataName;
-  baseOpt.series[0].data = dataValue;
+  baseOpt.series[0].data = iChartOption.data;
 }
 
 // 配置山峰颜色及透明度

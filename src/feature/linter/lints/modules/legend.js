@@ -42,12 +42,8 @@ function getLegendToken(echartsModule) {
     // legendTextRichFontSize
     // 图例富文本的padding
     // legendTextRichPadding
-    // 圆形图例时每项的宽度
-    // legendCircleItemWidth
     // 圆形图例时每项的高度
     // legendCircleItemHeight
-    // 方形图例时每项的宽度
-    // legendReactItemWidth
     // 方形图例时每项的高度
     // legendReactItemHeight
 

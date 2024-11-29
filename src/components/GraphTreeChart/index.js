@@ -10,7 +10,6 @@
  *
  */
 import init from '../../option/init';
-import { event } from '../../util/event';
 import { BaseOption } from './BaseOption';
 import cloneDeep from '../../util/cloneDeep';
 import { handleData, updateData } from './handleData';
@@ -47,8 +46,6 @@ class GraphTreeChart {
     handlePosition(iChartOption, this.baseOption);
     // 配置节点连线样式
     handleLineStyle(iChartOption, this.baseOption, theme);
-    // 配置图表事件
-    event(chartInstance, iChartOption.event);
     // GraphTreeChart聚合树图, 需要走一遍echarts Tree图获取节点对应坐标;
     mixTree(this, chartInstance, this.baseOption);
   }

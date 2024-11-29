@@ -10,7 +10,6 @@
  *
  */
 import init from '../../option/init';
-import { event } from '../../util/event';
 import handleMulti from './handleMulti';
 import handleSeries from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
@@ -38,13 +37,11 @@ class PieChart {
     // 兼容旧属性chartPosition
     const position = iChartOption.position || iChartOption.chartPosition;
     // 处理series数据
-    this.baseOption.series = handleSeries(type, iChartOption, chartInstance, position);
+    this.baseOption.series = handleSeries(type, iChartOption, chartInstance, position, this.baseOption.legend);
+    // 针对给定的color值，需要进行特殊处理
+    this.baseOption.color = iChartOption.color;
     // 针对多重圆环图表需求，图表需要进行特殊处理
     handleMulti(type, this.baseOption, iChartOption.legend, iChartOption.data);
-    // 配置图表事件
-    if (iChartOption.event) {
-      event(chartInstance, iChartOption.event);
-    }
     // 是否关闭hover态的效果，默认为false
     if (iChartOption.silent) {
       this.baseOption.tooltip = {};
@@ -55,7 +52,7 @@ class PieChart {
     return this.baseOption;
   }
 
-  setOption() {}
+  setOption() { }
 }
 
 export default PieChart;

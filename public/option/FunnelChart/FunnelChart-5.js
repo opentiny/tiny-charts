@@ -7,6 +7,9 @@ const option = {
         left: '85%',
         orient: 'vertical',
     },
+    label: {
+        color: '#ffffff'
+    },
     data: [
         { value: 100, name: 'Show' },
         { value: 75, name: 'Click' },

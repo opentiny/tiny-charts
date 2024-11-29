@@ -1,5 +1,5 @@
 <template>
-  <MdPreview :modelValue="markDownData" class="main-editor"></MdPreview>
+  <v-md-preview :text="markDownData" class="main-editor"></v-md-preview>
 </template>
 
 <script>
@@ -8,7 +8,7 @@ export default {
   props: {
     mdName: {
       type: String,
-      default: 'readme'
+      default: 'quickstart'
     }
   },
   data() {

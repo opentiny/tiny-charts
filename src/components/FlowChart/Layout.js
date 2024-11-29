@@ -25,6 +25,8 @@ const VDirection = ['TB', 'BT', 'V'];
 
 let NODE_WIDTH = 50;
 let NODE_HEIGHT = 50;
+let originalNodes = []
+let originalEdges = []
 /**
  * 根据传入数据的 nodes 和 edges 计算出绘制流程图需要的位置信息
  * 包括节点位置和边的位置
@@ -33,6 +35,8 @@ export default class Layout {
     data;
 
     constructor(data, option, containerSize) {
+        originalNodes = Object.assign([],data.nodes);
+        originalEdges = Object.assign([],data.edges);
         this.data = data;
         // 执行位置算法
         this.doLayout(data, option);
@@ -45,18 +49,18 @@ export default class Layout {
      */
     doLayout(data, options) {
       data.nodes.forEach((v,i)=>{
-        if(i===0){
-          NODE_WIDTH = v.width;
-          NODE_HEIGHT = v.height;
-        }else{
-          if(v.width > NODE_WIDTH){
-            NODE_WIDTH = v.width
+          if(i===0){
+            NODE_WIDTH = v.width;
+            NODE_HEIGHT = v.height;
+          }else{
+            if(v.width > NODE_WIDTH){
+              NODE_WIDTH = v.width
+            }
+            if(v.height > NODE_HEIGHT){
+              NODE_HEIGHT = v.height
+            }
           }
-          if(v.height > NODE_HEIGHT){
-            NODE_HEIGHT = v.height
-          }
-        }
-      })
+        })
         let g = new dagre.graphlib.Graph();
         g.setDefaultEdgeLabel(()=> {
             return {};
@@ -71,51 +75,51 @@ export default class Layout {
         // 对于跨level的node链接，需要在level中间添加虚拟节点，以完善节点布局
         // 计算出所有edges边数据
         let edges = [];
-        data.edges.forEach((item) => {
-            let source = data.nodes.find((node) => node.id === item.source);
-            let target = data.nodes.find((node) => node.id === item.target);
-            edges.push({
-                source: item.source,
-                target: item.target,
-                sourceLevel: source.level,
-                targetLevel: target.level,
-            })
+        originalEdges.forEach((item) => {
+          let source = originalNodes.find((node) => node.id === item.source);
+          let target = originalNodes.find((node) => node.id === item.target);
+          edges.push({
+              source: item.source,
+              target: item.target,
+              sourceLevel: source.level,
+              targetLevel: target.level,
+          })
         });
         // 获取跨level的边数据
         let specialEdges = edges.filter((item) => {
-            return item.targetLevel - item.sourceLevel > 1
+            return item.targetLevel - item.sourceLevel > 1 || item.targetLevel === 'undefined' || item.sourceLevel === 'undefined'
         });
         // 从edges中删除跨level的连线数据
         specialEdges.forEach((item) => {
             let index = -1;
-            data.edges.forEach((edge, i) => {
+            originalEdges.forEach((edge, i) => {
                 if (edge.source === item.source && edge.target === item.target) {
                     index = i
                 }
             })
-            data.edges.splice(index, 1);
+            originalEdges.splice(index, 1);
         });
         // 根据跨level的连线增加虚拟节点和虚拟连线
         specialEdges.forEach((item) => {
             let id = 'virtual_' + item.target + '_' + item.source;
-            data.nodes.push({
+            originalNodes.push({
                 id,
                 width: NODE_WIDTH,
                 height: NODE_HEIGHT,
                 innerWidth: NODE_WIDTH,
                 innerHeight: NODE_HEIGHT
             });
-            data.edges.push({
+            originalEdges.push({
                 source: item.source,
                 target: id,
             });
-            data.edges.push({
+            originalEdges.push({
                 source: id,
                 target: item.target,
             });
         });
         // 给dagre赋值、执行布局算法
-        data.nodes.forEach((node)=> {
+        originalNodes.forEach((node)=> {
             g.setNode(node.id, {
                 id: node.id,
                 level: node.level,
@@ -123,7 +127,7 @@ export default class Layout {
                 height: node.height,
             });
         });
-        data.edges.forEach((edge)=> {
+        originalEdges.forEach((edge)=> {
             g.setEdge(edge.source, edge.target);
         });
         dagre.layout(g);
@@ -139,18 +143,19 @@ export default class Layout {
             nodes.push(obj)
         });
         nodes.forEach((node)=> {
-            let current = data.nodes.find((item) => item.id === node.id);
+            let current = originalNodes.find((item) => item.id === node.id);
             if (current) {
                 current.x = node.x;
                 current.y = node.y;
             }
         });
         // 用户自定义node位置修正
-        data.nodes.forEach((node)=> {
+        originalNodes.forEach((node)=> {
             if(node.offset){
                 node.offset(node)
             }
         });
+        data.allNodes = originalNodes;
     };
 
 
@@ -163,7 +168,7 @@ export default class Layout {
         let maxX = -99999;
         let minY = 99999;
         let maxY = -99999;
-        this.data.nodes.forEach(node => {
+        originalNodes.forEach(node => {
             if (minX > node.x) {
                 minX = node.x
             };
@@ -194,7 +199,7 @@ export default class Layout {
             y: reviseY
         }
         this.data.nodesObj = {};
-        this.data.nodes.forEach(node => {
+        originalNodes.forEach(node => {
             node.x = node.x + revise.x - (hasPosition ? 25 : 0) - node.width/2;
             node.y = node.y + revise.y - (hasPosition ? 25 : 0) - node.height/2;
             this.data.nodesObj[node.id] = node;

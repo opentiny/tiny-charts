@@ -1,0 +1,25 @@
+{
+  "title": "思维导图 MindmapChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "思维导图-默认布局",
+          "routePath": "MindmapChart-1",
+          "imagePath": "./image/theme/light/MindmapChart/MindmapChart-1.png"
+        },
+        {
+          "name": "思维导图-上下节点布局",
+          "routePath": "MindmapChart-2",
+          "imagePath": "./image/theme/light/MindmapChart/MindmapChart-2.png"
+        },
+        {
+            "name": "思维导图-圆形节点布局",
+            "routePath": "MindmapChart-3",
+            "imagePath": "./image/theme/light/MindmapChart/MindmapChart-3.png"
+          }
+      ]
+    }
+  ]
+}

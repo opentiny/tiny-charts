@@ -2,13 +2,11 @@ import { themeMd, theme } from '../common/theme'
 import { paddingMd, padding } from '../common/padding'
 import { colorMd, color } from '../common/color'
 import { legendMd, legend } from '../common/legend'
-import { tipHtmlMd, tipHtml } from '../common/tipHtml'
-import { tipHtmlStyleMd, tipHtmlStyle } from '../common/tipHtmlStyle'
+import { tooltipMd, tooltip } from '../common/tooltip'
 import { xAxisMd, xAxis } from '../common/xAxis'
 import { yAxisMd, yAxis } from '../common/yAxis'
 import { dataZoomMd, dataZoom } from '../common/dataZoom'
 import { eventMd, event } from '../common/event'
-import { linearGradientMd, linearGradient } from '../common/linearGradient'
 import dataMd from './data.md?raw'
 import itemStyleMd from './itemStyle.md?raw'
 import smoothMd from './smooth.md?raw'
@@ -30,12 +28,10 @@ const data = {
         ['itemStyle', '图表数据点文本样式', 'object', '{symbolSize:20,borderColor:\'#fff\'}'],
         ['step', '折线是否更改为阶梯线', 'boolean', 'false'],
         ['predict', '折线更改为预测线的数据名', 'string', '无'],
-        tipHtml,
-        tipHtmlStyle,
+        tooltip,
         xAxis,
         yAxis,
         dataZoom,
-        linearGradient,
         event,
         ['markline', '阈值线配置', 'object', '无'],
         ['markPoint', '峰值标记', 'object', '{max:false,min:false}'],
@@ -51,12 +47,10 @@ const data = {
         itemStyleMd,
         stepMd,
         predictMd,
-        tipHtmlMd,
-        tipHtmlStyleMd,
+        tooltipMd,
         xAxisMd,
         yAxisMd,
         dataZoomMd,
-        linearGradientMd,
         eventMd,
         marklineMd,
         markpointMd,

@@ -52,6 +52,7 @@ const BASICSERIES = [
       color: undefined,
       borderRadius: 4,
     },
+    cursor: 'auto',
     emphasis: {
         disabled: true,
       },

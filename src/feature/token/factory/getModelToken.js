@@ -65,7 +65,12 @@ function getModelToken(aliasToken) {
     colorAxisLineSecondary,
     colorBgTertiary,
     colorFill,
-    axisLineWidthSecondary
+    axisLineWidthSecondary,
+    labelFontSize,
+    colorTextTertiary,
+    borderRadius,
+    paddingSM,
+    borderWidthLG
   } = aliasToken;
 
   return {
@@ -97,11 +102,9 @@ function getModelToken(aliasToken) {
     // 图例每项之间的间隔
     legendItemGap: legendSpace,
     // 圆形图例时每项的宽度
-    legendCircleItemWidth: legendItemSize * 12,
+    legendItemWidth: legendItemSize * 6,
     // 圆形图例时每项的高度
     legendCircleItemHeight: legendCircleItemSize,
-    // 方形图例时每项的宽度
-    legendReactItemWidth: legendItemSize * 6,
     // 方形图例时每项的高度
     legendReactItemHeight: legendItemSize,
     // 图例翻页文本颜色
@@ -131,7 +134,7 @@ function getModelToken(aliasToken) {
     // x轴名称字号
     xAxisNameFontSize: textFontSize,
     // x轴标签文本颜色
-    xAxisLabelColor: colorTextSecondary,
+    xAxisLabelColor: colorTextTertiary,
     // x轴标签文本字号
     xAxisLabelFontSize: subtextFontSize,
     // x轴轴线颜色
@@ -161,7 +164,7 @@ function getModelToken(aliasToken) {
     // y轴名称字号
     yAxisNameFontSize: textFontSize,
     // y轴标签文本颜色
-    yAxisLabelColor: colorTextSecondary,
+    yAxisLabelColor: colorTextTertiary,
     // y轴标签文本字号
     yAxisLabelFontSize: subtextFontSize,
     // y轴轴线颜色
@@ -189,7 +192,7 @@ function getModelToken(aliasToken) {
     // radar轴名字号
     radarAxisNameFontSize: subtextFontSize,
     // radar轴标签文本颜色
-    radarAxisLabelColor: colorTextSecondary,
+    radarAxisLabelColor: colorTextTertiary,
     // radar轴标签文本字号
     radarAxisLabelFontSize: subtextFontSize,
     // radar轴线颜色
@@ -213,7 +216,7 @@ function getModelToken(aliasToken) {
 
     /** -----极坐标系角度轴------ */
     // 角度轴标签文本颜色
-    angleAxisLabelColor: colorTextSecondary,
+    angleAxisLabelColor: colorTextTertiary,
     // 角度轴标签文本字号
     angleAxisLabelFontSize: subtextFontSize,
     // 角度轴轴线颜色
@@ -240,7 +243,7 @@ function getModelToken(aliasToken) {
     // 径向轴标签间距
     radiusAxisLabelGap: axisLabelSpace,
     // 径向轴标签颜色
-    radiusAxisLabelColor: colorTextSecondary,
+    radiusAxisLabelColor: colorTextTertiary,
     // 径向轴标签字号
     radiusAxisLabelFontSize: subtextFontSize,
     // 径向轴轴线颜色
@@ -295,6 +298,11 @@ function getModelToken(aliasToken) {
     visualMapPiecesColor: colorTextTransparent,
     // dashColor
     visualMapDashColor: colorDash,
+    // 以上两个属性用于线形图，后续要变更
+    // 文本颜色
+    visualMapTextColor: colorTextPrimary,
+    // 文本字号
+    visualMapTextFontSize: labelFontSize,
 
     /** -----markPoint------ */
     // markPoint标签文本
@@ -305,6 +313,15 @@ function getModelToken(aliasToken) {
     markLineWidth,
     // 标记线高亮粗细
     markLineEmphasisWidth,
+     // 标记线文本字号
+    markLineLabelFontSize:labelFontSize,
+     // 标记线文本圆角
+    markLineLabelBorderRadius:borderRadius,
+     // 标记线文本Padding
+    markLineLabelPadding: [ paddingSM,paddingSM*2,paddingSM,paddingSM*2],  
+     // 标记线文本borderWidth
+    markLineLabelBorderWidth:borderWidthLG,
+    
 
     /** ----- dataZoom------ */
     // dataZoom背景色

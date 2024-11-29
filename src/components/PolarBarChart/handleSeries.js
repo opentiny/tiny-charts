@@ -28,7 +28,7 @@ function getSeriesInit(type) {
       barGap: '-100%',
       barCategoryGap: '40%',
       itemStyle: {
-        borderRadius: [0, 0, 4, 4],
+        borderRadius: [0, 0, 2, 2],
       },
     }
     : {

@@ -2,7 +2,7 @@ const option = {
     theme: 'light',
     padding: [50, 30, 50, 20],
     itemStyle: {
-        barMinHeight: 2 // 最小高度为2
+        barMinHeight: '2%' // 最小高度按最大数据的2%计算显示
     },
     data: [
         { 'Month': 'Jan', 'Value': 100 },

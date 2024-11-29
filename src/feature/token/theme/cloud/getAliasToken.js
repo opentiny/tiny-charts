@@ -65,6 +65,8 @@ function getAliasToken(globalToken, light = true) {
     colorTextPrimary: light ? colorGray90 : colorGray40, // 确定
     // 次级文本色
     colorTextSecondary: light ? colorGray60 : colorGray50, // 确定
+    // 三级文本色
+    colorTextTertiary: light ? colorGray60 : colorGray50, // 确定
     // 禁用文本色
     colorTextDisabled: light ? colorGray50 : colorGray60, // 确定
     // 图标激活色（legend翻页的颜色）

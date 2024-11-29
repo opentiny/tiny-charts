@@ -1,22 +1,30 @@
 <template>
   <div className="chart-container">
-    <tiny-form label-width="128px" label-position="left">
-      <tiny-form-item label="切换图表容器尺寸">
-        <tiny-select v-model="value" @change="selectChange">
-          <tiny-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"
-            :icon="item.icon">
-          </tiny-option>
-        </tiny-select>
-      </tiny-form-item>
-    </tiny-form>
-    <div class='chart' ref="chartContainer" style="height: 400px" :style="{ height: '400px', width: chartWidth }">
+    <div style="display: flex;justify-content: space-between; width: 100%;">
+      <div class="iii">左侧图表容器尺寸：{{ leftChartWidth }}</div>
+      <div class="222">右侧图表容器尺寸：{{ rightChartWidth }}</div>
+
     </div>
+    <tiny-split v-model="splitValue" style="height: 400px;" @moving="moving" id="firstSplit" :left-top-min="fatherWidth*0.33+'px'"
+      :right-bottom-min="fatherWidth*0.33+'px'">
+      <template #left>
+        <div class='chart' ref="leftChartContainer" style="height: 400px"
+          :style="{ height: '400px', width: leftChartWidth }">
+        </div>
+      </template>
+      <template #right>
+        <div class='chart' ref="rightChartContainer" style="height: 400px"
+          :style="{ height: '400px', width: rightChartWidth }">
+        </div>
+      </template>
+    </tiny-split>
+
   </div>
 </template>
 
 <script>
 import IntegrateChart from '../../../../src/index';
-import { Form, FormItem, Select, Option } from '@opentiny/vue'
+import { Form, FormItem, Select, Option, Split } from '@opentiny/vue'
 
 // 柱状图的配置
 const barChartOpt = {
@@ -72,9 +80,6 @@ const barMediaOption = [
       itemStyle: {
         barWidth: 12,
       },
-      xAxis: {
-        labelRotate: 45
-      },
       label: {
         show: true,
         position: "top"
@@ -85,18 +90,13 @@ const barMediaOption = [
     minWidth: 601,
     option: {
       xAxis: {
-        interval: 0,
-        ellipsis: {
-          overflow: 'truncate',
-          labelWidth: 35
-        }
+        interval: 1,
       }
     }
   }, {
     maxWidth: 600,
     minWidth: 401,
     option: {
-      padding: [50, 30, 15, 30],
       xAxis: {
         interval: 1,
         name: ''
@@ -111,7 +111,6 @@ const barMediaOption = [
   }, {
     maxWidth: 400,
     option: {
-      padding: [50, 30, 15, 0],
       xAxis: {
         name: '',
         interval: 1
@@ -136,12 +135,14 @@ export default {
     TinyForm: Form,
     TinyFormItem: FormItem,
     TinySelect: Select,
-    TinyOption: Option
+    TinyOption: Option,
+    TinySplit: Split,
   },
   data() {
     return {
       value: 0,
-      chartWidth: '1400px',
+      leftChartWidth: 0,
+      rightChartWidth: 0,
       options: [
         { label: '1400px', value: 0 },
         { label: '1000px', value: 1 },
@@ -150,33 +151,58 @@ export default {
         { label: '400px', value: 4 },
       ],
       currentTheme: localStorage.getItem('chartTheme') || 'hdesign-light',
+      splitValue: 0.5,
+      fatherWidth: 0,
     }
   },
   created() {
-    this.integrateChart = new IntegrateChart();
+    this.integrateChart1 = new IntegrateChart();
+    this.integrateChart2 = new IntegrateChart();
   },
   mounted() {
-    this.renderChart();
-    this.$bus.on('themeChange', (val) => {
-      this.currentTheme = val;
+    new Promise((reslove, reject) => {
+      this.fatherWidth = document.querySelector("#firstSplit").getBoundingClientRect().width
+      this.leftChartWidth = Math.floor(this.fatherWidth / 2)+'px'
+      this.rightChartWidth = Math.floor(this.fatherWidth / 2)+'px'
+      reslove()
+    }).then(() => {
       this.renderChart();
+      this.$bus.on('themeChange', (val) => {
+        this.currentTheme = val;
+        this.renderChart();
+      })
     })
   },
   methods: {
+    moving() {
+      let threshold = Math.max(0.333, Math.min(0.667, this.splitValue))
+      let fatherWidth = Number(this.fatherWidth)
+      let leftWidth = Math.floor(fatherWidth * threshold)
+      let rightWidth = Math.floor(fatherWidth * (1 - threshold))
+      this.$refs.leftChartContainer.style.width = leftWidth + 'px'
+      this.leftChartWidth = leftWidth + 'px'
+      this.$refs.rightChartContainer.style.width = rightWidth + 'px'
+      this.rightChartWidth = rightWidth + 'px'
+    },
     selectChange(val) {
       this.value = val;
-      this.chartWidth = this.options[val].label;
-      this.$refs.chartContainer.style.opacity = 0;
+      this.leftChartWidth = this.options[val].label;
+      this.$refs.leftChartContainer.style.opacity = 0;
       setTimeout(() => {
-        this.$refs.chartContainer.style.opacity = 1;
+        this.$refs.leftChartContainer.style.opacity = 1;
       }, 20)
     },
     renderChart() {
-      this.integrateChart.init(this.$refs.chartContainer);
-      this.integrateChart.mediaScreen(this.$refs.chartContainer, barMediaOption);
       barChartOpt.theme = this.currentTheme;
-      this.integrateChart.setSimpleOption('BarChart', barChartOpt, {});
-      this.integrateChart.render();
+      this.integrateChart1.init(this.$refs.leftChartContainer);
+      this.integrateChart1.mediaScreen(this.$refs.leftChartContainer, barMediaOption);
+      this.integrateChart1.setSimpleOption('BarChart', barChartOpt, {});
+      this.integrateChart1.render();
+      this.integrateChart2.init(this.$refs.rightChartContainer);
+      this.integrateChart2.mediaScreen(this.$refs.rightChartContainer, barMediaOption);
+      this.integrateChart2.setSimpleOption('BarChart', barChartOpt, {});
+      this.integrateChart2.render();
+
     }
   }
 }
