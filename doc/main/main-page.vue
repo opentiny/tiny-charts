@@ -1,5 +1,5 @@
 <template>
-  <div class="doc-container" :class="{ 'has-header': isHeader}">
+  <div class="doc-container" :class="{ 'has-header': isHeader }">
     <div id="header"></div>
     <sidebar :comps-data="menuList" :version="version" />
     <div class="doc-content" style="width: 100%">
@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import {onMounted } from 'vue'
+import { onMounted } from 'vue';
 import Sidebar from './menu/menu.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { THEMES } from '../../src/util/constants';
@@ -103,34 +103,45 @@ const version = ref({
 
 // 左侧导航数据
 const menuList = computed(() => {
-  let menuList = [];
-  let menuObj = {};
-  NAV_DATA.forEach(item => {
-    let menus = [];
-    if (item.children) {
-      let children = item.children;
-      children.forEach(list => {
-        menus.push({
-          id: list.titleId,
-          label: list.title,
-          path: `/${list.value}`,
-        });
-      });
-    }
-    menuObj = {
+  // 递归函数处理每个菜单项
+  function processMenu(item) {
+    const menuObj = {
       id: item.titleId,
       label: item.title,
     };
-    if (item.value) menuObj.path = `/${item.value}`;
-    if (item.isHigher) menuObj.isHigher = item.isHigher;
-    if (menus.length) menuObj.children = menus;
-    menuList.push(menuObj);
-  });
-  return menuList;
+    // 添加path属性
+    if (item.value) {
+      menuObj.path = `/${item.value}`;
+    }
+     // 添加version属性
+     if (item.version) {
+      menuObj.version = item.version;
+    }
+    // 添加isHigher属性
+    if (item.isHigher) {
+      menuObj.isHigher = item.isHigher;
+    }
+    // 添加isRelation属性
+    if (item.isRelation) {
+      menuObj.isRelation = item.isRelation;
+    }
+    // 添加isNew属性
+    if (item.isNew) {
+      menuObj.isNew = item.isNew;
+    }
+    // 处理children
+    if (item.children && item.children.length > 0) {
+      menuObj.children = item.children.map(child => processMenu(child));
+    }
+
+    return menuObj;
+  }
+  // 处理NAV_DATA中的每个顶层项
+  return NAV_DATA.map(item => processMenu(item));
 });
 
 onMounted(() => {
-    // 加载header
+  // 加载header
   if (window.TDCommon) {
     const common = new window.TDCommon(['#header'], {
       searchConfig: {

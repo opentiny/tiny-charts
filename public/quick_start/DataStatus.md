@@ -238,10 +238,11 @@ chartInstance.closeCustomDom();
         margin-bottom: 16px;
         align-items: center;
         flex-direction: row;
+        background-color:#ffffff;
         justify-content: space-between;
     }
     .img-container{
-        border:1px solid var(--ti-base-color-common-1);
+        border:1px solid #ccc;
         position:relative;
         margin:0 auto;
         width: 300px;

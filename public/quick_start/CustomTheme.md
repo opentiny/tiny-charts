@@ -16,7 +16,7 @@
 您可以通过 `HuiCharts.theme(name)` 方法设置全局主题，此时图表会自动应用全局主题。
 
 ```javascript
-// 引用图表库。
+// 引用图表库
 import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
 // 全局设置图表主题，该方法需要传入主题名称。
 HuiCharts.theme('cloud-light');

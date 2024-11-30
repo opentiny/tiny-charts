@@ -11,62 +11,88 @@
  */
 // 对canvas的画笔的简单封装
 export default class Paint {
-    ctx = null
-    constructor(ctx) {
-        this.ctx = ctx
-    }
-    beginPath() {
-        this.ctx.beginPath()
-    }
-    closePath() {
-        this.ctx.closePath()
-    }
-    moveTo(x, y) {
-        this.ctx.moveTo(x, y)
-    }
-    lineTo(x, y) {
-        this.ctx.lineTo(x, y)
-    }
-    lineCap(type) {
-        this.ctx.lineCap = type
-    }
-    stroke() {
-        this.ctx.stroke()
-    }
-    lineJoin(type) {
-        this.ctx.lineJoin = type
-    }
-    lineWidth(nub) {
-        this.ctx.lineWidth = nub
-    }
-    fill() {
-        this.ctx.fill()
-    }
-    save() {
-        this.ctx.save()
-    }
-    restore() {
-        this.ctx.restore()
-    }
-    translate(x, y) {
-        this.ctx.translate(x, y)
-    }
-    createLinearGradient(x0, y0, x1, y1) {
-        return this.ctx.createLinearGradient(x0, y0, x1, y1);
-    }
-    clearRect(x, y, width, height) {
-        this.ctx.clearRect(x, y, width, height)
-    }
-    rect(x, y, width, height) {
-        this.ctx.rect(x, y, width, height)
-    }
-    strokeStyle(color) {
-        this.ctx.strokeStyle = color
-    }
-    arc(x, y, radius, startAngle, endAngle, anticlockwise = false) {
-        this.ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
-    }
-    fillStyle(color) {
-        this.ctx.fillStyle = color
-    }
+  ctx = null;
+  constructor(ctx) {
+    this.ctx = ctx;
+  }
+
+  beginPath() {
+    this.ctx.beginPath();
+  }
+
+  closePath() {
+    this.ctx.closePath();
+  }
+
+  moveTo(x, y) {
+    this.ctx.moveTo(x, y);
+  }
+
+  lineTo(x, y) {
+    this.ctx.lineTo(x, y);
+  }
+
+  lineCap(type) {
+    this.ctx.lineCap = type;
+  }
+
+  stroke() {
+    this.ctx.stroke();
+  }
+
+  lineJoin(type) {
+    this.ctx.lineJoin = type;
+  }
+
+  lineWidth(nub) {
+    this.ctx.lineWidth = nub;
+  }
+
+  fill() {
+    this.ctx.fill();
+  }
+
+  save() {
+    this.ctx.save();
+  }
+
+  restore() {
+    this.ctx.restore();
+  }
+
+  translate(x, y) {
+    this.ctx.translate(x, y);
+  }
+
+  createLinearGradient(x0, y0, x1, y1) {
+    return this.ctx.createLinearGradient(x0, y0, x1, y1);
+  }
+
+  clearRect(x, y, width, height) {
+    this.ctx.clearRect(x, y, width, height);
+  }
+
+  rect(x, y, width, height) {
+    this.ctx.rect(x, y, width, height);
+  }
+
+  strokeStyle(color) {
+    this.ctx.strokeStyle = color;
+  }
+
+  arc(x, y, radius, startAngle, endAngle, anticlockwise = false) {
+    this.ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+  }
+
+  fillStyle(color) {
+    this.ctx.fillStyle = color;
+  }
+
+  clip() {
+    this.ctx.clip();
+  }
+
+  createRadialGradient(x0, y0, r0, x1, y1, r1) {
+    return this.ctx.createRadialGradient(x0, y0, r0, x1, y1, r1);
+  }
 }

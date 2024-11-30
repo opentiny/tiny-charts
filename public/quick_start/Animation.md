@@ -1,57 +1,32 @@
 # 动画
-
-在实际场景中，带有动画的图表会带来更好的视觉效果和交互体验<br>
-
-目前 {{VITE_BASECOPYRIGHTS}} 提供了相关动画配置供使用者灵活配置,实现丰富且多样的图表动画效果。满足不同场景的动画需求。
-
-## 配置方式
-
-可以在`chartOption`中传入动画的具体配置。
+动画的过程本质是视觉属性在时间上的变化，带来视觉上的动画效果。
+目前提供了独立动画、动画组、仅获取动画进度三种方式，可搭配不同的缓动函数，实现不同场景的动画需求。
+- 独立动画：适用于单一动画场景使用。
+- 动画组：适用于多个动画场景，可同时操作多个动画的启动、结束、删除等功能。
+- 仅获取动画进度：适用于只需要动画进度的场景。
+## 使用方式
+### 1.独立动画
 
 ```javascript
-// 引用图表库
-import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
-
-// 创建图表实例
-const chartIns = new HuiCharts();
-
-// 初始化图表容器
-const chartContainerDom = ...;
-chartIns.init(chartContainerDom);
-
-// 动画的配置项
-const animationConfig={
-    animation:true,
-    animationDuration:500,
-    ...
-}
-
-// 填入图表配置项
-const chartOption = {
-    // 填入动画配置项
-    ...animationConfig,
-    ...
-};
-// 指定使用图表类型：LineChart、AreaChart、BarChart、PieChart、GaugeChart、RadarChart、ProcessChart、BubbleChart等
-// 图表类型的英文名称可以在文档左侧菜单栏看到
-const chartType = 'LineChart';
-chartIns.setSimpleOption(chartType, chartOption);
-
-// 开始渲染
-chartIns.render();
+// 引用动效
+import {Animation, Easing} from '{{VITE_BASECOPYRIGHTSPAT}}/framework/module/animation';
+let domElement = document.getElementById('dom');
+let animation = new Animation(domElement, {
+    start: {
+      left: 0
+    },
+    end: {
+      left: 500
+    },
+    duration: 1000,
+    delay: 100,
+    easing: Easing.Linear.In, //可选配置，具体效果请参考动画-缓动效果
+    onUpdate: function (params, elapsed, element) {
+        // params：当前帧状态(例：{left：1} 
+        // elapsed：动画当前进度(0~1)，例如执行到50%时，elapsed的值为0.5
+        // element：动画节点
+        element.style.left = paramms.left+'px'
+    }
+})
+animation.start(); 
 ```
-
-## 配置项
-
-| 名称   | 说明 |     默认值 | 
-| :----- |  :----- |  :-----  |  
-| animation |  是否开启动画   | `true` |
-| animationThreshold | 是否关闭动画的阈值  | `2000` |
-| animationDuration |  进场动画的时长 |`750` |
-| animationEasing |  进场动画的缓动效果 | `'quinticInOut'` |
-| animationDelay |  进场动画的延迟  | `0` |
-| animationDurationUpdate |  数据更新动画的时长  | `300` |
-| animationEasingUpdate |  数据更新动画的缓动效果 | `'quinticInOut'` |
-| animationDelayUpdate |  数据更新动画的延迟  | `0` |
-| stateAnimation.duration | 状态切换的动画时长  | `300` |
-| stateAnimation.easing |  状态切换的动画缓动  | `'quinticInOut'` |

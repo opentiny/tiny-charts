@@ -1,0 +1,16 @@
+{
+  "title": "自定义图 CustomizeChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "自定义图-默认布局",
+          "routePath": "CustomizeChart-1",
+          "imagePath": "./image/theme/light/CustomizeChart/CustomizeChart-1.png"
+        }
+        
+      ]
+    }
+  ]
+}

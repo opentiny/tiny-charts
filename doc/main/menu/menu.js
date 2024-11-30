@@ -1,5 +1,5 @@
-const versionNumber = '1.0.0';
-const updateTime = '2024-06-26';
+const versionNumber = '1.3.0';
+const updateTime = '2024-11-26';
 
 const NAV_DATA = [
   {
@@ -32,6 +32,143 @@ const NAV_DATA = [
         titleId: 'ic_Events',
         value: 'Events',
       },
+      {
+        title: '更新日志',
+        titleId: 'ic_ChangeLog',
+        value: 'ChangeLog',
+        version:'1.3.0'
+      },
+    ],
+  },
+  {
+    title: '关系图引擎',
+    titleId: 'ic_chart_engine',
+    className: 'evu_AccordionEx_engine',
+    isNew: true,
+    children: [
+      {
+        title: '开始使用',
+        titleId: 'ic_LifeCycle',
+        value: 'FrameworkLifeCycle',
+      },
+      {
+        title: '动画',
+        titleId: 'ic_animationoverview',
+        className: 'evu_AccordionEx_animationoverview',
+        children: [
+          {
+            title: '总览',
+            titleId: 'ic_animation',
+            value: 'Animation',
+          },
+          {
+            title: '缓动函数',
+            titleId: 'ic_animationease',
+            value: 'AnimationEasing',
+          },
+         ]
+      },
+      {
+        title: '画布',
+        titleId: 'ic_canvas',
+        value: 'Canvas',
+      },
+      {
+        title: '连线',
+        titleId: 'ic_line',
+        children: [
+          {
+            title: '总览',
+            titleId: 'ic_line_option',
+            value: 'LineOption',
+          },
+          {
+            title: '连线管理器',
+            titleId: 'ic_line_api',
+            value: 'LineManager',
+          },
+          {
+            title: '动效',
+            titleId: 'ic_line_animation',
+            value: 'LineAnimation',
+          },
+         ]
+      },
+      {
+        title: '节点',
+        titleId: 'ic_chart_node',
+        className: 'evu_AccordionEx_chartnode',
+        children: [
+          {
+            title: '节点管理器',
+            titleId: 'ic_nodemanager',
+            value: 'NodeManager',
+          },
+          {
+            title: 'HTML节点',
+            titleId: 'ic_htmlnode',
+            value: 'HTMLNode',
+          },
+          {
+            title: 'Vue节点',
+            titleId: 'ic_vuenode',
+            value: 'VueNode',
+          },
+          {
+            title: 'React节点',
+            titleId: 'ic_reactnode',
+            value: 'ReactNode',
+          },
+          {
+            title: 'Angular节点',
+            titleId: 'ic_angularnode',
+            value: 'AngularNode',
+          }]
+      },
+			{
+        title: '连接点',
+        titleId: 'ic_connector',
+        value: 'Connector',
+      },
+			{
+        title: '布局',
+        titleId: 'ic_chart_layout',
+				className: 'evu_AccordionEx_chartnode',
+        children: [{
+            title: '思维导图布局',
+            titleId: 'ic_mindmap',
+            value: 'MindmapLayout',
+        },{
+					title: '网格布局',
+					titleId: 'ic_grid',
+					value: 'GridLayout',
+				},
+				{
+					title: '环形布局',
+					titleId: 'ic_cirlce',
+					value: 'CircleLayout',
+				},
+				{
+					title: '线形弧线布局',
+					titleId: 'ic_linear_arc',
+					value: 'LinearArcLayout',
+				},
+				{
+					title: '圆形弧线布局',
+					titleId: 'ic_circle_arc',
+					value: 'CircleArcLayout',
+				},
+				{
+					title: '自定义布局',
+					titleId: 'ic_Customize',
+					value: 'CustomizeLayout',
+				}]
+			},
+      {
+        title: '右键菜单',
+        titleId: 'ic_contextmenu',
+        value: 'Contextmenu',
+      },
     ],
   },
   {
@@ -41,14 +178,19 @@ const NAV_DATA = [
     children: [
       {
         title: '动效',
-        titleId: 'ic_animation',
-        value: 'Animation',
+        titleId: 'ic_animationbefore',
+        value: 'AnimationBefore',
       },
       {
         title: '响应式',
         titleId: 'ic_mediaScreen',
         value: 'MediaScreen',
       },
+      // {
+      //   title: '画布',
+      //   titleId: 'ic_dragManager',
+      //   value: 'DragManager',
+      // },
       {
         title: '懒加载',
         titleId: 'ic_lazyLoad',
@@ -85,6 +227,11 @@ const NAV_DATA = [
         value: 'EChartsNative',
       },
       {
+        title: '图例扩展',
+        titleId: 'ic_expandLegend',
+        value: 'ExpandLegend',
+      },
+      {
         title: '刻度优化',
         titleId: 'ic_axisOptimization',
         value: 'AxisOptimization',
@@ -110,56 +257,62 @@ const NAV_DATA = [
         titleId: 'ic_linter',
         value: 'Linter',
       },
-    ],
-  },
-  {
-    title: '无障碍能力',
-    titleId: 'ic_BarrierFree',
-    children: [
-      {
-        title: '全键盘走焦',
-        titleId: 'ic_Keyboard',
-        value: 'KeyboardFocus',
-      },
-      {
-        title: '语音读屏',
-        titleId: 'ic_readScreen',
-        value: 'ReadScreen',
-      },
-    ]
-  },
-  {
-    title: '性能提升',
-    titleId: 'ic_performance_boost',
-    className: 'evu_AccordionEx_performance_boost',
-    children: [
-      // {
-      //   title: '滚动性能优化',
-      //   titleId: 'ic_scrollingPerformance',
-      //   value: 'ScrollingPerformance',
-      // },
-      // {
-      //   title: '视口内分时实例化',
-      //   titleId: 'ic_intraViewport',
-      //   value: 'IntraViewport',
-      // },
-      // {
-      //   title: '视口外异步实例化',
-      //   titleId: 'ic_outOfViewport',
-      //   value: 'OutOfViewport',
-      // },
       {
         title: '大批量数据优化',
         titleId: 'ic_Massive',
         value: 'Massive',
       },
-      // {
-      //   title: 'Dom节点类性能提升',
-      //   titleId: 'ic_nodePerformance',
-      //   value: 'NodePerformance',
-      // }
+      {
+        title: '无障碍能力',
+        titleId: 'ic_BarrierFree',
+        children: [
+          {
+            title: '全键盘走焦',
+            titleId: 'ic_Keyboard',
+            value: 'KeyboardFocus',
+          },
+          {
+            title: '语音读屏',
+            titleId: 'ic_readScreen',
+            value: 'ReadScreen',
+          },
+        ]
+      }
     ],
   },
+  
+//   {
+//     title: '性能提升',
+//     titleId: 'ic_performance_boost',
+//     className: 'evu_AccordionEx_performance_boost',
+//     children: [
+//       // {
+//       //   title: '滚动性能优化',
+//       //   titleId: 'ic_scrollingPerformance',
+//       //   value: 'ScrollingPerformance',
+//       // },
+//       // {
+//       //   title: '视口内分时实例化',
+//       //   titleId: 'ic_intraViewport',
+//       //   value: 'IntraViewport',
+//       // },
+//       // {
+//       //   title: '视口外异步实例化',
+//       //   titleId: 'ic_outOfViewport',
+//       //   value: 'OutOfViewport',
+//       // },
+//       {
+//         title: '大批量数据优化',
+//         titleId: 'ic_Massive',
+//         value: 'Massive',
+//       },
+//       // {
+//       //   title: 'Dom节点类性能提升',
+//       //   titleId: 'ic_nodePerformance',
+//       //   value: 'NodePerformance',
+//       // }
+//     ],
+//   },
   {
     title: '图表总览 Overview',
     titleId: 'ic_Overview',
@@ -308,6 +461,16 @@ const NAV_DATA = [
     value: 'CandlestickChart',
   },
   {
+    title: '百度地图 BaiduMapChart',
+    titleId: 'ic_BaiduMapChart',
+    value: 'BaiduMapChart',
+  },
+  // {
+  //   title: '高德地图 AutonaviMapChart',
+  //   titleId: 'ic_AutonaviMapChart',
+  //   value: 'AutonaviMapChart',
+  // },
+  {
     title: '甘特图 GanttChart',
     titleId: 'ic_comp_GanttChart',
     value: 'GanttChart',
@@ -351,16 +514,6 @@ const NAV_DATA = [
     isHigher: true
   },
   {
-    title: '百度地图 BaiduMapChart',
-    titleId: 'ic_BaiduMapChart',
-    value: 'BaiduMapChart',
-  },
-  // {
-  //   title: '高德地图 AutonaviMapChart',
-  //   titleId: 'ic_AutonaviMapChart',
-  //   value: 'AutonaviMapChart',
-  // },
-  {
     title: '组织关系图 OrganizationChart',
     titleId: 'ic_OrganizationChart',
     value: 'OrganizationChart',
@@ -377,6 +530,48 @@ const NAV_DATA = [
     titleId: 'ic_MilestoneChart',
     value: 'MilestoneChart',
     isHigher: true
+  },
+  {
+    title: '思维导图 MindmapChart',
+    titleId: 'ic_MindmapChart',
+    value: 'MindmapChart',
+    isRelation: true
+  },
+//   {
+//     title: '力导向图 ForceDirectedChart',
+//     titleId: 'ic_ForceDirectedChart',
+//     value: 'ForceDirectedChart',
+//     isHigher: true
+//   },
+  {
+    title: '网格图 GridChart',
+    titleId: 'ic_GridChart',
+    value: 'GridChart',
+    isRelation: true
+  },
+  {
+    title: '环形图 CircleChart',
+    titleId: 'ic_CircleChart',
+    value: 'CircleChart',
+    isRelation: true
+  },
+  {
+    title: '线形弧线图 LinearArcChart',
+    titleId: 'LinearArcChart',
+    value: 'LinearArcChart',
+    isRelation: true
+  },
+  {
+    title: '圆形弧线图 CircleArcChart',
+    titleId: 'CircleArcChart',
+    value: 'CircleArcChart',
+    isRelation: true
+  },
+  {
+    title: '自定义布局图 CustomizeChart',
+    titleId: 'CustomizeChart',
+    value: 'CustomizeChart',
+    isRelation: true
   }
 ];
 

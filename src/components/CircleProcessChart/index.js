@@ -15,10 +15,11 @@ import { getSeriesData, setTooltip } from './handleOption';
 import { setSeries } from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 export default class CircleProcessChart {
 
-  static name = CHART_TYPE.CIRCLE_PROCESS
+  static name = CHART_TYPE.CIRCLE_PROCESS;
 
   constructor(iChartOption, chartInstance) {
     this.baseOption = {};
@@ -40,6 +41,7 @@ export default class CircleProcessChart {
     // series bar数据
     const seriesData = getSeriesData(iChartOption.data);
     this.baseOption.series = setSeries(seriesData, iChartOption);
+    mergeSeries(iChartOption, this.baseOption);
     mini(iChartOption, this.baseOption);
   }
   getOption() {

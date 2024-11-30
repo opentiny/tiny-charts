@@ -1,0 +1,15 @@
+{
+  "title": "力导向图 ForceDirectedChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "力导向图-默认布局",
+          "routePath": "ForceDirectedChart-1",
+          "imagePath": "./image/theme/light/ForceDirectedChart/ForceDirectedChart-1.png"
+        }
+      ]
+    }
+  ]
+}

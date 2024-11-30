@@ -1,0 +1,16 @@
+{
+  "title": "圆形弧线图 CircleArcChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "圆形弧线图-默认布局",
+          "routePath": "CircleArcChart-1",
+          "imagePath": "./image/theme/light/CircleArcChart/CircleArcChart-1.png"
+        }
+        
+      ]
+    }
+  ]
+}

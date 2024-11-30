@@ -12,7 +12,7 @@
 import { getColor } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
 import chartToken from './chartToken';
-import random from '../../util/random';
+import {random} from '../../util/math';
 
 export const seriesInit = {
   type: 'wordCloud',

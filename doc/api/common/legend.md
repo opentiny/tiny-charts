@@ -13,10 +13,10 @@ legend: {
     selectedMode:true,
     icon:'circle',
     itemHeight:14,
-    itemWeight:14,
+    itemWidth:14,
     textStyle:{
         fontSize:12,
-        padding:[4,0,0,0]，
+        padding:[4,0,0,0],
         color:'#4e4e4e',
         overflow:'none',
     }

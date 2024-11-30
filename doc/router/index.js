@@ -5,23 +5,27 @@ import DocPage from '../main/main-page.vue';
 import ChartIframe from '../main/example/components/iframe.vue';
 
 const routerArr = [];
-NAV_DATA.forEach(item => {
-  if (item.children) {
-    item.children.forEach(v => {
-      routerArr.push({
-        path: `/${v.value}`,
-        name: v.value,
-        component: ChartIframe,
-      });
+function processItem(item) {
+  if (item.children && item.children.length > 0) {
+    item.children.forEach(child => {
+      processItem(child);
     });
   } else {
-    routerArr.push({
-      path: `/${item.value}`,
-      name: item.value,
-      component: ChartIframe,
-    });
+    if (item.value) {
+      routerArr.push({
+        path: `/${item.value}`,
+        name: item.value,
+        component: ChartIframe,
+      });
+    }
   }
+}
+
+// 处理NAV_DATA中的每个顶层项
+NAV_DATA.forEach(item => {
+  processItem(item);
 });
+
 const router = createRouter({
   history: createWebHistory(process.env.NODE_ENV === 'production' ? `/${import.meta.env.VITE_BASEROUTER}/` : '/'),
   routes: [

@@ -1,0 +1,1044 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+// 整个扩展图例的容器
+.hui_legend_container {
+    display: flex;
+    justify-content: flex-end;
+    z-index: 1;
+    width: 100%;
+    position: absolute;
+}
+
+// 多选形态图例的容器
+.hui_legend_mutiselect_container {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+
+    .hui_expand_legend_scroll {
+        width: calc(100% - 120px);
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+    }
+
+    .hui_expand_legend_placeholder {
+        height: 20px;
+    }
+
+    .hui_expand_legend_paging {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        -ms-user-select: none;
+    }
+
+    .hui_expand_legend_paging_left {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+        cursor: pointer;
+    }
+
+    .hui_expand_legend_paging_left::before {
+        content: "";
+        width: 5px;
+        height: 20px;
+        position: relative;
+        left: -4px;
+        background-color: #fff;
+    }
+
+    .hui_expand_legend_paging_right {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 8px;
+
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .hui_expand_legend_paging_text {
+        font: 400 14px HarmonyOS Sans SC;
+    }
+
+    .hui_expand_legend_paging_icon {
+        width: 16px;
+        height: 8px;
+        cursor: pointer;
+    }
+
+    .hui_expand_legend_paging_icon_rotate {
+        transform: rotate(180deg);
+    }
+
+    .hui_expand_legend_scroll_item {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 8px 0 0;
+        cursor: pointer;
+        line-height: 20px;
+        font-size: 12px;
+        color: #808080;
+        transition: all 0.1s;
+    }
+    .hui_expand_legend_scroll_item>.copy{
+        transition: all .1s;
+        width: 16px;
+        margin-left: 4px;
+        opacity: 0;
+        color: #808080;
+    }
+
+    .hui_expand_legend_scroll_item:hover>.copy {
+        opacity: 1;
+    }
+
+    .hui_expand_legend_scroll_item:hover {
+        color: #191919;
+    }
+
+    .hui_expand_legend_scroll_item_text {
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-break: keep-all;
+    }
+
+    .hui_expand_legend_scroll_item_text_unactive {
+        color: #c2c2c2 !important;
+    }
+
+    .hui_expand_legend_scroll_item_icon_circle {
+        width: 8px;
+        height: 8px;
+        border-radius: 4px;
+        transition: all 0.1s;
+        margin-right: 6px;
+    }
+
+    .hui_expand_legend_scroll_item_icon_line {
+        display: inline-block;
+        width: 8px;
+        height: 2px;
+        background-color: rgb(29, 130, 245);
+        margin-right: 6px;
+    }
+
+    .hui_expand_legend_scroll_item_icon_unactive {
+        background-color: #dbdbdb !important;
+    }
+
+    .hide {
+        opacity: 0;
+        z-index: -1;
+    }
+
+}
+
+// 单选形态下“更多”按钮
+.hui_expand_legend_more {
+    margin-left: 8px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -ms-user-select: none;
+}
+
+// 列表形态图例的容器
+.hui_legend_list_container {
+    position: absolute;
+    right: 0;
+    width: 30%;
+    z-index: 1;
+
+    .hui_expand_legend_list {
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        box-sizing: border-box;
+        display: inline-block;
+        // padding: 4px;
+        background-color: white;
+        font-size: 12px;
+    }
+
+    /* 滚动条底色 */
+    .hui_expand_legend_list::-webkit-scrollbar-track-piece {
+        background-color: #fff !important;
+        -webkit-border-radius: 2px !important;
+    }
+
+    /* 滚动条颜色 */
+    .hui_expand_legend_list::-webkit-scrollbar {
+        width: 8px !important;
+        transition: all 0.1s !important;
+        background: #dfdfdf !important;
+    }
+
+    .hui_expand_legend_list::-webkit-scrollbar-thumb {
+        transition: all 0.1s !important;
+        width: 8px !important;
+        background: #dfdfdf !important;
+
+        box-sizing: border-box !important;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-color: #ffffff !important;
+        border-width: 2px !important;
+        background-clip: padding-box !important;
+    }
+
+    .hui_expand_legend_list::-webkit-scrollbar-thumb:hover {
+        background: #aeaeae !important;
+        /* 滚动条手柄鼠标悬停时的颜色 */
+        border-style: hidden !important;
+    }
+
+    .hui_expand_legend_list_item {
+        display: flex;
+        align-items: center;
+        color: #909090;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-weight: 400;
+    }
+
+    .hui_expand_legend_list_item:last-child {
+        margin-bottom: 0px;
+    }
+
+    .hui_expand_legend_list_item_icon_circle {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 4px;
+        background-color: rgb(29, 130, 245);
+        margin-right: 6px;
+    }
+
+    .hui_expand_legend_list_item_icon_line {
+        display: inline-block;
+        width: 8px;
+        height: 2px;
+        background-color: rgb(29, 130, 245);
+        margin-right: 6px;
+    }
+
+    .hui_expand_legend_list_item:hover {
+        color: black;
+    }
+
+    .hui_expand_legend_list_item:hover>.hui_expand_legend_list_item_text {
+        color: rgba(25, 25, 25);
+    }
+
+    .hui_expand_legend_list_item_text {
+        width: calc(100% - 30px);
+        color: rgb(128, 128, 128);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: left;
+    }
+
+    .hui_expand_legend_list_item>.copy{
+        transition: all .1s;
+        width: 16px;
+        opacity: 0;
+        color: #808080;
+    }
+    .hui_expand_legend_list_item:hover >.copy {
+        opacity: 1;
+    }
+    .hui_expand_legend_list_item_icon_unactive {
+        background-color: #dbdbdb !important;
+    }
+
+    .hui_expand_legend_list_item_unactive {
+        color: #c2c2c2 !important;
+    }
+
+    .hui_expand_legend_table{
+        width: 100%;
+        font-size:12px;
+        font-weight: 600;
+        color: rgb(25, 25, 25);
+        table-layout: fixed;
+        text-align: right;
+    }
+
+    .hui_expand_legend_table_head{
+        position:sticky;
+        top: 0;
+        background: white;
+    }
+    
+    .hui_expand_legend_table_item{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 6px 12px 6px 0;
+    }
+
+    .hui_expand_legend_table_other_item{
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 6px;
+        text-overflow: ellipsis;
+    }
+}
+
+// 多选形态下拉内容
+.hui_expand_legend_mutiselect {
+    box-sizing: border-box;
+    background-color: #fff;
+    position: fixed;
+    width: 160px;
+    padding: 4px 4px 4px 4px;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.16);
+    border-radius: 6px;
+    transition: 0.1s;
+    transition-property: opacity, z-index, transform;
+
+    .hui_expand_legend_mutiselect_active {
+        transform: scale(100%);
+        opacity: 1;
+        z-index: 2000;
+    }
+
+    .hui_expand_legend_mutiselect_hidden {
+        opacity: 0;
+        z-index: -1;
+        transform: scale(0%), translateY(-100%);
+    }
+
+    .hui_expand_legend_mutiselect_container {
+        max-height: 196px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        overscroll-behavior: contain;
+        z-index: 2001 !important;
+    }
+
+    /* 滚动条底色 */
+    .hui_expand_legend_mutiselect_container::-webkit-scrollbar-track-piece {
+        background-color: #fff !important;
+        -webkit-border-radius: 2px !important;
+    }
+
+    /* 滚动条颜色 */
+    .hui_expand_legend_mutiselect_container::-webkit-scrollbar {
+        width: 8px !important;
+        transition: all 0.1s !important;
+        background: #dfdfdf !important;
+    }
+
+    .hui_expand_legend_mutiselect_container::-webkit-scrollbar-thumb {
+        transition: all 0.1s !important;
+        width: 8px !important;
+        background: #dfdfdf !important;
+
+        box-sizing: border-box !important;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-color: #ffffff !important;
+        border-width: 2px !important;
+        background-clip: padding-box !important;
+    }
+
+    .hui_expand_legend_mutiselect_container::-webkit-scrollbar-thumb:hover {
+        background: #aeaeae !important;
+        /* 滚动条手柄鼠标悬停时的颜色 */
+        border-style: hidden !important;
+    }
+
+    .hui_expand_legend_mutiselect_container_empty {
+        height: 74px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hui_expand_legend_mutiselect_container_empty_text {
+        margin-bottom: 10px;
+        opacity: 0.4;
+    }
+
+    .hui_expand_legend_mutiselect_item {
+        height: 36px;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .hui_expand_legend_mutiselect_item>.copy{
+        transition: all .1s;
+        width: 16px;
+        opacity: 0;
+        color: #808080;
+    }
+    .hui_expand_legend_mutiselect_item:hover >.copy {
+        opacity: 1;
+    }
+    .hui_expand_legend_mutiselect_item:last-child {
+        margin-bottom: 0px;
+    }
+
+    .hui_expand_legend_mutiselect_item:hover {
+        background-color: #f3f3f3;
+    }
+
+    .hui_expand_legend_mutiselect_item_checkbox {
+        margin-left: 8px;
+        margin-right: 8px;
+        height: 16px;
+        width: 16px;
+        border: 1px solid rgb(147, 147, 147);
+        background-color: #fff;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.1s;
+    }
+
+    .hui_expand_legend_mutiselect_item_checkbox:hover {
+        cursor: pointer;
+        border: 1px solid #2e86de;
+    }
+
+    .hui_expand_legend_mutiselect_item_checkbox_icon {
+        opacity: 0;
+        transition: all 0.1s;
+    }
+
+    .hui_expand_legend_mutiselect_item_checkbox_icon.active {
+        opacity: 1;
+    }
+
+    .hui_expand_legend_mutiselect_item_name {
+        width: 90px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: left;
+    }
+
+    .hui_expand_legend_mutiselect_item_checkbox.active {
+        background-color: rgb(0, 103, 209);
+        border: 1px solid rgb(0, 103, 209);
+    }
+
+    .hui_expand_legend_mutiselect_item_checkbox.active:hover {
+        background-color: #2e86de;
+    }
+
+    .hui_expand_legend_mutiselect_item_legend {
+        width: 6px;
+        height: 6px;
+        border-radius: 3px;
+        margin-left: 16px;
+        margin-right: 8px;
+        background-color: #DBDBDB;
+    }
+
+    .hui_expand_legend_mutiselect_item_legend.active {
+        background-color: var(--active-color);
+    }
+
+    .hui_expand_legend_mutiselect_search {
+        position: relative;
+        display: flex;
+        height: 32px;
+        width: 146px;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+
+    .hui_expand_legend_mutiselect_search::after {
+        bottom: 0px;
+        left: 8px;
+        content: "";
+        height: 1px;
+        box-sizing: border-box;
+        position: absolute;
+        width: 136px;
+        border: 1px solid rgb(240, 240, 240);
+    }
+
+    .hui_expand_legend_mutiselect_search_icon {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    .hui_expand_legend_mutiselect_search_input {
+        display: inline-block;
+        width: 100px;
+        font-size: 14px;
+        text-overflow: ellipsis;
+        outline: none;
+        box-shadow: none;
+        border: none;
+    }
+
+}
+
+// 单选形态下拉内容
+.hui_expand_legend_singleselect {
+    box-sizing: border-box;
+    background-color: #fff;
+    position: fixed;
+    width: 160px;
+    padding: 4px 4px 4px 4px;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.16);
+    border-radius: 6px;
+    transition: 0.1s;
+    transition-property: opacity, z-index, transform;
+
+    .hui_expand_legend_singleselect_active {
+        transform: scale(100%);
+        opacity: 1;
+        z-index: 2000;
+    }
+    
+    .hui_expand_legend_singleselect_hidden {
+        opacity: 0;
+        z-index: -1;
+        transform: scale(0%), translateY(-100%);
+    }
+    
+    .hui_expand_legend_singleselect_container {
+        max-height: 196px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        overscroll-behavior: contain;
+        z-index: 2001 !important;
+    }
+    
+    /* 滚动条底色 */
+    .hui_expand_legend_singleselect_container::-webkit-scrollbar-track-piece {
+        background-color: #fff !important;
+        -webkit-border-radius: 2px !important;
+    }
+    
+    /* 滚动条颜色 */
+    .hui_expand_legend_singleselect_container::-webkit-scrollbar {
+        width: 8px !important;
+        transition: all 0.1s !important;
+        background: #dfdfdf !important;
+    }
+    
+    .hui_expand_legend_singleselect_container::-webkit-scrollbar-thumb {
+        transition: all 0.1s !important;
+        width: 8px !important;
+        background: #dfdfdf !important;
+        box-sizing: border-box !important;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-color: #ffffff !important;
+        border-width: 2px !important;
+        background-clip: padding-box !important;
+    }
+    
+    .hui_expand_legend_singleselect_container::-webkit-scrollbar-thumb:hover {
+        background: #aeaeae !important;
+        
+        /* 滚动条手柄鼠标悬停时的颜色 */
+        border-style: hidden !important;
+    }
+    
+    .hui_expand_legend_singleselect_container_empty {
+        height: 74px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hui_expand_legend_singleselect_container_empty_text {
+        margin-bottom: 10px;
+        opacity: 0.4;
+    }
+    
+    .hui_expand_legend_singleselect_item {
+        height: 36px;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .hui_expand_legend_singleselect_item>.copy{
+        transition: all .1s;
+        width: 16px;
+        // margin-left: 12px;
+        opacity: 0;
+        color: #808080;
+    }
+
+    .hui_expand_legend_singleselect_item:hover >.copy {
+        opacity: 1;
+    }
+    .hui_expand_legend_singleselect_item:last-child {
+        margin-bottom: 0px;
+    }
+    
+    .hui_expand_legend_singleselect_item:hover {
+        background-color: #f3f3f3;
+    }
+    
+    .hui_expand_legend_singleselect_item_icon_line {
+        margin-left: 9px;
+        margin-right: 8px;
+        width: 8px;
+        height: 2px;
+        background-color: #DBDBDB;
+    }
+    
+    .hui_expand_legend_singleselect_item_icon_line.active {
+        background-color: var(--active-color);
+    }
+    
+    .hui_expand_legend_singleselect_item_icon_circle {
+        margin-left: 9px;
+        margin-right: 8px;
+        width: 8px;
+        height: 8px;
+        border-radius: 4px;
+        background-color: #DBDBDB;
+    }
+    
+    .hui_expand_legend_singleselect_item_icon_circle.active {
+        background-color: var(--active-color);
+    }
+    
+    .hui_expand_legend_singleselect_item_name {
+        width: 100px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: left;
+        color: #DBDBDB;
+    }
+    
+    .hui_expand_legend_singleselect_item_name.active {
+        color: #000;
+    }
+    
+    .hui_expand_legend_singleselect_search {
+        position: relative;
+        display: flex;
+        height: 32px;
+        width: 146px;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+    
+    .hui_expand_legend_singleselect_search::after {
+        bottom: 0px;
+        left: 8px;
+        content: "";
+        height: 1px;
+        box-sizing: border-box;
+        position: absolute;
+        width: 136px;
+        border: 1px solid rgb(240, 240, 240);
+    }
+    
+    .hui_expand_legend_singleselect_search_icon {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+    
+    .hui_expand_legend_singleselect_search_input {
+        display: inline-block;
+        width: 100px;
+        font-size: 14px;
+        text-overflow: ellipsis;
+        outline: none;
+        box-shadow: none;
+        border: none;
+    }
+}
+
+// 提示信息的样式
+.hui_expand_legend_tips {
+    position: fixed;
+    background-color: #fff;
+    display: flex;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding: 12px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.16);
+    align-items: center;
+    transition: 0.2s;
+    transition-property: opacity, z-index;
+    cursor: text;
+    color: black !important;
+
+    &.hui_expand_legend_tips_active {
+        opacity: 1;
+        z-index: 2000;
+    }
+    
+    &.hui_expand_legend_tips_hidden {
+        opacity: 0;
+        z-index: -1;
+    }
+    
+    
+    .hui_expand_legend_tips_arrow {
+        position: absolute;
+    }
+    
+    .scale-in-ver-bottom {
+        -webkit-animation: scale-in-ver-bottom 0.1s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+        animation: scale-in-ver-bottom 0.1s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+    }
+    
+    @-webkit-keyframes scale-in-ver-bottom {
+        0% {
+            -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+            -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+            opacity: 0;
+        }
+    
+        100% {
+            -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+            -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+            opacity: 1;
+        }
+    }
+    
+    @keyframes scale-in-ver-bottom {
+        0% {
+            -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+            -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+            opacity: 0;
+        }
+    
+        100% {
+            -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+            -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+            opacity: 1;
+        }
+    }
+    
+    .scale-out-ver-bottom {
+        -webkit-animation: scale-out-ver-bottom 0.1s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+        animation: scale-out-ver-bottom 0.1s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+    }
+    
+    @-webkit-keyframes scale-out-ver-bottom {
+        0% {
+            -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+            -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+            opacity: 1;
+        }
+    
+        100% {
+            -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+            -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+            opacity: 0;
+        }
+    }
+    
+    @keyframes scale-out-ver-bottom {
+        0% {
+            -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+            -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+            opacity: 1;
+        }
+    
+        100% {
+            -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+            -webkit-transform-origin: 0% 100%;
+            transform-origin: 0% 100%;
+            opacity: 0;
+        }
+    }
+}
+
+.hui_legend_singleselect_container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    .hui_expand_legend_scroll {
+        width: calc(100% - 40px);
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+    }
+
+    .hui_expand_legend_placeholder {
+        height: 20px;
+    }
+
+    .hui_expand_legend_paging {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        -ms-user-select: none;
+    }
+
+    .hui_expand_legend_paging_left {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+        cursor: pointer;
+    }
+
+    .hui_expand_legend_paging_left::before {
+        content: "";
+        width: 5px;
+        height: 20px;
+        position: relative;
+        left: -4px;
+        background-color: #fff;
+    }
+
+    .hui_expand_legend_paging_right {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 8px;
+
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .hui_expand_legend_paging_text {
+        font: 400 14px HarmonyOS Sans SC;
+    }
+
+    .hui_expand_legend_paging_icon {
+        width: 16px;
+        height: 8px;
+        cursor: pointer;
+    }
+
+    .hui_expand_legend_paging_icon_rotate {
+        transform: rotate(180deg);
+    }
+
+    .hui_expand_legend_scroll_item {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 16px 0 0;
+        cursor: pointer;
+        line-height: 20px;
+        font-size: 12px;
+        color: #808080;
+        transition: all 0.1s;
+    }
+
+    .hui_expand_legend_scroll_item>.copy{
+        transition: all .1s;
+        width: 16px;
+        margin-left: 4px;
+        opacity: 0;
+        color: #808080;
+    }
+
+    .hui_expand_legend_scroll_item:hover>.copy {
+        opacity: 1;
+    }
+
+    .hui_expand_legend_scroll_item:hover {
+        color: #191919;
+    }
+
+    .hui_expand_legend_scroll_item_text {
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-break: keep-all;
+    }
+
+    .hui_expand_legend_scroll_item_text_unactive {
+        color: #c2c2c2 !important;
+    }
+
+    .hui_expand_legend_scroll_item_icon_circle {
+        width: 8px;
+        height: 8px;
+        border-radius: 4px;
+        transition: all 0.1s;
+        margin-right: 6px;
+    }
+
+    .hui_expand_legend_scroll_item_icon_line {
+        display: inline-block;
+        width: 8px;
+        height: 2px;
+        background-color: rgb(29, 130, 245);
+        margin-right: 6px;
+    }
+
+    .hui_expand_legend_scroll_item_icon_unactive {
+        background-color: #dbdbdb !important;
+    }
+
+    .hide {
+        opacity: 0;
+        z-index: -1;
+    }
+    
+    
+}
+
+.hui_expand_legend_singleselect_item_icon_line {
+    margin-left: 9px;
+    margin-right: 8px;
+    width: 8px;
+    height: 2px;
+    background-color: #DBDBDB;
+}
+
+.hui_expand_legend_singleselect_item_icon_line.active {
+    background-color: var(--active-color);
+}
+
+.hui_expand_legend_singleselect_item_icon_circle {
+    margin-left: 9px;
+    margin-right: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: #DBDBDB;
+}
+
+.hui_expand_legend_singleselect_item_icon_circle.active {
+    background-color: var(--active-color);
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 0 4px 0px rgba(0, 0, 0, .3);
+}
+
+.button {
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #303030;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+    outline: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    color: lightskyblue;
+    border-color: lightskyblue;
+}
+
+.message {
+    position: fixed;
+    left: 50%;
+    top: 0px;
+    transform: translateX(-50%) translateY(-50px);
+    /*元素水平居中，并隐藏*/
+    display: flex;
+    align-items: center;
+    /*内容垂直居中*/
+    padding: 10px 16px;
+    background: #67c23A;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 4px;
+    transition: all .6s;
+    /*设置动画效果*/
+    opacity: 0;
+}
+
+.message .iconfont {
+    margin-right: 6px;
+}
+
+.message.show {
+    transform: translateX(-50%) translateY(10px);
+    opacity: 1;
+}
+
+.message.success {
+    background-color: #67c23a;
+}
+
+.message.warning {
+    background-color: #e6a23c;
+}
+
+.message.info {
+    background-color: #909399;
+}
+
+.message.danger {
+    background-color: #f56c6c;
+}

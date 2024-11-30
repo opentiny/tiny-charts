@@ -32,4 +32,18 @@ const formatDate = (date, fmt) => {
     .replace(/S/, millisecond);
 };
 
-export { pxToNumber, formatDate };
+//SVG转base64
+function svgTransform(svgData) {
+  const svgBlob = new Blob([svgData], { type: 'image/svg+xml' });
+  const svgUrl = URL.createObjectURL(svgBlob);
+  return svgUrl
+}
+// 百分比转换为小数
+const percentToDecimal = (percentStr) => {
+    // 移除百分号
+    let numberStr = percentStr.replace(/%/, '');
+    // 转换为小数
+    let decimal = Number(numberStr) / 100;
+    return decimal;
+}
+export {pxToNumber, formatDate , svgTransform, percentToDecimal };

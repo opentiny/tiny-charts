@@ -29,12 +29,13 @@ function getSeriesInit() {
 }
 
 export function setSeries(seriesData, iChartOption) {
-  const { data } = iChartOption;
+  const { data, itemStyle } = iChartOption;
   const series = [];
   data.forEach((item, i) => {
     const seriesUnit = getSeriesInit();
     seriesUnit.name = item.name;
     seriesUnit.data = seriesData[i];
+    seriesUnit.itemStyle = item.itemStyle || itemStyle;
     seriesUnit.backgroundStyle.color = chartToken.background;
     series.push(seriesUnit);
   });

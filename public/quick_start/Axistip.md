@@ -98,6 +98,7 @@ let chartOption = {
         display: flex;
         align-items: center;
         flex-direction: row;
+        background-color:#ffffff;
         justify-content: space-between; 
     }
     .img-double{

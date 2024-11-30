@@ -48,7 +48,7 @@
   h6 {
     color: var(--ti-base-color-common-7);
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 4px;
     line-height: 1.1;
   }
 
@@ -192,5 +192,13 @@
     margin: 0 3rem;
   }
 }
-
+.markdown-layout {
+    .github-markdown-body {
+        pre {
+            code {
+                max-height: 600px;
+            }
+        }
+    }
+}
 // 子级标题样式

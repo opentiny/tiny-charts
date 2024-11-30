@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_trash_lined</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_trash_lined">
+            <rect id="矩形" fill="#D8D8D8" fill-rule="nonzero" opacity="0" x="0" y="0" width="24" height="24"></rect>
+            <path d="M3.75,6.5 L7.87508477,6.5 L8.4174576,4.79523453 C8.61550255,4.17274724 9.19362686,3.75 9.846859,3.75 L14.1531698,3.75 C14.8063881,3.75 15.3845035,4.1727296 15.5825598,4.79519871 L16.1249911,6.5 L16.1249911,6.5 C18.874997,6.5 20.25,6.5 20.25,6.5" id="路径" stroke="#191919" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M5,6.5 L6.25684932,18.0211188 C6.39520445,19.2893741 7.46632509,20.25 8.74210476,20.25 L15.2578952,20.25 C16.5336749,20.25 17.6047956,19.2893741 17.7431507,18.0211188 C18.1621005,14.1807459 18.5810502,10.3403729 19,6.5" id="路径备份" stroke="#191919" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <line x1="10" y1="9.5" x2="10" y2="16.5" id="路径-2" stroke="#191919" stroke-width="1.5" stroke-linecap="round"></line>
+            <line x1="14" y1="9.5" x2="14" y2="16.5" id="路径-2备份" stroke="#191919" stroke-width="1.5" stroke-linecap="round"></line>
+        </g>
+    </g>
+</svg>

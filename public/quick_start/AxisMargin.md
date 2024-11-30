@@ -5,7 +5,7 @@
 对于直角坐标系类图表，通常需要将图表左右两侧与容器左右两侧顶格对齐：
 
 <div class="img-warpper">
-    <div class="img-container" style="padding-top: 32px;padding-bottom: 32px;">
+    <div class="img-container">
         <img src="{{VITE_BASEROUTER}}./image/md/axisMarginDesign.png"/>
     </div>
 </div>
@@ -132,6 +132,7 @@ let chartOption = {
         margin-bottom: 16px;
         align-items: center;
         flex-direction: row;
+        background-color:#ffffff;
         justify-content: space-between;
     }
     .img-double{
@@ -141,7 +142,7 @@ let chartOption = {
         width: 100%;
     }
     .img-container{
-        border:1px solid var(--ti-base-color-common-1);
+        border:1px solid #ccc;
         position:relative;
         margin:0 auto;
         width: 650px;

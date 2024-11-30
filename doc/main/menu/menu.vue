@@ -16,6 +16,9 @@
         <template #default="slotScope">
           {{ slotScope.data.label }}
           <span v-if="slotScope.data.isHigher" class="higher-tag">高阶</span>
+          <span v-if="slotScope.data.isNew" class="higher-tag new">New</span>
+          <span v-if="slotScope.data.isRelation" class="higher-tag new">关系图</span>
+          <span v-if="slotScope.data.version" class="higher-tag">{{ slotScope.data.version }}</span>
         </template>
       </tiny-tree-menu>
     </div>
@@ -49,12 +52,12 @@ export default {
       highlight: ''
     }
   },
-  
+
   watch: {
     $route: {
       handler(router) {
         let activeMenu = ''
-        if(router.hash) {
+        if (router.hash) {
           activeMenu = `/${router.hash.split('/')[2]}`
         } else {
           activeMenu = router.path;
@@ -162,4 +165,9 @@ export default {
   display: inline-block;
   cursor: default;
   white-space: nowrap;
-}</style>
+  &.new {
+    border: 1px solid #09AA71;
+    background-color: #09AA71;
+  }
+}
+</style>

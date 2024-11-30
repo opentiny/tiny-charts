@@ -29,6 +29,8 @@ export const CUSTOM_DARK_THEME = {
     'ti-base-color-common-3': '#8a8e99', // 中立色-3
     'ti-base-color-common-2': '#adb0b8', // 中立色-2
     'ti-base-color-common-1': '#4a4a4a', // 中立色-1
+    'ti-tabs-button-card-item-active-text-color': '#ffffff',
+    'ti-tabs-button-card-item-hover-text-color': '#ffffff',
 
     /* 1.3 背景色*/
     'ti-base-color-bg-9': '#b12220', // 背景-9

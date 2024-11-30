@@ -14,6 +14,7 @@ import NodeManager from './NodeManager';
 import LineManager from './LineManager';
 import { initContainer } from './insert.js'
 import { CHART_TYPE } from '../../util/constants';
+import { isFunction } from '../../util/type';
 
 export default class FlowChart extends BaseChart{
 
@@ -84,7 +85,7 @@ export default class FlowChart extends BaseChart{
         this.createLines();
         this.setResizeObserver();
         setTimeout(() => {
-          this.svgContainer.setAttribute('style',`height:${this.container.scrollHeight}px`);
+          this.svgContainer.setAttribute('style',`height:${this.container.scrollHeight}px;width:${this.container.scrollWidth}px`);
         }, 10);
     }
 
@@ -229,6 +230,9 @@ export default class FlowChart extends BaseChart{
             this.resetContainerPosn()
             this.nodeManager.layoutNodes(this.data, this.containerPosn);
             this.lineManager.updateAllLine();
+          }
+          if(this.option.renderBorder && isFunction(this.option.renderBorder)){
+            this.option.renderBorder(this.htmlContainer,this.data.nodes);
           }
         });
         this.resizeObserver.observe(this.dom);

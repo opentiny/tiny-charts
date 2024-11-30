@@ -1,0 +1,154 @@
+// 思维导图案例的有关样式
+.mmc-node-example {
+    width: 100px;
+    height: 50px;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    border-radius: 3px;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font-weight: bolder;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #ffffff;
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+    background-color: rgba(89,144,253, 0.8);
+    &.circle {
+        height: 100px;
+        border-radius: 50%;
+    }
+
+    &.mmc-node-example-blue {
+        border-color: #5990fd;
+        background-color: rgba(89, 144, 253, 0.8);
+    }
+
+    &.mmc-node-example-red {
+        border-color: #f43146;
+        background-color: rgba(244, 49, 70, 0.8);
+    }
+
+    &.mmc-node-example-orange {
+        border-color: #ec6f1a;
+        background-color: rgba(236, 111, 26, 0.8);
+    }
+
+    &.mmc-node-example-green {
+        border-color: #2da769;
+        background-color: rgba(45, 167, 105, 0.8);
+    }
+}
+
+.mindmapChart-node {
+    width: 100px;
+    height: 70px;
+    border: 1px solid #5990fd;
+    box-sizing: border-box;
+    border-radius: 3px;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bolder;
+    color: #ffffff;
+    background-color: rgba(89, 144, 253, 0.9);
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+
+    &.start {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border-color: #2da769;
+        background-color: rgba(45, 167, 105, 0.8);
+    }
+
+    &.end {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border-color: #f43146;
+        background-color: rgba(244, 49, 70, 0.8);
+    }
+
+    &.now {
+        width: 140px;
+        height: 80px;
+    }
+
+    .user {
+        color: #eeeeee;
+        font-size: 12px;
+        font-weight: 400;
+        margin-top: 6px;
+    }
+}
+.mmc-node-item{
+    background:#282727;
+    border-radius: 8px;
+    max-width: 350px;
+    color: #d3d3d3;
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+ 
+    .mmc-node-item-title{
+        line-height: 40px;
+        font-size: 20px;
+        padding: 0 20px;
+        border-bottom: 1px solid #777777;
+        width: auto;
+        max-width: 350px;
+        &.hide{
+            display: none;
+        }
+    }
+    .mmc-node-item-text{
+        padding: 10px 20px;
+        line-height: 18px;
+        font-size: 16px;
+        width: max-content;
+        max-width: 350px;
+    }
+}
+#mmc-node-hole1>.mmc-node-item,
+#mmc-node-hole2>.mmc-node-item{
+    border: 2px solid #591517;
+}
+.mmc-node.mmc-node-root{
+    width: auto !important;
+}
+.mmc-node.mmc-node-root>.mmc-node-item{
+    width: auto !important;
+    max-width: max-content;
+    margin: 0 auto;
+    background: linear-gradient(to right, #242a37 , #1c1f24);
+    .mmc-node-item-text{
+        max-width: max-content;
+        line-height: 40px;
+        font-size: 18px;
+        padding: 8px 24px;
+    }
+}
+#root .mmc-node-item{
+    background: linear-gradient(to right, #afc2ea , #cccccc);
+}
+.ic-light{
+    .mmc-node-item{
+        background: #ccc;
+        color: #4d4d4d;
+        box-shadow: 0px 1px 6px rgba(107, 107, 107, 0.2);
+    }
+    .mmc-node.mmc-node-root > .mmc-node-item{
+        background: linear-gradient(to right, #afc2ea, #bdbdbd);
+    }
+    #mmc-node-hole1 > .mmc-node-item, #mmc-node-hole2 > .mmc-node-item{
+        border: 2px solid #ec9ea1;
+    }
+    .mmc-node .mmc-node-btn{
+        background-color: #a8a6a6;
+    }
+}

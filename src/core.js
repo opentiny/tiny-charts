@@ -18,6 +18,7 @@ import axistip from './feature/axistip';
 import BaseChart from './components/BaseChart';
 import readScreen from './feature/readScreen';
 import MediaScreen from './feature/mediaScreen';
+import expandLegend from './feature/expandLegend';
 import animation from './option/config/animation';
 import merge, { mergeExtend } from './util/merge';
 import WcagObserver from './feature/wcag';
@@ -37,6 +38,13 @@ const SELF_CHART = [
   'SnowFlakeChart',
   'TimelineChart',
   'MilestoneChart',
+  'MindmapChart',
+  'ForceDirectedChart',
+  'GridChart',
+  'CircleChart',
+  'LinearArcChart',
+  'CircleArcChart',
+  'CustomizeChart'
 ];
 
 // 图表核心对象，按需引入图表 class 给 CoreChart 渲染，打包容量较小
@@ -204,6 +212,8 @@ export default class CoreChart extends BaseChart {
     this.setOption(this.eChartOption, option);
     // 第二次渲染
     this.setOptionAgain(this.eChartOption);
+    // 引用拓展图例
+    expandLegend(this);
     // 图表渲染完成时回调
     this.renderCallBack && this.renderCallBack(this.echartsIns);
     // 监听全键盘事件

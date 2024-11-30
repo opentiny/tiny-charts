@@ -1,0 +1,16 @@
+{
+  "title": "网格图 GridChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "网格图-默认布局",
+          "routePath": "GridChart-1",
+          "imagePath": "./image/theme/light/GridChart/GridChart-1.png"
+        }
+        
+      ]
+    }
+  ]
+}

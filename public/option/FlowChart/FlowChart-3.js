@@ -7,8 +7,6 @@ const option = {
     lineStyle: {
       type: 'Round',
     },
-    // 禁止节点拖拽
-    slient: true,
     render: (container, data) => {
         let idNum = data.id;
         let level = data.level;

@@ -52,7 +52,7 @@ import * as d3 from 'd3';
 import axios from 'axios';
 import 'echarts-wordcloud';
 import '../../src/index.less';
-//import 'echarts-extension-amap';
+// import 'echarts-extension-amap';
 import * as echarts from 'echarts';
 import Editor from './editor-page.vue';
 import '../style/playground/index.less';
@@ -74,7 +74,19 @@ import HoneycombChart from '../../src/components/HoneycombChart';
 import AutonaviMapChart from '../../src/components/AutonaviMapChart';
 import OrganizationChart from '../../src/components/OrganizationChart';
 import MilestoneChart from '../../src/components/MilestoneChart';
-import { Button, Popover, Layout, Row, Col, RadioGroup, RadioButton, Input } from '@opentiny/vue'
+import MindmapChart from '../../src/framework/charts/MindmapChart';
+import GridChart from '../../src/framework/charts/GridChart';
+import CircleChart from '../../src/framework/charts/CircleChart';
+import LinearArcChart from '../../src/framework/charts/LinearArcChart';
+import CircleArcChart from '../../src/framework/charts/CircleArcChart';
+import CustomizeChart from '../../src/framework/charts/CustomizeChart';
+import Demo from '../nodeExample/demoDrop.vue';
+import '../../src/feature/nodeRender/vue-node';
+import ForceDirectedChart from '../../src/framework/charts/ForceDirectedChart';
+import GridNode from '../nodeExample/GridNode.vue';
+import NodeOne from '../nodeExample/NodeOne.vue';
+import NodeTwo from '../nodeExample/NodeTwo.vue';
+import { Button, Popover, Layout, Row, Col, RadioGroup, RadioButton, Input } from '@opentiny/vue';
 
 let instance;
 
@@ -134,7 +146,7 @@ export default {
     this.setResize();
     let optionPath = `option/${this.chartName}/${this.chartDocPath}.js`;
     if (process.env.NODE_ENV === 'production') {
-        optionPath = `${import.meta.env.VITE_PUBLISH_URL}option/${this.chartName}/${this.chartDocPath}.js`;
+      optionPath = `${import.meta.env.VITE_PUBLISH_URL}option/${this.chartName}/${this.chartDocPath}.js`;
     }
     axios.get(optionPath).then(response => {
       const option = this.transformCode(response.data);
@@ -280,10 +292,63 @@ export default {
         'TimelineChart': TimelineChart,
         'MilestoneChart': MilestoneChart,
       }
-      if(Object.keys(chartObj).includes(this.chartName)){
+      if (Object.keys(chartObj).includes(this.chartName)) {
         this.$refs.chartRef.innerHTML = '';
         this.integrateChart.init(this.$refs.chartRef);
         this.integrateChart.setSimpleOption(chartObj[this.chartName], option, {});
+        this.integrateChart.render();
+      } else if (this.chartName === 'MindmapChart') {
+        this.$refs.chartRef.innerHTML = '';
+        let href = window.location.href;
+        let hrefStr = href.substr(('MindmapChart-').length + 1, href.indexOf('MindmapChart-'));
+        let num = hrefStr.substr(hrefStr.length - 1, 1);
+        this.integrateChart = new MindmapChart();
+        this.integrateChart.init(this.$refs.chartRef);
+        if (num < 2) {
+          option.component = Demo;
+        }
+        this.integrateChart.setOption(option);
+        this.integrateChart.render();
+      } else if (this.chartName === 'ForceDirectedChart') {
+        this.$refs.chartRef.innerHTML = '';
+        this.integrateChart = new ForceDirectedChart();
+        this.integrateChart.init(this.$refs.chartRef);
+        this.integrateChart.setOption(option);
+        this.integrateChart.render();
+      } else if (this.chartName === 'GridChart') {
+        this.$refs.chartRef.innerHTML = '';
+        option.component = GridNode;
+        this.integrateChart = new GridChart();
+        this.integrateChart.init(this.$refs.chartRef);
+        this.integrateChart.setOption(option);
+        this.integrateChart.render();
+      } else if (this.chartName === 'CircleChart') {
+        this.$refs.chartRef.innerHTML = '';
+        option.component = GridNode;
+        this.integrateChart = new CircleChart();
+        this.integrateChart.init(this.$refs.chartRef);
+        this.integrateChart.setOption(option);
+        this.integrateChart.render();
+      } else if (this.chartName === 'LinearArcChart') {
+        this.$refs.chartRef.innerHTML = '';
+        option.component = GridNode;
+        this.integrateChart = new LinearArcChart();
+        this.integrateChart.init(this.$refs.chartRef);
+        this.integrateChart.setOption(option);
+        this.integrateChart.render();
+      } else if (this.chartName === 'CircleArcChart') {
+        this.$refs.chartRef.innerHTML = '';
+        option.component = GridNode;
+        this.integrateChart = new CircleArcChart();
+        this.integrateChart.init(this.$refs.chartRef);
+        this.integrateChart.setOption(option);
+        this.integrateChart.render();
+      } else if (this.chartName === 'CustomizeChart') {
+        this.$refs.chartRef.innerHTML = '';
+        option.component = GridNode;
+        this.integrateChart = new CustomizeChart();
+        this.integrateChart.init(this.$refs.chartRef);
+        this.integrateChart.setOption(option);
         this.integrateChart.render();
       } else if (this.chartName === 'RiverChart') {
         instance = new RiverChart();

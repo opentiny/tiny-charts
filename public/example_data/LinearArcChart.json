@@ -1,0 +1,16 @@
+{
+  "title": "线形弧线图 LinearArcChart",
+  "paths": [
+    {
+      "title": "基础形态",
+      "children": [
+        {
+          "name": "线形弧线图-默认布局",
+          "routePath": "LinearArcChart-1",
+          "imagePath": "./image/theme/light/LinearArcChart/LinearArcChart-1.png"
+        }
+        
+      ]
+    }
+  ]
+}

@@ -13,22 +13,30 @@
 - 里程碑图
 - 组织关系图
 
-高阶图表为自研编写，使用时需按需引入，同时需引入样式。
-为了保持与基础图表的接口一致性，所有高阶图表的使用方法与基础图表一致，下面以组织关系图为例：
+高阶图表为自研编写，使用时需要`按需引入`，同时`按需引入样式`。<br>
+`样式按需引入:`
+// 引用组织关系图样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/components/OrganizationChart/index.css';
+`样式全量引入：`
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css';
+
+<br>为了保持与基础图表的接口一致性，所有高阶图表的使用方法与基础图表一致，下面以组织关系图为例：
 
 ## 使用高阶图表
 
 ```javascript
 // 引用图表库和组织关系图
 import HuiCharts, { OrganizationChart } from '{{VITE_BASECOPYRIGHTSPAT}}';
-// 引用组织关系图样式
+// 引用组织关系图样式(可以灵活选择“全量引入”或者“按需引入”)
 import '{{VITE_BASECOPYRIGHTSPAT}}/components/OrganizationChart/index.css';
 
 // 如果是Angular项目，按照上面所示引入图表样式时，会报错，需要将样式引入路径，放在angular.json的styles里引入
-"styles":[
-  "src/styles.less",
-  "./node_modules/{{VITE_BASECOPYRIGHTSPAT}}/components/OrganizationChart/index.css"
-]
+"build"：{
+  "styles":[
+    "src/styles.less",
+    "./node_modules/{{VITE_BASECOPYRIGHTSPAT}}/components/OrganizationChart/index.css"
+  ]
+}
 
 // 创建图表实例
 let chartIns = new HuiCharts();

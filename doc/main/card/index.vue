@@ -1,25 +1,24 @@
 <template>
-	<MarkdownPage mdName="CardTitle"></MarkdownPage>
-	<div class="tabs">
-		<tiny-tabs v-model="activeName" tab-style="button-card"
-    :style="{
+  <MarkdownPage mdName="CardTitle"></MarkdownPage>
+  <div class="tabs">
+    <tiny-tabs v-model="activeName" tab-style="button-card" :style="{
       '--ti-tabs-button-card-item-active-bg-color': tabsBtnACtiveBg,
-      '--ti-tabs-button-card-item-active-text-color':tabsBtnACtiveColor,
-      '--ti-tabs-button-card-nav-bg-color':tabsBtnBg,
-      '--ti-tabs-button-card-item-text-color':tabsBtnColor,
-      '--ti-tabs-button-card-item-active-border-color':tabsBtnACtiveColor,
-      '--ti-tabs-button-card-item-hover-text-color':tabsBtnACtiveColor
-      }">
-				<tiny-tab-item title="DEMO" name="DEMO">
-						<CodeExample :code="chartCode[0]" title="图表卡片案例" class="firstCodeExample">
-								<BarChart></BarChart>
-						</CodeExample>
-						
-				</tiny-tab-item>
-				<tiny-tab-item title="API" name="API">
-						<MarkdownPage mdName="CardContent"></MarkdownPage>
-				</tiny-tab-item>
-		</tiny-tabs>
+      '--ti-tabs-button-card-item-active-text-color': tabsBtnACtiveColor,
+      '--ti-tabs-button-card-nav-bg-color': tabsBtnBg,
+      '--ti-tabs-button-card-item-text-color': tabsBtnColor,
+      '--ti-tabs-button-card-item-active-border-color': tabsBtnACtiveColor,
+      '--ti-tabs-button-card-item-hover-text-color': tabsBtnACtiveColor
+    }">
+      <tiny-tab-item title="DEMO" name="DEMO">
+        <CodeExample :code="chartCode[0]" title="图表卡片案例" class="firstCodeExample">
+          <BarChart></BarChart>
+        </CodeExample>
+
+      </tiny-tab-item>
+      <tiny-tab-item title="API" name="API">
+        <MarkdownPage mdName="CardContent"></MarkdownPage>
+      </tiny-tab-item>
+    </tiny-tabs>
   </div>
 </template>
 
@@ -27,7 +26,7 @@
 import MarkdownPage from '../example/components/markdown.vue';
 import CodeExample from './components/code-example.vue';
 import BarChart from './components/bar-chart.vue';
-import { Tabs,TabItem } from '@opentiny/vue'
+import { Tabs, TabItem } from '@opentiny/vue'
 import '../../../src/feature/card/index.less';
 
 export default {
@@ -37,12 +36,12 @@ export default {
     CodeExample,
     BarChart,
     TinyTabs: Tabs,
-		TinyTabItem: TabItem
+    TinyTabItem: TabItem
   },
-  data(){
+  data() {
     return {
-      chartCode:[],
-      chartData:['CardChart'],
+      chartCode: [],
+      chartData: ['CardChart'],
       activeName: 'DEMO',
       theme: localStorage.getItem('chartTheme') || 'hdesign-light',
       tabsBtnACtiveBg: '#fff',
@@ -51,10 +50,10 @@ export default {
       tabsBtnBg: '#f0f0f0'
     }
   },
-  mounted(){
-    this.chartData.forEach((item,index)=>{
+  mounted() {
+    this.chartData.forEach((item, index) => {
       this.axios.get(`quick_start/${item}.md`).then(res => {
-        this.chartCode[index] = res.data.replaceAll("{{VITE_BASECOPYRIGHTSPAT}}",import.meta.env.VITE_BASECOPYRIGHTSPAT);
+        this.chartCode[index] = res.data.replaceAll("{{VITE_BASECOPYRIGHTSPAT}}", import.meta.env.VITE_BASECOPYRIGHTSPAT);
       })
     })
     this.setTheme(this.theme?.indexOf('light') > -1);
@@ -63,14 +62,14 @@ export default {
     })
   },
   watch: {
-    theme: function(newVal) {
+    theme: function (newVal) {
       this.setTheme(newVal.indexOf('light') > -1)
     }
   },
-  methods:  {
+  methods: {
     setTheme(val) {
-      this.tabsBtnACtiveBg = val ? '#ffffff':'#1c1c1c';
-      this.tabsBtnACtiveColor = val ? '#000':'#f1f0f0';
+      this.tabsBtnACtiveBg = val ? '#ffffff' : '#1c1c1c';
+      this.tabsBtnACtiveColor = val ? '#000' : '#f1f0f0';
       this.tabsBtnBg = val ? '#f2f2f2' : '#414141';
       this.tabsBtnColor = val ? '#777777' : '#c9c3c5';
     }
@@ -79,26 +78,32 @@ export default {
 </script>
 <style lang="less" scoped>
 :deep(.tiny-tabs__header) {
-	margin: 20px 0;
+  margin: 20px 0;
 }
+
 :deep(.tiny-tabs__item__title) {
   font-size: 14px;
 }
+
 :deep(.tiny-tabs__content) {
-	margin: 0;
+  margin: 0;
 }
+
 :deep(.tiny-tabs__item-separator-space) {
-	padding: 0 !important;
+  padding: 0 !important;
 }
+
 .code-container:first-child {
-	margin-top: 0;
+  margin-top: 0;
 }
-:deep(.tiny-tabs__nav){
+
+:deep(.tiny-tabs__nav) {
   padding: 2px;
 }
-:deep(.tiny-tabs){
+
+:deep(.tiny-tabs) {
   .tiny-tabs--button-card {
-    .tiny-tabs__item{
+    .tiny-tabs__item {
       border: none;
     }
   }

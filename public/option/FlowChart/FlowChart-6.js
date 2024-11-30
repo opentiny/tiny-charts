@@ -9,8 +9,6 @@ const option = {
     },
     // 纵向布局
     direction: 'V',
-    // 禁止节点拖拽
-    slient: true,
     render: (container, data) => {
         let id = data.id;
         let node = `<div class="flowChart-node">${data.text}<div class="user">审批人：${data.name}</div></div>`;

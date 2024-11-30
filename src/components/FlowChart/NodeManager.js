@@ -80,11 +80,11 @@ export default class NodeManager {
             let size = node.dom && node.dom.getBoundingClientRect();
             let innerSize = node.dom && node.dom.firstChild &&  node.dom.firstChild.getBoundingClientRect();
             // 外层容器的宽高目前是定死为50
-            node.width = size && size.width/containerPosn.scaleX;
-            node.height = size && size.height/containerPosn.scaleY;
+            node.width = size && size.width/containerPosn.scaleX || node.width;
+            node.height = size && size.height/containerPosn.scaleY || node.height;
             // 内层容器的宽高则根据实际情况计算
-            node.innerWidth = innerSize && innerSize.width/containerPosn.scaleX;
-            node.innerHeight = innerSize && innerSize.height/containerPosn.scaleY;
+            node.innerWidth = innerSize && innerSize.width/containerPosn.scaleX || node.innerWidth;
+            node.innerHeight = innerSize && innerSize.height/containerPosn.scaleY || node.innerHeight;
         });
     }
 

@@ -1,14 +1,35 @@
 <template>
     <div class="ic-example-explore" style="width: 100%">
         <MediaScreen v-if="pageName === 'MediaScreen'"></MediaScreen>
+        <DragManager v-else-if="pageName === 'DragManager'"></DragManager>
         <KeyboardFocus v-else-if="pageName === 'KeyboardFocus'"></KeyboardFocus>
         <Card v-else-if="pageName === 'Card'"></Card>
+        <Action v-else-if="pageName === 'Action'"></Action>
         <Overview v-else-if="pageName === 'Overview'"></Overview>
         <Massive v-else-if="pageName === 'Massive'"></Massive>
         <Linter v-else-if="pageName === 'Linter'"></Linter>
         <IntraViewport v-else-if="pageName === 'IntraViewport'"></IntraViewport>
+        <ExpandLegend v-else-if="pageName === 'ExpandLegend'"></ExpandLegend>
+        <Canvas v-else-if="pageName === 'Canvas'"></Canvas>
+        <LineManager v-else-if="pageName === 'LineManager'"></LineManager>
+        <LineOption v-else-if="pageName === 'LineOption'"></LineOption>
+        <LineAnimation v-else-if="pageName === 'LineAnimation'"></LineAnimation>
+        <VueNode v-else-if="pageName === 'VueNode'"></VueNode>
+        <HTMLNode v-else-if="pageName === 'HTMLNode'"></HTMLNode>
+        <ReactNode v-else-if="pageName === 'ReactNode'"></ReactNode>
+        <AngularNode v-else-if="pageName === 'AngularNode'"></AngularNode>
+        <AnimationEasing v-else-if="pageName === 'AnimationEasing'"></AnimationEasing>
+        <Animation v-else-if="pageName === 'Animation'"></Animation>
+        <GridLayout v-else-if="pageName === 'GridLayout'"></GridLayout>
+        <CircleLayout v-else-if="pageName === 'CircleLayout'"></CircleLayout>
+        <MindmapLayout v-else-if="pageName === 'MindmapLayout'"></MindmapLayout>
+        <CustomizeLayout v-else-if="pageName === 'CustomizeLayout'"></CustomizeLayout>
+        <LinearArcLayout v-else-if="pageName === 'LinearArcLayout'"></LinearArcLayout>
+        <CircleArcLayout v-else-if="pageName === 'CircleArcLayout'"></CircleArcLayout>
+        <Connector v-else-if="pageName === 'Connector'"></Connector>
+        <Contextmenu v-else-if="pageName === 'Contextmenu'"></Contextmenu>
         <template v-else>
-            <MarkdownPage :mdName="mdName" v-if="showMarkdown"></MarkdownPage>
+            <MarkdownPage :mdName="mdName" v-if="showMarkdown" class="markdown-layout"></MarkdownPage>
             <template v-else>
                 <div class="ic-example-list-container">
                     <Search :title="dataCard.title" @input="handleInput" placeholder="输入关键字搜索案例"></Search>
@@ -31,27 +52,51 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="ic-example-chartProperty">
-                    <div className="table-title">
-                        <h3>配置项说明</h3>
+                    <div v-if="pageName === 'GridChart'">
+                        <div class="desc">网格图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./GridLayout' target="_top" class="link-text">网格图配置详情</a></div>
                     </div>
-                    <APiTable :apiDescription="APIData" :chartName="chartName"></APiTable>
+                    <div v-else-if="pageName === 'CircleChart'">
+                        <div class="desc">环形图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./CircleLayout' target="_top" class="link-text">环形图配置详情</a></div>
+                    </div>
+                    <div v-else-if="pageName === 'LinearArcChart'">
+                        <div class="desc">线形弧线图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./LinearArcLayout' target="_top" class="link-text">线形弧线图配置详情</a></div>
+                    </div>
+                    <div v-else-if="pageName === 'CircleArcChart'">
+                        <div class="desc">圆形弧线图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./CircleArcLayout' target="_top" class="link-text">圆形弧线图配置详情</a></div>
+                    </div>
+                    <div v-else-if="pageName === 'CustomizeChart'">
+                        <div class="desc">自定义布局图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./CustomizeLayout' target="_top" class="link-text">自定义布局图配置详情</a></div>
+                    </div>
+                    <div v-else-if="pageName === 'MindmapChart'">
+                        <div class="desc">思维导图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./MindmapLayout' target="_top" class="link-text">思维导图配置详情</a></div>
+                    </div>
+                    <div v-else>
+                        <div className="table-title">
+                            <h3>配置项说明</h3>
+                        </div>
+                        <APiTable :apiDescription="APIData" :chartName="chartName"></APiTable>
+                    </div>
                 </div>
             </template>
         </template>
+
     </div>
-    <div id="footer"></div>
 </template>
 
 <script>
 import APIData from '../../api';
 import Card from '../card/index.vue';
+import Action from '../action/index.vue';
 import Massive from '../massive/index.vue';
 import MediaScreen from '../media-screen/index.vue';
+import DragManager from '../drag-manager/index.vue';
 import Linter from '../linter/index.vue';
 import KeyboardFocus from '../keyboard-focus/index.vue';
 import Overview from '../../main/overview/index.vue';
 import IntraViewport from '../intra-viewport/index.vue';
+import ExpandLegend from '../expandLegend/index.vue';
 import TinyThemeTool from '@opentiny/vue-theme/theme-tool';
 import {
     CUSTOM_DARK_THEME
@@ -59,20 +104,59 @@ import {
 import Search from '../../main/example/components/search.vue';
 import APiTable from '../../main/example/components/api-table.vue';
 import MarkdownPage from '../../main/example/components/markdown.vue';
+import Canvas from '../canvas/index.vue';
+import LineManager from '../line/api/index.vue';
+import LineOption from '../line/option/index.vue';
+import LineAnimation from '../line/animation/index.vue';
+import VueNode from '../node/vue/index.vue';
+import HTMLNode from '../node/html/index.vue';
+import ReactNode from '../node/react/index.vue';
+import AngularNode from '../node/angular/index.vue';
+import AnimationEasing from '../animate/esaing/index.vue';
+import Animation from '../animate/animate/index.vue';
+import GridLayout from '../grid/index.vue';
+import CircleLayout from '../circle/index.vue';
+import LinearArcLayout from '../linearArc/index.vue';
+import CircleArcLayout from '../circleArc/index.vue';
+import CustomizeLayout from '../customize/index.vue';
+import Connector from '../Connector/index.vue';
+import Contextmenu from '../contextmenu/index.vue';
+import MindmapLayout from '../mindmap/index.vue';
 
 export default {
     name: 'Example',
     components: {
         Card,
+        Action,
+        Linter,
         Search,
+        Canvas,
+        LineManager,
+        LineOption,
+        LineAnimation,
         Massive,
         Overview,
         APiTable,
-        Linter,
         MediaScreen,
+        DragManager,
+        ExpandLegend,
         KeyboardFocus,
         MarkdownPage,
         IntraViewport,
+        VueNode,
+        HTMLNode,
+        ReactNode,
+        AngularNode,
+        Animation,
+        AnimationEasing,
+        GridLayout,
+        CircleLayout,
+        LinearArcLayout,
+        CircleArcLayout,
+        CustomizeLayout,
+        Connector,
+        Contextmenu,
+        MindmapLayout
     },
     data() {
         return {
@@ -159,6 +243,7 @@ export default {
                 new TinyThemeTool('', 'tinyStyleSheetId');
             }
             this.theme = e.data.theme;
+            this.updateDataCard(this.theme);
         },
         updateDataCard(theme) {
             if (!this.dataCard.paths) return;
@@ -215,5 +300,11 @@ export default {
 <style lang="less" scoped>
 :deep(.tiny-grid__header-wrapper) {
     background-color: var(--ti-base-color-bg-1);
+}
+.link-text {
+    color: #007dff;
+}
+.desc {
+    color:var(--ti-base-color-common-7);
 }
 </style>

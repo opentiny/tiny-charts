@@ -35,8 +35,14 @@ const copyConfig = {
 // JS输入编译配置
 const inputOptions = {
     // 编译需要排除的第三方依赖，未来增加新的依赖需要增加相应的依赖项
-    external: ['echarts', 'echarts/extension/bmap/bmap', 'vue',],
-    input: './src/index.js',
+    external: ['echarts', 'echarts/extension/bmap/bmap', 'vue', 'react', 'react-dom/client', '@angular/core'],
+    input: [
+        './src/index.js',
+        './src/feature/nodeRender/vue-node.js',
+        './src/feature/nodeRender/angular-node.js',
+        './src/feature/nodeRender/react-node.js',
+        './src/framework/module/animation/index.js',
+    ],
     plugins: [
         // 解析第三方依赖模块
         resolve(),
@@ -166,4 +172,3 @@ function compileAssets() {
 cleanBuild();
 await build();
 compileAssets();
-

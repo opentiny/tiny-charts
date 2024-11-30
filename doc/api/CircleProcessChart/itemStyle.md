@@ -1,0 +1,1 @@
+此属性是echarts属性直接透传，详见：[https://echarts.apache.org/zh/option.html#series-bar.itemStyle](https://echarts.apache.org/zh/option.html#series-bar.itemStyle)

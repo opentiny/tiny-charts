@@ -93,7 +93,7 @@ export default {
       if (window.self.name === 'hdesignFrame') {
         this.iframeSrc = `${import.meta.env.VITE_HDESIGN_URL}/Example#/Example/${name}?theme=${this.currentTheme}`
         } else {
-        this.iframeSrc = `Example#/Example/${name}?theme=${this.currentTheme}`;
+        this.iframeSrc = `/Example#/Example/${name}?theme=${this.currentTheme}`;
       }
     }
   },

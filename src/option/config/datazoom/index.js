@@ -55,7 +55,6 @@ function datazoom(iChartOption) {
     }
     return item
   })
-  console.log(dataZoom, 'dataZoom');
   return dataZoom;
 }
 
