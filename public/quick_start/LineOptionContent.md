@@ -85,11 +85,11 @@ this.chartIns.render();
 | &ensp;&ensp;└─disable |  禁用配置  | `object` |`{color: '#aaaaaa', width: 1}` |
 | endMarker | 连线结束箭头  | `object` |`{size: 8, type: 'block',color: '#c2c2c2'}` |
 | &ensp;&ensp;└─size |  箭头尺寸 | `number` | `8` |
-| &ensp;&ensp;└─type |  箭头类型<br> 可选值：`block` 实心、`classic` 经典、`diamond` 菱形、`cross` 交叉、`async` 单边、`circle` 圆形、`path` 自定义，需要传入自定义的d | `string` | `block` |
+| &ensp;&ensp;└─type |  箭头类型<br> 可选值：`block` 实心、`classic` 经典、`diamond` 菱形、`cross` 交叉、`async` 单边、`circle` 圆形、`path` 自定义，需要传入自定义的d属性，如d="M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z", 箭头为爱心图案 | `string` | `block` |
 | &ensp;&ensp;└─color |  颜色  | `string` |`#2c2c2c` |
 | startMarker | 连线开始箭头  | `object` |`{size: 8, type: 'block',color: '#c2c2c2'}` |
 | &ensp;&ensp;└─size |  箭头尺寸 | `number` | `8` |
-| &ensp;&ensp;└─type |  箭头类型<br> 可选值：`block` 实心、`classic` 经典、`diamond` 菱形、`cross` 交叉、`async` 单边、`circle` 圆形、`path` 自定义，需要传入自定义的d | `string` | `block` |
+| &ensp;&ensp;└─type |  箭头类型<br> 可选值：`block` 实心、`classic` 经典、`diamond` 菱形、`cross` 交叉、`async` 单边、`circle` 圆形、`path` 自定义，需要传入自定义的d属性，如d="M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z", 箭头为爱心图案 | `string` | `block` |
 | &ensp;&ensp;└─color |  颜色  | `string` |`#2c2c2c` |
 | onClick |  连线点击回调函数   | `function` | `无` |
 | onHover |  连线悬浮回调函数   | `function` | `无` |

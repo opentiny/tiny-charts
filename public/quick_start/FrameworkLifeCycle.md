@@ -1,5 +1,3 @@
-# 开始使用
-当前关系图引擎，包括<a href='./MindmapChart' target="_top">思维导图</a>、<a href='./GridChart' target="_top">网格图</a>、<a href='./CircleChart' target="_top">环形图</a>、<a href='./LinearArcChart' target="_top">线形弧线图</a>、<a href='./CircleArcChart' target="_top">圆形弧线图</a>、<a href='./CustomizeChart' target="_top">自定义布局图</a>。
 ## 1.快速上手
 ```javascript
 // html 片段
@@ -82,21 +80,4 @@ chartIns.refresh(newChartOption);
 // 新的数据，为对象格式
 let newData = {...};
 chartIns.refreshData(newData);
-```
-当您需要局部刷新节点数据或连线数据时可参考<a href='./NodeManager' target="_top">节点数据刷新</a>或者<a href='./LineOption' target="_top">连线数据刷新</a>。
-
-## 3.图表渲染完毕的回调
-```javascript
-chartIns.onRendered(callback);
-```
-
-## 4.图表适配屏幕宽度
-{{VITE_BASECOPYRIGHTS}} 默认开启支持自动适应屏幕宽度，当您希望手动调用时，可以使用：
-```javascript
-chartIns.setResize();
-```
-
-## 5.图表卸载
-```javascript
-chartIns.uninstall();
 ```

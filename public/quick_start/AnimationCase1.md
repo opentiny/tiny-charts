@@ -7,7 +7,7 @@
 | duration |  动画时长 |`number` |`null` |
 | delay |  动画延时 |`number` |`0` |
 | repeat |  动画重复次数 | `number` |`0` |
-| easing |  动画缓动效果</br> 可选值：参考<a href='./AnimationEasing' target="_top">缓动函数</a>  | `string` |`Easing.Linear.In` |
+| easing |  动画缓动效果</br> 可选值：参考`缓动函数`  | `string` |`Easing.Linear.In` |
 | onUpdate |  动画数据更新回调  | `function` |`无` |
 | onAfterUpdate |  动画数据更新后回调 |`function` | `无` |
 | onRepeat |  动画重复时回调  |`function` | `无` |

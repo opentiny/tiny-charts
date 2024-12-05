@@ -12,7 +12,7 @@
     <div class="menu-box">
       <tiny-tree-menu :data="compsData" node-key="path" :filter-node-method="filterNode"
         :default-expanded-keys="expandeArr" :default-expanded-keys-highlight="highlight" @node-click="routerChange"
-        accordion>
+        accordion ref="treeMenu">
         <template #default="slotScope">
           {{ slotScope.data.label }}
           <span v-if="slotScope.data.isHigher" class="higher-tag">高阶</span>
@@ -52,7 +52,10 @@ export default {
       highlight: ''
     }
   },
-
+  mounted(){
+    //监听 iframe 事件
+    window.addEventListener('message', this.routerUpdata);
+  },
   watch: {
     $route: {
       handler(router) {
@@ -90,7 +93,21 @@ export default {
         path: value.path,
         query: this.$route.query
       })
-
+    },
+    // 更新菜单及路由
+    routerUpdata(e){
+      if(e?.data?.newMenuPath){
+        let newPath = e.data.newMenuPath;
+        this.$refs.treeMenu?.setCurrentNode({
+          path: newPath
+        })
+        this.highlight = newPath;
+        this.expandeArr = [newPath];
+        this.$router.push({
+          path: newPath,
+          query: this.$route.query
+        })
+      }
     }
   },
 }

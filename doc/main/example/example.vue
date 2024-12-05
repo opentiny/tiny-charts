@@ -28,6 +28,7 @@
         <CircleArcLayout v-else-if="pageName === 'CircleArcLayout'"></CircleArcLayout>
         <Connector v-else-if="pageName === 'Connector'"></Connector>
         <Contextmenu v-else-if="pageName === 'Contextmenu'"></Contextmenu>
+        <FrameWork v-else-if="pageName === 'FrameworkLifeCycle'"></FrameWork>
         <template v-else>
             <MarkdownPage :mdName="mdName" v-if="showMarkdown" class="markdown-layout"></MarkdownPage>
             <template v-else>
@@ -55,22 +56,22 @@
                 
                 <div class="ic-example-chartProperty">
                     <div v-if="pageName === 'GridChart'">
-                        <div class="desc">网格图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./GridLayout' target="_top" class="link-text">网格图配置详情</a></div>
+                        <div class="desc">网格图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/GridLayout')" class="link-text">网格图配置详情</a></div>
                     </div>
                     <div v-else-if="pageName === 'CircleChart'">
-                        <div class="desc">环形图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./CircleLayout' target="_top" class="link-text">环形图配置详情</a></div>
+                        <div class="desc">环形图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/CircleLayout')" class="link-text">环形图配置详情</a></div>
                     </div>
                     <div v-else-if="pageName === 'LinearArcChart'">
-                        <div class="desc">线形弧线图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./LinearArcLayout' target="_top" class="link-text">线形弧线图配置详情</a></div>
+                        <div class="desc">线形弧线图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/LinearArcLayout')" class="link-text">线形弧线图配置详情</a></div>
                     </div>
                     <div v-else-if="pageName === 'CircleArcChart'">
-                        <div class="desc">圆形弧线图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./CircleArcLayout' target="_top" class="link-text">圆形弧线图配置详情</a></div>
+                        <div class="desc">圆形弧线图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/CircleArcLayout')" class="link-text">圆形弧线图配置详情</a></div>
                     </div>
                     <div v-else-if="pageName === 'CustomizeChart'">
-                        <div class="desc">自定义布局图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./CustomizeLayout' target="_top" class="link-text">自定义布局图配置详情</a></div>
+                        <div class="desc">自定义布局图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/CustomizeLayout')" class="link-text">自定义布局图配置详情</a></div>
                     </div>
                     <div v-else-if="pageName === 'MindmapChart'">
-                        <div class="desc">思维导图由关系图引擎封装开发，该图的布局配置方法可参考：<a href='./MindmapLayout' target="_top" class="link-text">思维导图配置详情</a></div>
+                        <div class="desc">思维导图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/MindmapLayout')" class="link-text">思维导图配置详情</a></div>
                     </div>
                     <div v-else>
                         <div className="table-title">
@@ -122,6 +123,7 @@ import CustomizeLayout from '../customize/index.vue';
 import Connector from '../Connector/index.vue';
 import Contextmenu from '../contextmenu/index.vue';
 import MindmapLayout from '../mindmap/index.vue';
+import FrameWork from '../framework/index.vue';
 
 export default {
     name: 'Example',
@@ -156,7 +158,8 @@ export default {
         CustomizeLayout,
         Connector,
         Contextmenu,
-        MindmapLayout
+        MindmapLayout,
+        FrameWork
     },
     data() {
         return {
@@ -183,6 +186,7 @@ export default {
                         docContent.scrollTop = 0
                     }, 20)
                 }
+                this.showMarkdown = false;
                 let name = val.hash.split('/')[2].split('?')[0];
                 let themeStr = val.hash.split('/')[2].split('?')[1];
                 let theme = themeStr.slice(themeStr.indexOf('=') + 1);
@@ -293,6 +297,9 @@ export default {
             }
             
         },
+        pathUpdata(path) {
+            window.parent.postMessage({ newMenuPath: path })
+        }
     },
 };
 </script>
