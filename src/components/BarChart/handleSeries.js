@@ -97,7 +97,7 @@ function handleWaterFall(type, seriesUnit) {
       chartToken.borderRadius,
       chartToken.borderRadius,
     ];
-    // 瀑布图最有有一个总体数据
+    // 瀑布图有一个总体数据
     seriesUnit.data.push(
       seriesUnit.data.reduce(function (prev, curr) {
         const n = Number(curr) || 0;
