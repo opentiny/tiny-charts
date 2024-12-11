@@ -70,7 +70,9 @@ function getModelToken(aliasToken) {
     colorTextTertiary,
     borderRadius,
     paddingSM,
-    borderWidthLG
+    borderWidthLG,
+    colorBorderTransparent,
+    colorShadowTertiary
   } = aliasToken;
 
   return {
@@ -313,17 +315,19 @@ function getModelToken(aliasToken) {
     markLineWidth,
     // 标记线高亮粗细
     markLineEmphasisWidth,
-     // 标记线文本字号
-    markLineLabelFontSize:labelFontSize,
-     // 标记线文本圆角
-    markLineLabelBorderRadius:borderRadius,
-     // 标记线文本Padding
-    markLineLabelPadding: [ paddingSM,paddingSM*2,paddingSM,paddingSM*2],  
-     // 标记线文本borderWidth
-    markLineLabelBorderWidth:borderWidthLG,
-    
+    // 标记线文本字号
+    markLineLabelFontSize: labelFontSize,
+    // 标记线文本圆角
+    markLineLabelBorderRadius: borderRadius,
+    // 标记线文本Padding
+    markLineLabelPadding: [paddingSM, paddingSM * 2, paddingSM, paddingSM * 2],
+    // 标记线文本borderWidth
+    markLineLabelBorderWidth: borderWidthLG,
+
 
     /** ----- dataZoom------ */
+    // dataZoom边框色
+    dataZoomBorderColor: colorBgTertiary,
     // dataZoom背景色
     dataZoomBackgroundColor: colorBgTertiary,
     // 手柄中心填充色
@@ -340,6 +344,12 @@ function getModelToken(aliasToken) {
     dataBackgroundLineColor: colorFill,
     // 选中区域外的面积颜色
     dataBackgroundAreaColor: colorFill,
+
+    // min形态
+    // dataZoom边框色
+    dataZoomBorderColorMin: colorBorderTransparent,
+    // 手柄阴影色
+    dataZoomHandleShadowColorMin: colorShadowTertiary,
 
     /** ----- animation------ */
     // 是否开启动画 

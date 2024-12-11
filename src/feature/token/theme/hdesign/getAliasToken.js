@@ -98,6 +98,8 @@ function getAliasToken(globalToken, light = true) {
     colorShadow: light ? codeToRGB(colorGray90, 0.08) : codeToRGB(colorGray100, 0.5), // 确定
     // datazoom手柄阴影
     colorShadowSecondary: light ? codeToRGB(colorGray100, 0.04) : codeToRGB(colorGray100, 0.24),// 确定
+    // datazoom min手柄阴影
+    colorShadowTertiary: light ? codeToRGB(colorGray100, 0.08) : codeToRGB(colorGray100, 0.24),// 确定
     // 边框颜色
     colorBorder: light ? colorGray0 : colorGray90, // 确定
     // 边框反选色

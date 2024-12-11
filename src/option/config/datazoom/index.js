@@ -18,7 +18,7 @@ function datazoom(iChartOption) {
   const dataZoom = toArray(self).map((item, index) => {
     if (index === 0) {
       const { show, position, start, end, startValue, endValue, style, height, top, left, right, bottom } = item;
-      const baseZoom = base()
+      const baseZoom = base(item)
       if (show) {
         end && (baseZoom.end = end);
         start && (baseZoom.start = start);

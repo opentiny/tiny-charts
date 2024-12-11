@@ -16,7 +16,6 @@ const option = {
             left: 40,
             bottom: 18
         },
-        zoomOnMouseWheel: true
     },
     legend: {
         show: true,
