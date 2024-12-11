@@ -4,7 +4,6 @@
         <DragManager v-else-if="pageName === 'DragManager'"></DragManager>
         <KeyboardFocus v-else-if="pageName === 'KeyboardFocus'"></KeyboardFocus>
         <Card v-else-if="pageName === 'Card'"></Card>
-        <Action v-else-if="pageName === 'Action'"></Action>
         <Overview v-else-if="pageName === 'Overview'"></Overview>
         <Massive v-else-if="pageName === 'Massive'"></Massive>
         <Linter v-else-if="pageName === 'Linter'"></Linter>
@@ -89,7 +88,6 @@
 <script>
 import APIData from '../../api';
 import Card from '../card/index.vue';
-import Action from '../action/index.vue';
 import Massive from '../massive/index.vue';
 import MediaScreen from '../media-screen/index.vue';
 import DragManager from '../drag-manager/index.vue';
@@ -129,7 +127,6 @@ export default {
     name: 'Example',
     components: {
         Card,
-        Action,
         Linter,
         Search,
         Canvas,
