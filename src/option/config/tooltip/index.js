@@ -32,8 +32,8 @@ function tooltip(iChartOption, chartName, callBack) {
   axisPointer(tooltip, chartName);
   callBack && callBack(tooltip)
   merge(tooltip, iChartOption.tooltip);
-  if (tooltip.extraCssText) {
-    tooltip.extraCssText = tooltip.extraCssText + extraCssText;
+  if (iChartOption.tooltip?.extraCssText) {
+    tooltip.extraCssText = iChartOption.tooltip.extraCssText + extraCssText;
   }
   return tooltip;
 }
