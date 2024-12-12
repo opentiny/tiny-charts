@@ -75,7 +75,7 @@ function getBaseOption(isDark) {
   }
 }
 
-function getMinBaseOption(isDark) {
+function getMiniBaseOption(isDark) {
   const fillerColor = isDark ? codeToRGB(Theme.config.colorState.colorInfo, 0.3) : codeToRGB(Theme.config.colorState.colorInfo, 0.2)
   return {
     end: 100,
@@ -87,7 +87,7 @@ function getMinBaseOption(isDark) {
     left: 'center',
     xAxisIndex: [0],
     zoomLock: false,
-    borderColor: Theme.config.dataZoomBorderColorMin, // 边框
+    borderColor: Theme.config.dataZoomBorderColorMini, // 边框
     borderRadius: 0,
     backgroundColor: Theme.config.dataZoomBackgroundColor, // 背景颜色
     fillerColor, // 选中范围填充颜色
@@ -99,7 +99,7 @@ function getMinBaseOption(isDark) {
     handleStyle: {
       color: Theme.config.dataZoomHandleColor,  // 手柄颜色
       shadowBlur: 6, // 阴影模糊大小
-      shadowColor: Theme.config.dataZoomHandleShadowColorMin,
+      shadowColor: Theme.config.dataZoomHandleShadowColorMini,
       shadowOffsetX: 1, // 阴影偏移x轴多少
       shadowOffsetY: 0, // 阴影偏移y轴多少
       opacity: 1, // 透明度
@@ -117,10 +117,10 @@ function getMinBaseOption(isDark) {
   }
 }
 function base(iDataZoom) {
-  const { min } = iDataZoom
+  const { mini } = iDataZoom
   const theme = Theme.themeName
   const isDark = theme.includes('dark')
-  return min ? getMinBaseOption(isDark) : getBaseOption(isDark)
+  return mini ? getMiniBaseOption(isDark) : getBaseOption(isDark)
 }
 
 export default base;

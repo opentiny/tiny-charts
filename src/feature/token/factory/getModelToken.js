@@ -347,9 +347,9 @@ function getModelToken(aliasToken) {
 
     // min形态
     // dataZoom边框色
-    dataZoomBorderColorMin: colorBorderTransparent,
+    dataZoomBorderColorMini: colorBorderTransparent,
     // 手柄阴影色
-    dataZoomHandleShadowColorMin: colorShadowTertiary,
+    dataZoomHandleShadowColorMini: colorShadowTertiary,
 
     /** ----- animation------ */
     // 是否开启动画 
