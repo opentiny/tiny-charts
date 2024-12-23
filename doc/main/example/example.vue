@@ -118,7 +118,7 @@ import CircleLayout from '../circle/index.vue';
 import LinearArcLayout from '../linearArc/index.vue';
 import CircleArcLayout from '../circleArc/index.vue';
 import CustomizeLayout from '../customize/index.vue';
-import Connector from '../Connector/index.vue';
+import Connector from '../connector/index.vue';
 import Contextmenu from '../contextmenu/index.vue';
 import MindmapLayout from '../mindmap/index.vue';
 import FrameWork from '../framework/index.vue';
