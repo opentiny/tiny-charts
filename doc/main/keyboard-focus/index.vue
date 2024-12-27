@@ -64,7 +64,7 @@ export default {
   mounted() {
     this.chartData.forEach((item, index) => {
       this.axios.get(`quick_start/${item}.md`).then(res => {
-        this.chartCode[index] = res.data;
+        this.chartCode[index] = res.data.replaceAll("{{VITE_BASECOPYRIGHTS}}",import.meta.env.VITE_BASECOPYRIGHTS);
       });
     });
     this.setTheme(this.theme?.indexOf('light') > -1);

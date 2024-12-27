@@ -196,7 +196,7 @@ export default {
                             this.updateDataCard(theme);
                             this.filterData = [...this.dataCard.paths];
                         });
-                        this.APIData = APIData[name];
+                        this.APIData = JSON.parse(JSON.stringify(APIData[name]).replaceAll("{{VITE_BASECOPYRIGHTS}}",import.meta.env.VITE_BASECOPYRIGHTS));
                     } else {
                         this.showMarkdown = true;
                         this.mdName = name;
