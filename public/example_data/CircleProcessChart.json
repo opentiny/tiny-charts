@@ -5,7 +5,7 @@
       "title": "基础形态",
       "children": [
         {
-          "name": "基础圆环进度图",
+          "name": "圆环进度图",
           "routePath": "CircleProcessChart-1",
           "imagePath": "./image/theme/light/CircleProcessChart/CircleProcessChart-1.png"
         }
@@ -15,9 +15,14 @@
       "title": "基础能力",
       "children": [
         {
-          "name": "图例自定义",
+          "name": "圆环进度图-图例自定义",
           "routePath": "CircleProcessChart-2",
           "imagePath": "./image/theme/light/CircleProcessChart/CircleProcessChart-2.png"
+        },
+        {
+          "name": "圆环进度图-阈值线",
+          "routePath": "CircleProcessChart-3",
+          "imagePath": "./image/theme/light/CircleProcessChart/CircleProcessChart-3.png"
         }
       ]
     }

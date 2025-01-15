@@ -41,6 +41,8 @@ export default class CircleProcessChart {
     // series bar数据
     const seriesData = getSeriesData(iChartOption.data);
     this.baseOption.series = setSeries(seriesData, iChartOption);
+    // 范围设置
+    this.baseOption.angleAxis.max = iChartOption.max || 100;
     mergeSeries(iChartOption, this.baseOption);
     mini(iChartOption, this.baseOption);
   }
