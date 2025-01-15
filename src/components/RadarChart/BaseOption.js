@@ -45,7 +45,6 @@ function getRadar() {
         // 坐标轴射线的刻度,只显示一条射线的刻度,其他射线的刻度需要在指示器数据indicator中每项单独配置axisLabel: { show: false }
         axisLabel: {
             show: false,
-            margin: -20,
             color: Theme.config.radarAxisLabelColor,
             fontSize: Theme.config.radarAxisLabelFontSize
         },
