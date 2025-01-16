@@ -74,12 +74,7 @@ class LineChart {
     // 设置VisualMap，通过数值映射颜色
     this.baseOption.visualMap = setVisualMap(legendData, seriesData, iChartOption.markLine, iChartOption.color);
     // 针对预测值图表需求，图表需要进行特殊处理
-    handlePredict(
-      this.baseOption,
-      iChartOption.predict,
-      iChartOption.tipHtml,
-      iChartOption.lineStyle,
-    );
+    handlePredict(this.baseOption, iChartOption);
     // 是否关闭hover态的效果，默认为false
     if (iChartOption.silent) {
       this.baseOption.tooltip = {};

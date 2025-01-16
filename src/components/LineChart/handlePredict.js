@@ -36,13 +36,15 @@ function setDashedLineVisualMap(seriesIndex, lineColor, predictIndex) {
 }
 
 // htmlString中判断item.color.colorStops是判读是否为折柱混合的图表，如果是需要从item.color.colorStops对象中获取颜色
-function setToolTip(fontColor, selfFormatter) {
-  if (selfFormatter) {
-    return selfFormatter;
-  }
+function setToolTip(fontColor, iChartOpt) {
   const tipHtml = params => {
     let htmlString = '';
     const legendLength = params.length / 2;
+    const selfFormatter= iChartOpt?.tipHtml || iChartOpt?.tooltip?.formatter
+    if(selfFormatter){
+      const customParams = params.slice(0,legendLength)
+      return selfFormatter(customParams)
+    }
     params.forEach((item, index) => {
       // 只显示实线数据的tooltip
       if (index < legendLength) {
@@ -73,7 +75,8 @@ function setToolTip(fontColor, selfFormatter) {
 /**
  * 针对预测值图表需求，图表需要进行特殊处理
  */
-export function handlePredict(option, predict, tipHtml, lineStyle) {
+export function handlePredict(option, iChartOpt) {
+  const { predict, tipHtml, lineStyle } = iChartOpt
   if (!predict) return
   // VisualMap只能处理线的颜色，不能处理面积的颜色
   let dashColor = Theme.config.visualMapDashColor;
@@ -107,5 +110,5 @@ export function handlePredict(option, predict, tipHtml, lineStyle) {
     }
   }
   // 修改tooltip,不显示虚线的tooltip
-  option.tooltip.formatter = setToolTip(Theme.config.tooltipTextColor, tipHtml);
+  option.tooltip.formatter = setToolTip(Theme.config.tooltipTextColor, iChartOpt);
 }
