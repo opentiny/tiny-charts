@@ -24,12 +24,8 @@ function getThresholdMarkLineLabel() {
   return {
     label: {
       color: colorError,
-      backgroundColor: bg,
       fontSize: Theme.config.markLineLabelFontSize,
-      borderColor: colorError,
-      borderWidth: Theme.config.markLineLabelBorderWidth,
-      borderRadius: Theme.config.markLineLabelBorderRadius,
-      padding: Theme.config.markLineLabelPadding,
+      lineHeight: 20,
       position: 'insideEnd'
     },
     lineStyle: {

@@ -96,7 +96,7 @@ function isTopOrBottom(markLine, seriesUnit, flag) {
     markLineData = { yAxis: position };
   }
 
-  markLineData.label = { show: false, position: 'insideEndTop' };
+  markLineData.label = { show: false, position: 'insideEndTop', lineHeight: 20 };
   markLineData.lineStyle = {};
   // 没有配置颜色，认为是阈值线，加载阈值线的label配置
   if (!markLineColor) {
