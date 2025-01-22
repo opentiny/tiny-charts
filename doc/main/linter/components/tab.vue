@@ -18,7 +18,7 @@ export default {
     type: String,
     option:Array
   },
-  emits: ['updatatype'],
+  emits: ['updatetype'],
   data() {
     return {
       active:0
@@ -30,7 +30,7 @@ export default {
   methods: {
     onclick(val) {
       this.active = val;
-      this.$emit('updatatype', val === 0 ? '' : this.option[val], this.type);
+      this.$emit('updatetype', val === 0 ? '' : this.option[val], this.type);
     }
   }
 }

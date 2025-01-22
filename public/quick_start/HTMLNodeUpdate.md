@@ -4,10 +4,10 @@
 ```javascript
 //id：需要更新的节点id
 //newData：新数据
-chartIns.nodeManager.updata(id,newData);
+chartIns.nodeManager.update(id,newData);
 
 //示例：更改示例中id为'designDept'节点的peopleNum属性
-chartIns.nodeManager.updata('designDept', {
+chartIns.nodeManager.update('designDept', {
   peopleNum: 100
 });
 ```

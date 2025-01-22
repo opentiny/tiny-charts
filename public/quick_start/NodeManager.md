@@ -13,7 +13,7 @@ let newData = {
   height：100,
   ...data //节点的业务数据
 };
-nodeManager.updata(id, newData);
+nodeManager.update(id, newData);
 ```
 
 ## 3.卸载节点
@@ -46,7 +46,7 @@ deparementNode.addEventListener('click',(event, data)=>{
 chartIns.nodeManager.addEventListener(id, eventName, callback);
 
 //示例：给id为'designDept'节点的节点添加点击事件
-chartIns.nodeManager.updata('designDept', 'click', (event, data)=>{
+chartIns.nodeManager.update('designDept', 'click', (event, data)=>{
   // data: 节点数据
   // event: 节点信息
 });
@@ -59,9 +59,9 @@ chartIns.nodeManager.updata('designDept', 'click', (event, data)=>{
 let newChartOption = {...};
 chartIns.refresh(newChartOption);
 ```
-方式二：调用节点的updata方法进行更新数据
+方式二：调用节点的update方法进行更新数据
 ```javascript
-chartIns.nodeManager.updata(id, newData);
+chartIns.nodeManager.update(id, newData);
 ```
 ## 6.数据传递-由内到外
 节点中的数据需要往图表或图表外部传递时，可使用以下两种方式：

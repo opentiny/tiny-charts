@@ -51,7 +51,7 @@ function createVue(container, component, data, nodeInstance) {
     nodeInstance.setComponentApp({
         app: app,
         unmount: app.unmount,
-        updata: (newdata) => {
+        update: (newdata) => {
           vm.data = Object.assign({}, vm.data, newdata);
         }
     })

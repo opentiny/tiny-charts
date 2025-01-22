@@ -54,7 +54,7 @@ class Tool {
             });
         });
     }
-    updataVal(value) {
+    updateVal(value) {
         const dragCurrentVal = this.dom.querySelector('.huicharts-canvas-currentVal');
         if (dragCurrentVal) dragCurrentVal.innerHTML = (value * 100).toFixed(0) + '%';
     }

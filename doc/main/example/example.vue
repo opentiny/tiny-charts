@@ -55,22 +55,22 @@
                 
                 <div class="ic-example-chartProperty">
                     <div v-if="pageName === 'GridChart'">
-                        <div class="desc">网格图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/GridLayout')" class="link-text">网格图配置详情</a></div>
+                        <div class="desc">网格图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdate('/GridLayout')" class="link-text">网格图配置详情</a></div>
                     </div>
                     <div v-else-if="pageName === 'CircleChart'">
-                        <div class="desc">环形图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/CircleLayout')" class="link-text">环形图配置详情</a></div>
+                        <div class="desc">环形图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdate('/CircleLayout')" class="link-text">环形图配置详情</a></div>
                     </div>
                     <div v-else-if="pageName === 'LinearArcChart'">
-                        <div class="desc">线形弧线图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/LinearArcLayout')" class="link-text">线形弧线图配置详情</a></div>
+                        <div class="desc">线形弧线图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdate('/LinearArcLayout')" class="link-text">线形弧线图配置详情</a></div>
                     </div>
                     <div v-else-if="pageName === 'CircleArcChart'">
-                        <div class="desc">圆形弧线图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/CircleArcLayout')" class="link-text">圆形弧线图配置详情</a></div>
+                        <div class="desc">圆形弧线图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdate('/CircleArcLayout')" class="link-text">圆形弧线图配置详情</a></div>
                     </div>
                     <div v-else-if="pageName === 'CustomizeChart'">
-                        <div class="desc">自定义布局图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/CustomizeLayout')" class="link-text">自定义布局图配置详情</a></div>
+                        <div class="desc">自定义布局图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdate('/CustomizeLayout')" class="link-text">自定义布局图配置详情</a></div>
                     </div>
                     <div v-else-if="pageName === 'MindmapChart'">
-                        <div class="desc">思维导图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdata('/MindmapLayout')" class="link-text">思维导图配置详情</a></div>
+                        <div class="desc">思维导图由关系图引擎封装开发，该图的布局配置方法可参考：<a @click="pathUpdate('/MindmapLayout')" class="link-text">思维导图配置详情</a></div>
                     </div>
                     <div v-else>
                         <div className="table-title">
@@ -294,7 +294,7 @@ export default {
             }
             
         },
-        pathUpdata(path) {
+        pathUpdate(path) {
             window.parent.postMessage({ newMenuPath: path })
         }
     },

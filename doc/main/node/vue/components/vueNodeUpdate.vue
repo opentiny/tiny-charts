@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container">
-    <TinyButton @click="updata">更新研发部人数</TinyButton>
+    <TinyButton @click="update">更新研发部人数</TinyButton>
     <div class='chart drag-manager-wrap' ref="chartRef">
     </div>
   </div>
@@ -12,7 +12,7 @@ import MindmapChart from '../../../../../src/framework/charts/MindmapChart';
 import Demo from './node.vue';
 
 export default {
-  name: 'vueNodeUpdata',
+  name: 'vueNodeUpdate',
   components: {
     TinyButton: Button
   },
@@ -37,9 +37,9 @@ export default {
       this.integrateChart.canvas.onScale = (args)=>{}
       this.integrateChart.render();
     },
-    updata() {
+    update() {
         const peopleNum = Math.floor(Math.random() * 101);
-        this.integrateChart.nodeManager.updata('researchDept', {'peopleNum':peopleNum});
+        this.integrateChart.nodeManager.update('researchDept', {'peopleNum':peopleNum});
     }
 
   }

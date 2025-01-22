@@ -2,7 +2,7 @@
   <div class="chart-container" ref="container">
     <div class="card-con" ref="airportCardConRef">
       <div class="card-title">检查：</div>
-      <tab @updatatype="updatatype" :value="checkvalue" type="check" :option="checkOption"></tab>
+      <tab @updatetype="updatetype" :value="checkvalue" type="check" :option="checkOption"></tab>
       <div class='charts' ref="chartContainer"> </div>
     </div>
     <div class="card-con" ref="productCardConRef">
@@ -91,7 +91,7 @@ export default {
     })
   },
   methods: {
-    updatatype(val, type) {
+    updatetype(val, type) {
       if (type === 'check') {
         this.$refs.chartContainer.style.opacity = 0;
         this.checkType = val;

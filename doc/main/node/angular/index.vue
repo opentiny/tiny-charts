@@ -3,7 +3,7 @@
   <vueNode :option="options"></vueNode>
   <br />
   <MarkdownPage mdName="AngularNodeUpdate"></MarkdownPage>
-  <vueNodeUpdata :option="options"></vueNodeUpdata>
+  <vueNodeUpdate :option="options"></vueNodeUpdate>
   <br />
   <MarkdownPage mdName="AngularNodeUnmount"></MarkdownPage>
   <vueNodeUnmount :option="options"></vueNodeUnmount>
@@ -13,7 +13,7 @@
 import MarkdownPage from '../../example/components/markdown.vue';
 import CodeExample from '../../card/components/code-example.vue';
 import vueNode from '../vue/components/vueNode.vue';
-import vueNodeUpdata from '../vue/components/vueNodeUpdata.vue';
+import vueNodeUpdate from '../vue/components/vueNodeUpdate.vue';
 import vueNodeUnmount from '../vue/components/vueNodeUnmount.vue';
 
 const options = {
@@ -75,7 +75,7 @@ export default {
     MarkdownPage,
     CodeExample,
     vueNode,
-    vueNodeUpdata,
+    vueNodeUpdate,
     vueNodeUnmount
   },
   data(){

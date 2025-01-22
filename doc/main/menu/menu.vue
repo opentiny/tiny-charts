@@ -54,7 +54,7 @@ export default {
   },
   mounted(){
     //监听 iframe 事件
-    window.addEventListener('message', this.routerUpdata);
+    window.addEventListener('message', this.routerUpdate);
   },
   watch: {
     $route: {
@@ -95,7 +95,7 @@ export default {
       })
     },
     // 更新菜单及路由
-    routerUpdata(e){
+    routerUpdate(e){
       if(e?.data?.newMenuPath){
         let newPath = e.data.newMenuPath;
         this.$refs.treeMenu?.setCurrentNode({

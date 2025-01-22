@@ -1,9 +1,9 @@
 <template>
   <div class="github-markdown-body">
     <h1 class="title">开始使用</h1>
-    <p class="desc">当前关系图引擎，包括<a @click="pathUpdata('/MindmapChart')">思维导图</a>、<a @click="pathUpdata('/GridChart')">网格图</a>、<a @click="pathUpdata('/CircleChart')">环形图</a>、<a @click="pathUpdata('/LinearArcChart')">线形弧线图</a>、<a @click="pathUpdata('/CircleArcChart')">圆形弧线图</a>、<a @click="pathUpdata('/CustomizeChart')">自定义布局图</a>。</p>
+    <p class="desc">当前关系图引擎，包括<a @click="pathUpdate('/MindmapChart')">思维导图</a>、<a @click="pathUpdate('/GridChart')">网格图</a>、<a @click="pathUpdate('/CircleChart')">环形图</a>、<a @click="pathUpdate('/LinearArcChart')">线形弧线图</a>、<a @click="pathUpdate('/CircleArcChart')">圆形弧线图</a>、<a @click="pathUpdate('/CustomizeChart')">自定义布局图</a>。</p>
     <MarkdownPage mdName="FrameworkLifeCycle" class="markdown-layout"></MarkdownPage>
-    <p class="desc" v-show="showlink">当您需要局部刷新节点数据或连线数据时可参考<a @click="pathUpdata('/NodeManager')">节点数据刷新</a>或者<a @click="pathUpdata('/LineOption')">连线数据刷新</a>。  </p>
+    <p class="desc" v-show="showlink">当您需要局部刷新节点数据或连线数据时可参考<a @click="pathUpdate('/NodeManager')">节点数据刷新</a>或者<a @click="pathUpdate('/LineOption')">连线数据刷新</a>。  </p>
     <MarkdownPage mdName="FrameworkLifeCycleEvents"></MarkdownPage>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default {
   },
   
   methods: {
-		pathUpdata(path) {
+		pathUpdate(path) {
         window.parent.postMessage({ newMenuPath: path })
     }
   }
