@@ -59,9 +59,9 @@ function handleBasicProcessData(iChartOpt, dataSet, data, doubleSide, dataMax) {
 }
 
 
-function  getSerirsDataMax( dataSet, data, dataMax){
+function getSerirsDataMax(dataSet, data, dataMax) {
   let sumValueMax;
-  const  sumValue = [];
+  const sumValue = [];
   data.forEach(el => {
     let _sumValue = 0;
     el.children.forEach(child => {
@@ -72,34 +72,34 @@ function  getSerirsDataMax( dataSet, data, dataMax){
     sumValue.push(_sumValue);
   });
   sumValueMax = max(sumValue);
-  if (dataMax&&dataMax > sumValueMax) {
-    sumValueMax =dataMax;
+  if (dataMax && dataMax > sumValueMax) {
+    sumValueMax = dataMax;
   }
-  dataSet.maxValue=sumValueMax
-  dataSet.sumValue=sumValue
+  dataSet.maxValue = sumValueMax
+  dataSet.sumValue = sumValue
 }
 
 
-function setMaxValueAgain(dataSet, dataMax){
-  const sum=[]
-  const len=dataSet.seriesName.length
-  for (let i=0;i<len;i++){
-    let  sumValue = 0;
-    dataSet.barData.forEach(item=>{
-      if (item[i].value){
-        sumValue+=item[i].value
+function setMaxValueAgain(dataSet, dataMax) {
+  const sum = []
+  const len = dataSet.seriesName.length
+  for (let i = 0; i < len; i++) {
+    let sumValue = 0;
+    dataSet.barData.forEach(item => {
+      if (item[i].value) {
+        sumValue += item[i].value
       }
     })
     sum.push(sumValue)
   }
-  let maxValue=max(sum)
-  if (dataMax&&dataMax>maxValue){
-    maxValue=dataMax
+  let maxValue = max(sum)
+  if (dataMax && dataMax > maxValue) {
+    maxValue = dataMax
   }
-  dataSet .maxValue=maxValue
+  dataSet.maxValue = maxValue
 }
 
-function handleStackProcessData(iChartOpt, dataSet, data, dataMax) { 
+function handleStackProcessData(iChartOpt, dataSet, data, dataMax) {
   // 获取系列名称
   data.forEach(element => {
     dataSet.seriesName.push(element.name);
@@ -107,7 +107,7 @@ function handleStackProcessData(iChartOpt, dataSet, data, dataMax) {
   // 单独系列名称
   data[0].children.forEach(el => {
     dataSet.barName.push(el.type);
-  });  
+  });
   // 单一系列各项数据用来获取数据的标定值
   getSerirsDataMax(dataSet, data, dataMax)
   // 对各系列数据进行组装分类
@@ -116,15 +116,15 @@ function handleStackProcessData(iChartOpt, dataSet, data, dataMax) {
     const seriesData = [];
     data.forEach(child => {
       const childItem = child.children.find(el => el.type === type);
-      const innerChidItem= handleLimitVal(childItem, iChartOpt, dataSet.maxValue)        
+      const innerChidItem = handleLimitVal(childItem, iChartOpt, dataSet.maxValue)
       seriesData.push(innerChidItem);
     });
-   
+
     dataSet.barData.push(seriesData);
   });
   // 在有minwidth的情景下重新去计算所有系列求和的最大值
-  if (iChartOpt.minWidth){
-    setMaxValueAgain(dataSet, dataMax)   
+  if (iChartOpt.minWidth) {
+    setMaxValueAgain(dataSet, dataMax)
   }
 }
 
@@ -144,7 +144,7 @@ function handleData(iChartOpt, doubleSide) {
       seriesName: [],
     };
     // 当前图表单个系列数据的最大值，用来做数据占比
-    const dataMax=iChartOpt.calibrationValue||iChartOpt.max
+    const dataMax = iChartOpt.calibrationValue || iChartOpt.max
     if (name === CHARTTYPENAME.ProcessBarChart) {
       handleBasicProcessData(iChartOpt, dataSet, data, doubleSide, dataMax);
     } else {

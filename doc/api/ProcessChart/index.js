@@ -13,6 +13,7 @@ import labelMd from './label.md?raw'
 import stateMd from './state.md?raw'
 import titleMd from './title.md?raw'
 import textMd from './text.md?raw'
+import markLineMd from './markLine.md?raw'
 
 const data = {
     dataset: [
@@ -31,7 +32,7 @@ const data = {
         ['state', '根据状态设置颜色', 'object', '无'],
         ['title', '进度图图表标题样式', 'object', '无'],
         ['text', '进度图图表右侧文本样式', 'object', '无'],
-
+        ['markLine', '阈值线', 'object', '无'],
     ],
     markdown: [
         themeMd,
@@ -49,6 +50,7 @@ const data = {
         stateMd,
         titleMd,
         textMd,
+        markLineMd
     ],
 };
 

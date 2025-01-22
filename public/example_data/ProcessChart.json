@@ -28,6 +28,21 @@
           "name": "进度图-自定义",
           "routePath": "ProcessChart-2",
           "imagePath": "./image/theme/light/ProcessChart/ProcessChart-2.png"
+        },
+        {
+          "name": "数据标线",
+          "routePath": "ProcessChart-8",
+          "imagePath": "./image/theme/light/ProcessChart/ProcessChart-8.png"
+        },
+        {
+          "name": "数据标线-变更状态色",
+          "routePath": "ProcessChart-9",
+          "imagePath": "./image/theme/light/ProcessChart/ProcessChart-9.png"
+        },
+        {
+          "name": "数据标线-变更颜色",
+          "routePath": "ProcessChart-10",
+          "imagePath": "./image/theme/light/ProcessChart/ProcessChart-10.png"
         }
       ]
     },
