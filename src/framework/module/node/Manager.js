@@ -168,8 +168,8 @@ export default class NodeManager {
         return this.instance[id];
     }
 
-    updata(id, data) {
-        this.instance[id].updata(data);
+    update(id, data) {
+        this.instance[id].update(data);
     }
 
     // 指定节点添加事件

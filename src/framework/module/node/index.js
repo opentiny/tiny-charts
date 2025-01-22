@@ -111,8 +111,8 @@ export default class Node {
     }
 
     // 更新节点
-    updata(data) {
-        this.app?.updata(data);
+    update(data) {
+        this.app?.update(data);
     }
 
     // 卸载节点
@@ -165,7 +165,7 @@ export default class Node {
                 this.setComponentPosition(newData);
                 this.setComponentSize(newData, {});
                 this.setData(newData);
-                this.updata(newData)
+                this.update(newData)
             }
         })
         animation.start();

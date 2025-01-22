@@ -57,11 +57,11 @@ function createAngular(container, componentReturn, data, nodeInstance) {
 
   // 卸载组件准备
   setTimeout(() => {
-    // 将 Angular 实例 unmount updata添加到 appIns 对象中
+    // 将 Angular 实例 unmount update添加到 appIns 对象中
     nodeInstance.setComponentApp({
       app: app,
       unmount: () => {app.destroy();},
-      updata: (newData) => {
+      update: (newData) => {
         app.instance.data = Object.assign({}, app.instance.data, newData);
       }
     });

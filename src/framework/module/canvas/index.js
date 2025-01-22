@@ -237,7 +237,7 @@ class CanvasManager {
         }, this.transitionDuration);
 
         // 操作按钮区更新文本显示
-        this.tool?.updataVal(this.scale);
+        this.tool?.updateVal(this.scale);
 
         // 底图跟随位移
         let self = this;

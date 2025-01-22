@@ -27,7 +27,7 @@ let deparementNode = chartIns.nodeManager.addEventListener(callbak);
 chartIns.nodeManager.addEventListener(id, eventName, callback);
 
 //示例：更改示例中id为'designDept'节点的节点添加点击事件
-chartIns.nodeManager.updata('designDept', 'click',(event, data)=>{
+chartIns.nodeManager.update('designDept', 'click',(event, data)=>{
   // data: 节点数据
   // event: 节点信息
 });

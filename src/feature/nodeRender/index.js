@@ -17,7 +17,7 @@ function render(container, component, data, nodeInstance) {
         nodeInstance.setComponentApp({
               app: null,
               unmount: () => {},
-              updata: (newData) => {
+              update: (newData) => {
                 container.innerHTML = '';
                 let dom = component(container, newData);
                 dom && container.appendChild(dom);

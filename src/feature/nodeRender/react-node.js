@@ -25,11 +25,11 @@ function createReact(container, component, data, nodeInstance) {
   root.render(app);
   // 卸载组件准备
   setTimeout(() => {
-    // 将 react 实例 unmount updata添加到 appIns 对象中
+    // 将 react 实例 unmount update添加到 appIns 对象中
     nodeInstance.setComponentApp({
       app: app,
       unmount: () => {root.unmount()},
-      updata: (newData) => {
+      update: (newData) => {
         setState((prevState) => (
           Object.assign({}, prevState, newData)
         ))
