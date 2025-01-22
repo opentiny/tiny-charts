@@ -43,7 +43,7 @@ class JadeJueChart {
     // 配置玉玦图的seriesData数据（value,name,color）
     setSeriesData(iChartOption, this.baseOption);
     // 设置默认线宽为(8=>16)
-    setbarWidth(iChartOption, this.baseOption);
+    setbarWidth(iChartOption, this.baseOption, chartInstance);
     // 配置玉玦图的起点角度及文本位置
     setStartAngle(iChartOption, this.baseOption);
     // 为第一种数据类型单独配置legend.data和对应颜色
