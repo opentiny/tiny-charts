@@ -12,4 +12,4 @@
 
 <p class='ev_expand_introduce'>默认值：<code>['20%','60%']</code>
 
-<p class='ev_expand_introduce'>说明：调整玉玦图的大小
+<p class='ev_expand_introduce'>说明：调整玉玦图的大小 ( 当第一项设置为<code>auto</code>时(即：<code>['auto','60%']</code>), 玉玦图会根据主题规范自动设置内圈大小 )

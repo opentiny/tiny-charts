@@ -13,11 +13,50 @@ import cloneDeep from '../../util/cloneDeep';
 import { getColor } from '../../util/color';
 import defendXSS from '../../util/defendXSS';
 
+// 主题中 线宽由线数量来决定
+function setThemeBarWidth(theme, data, position){
+  const isClound = theme.indexOf('clound') > -1;
+  let barWidth;
+  if(data.length >= 5){
+    barWidth = isClound ? 4: 8;
+  }else if(data.length ===4){
+    barWidth = isClound ? 6: 12;
+  }else if(data.length <= 3){
+    barWidth = isClound ? 8: 16;
+  }
+  return barWidth
+}
+
+// 主题中 线间距为文本的行高（当前规范字体12 行高为20）减去线宽 
+// 计算内圈的大小，用外圈尺寸 - (lineHeight*data.length)
+function setThemeRadius(iChartOption, baseOpt, chartInstance){
+  const lineHeight = 20;
+  const { _dom } = chartInstance;
+  const { data } = iChartOption;
+  const { width, height } = _dom.getBoundingClientRect();
+  const canvasRadius = width > height ? height / 2 : width / 2;
+  let outerRing = baseOpt.polar.radius[1];
+  let innerRing;
+  if(typeof outerRing === 'number'){
+    innerRing = outerRing - (lineHeight*data.length) 
+  }else if(outerRing.indexOf('%')>-1){
+    outerRing = Number(outerRing.slice(0,-1)) / 100;
+    innerRing = outerRing*canvasRadius - (lineHeight*data.length)
+  }
+  baseOpt.polar.radius[0] = innerRing;
+}
+
 // 配置玉玦图默认线宽为8
-export function setbarWidth(iChartOption, baseOpt) {
-  const { barWidth = 8 } = iChartOption;
+export function setbarWidth(iChartOption, baseOpt, chartInstance) {
+  const { barWidth = 8, theme, data, position } = iChartOption;
+  let themeBarWidth;
+  // 有配置主题时，根据规范设置线宽 与 线间距
+  if(theme){
+    themeBarWidth = setThemeBarWidth(theme, data, position)
+    if(!position?.radius || position?.radius?.[0] === 'auto')setThemeRadius(iChartOption, baseOpt, chartInstance)
+  }
   baseOpt.series.forEach(series => {
-    series.barWidth = barWidth;
+    series.barWidth = barWidth ? barWidth : themeBarWidth;
   });
 }
 
