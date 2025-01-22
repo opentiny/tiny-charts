@@ -12,7 +12,7 @@
 import init from '../../option/init';
 import mini from '../../feature/mini/miniProcessChart';
 import RectCoordSys from '../../option/RectSys';
-import { PROCESSBARTYPE } from './BaseOption';
+import { PROCESSBARTYPE, CHARTTYPENAME } from './BaseOption';
 import handleData from './handleData';
 import { handleGrid, handleYaxis, handleXaxis, handleDataZoom, handleLegend, handleTooltip } from './handleOption';
 import handleSeries from './handleSeries';
@@ -43,7 +43,7 @@ class ProcessChart {
     // 加载默认的直角坐标系
     RectCoordSys(this.baseOption, iChartOption, iChartOption.name);
     // 是否是基础双向进度图
-    const doubleSide = iChartOption.type && iChartOption.type === PROCESSBARTYPE;
+    const doubleSide = iChartOption.name === CHARTTYPENAME.ProcessBarChart && iChartOption.type && iChartOption.type === PROCESSBARTYPE;
     const dataSet = handleData(iChartOption, doubleSide);
     if (!dataSet) return;
 

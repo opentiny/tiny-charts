@@ -13,7 +13,6 @@ import Paint from '../../../util/paint';
 import { appendDom } from '../../../util/dom';
 import { isString, isArray } from '../../../util/type';
 import { getExceededMarkLineValue, handleRedPointerSeries, handleRedPointerRadar } from '../handleSeries';
-import Theme from '../../../feature/token';
 import { setStateBarColor, getStateList } from '../../ProcessChart/handleSeries';
 import { getColor, codeToRGB } from '../../../util/color';
 import { handletipHtml, checkValue } from '../handleOptipn';
@@ -336,16 +335,8 @@ class GradientRadar {
   getPointColor(value, index) {
     const { state, color } = this.iChartOption;
     if (state) {
-      const { colorState } = Theme.config;
-      const stateColorGroup = {
-        error: colorState.colorError,
-        warning: colorState.colorAlert,
-        subwarning: colorState.colorWarning,
-        success: colorState.colorSuccess,
-      };
-      const successColor = stateColorGroup.success;
       const stateList = getStateList(state);
-      return setStateBarColor(value, stateColorGroup, successColor, stateList);
+      return setStateBarColor(value, stateList);
     }
     else {
       return getColor(color, index);

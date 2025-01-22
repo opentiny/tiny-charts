@@ -9,11 +9,11 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import { BASICUNIT, CHARTTYPENAME, DOUBLEBASICOPTION } from './BaseOption';
+import { BASICUNIT, CHARTTYPENAME, DOUBLEBASICOPTION, SERIES_NAME } from './BaseOption';
 import merge from '../../util/merge';
 import defendXSS from '../../util/defendXSS';
 import { isString, isArray } from '../../util/type';
-import { handleBarColor } from './handleSeries';
+import { getBarColor } from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import chartToken from './chartToken';
 
@@ -122,17 +122,13 @@ function handleLegend(baseOpt, dataSet, doubleSide, initIchartOption) {
   }
 }
 
-function handleTipValue(params, dataSet, doubleSide) {
-  let value;
-  if (doubleSide) {
-    value =
-      dataSet.barData[Math.floor(params.seriesIndex / 2)][params.dataIndex]._initValue ||
-      dataSet.barData[Math.floor(params.seriesIndex / 2)][params.dataIndex].value;
-  } else {
-    value = dataSet.barData[params.dataIndex]._initValue || dataSet.barData[params.dataIndex].value;
-  }
-  return value;
+function getTipValue(params, dataSet, doubleSide) {
+  const index = doubleSide ? Math.floor(params.seriesIndex / 2) : params.dataIndex
+  const data = doubleSide ? dataSet.barData[index][params.dataIndex] : dataSet.barData[index]
+  return data._initValue ?? data.value
 }
+
+
 
 function handleTipFormatter(baseOpt, iChartOpt, dataSet, doubleSide) {
   const { unit, tipHtml } = iChartOpt;
@@ -148,10 +144,10 @@ function handleTipFormatter(baseOpt, iChartOpt, dataSet, doubleSide) {
     const params = isItemTooltip ? echartsParams : echartsParams[0];
     const name = params.name;
     const seriesName = params.seriesName;
-    const value = handleTipValue(params, dataSet, doubleSide);
+    const value = getTipValue(params, dataSet, doubleSide);
     const color =
-      seriesName === 'background' || seriesName === 'backgroundLeft' || seriesName === 'backgroundRight'
-        ? handleBarColor(params, iChartOpt, dataSet, doubleSide, true)
+      seriesName === SERIES_NAME.background
+        ? getBarColor(value, iChartOpt, params.dataIndex)
         : params.color;
     const validData = value === null || value === undefined;
     if (ichartTooltipFormatter) {
@@ -187,7 +183,7 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
   }
   baseOpt.tooltip.formatter = params => {
     const name = params[0].name
-    if(name==='null') return 
+    if (name === 'null') return
     let htmlString = `<div style="margin-bottom:4px;">${defendXSS(name)}</div>`;
     params.forEach((param, index) => {
       if (index > 1) {
