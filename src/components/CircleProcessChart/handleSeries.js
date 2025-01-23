@@ -32,8 +32,7 @@ function getSeriesInit() {
 }
 
 export function setSeries(seriesData, iChartOption) {
-  const { data, itemStyle } = iChartOption;
-  const  marklineColor = Theme.config.colorState.colorError
+  const { data, itemStyle, markLine } = iChartOption;
   const series = [];
   data.forEach((item, i) => {
     const seriesUnit = getSeriesInit();
@@ -46,16 +45,32 @@ export function setSeries(seriesData, iChartOption) {
   });
   // 阈值线
   if (iChartOption.markLine) {
-    const markLineUnit = setMarkLine(series, iChartOption.markLine, marklineColor, iChartOption);
+    const markLineUnit = setMarkLine(data, markLine,  iChartOption);
     series.push(markLineUnit);
   }
   return series;
 }
 
+function getThemeStatusColor(status = 'success'){
+  const {colorError, colorAlert, colorWarning, colorSuccess} = Theme.config.colorState
+  const statusColorGroup = {
+    error: colorError,
+    alert: colorAlert,
+    warning: colorWarning,
+    success: colorSuccess
+  }
+  return statusColorGroup[status]
+}
+
 // 添加一个空series，使用该空series的pointer来作为阈值线的红线
-function setMarkLine(series, markLine, marklineColor, iChartOption) {
+function setMarkLine(data, markLine, iChartOption) {
+  let {color, status='success', value} = markLine
+  const  marklineColor = getThemeStatusColor(status);
   const temp = cloneDeep(emptySeriesUnit);
   const markLineUnit = cloneDeep(temp);
+  if(data[0].value > value){
+    color = '#FFFFFF'
+  }
   markLineUnit.name = 'markLine';
   markLineUnit.min = iChartOption.min || 0;
   markLineUnit.max = iChartOption.max || 100;
@@ -67,14 +82,15 @@ function setMarkLine(series, markLine, marklineColor, iChartOption) {
   markLineUnit.pointer = {
     icon: 'path://M0 0 L30 0 L30 100 L0 100 Z',
     width: 2,
-    length: iChartOption?.barWidth ? Number(iChartOption?.barWidth) - 2 : 14,
-    offsetCenter: iChartOption.markLine.offsetCenter || [0, '-46.6%'],
+    length: iChartOption?.barWidth ? Number(iChartOption?.barWidth) - 6 : 10,
+    offsetCenter: iChartOption.markLine.offsetCenter || [0, '-47.3%'],
     itemStyle: {
-      color: markLine.color || '#09AA71' || marklineColor,
+      color:  color || marklineColor,
     },
   };
   markLineUnit.data = [{ value: markLine.value }];
   markLineUnit.silent = true;
+  markLineUnit.zlevel = 2;
   return markLineUnit;
 }
 
