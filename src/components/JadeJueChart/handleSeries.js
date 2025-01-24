@@ -24,7 +24,7 @@ function createSeries(iChartOption, baseOpt, sum, legendData) {
   });
   // 通过判断图例的数量来配置series的子集数量
   if (baseOpt.series.length < length) {
-    for (let i = 0; i <= length - baseOpt.series.length + 1; i++) {
+    for (let i = 0; i <= length - 1; i++) {
       baseOpt.series.push({
         type: 'bar',
         data: '',
