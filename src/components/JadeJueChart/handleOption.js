@@ -14,22 +14,25 @@ import { getColor } from '../../util/color';
 import defendXSS from '../../util/defendXSS';
 
 // 主题中 线宽由线数量来决定
-function setThemeBarWidth(theme, data, position){
+function setThemeBarRule(theme, data, position){
   const isCloud = theme.includes('cloud');
-  let barWidth;
+  let barWidth, textGap;
   if(data.length >= 5){
     barWidth = isCloud ? 4: 8;
-  }else if(data.length ===4){
+    textGap = 0;
+  }else if(data.length === 4){
     barWidth = isCloud ? 6: 12;
+    textGap = 4;
   }else if(data.length <= 3){
     barWidth = isCloud ? 8: 16;
+    textGap = 8;
   }
-  return barWidth
+  return { barWidth, textGap }
 }
 
-// 主题中 线间距为文本的行高（当前规范字体12 行高为20）减去线宽 
+// 主题中 线间距为文本的行高 + 字间距（当前规范字体12 行高为20） 减去线宽 
 // 计算内圈的大小，用外圈尺寸 - (lineHeight*data.length)
-function setThemeRadius(iChartOption, baseOpt, chartInstance){
+function setThemeRadius(iChartOption, baseOpt, chartInstance, textGap){
   const lineHeight = 20;
   const { _dom } = chartInstance;
   const { data } = iChartOption;
@@ -38,10 +41,10 @@ function setThemeRadius(iChartOption, baseOpt, chartInstance){
   let outerRing = baseOpt.polar.radius[1];
   let innerRing;
   if(typeof outerRing === 'number'){
-    innerRing = outerRing - (lineHeight*data.length) 
+    innerRing = outerRing - ((lineHeight + textGap) * data.length) 
   }else if(outerRing.indexOf('%')>-1){
     outerRing = Number(outerRing.slice(0,-1)) / 100;
-    innerRing = outerRing*canvasRadius - (lineHeight*data.length)
+    innerRing = outerRing*canvasRadius - ((lineHeight + textGap) * data.length)
   }
   baseOpt.polar.radius[0] = innerRing;
 }
@@ -49,11 +52,13 @@ function setThemeRadius(iChartOption, baseOpt, chartInstance){
 // 配置玉玦图默认线宽为8
 export function setbarWidth(iChartOption, baseOpt, chartInstance) {
   const { barWidth, theme, data, position } = iChartOption;
-  let themeBarWidth;
   // 有配置主题时，根据规范设置线宽 与 线间距
+  let themeBarWidth;
   if(theme){
-    themeBarWidth = setThemeBarWidth(theme, data, position)
-    if(!position?.radius || position?.radius?.[0] === 'auto')setThemeRadius(iChartOption, baseOpt, chartInstance)
+    let themeBarRile = setThemeBarRule(theme, data, position);
+    themeBarWidth = themeBarRile.barWidth;
+    // 配置了position.radius 且第一个为auto
+    if(!position?.radius || position?.radius?.[0] === 'auto') setThemeRadius(iChartOption, baseOpt, chartInstance, themeBarRile.textGap)
   }
   baseOpt.series.forEach(series => {
     series.barWidth = barWidth ? barWidth : themeBarWidth || 8;
@@ -173,7 +178,3 @@ export function handleMinRatio(iChartOption, baseOpt, type) {
     baseOpt.tooltip = setTooltip(tipHtml, baseOpt, type);
   }
 }
-
-
-
-
