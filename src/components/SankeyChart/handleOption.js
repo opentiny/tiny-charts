@@ -230,18 +230,24 @@ const compareNodeText = (iChartOption, baseOpt, that, instance) => {
       value: baseOpt.series[0].data[index].value,
       text: baseOpt.series[0].data[index].name + ' ' + baseOpt.series[0].data[index].value
     };
-    if (item.depth === 0) {
+    if(iChartOption.label?.position === 'left'){
       leftNodeArr.push(nodeInfo);
-    } else if (item.depth === maxDepth) {
+    }else if(iChartOption.label?.position === 'right'){
       rightNodeArr.push(nodeInfo);
-    } else if (item.depth < maxDepth && item.depth > 0) {
-      baseOpt.series[0].data[index].label = {
-        position: 'top', // 中间的节点文本展示在节点上方
-        ...baseOpt.series[0].data[index].label
-      };
-      if (item.y < minY) {
-        minY = item.y;
-        centerName = baseOpt.series[0].data[index].name;
+    }else{
+      if (item.depth === 0) {
+        leftNodeArr.push(nodeInfo);
+      } else if (item.depth === maxDepth) {
+        rightNodeArr.push(nodeInfo);
+      } else if (item.depth < maxDepth && item.depth > 0) {
+        baseOpt.series[0].data[index].label = {
+          position: 'top', // 中间的节点文本展示在节点上方
+          ...baseOpt.series[0].data[index].label
+        };
+        if (item.y < minY) {
+          minY = item.y;
+          centerName = baseOpt.series[0].data[index].name;
+        }
       }
     }
   });

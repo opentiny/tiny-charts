@@ -36,7 +36,7 @@ class SankeyChart {
   constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
-    this.baseOption = cloneDeep(BaseOption());
+    this.baseOption = cloneDeep(BaseOption(iChartOption.label?.position));
     // 记录下用户传入的初始的padding值
     this.userPadding = iChartOption.padding || iChartOption.chartPadding;
     // 组装 iChartOption, 补全默认值

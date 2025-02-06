@@ -14,6 +14,7 @@ label: { // 节点的label默认是由其name和value组成
       return `{name|${params.name}}\n{value|${params.data.empty ? 0 : params.data.value}}`; // 纵向排列的label默认展示
     }
   },
+  position: 'left' || 'right', // 需要文本全部向左或向右时，可根据需要配置为'left'或'right'，默认无需配置
   rich: {
     name: { // 配置name字段的样式
       fontSize: 12,

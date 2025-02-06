@@ -11,7 +11,7 @@
  */
 import chartToken from './chartToken';
 
-const BaseOption = () => {
+const BaseOption = (labelPosition) => {
   return {
     tooltip: {
       trigger: 'item',
@@ -41,8 +41,8 @@ const BaseOption = () => {
           {
             depth: 0,
             label: {
-              position: 'left',
-              align: 'right'
+              position: labelPosition ? labelPosition : 'left',
+              align: labelPosition? null : 'right'
             },
           },
         ],
