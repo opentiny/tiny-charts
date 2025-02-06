@@ -157,7 +157,6 @@ const handleLabelFormatter = (iChartOption, baseOpt) => {
         return;
     }
     angleAxis.axisLabel.formatter = formatter;
-    angleAxis.axisTick.show = true; // 展示刻度线
 };
 
 export { handleLabelFormatter };
