@@ -154,6 +154,7 @@ const handleLabelFormatter = (iChartOption, baseOpt) => {
     }
     if (type === 'process') {
         angleAxis.axisLabel.show = false;
+        angleAxis.axisTick.show = false;
         return;
     }
     angleAxis.axisLabel.formatter = formatter;
