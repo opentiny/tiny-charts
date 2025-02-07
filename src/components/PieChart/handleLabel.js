@@ -39,7 +39,7 @@ function handleLabelLine(hasLabelLine, seriesUnit, label) {
     seriesUnit.labelLine = {
       show: false,
       length: lineLength,
-      length2: lineLength,
+      length2: lineLength / 2,
     };
   }
 }

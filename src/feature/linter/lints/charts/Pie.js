@@ -30,7 +30,7 @@ function getPieRule() {
                     color: chartToken.labelLineColor,
                 },
                 length: chartToken.labelLineLength,
-                length2: chartToken.labelLineLength
+                length2: chartToken.labelLineLength / 2
             },
         }
     }
