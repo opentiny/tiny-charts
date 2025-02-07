@@ -31,7 +31,7 @@ function handleLabelLine(hasLabelLine, seriesUnit, label) {
           color: lineColor ? lineColor : chartToken.labelLineColor,
         },
         length: lineLength,
-        length2: lineLength,
+        length2: lineLength / 2,
       },
       seriesUnit.labelLine,
     );
