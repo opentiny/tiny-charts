@@ -130,13 +130,15 @@ function setBackgroundStyle(seriesTarget, seriesSource, backgroundStyle) {
  * @returns
  */
 export function setSeries(iChartOption) {
-  const { data, shape, color, name, label, outline, backgroundStyle, waveAnimation } = iChartOption;
+  const { data, shape, color, name, label, outline, backgroundStyle, waveAnimation, radius, center } = iChartOption;
   const series = [];
   const selfSeries = iChartOption.series;
   if (selfSeries !== undefined && selfSeries.length != 0) {
     selfSeries.forEach(item => {
       const seriesUnit = cloneDeep(seriesInit);
       item.data && (seriesUnit.data = item.data);
+      item.center && (seriesUnit.center = item.center);
+      item.radius && (seriesUnit.radius = item.radius);
       item.shape && (seriesUnit.shape = item.shape);
       item.waveAnimation !== undefined && (seriesUnit.waveAnimation = item.waveAnimation);
       setColor(seriesUnit, item, color);
@@ -150,8 +152,10 @@ export function setSeries(iChartOption) {
     const seriesUnit = cloneDeep(seriesInit);
     data && (seriesUnit.data = data);
     name && (seriesUnit.name = name);
+    center && (seriesUnit.center = center);
+    radius && (seriesUnit.radius = radius);
     shape && (seriesUnit.shape = shape);
-    waveAnimation !== undefined && (seriesUnit.waveAnimation = waveAnimation);
+    waveAnimation !== undefined && (seriesUnit.waveAnimation = waveAnimation); 
     // 配置color
     setColor(seriesUnit, iChartOption);
     // 配置backgroundStyle
