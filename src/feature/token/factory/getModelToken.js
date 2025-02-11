@@ -134,7 +134,7 @@ function getModelToken(aliasToken) {
     // x轴名称颜色
     xAxisNameColor: colorTextSecondary,
     // x轴名称字号
-    xAxisNameFontSize: textFontSize,
+    xAxisNameFontSize: subtextFontSize,
     // x轴标签文本颜色
     xAxisLabelColor: colorTextTertiary,
     // x轴标签文本字号
@@ -164,7 +164,7 @@ function getModelToken(aliasToken) {
     // y轴名称颜色
     yAxisNameColor: colorTextSecondary,
     // y轴名称字号
-    yAxisNameFontSize: textFontSize,
+    yAxisNameFontSize: subtextFontSize,
     // y轴标签文本颜色
     yAxisLabelColor: colorTextTertiary,
     // y轴标签文本字号
