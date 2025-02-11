@@ -10,20 +10,8 @@
  *
  */
 import tooltip from '../../option/config/tooltip';
-import legend from '../../option/config/legend';
 import defendXSS from '../../util/defendXSS';
 import { CHART_TYPE } from '../../util/constants';
-
-// 配置图表图例位置信息
-export function setLegend(iChartOption) {
-  const { itemGap, itemWidth, itemHeight } = iChartOption.legend;
-  const chartLegend = legend(iChartOption);
-  chartLegend.itemGap = itemGap !== undefined ? itemGap : 28;
-  chartLegend.itemWidth = itemWidth || 14;
-  chartLegend.itemHeight = itemHeight || 14;
-  Object.assign(chartLegend, iChartOption.legend);
-  return chartLegend;
-}
 
 // 配置鼠标悬浮提示框
 export function setTooltip(iChartOption) {

@@ -11,7 +11,7 @@
  */
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from './BaseOption';
-import { setLegend, setTooltip } from './handleOption';
+import { setTooltip } from './handleOption';
 import { handleColor } from './handleColor';
 import { handleRootData } from './handleRootData';
 import { handleVirtualLengend } from './handleVirtualLengend';
@@ -20,6 +20,7 @@ import { legendDisappear, legendShow } from './legendSelectChanged';
 import init from '../../option/init';
 import { isArray } from '../../util/type';
 import { CHART_TYPE } from '../../util/constants';
+import legend from '../../option/config/legend';
 
 class AssembleBubbleChart {
 
@@ -40,7 +41,7 @@ class AssembleBubbleChart {
     const { color, type } = this.iChartOption;
     this.baseOption.color = color;
     this.baseOption.tooltip = setTooltip(this.iChartOption);
-    this.baseOption.legend = setLegend(this.iChartOption);
+    this.baseOption.legend = legend(this.iChartOption);
     const { depthFirst, depthMore } = handleSeriesData(this.iChartOption, this.baseOption);
     handleColor({
       depthFirst,
