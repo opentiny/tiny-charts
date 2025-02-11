@@ -40,13 +40,14 @@ function getBoxplotUnitSeries() {
       color: undefined,
       borderColor: undefined,
       borderWidth: chartToken.boxplotItemStyleBorderWidth,
-      shadowColor: 'transparent',
     },
     emphasis: {
       itemStyle: {
         color: undefined,
         borderWidth: chartToken.boxplotEmphasisItemStyleBorderWidth,
-        shadowColor: 'transparent'
+        shadowBlur: 0,
+        shadowOffsetX: 0,
+        shadowOffsetY: 0
       }
     }
   }
