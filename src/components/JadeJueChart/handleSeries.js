@@ -204,57 +204,55 @@ export function setSeriesData(iChartOption, baseOpt) {
       item.showBackground = showBackground;
     });
   } else {
-    // data.forEach(dataItem => {
-      let sum = 0;
-      // data中的每项如果没有children
-      if (type === 'base') {
-        // 是否显示柱条背景样式---补全75%数据及颜色
-        if (showBackground) {
-          // 当数据全为0时，手动设置sum和max使其不为0，避免视图丢失
-          if (baseOpt.angleAxis.sum === 0) {
-            baseOpt.angleAxis.sum = 1;
-            baseOpt.angleAxis.max = 4 / 3;
-          }
-          const newData = cloneDeep(data);
-          newData.forEach(newItem => {
-            newItem.itemStyle = {
-              color: chartToken.itemColor,
-            };
-            newItem.value = baseOpt.angleAxis.sum - newItem.value;
-            newItem.sum = 0;
-          });
-          baseOpt.series[data.length] = {
-            type: 'bar',
-            data: newData,
-            stack: 'a',
-            z: 1,
-            roundCap,
-            coordinateSystem: 'polar',
-            // 关闭灰色进度鼠标hover事件
-            silent: true,
-          };
+    let sum = 0;
+    // data中的每项如果没有children
+    if (type === 'base') {
+      // 是否显示柱条背景样式---补全75%数据及颜色
+      if (showBackground) {
+        // 当数据全为0时，手动设置sum和max使其不为0，避免视图丢失
+        if (baseOpt.angleAxis.sum === 0) {
+          baseOpt.angleAxis.sum = 1;
+          baseOpt.angleAxis.max = 4 / 3;
         }
-      } else {
-        // data中的value是数组类型，处理数据;配置初始数据及颜色;获取图例type，后续赋给series
-        let legendData = [];
-        data.forEach(dataItem => {
-          dataItem.children.forEach(child => {
-            sum += child.value;
-          });
+        const newData = cloneDeep(data);
+        newData.forEach(newItem => {
+          newItem.itemStyle = {
+            color: chartToken.itemColor,
+          };
+          newItem.value = baseOpt.angleAxis.sum - newItem.value;
+          newItem.sum = 0;
         });
-        data.forEach(dataItem => {
-          dataItem.children.forEach(child => {
-            child.sum = sum;
-            legendData.push(child.type);
-          });
-        });
-        // 添加series中的数据
-        legendData = Array.from(new Set(legendData));
-        createSeries(iChartOption, baseOpt, sum, legendData);
-        // 配置图例颜色
-        baseOpt.color = color;
+        baseOpt.series[data.length] = {
+          type: 'bar',
+          data: newData,
+          stack: 'a',
+          z: 1,
+          roundCap,
+          coordinateSystem: 'polar',
+          // 关闭灰色进度鼠标hover事件
+          silent: true,
+        };
       }
-    // });
+    } else {
+      // data中的value是数组类型，处理数据;配置初始数据及颜色;获取图例type，后续赋给series
+      let legendData = [];
+      data.forEach(dataItem => {
+        dataItem.children.forEach(child => {
+          sum += child.value;
+        });
+      });
+      data.forEach(dataItem => {
+        dataItem.children.forEach(child => {
+          child.sum = sum;
+          legendData.push(child.type);
+        });
+      });
+      // 添加series中的数据
+      legendData = Array.from(new Set(legendData));
+      createSeries(iChartOption, baseOpt, sum, legendData);
+      // 配置图例颜色
+      baseOpt.color = color;
+    }
   }
 }
 
