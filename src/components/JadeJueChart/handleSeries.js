@@ -14,6 +14,7 @@ import cloneDeep from '../../util/cloneDeep';
 import { handleMinRatio } from './handleOption';
 import chartToken from './chartToken';
 import merge from '../../util/merge';
+import { getTextWidth } from '../../util/dom';
 
 function createSeries(iChartOption, baseOpt, sum, legendData) {
   const { showBackground = true } = iChartOption;
@@ -130,14 +131,18 @@ const setRadiusAxis = (baseOpt, data, type, iChartOption) => {
       const defaultLabelRich = {
         name: {
           color: chartToken.labelValueColor,
-          padding: [0, chartToken.labelPadding, 0, 0]
+          padding: [0, chartToken.labelPadding, 0, 0],
+          align: 'right',
         },
         ratio: {
           color: chartToken.labelRatioColor,
+          // 设置宽度才能保证name也右对齐
+          width: getTextWidth('100%', baseOpt.radiusAxis.axisLabel.fontSize),
+          align: 'right',
         }
       };
       baseOpt.radiusAxis.axisLabel.rich = merge(defaultLabelRich, iChartLabelRich);
-      baseOpt.radiusAxis.axisLabel.formatter = (...params) => `{name|${params[0]}} {ratio|${(getRatio(params) * 100).toFixed(0) + '%'}}`;
+      baseOpt.radiusAxis.axisLabel.formatter = (...params) => `{name|${params[0]}}{ratio|${(getRatio(params) * 100).toFixed(0) + '%'}}`;
     }
   }
 };
