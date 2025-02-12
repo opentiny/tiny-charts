@@ -18,6 +18,7 @@ import barMinRatioMd from './barMinRatio?raw';
 import { angleAxis, angleAxisMd } from '../common/angleAxis';
 import { radiusAxis, radiusAxisMd } from '../common/radiusAxis';
 import typeMd from './type.md?raw';
+import labelContentMd from './labelContent.md?raw';
 
 const data = {
     dataset: [
@@ -39,7 +40,8 @@ const data = {
         angleAxis,
         radiusAxis,
         event,
-        ['type', '设置玉玦图的类别', 'string', 'unset']
+        ['type', '设置玉玦图的类别', 'string', 'unset'],
+        ['labelContent', '设置玉玦图每个系列的展示文本', 'string', 'name']
     ],
     markdown: [
         themeMd,
@@ -60,7 +62,8 @@ const data = {
         angleAxisMd,
         radiusAxisMd,
         eventMd,
-        typeMd
+        typeMd,
+        labelContentMd
     ],
 };
 

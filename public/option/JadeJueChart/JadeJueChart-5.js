@@ -46,4 +46,5 @@ const option = {
   // 自定义最大值，用于展示data中每项数据在最大值的占据比例，一般可取value最大值。
   // 未定义则data中每项数据的占比为其value值与总value值的比值。
   max: 120,
+  labelContent: 'nameWithRatio'
 };
