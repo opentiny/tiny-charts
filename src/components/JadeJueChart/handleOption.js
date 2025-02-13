@@ -132,11 +132,11 @@ export function handleLegendData(iChartOption, baseOpt) {
     })
     .reverse();
   if (Array.isArray(baseOpt.legend.data)) {
-    reverseData.forEach(dataItem => {
+    reverseData.forEach((dataItem, index) => {
       baseOpt.legend.data.push({
         name: dataItem.name,
         itemStyle: {
-          color: getColor(color, dataItem.beforeReverseIndex),
+          color: getColor(color, index),
         },
       });
     });

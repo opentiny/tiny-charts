@@ -12,7 +12,7 @@
 import init from '../../option/init';
 import BaseOption from './BaseOption';
 import cloneDeep from '../../util/cloneDeep';
-import { setSeriesData } from './handleSeries';
+import { setSeriesData, reverseData } from './handleSeries';
 import { handleLabelFormatter } from './labelFormatter';
 import PolarCoordSys from '../../option/PolarSys';
 import { setStartAngle, setbarWidth, handleLegendData } from './handleOption';
@@ -27,7 +27,7 @@ class JadeJueChart {
     this.iChartOption = {};
     this.baseOption = cloneDeep(BaseOption);
     // 组装 iChartOption, 补全默认值
-    this.iChartOption = init(iChartOption);
+    this.iChartOption = init(cloneDeep(iChartOption));
     // 根据 iChartOption 组装 baseOption
     this.updateOption(chartInstance);
   }
@@ -36,6 +36,8 @@ class JadeJueChart {
     const iChartOption = this.iChartOption;
     iChartOption.position = iChartOption.position || iChartOption.chartPosition;
     iChartOption.max = iChartOption.max || iChartOption.calibrationValue;
+    // 对非堆叠类型数据取反（已对iChartOption进行深拷贝），实现数据从外向内展示（echarts默认为内向外）
+    reverseData(iChartOption);
     // 装载除series之外的其他配置
     PolarCoordSys(this.baseOption, iChartOption, CHART_TYPE.JADGEJUE);
     // 配置玉玦图的标定值和两种data下不同的angleAxis.sum和angleAxis.max

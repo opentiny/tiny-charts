@@ -32,8 +32,6 @@ function createSeries(iChartOption, baseOpt, sum, legendData) {
         type: 'bar',
         data: '',
         stack: 'a',
-        roundCap: true,
-        z: 2,
         coordinateSystem: 'polar',
       });
     }
@@ -43,18 +41,21 @@ function createSeries(iChartOption, baseOpt, sum, legendData) {
     series.sum = sum;
     series.itemStyle = {
       borderColor: chartToken.itemBorderColor,
-      borderWidth: 2,
+      borderWidth: chartToken.itemBorderWidth,
+      borderRadius: [chartToken.itemBorderRadius, 0, chartToken.itemBorderRadius, 0]
     };
+    if (baseOpt.series.length === 1) {
+      series.itemStyle.borderRadius = [chartToken.itemBorderRadius, chartToken.itemBorderRadius, chartToken.itemBorderRadius, chartToken.itemBorderRadius];
+      return;
+    }
     switch (index) {
       case 0:
-        series.z = 1;
         break;
       case baseOpt.series.length - 1:
-        series.z = 2;
+        series.itemStyle.borderRadius = [0, chartToken.itemBorderRadius, 0, chartToken.itemBorderRadius];
         break;
       default:
-        series.z = 3;
-        series.roundCap = false;
+        series.itemStyle.borderRadius = [0, 0, 0, 0];
         break;
     }
   });
@@ -76,7 +77,7 @@ function createSeries(iChartOption, baseOpt, sum, legendData) {
       placeHolderData.push({
         type: 'stack背景占位',
         value: baseOpt.angleAxis.sum - typeSum,
-        itemStyle: { color: chartToken.itemColor },
+        itemStyle: { color: chartToken.itemColor, borderRadius: [0, chartToken.itemBorderRadius, 0, chartToken.itemBorderRadius] },
         sum: 0
       });
     });
@@ -84,8 +85,6 @@ function createSeries(iChartOption, baseOpt, sum, legendData) {
       type: 'bar',
       data: placeHolderData,
       stack: 'a',
-      roundCap: true,
-      z: 1,
       coordinateSystem: 'polar',
       silent: true,
     });
@@ -174,15 +173,17 @@ export function setSeriesData(iChartOption, baseOpt) {
       });
       const newData = cloneDeep(data);
       newData.forEach(newItem => {
+        const newIndex = data.length - 1 - index;
         newItem.value = 0;
         if (newItem.name === dataItem.name) {
           newItem.value = dataItem.value;
         }
         newItem.itemStyle = {
-          color: Array.isArray(color) ? getColor(color, index) : color,
+          color: Array.isArray(color) ? getColor(color, newIndex) : color,
         };
         newItem.sum = sum;
         newItem.beforeChangeValue = undefined;
+        newItem.index = newIndex;
       });
       baseOpt.series.push({
         type: 'bar',
@@ -261,4 +262,11 @@ export function setSeriesData(iChartOption, baseOpt) {
   }
 }
 
-
+// 对非堆叠类型数据取反（已对iChartOption进行深拷贝），实现数据从外向内展示（echarts默认为内向外）
+export function reverseData(iChartOption) {
+  const { type = 'base', data } = iChartOption;
+  let noChildData = data.every(item => (!item.children || !item.children.length));
+  if (type === 'base' || noChildData) {
+    iChartOption.data = iChartOption.data.reverse();
+  }
+};
