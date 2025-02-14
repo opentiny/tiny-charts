@@ -12,6 +12,7 @@
 import cloneDeep from '../../util/cloneDeep';
 import { getColor } from '../../util/color';
 import defendXSS from '../../util/defendXSS';
+import { borderRadiusText } from './BaseOption';
 
 const cloudThemeBarWidth = {
   large: 8,
@@ -92,6 +93,14 @@ export function setbarWidth(iChartOption, baseOpt, chartInstance) {
   }
   baseOpt.series.forEach(series => {
     series.barWidth = barWidth ? barWidth : themeBarWidth || 8;
+    if (series.itemStyle?.borderRadius) {
+      series.itemStyle.borderRadius = series.itemStyle.borderRadius.map(item => {
+        if (typeof (item) === 'string') {
+          item = Number(item.replace(borderRadiusText, series.barWidth / 2));
+        }
+        return item;
+      });
+    }
   });
 }
 

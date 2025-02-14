@@ -15,6 +15,7 @@ import { handleMinRatio } from './handleOption';
 import chartToken from './chartToken';
 import merge from '../../util/merge';
 import { getTextWidth } from '../../util/dom';
+import { borderRadiusText } from './BaseOption';
 
 function createSeries(iChartOption, baseOpt, sum, legendData) {
   const { showBackground = true } = iChartOption;
@@ -42,17 +43,17 @@ function createSeries(iChartOption, baseOpt, sum, legendData) {
     series.itemStyle = {
       borderColor: chartToken.itemBorderColor,
       borderWidth: chartToken.itemBorderWidth,
-      borderRadius: [chartToken.itemBorderRadius, 0, chartToken.itemBorderRadius, 0]
+      borderRadius: [borderRadiusText, 0, borderRadiusText, 0]
     };
     if (baseOpt.series.length === 1) {
-      series.itemStyle.borderRadius = [chartToken.itemBorderRadius, chartToken.itemBorderRadius, chartToken.itemBorderRadius, chartToken.itemBorderRadius];
+      series.itemStyle.borderRadius = [borderRadiusText, borderRadiusText, borderRadiusText, borderRadiusText];
       return;
     }
     switch (index) {
       case 0:
         break;
       case baseOpt.series.length - 1:
-        series.itemStyle.borderRadius = [0, chartToken.itemBorderRadius, 0, chartToken.itemBorderRadius];
+        series.itemStyle.borderRadius = [0, borderRadiusText, 0, borderRadiusText];
         break;
       default:
         series.itemStyle.borderRadius = [0, 0, 0, 0];
@@ -77,7 +78,7 @@ function createSeries(iChartOption, baseOpt, sum, legendData) {
       placeHolderData.push({
         type: 'stack背景占位',
         value: baseOpt.angleAxis.sum - typeSum,
-        itemStyle: { color: chartToken.itemColor, borderRadius: [0, chartToken.itemBorderRadius, 0, chartToken.itemBorderRadius] },
+        itemStyle: { color: chartToken.itemColor },
         sum: 0
       });
     });
@@ -87,6 +88,9 @@ function createSeries(iChartOption, baseOpt, sum, legendData) {
       stack: 'a',
       coordinateSystem: 'polar',
       silent: true,
+      itemStyle: {
+        borderRadius: [0, borderRadiusText, 0, borderRadiusText]
+      }
     });
   }
 }
