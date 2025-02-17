@@ -118,11 +118,11 @@ function pureBottomArea(itemx, percentx, bottomColorx) {
         colorStops: [
           {
             offset: 0,
-            color: chartToken.colorAreaTP,
+            color: 'rgba(255,255,255,0.001)', //解决svg渲染方式下面积图低阈值黑色背景的问题
           },
           {
             offset: 1 - percentx - 0.00001,
-            color: chartToken.colorAreaTP,
+            color: 'rgba(255,255,255,0.001)',
           },
           {
             offset: 1 - percentx,
@@ -153,7 +153,7 @@ function markLineArea(baseOption, iChartOption, YAxiMax) {
   ) {
     const temp = [];
     baseOption.series.forEach(item => {
-      const bottomColor = codeToRGB(iChartOption.markLine.bottomColor, 0.15) ||  codeToRGB(Theme.config.colorState.colorError, 0.15);
+      const bottomColor = codeToRGB(iChartOption.markLine.bottomColor, 0.15) || codeToRGB(Theme.config.colorState.colorError, 0.15);
       const minValue = min(item.data);
       const percent = (iChartOption.markLine.bottom - minValue) / (YAxiMax - minValue);
       if (iChartOption.markLine.bottom >= minValue) {
