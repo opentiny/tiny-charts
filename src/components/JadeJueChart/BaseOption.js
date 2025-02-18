@@ -18,6 +18,23 @@ const BaseOption = {
     max: (sum * 4) / 3,
   },
   polar: {},
-  series:  []
+  series: []
 };
+// 堆叠图中首、中间、尾、背景条 四种的圆角文本占位。需要等自适应代码执行完毕，再替换成为真实的数值
+const borderRadiusText = 'barWith/2';
+
+const CHARTTYPE = {
+  BASE: 'base',
+  PROCESS: 'process',
+  STACK: 'stack'
+};
+
+const defaultSeries = {
+  type: 'bar',
+  stack: 'a',
+  coordinateSystem: 'polar',
+  z: 2,
+};
+
 export default BaseOption;
+export { borderRadiusText, CHARTTYPE, defaultSeries };

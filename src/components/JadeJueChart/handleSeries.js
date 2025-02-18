@@ -10,202 +10,237 @@
  *
  */
 import { getColor } from '../../util/color';
-import cloneDeep from '../../util/cloneDeep';
 import { handleMinRatio } from './handleOption';
 import chartToken from './chartToken';
+import merge from '../../util/merge';
+import { getTextWidth } from '../../util/dom';
+import { borderRadiusText, CHARTTYPE, defaultSeries } from './BaseOption';
+
+// 根据数据值绑定上圆角
+const bindBorderRaduis = (data) => {
+  data.forEach(item => {
+    let hasValueIndexArr = [];
+    item.children.forEach((v, key) => {
+      if (v.value) {
+        hasValueIndexArr.push(key);
+      }
+    });
+    item.children.forEach((v, key) => {
+      if (hasValueIndexArr.includes(key)) {
+        if (hasValueIndexArr.length === 1) {
+          v.itemStyle = {
+            borderRadius: [borderRadiusText, borderRadiusText, borderRadiusText, borderRadiusText]
+          };
+          return;
+        }
+        let keyIndex = hasValueIndexArr.findIndex((a) => a === key);
+        if (keyIndex === 0) {
+          v.itemStyle = {
+            borderRadius: [borderRadiusText, 0, borderRadiusText, 0]
+          };
+        } else if (keyIndex === hasValueIndexArr.length - 1) {
+          v.itemStyle = {
+            borderRadius: [0, borderRadiusText, 0, borderRadiusText]
+          };
+        } else {
+          v.itemStyle = {
+            borderRadius: [0, 0, 0, 0]
+          };
+        }
+      }
+    });
+  });
+};
 
 function createSeries(iChartOption, baseOpt, sum, legendData) {
-  // 添加series中的数据
-  let length = 0;
-  iChartOption.data.forEach(dataItem => {
-    if (length <= dataItem.children.length) {
-      length = dataItem.children.length;
-    }
-  });
-  // 通过判断图例的数量来配置series的子集数量
-  if (baseOpt.series.length < length) {
-    for (let i = 0; i <= length - 1; i++) {
-      baseOpt.series.push({
-        type: 'bar',
-        data: '',
-        stack: 'a',
-        roundCap: false,
-        z: 2,
-        coordinateSystem: 'polar',
-      });
-    }
+  const { showBackground = true, data } = iChartOption;
+  bindBorderRaduis(data);
+  for (let i = 0; i <= legendData.length - 1; i++) {
+    let seriesData = [];
+    data.forEach(item => {
+      seriesData.push(item.children.find(v => {
+        if (v.type === legendData[i]) {
+          v.sum = baseOpt.angleAxis.sum;
+          return v;
+        }
+      }));
+    });
+    baseOpt.series.push({
+      ...defaultSeries,
+      data: seriesData,
+      name: legendData[i],
+    });
   }
-  // series的非头尾数据的圆角取消及z值最高
+  if (showBackground) {
+    const placeHolderData = [];
+    data.forEach((_, index) => {
+      let typeSum = 0;
+      baseOpt.series.forEach((v) => {
+        typeSum += v.data[index]?.value ?? 0;
+      });
+      placeHolderData.push({
+        type: 'stack背景占位',
+        value: baseOpt.angleAxis.sum - typeSum,
+        itemStyle: { color: chartToken.itemColor },
+        sum: 0
+      });
+    });
+    baseOpt.series.push({
+      ...defaultSeries,
+      data: placeHolderData,
+      silent: true,
+      roundCap: true,
+      z: 1
+    });
+  }
   baseOpt.series.forEach((series, index) => {
     series.sum = sum;
     series.itemStyle = {
       borderColor: chartToken.itemBorderColor,
-      borderWidth: 2,
+      borderWidth: chartToken.itemBorderWidth,
     };
-    if (index === 0) {
-      series.z = 1;
-    } else if (index === baseOpt.series.length - 1) {
-      series.z = 0;
-    } else {
-      series.roundCap = false;
-    }
   });
-  // 将iChartOption的data数据依次赋给series
-  for (let i = 0; i < length; i++) {
-    baseOpt.series[i].data = [];
-    iChartOption.data.forEach(item_ => {
-      baseOpt.series[i].data.push(item_.children[i]);
-      baseOpt.series[i].name = legendData[i];
-    });
-  }
 }
 
-const setRadiusAxis = (baseOpt, data, type) => {
+const setRadiusAxis = (baseOpt, data, chartType, iChartOption) => {
+  const { labelContent = 'name', showBackground = true } = iChartOption;
   baseOpt.radiusAxis.z = 10;
-  baseOpt.radiusAxis.data = [];
-  if (type === 'process') return; // 进度图不展示左侧文本
-  data.forEach((item, index) => {
-    baseOpt.radiusAxis.data.push(item.name);
-  });
-
-  // if (type === 'base') {
-  //   baseOpt.radiusAxis.axisLabel.rich = {
-  //     value: {
-  //       color: chartToken.labelValueColor,
-  //       padding: [0, chartToken.labelPadding, 0, 0]
-  //     },
-  //     ratio: chartToken.labelRatioColor
-  //   };
-  //   baseOpt.radiusAxis.axisLabel.formatter = (params, index) => {
-  //     let value;
-  //     baseOpt.series[index].data.forEach((dataItem) => {
-  //       if (dataItem.name === params) {
-  //         value = dataItem.beforeChangeValue;
-  //       }
-  //     });
-  //     if (value === undefined) {
-  //       value = data[index].value;
-  //     }
-  //     const ratio = (value / baseOpt.angleAxis.sum * 100).toFixed(2) + '%';
-  //     return `{value|${value}}{ratio|${ratio}}`;
-  //   };
-  // }
+  if (chartType === CHARTTYPE.PROCESS) {
+    baseOpt.radiusAxis.data = [];
+    return;
+  } else {
+    baseOpt.radiusAxis.data = data.map(item => item.name);
+  }
+  const getRatio = (params) => {
+    const index = params[1];
+    let value = 0;
+    let ratio = 0;
+    if (chartType === CHARTTYPE.STACK) {
+      (showBackground ? baseOpt.series.slice(0, -1) : baseOpt.series).forEach(val => {
+        value += val.data[index]?.value ?? 0;
+      });
+    } else {
+      value = baseOpt.series[index].data[index].beforeChangeValue ?? baseOpt.series[index].data[index].value ?? 0;
+    }
+    ratio = value / baseOpt.angleAxis.sum;
+    return ratio;
+  };
+  const iChartLabelFormatter = iChartOption?.radiusAxis?.axisLabel?.formatter;
+  if (iChartLabelFormatter) {
+    baseOpt.radiusAxis.axisLabel.formatter = (...params) => iChartLabelFormatter(...params, getRatio(params));
+  } else {
+    if (labelContent === 'name') {
+      return;
+    } else if (labelContent === 'nameWithRatio') {
+      const iChartLabelRich = iChartOption?.radiusAxis?.axisLabel?.rich ?? {};
+      const defaultLabelRich = {
+        name: {
+          color: chartToken.labelValueColor,
+          padding: [0, chartToken.labelPadding, 0, 0],
+          align: 'right',
+        },
+        ratio: {
+          color: chartToken.labelRatioColor,
+          // 设置宽度才能保证name也右对齐
+          width: getTextWidth('100%', baseOpt.radiusAxis.axisLabel.fontSize),
+          align: 'right',
+        }
+      };
+      baseOpt.radiusAxis.axisLabel.rich = merge(defaultLabelRich, iChartLabelRich);
+      baseOpt.radiusAxis.axisLabel.formatter = (...params) => `{name|${params[0]}}{ratio|${(getRatio(params) * 100).toFixed(0) + '%'}}`;
+    }
+  }
 };
 
 // 配置玉玦图的seriesData数据（value,name,color）
-export function setSeriesData(iChartOption, baseOpt) {
-  let { showBackground = true, data, color, roundCap = true, type = 'base' } = iChartOption;
-  // 原先写法是将所有data放在series[0]，灰度data放在series[1]中，因此无法为每条数据单独配置图例
-  // 遍历数据，为每条数据配置series
-  if (type === 'process') {
-    roundCap = false;
+export function setSeriesData(iChartOption, baseOpt, chartType) {
+  let { showBackground = true, data, color, roundCap = true } = iChartOption;
+  if (chartType === CHARTTYPE.PROCESS) {
     data.forEach((dataItem, index) => {
       baseOpt.series.push({
-        type: 'bar',
+        ...defaultSeries,
         data: [dataItem.value],
-        stack: 'a',
-        roundCap,
-        z: 2,
-        coordinateSystem: 'polar',
+        roundCap: false,
         name: dataItem.name,
-        beforeChangeValue: undefined
+        beforeChangeValue: undefined,
+        showBackground,
+        backgroundStyle: { color: chartToken.itemColor }
       });
     });
-  } else if (type === 'base') {
+  } else if (chartType === CHARTTYPE.BASE) {
     data.forEach((dataItem, index) => {
-      let sum = 0;
-      data.forEach(dataItem => {
-        sum += dataItem.value;
-      });
-      const newData = cloneDeep(data);
-      newData.forEach(newItem => {
-        newItem.value = 0;
-        if (newItem.name === dataItem.name) {
-          newItem.value = dataItem.value;
-        }
-        newItem.itemStyle = {
-          color: Array.isArray(color) ? getColor(color, index) : color,
-        };
-        newItem.sum = sum;
-        newItem.beforeChangeValue = undefined;
+      const newData = [];
+      data.forEach(v => {
+        const newIndex = data.length - 1 - index;
+        newData.push({
+          ...v,
+          value: v.name === dataItem.name ? dataItem.value : 0,
+          itemStyle: {
+            color: Array.isArray(color) ? getColor(color, newIndex) : color,
+          },
+          sum: baseOpt.angleAxis.sum,
+          beforeChangeValue: undefined,
+          index: newIndex
+        });
       });
       baseOpt.series.push({
-        type: 'bar',
+        ...defaultSeries,
         data: newData,
-        stack: 'a',
-        // 配置柱体两端是否圆角（在编辑器修改此属性重新调用echarts.setOption，但是视图未更新。bug）
         roundCap,
-        z: 2,
-        coordinateSystem: 'polar',
         name: dataItem.name,
       });
     });
+    if (showBackground) {
+      let bgData = [];
+      data.forEach(dataItem => {
+        bgData.push({
+          ...dataItem,
+          itemStyle: {
+            color: chartToken.itemColor,
+          },
+          value: baseOpt.angleAxis.sum - (dataItem.value ?? 0),
+          sum: 0,
+        });
+      });
+      baseOpt.series[data.length] = {
+        ...defaultSeries,
+        data: bgData,
+        z: 1,
+        roundCap,
+        // 关闭灰色进度鼠标hover事件
+        silent: true,
+      };
+    }
+  } else {
+    let legendData = [];
+    data.forEach(item => {
+      legendData = legendData.concat(item.children.map(v => v.type));
+    });
+    legendData = Array.from(new Set(legendData));
+    // 将数据按照legend的顺序排列好
+    data.forEach((item, index) => {
+      item.children.sort((a, b) => legendData.findIndex(v => v === a.type) - legendData.findIndex(v => v === b.type));
+    });
+    createSeries(iChartOption, baseOpt, baseOpt.angleAxis.sum, legendData);
   }
-
 
   // 自定义柱体最小占比
-  handleMinRatio(iChartOption, baseOpt, type);
+  handleMinRatio(iChartOption, baseOpt, chartType);
 
   // 配置展示每项data的名称,及显示层级
-  setRadiusAxis(baseOpt, data, type);
-
-  if (type === 'process') {
-    baseOpt.series.forEach((item) => {
-      item.showBackground = showBackground;
-    });
-  } else {
-    data.forEach(dataItem => {
-      let sum = 0;
-      // data中的每项如果没有children
-      if (type === 'base') {
-        // 是否显示柱条背景样式---补全75%数据及颜色
-        if (showBackground) {
-          // 当数据全为0时，手动设置sum和max使其不为0，避免视图丢失
-          if (baseOpt.angleAxis.sum === 0) {
-            baseOpt.angleAxis.sum = 1;
-            baseOpt.angleAxis.max = 4 / 3;
-          }
-          const newData = cloneDeep(data);
-          newData.forEach(newItem => {
-            newItem.itemStyle = {
-              color: chartToken.itemColor,
-            };
-            newItem.value = baseOpt.angleAxis.sum - newItem.value;
-            newItem.sum = 0;
-          });
-          baseOpt.series[data.length] = {
-            type: 'bar',
-            data: newData,
-            stack: 'a',
-            z: 1,
-            roundCap,
-            coordinateSystem: 'polar',
-            // 关闭灰色进度鼠标hover事件
-            silent: true,
-          };
-        }
-      } else {
-        // data中的value是数组类型，处理数据;配置初始数据及颜色;获取图例type，后续赋给series
-        let legendData = [];
-        data.forEach(dataItem => {
-          dataItem.children.forEach(child => {
-            sum += child.value;
-          });
-        });
-        data.forEach(dataItem => {
-          dataItem.children.forEach(child => {
-            child.sum = sum;
-            legendData.push(child.type);
-          });
-        });
-        // 添加series中的数据
-        legendData = Array.from(new Set(legendData));
-        createSeries(iChartOption, baseOpt, sum, legendData);
-        // 配置图例颜色
-        baseOpt.color = color;
-      }
-    });
-  }
+  setRadiusAxis(baseOpt, data, chartType, iChartOption);
 }
 
-
+// 对非堆叠类型数据取反（已对iChartOption进行深拷贝），实现数据从外向内展示（echarts默认为内向外）
+export function reverseData(iChartOption, that) {
+  const { type = CHARTTYPE.BASE, data } = iChartOption;
+  let noChildData = data.every(item => (!item.children || !item.children.length));
+  if (type === CHARTTYPE.PROCESS) {
+    that.chartType = CHARTTYPE.PROCESS;
+  } else if (type === CHARTTYPE.BASE || noChildData) {
+    that.chartType = CHARTTYPE.BASE;
+    iChartOption.data = iChartOption.data.reverse();
+  } else {
+    that.chartType = CHARTTYPE.STACK;
+  }
+};

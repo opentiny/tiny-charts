@@ -9,62 +9,28 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-// 处理第二种数据且有标定值的sum和max
-const setChildMax = (data, max) => {
-    data.forEach(dataItem => {
-        if (dataItem.children) {
-            dataItem.children.forEach(child => {
-                child.max = max;
-            });
-        } else {
-            dataItem.max = max;
-        }
-    });
-};
+import { CHARTTYPE } from './BaseOption';
 
 // 处理第一种数据且无标定值的sum和max
-const setNoChildDefaultMax = (data, angleAxis, fill) => {
-    data.forEach(dataItem => {
-        // data中的value是数值类型，处理数据
-        if (!dataItem.children) {
-            let sum = 0;
-            data.forEach(item => {
-                sum += item.value;
-            });
-            // 当数据全为0时，手动设置sum和max使其不为0，避免视图丢失
-            if (sum === 0) {
-                sum = 1;
-            }
-            angleAxis.max = (sum * 4) / 3;
-            angleAxis.sum = sum;
-            if (fill) {
-                angleAxis.max = sum;
-            }
-        }
+const setNoChildDefaultMax = (data) => {
+    let sum = 0;
+    data.forEach(item => {
+        sum += (item.value ?? 0);
     });
+    return sum;
 };
 
 // 处理第二种数据且无标定值的sum和max
-const setChildDefaultMax = (data, angleAxis, fill) => {
-    data.forEach(dataItem => {
-        if (dataItem.children) {
-            let sum = 0;
-            data.forEach(item => {
-                item.children.forEach(item_ => {
-                    sum += item_.value;
-                });
+const setChildDefaultMax = (data) => {
+    let sum = 0;
+    data.forEach(item => {
+        if (item.children && item.children.length) {
+            item.children.forEach(({ value }) => {
+                sum += (value ?? 0);
             });
-            // 当数据全为0时，手动设置sum和max使其不为0，避免视图丢失
-            if (sum === 0) {
-                sum = 1;
-            }
-            angleAxis.sum = sum;
-            angleAxis.max = (sum * 4) / 3;
-            if (fill) {
-                angleAxis.max = sum;
-            }
         }
     });
+    return sum;
 };
 
 // 配置玉闋图外围坐标系百分比展示文本
@@ -103,35 +69,37 @@ const setAxisLabel = (sum, iChartOption, baseOpt) => {
  * @param {*} iChartOption
  * @param {*} baseOpt
  */
-const handleLabelFormatter = (iChartOption, baseOpt) => {
-    let { max, data, fill = false, type = 'base' } = iChartOption;
+const handleLabelFormatter = (iChartOption, baseOpt, chartType) => {
+    let { max, data, fill = false } = iChartOption;
     const { angleAxis } = baseOpt;
-    if (type === 'process') {
+    if (chartType === CHARTTYPE.PROCESS) {
         fill = true;
     }
     // 有标定值
     if (max) {
-        // 第一种数据类型
         angleAxis.sum = max;
-        angleAxis.max = max * 4 / 3;
-        // 第二种数据类型
-        setChildMax(data, max);
-        if (fill) {
-            angleAxis.max = max;
-        }
     }
     // 无标定值
     else {
-        if (type === 'process') {
-            angleAxis.max = 100;
-            angleAxis.sum = 100;
-        } else if (type === 'base') {
+        let sum;
+        if (chartType === CHARTTYPE.PROCESS) {
+            sum = 100;
+        } else if (chartType === CHARTTYPE.BASE) {
             // 第一种数据类型
-            setNoChildDefaultMax(data, angleAxis, fill);
+            sum = setNoChildDefaultMax(data);
         } else {
             // 第二种数据类型
-            setChildDefaultMax(data, angleAxis, fill);
+            sum = setChildDefaultMax(data);
         }
+        // 当数据全为0时，手动设置sum和max使其不为0，避免视图丢失
+        if (sum === 0) {
+            sum = 1;
+        }
+        angleAxis.sum = sum;
+    }
+    angleAxis.max = angleAxis.sum * 4 / 3;
+    if (fill) {
+        angleAxis.max = angleAxis.sum;
     }
 
     /**
@@ -152,7 +120,7 @@ const handleLabelFormatter = (iChartOption, baseOpt) => {
             formatter = setAxisLabel(angleAxis.sum, iChartOption, baseOpt);
             break;
     }
-    if (type === 'process') {
+    if (chartType === CHARTTYPE.PROCESS) {
         angleAxis.axisLabel.show = false;
         angleAxis.axisTick.show = false;
         return;
