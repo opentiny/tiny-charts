@@ -10,7 +10,7 @@
  *
  */
 function LineChart(aliasToken) {
-  const { colorBorder, borderWidthLG, borderWidthNone, symbolSize, symbolSizeSM, lineWidth, colorLineTransparent } =
+  const { borderWidthLG, borderWidthNone, symbolSize, symbolSizeSM, lineWidth, colorNone, colorMask } =
     aliasToken;
 
   return {
@@ -19,8 +19,10 @@ function LineChart(aliasToken) {
     lineWidth,
     borderZero: borderWidthNone,
     border: borderWidthLG,
-    borderColor: colorBorder,
-    color: colorLineTransparent,
+    borderColor: colorMask,
+    color: colorNone,
+    colorNone,
+    maskColor: colorMask
   };
 };
 

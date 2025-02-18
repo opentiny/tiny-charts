@@ -20,5 +20,6 @@ export default function getGlobalToken(themeName) {
   return {
     ...globalToken,
     ...color[themeName].grayScale,
+    colorBoard: color[themeName].colorBoard,
   };
 }

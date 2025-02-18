@@ -129,7 +129,7 @@ function handleTheme(iChartOption) {
   const { orbitalColor } = iChartOption;
   seriesInit.axisLine.lineStyle.color = [[1, orbitalColor || chartToken.axisLineColor]];
   seriesInit.splitLine.lineStyle.color = chartToken.splitLineColor;
-  seriesInit.axisLabel.color = chartToken.descRichColor;
+  seriesInit.axisLabel.color = chartToken.axisLabel;
 }
 
 // 配置仪表盘中心文本

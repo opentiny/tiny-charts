@@ -26,10 +26,10 @@ function getDataZoomToken() {
         },
         dataBackground: {
             lineStyle: {
-                color: token.dataBackgroundLineColor,
+                color: token.dataZoomDataBackgroundLineColor,
             },
             areaStyle: {
-                color: token.dataBackgroundAreaColor,
+                color: token.dataZoomDataBackgroundAreaColor,
             },
         },
         selectedDataBackground: {

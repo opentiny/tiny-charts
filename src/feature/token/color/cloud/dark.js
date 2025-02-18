@@ -10,7 +10,7 @@
  *
  */
 // 目前没有黑色主题，图表配色延用白色主题
-import board from './board';
+import board from './board-dark';
 import { getThemeColor, getColorGroup } from '../util';
 
 const gray = {
@@ -20,34 +20,50 @@ const gray = {
 
 // 图表的状态颜色
 const colorState = {
-	// 成功色
-  colorSuccess: board.kelly.colorKelly60,
   // 紧急色
-  colorError: board.red.colorRed60,
-  colorAlert: board.orange.colorOrange60,
-	// 失效
-  colorNone: board.gray.colorGray50,
-  colorWarning: board.yellow.colorYellow60,
+  colorError: board.red.colorRed50,
+  colorAlert: board.orange.colorOrange50,
+  colorWarning: board.yellow.colorYellow70,
+  // 成功色
+  colorSuccess: board.green.colorGreen50,
   // 提示色
-  colorInfo: board.blue.colorBlue60
-  
+  colorInfo: board.blue.colorBlue40,
+  // 失效
+  colorNone: board.gray.colorGray50,
 };
 
 // 图表配色对象
 const colorChart = {
-	colorChart1: board.blue.colorBlue60,
+  colorChart1: board.blue.colorBlue70,
   colorChart2: board.mint.colorMint70,
-  colorChart3: board.indigo.colorIndigo50,
-  colorChart4: board.kelly.colorKelly60,
-	colorChart5: board.yellow.colorYellow60,
-  colorChart6: board.sky.colorSky60,
-  colorChart7: board.purple.colorPurple50,
-  colorChart8: board.rose.colorRose50, // (原色 '#EB4696')
+  colorChart3: board.indigo.colorIndigo70,
+  colorChart4: board.green.colorGreen70,
+  colorChart5: board.yellow.colorYellow70,
+  colorChart6: board.sky.colorSky70,
+  colorChart7: board.purple.colorPurple70,
+  colorChart8: board.rose.colorRose70,
+  colorChart9: board.blue.colorBlue50,
+  colorChart10: board.mint.colorMint90,
+  colorChart11: board.indigo.colorIndigo40,
+  colorChart12: board.green.colorGreen90,
+  colorChart13: board.yellow.colorYellow50,
+  colorChart14: board.sky.colorSky90,
+  colorChart15: board.purple.colorPurple50,
+  colorChart16: board.rose.colorRose90,
+  colorChart17: board.mint.colorMint50,
+  colorChart18: board.blue.colorBlue90,
+  colorChart19: board.green.colorGreen50,
+  colorChart20: board.indigo.colorIndigo90,
+  colorChart21: board.sky.colorSky50,
+  colorChart22: board.yellow.colorYellow90,
+  colorChart23: board.rose.colorRose40,
+  colorChart24: board.purple.colorPurple90,
+  colorChart25: board.lime.colorLime90
 };
 
 // 图表内置的颜色组
 const colorGroup = getColorGroup(colorChart);
 
-const dark = getThemeColor(gray, colorState, colorGroup,board);
+const dark = getThemeColor(gray, colorState, colorGroup, board);
 
 export default dark;

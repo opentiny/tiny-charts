@@ -10,11 +10,11 @@
  *
  */
 function HeatMapChart(aliasToken) {
-  const { colorLabel, colorBorder } = aliasToken;
+  const { colorLabel, colorMask } = aliasToken;
 
   return {
     labelColor: colorLabel,
-    hexagonStrokeColor: colorBorder,
+    hexagonStrokeColor: colorMask,
   };
 };
 

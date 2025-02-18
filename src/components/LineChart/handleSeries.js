@@ -116,7 +116,7 @@ function isTopOrBottom(markLine, seriesUnit, flag) {
     markLineData.lineStyle.color = markLineColor
   }
   if (markLinelLineStyle === false) {
-    markLineData.lineStyle.color = chartToken.color;
+    markLineData.lineStyle.color = chartToken.colorNone;
   }
   seriesUnit.markLine.data.push(markLineData);
 }

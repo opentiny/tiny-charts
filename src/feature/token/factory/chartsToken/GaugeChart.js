@@ -9,16 +9,16 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-function GaugeChart (aliasToken){
-  const { colorBgEmpty, colorAxisTickLine, colorTextTertiary, colorTextPrimary, colorTextSecondary} = aliasToken;
-  
+function GaugeChart(aliasToken) {
+  const { colorPlaceholder, colorAxisTickLine, colorTitle, colorSubTitle, colorAxisLabel } = aliasToken;
+
   return {
     // 用于轨道，特殊使用空数据颜色
-    axisLineColor: colorBgEmpty,
+    axisLineColor: colorPlaceholder,
     splitLineColor: colorAxisTickLine,
-    axisLabelColor: colorTextTertiary,
-    detailRichColor: colorTextPrimary,
-    descRichColor: colorTextSecondary
+    detailRichColor: colorTitle,
+    descRichColor: colorSubTitle,
+    axisLabel: colorAxisLabel
   };
 
 };

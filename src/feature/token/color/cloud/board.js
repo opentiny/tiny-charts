@@ -9,21 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-const rose = {
-  colorRose10: '#FFEBF3',
-  colorRose20: '#FFD6E8',
-  colorRose30: '#FAA0CB',
-  colorRose40: '#F56EAD',
-  colorRose50: '#F24998',
-  colorRose60: '#E61C81',
-  colorRose70: '#B50E65',
-  colorRose80: '#940A54',
-  colorRose90: '#70033F',
-  colorRose100: '#4D002B',
-  colorRose110: '#993D6E',
-  colorRose120: '#CC7AA6',
-  colorRose130: '#E6B8D2',
-};
+
 
 const red = {
   colorRed10: '#FFF1F0',
@@ -32,7 +18,7 @@ const red = {
   colorRed40: '#FA8682',
   colorRed50: '#F76360',
   colorRed60: '#F23030',
-  colorRed70: '#CC272A',
+  colorRed70: '#BF0A1C',
   colorRed80: '#A3171C',
   colorRed90: '#78080E',
   colorRed100: '#4D0005',
@@ -231,6 +217,22 @@ const pink = {
   colorPink110: '#993D99',
   colorPink120: '#C97ACC',
   colorPink130: '#E2B8E6',
+};
+
+const rose = {
+  colorRose10: '#FFEBF3',
+  colorRose20: '#FFD6E8',
+  colorRose30: '#FAA0CB',
+  colorRose40: '#F56EAD',
+  colorRose50: '#F24998',
+  colorRose60: '#E61C81',
+  colorRose70: '#B50E65',
+  colorRose80: '#940A54',
+  colorRose90: '#70033F',
+  colorRose100: '#4D002B',
+  colorRose110: '#993D6E',
+  colorRose120: '#CC7AA6',
+  colorRose130: '#E6B8D2',
 };
 
 const gray = {

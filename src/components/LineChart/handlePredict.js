@@ -24,7 +24,7 @@ function setDashedLineVisualMap(seriesIndex, lineColor, predictIndex) {
       {
         gte: 0,
         lte: predictIndex,
-        color: Theme.config.visualMapPiecesColor,
+        color: chartToken.colorNone,
       },
       {
         gt: predictIndex,
@@ -79,7 +79,7 @@ export function handlePredict(option, iChartOpt) {
   const { predict, tipHtml, lineStyle } = iChartOpt
   if (!predict) return
   // VisualMap只能处理线的颜色，不能处理面积的颜色
-  let dashColor = Theme.config.visualMapDashColor;
+  let dashColor = chartToken.maskColor;
   if (lineStyle && lineStyle.dashColor) {
     dashColor = lineStyle.dashColor;
   }

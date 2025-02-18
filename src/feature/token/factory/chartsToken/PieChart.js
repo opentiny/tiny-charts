@@ -11,32 +11,32 @@
  */
 function PieChart(aliasToken) {
   const {
-    colorBorder,
+    colorMask,
     borderWidthLG,
     borderWidthNone,
-    colorLabel,
     labelFontSize,
     labelLineLength,
     colorLabelLine,
     borderRadiusNone,
-    colorBgEmpty,
+    colorPlaceholder,
+    colorLabelSecondary
   } = aliasToken;
 
   return {
     // 图形描边宽度
     borderWidth: borderWidthLG,
     // 图形描边颜色
-    borderColor: colorBorder,
+    borderColor: colorMask,
     // 图形内外圆角半径
     borderRadius: borderRadiusNone,
     // 数据和为0时图形描边宽度
     borderWidthShowZero: borderWidthNone,
     // 数据和为0时背景图形颜色
-    colorShowZero: colorBgEmpty,
+    colorShowZero: colorPlaceholder,
     // 标签文本字体大小
     labelFontSize,
     // 标签文本颜色
-    labelColor: colorLabel,
+    labelColor: colorLabelSecondary,
     // 标签引导线长度
     labelLineLength,
     // 标签引导线颜色

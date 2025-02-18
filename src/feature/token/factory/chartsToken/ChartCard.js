@@ -10,24 +10,23 @@
  *
  */
 function ChartCard(aliasToken) {
-    const { colorTextPrimary, colorFill,colorTextSecondary,colorBorderInverse,colorBgPrimary,colorTextDisabled,colorBgTertiary} = aliasToken;
+    const { colorTitle, colorSeparatorLine, colorBgContainerHover, colorSubTitle, colorBgContainer, colorLabelDisabled } = aliasToken;
 
     return {
         // 卡片背景
-        cardBg: colorBgPrimary,
+        cardBg: colorBgContainer,
         // 标题的颜色
-        titleColor: colorTextPrimary,
+        titleColor: colorTitle,
         // 文本的颜色
-        labelColor: colorTextSecondary,
+        labelColor: colorSubTitle,
         // 选中背景色
-        selectBgActive:colorBgPrimary,
+        selectBgActive: colorBgContainer,
         // 未选中背景色
-        selectBgAInactive:colorBgTertiary,
+        selectBgAInactive: colorBgContainerHover,
         // 未选中文本色
-        selectTextDisabled:colorTextDisabled,
-        borderColor:colorBorderInverse,
+        selectTextDisabled: colorLabelDisabled,
         // 分隔线
-        selectSplitLineColor:colorFill
+        selectSplitLineColor: colorSeparatorLine
     };
 };
 

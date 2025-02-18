@@ -28,7 +28,7 @@ function getToken(themeName) {
     ...color[themeName].colorSet,
     ...modelToken,
     ...chartsToken,
-    colorBoard:color[themeName].colorBoard,
+    colorBoard: color[themeName].colorBoard,
   };
 }
 

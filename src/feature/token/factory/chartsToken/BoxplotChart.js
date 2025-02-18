@@ -10,16 +10,16 @@
  *
  */
 function BoxplotChart(aliasToken) {
-  const { lineWidth, symbolSize, symbolBorderWidthNone, colorBorderTransparent, symbolBorderWidth,colorFillSecondary } = aliasToken;
+  const { lineWidth, symbolSize, symbolBorderWidthNone, colorNone, symbolBorderWidth, symbolFillHover } = aliasToken;
 
   return {
     boxplotItemStyleBorderWidth: lineWidth,
     boxplotEmphasisItemStyleBorderWidth: lineWidth,
     scatterSymbolSize: symbolSize,
     scatterItemBorderWidth: symbolBorderWidthNone,
-    scatterItemBorderColor: colorBorderTransparent,
+    scatterItemBorderColor: colorNone,
     scatterEmphasisItemBorderWidth: symbolBorderWidth,
-    scatterEmphasisItemColor: colorFillSecondary,
+    scatterEmphasisItemColor: symbolFillHover,
   };
 
 };

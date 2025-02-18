@@ -10,15 +10,15 @@
  *
  */
 function ProcessChart(aliasToken) {
-  const { colorAxisLine, colorLabel, colorTextDisabled, colorBgEmpty, borderWidth, colorBorderTransparent, borderRadius, textFontSize, labelFontSize } = aliasToken;
+  const { colorAxisLine, colorLabel, colorPlaceholder, borderWidth, colorNone, borderRadius, textFontSize, labelFontSize, colorLabelSecondary } = aliasToken;
 
   return {
+    nameColor: colorLabelSecondary,
     labelColor: colorLabel,
-    disabledColor: colorTextDisabled,
     axisLineColor: colorAxisLine,
-    itemBgEmpty: colorBgEmpty,
+    itemBgEmpty: colorPlaceholder,
     borderWidth,
-    borderColor: colorBorderTransparent,
+    borderColor: colorNone,
     borderRadius,
     fontSize: textFontSize,
     labelFontSize

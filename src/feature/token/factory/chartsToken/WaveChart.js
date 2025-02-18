@@ -10,12 +10,12 @@
  *
  */
 function WaveChart(aliasToken) {
-  const { colorAxisLine, colorTextSecondary, colorAxisSplitLine } = aliasToken;
+  const { colorAxisLine, colorTextName, colorAxisLabel, colorAxisSplitLine } = aliasToken;
 
   return {
     axisLineColor: colorAxisLine,
-    axisLabelColor: colorTextSecondary,
-    axisNameColor: colorTextSecondary,
+    axisLabelColor: colorAxisLabel,
+    axisNameColor: colorTextName,
     splitLineColor: colorAxisSplitLine,
   };
 

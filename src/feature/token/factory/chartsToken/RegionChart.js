@@ -10,10 +10,10 @@
  *
  */
 function RegionChart(aliasToken) {
-  const { colorTextPrimary } = aliasToken;
+  const { colorLabel } = aliasToken;
 
   return {
-    visualMapTextColor: colorTextPrimary,
+    visualMapTextColor: colorLabel,
   };
 };
 

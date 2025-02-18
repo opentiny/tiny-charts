@@ -10,10 +10,10 @@
  *
  */
 function WordCloudChart(aliasToken) {
-  const { colorShadow } = aliasToken;
+  const { colorShadowContainer } = aliasToken;
 
   return {
-    emphasisTextShadowColor: colorShadow,
+    emphasisTextShadowColor: colorShadowContainer,
   };
 
 };

@@ -10,11 +10,11 @@
  *
  */
 function LiquidfillChart(aliasToken) {
-  const { colorLabel, colorBgPrimary } = aliasToken;
+  const { colorLabel, colorBgContainer } = aliasToken;
 
   return {
     labelColor: colorLabel,
-    backgroundColor: colorBgPrimary,
+    backgroundColor: colorBgContainer,
   };
 
 };

@@ -17,7 +17,7 @@ function getRadarRule() {
     const chartToken = Theme.getChartTokenByName(CHART_TYPE.RADAR)
     return {
         series: {
-            symbolSize: chartToken.symbolSize-2,
+            symbolSize: chartToken.symbolSize - 2,
             itemStyle: {
                 borderWidth: chartToken.itemBorderWidth,
                 borderColor: chartToken.itemBorderColor,

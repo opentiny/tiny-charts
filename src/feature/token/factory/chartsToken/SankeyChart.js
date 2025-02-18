@@ -10,11 +10,11 @@
  *
  */
 function SankeyChart(aliasToken) {
-  const { colorLabel, colorTextSecondary } = aliasToken;
+  const { colorLabel, colorTextName } = aliasToken;
 
   return {
     labelValueColor: colorLabel,
-    labelNameColor: colorTextSecondary
+    labelNameColor: colorTextName
   };
 
 };

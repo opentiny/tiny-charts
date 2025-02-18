@@ -13,14 +13,8 @@
 import Theme from '../../../feature/token';
 import merge from '../../../util/merge';
 
-function getThresholdLabelBgColor() {
-  const redGroup = Theme.config.colorBoard.red
-  return Object.values(redGroup)[0];
-}
-
 function getThresholdMarkLineLabel() {
   const { colorError } = Theme.config.colorState
-  const bg = getThresholdLabelBgColor()
   return {
     label: {
       color: colorError,
@@ -70,7 +64,7 @@ function getMarkPointDefault() {
     symbol: 'path://M50 0 L0 50 L100 50 Z',
     symbolSize: [10, 6],
     label: {
-      color: Theme.config.markPointLabelColor,
+      show: false,
     },
     data: [],
   };

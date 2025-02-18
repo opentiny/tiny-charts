@@ -31,7 +31,7 @@ const colorState = {
   colorNone: board.gray.colorGray50,
 };
 
-// 图表配色对象
+// 图表配色对象 
 const colorChart = {
   colorChart1: board.blue.colorBlue60,
   colorChart2: board.mint.colorMint70,
@@ -40,12 +40,29 @@ const colorChart = {
   colorChart5: board.yellow.colorYellow60,
   colorChart6: board.sky.colorSky60,
   colorChart7: board.purple.colorPurple50,
-  colorChart8: board.rose.colorRose50, // (原色 '#EB4696')
+  colorChart8: board.rose.colorRose60,
+  colorChart9: board.blue.colorBlue40,
+  colorChart10: board.mint.colorMint80,
+  colorChart11: board.indigo.colorIndigo30,
+  colorChart12: board.kelly.colorKelly80,
+  colorChart13: board.yellow.colorYellow40,
+  colorChart14: board.sky.colorSky80,
+  colorChart15: board.purple.colorPurple40,
+  colorChart16: board.rose.colorRose70,
+  colorChart17: board.mint.colorMint50,
+  colorChart18: board.blue.colorBlue80,
+  colorChart19: board.kelly.colorKelly40,
+  colorChart20: board.indigo.colorIndigo60,
+  colorChart21: board.sky.colorSky40,
+  colorChart22: board.yellow.colorYellow80,
+  colorChart23: board.rose.colorRose30,
+  colorChart24: board.purple.colorPurple70,
+  colorChart25: board.lime.colorLime80
 };
 
 // 图表内置的颜色组
 const colorGroup = getColorGroup(colorChart);
 
-const light = getThemeColor(gray, colorState, colorGroup,board);
+const light = getThemeColor(gray, colorState, colorGroup, board);
 
 export default light;

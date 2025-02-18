@@ -9,15 +9,15 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-function BarChart (aliasToken) {
-  const { borderWidth, barWidth, colorLabel, labelFontSize, colorBorderTransparent, borderRadius, colorBgTransparent } =
+function BarChart(aliasToken) {
+  const { borderWidth, barWidth, colorLabel, labelFontSize, borderRadius, colorNone } =
     aliasToken;
 
   return {
     borderWidth,
-    borderColor:colorBorderTransparent,
+    borderColor: colorNone,
     borderRadius,
-    color: colorBgTransparent,
+    color: colorNone,
     labelColor: colorLabel,
     fontSize: labelFontSize,
     barWidth,

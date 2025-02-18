@@ -33,16 +33,30 @@ const colorState = {
 // 图表的配色对象
 const colorChart = {
   colorChart1: board.blue.colorBlue50,
-  colorChart2: board.green.colorGreen40,
+  colorChart2: board.green.colorGreen50,
   colorChart3: board.indigo.colorIndigo50,
-  colorChart4:board.orange.colorOrange40,
-  colorChart5: board.cyan.colorCyan50,
-  colorChart6: board.pink.colorPink40,
-  colorChart7:  board.mint.colorMint50,
-  colorChart8: board.yellow.colorYellow40,
-  colorChart9:  board.purple.colorPurple50,
-  colorChart10: board.rose.colorRose40,
-  colorChart11:board.brand.colorBrand50
+  colorChart4: board.cyan.colorCyan50,
+  colorChart5: board.orange.colorOrange40,
+  colorChart6: board.brand.colorBrand30,
+  colorChart7: board.purple.colorPurple40,
+  colorChart8: board.rose.colorRose40,
+  colorChart9: board.indigo.colorIndigo20,
+  colorChart10: board.yellow.colorYellow60,
+  colorChart11: board.brand.colorBrand10,
+  colorChart12: board.green.colorGreen60,
+  colorChart13: board.purple.colorPurple20,
+  colorChart14: board.cyan.colorCyan60,
+  colorChart15: board.orange.colorOrange20,
+  colorChart16: board.rose.colorRose60,
+  colorChart17: board.cyan.colorCyan20,
+  colorChart18: board.blue.colorBlue60,
+  colorChart19: board.green.colorGreen20,
+  colorChart20: board.indigo.colorIndigo70,
+  colorChart21: board.rose.colorRose10,
+  colorChart22: board.cyan.colorCyan70,
+  colorChart23: board.yellow.colorYellow20,
+  colorChart24: board.purple.colorPurple70,
+  colorChart25: board.mint.colorMint20
 };
 
 // 图表内置的颜色组

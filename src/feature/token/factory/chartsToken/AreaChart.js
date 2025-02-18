@@ -10,9 +10,9 @@
  *
  */
 function AreaChart(aliasToken) {
-  const { colorBgTransparent } = aliasToken;
+  const { colorNone } = aliasToken;
   return {
-    colorAreaTP: colorBgTransparent,
+    colorAreaTP: colorNone,
 
   };
 };

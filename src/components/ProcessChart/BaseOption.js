@@ -45,7 +45,7 @@ function getDataNameSeries() {
     silent: true,
     label: {
       show: true,
-      color: chartToken.labelColor,
+      color: chartToken.nameColor,
       position: [0, -20],
       fontSize: chartToken.fontSize,
       formatter(params) {
@@ -129,7 +129,7 @@ function getDoubleBackgroundSeries(left = true) {
       rich: {
         name: {
           fontSize: chartToken.fontSize,
-          color: chartToken.disabledColor,
+          color: chartToken.nameColor,
           lineHeight: 14,
           padding: [0, 0, 20, 0],
         },

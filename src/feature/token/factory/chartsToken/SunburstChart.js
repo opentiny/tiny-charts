@@ -10,10 +10,10 @@
  *
  */
 function SunburstChart(aliasToken) {
-  const { colorBorder, colorLabel } = aliasToken;
+  const { colorMask, colorLabel } = aliasToken;
 
   return {
-    itemBorderColor: colorBorder,
+    itemBorderColor: colorMask,
     labelColor: colorLabel,
   };
 

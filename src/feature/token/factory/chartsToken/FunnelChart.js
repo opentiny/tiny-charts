@@ -10,7 +10,7 @@
  *
  */
 function FunnelChart(aliasToken) {
-  const { colorLabel, borderWidthNone, colorBorder } = aliasToken;
+  const { colorLabel, borderWidthNone, colorNone } = aliasToken;
 
   return {
     // 标签文本颜色
@@ -18,7 +18,7 @@ function FunnelChart(aliasToken) {
     // 图形描边宽度
     borderWidth: borderWidthNone,
     // 图形描边颜色
-    borderColor: colorBorder,
+    borderColor: colorNone,
   };
 
 };

@@ -9,28 +9,28 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-export default function  RadarChart (aliasToken) {
+export default function RadarChart(aliasToken) {
   const {
     symbolSize,
     lineWidth,
     lineWidthNone,
-    colorBgTransparent,
+    colorNone,
     symbolBorderWidth,
     symbolBorderWidthNone,
-    colorFillSecondary,
-    colorBorderTransparent
+    colorMask,
+    symbolFillHover
   } = aliasToken;
 
-  return  {
-    itemBorderWidth:symbolBorderWidthNone,
-    emphasisItemBorderWidth:symbolBorderWidth,
-    areaColor:colorBgTransparent,
+  return {
+    itemBorderWidth: symbolBorderWidthNone,
+    emphasisItemBorderWidth: symbolBorderWidth,
+    areaColor: colorNone,
     symbolSize,
     lineWidth,
-    thresholdLineWidth:lineWidthNone,
-    itemBorderColor:colorBorderTransparent,
-    emphasisItemColor: colorFillSecondary,
-    gradientItemBorderColor:colorFillSecondary
+    thresholdLineWidth: lineWidthNone,
+    itemBorderColor: colorNone,
+    emphasisItemColor: symbolFillHover,
+    gradientItemBorderColor: colorMask
   };
 };
 

@@ -9,11 +9,11 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-function CandlestickChart (aliasToken) {
-  const { colorTextSecondary } = aliasToken;
+function CandlestickChart(aliasToken) {
+  const { colorAxisLabel } = aliasToken;
 
   return {
-    axisPointerLabelColor: colorTextSecondary,
+    axisPointerLabelColor: colorAxisLabel,
   };
 };
 

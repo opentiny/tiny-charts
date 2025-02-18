@@ -10,11 +10,10 @@
  *
  */
 function TimelineChart(aliasToken) {
-  const { colorBgPrimary, colorBgEmpty } = aliasToken;
+  const { colorPlaceholder } = aliasToken;
 
   return {
-    backgroundColor: colorBgPrimary,
-    roundRectBg: colorBgEmpty
+    roundRectBg: colorPlaceholder
   };
 
 };

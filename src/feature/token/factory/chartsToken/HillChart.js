@@ -9,12 +9,12 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-function HillChart (aliasToken) {
-  const { colorLabel, colorBorder } = aliasToken;
-  
+function HillChart(aliasToken) {
+  const { colorLabel, colorMask } = aliasToken;
+
   return {
     labelColor: colorLabel,
-    emphasisItemBorderColor: colorBorder,
+    emphasisItemBorderColor: colorMask,
   };
 };
 

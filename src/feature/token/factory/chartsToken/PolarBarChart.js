@@ -10,12 +10,12 @@
  *
  */
 function PolarBarChart(aliasToken) {
-  const { colorTextSecondary } = aliasToken;
+  const { colorTextName } = aliasToken;
 
   // 坐标轴label
   return {
     // 坐标轴颜色
-    labelColor: colorTextSecondary,
+    labelColor: colorTextName,
   };
 };
 

@@ -44,7 +44,6 @@ class CardManager {
         cardContainer.style.setProperty('--selectBgAInactive', chartToken.selectBgAInactive);
         cardContainer.style.setProperty('--selectBgAInactive', chartToken.selectBgAInactive);
         cardContainer.style.setProperty('--selectTextDisabled', chartToken.selectTextDisabled);
-        cardContainer.style.setProperty('--borderColor', chartToken.borderColor);
         cardContainer.style.setProperty('--selectSplitLineColor', chartToken.selectSplitLineColor);
     }
     // 创建容器

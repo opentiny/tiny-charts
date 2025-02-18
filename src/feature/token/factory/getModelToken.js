@@ -16,22 +16,18 @@
  */
 function getModelToken(aliasToken) {
   const {
-    colorTextPrimary,
-    colorDash,
-    colorBgSecondary,
-    colorTextTransparent,
-    colorIconPrimary,
-    colorTextSecondary,
+    colorLabel,
+    colorBgContainerSecondary,
+    colorIcon,
     colorAxisLine,
-    colorInactive,
-    colorIconDisabled,
+    colorIconInactive,
     colorAxisTickLine,
     colorAxisSplitLine,
     colorAxisPointerLine,
-    colorAxisPointerShadow,
-    colorShadow,
-    shadowOffsetY,
-    shadowBlur,
+    colorShadowHover,
+    colorShadowContainer,
+    shadowOffsetYContainer,
+    shadowBlurContainer,
     titleSpace,
     titleFontSize,
     subtitleFontSize,
@@ -52,27 +48,32 @@ function getModelToken(aliasToken) {
     legendItemSize,
     legendCircleItemSize,
     containerGap,
-    markLineWidth,
-    markLineEmphasisWidth,
-    colorBorder,
+    lineWidthSecondary,
     borderWidthNone,
     containerBoderRadius,
     paddingNone,
     paddingLG,
-    colorBgQuaternary,
-    colorShadowSecondary,
-    colorBorderSecondary,
-    colorAxisLineSecondary,
-    colorBgTertiary,
-    colorFill,
+    colorZoomHandle,
+    colorShadowHandle,
+    colorZoomHandleBorder,
+    colorAxisSplitLineSecondary,
+    colorZoomDataAreaFill,
     axisLineWidthSecondary,
     labelFontSize,
-    colorTextTertiary,
-    borderRadius,
-    paddingSM,
-    borderWidthLG,
-    colorBorderTransparent,
-    colorShadowTertiary
+    colorAxisLabel,
+    colorNone,
+    colorTextName,
+    colorTitle,
+    colorZoomBg,
+    colorSubTitle,
+    colorZoomDataAreaBorder,
+    colorZoomBorder,
+    colorZoomFill,
+    colorZoomSelectDataAreaFill,
+    colorZoomSelectDataAreaBorder,
+    shadowOffsetYHandle,
+    shadowBlurHandle,
+    zoomDataAreaBorderWidth
   } = aliasToken;
 
   return {
@@ -80,9 +81,9 @@ function getModelToken(aliasToken) {
     // 主副标题之前的间距
     titleItemGap: titleSpace,
     // 标题文本颜色
-    titleTextColor: colorTextPrimary,
+    titleTextColor: colorTitle,
     // 标题副文本颜色
-    titleSubTextColor: colorTextSecondary,
+    titleSubTextColor: colorSubTitle,
     // 标题文本字号
     titleTextFontSize: titleFontSize,
     // 标题副文本字号
@@ -90,9 +91,9 @@ function getModelToken(aliasToken) {
 
     /** -----图例------ */
     // 图例文本颜色
-    legendTextColor: colorTextSecondary,
+    legendTextColor: colorTextName,
     // 图例富文本颜色
-    legendTextRichColor: colorTextSecondary,
+    legendTextRichColor: colorTextName,
     // 图例文本字号
     legendTextFontSize: subtextFontSize,
     // 图例富文本颜色
@@ -110,15 +111,15 @@ function getModelToken(aliasToken) {
     // 方形图例时每项的高度
     legendReactItemHeight: legendItemSize,
     // 图例翻页文本颜色
-    legendPageTextColor: colorTextPrimary,
+    legendPageTextColor: colorLabel,
     // 图例翻页图标激活颜色
-    legendPageIconColor: colorIconPrimary,
+    legendPageIconColor: colorIcon,
     // 图例翻页图标失效颜色
-    legendPageIconInactiveColor: colorIconDisabled,
+    legendPageIconInactiveColor: colorIconInactive,
     // 图例失效颜色
-    legendInactiveColor: colorInactive,
+    legendInactiveColor: colorIconInactive,
     // 图例失效边框颜色
-    legendInactiveBorderColor: colorBorder,
+    legendInactiveBorderColor: colorNone,
     // 图例边框宽度
     legendBorderWidth: borderWidthNone,
     // 图例失效边框宽度
@@ -132,11 +133,11 @@ function getModelToken(aliasToken) {
     // x轴名称间距
     xAxisNameGap: axisNameSpace,
     // x轴名称颜色
-    xAxisNameColor: colorTextSecondary,
+    xAxisNameColor: colorTextName,
     // x轴名称字号
     xAxisNameFontSize: subtextFontSize,
     // x轴标签文本颜色
-    xAxisLabelColor: colorTextTertiary,
+    xAxisLabelColor: colorAxisLabel,
     // x轴标签文本字号
     xAxisLabelFontSize: subtextFontSize,
     // x轴轴线颜色
@@ -162,11 +163,11 @@ function getModelToken(aliasToken) {
     // y轴名称间距
     yAxisNameGap: axisNameSpace,
     // y轴名称颜色
-    yAxisNameColor: colorTextSecondary,
+    yAxisNameColor: colorTextName,
     // y轴名称字号
     yAxisNameFontSize: subtextFontSize,
     // y轴标签文本颜色
-    yAxisLabelColor: colorTextTertiary,
+    yAxisLabelColor: colorAxisLabel,
     // y轴标签文本字号
     yAxisLabelFontSize: subtextFontSize,
     // y轴轴线颜色
@@ -190,11 +191,11 @@ function getModelToken(aliasToken) {
 
     /** -----radar轴------ */
     // radar轴名称颜色
-    radarAxisNameColor: colorTextSecondary,
+    radarAxisNameColor: colorTextName,
     // radar轴名字号
     radarAxisNameFontSize: subtextFontSize,
     // radar轴标签文本颜色
-    radarAxisLabelColor: colorTextTertiary,
+    radarAxisLabelColor: colorAxisLabel,
     // radar轴标签文本字号
     radarAxisLabelFontSize: subtextFontSize,
     // radar轴线颜色
@@ -210,7 +211,7 @@ function getModelToken(aliasToken) {
     // radar轴刻度线类别
     radarAxisTickLineType: axisTickLineType,
     // radar轴分隔线颜色
-    radarSplitLineColor: colorAxisLineSecondary,
+    radarSplitLineColor: colorAxisSplitLineSecondary,
     // radar轴分隔线粗细
     radarSplitLineWidth: axisSplitLineWidth,
     // radar轴分隔线类别
@@ -218,7 +219,7 @@ function getModelToken(aliasToken) {
 
     /** -----极坐标系角度轴------ */
     // 角度轴标签文本颜色
-    angleAxisLabelColor: colorTextTertiary,
+    angleAxisLabelColor: colorAxisLabel,
     // 角度轴标签文本字号
     angleAxisLabelFontSize: subtextFontSize,
     // 角度轴轴线颜色
@@ -245,7 +246,7 @@ function getModelToken(aliasToken) {
     // 径向轴标签间距
     radiusAxisLabelGap: axisLabelSpace,
     // 径向轴标签颜色
-    radiusAxisLabelColor: colorTextTertiary,
+    radiusAxisLabelColor: colorAxisLabel,
     // 径向轴标签字号
     radiusAxisLabelFontSize: subtextFontSize,
     // 径向轴轴线颜色
@@ -261,7 +262,7 @@ function getModelToken(aliasToken) {
     // 径向轴刻度线类别
     radiusAxisTickLineType: axisTickLineType,
     // 径向轴分隔线颜色
-    radiusAxisSplitLineColor: colorAxisLineSecondary,
+    radiusAxisSplitLineColor: colorAxisSplitLineSecondary,
     // 径向轴分隔线粗细
     radiusAxisSplitLineWidth: axisSplitLineWidth,
     // 径向轴分隔线类别
@@ -269,9 +270,9 @@ function getModelToken(aliasToken) {
 
     /** -----tooltip------ */
     // tip背景
-    tooltipBg: colorBgSecondary,
+    tooltipBg: colorBgContainerSecondary,
     // tip文本颜色
-    tooltipTextColor: colorTextPrimary,
+    tooltipTextColor: colorLabel,
     // tip文本字号
     tooltipTextFontSize: textFontSize,
     // tip圆角
@@ -283,73 +284,68 @@ function getModelToken(aliasToken) {
     // tip坐标轴指示器线类别
     tooltipAxisPointerLineType: axisPointerLineType,
     // tip坐标轴指示器阴影
-    tooltipAxisPointerShadowColor: colorAxisPointerShadow,
+    tooltipAxisPointerShadowColor: colorShadowHover,
     // tip阴影
-    tooltipShadowColor: colorShadow,
+    tooltipShadowColor: colorShadowContainer,
     // tip阴影垂直方向偏移
-    tooltipShadowOffsetY: shadowOffsetY,
+    tooltipShadowOffsetY: shadowOffsetYContainer,
     // tip阴影模糊
-    tooltipShadowBlur: shadowBlur,
+    tooltipShadowBlur: shadowBlurContainer,
     // tip边框
     tooltipBorderWidth: borderWidthNone,
     // tip的padding
     tooltipPadding: paddingLG,
 
     /** -----visualMap------ */
-    // PiecesColor
-    visualMapPiecesColor: colorTextTransparent,
-    // dashColor
-    visualMapDashColor: colorDash,
-    // 以上两个属性用于线形图，后续要变更
     // 文本颜色
-    visualMapTextColor: colorTextPrimary,
+    visualMapTextColor: colorLabel,
     // 文本字号
     visualMapTextFontSize: labelFontSize,
 
-    /** -----markPoint------ */
-    // markPoint标签文本
-    markPointLabelColor: colorTextTransparent,
-
     /** ----- markLine------ */
     // 标记线粗细
-    markLineWidth,
+    markLineWidth: lineWidthSecondary,
     // 标记线高亮粗细
-    markLineEmphasisWidth,
+    markLineEmphasisWidth: lineWidthSecondary,
     // 标记线文本字号
     markLineLabelFontSize: labelFontSize,
-    // 标记线文本圆角
-    markLineLabelBorderRadius: borderRadius,
-    // 标记线文本Padding
-    markLineLabelPadding: [paddingSM, paddingSM * 2, paddingSM, paddingSM * 2],
-    // 标记线文本borderWidth
-    markLineLabelBorderWidth: borderWidthLG,
-
 
     /** ----- dataZoom------ */
     // dataZoom边框色
-    dataZoomBorderColor: colorBgTertiary,
+    dataZoomBorderColor: colorZoomBorder,
     // dataZoom背景色
-    dataZoomBackgroundColor: colorBgTertiary,
+    dataZoomBackgroundColor: colorZoomBg,
     // 手柄中心填充色
-    dataZoomHandleColor: colorBgQuaternary,
+    dataZoomHandleColor: colorZoomHandle,
     // 手柄外框色
-    dataZoomHandleBorderColor: colorBorderSecondary,
+    dataZoomHandleBorderColor: colorZoomHandleBorder,
     // 手柄阴影色
-    dataZoomHandleShadowColor: colorShadowSecondary,
+    dataZoomHandleShadowColor: colorShadowHandle,
     // 手柄hover时中心填充色
-    dataZoomEmphasisHandleColor: colorBgQuaternary,
+    dataZoomEmphasisHandleColor: colorZoomHandle,
     // 手柄hover时外框色
-    dataZoomEmphasisHandleBorderColor: colorBorderSecondary,
+    dataZoomEmphasisHandleBorderColor: colorZoomHandleBorder,
     // 选中区域外的线条颜色
-    dataBackgroundLineColor: colorFill,
+    dataZoomDataBackgroundLineColor: colorZoomDataAreaBorder,
     // 选中区域外的面积颜色
-    dataBackgroundAreaColor: colorFill,
-
+    dataZoomDataBackgroundAreaColor: colorZoomDataAreaFill,
+    // 数据区域的边框
+    dataZoomDataBackgroundLineWidth: zoomDataAreaBorderWidth,
+    // 选中区域数据颜色
+    dataZoomSelectedDataAreaColor: colorZoomSelectDataAreaFill,
+    // 选中区域边框颜色
+    dataZoomSelectedDataLineColor: colorZoomSelectDataAreaBorder,
+    // 选中区域填充颜色
+    dataZoomFillColor: colorZoomFill,
+    // 阴影y偏移
+    dataZoomHandleShadowOffsetY: shadowOffsetYHandle,
+    // 阴影模糊
+    dataZoomHandleShadowBlur: shadowBlurHandle,
     // min形态
     // dataZoom边框色
-    dataZoomBorderColorMini: colorBorderTransparent,
+    dataZoomBorderColorMini: colorNone,
     // 手柄阴影色
-    dataZoomHandleShadowColorMini: colorShadowTertiary,
+    dataZoomHandleShadowColorMini: colorShadowHandle,
 
     /** ----- animation------ */
     // 是否开启动画 
