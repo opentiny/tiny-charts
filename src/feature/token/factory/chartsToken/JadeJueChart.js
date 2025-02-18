@@ -10,14 +10,16 @@
  *
  */
 function JadeJueChart(aliasToken) {
-  const { colorPlaceholder, colorLabel, colorTextName, paddingLG, colorMask } = aliasToken;
+  const { colorPlaceholder, colorLabel, colorTextName, padding, borderWidthLG, borderRadius, colorMask } = aliasToken;
 
   return {
     itemBorderColor: colorMask,
     itemColor: colorPlaceholder,
     labelValueColor: colorTextName,
     labelRatioColor: colorLabel,
-    labelPadding: paddingLG
+    labelPadding: padding,
+    itemBorderWidth: borderWidthLG,
+    itemBorderRadius: borderRadius,
   };
 
 };
