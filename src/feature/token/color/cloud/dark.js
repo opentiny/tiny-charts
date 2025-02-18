@@ -21,13 +21,13 @@ const gray = {
 // 图表的状态颜色
 const colorState = {
   // 紧急色
-  colorError: board.red.colorRed50,
-  colorAlert: board.orange.colorOrange50,
+  colorError: board.red.colorRed80,
+  colorAlert: board.orange.colorOrange80,
   colorWarning: board.yellow.colorYellow70,
   // 成功色
-  colorSuccess: board.green.colorGreen50,
+  colorSuccess: board.green.colorGreen70,
   // 提示色
-  colorInfo: board.blue.colorBlue40,
+  colorInfo: board.blue.colorBlue70,
   // 失效
   colorNone: board.gray.colorGray50,
 };
