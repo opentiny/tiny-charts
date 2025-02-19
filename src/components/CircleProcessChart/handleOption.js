@@ -29,7 +29,7 @@ function tooltipFormatter(params) {
                             margin-right:8px;border-radius:5px;border-style: solid;border-width:1px;
                             border-color:${defendXSS(color)};background-color:${defendXSS(color)};"></span>
                             <span style="margin-right:16px">${defendXSS(seriesName)}</span>
-                            <span>${defendXSS(value)}%</span>
+                            <span>${defendXSS(value)}</span>
                        </div>`;
   return htmlString;
 }

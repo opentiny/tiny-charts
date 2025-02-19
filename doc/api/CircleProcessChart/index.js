@@ -8,11 +8,13 @@ import positionMd from './position.md?raw';
 import itemStyleMd from './itemStyle.md?raw';
 import markLineMd from './markLine.md?raw';
 import maxMd from './max.md?raw';
+import { titleMd, title } from '../common/title'
 
 const data = {
     dataset: [
         theme,
         color,
+        title,
         legend,
         tooltip,
         event,
@@ -25,6 +27,7 @@ const data = {
     markdown: [
         themeMd,
         colorMd,
+        titleMd,
         legendMd,
         tooltipMd,
         eventMd,

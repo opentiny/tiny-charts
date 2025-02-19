@@ -42,6 +42,7 @@ export function setSeries(seriesData, iChartOption, chartInstance) {
     seriesUnit.itemStyle = item.itemStyle || itemStyle;
     seriesUnit.backgroundStyle.color = chartToken.background;
     seriesUnit.barWidth = barWidth;
+    seriesUnit.emphasis = iChartOption.emphasis;
     series.push(seriesUnit);
   });
   // 阈值线

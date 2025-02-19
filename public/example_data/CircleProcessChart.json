@@ -20,6 +20,11 @@
           "imagePath": "./image/theme/light/CircleProcessChart/CircleProcessChart-2.png"
         },
         {
+          "name": "圆环进度图-悬浮提示框",
+          "routePath": "CircleProcessChart-4",
+          "imagePath": "./image/theme/light/CircleProcessChart/CircleProcessChart-4.png"
+        },
+        {
           "name": "圆环进度图-阈值线",
           "routePath": "CircleProcessChart-3",
           "imagePath": "./image/theme/light/CircleProcessChart/CircleProcessChart-3.png"
