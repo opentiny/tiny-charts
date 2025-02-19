@@ -22,9 +22,7 @@ const BaseOption = {
     icon: 'circle',
     left: 'center',
     bottom: 0,
-    textStyle: {
-      color: '#fff',
-    },
+    textStyle: {},
   },
   hoverLayerThreshold: Infinity,
   series: [
@@ -32,7 +30,7 @@ const BaseOption = {
       type: 'custom',
       colorBy: 'data',
       renderItem: "",
-      name: 'selfcustom',
+      name: 'custom',
       coordinateSystem: 'none',
       encode: {
         tooltip: 'value',
@@ -41,4 +39,12 @@ const BaseOption = {
     },
   ],
 };
+
+const CHARTTYPE = {
+  NON_NESTED: 'non-nested', // 非嵌套式
+  NON_NESTED_AGGREGATE: 'non-nested-aggregate', // 非嵌套聚合式
+  NESTED: 'nested', // 嵌套式
+};
+
 export default BaseOption;
+export { CHARTTYPE };

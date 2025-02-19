@@ -11,20 +11,18 @@
  */
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from './BaseOption';
-import { setTooltip } from './handleOption';
-import { handleColor } from './handleColor';
+import { defaultTooltipFormatter, judgeType, bindLegendEvent } from './handleOption';
 import { handleRootData } from './handleRootData';
-import { handleVirtualLengend } from './handleVirtualLengend';
 import { handleSeriesData } from './handleSeriesData';
-import { legendDisappear, legendShow } from './legendSelectChanged';
 import init from '../../option/init';
 import { isArray } from '../../util/type';
 import { CHART_TYPE } from '../../util/constants';
-import legend from '../../option/config/legend';
+import PolarCoordSys from '../../option/PolarSys';
 
 class AssembleBubbleChart {
 
-  static name = CHART_TYPE.ASSEMBLE_BUBBLE
+  static name = CHART_TYPE.ASSEMBLE_BUBBLE;
+  static chartType;
 
   constructor(iChartOption, chartInstance, plugins) {
     this.baseOption = cloneDeep(BaseOption);
@@ -35,57 +33,24 @@ class AssembleBubbleChart {
   }
 
   updateOption(chartInstance) {
+    this.iChartOption.position = this.iChartOption.position ?? this.iChartOption.chartPosition;
     const { d3 } = this.plugins;
     if (!d3) throw new Error('您必须安装d3才可以使用聚合气泡图');
     if (!isArray(this.iChartOption.color)) { this.iChartOption.color = [this.iChartOption.color]; }
-    const { color, type } = this.iChartOption;
-    this.baseOption.color = color;
-    this.baseOption.tooltip = setTooltip(this.iChartOption);
-    this.baseOption.legend = legend(this.iChartOption);
-    const { depthFirst, depthMore } = handleSeriesData(this.iChartOption, this.baseOption);
-    handleColor({
-      depthFirst,
-      depthMore,
-      color,
-      type,
-    }, this.baseOption);
-    // 给BaseOption设置虚拟图例
-    this.baseOption.series.unshift(...handleVirtualLengend(this.baseOption.legend.data));
-    handleRootData({
-      d3,
-      baseOption: this.baseOption,
-      chartInstance,
-      iChartOption: this.iChartOption
-    });
-
-    let baseOption = this.baseOption;
-    chartInstance.on('legendselectchanged', function (params) {
-      if (!params.selected[params.name]) {
-        // 点击图例消失
-        legendDisappear({
-          seriesData: baseOption.dataset[0].source,
-          params,
-          type,
-          baseOption,
-          chartInstance
-        });
-      } else {
-        handleColor({
-          depthFirst,
-          depthMore,
-          color,
-          type,
-        }, baseOption);
-        // 点击图例出现
-        legendShow({
-          seriesData: baseOption.dataset[0].source,
-          type,
-          params,
-          baseOption,
-          chartInstance
-        });
-      }
-    });
+    // 判断图表类型
+    judgeType(this);
+    // 装载除series之外的其他配置
+    PolarCoordSys(this.baseOption, this.iChartOption, CHART_TYPE.ASSEMBLE_BUBBLE);
+    // 补齐默认的tooltip.formatter
+    defaultTooltipFormatter(this.baseOption);
+    // 处理dataset、legend.data、补全series
+    handleSeriesData(this.iChartOption, this.baseOption, this.chartType);
+    // 编写自定义renderItem函数
+    handleRootData(d3, this);
+    // 聚合气泡图属于自定义系列，使用polar会报错，需要删除
+    delete this.baseOption.polar;
+    // 自定义系列的图例点击事件需要自行绑定
+    bindLegendEvent(this.baseOption, chartInstance);
   }
 
   getOption() {

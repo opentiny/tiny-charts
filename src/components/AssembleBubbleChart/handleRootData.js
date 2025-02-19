@@ -9,139 +9,66 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import {random} from '../../util/math';
+import cloneDeep from '../../util/cloneDeep';
+import { random } from '../../util/math';
+import { CHARTTYPE } from './BaseOption';
 
-function overallLayout(params, api, distance, displayRoot, d3) {
-  const context = params.context;
-  // d3函数：设置球的大小padding值等
-  d3
-    .pack()
-    .size([api.getWidth() - 2, api.getHeight() - 2])
-    .padding(distance)(displayRoot);
-  context.nodes = {};
-  displayRoot.descendants().forEach(function (node) {
-    context.nodes[node.id] = node;
-  });
-}
+function setChartPosition(polarInfo, chartInstance) {
+  let radius = polarInfo.radius, widthDis, heightDis;
+  const width = chartInstance.getWidth();
+  const height = chartInstance.getHeight();
 
-function setChartPosition(params) {
-  const { iChartOption, height, width } = params;
-  let { radius, widthDis, heightDis } = params;
-  // 获取缩放值以及left、top的位移值
-  if (!iChartOption.chartPosition) {
-    iChartOption.chartPosition = { center: ['50%', '50%'], radius: '80%' };
-  } else {
-    if (!iChartOption.chartPosition.center) {
-      iChartOption.chartPosition.center = ['50%', '50%'];
-    } else {
-      if (!iChartOption.chartPosition.radius) {
-        iChartOption.chartPosition.radius = '80%';
+  const getNumber = (value, { callback1, callback2, callback3 }) => {
+    let correctValue;
+    if (typeof value !== 'number') {
+      if (value.indexOf('%') !== -1) { // 有百分比的字符串数字
+        correctValue = callback1(value);
+      } else { // 无百分比的字符串数字
+        correctValue = callback2(value);
       }
+    } else { // 数值
+      correctValue = callback3(value);
     }
-  }
-  radius = iChartOption.chartPosition.radius || '80%';
-  if (typeof radius !== 'number') {
-    if (radius.indexOf('%') !== -1) {
-      radius = (radius.substring(0, radius.indexOf('%')) - 0) / 100;
-    } else {
-      radius = parseFloat(radius) / Math.min(height, width);
-    }
-  } else {
-    radius = radius / Math.min(height, width);
-  }
-  let leftValue = iChartOption.chartPosition.center[0] || '50%';
-  if (typeof leftValue !== 'number') {
-    if (leftValue.indexOf('%') !== -1) {
-      leftValue = (leftValue.substring(0, leftValue.indexOf('%')) - 0) / 100;
-      widthDis = width * (leftValue - radius / 2);
-    } else {
-      widthDis = parseFloat(leftValue);
-    }
-  } else {
-    widthDis = leftValue;
-  }
-  let topValue = iChartOption.chartPosition.center[1] || '50%';
-  if (typeof topValue !== 'number') {
-    if (topValue.indexOf('%') !== -1) {
-      topValue = (topValue.substring(0, topValue.indexOf('%')) - 0) / 100;
-      heightDis = height * (topValue - radius / 2);
-    } else {
-      heightDis = parseFloat(topValue);
-    }
-  } else {
-    heightDis = topValue;
-  }
+    return correctValue;
+  };
+
+  radius = getNumber(radius, {
+    callback1: (value) => value.substring(0, value.indexOf('%')) / 100,
+    callback2: (value) => parseFloat(value) / Math.min(height, width),
+    callback3: (value) => value / Math.min(height, width),
+  });
+
+  widthDis = getNumber(polarInfo.center[0], {
+    callback1: (value) => width * (value.substring(0, value.indexOf('%')) / 100 - radius / 2),
+    callback2: (value) => parseFloat(value),
+    callback3: (value) => value,
+  });
+
+  heightDis = getNumber(polarInfo.center[1], {
+    callback1: (value) => height * (value.substring(0, value.indexOf('%')) / 100 - radius / 2),
+    callback2: (value) => parseFloat(value),
+    callback3: (value) => value,
+  });
+
   return { radius, widthDis, heightDis };
 }
 
-function returnValue(params, iChartOption) {
-  const { node, radius, widthDis, heightDis, nodeName, type, z2 } = params;
+export function handleRootData(d3, { baseOption, chartInstance, iChartOption, chartType }) {
+  // polar的信息会在index中被删除，此处需要储存一份用于计算节点坐标等。
+  const polarInfo = cloneDeep(baseOption.polar);
   const textStyle = iChartOption.textStyle || {};
-  const value = {
-    type: 'circle',
-    // 定义球的坐标及半径
-    shape: {
-      cx: node.x * radius + widthDis,
-      cy: node.y * radius + heightDis,
-      // 若移动页面使得球的半径小于0时则取反
-      r: node.r * radius > 0 ? node.r * radius : -node.r * radius,
-    },
-    transition: ['shape'],
-    z2,
-    // 定义球的文本信息等
-    textContent: {
-      type: 'text',
-      style: {
-        text: (node.depth !== 0 && node.data.showLabel) ? (textStyle.formatter && textStyle.formatter(node) || nodeName) : '',
-        fontFamily: 'Arial',
-        width: node.r,
-        height: node.r,
-        borderRadius: node.r,
-        // 文本溢出显示
-        overflow: 'visible',
-        fontSize: Math.max(node.r / 3, 12),
-        fill: iChartOption.type !== 'nested' ? '#ffffff' : node.data.textColor, // 设计稿白主题默认白色
-        ...textStyle
-      },
-      // 在非文本溢出显示前提下，鼠标划入时展示省略号的内容
-      emphasis: {
-        style: {
-          overflow: null,
-          fontSize: Math.max(node.r / 3, 12),
-        },
-      },
-    },
-    // 设置文本显示的位置
-    textConfig: { position: 'inside' },
-    style: {
-      // 设置球的边框色
-      stroke: node.depth >= 1 && type === 'nested' ? node.data.borderColor : null,
-      // 设置球的背景色
-      fill: node.data.color,
-    },
-    // 设置球的跳动范围
-    keyframeAnimation: {
-      duration: 3000,
-      loop: true,
-      delay: random() * 2000,
-      keyframes: [
-        { y: -3, percent: 0.5, easing: 'cubicOut' },
-        { y: 0, percent: 1, easing: 'bounceOut' },
-        { x: -3, percent: 0.5, easing: 'cubicOut' },
-        { x: 0, percent: 1, easing: 'bounceOut' },
-      ],
-    },
-  };
-  return value;
-}
-
-export function handleRootData(params) {
-  const { d3, baseOption, chartInstance, iChartOption } = params;
-  let { type, distance } = iChartOption;
-  distance = distance !== undefined ? distance : (type === 'non-nested' ? 50 : 5);
-
-  function stratify() {
-    // d3函数：定义球的大小排列与id名处理等
+  let distance = iChartOption.distance;
+  if (iChartOption.distance === undefined) {
+    switch (chartType) {
+      case CHARTTYPE.NON_NESTED:
+        distance = 50;
+        break;
+      default:
+        distance = 5;
+        break;
+    }
+  }
+  const stratify = () => {
     return d3
       .stratify()
       .parentId(function (d) {
@@ -153,37 +80,76 @@ export function handleRootData(params) {
       .sort(function (a, b) {
         return b.value - a.value;
       });
-  }
-  // 配置renderItem函数，返回值是球的相关配置
+  };
   const displayRoot = stratify();
-  function renderItem(params, api) {
+  // 给baseOptionion设置renderItem,且只能设置一次，多次则会造成视图重叠
+  baseOption.series[baseOption.series.length - 1].renderItem = (params, api) => {
     const context = params.context;
     if (!context.layout) {
       context.layout = true;
-      overallLayout(params, api, distance, displayRoot, d3);
+      context.nodes = {};
+      d3
+        .pack()
+        .size([api.getWidth() - 2, api.getHeight() - 2])
+        .padding(distance)(displayRoot);
+      displayRoot.descendants().forEach(node => { context.nodes[node.id] = node; });
     }
-    const nodePath = api.value('id');
-    const node = context.nodes[nodePath];
+    const node = context.nodes[api.value('id')];
     if (!node) {
       return;
     }
-    const isLeaf = !node.children || !node.children.length;
     // 设置label值是否显示，若有嵌套则不显示，否则显示
-    const nodeName = isLeaf ? node.data.label : '';
-    const z2 = api.value('depth') * 2;
-    // 获取实例的宽高
-    const width = chartInstance.getWidth();
-    const height = chartInstance.getHeight();
-    let widthDis = '';
-    let heightDis = '';
-    let radius = '';
-    radius = setChartPosition({ iChartOption, height, width, widthDis, heightDis, radius }).radius;
-    widthDis = setChartPosition({ iChartOption, height, width, widthDis, heightDis, radius }).widthDis;
-    heightDis = setChartPosition({ iChartOption, height, width, widthDis, heightDis, radius }).heightDis;
-    return returnValue({ node, radius, widthDis, heightDis, nodeName, type, z2 }, iChartOption);
-  }
-  // 给baseOptionion设置renderItem,且只能设置一次，多次则会造成视图重叠
-  baseOption.series[baseOption.legend.data.length].renderItem = renderItem;
+    const nodeName = (!node.children || !node.children.length) ? node.data.label : '';
+    const { radius, widthDis, heightDis } = setChartPosition(polarInfo, chartInstance);
+    return {
+      type: 'circle',
+      // 定义球的坐标及半径
+      shape: {
+        cx: node.x * radius + widthDis,
+        cy: node.y * radius + heightDis,
+        // 若移动页面使得球的半径小于0时则取反
+        r: node.r * radius > 0 ? node.r * radius : -node.r * radius,
+      },
+      transition: ['shape'],
+      z2: api.value('depth') * 2,
+      // 定义球的文本信息等
+      textContent: {
+        type: 'text',
+        style: {
+          text: (node.depth !== 0 && node.data.showLabel) ? (textStyle.formatter && textStyle.formatter(node) || nodeName) : '',
+          fontFamily: 'Arial',
+          width: node.r,
+          height: node.r,
+          borderRadius: node.r,
+          // 文本溢出显示
+          overflow: 'visible',
+          fontSize: Math.max(node.r / 3, 12),
+          fill: chartType !== CHARTTYPE.NESTED ? '#ffffff' : node.data.textColor, // 设计稿白主题默认白色
+          ...textStyle
+        },
+      },
+      // 设置文本显示的位置
+      textConfig: { position: 'inside' },
+      style: {
+        // 设置球的边框色
+        stroke: node.data.borderColor,
+        // 设置球的背景色
+        fill: node.data.color,
+      },
+      // 设置球的跳动范围
+      keyframeAnimation: {
+        duration: 3000,
+        loop: true,
+        delay: random() * 2000,
+        keyframes: [
+          { y: -3, percent: 0.5, easing: 'cubicOut' },
+          { y: 0, percent: 1, easing: 'bounceOut' },
+          { x: -3, percent: 0.5, easing: 'cubicOut' },
+          { x: 0, percent: 1, easing: 'bounceOut' },
+        ],
+      },
+    };
+  };
 }
 
 

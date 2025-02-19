@@ -23,7 +23,8 @@ const chartType = [
   'SunburstChart',
   'BulletChart',
   'HeatMapChart',
-  'WordCloudChart'
+  'WordCloudChart',
+  'AssembleBubbleChart'
 ];
 
 function base(chartName) {

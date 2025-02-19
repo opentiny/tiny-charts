@@ -23,6 +23,9 @@ function polar(iChartOption, chartName) {
         case 'CircleProcessChart':
             polarOption.radius = position?.radius || ['44%', '50%'];
             break;
+        case 'AssembleBubbleChart':
+            polarOption.radius = position?.radius || '80%';
+            break;
         default:
             polarOption = undefined;
             break;

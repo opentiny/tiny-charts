@@ -9,50 +9,62 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-export function handleSeriesData(iChartOption, baseOption) {
-  const { data, type } = iChartOption;
-  if (!data || !data.length) throw new Error('聚合气泡图必须定义data数据');
-  if (!type) throw new Error('聚合气泡图必须定义type,值为nested或non-nested或non-nested-aggregate');
+import { CHARTTYPE } from "./BaseOption";
+import { getColor, codeToRGB } from "../../util/color";
+import chartToken from "./chartToken";
 
-  const rootData = [{
-    depth: 0,
-    id: 'option',
-    value: 1255,
-    type: '',
-    label: 0,
-  }];
-  let depthFirst = [];
-  let depthMore = [];
-
-  if (data.length) {
-    if (type === 'non-nested' || type === 'non-nested-aggregate') {
-      // 在数据循环遍历时，为他们赋予唯一id
-      let nurId = 0;
-      data.forEach(item => {
-        nurId++;
-        item.depth = 1;
-        item.id = `option.${nurId}`;
-        depthFirst.push(item);
-      });
-      baseOption.dataset[0].source = [...rootData, ...depthFirst, ...depthMore];
-    } else if (type === 'nested') {
-      let nurId = 0;
-      let _nurId = 0;
-      data.forEach(item => {
-        nurId++;
-        item.depth = 1;
-        item.id = `option.${nurId}`;
-        depthFirst.push(item);
-        item.children.forEach(i => {
-          i.type = item.type;
-          _nurId++;
-          i.depth = 2;
-          i.id = `${item.id}.${_nurId}`;
-          depthMore.push(i);
-        });
-      });
-      baseOption.dataset[0].source = [...rootData, ...depthFirst, ...depthMore];
+export function handleSeriesData(iChartOption, baseOpt, chartType) {
+  const sourceData = [
+    {
+      depth: 0,
+      id: 'option',
+      value: 1255,
+      type: undefined,
+      label: undefined,
     }
-  }
-  return { depthFirst, depthMore };
+  ];
+  const legendData = [];
+
+  const loopData = (data, depth = 1, parentInfo = { id: 'option' }) => {
+    data.forEach((item, index) => {
+      item.depth = depth;
+      item.id = `${parentInfo.id}.${index}`;
+      item.textColor = chartToken.labelColor;
+      if (depth === 1) {
+        let hasRecordIndex = legendData.findIndex(v => v === item.type);
+        item.color = getColor(iChartOption.color, hasRecordIndex !== -1 ? hasRecordIndex : legendData.length);
+        item.borderColor = item.color;
+      } else {
+        item.type = parentInfo.type;
+        item.color = parentInfo.color;
+        item.borderColor = parentInfo.borderColor;
+      }
+      sourceData.push(item);
+      if (!legendData.includes(item.type)) {
+        legendData.push(item.type);
+      }
+      if (chartType === CHARTTYPE.NESTED && item.children && item.children.length) {
+        if (item.depth === 1) {
+          item.color = codeToRGB(item.color, .2);
+        }
+        loopData(item.children, depth + 1, item);
+      }
+    });
+  };
+
+  loopData(iChartOption.data);
+
+  baseOpt.dataset[0].source = sourceData;
+
+  baseOpt.legend.data = legendData;
+
+  [...legendData].reverse().forEach((item) => {
+    baseOpt.series.unshift({
+      name: item,
+      type: 'pie',
+      data: [],
+      radius: ['0%', '0%'],
+      colorBy: 'data',
+    });
+  });
 }
