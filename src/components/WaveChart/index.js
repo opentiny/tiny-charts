@@ -169,7 +169,7 @@ export default class WaveChart extends BaseChart {
     this.radarMax = this.option.radarMax;
     this.radarMark = this.option.radarMark;
     // 创建图表实例
-    const chartIns =new CoreChart()
+    const chartIns = new CoreChart();
     chartIns.init(this.rContainer);
     this.setAreaColor(type, this.splitNumber);
     const chartOption = {
@@ -200,6 +200,9 @@ export default class WaveChart extends BaseChart {
         axisLabel: {
           color: axisLabelColor,
           showMinLabel: false,
+          formatter: function (value) {
+            return Math.round(value);
+          }
         },
         axisLine: {
           lineStyle: {
@@ -369,7 +372,7 @@ export default class WaveChart extends BaseChart {
     if (this.loadingContainer) {
       this.domContainer.innerHTML = '';
       this.loadingDom.innerHTML = '';
-      option = { theme: 'light', ...option};
+      option = { theme: 'light', ...option };
       const text = option.text || '加载中...';
       const textSize = option.textSize || 24;
       const textShow = option.textShow === false ? false : true;
