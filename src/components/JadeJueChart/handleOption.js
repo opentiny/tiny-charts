@@ -51,7 +51,7 @@ function setThemeBarRule(theme, data, baseOpt, chartInstance) {
   }
   let outerRing = getOuterRing(baseOpt, chartInstance);
   if (outerRing < outerRingLimit / 2) {
-    barWidth = 8;
+    barWidth = isCloud ? 4 : 8;
     textGap = 0;
   }
   return { barWidth, textGap };
