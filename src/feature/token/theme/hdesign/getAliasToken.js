@@ -200,7 +200,7 @@ function getAliasToken(globalToken, light = true) {
     // 容器的间距
     containerGap: spaceBase,
     // 图例的间距
-    legendSpace: space8x,
+    legendSpace: space4x,
     // 无padding
     paddingNone: spaceNone,
     paddingSM: spaceBase,
