@@ -168,11 +168,11 @@ const gray = {
 };
 
 const transparent = {
-  colorTransparent: 'transparent',
+  colorTransparent: 'rgba(255,255,255,0)',
 };
 
 const board = {
-	blue,
+  blue,
   pink,
   gray,
   green,
