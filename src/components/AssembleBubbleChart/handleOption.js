@@ -57,7 +57,9 @@ const bindLegendEvent = (baseOpt, chartInstance) => {
       }
     }
     baseOpt.dataset[0].source = newSource;
-    chartInstance.setOption(baseOpt);
+    setTimeout(() => {
+      chartInstance.setOption(baseOpt);
+    }, 20);
   });
 };
 

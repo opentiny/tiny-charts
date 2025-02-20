@@ -68,12 +68,12 @@ export function handleRootData(d3, { baseOption, chartInstance, iChartOption, ch
         break;
     }
   }
-  const stratify = () => {
+  const stratify = (sourceData) => {
     return d3
       .stratify()
       .parentId(function (d) {
         return d.id.substring(0, d.id.lastIndexOf('.'));
-      })(baseOption.dataset[0].source)
+      })(sourceData)
       .sum(function (d) {
         return d.value || 0;
       })
@@ -81,9 +81,9 @@ export function handleRootData(d3, { baseOption, chartInstance, iChartOption, ch
         return b.value - a.value;
       });
   };
-  const displayRoot = stratify();
   // 给baseOptionion设置renderItem,且只能设置一次，多次则会造成视图重叠
   baseOption.series[baseOption.series.length - 1].renderItem = (params, api) => {
+    const displayRoot = stratify(baseOption.dataset[0].source);
     const context = params.context;
     if (!context.layout) {
       context.layout = true;
