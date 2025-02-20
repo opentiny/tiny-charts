@@ -15,7 +15,7 @@ import cloneDeep from '../../util/cloneDeep';
 import { setSeriesData, reverseData } from './handleSeries';
 import { handleLabelFormatter } from './labelFormatter';
 import PolarCoordSys from '../../option/PolarSys';
-import { setStartAngle, setbarWidth, handleLegendData } from './handleOption';
+import { setStartAngle, setbarWidth, handleLegendData, bindLegendEvent } from './handleOption';
 import { CHART_TYPE } from '../../util/constants';
 
 class JadeJueChart {
@@ -51,6 +51,8 @@ class JadeJueChart {
     setStartAngle(iChartOption, this.baseOption);
     // 为第一种数据类型单独配置legend.data和对应颜色
     handleLegendData(iChartOption, this.baseOption, this.chartType);
+    // 绑定图例点击事件，更新背景柱条对应series的数据
+    bindLegendEvent(this, chartInstance);
   }
 
   getOption() {

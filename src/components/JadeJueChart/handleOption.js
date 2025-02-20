@@ -219,3 +219,44 @@ export function handleMinRatio(iChartOption, baseOpt, chartType) {
     baseOpt.tooltip = setTooltip(tipHtml, baseOpt, chartType);
   }
 }
+
+const bindLegendEvent = ({ baseOption, chartType }, chartInstance) => {
+  const newSeries = cloneDeep(baseOption.series);
+
+  const baseCallback = (params) => {
+    for (let type in params.selected) {
+      if (!params.selected[type]) {
+        // 图例隐藏，对应背景色柱条的值应该为sum
+        newSeries[newSeries.length - 1].data.find(v => v.name === type).value = baseOption.angleAxis.sum;
+      } else {
+        // 图例显示，对于背景色柱条的值应该为sum-value
+        newSeries[newSeries.length - 1].data.find(v => v.name === type).value = baseOption.angleAxis.sum - newSeries.find(v => v.name === type).data.find(v => v.name === type).value;
+      }
+    }
+  };
+
+  const stackCallback = (params) => {
+    // 图例显隐，对应背景色柱条的值应该为sum-其他系列
+    newSeries[newSeries.length - 1].data.forEach((item, index) => {
+      let newValue = 0;
+      newSeries.slice(0, newSeries.length - 1).forEach((v, key) => {
+        if (params.selected[v.name]) {
+          newValue += v.data[index]?.value ?? 0;
+        }
+      });
+      item.value = baseOption.angleAxis.sum - newValue;
+    });
+  };
+
+  const callbackMap = {
+    [CHARTTYPE.BASE]: baseCallback,
+    [CHARTTYPE.STACK]: stackCallback
+  };
+
+  chartInstance.on('legendselectchanged', (params) => {
+    callbackMap[chartType](params);
+    baseOption.series = newSeries;
+    chartInstance.setOption(baseOption);
+  });
+};
+export { bindLegendEvent };
