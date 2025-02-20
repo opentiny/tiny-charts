@@ -10,11 +10,11 @@
  *
  */
 import min from '../../../util/sort/min';
-import { isNumber } from '../../../util/type';
-import { defaultFormatter } from '../handleOptipn';
+import { isNumber, isObject } from '../../../util/type';
 import { getColor, codeToRGB } from '../../../util/color';
 import chartToken from './chartToken';
 import Theme from '../../../feature/token';
+import { isDarkTheme } from '../handleOptipn';
 
 // 创建一个渐变色-同名的Series，用来显示分割渐变区域
 function gradientBottomArea(item, percent, colorTo, colorFrom) {
@@ -32,7 +32,7 @@ function gradientBottomArea(item, percent, colorTo, colorFrom) {
       origin: 'end',
       color: {
         type: 'linear',
-				x2: 0,
+        x2: 0,
         y2: 1,
         x: 0,
         y: 0,
@@ -81,24 +81,11 @@ function splitArea(baseOption, iChartOption, YAxiMax) {
   }
 }
 
-/**
- * 面积图的bottom阈值区域功能是使用植入假的同名Series来实现的
- * 因此在 tooltip 中应该被屏蔽这些假的同名Series
- */
-function formatter(baseOption, iChartOption) {
-  if (!iChartOption.area) return
-  if (
-    iChartOption.splitLine ||
-    (iChartOption.markLine && iChartOption.markLine.bottom && isNumber(iChartOption.markLine.bottom))
-  ) {
-    const dataLength = baseOption.legend.data.length;
-    const tipFormatter = baseOption.tooltip.formatter;
-    baseOption.tooltip.formatter = (params, ticket, callback) => {
-      return tipFormatter ? tipFormatter(params.slice(0, dataLength), ticket, callback) : defaultFormatter(params, dataLength);
-    };
-  }
+// 判断是否需要过滤series
+function judgeFilterAreaSeries(iChartOption) {
+  const { area, splitLine, markLine } = iChartOption
+  return area && (splitLine || (markLine && markLine?.bottom && isNumber(markLine?.bottom)))
 }
-
 
 // 创建一个纯色-同名Series，用来显示红色阈值区域
 function pureBottomArea(itemx, percentx, bottomColorx) {
@@ -152,9 +139,12 @@ function markLineArea(baseOption, iChartOption, YAxiMax) {
     isNumber(iChartOption.markLine.bottom)
   ) {
     const temp = [];
+    const darkTheme = isDarkTheme()
     baseOption.series.forEach(item => {
       const bottomColor = codeToRGB(iChartOption.markLine.bottomColor, 0.15) || codeToRGB(Theme.config.colorState.colorError, 0.15);
-      const minValue = min(item.data);
+      // 黑色主题的时候把data中的阈值项data转换为object，此时找最小值需要转换回来
+      const seriesData = darkTheme ? getDataWidthNoObject(item.data) : item.data
+      const minValue = min(seriesData);
       const percent = (iChartOption.markLine.bottom - minValue) / (YAxiMax - minValue);
       if (iChartOption.markLine.bottom >= minValue) {
         // 该series是为了实现红色特殊area的样式而加的，因此在tooltip中应该被屏蔽
@@ -166,6 +156,12 @@ function markLineArea(baseOption, iChartOption, YAxiMax) {
   }
 }
 
+function getDataWidthNoObject(data) {
+  return data.map(item => {
+    return isObject(item) ? item.value : item
+  })
+}
+
 /**
  * 为series添加areaStyle
  */
@@ -174,9 +170,8 @@ function bottomArea(baseOption, iChartOption, YAxiMax) {
   markLineArea(baseOption, iChartOption, YAxiMax);
   // 添加split的areaStyle
   splitArea(baseOption, iChartOption, YAxiMax);
-  // tooltip屏蔽假的同名Series
-  formatter(baseOption, iChartOption);
 }
 
 
 export default bottomArea;
+export { judgeFilterAreaSeries }

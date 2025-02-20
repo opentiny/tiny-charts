@@ -14,8 +14,10 @@ import max from '../../util/sort/max';
 import { isNumber } from '../../util/type';
 import { getColor } from '../../util/color';
 import Theme from '../../feature/token';
+import { isDarkTheme } from './handleOptipn';
+import chartToken from './chartToken'
 
-function handleVisualMapItem({ index, topColor, top, bottom, colors, bottomColor, vmColor }) {
+function handleVisualMapItem({ index, topColor, top, bottom, bottomColor, vmColor, defaultColor }) {
   const visualMapItem = {
     show: false,
     type: 'piecewise',
@@ -29,7 +31,7 @@ function handleVisualMapItem({ index, topColor, top, bottom, colors, bottomColor
       {
         gt: bottom,
         lt: top, // 小于 top, 大于 bottom 的，为正常颜色
-        color: getColor(colors, index),
+        color: defaultColor,
       },
       {
         lte: bottom, // 小于 bottom
@@ -44,8 +46,9 @@ function handleVisualMapItem({ index, topColor, top, bottom, colors, bottomColor
   return visualMapItem;
 }
 
-export function setVisualMap(legendData, seriesData, markLine, colors) {
+export function setVisualMap(legendData, seriesData, iChartOpt, baseOpt) {
   const visualMap = [];
+  const { color: colors, markLine } = iChartOpt
   if (markLine) {
     let topValue = markLine.top;
     let bottomValue = markLine.bottom;
@@ -68,6 +71,7 @@ export function setVisualMap(legendData, seriesData, markLine, colors) {
       const data = seriesData[legendName];
       const minData = min(data);
       const maxData = max(data);
+      const defaultColor = getColor(colors, index)
       let bottom = bottomValue;
       let top = topValue;
       if (markLine.topUse && markLine.topUse.indexOf(legendName) === -1) {
@@ -88,10 +92,49 @@ export function setVisualMap(legendData, seriesData, markLine, colors) {
         top = Math.max(bottom + 0.01, maxData + 0.01);
       }
       // 根据数据大小映射颜色
-      const visualMapItem = handleVisualMapItem({ index, topColor, top, bottom, colors, bottomColor, vmColor });
+      const visualMapItem = handleVisualMapItem({ index, topColor, top, bottom, bottomColor, vmColor, defaultColor });
       visualMap.push(visualMapItem);
+      if (isDarkTheme()) {
+        const seriesUnit = baseOpt.series[index]
+        //  阈值情景下hover的emphasis中itemstyle要在数据中单独设置，覆盖通用emphasis配置
+        transformData(
+          seriesUnit,
+          data,
+          defaultColor,
+          {
+            topColor,
+            top,
+            bottom,
+            bottomColor
+          })
+      }
     });
   }
-  
   return visualMap;
+}
+
+function transformData(seriesUnit, data, defaultColor, markLineConfig) {
+  const { topColor, top, bottom, bottomColor } = markLineConfig
+  const newData = data.map(item => {
+    let borderColor = defaultColor
+    if (bottom < item && item < top) {
+      return item
+    }
+    if (item >= top) {
+      borderColor = topColor
+    }
+    if (item <= bottom) {
+      borderColor = bottomColor
+    }
+    return {
+      value: item,
+      emphasis: {
+        itemStyle: {
+          borderColor,
+          color: chartToken.maskColor
+        }
+      }
+    }
+  })
+  seriesUnit.data = newData
 }

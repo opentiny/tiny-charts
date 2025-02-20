@@ -9,9 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../feature/token';
 import cloneDeep from '../../util/cloneDeep';
-import defendXSS from '../../util/defendXSS';
 import chartToken from './chartToken';
 
 function setDashedLineVisualMap(seriesIndex, lineColor, predictIndex) {
@@ -35,48 +33,11 @@ function setDashedLineVisualMap(seriesIndex, lineColor, predictIndex) {
   return vm;
 }
 
-// htmlString中判断item.color.colorStops是判读是否为折柱混合的图表，如果是需要从item.color.colorStops对象中获取颜色
-function setToolTip(fontColor, iChartOpt) {
-  const tipHtml = params => {
-    let htmlString = '';
-    const legendLength = params.length / 2;
-    const selfFormatter= iChartOpt?.tipHtml || iChartOpt?.tooltip?.formatter
-    if(selfFormatter){
-      const customParams = params.slice(0,legendLength)
-      return selfFormatter(customParams)
-    }
-    params.forEach((item, index) => {
-      // 只显示实线数据的tooltip
-      if (index < legendLength) {
-        if (index === 0) {
-          htmlString += `${defendXSS(item.name)}<br/>`;
-        }
-        const { colorStops: color_ } = item.color;
-        htmlString += `
-                    <div>
-                        <span style="display:inline-block;width:10px;
-                        height:10px;border-radius:5px;background-color:${defendXSS(
-          color_ ? color_[0].color : item.color,
-        )};">
-                        </span>
-                        <span style="margin-left:5px;color:${defendXSS(fontColor)}">
-                            <span style="display:inline-block;width:80px;">${defendXSS(item.seriesName)}</span> 
-                            <span style="font-weight:bold">${defendXSS(item.value)}</span>
-                        </span>
-                    </div>
-                `;
-      }
-    });
-    return htmlString;
-  };
-  return tipHtml;
-}
-
 /**
  * 针对预测值图表需求，图表需要进行特殊处理
  */
 export function handlePredict(option, iChartOpt) {
-  const { predict, tipHtml, lineStyle } = iChartOpt
+  const { predict, lineStyle } = iChartOpt
   if (!predict) return
   // VisualMap只能处理线的颜色，不能处理面积的颜色
   let dashColor = chartToken.maskColor;
@@ -109,6 +70,4 @@ export function handlePredict(option, iChartOpt) {
       option.visualMap.push(setDashedLineVisualMap(dataLength + index, dashColor, predictIndex, xAxisDataLength));
     }
   }
-  // 修改tooltip,不显示虚线的tooltip
-  option.tooltip.formatter = setToolTip(Theme.config.tooltipTextColor, iChartOpt);
 }

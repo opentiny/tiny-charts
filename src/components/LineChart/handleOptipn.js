@@ -12,6 +12,8 @@
 import cloneDeep from '../../util/cloneDeep';
 import defendXSS from '../../util/defendXSS';
 import chartToken from './chartToken';
+import Theme from '../../feature/token';
+import { judgeFilterAreaSeries } from './AreaChart/bottomArea';
 
 // 给图例和x轴赋值
 export function handleData(baseOpt, legendData, xAxisData) {
@@ -29,29 +31,6 @@ export function onlyOnePoint(baseOption) {
       itemObj.showSymbol = true;
     }
   });
-}
-
-export function defaultFormatter(params) {
-  let htmlString = '';
-  // 只选取前半部分真实的series数据
-  params = params.slice(0, params.length / 2);
-  params.forEach((item, index) => {
-    if (index === 0) {
-      htmlString += `<div style="margin-bottom:4px;">${defendXSS(item.name)}</div>`;
-    }
-    htmlString += `<div>
-                            <span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:${defendXSS(
-      item.color,
-    )};"></span>
-                            <span style="margin-left:5px;>
-                                <span style="display:inline-block; margin-right:8px;min-width:60px;">${defendXSS(
-      item.seriesName,
-    )}</span>
-                                <span style="font-weight:bold">${defendXSS(item.value)}</span>
-                            </span>
-                        </div>`;
-  });
-  return htmlString;
 }
 
 function isNullValue(value) {
@@ -84,7 +63,7 @@ export function discrete(iChartOption, baseOption) {
     baseOption.series.forEach((series, seriesIndex) => {
       const newSeries = cloneDeep(series);
       newSeries.symbol = 'circle';
-      newSeries.symbolSize = chartToken.symbolSizeSM-4;
+      newSeries.symbolSize = chartToken.symbolSizeSM - 4;
       newSeries.itemStyle.borderWidth = chartToken.borderZero;
       newSeries.showSymbol = true;
       newSeries.showAllSymbol = true;
@@ -111,14 +90,49 @@ export function discrete(iChartOption, baseOption) {
     });
     baseOption.series = [...baseOption.series, ...discreteSeries]
     baseOption.visualMap = [...baseOption.visualMap, ...discreteVisualMap]
-    // 覆盖tipHtml，过滤同名Series
-    const tipFormatter = baseOption.tooltip.formatter;
-    baseOption.tooltip.formatter = (params, ticket, callback) => {
-      if (tipFormatter) {
-        return tipFormatter(params.slice(0, params.length / 2), ticket, callback);
-      } else {
-        return defaultFormatter(params);
-      }
-    };
+  }
+}
+
+function defaultFormatter(params) {
+  const { tipSeriesNameColor, tipNameColor, tipValueColor, symbolSizeSM } = chartToken
+  let content = '';
+  params.forEach((item, index) => {
+    if (index === 0) {
+      content += `<div style="color:${tipSeriesNameColor}">${defendXSS(item.name)}</div>`;
+    }
+    content += `<div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+                      <div style="display:flex;gap:8px;align-items:center;">
+                      <span style="display:inline-block;width:${symbolSizeSM}px;height:${symbolSizeSM}px;border-radius:50%;background-color:${defendXSS(item.color)};"></span>
+                      <span style="display:inline-block;color:${tipNameColor};">${defendXSS(item.seriesName)}</span>
+                      </div>
+                      <span style="font-weight:bold;color:${tipValueColor};">${defendXSS(item.value)}</span>
+                </div>`;
+  });
+  const htmlString = `<div style="display:flex;flex-direction:column;gap:8px;line-height:20px">${content}</div>`
+  return htmlString;
+
+}
+
+
+
+export function isDarkTheme() {
+  const theme = Theme.themeName
+  return theme.includes('dark')
+}
+
+
+export function setTooltip(baseOpt, iChartOpt, legendData) {
+  const { discrete, predict, tipHtml, tooltip } = iChartOpt
+  // 判断面积图是否要过滤series
+  const filterArea = judgeFilterAreaSeries(iChartOpt)
+  const isFilter = discrete || predict || filterArea
+  const formatter = tipHtml || tooltip?.formatter
+  baseOpt.tooltip.formatter = (echartsParams, ticket, callback) => {
+    let params = echartsParams
+    if (isFilter) {
+      const lineNumber = legendData.length
+      params = echartsParams.slice(0, lineNumber)
+    }
+    return formatter ? formatter(params, ticket, callback) : defaultFormatter(params)
   }
 }

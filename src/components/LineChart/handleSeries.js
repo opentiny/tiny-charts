@@ -14,6 +14,8 @@ import { isString, isObject } from '../../util/type';
 import { getMarkLineDefault, getMarkPointDefault, setThresholdMarkLineLabel } from '../../option/config/mark';
 import chartToken from './chartToken';
 import Theme from '../../feature/token';
+import { getColor } from '../../util/color';
+import { isDarkTheme } from './handleOptipn'
 
 export const seriesInit = () => {
   return {
@@ -41,21 +43,27 @@ export const seriesInit = () => {
     markPoint: null,
     // 折线点的每个样式配置项
     itemStyle: {},
+    emphasis: {}
   };
 };
 
-function handleItemStyleWithTheme(seriesUnit) {
-  const theme = Theme.themeName
-  if (theme.includes('dark')) {
+// 黑色主题的symbol hover使用emphasis去变更symbol的样式
+function setItemStyleWithDarkTheme(seriesUnit, index, colors) {
+  const color = getColor(colors, index)
+  const darkTheme = isDarkTheme()
+  if (darkTheme) {
     seriesUnit.symbol = 'circle';
-    seriesUnit.itemStyle = {
-      shadowBlur: 2,
-      borderWidth: chartToken.border,
-      borderColor: chartToken.borderColor,
-      shadowColor: 'rgba(0, 0, 0, .2)',
-    };
+    seriesUnit.emphasis = {
+      ...seriesUnit.emphasis,
+      itemStyle: {
+        borderColor: color,
+        borderWidth: chartToken.border,
+        color: chartToken.maskColor
+      }
+    }
   }
 }
+
 
 function handleItemStyle(seriesUnit, itemStyle) {
   if (!itemStyle) return;
@@ -201,6 +209,7 @@ function handleSeries(params) {
     legendData,
     seriesData,
     localSeriesUnit,
+    colors
   } = params;
   legendData.forEach((legend, index) => {
     const seriesUnit = cloneDeep(localSeriesUnit);
@@ -220,6 +229,7 @@ function handleSeries(params) {
     // 数据 / 数据名称
     seriesUnit.name = legend;
     seriesUnit.data = seriesData[legend];
+    setItemStyleWithDarkTheme(seriesUnit, index, colors)
     // 堆叠效果
     stack && handleStack(stack, seriesUnit);
     series.push(seriesUnit);
@@ -244,9 +254,7 @@ function handleYaxis(series, yAxis) {
 export function setSeries(params) {
   const { yAxis, itemStyle } = params;
   // 防止同一个页面的不同lineChart之间出现样式串通
-  const localSeriesUnit = cloneDeep(seriesInit());
-  // 根据不同的theme，生成不同的itemStyle
-  handleItemStyleWithTheme(localSeriesUnit);
+  const localSeriesUnit = seriesInit();
   // 覆盖用户传入的itemStyle
   handleItemStyle(localSeriesUnit, itemStyle);
   // 拼装series

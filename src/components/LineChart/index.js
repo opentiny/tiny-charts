@@ -18,7 +18,7 @@ import { setVisualMap } from './handleVisualMap';
 import { handlePredict } from './handlePredict';
 import { topArea, bottomArea } from './AreaChart';
 import { mergeVisualMap, mergeSeries } from '../../util/merge';
-import { handleData, onlyOnePoint, discrete } from './handleOptipn';
+import { handleData, onlyOnePoint, discrete, setTooltip } from './handleOptipn';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 import { lttb } from '../../feature/performance/lttb';
 import { CHART_TYPE } from '../../util/constants';
@@ -69,10 +69,11 @@ class LineChart {
       splitLine: iChartOption.splitLine,
       labelHtml: iChartOption.labelHtml,
       itemStyle: iChartOption.itemStyle,
-      massive: iChartOption.massive
+      massive: iChartOption.massive,
+      colors: iChartOption.color
     });
     // 设置VisualMap，通过数值映射颜色
-    this.baseOption.visualMap = setVisualMap(legendData, seriesData, iChartOption.markLine, iChartOption.color);
+    this.baseOption.visualMap = setVisualMap(legendData, seriesData, iChartOption, this.baseOption);
     // 针对预测值图表需求，图表需要进行特殊处理
     handlePredict(this.baseOption, iChartOption);
     // 是否关闭hover态的效果，默认为false
@@ -83,6 +84,7 @@ class LineChart {
     onlyOnePoint(this.baseOption);
     // 针对离散数据, 创建同名Series, 显示离散数据的单个点
     discrete(iChartOption, this.baseOption);
+    setTooltip(this.baseOption, iChartOption,legendData)
     // 合并用户自定义series
     mergeSeries(iChartOption, this.baseOption);
     // 合并用户自定义visualMap
@@ -100,7 +102,7 @@ class LineChart {
     // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
     bottomArea(this.baseOption, this.iChartOption, YAxiMax);
     // 合并用户自定义series
-    mergeSeries( this.iChartOption, this.baseOption);
+    mergeSeries(this.iChartOption, this.baseOption);
   }
 
   getOption() {

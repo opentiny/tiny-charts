@@ -10,8 +10,19 @@
  *
  */
 function LineChart(aliasToken) {
-  const { borderWidthLG, borderWidthNone, symbolSize, symbolSizeSM, lineWidth, colorNone, colorMask } =
-    aliasToken;
+
+  const {
+    borderWidthLG,
+    borderWidthNone,
+    symbolSize,
+    symbolSizeSM,
+    lineWidth,
+    colorNone,
+    colorMask,
+    colorTextName,
+    colorLabelSecondary,
+    colorLabel
+  } = aliasToken;
 
   return {
     symbolSizeSM,
@@ -19,10 +30,12 @@ function LineChart(aliasToken) {
     lineWidth,
     borderZero: borderWidthNone,
     border: borderWidthLG,
-    borderColor: colorMask,
     color: colorNone,
     colorNone,
-    maskColor: colorMask
+    maskColor: colorMask,
+    tipSeriesNameColor: colorTextName,
+    tipNameColor: colorLabelSecondary,
+    tipValueColor: colorLabel,
   };
 };
 
