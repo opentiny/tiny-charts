@@ -13,6 +13,7 @@ import { codeToHex, codeToRGB } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
 import chartToken from './chartToken';
 import Theme from '../../feature/token';
+import merge from '../../util/merge';
 
 export const emptySeriesUnit = {
   type: 'gauge',
@@ -140,7 +141,7 @@ function handleDetail(seriesUnit, text, data) {
       return `{value|${value}}\n{name|${data[0].name}}`;
     };
   seriesUnit.detail.offsetCenter = text.offset || [0, 0];
-  seriesUnit.detail.rich = text.formatterStyle || {
+  seriesUnit.detail.rich = {
     value: {
       fontSize: 60,
       fontWeight: 'bolder',
@@ -152,6 +153,9 @@ function handleDetail(seriesUnit, text, data) {
       padding: [24, 0, 0, 0],
     },
   };
+  if (text?.formatterStyle) {
+    merge(seriesUnit.detail.rich, text.formatterStyle)
+  }
 }
 
 // 设置仪表盘进度条宽度
@@ -384,7 +388,7 @@ function setMarkLine(series, markLine, marklineColor) {
 }
 
 function handleOther(iChartOption, seriesUnit, series, data) {
-  const  marklineColor = Theme.config.colorState.colorError
+  const marklineColor = Theme.config.colorState.colorError
   if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
     setSplitColor(seriesUnit, iChartOption.splitColor);
   } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 0) {
@@ -428,29 +432,29 @@ function handleOther(iChartOption, seriesUnit, series, data) {
   }
 }
 
-function setSeriesInit(seriesUnit, iChartOption){
+function setSeriesInit(seriesUnit, iChartOption) {
   const chartPosition = iChartOption.position || iChartOption.chartPosition || {};
   const { pointerStyle, pointer, min, max, startAngle, endAngle } = iChartOption;
   seriesUnit.name = iChartOption.seriesName || iChartOption.name;
   seriesUnit.data = iChartOption.data;
-   // 指针
-   seriesUnit.pointer.show = pointer || false;
-   seriesUnit.pointer.width = (pointerStyle && pointerStyle.width) || 16;
-   seriesUnit.pointer.length = (pointerStyle && pointerStyle.length) || '5%';
-   seriesUnit.pointer.offsetCenter[1] = (pointerStyle && pointerStyle.pointerDistance) || '-108%';
-   seriesUnit.pointer.lineDistance = (pointerStyle && pointerStyle.lineDistance) || '5%';
-   // 位置
-   seriesUnit.center = chartPosition.center || ['50%', '50%'];
-   // 半径
-   seriesUnit.radius = chartPosition.radius || '70%';
-   // 最小值
-   seriesUnit.min = min || 0;
-   // 最大值
-   seriesUnit.max = max || 100;
-   // 开始角度
-   seriesUnit.startAngle = startAngle === undefined ? 225 : startAngle;
-   // 结束角度
-   seriesUnit.endAngle = endAngle === undefined ? -45 : endAngle;
+  // 指针
+  seriesUnit.pointer.show = pointer || false;
+  seriesUnit.pointer.width = (pointerStyle && pointerStyle.width) || 16;
+  seriesUnit.pointer.length = (pointerStyle && pointerStyle.length) || '5%';
+  seriesUnit.pointer.offsetCenter[1] = (pointerStyle && pointerStyle.pointerDistance) || '-108%';
+  seriesUnit.pointer.lineDistance = (pointerStyle && pointerStyle.lineDistance) || '5%';
+  // 位置
+  seriesUnit.center = chartPosition.center || ['50%', '50%'];
+  // 半径
+  seriesUnit.radius = chartPosition.radius || '70%';
+  // 最小值
+  seriesUnit.min = min || 0;
+  // 最大值
+  seriesUnit.max = max || 100;
+  // 开始角度
+  seriesUnit.startAngle = startAngle === undefined ? 225 : startAngle;
+  // 结束角度
+  seriesUnit.endAngle = endAngle === undefined ? -45 : endAngle;
 }
 
 /**
