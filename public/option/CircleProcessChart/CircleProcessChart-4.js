@@ -5,10 +5,10 @@ const option = {
       name: 'IPV4',
       value: 80,
     },
-      {
-          name: 'IPV6',
-          value: 40,
-      },
+    {
+      name: 'IPV6',
+      value: 40,
+    }
   ],
   max: 200,
   tooltip: {
