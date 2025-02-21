@@ -57,8 +57,8 @@ function getSceneToken(globalToken, light = true) {
         colorFillSelect: codeToRGB(colorBoard.blue.colorBlue50, 0.1),
         // datzoom  选中数据 fill
         colorFillSelectSecondary: light ? codeToRGB(colorBoard.blue.colorBlue30, 0.2) : codeToRGB(colorBoard.blue.colorBlue70, 0.3),
-        // hover阴影
-        colorFillHover: light ? codeToRGB(colorGray90, 0.05) : codeToRGB(colorGray5, 0.2),
+        // hover阴影(黑色主题字典中的值是codeToRGB(colorGray5, 0.2)太亮了,待后续沟通)
+        colorFillHover: light ? codeToRGB(colorGray90, 0.05) : codeToRGB(colorGray5, 0.1),
         // datzoom handle 填充
         colorFillHandle: light ? colorGray90 : colorGray10,
         colorBorder: light ? colorGray10 : colorGray70,
