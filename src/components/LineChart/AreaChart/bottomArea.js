@@ -105,11 +105,11 @@ function pureBottomArea(itemx, percentx, bottomColorx) {
         colorStops: [
           {
             offset: 0,
-            color: 'rgba(255,255,255,0.001)', //解决svg渲染方式下面积图低阈值黑色背景的问题
+            color: chartToken.colorAreaTP, //解决svg渲染方式下面积图低阈值黑色背景的问题
           },
           {
             offset: 1 - percentx - 0.00001,
-            color: 'rgba(255,255,255,0.001)',
+            color: chartToken.colorAreaTP,
           },
           {
             offset: 1 - percentx,
