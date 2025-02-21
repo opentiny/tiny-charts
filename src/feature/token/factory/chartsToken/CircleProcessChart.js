@@ -10,10 +10,12 @@
  *
  */
 function CircleProcessChart (aliasToken){
-  const { colorPlaceholder } = aliasToken;
+  const { colorPlaceholder, colorTitle, colorSubTitle } = aliasToken;
   
   return {
     background: colorPlaceholder,
+    detailRichColor: colorTitle,
+    descRichColor: colorSubTitle,
   };
 };
 

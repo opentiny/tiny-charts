@@ -10,6 +10,7 @@
  *
  */
 import defendXSS from '../../util/defendXSS';
+import chartToken from './chartToken';
 // 获取bar的series数据
 export function getSeriesData(data) {
   const seriesData = [];
@@ -40,5 +41,28 @@ function tooltipFormatter(params) {
 export function setTooltip(baseOpt) {
   if (!baseOpt.tooltip.formatter) {
     baseOpt.tooltip.formatter = tooltipFormatter;
+  }
+}
+
+/**
+ * 配置Title
+ */
+export function setTitle(iChartOption) {
+  const { title } = iChartOption;
+  if (!title.subtextStyle || !title.subtextStyle?.color) {
+    if (!title.subtextStyle) title.subtextStyle = {}
+    title.subtextStyle.color = chartToken.descRichColor
+  }
+  if (!title.textStyle || !title.textStyle?.color) {
+    if (!title.textStyle) title.textStyle = {}
+    title.textStyle.color = chartToken.detailRichColor
+  }
+  if (title.textStyle && title.textStyle.rich) {
+    for (const key in title.textStyle.rich) {
+      const element = title.textStyle.rich[key];
+      if (!element.color) {
+        element.color = chartToken.detailRichColor
+      }
+    }
   }
 }
