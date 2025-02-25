@@ -56,7 +56,7 @@ function setChartPosition(polarInfo, chartInstance) {
 export function handleRootData(d3, { baseOption, chartInstance, iChartOption, chartType }) {
   // polar的信息会在index中被删除，此处需要储存一份用于计算节点坐标等。
   const polarInfo = cloneDeep(baseOption.polar);
-  const textStyle = iChartOption.textStyle || {};
+  const { textStyle = {}, sortType = 'decline' } = iChartOption;
   let distance = iChartOption.distance;
   if (iChartOption.distance === undefined) {
     switch (chartType) {
@@ -69,17 +69,27 @@ export function handleRootData(d3, { baseOption, chartInstance, iChartOption, ch
     }
   }
   const stratify = (sourceData) => {
-    return d3
+    let sortResult = d3
       .stratify()
       .parentId(function (d) {
         return d.id.substring(0, d.id.lastIndexOf('.'));
       })(sourceData)
       .sum(function (d) {
         return d.value || 0;
-      })
-      .sort(function (a, b) {
-        return b.value - a.value;
       });
+    switch (sortType) {
+      case 'decline': // 降序（中心向外，球尺寸依次减小）
+        sortResult = sortResult.sort((a, b) => b.value - a.value);
+        break;
+      case 'ascend': // 升序（中心向外，球尺寸依次增大）
+        sortResult = sortResult.sort((a, b) => a.value - b.value);
+        break;
+      case 'unset':  // 不设置
+        break;
+      default:
+        break;
+    }
+    return sortResult;
   };
   // 给baseOptionion设置renderItem,且只能设置一次，多次则会造成视图重叠
   baseOption.series[baseOption.series.length - 1].renderItem = (params, api) => {
@@ -95,7 +105,7 @@ export function handleRootData(d3, { baseOption, chartInstance, iChartOption, ch
       displayRoot.descendants().forEach(node => { context.nodes[node.id] = node; });
     }
     const node = context.nodes[api.value('id')];
-    if (!node) {
+    if (!node || node.r <= 0) {
       return;
     }
     // 设置label值是否显示，若有嵌套则不显示，否则显示

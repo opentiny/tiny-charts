@@ -8,6 +8,7 @@ import { legendMd, legend } from '../common/legend';
 import { tooltipMd, tooltip } from '../common/tooltip';
 import dataMd from './data.md?raw';
 import textStyleMd from './textStyle.md?raw';
+import sortTypeMd from './sortType.md?raw';
 
 const data = {
   dataset: [
@@ -20,7 +21,8 @@ const data = {
     legend,
     tooltip,
     ['data', '图表数据', 'array', '见详情，(必填)'],
-    ['textStyle', '文本样式', 'object', '见详情']
+    ['textStyle', '文本样式', 'object', '见详情'],
+    ['sortType', '球节点排布顺序(默认：降序，中心向外球尺寸依次减小)', 'string', 'decline']
   ],
   markdown: [
     themeMd,
@@ -32,7 +34,8 @@ const data = {
     legendMd,
     tooltipMd,
     dataMd,
-    textStyleMd
+    textStyleMd,
+    sortTypeMd
   ],
 };
 
