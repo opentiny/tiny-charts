@@ -24,7 +24,7 @@ const option = {
     startTime: new Date(new Date().toLocaleDateString()).getTime(),
     endTime: new Date(new Date().toLocaleDateString()).getTime() + 86400000,
   },
-  currentTime: new Date(`${year}-${month}-${day} 21:00:00`),
+  currentTime: new Date(),
   alarmData: [{
     time: new Date(`${year}-${month}-${day} 04:00:00`).getTime(),
     type: 'processed',

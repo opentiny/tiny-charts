@@ -350,7 +350,8 @@ export default class TimeLine {
         const seletedTime = time.getTime();
         // 当前北京时间
         const currentTime = new Date().getTime();
-        if (seletedTime <= currentTime) {
+        // 选中时间小于当前时间以及大于开始时间，不可选中未来时间
+        if (seletedTime <= currentTime && seletedTime >= this.option.timeRange.startTime ) {
             this.option.onClick && this.option.onClick(time.getTime());
             // 如果有点击时间，将时间赋值给配置项的当前时间
             // this.option.currentTime = time;
