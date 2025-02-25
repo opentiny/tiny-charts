@@ -162,7 +162,7 @@ function handleDetail(seriesUnit, text, data) {
 function handleProgress(seriesUnit, iChartOption, data) {
   const { itemStyle } = iChartOption;
 
-  seriesUnit.progress.width = itemStyle ? (itemStyle.width ? itemStyle.width : 16) : 16;
+  seriesUnit.progress.width = itemStyle ? (itemStyle.width ? itemStyle.width : chartToken.barWidth) : chartToken.barWidth;
   if (data && data.length !== 0 && data[0].value === 0) {
     seriesUnit.progress.roundCap = false;
   }
@@ -171,7 +171,7 @@ function handleProgress(seriesUnit, iChartOption, data) {
 // 设置仪表盘进度条宽度
 function handleAxisLine(seriesUnit, iChartOption) {
   const { itemStyle } = iChartOption;
-  seriesUnit.axisLine.lineStyle.width = itemStyle ? (itemStyle.width ? itemStyle.width : 16) : 16;
+  seriesUnit.axisLine.lineStyle.width = itemStyle ? (itemStyle.width ? itemStyle.width : chartToken.barWidth) : chartToken.barWidth;
 }
 
 // 轨道颜色分块
