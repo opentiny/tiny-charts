@@ -4,6 +4,7 @@
 - ICT3.0图表浅色主题
 - ICT3.0图表深色主题
 - 华为云图表浅色主题
+- 华为云图表深色主题
 - H Design1.1图表浅色主题
 - H Design1.1图表深色主题
 - 质量&流程IT图表浅色主题
@@ -17,6 +18,7 @@
   // 'light' 表示ICT3.0图表浅色主题, 默认值
   // 'dark'  表示ICT3.0图表深色主题
   // 'cloud-light' 表示华为云图表浅色主题
+  // 'cloud-dark' 表示华为云图表深色主题
   // 'hdesign-light' 表示H Design1.1图表浅色主题
   // 'hdesign-dark' 表示H Design1.1图表深色主题
   // 'bpit-light'  表示质量&流程IT图表浅色主题
@@ -29,11 +31,11 @@
 
 <div class="color-demo-container">
     <div class="color-demo-item">
-    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/themeColorDemoIctLight.png"/>
+    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/theme/ict-light.png"/>
     <div class="color-demo-label">light</div>
     </div>
     <div class="color-demo-item">
-    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/themeColorDemoIctDark.png"/>
+    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/theme/ict-dark.png"/>
     <div class="color-demo-label">dark</div>
     </div>
 </div>
@@ -42,8 +44,12 @@
 
 <div class="color-demo-container">
     <div class="color-demo-item">
-    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/themeColorDemoCloudLight.png"/>
+    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/theme/cloud-light.png"/>
     <div class="color-demo-label">cloud-light</div>
+    </div>
+     <div class="color-demo-item">
+    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/theme/cloud-dark.png"/>
+    <div class="color-demo-label">cloud-dark</div>
     </div>
 </div>
 
@@ -51,11 +57,11 @@
 
 <div class="color-demo-container">
     <div class="color-demo-item">
-    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/themeColorDemoHdesignLight.png"/>
+    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/theme/hdesign-light.png"/>
     <div class="color-demo-label">hdesign-light</div>
     </div>
     <div class="color-demo-item">
-    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/themeColorDemoHdesignDark.png"/>
+    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/theme/hdesign-dark.png"/>
     <div class="color-demo-label">hdesign-dark</div>
     </div>
 </div>
@@ -64,11 +70,11 @@
 
 <div class="color-demo-container">
     <div class="color-demo-item">
-    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/themeColorDemoHdesignLight.png"/>
+    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/theme/bpit-light.png"/>
     <div class="color-demo-label">bpit-light</div>
     </div>
     <div class="color-demo-item">
-    <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/themeColorDemoHdesignDark.png"/>
+     <img  class="color-demo-img" src="{{VITE_BASEROUTER}}./image/md/theme/bpit-dark.png"/>
     <div class="color-demo-label">bpit-dark</div>
     </div>
 </div>

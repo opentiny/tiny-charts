@@ -241,11 +241,11 @@ const NAV_DATA = [
         titleId: 'ic_equalLabel',
         value: 'EqualLabel',
       },
-      {
-        title: '自定义主题',
-        titleId: 'ic_customTheme',
-        value: 'CustomTheme',
-      },
+      // {
+      //   title: '自定义主题',
+      //   titleId: 'ic_customTheme',
+      //   value: 'CustomTheme',
+      // },
 
       {
         title: '坐标轴文本提示',
