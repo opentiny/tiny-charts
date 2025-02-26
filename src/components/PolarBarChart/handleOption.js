@@ -10,6 +10,7 @@
  *
  */
 import defendXSS from '../../util/defendXSS';
+import chartToken from './chartToken';
 // 获取bar的series数据
 export function getSeriesData(data, type) {
   const seriesData = [];
@@ -83,5 +84,18 @@ function tooltipFormatter(params) {
 export function setTooltip(baseOpt) {
   if (!baseOpt.tooltip.formatter) {
     baseOpt.tooltip.formatter = tooltipFormatter;
+  }
+}
+
+/**
+ * 配置标签层级样式
+ */
+export function setLabel(baseOpt) {
+  if (baseOpt.radiusAxis) {
+    baseOpt.radiusAxis.axisLabel.color = chartToken.labelColor;
+  }
+  if (baseOpt.angleAxis) {
+    baseOpt.radiusAxis.zlevel = 2;
+    baseOpt.radiusAxis.axisLine.show = false;
   }
 }

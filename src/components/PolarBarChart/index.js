@@ -10,7 +10,7 @@
  *
  */
 import init from '../../option/init';
-import { getSeriesData, getLabelData, setTooltip } from './handleOption';
+import { getSeriesData, getLabelData, setTooltip, setLabel } from './handleOption';
 import { setSeries } from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
@@ -45,6 +45,8 @@ export default class PolarBarChart {
             });
             // tooltip悬浮框
             setTooltip(this.baseOption);
+            // 调整label标签和图层的层级
+            setLabel(this.baseOption);
             // legend数据
             this.baseOption.legend.data = type === 'normal' ? data : [];
             // series bar数据
