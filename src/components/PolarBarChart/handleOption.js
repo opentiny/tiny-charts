@@ -92,10 +92,11 @@ export function setTooltip(baseOpt) {
  */
 export function setLabel(baseOpt) {
   if (baseOpt.radiusAxis) {
+    baseOpt.radiusAxis.z = 2;
     baseOpt.radiusAxis.axisLabel.color = chartToken.labelColor;
   }
   if (baseOpt.angleAxis) {
-    baseOpt.radiusAxis.zlevel = 2;
-    baseOpt.radiusAxis.axisLine.show = false;
+    baseOpt.angleAxis.zlevel = 2;
+    baseOpt.angleAxis.axisLine.show = false;
   }
 }
