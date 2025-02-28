@@ -39,17 +39,22 @@ export const seriesInit = () => {
 /**
  * 根据参数计算出圆盘图的半径
  */
-function setPieRadius(pieType, radius) {
+function setPieRadius(pieType, radius, chartInstance) {
   if (radius) {
-    return radius;
+    if(pieType === 'circle'){
+      return setPieCircleRadius(radius, chartInstance);
+    }else{
+      return radius;
+    }
   } else {
     let radius = [];
     switch (pieType) {
       case 'pie':
         radius = ['0%', '50%'];
         break;
-      case 'circle':
-        radius = ['44%', '50%'];
+        case 'circle':
+          radius = ['44%', '50%'];
+          radius = setPieCircleRadius(radius, chartInstance);
         break;
       case 'multi-circle':
         radius = ['44%', '50%'];
@@ -60,6 +65,22 @@ function setPieRadius(pieType, radius) {
     }
     return radius;
   }
+}
+
+/**
+ * 根据参数计算出圆盘图的圆环类型的内外半径
+ */
+function setPieCircleRadius(radius, chartInstance){
+  const width = chartInstance.getWidth();
+  const height = chartInstance.getHeight();
+  const canvasRadius = width > height ? height / 2 : width / 2;
+  const barWidth = chartToken.barWidth
+  let outerRing = radius[1];
+   if (outerRing.indexOf('%') > -1) {
+    outerRing = (Number(outerRing.slice(0, -1)) / 100) * canvasRadius;
+  }
+  let innerRing = outerRing - barWidth;
+  return [innerRing, outerRing]
 }
 
 /**
@@ -199,7 +220,7 @@ function handleSeries(pieType, iChartOption, chartInstance, position, legend) {
       }
     });
     seriesUnit.data = seriesUnit.data || iChartOption.data;
-    seriesUnit.radius = setPieRadius(pieType, seriesUnit.radius);
+    seriesUnit.radius = setPieRadius(pieType, seriesUnit.radius, chartInstance);
     seriesUnit.minAngle =
       seriesUnit.minAngle !== undefined ? seriesUnit.minAngle : minAngle(seriesUnit.radius, chartInstance);
     setLabel(seriesUnit, seriesUnit.label, seriesUnit.data);
