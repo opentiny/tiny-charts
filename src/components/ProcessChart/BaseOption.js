@@ -11,6 +11,9 @@
  */
 
 import chartToken from "./chartToken";
+import yAxisBase from '../../option/config/yAxis/base'
+import xAxisBase from '../../option/config/xAxis/base'
+import merge from "../../util/merge";
 
 // 进度图的图表类型名称
 const CHARTTYPENAME = {
@@ -167,9 +170,71 @@ function getDoubleDataNameSeries(left = true) {
   }
 }
 
-// 双向进度图的基础series
-const DOUBLEBASICOPTION = {
-  grid: [
+function getDoubleXaxis() {
+  const left = xAxisBase()
+  const extraLeft = {
+    type: 'value',
+    gridIndex: 0,
+    inverse: true,
+    axisLabel: {
+      show: false,
+    },
+    splitLine: {
+      show: true
+    },
+    max: 'dataMax',
+  }
+  merge(left, extraLeft)
+  const right = xAxisBase()
+  const extraRight = {
+    type: 'value',
+    gridIndex: 1,
+    axisLabel: {
+      show: false,
+    },
+    splitLine: {
+      show: true
+    },
+    max: 'dataMax',
+  }
+  merge(right, extraRight)
+  return [left, right]
+}
+
+
+function getDoubleYaxis() {
+  const left = yAxisBase()
+  const extraLeft = {
+    type: 'category',
+    gridIndex: 0,
+    inverse: true,
+    axisLabel: {
+      show: false,
+    },
+    splitLine: {
+      show: false,
+    },
+    axisLine: {
+      show: true,
+    },
+    position: 'right',
+    data: undefined,
+  }
+  merge(left, extraLeft)
+  const right = yAxisBase()
+  const extraRight = {
+    type: 'category',
+    gridIndex: 1,
+    show: false,
+    inverse: true,
+    data: undefined,
+  }
+  merge(right, extraRight)
+  return [left, right]
+}
+
+function getDoubleGrid() {
+  return [
     // 左边的坐标系
     {
       left: '4%',
@@ -186,76 +251,8 @@ const DOUBLEBASICOPTION = {
       bottom: 0,
       containLabel: false,
     },
-  ],
-  xAxis: [
-    // 左侧的x轴
-    {
-      show: true,
-      type: 'value',
-      gridIndex: 0,
-      inverse: true,
-      axisLabel: {
-        show: false,
-      },
-      splitLine: {
-        lineStyle: {
-          type: [8, 4],
-        },
-      },
-      max: 'dataMax',
-    },
-    // 右侧的x轴
-    {
-      show: true,
-      type: 'value',
-      gridIndex: 1,
-      splitLine: {
-        lineStyle: {
-          type: [8, 4],
-        },
-      },
-      axisLabel: {
-        show: false,
-      },
-      max: 'dataMax',
-    },
-  ],
-  yAxis: [
-    {
-      // 左侧的y轴
-      type: 'category',
-      gridIndex: 0,
-      show: true,
-      inverse: true,
-      axisLabel: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: true,
-        lineStyle: {
-          color: undefined,
-        },
-      },
-      position: 'right',
-      data: undefined,
-    },
-    {
-      // 右侧的y轴
-      type: 'category',
-      gridIndex: 1,
-      inverse: true,
-      show: false,
-      data: undefined,
-    },
-  ],
-};
-
+  ]
+}
 
 // 标线的series
 function getMarkLineSeries() {
@@ -271,12 +268,10 @@ function getMarkLineSeries() {
   }
 }
 
-
 export {
   PROCESSBARTYPE,
   CHARTTYPENAME,
   BASICUNIT,
-  DOUBLEBASICOPTION,
   BASICBARWIDTH,
   SERIES_NAME,
   getMarkLineSeries,
@@ -284,5 +279,8 @@ export {
   getBackgroundSeries,
   getDataSeries,
   getDoubleBackgroundSeries,
-  getDoubleDataNameSeries
+  getDoubleDataNameSeries,
+  getDoubleYaxis,
+  getDoubleGrid,
+  getDoubleXaxis
 }

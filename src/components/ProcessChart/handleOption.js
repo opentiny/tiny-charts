@@ -9,13 +9,11 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import { BASICUNIT, CHARTTYPENAME, DOUBLEBASICOPTION, SERIES_NAME } from './BaseOption';
+import { BASICUNIT, CHARTTYPENAME, SERIES_NAME, getDoubleYaxis, getDoubleGrid, getDoubleXaxis } from './BaseOption';
 import merge from '../../util/merge';
 import defendXSS from '../../util/defendXSS';
 import { isString, isArray } from '../../util/type';
 import { getBarColor } from './handleSeries';
-import cloneDeep from '../../util/cloneDeep';
-import chartToken from './chartToken';
 
 function handleGridWidth(baseOpt, padding, chartInstance) {
   const right = padding[1];
@@ -59,7 +57,7 @@ function handleMergeOption(target, source) {
 
 function handleGrid(baseOpt, iChartOpt, doubleSide, chartInstance) {
   if (doubleSide) {
-    baseOpt.grid = cloneDeep(DOUBLEBASICOPTION.grid);
+    baseOpt.grid = getDoubleGrid()
     handleDoubleGrid(baseOpt, iChartOpt, chartInstance);
   } else {
     baseOpt.grid[0].containLabel = false;
@@ -71,9 +69,7 @@ function handleGrid(baseOpt, iChartOpt, doubleSide, chartInstance) {
 
 function handleYaxis(baseOpt, iChartOpt, dataSet, doubleSide) {
   if (doubleSide) {
-    baseOpt.yAxis = cloneDeep(DOUBLEBASICOPTION.yAxis);
-    baseOpt.yAxis[0].show = true;
-    baseOpt.yAxis[0].axisLine.lineStyle.color = chartToken.axisLineColor;
+    baseOpt.yAxis = getDoubleYaxis()
     baseOpt.yAxis[0].data = dataSet.barName[0];
     baseOpt.yAxis[1].data = dataSet.barName[1];
   } else {
@@ -89,7 +85,7 @@ function handleYaxis(baseOpt, iChartOpt, dataSet, doubleSide) {
 
 function handleXaxis(baseOpt, doubleSide, iChartOpt) {
   if (doubleSide) {
-    baseOpt.xAxis = cloneDeep(DOUBLEBASICOPTION.xAxis);
+    baseOpt.xAxis = getDoubleXaxis()
   } else {
     baseOpt.xAxis[0].show = false;
     baseOpt.xAxis[0].type = 'value';
