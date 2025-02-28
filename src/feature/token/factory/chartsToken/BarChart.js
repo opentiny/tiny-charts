@@ -10,8 +10,17 @@
  *
  */
 function BarChart(aliasToken) {
-  const { borderWidth, barWidth, colorLabel, labelFontSize, borderRadius, colorNone } =
-    aliasToken;
+  const {
+    borderWidth,
+    barWidth,
+    colorLabel,
+    labelFontSize,
+    borderRadius,
+    colorNone,
+    colorTextName,
+    colorLabelSecondary,
+    legendCircleItemSize
+  } = aliasToken;
 
   return {
     borderWidth,
@@ -21,6 +30,10 @@ function BarChart(aliasToken) {
     labelColor: colorLabel,
     fontSize: labelFontSize,
     barWidth,
+    tipSeriesNameColor: colorTextName,
+    tipNameColor: colorLabelSecondary,
+    tipValueColor: colorLabel,
+    legendCircleItemSize,
   };
 };
 
