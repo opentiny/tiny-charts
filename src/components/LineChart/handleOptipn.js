@@ -62,8 +62,7 @@ export function discrete(iChartOption, baseOption) {
     const discreteVisualMap = []
     baseOption.series.forEach((series, seriesIndex) => {
       const newSeries = cloneDeep(series);
-      newSeries.symbol = 'circle';
-      newSeries.symbolSize = chartToken.symbolSizeSM - 4;
+      newSeries.symbolSize = chartToken.symbolSizeSM;
       newSeries.itemStyle.borderWidth = chartToken.borderZero;
       newSeries.showSymbol = true;
       newSeries.showAllSymbol = true;
@@ -94,7 +93,7 @@ export function discrete(iChartOption, baseOption) {
 }
 
 function defaultFormatter(params) {
-  const { tipSeriesNameColor, tipNameColor, tipValueColor, symbolSizeSM } = chartToken
+  const { tipSeriesNameColor, tipNameColor, tipValueColor, legendCircleItemSize } = chartToken
   let content = '';
   params.forEach((item, index) => {
     if (index === 0) {
@@ -102,13 +101,13 @@ function defaultFormatter(params) {
     }
     content += `<div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
                       <div style="display:flex;gap:8px;align-items:center;">
-                      <span style="display:inline-block;width:${symbolSizeSM}px;height:${symbolSizeSM}px;border-radius:50%;background-color:${defendXSS(item.color)};"></span>
+                      <div style="width:${legendCircleItemSize}px;height:${legendCircleItemSize}px;border-radius:50%;background-color:${defendXSS(item.color)};"></div>
                       <span style="display:inline-block;color:${tipNameColor};">${defendXSS(item.seriesName)}</span>
                       </div>
                       <span style="font-weight:bold;color:${tipValueColor};">${defendXSS(item.value)}</span>
                 </div>`;
   });
-  const htmlString = `<div style="display:flex;flex-direction:column;gap:8px;line-height:20px">${content}</div>`
+  const htmlString = `<div style="display:flex;flex-direction:column;gap:8px;">${content}</div>`
   return htmlString;
 
 }

@@ -14,7 +14,6 @@ import max from '../../util/sort/max';
 import { isNumber } from '../../util/type';
 import { getColor } from '../../util/color';
 import Theme from '../../feature/token';
-import { isDarkTheme } from './handleOptipn';
 import chartToken from './chartToken'
 
 function handleVisualMapItem({ index, topColor, top, bottom, bottomColor, vmColor, defaultColor }) {
@@ -94,20 +93,18 @@ export function setVisualMap(legendData, seriesData, iChartOpt, baseOpt) {
       // 根据数据大小映射颜色
       const visualMapItem = handleVisualMapItem({ index, topColor, top, bottom, bottomColor, vmColor, defaultColor });
       visualMap.push(visualMapItem);
-      if (isDarkTheme()) {
-        const seriesUnit = baseOpt.series[index]
-        //  阈值情景下hover的emphasis中itemstyle要在数据中单独设置，覆盖通用emphasis配置
-        transformData(
-          seriesUnit,
-          data,
-          defaultColor,
-          {
-            topColor,
-            top,
-            bottom,
-            bottomColor
-          })
-      }
+      const seriesUnit = baseOpt.series[index]
+      //  阈值情景下hover的emphasis中itemstyle要在数据中单独设置，覆盖通用emphasis配置
+      transformData(
+        seriesUnit,
+        data,
+        defaultColor,
+        {
+          topColor,
+          top,
+          bottom,
+          bottomColor
+        })
     });
   }
   return visualMap;

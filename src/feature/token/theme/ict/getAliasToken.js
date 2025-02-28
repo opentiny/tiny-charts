@@ -30,8 +30,8 @@ function getAliasToken(globalToken, light = true) {
     size05x,
     size3x,
     size2x,
+    sizeBase,
     spaceNone,
-    space8x,
     space4x,
     size6x,
     size5x,
@@ -220,9 +220,11 @@ function getAliasToken(globalToken, light = true) {
     symbolBorderWidth: border2x,
     // -------------------------------------------------------------size----------------------------------------------------------------------------------------
     // 图元
-    symbolSize: size3x,
+    symbolSize: size3x-2,
+    // 雷达图专用
+    symbolSizeSecondary: size3x - 2,
     // 图元 线形图用
-    symbolSizeSM: size2x,
+    symbolSizeSM: sizeBase,
     // 柱条的宽度
     barWidth: size2x,
     // 堆叠进度图宽度 20

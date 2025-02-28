@@ -28,13 +28,12 @@ function getAliasToken(globalToken, light = true) {
     border2x,
     borderRadiusNone,
     spaceNone,
-    space8x,
     space4x,
     size05x,
     size6x,
     size5x,
-    size3x,
     size2x,
+    sizeBase,
   } = globalToken;
 
   const {
@@ -220,9 +219,11 @@ function getAliasToken(globalToken, light = true) {
     symbolBorderWidth: border2x,
     // -------------------------------------------------------------size----------------------------------------------------------------------------------------
     // 图元 
-    symbolSize: size3x,
+    symbolSize: size2x,
+    // 雷达图专用
+    symbolSizeSecondary: size2x - 2,
     // 图元  线形图用
-    symbolSizeSM: size2x,
+    symbolSizeSM: sizeBase,
     // 柱条的宽度
     barWidth: size2x,
     // 堆叠进度图宽度 20
@@ -230,7 +231,7 @@ function getAliasToken(globalToken, light = true) {
     // 图例单元尺寸
     legendItemSize: size05x,
     // 图例圆形单元尺寸
-    legendCircleItemSize: size2x,
+    legendCircleItemSize: size2x - 2,
     // labelLine的长度
     labelLineLength: size6x,
     // ------------------------------------------------圆角---------------------------------------------------

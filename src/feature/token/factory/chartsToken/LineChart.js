@@ -21,7 +21,8 @@ function LineChart(aliasToken) {
     colorMask,
     colorTextName,
     colorLabelSecondary,
-    colorLabel
+    colorLabel,
+    legendCircleItemSize
   } = aliasToken;
 
   return {
@@ -36,6 +37,7 @@ function LineChart(aliasToken) {
     tipSeriesNameColor: colorTextName,
     tipNameColor: colorLabelSecondary,
     tipValueColor: colorLabel,
+    legendCircleItemSize
   };
 };
 

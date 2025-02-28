@@ -15,13 +15,13 @@ import { getMarkLineDefault, getMarkPointDefault, setThresholdMarkLineLabel } fr
 import chartToken from './chartToken';
 import Theme from '../../feature/token';
 import { getColor } from '../../util/color';
-import { isDarkTheme } from './handleOptipn'
+
 
 export const seriesInit = () => {
   return {
     label: { show: false },
     // 连线上的小圆点样式
-    symbol: 'emptyCircle',
+    symbol: 'circle',
     symbolSize: chartToken.symbolSize,
     showSymbol: false,
     // 数据
@@ -43,25 +43,20 @@ export const seriesInit = () => {
     markPoint: null,
     // 折线点的每个样式配置项
     itemStyle: {},
-    emphasis: {}
-  };
-};
-
-// 黑色主题的symbol hover使用emphasis去变更symbol的样式
-function setItemStyleWithDarkTheme(seriesUnit, index, colors) {
-  const color = getColor(colors, index)
-  const darkTheme = isDarkTheme()
-  if (darkTheme) {
-    seriesUnit.symbol = 'circle';
-    seriesUnit.emphasis = {
-      ...seriesUnit.emphasis,
+    emphasis: {
       itemStyle: {
-        borderColor: color,
+        borderColor: undefined,
         borderWidth: chartToken.border,
         color: chartToken.maskColor
       }
     }
-  }
+  };
+};
+
+//  hover使用emphasis去变更symbol的样式
+function setItemBorderColor(seriesUnit, index, colors) {
+  const color = getColor(colors, index)
+  seriesUnit.emphasis.itemStyle.borderColor = color
 }
 
 
@@ -190,6 +185,7 @@ function handleStack(stack, seriesUnit) {
 function handleFocus(focus, seriesUnit) {
   if (focus) {
     seriesUnit.emphasis = {
+      ...seriesUnit.emphasis,
       focus: 'series',
       blurScope: 'global',
     };
@@ -229,7 +225,7 @@ function handleSeries(params) {
     // 数据 / 数据名称
     seriesUnit.name = legend;
     seriesUnit.data = seriesData[legend];
-    setItemStyleWithDarkTheme(seriesUnit, index, colors)
+    setItemBorderColor(seriesUnit, index, colors)
     // 堆叠效果
     stack && handleStack(stack, seriesUnit);
     series.push(seriesUnit);

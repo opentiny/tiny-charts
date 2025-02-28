@@ -242,7 +242,7 @@ class GradientRadar {
     const x = point.point[0];
     const y = point.point[1];
     const fillColor = chartToken.gradientItemBorderColor;
-    const r = (chartToken.symbolSize - (2 * chartToken.lineWidth)) / 2 < 0 ? 0 : (chartToken.symbolSize - (2 * chartToken.lineWidth)) / 2;
+    const r = (chartToken.symbolSize + 1 - (2 * chartToken.lineWidth)) / 2 < 0 ? 0 : (chartToken.symbolSize + 1 - (2 * chartToken.lineWidth)) / 2;
     this.painter.fillStyle(fillColor);
     this.painter.beginPath();
     this.painter.moveTo(x, y);

@@ -139,11 +139,10 @@ function markLineArea(baseOption, iChartOption, YAxiMax) {
     isNumber(iChartOption.markLine.bottom)
   ) {
     const temp = [];
-    const darkTheme = isDarkTheme()
     baseOption.series.forEach(item => {
       const bottomColor = codeToRGB(iChartOption.markLine.bottomColor, 0.15) || codeToRGB(Theme.config.colorState.colorError, 0.15);
       // 黑色主题的时候把data中的阈值项data转换为object，此时找最小值需要转换回来
-      const seriesData = darkTheme ? getDataWidthNoObject(item.data) : item.data
+      const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
       const percent = (iChartOption.markLine.bottom - minValue) / (YAxiMax - minValue);
       if (iChartOption.markLine.bottom >= minValue) {

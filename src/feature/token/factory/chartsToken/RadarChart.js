@@ -11,21 +11,21 @@
  */
 export default function RadarChart(aliasToken) {
   const {
-    symbolSize,
     lineWidth,
     lineWidthNone,
     colorNone,
     symbolBorderWidth,
     symbolBorderWidthNone,
     colorMask,
-    symbolFillHover
+    symbolFillHover,
+    symbolSizeSecondary
   } = aliasToken;
 
   return {
     itemBorderWidth: symbolBorderWidthNone,
     emphasisItemBorderWidth: symbolBorderWidth,
     areaColor: colorNone,
-    symbolSize,
+    symbolSize:symbolSizeSecondary,
     lineWidth,
     thresholdLineWidth: lineWidthNone,
     itemBorderColor: colorNone,
