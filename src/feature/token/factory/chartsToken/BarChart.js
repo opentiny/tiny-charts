@@ -17,9 +17,12 @@ function BarChart(aliasToken) {
     labelFontSize,
     borderRadius,
     colorNone,
-    colorTextName,
+    colorSubTitle,
     colorLabelSecondary,
-    legendCircleItemSize
+    legendCircleItemSize,
+    tipItemGap,
+    tipIconGap,
+    tipValueGap,
   } = aliasToken;
 
   return {
@@ -30,10 +33,13 @@ function BarChart(aliasToken) {
     labelColor: colorLabel,
     fontSize: labelFontSize,
     barWidth,
-    tipSeriesNameColor: colorTextName,
+    tipSeriesNameColor: colorSubTitle,
     tipNameColor: colorLabelSecondary,
     tipValueColor: colorLabel,
     legendCircleItemSize,
+    tipItemGap,
+    tipIconGap,
+    tipValueGap,
   };
 };
 

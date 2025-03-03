@@ -56,21 +56,21 @@ function setAbsoluteYaxisLabel(baseOption) {
 }
 
 function setTipFormatter(params, ticket, callback) {
-  const { tipSeriesNameColor, tipNameColor, tipValueColor, legendCircleItemSize } = chartToken
+  const { tipSeriesNameColor, tipNameColor, tipValueColor, legendCircleItemSize, tipItemGap, tipIconGap, tipValueGap } = chartToken
   let content = '';
   params.forEach((item, index) => {
     if (index === 0) {
       content += `<div style="color:${tipSeriesNameColor}">${defendXSS(item.name)}</div>`;
     }
-    content += `<div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
-                      <div style="display:flex;gap:8px;align-items:center;">
+    content += `<div style="display:flex;align-items:center;justify-content:space-between;gap:${tipValueGap}px">
+                      <div style="display:flex;gap:${tipIconGap}px;align-items:center;">
                       <div style="width:${legendCircleItemSize}px;height:${legendCircleItemSize}px;border-radius:50%;background-color:${defendXSS(item.color)};"></div>
                       <span style="display:inline-block;color:${tipNameColor};">${defendXSS(item.seriesName)}</span>
                       </div>
                       <span style="font-weight:bold;color:${tipValueColor};">${defendXSS(item.value ? Math.abs(item.value) : '-')}</span>
                 </div>`;
   });
-  const htmlString = `<div style="display:flex;flex-direction:column;gap:8px;">${content}</div>`
+  const htmlString = `<div style="display:flex;flex-direction:column;gap:${tipItemGap}px;">${content}</div>`
   return htmlString;
 }
 
