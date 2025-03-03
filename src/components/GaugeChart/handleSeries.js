@@ -108,7 +108,8 @@ function handleSplitLine(iChartOption, seriesUnit) {
     seriesUnit.splitNumber = -1;
   }
   if (iChartOption.itemStyle) {
-    const { lineStyle, width } = iChartOption.itemStyle;
+    let { lineStyle, width } = iChartOption.itemStyle;
+    width = width || chartToken.barWidth;
     seriesUnit.splitLine.length = (lineStyle && lineStyle.length) || width || 10;
     seriesUnit.splitLine.distance = width ? width * -1 : -3;
   } else {
@@ -161,8 +162,8 @@ function handleDetail(seriesUnit, text, data) {
 // 设置仪表盘进度条宽度
 function handleProgress(seriesUnit, iChartOption, data) {
   const { itemStyle } = iChartOption;
-
-  seriesUnit.progress.width = itemStyle ? (itemStyle.width ? itemStyle.width : chartToken.barWidth) : chartToken.barWidth;
+  const barWidth = chartToken.barWidth;
+  seriesUnit.progress.width = itemStyle?.width ? itemStyle.width : barWidth;
   if (data && data.length !== 0 && data[0].value === 0) {
     seriesUnit.progress.roundCap = false;
   }
@@ -171,19 +172,20 @@ function handleProgress(seriesUnit, iChartOption, data) {
 // 设置仪表盘进度条宽度
 function handleAxisLine(seriesUnit, iChartOption) {
   const { itemStyle } = iChartOption;
-  seriesUnit.axisLine.lineStyle.width = itemStyle ? (itemStyle.width ? itemStyle.width : chartToken.barWidth) : chartToken.barWidth;
+  const barWidth = chartToken.barWidth;
+  seriesUnit.axisLine.lineStyle.width = itemStyle?.width ? itemStyle.width : barWidth;
 }
 
 // 轨道颜色分块
-function setSplitColor(series, splitColor) {
+function setSplitColor(series, splitColor, pointerStyle) {
   series.axisLine.lineStyle.color = splitColor;
   series.axisLine.roundCap = false;
   series.progress.show = false;
-  series.pointer.itemStyle = { color: 'auto' };
+  series.pointer.itemStyle = pointerStyle?.color ? { color: pointerStyle.color } : { color: 'auto' };
 }
 
 // 给series配置progress渐变色，并考虑纯色情况
-function setGradientColor(series, gradientColor) {
+function setGradientColor(series, gradientColor, pointerStyle) {
   const linearColor = {
     type: 'linear',
     x: 0,
@@ -206,7 +208,7 @@ function setGradientColor(series, gradientColor) {
     });
   }
   series.progress.itemStyle = { color: linearColor };
-  series.pointer.itemStyle = { color: linearColor };
+  series.pointer.itemStyle = pointerStyle?.color ? { color: pointerStyle.color } : { color: linearColor };
 }
 
 // 轨道颜色分块外环光晕效果
@@ -390,9 +392,9 @@ function setMarkLine(series, markLine, marklineColor) {
 function handleOther(iChartOption, seriesUnit, series, data) {
   const marklineColor = Theme.config.colorState.colorError
   if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
-    setSplitColor(seriesUnit, iChartOption.splitColor);
+    setSplitColor(seriesUnit, iChartOption.splitColor, iChartOption.pointerStyle);
   } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 0) {
-    setGradientColor(seriesUnit, iChartOption.gradientColor);
+    setGradientColor(seriesUnit, iChartOption.gradientColor, iChartOption.pointerStyle);
   }
   // 若有阈值线，超过阈值线时为红色
   if (iChartOption.markLine && data[0].value >= iChartOption.markLine) {

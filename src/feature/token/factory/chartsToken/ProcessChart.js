@@ -10,18 +10,42 @@
  *
  */
 function ProcessChart(aliasToken) {
-  const { colorAxisLine, colorLabel, colorPlaceholder, borderWidth, colorNone, borderRadius, textFontSize, labelFontSize, colorLabelSecondary } = aliasToken;
+  const {
+    colorLabel,
+    colorPlaceholder,
+    borderWidth,
+    colorNone,
+    borderRadius,
+    textFontSize,
+    labelFontSize,
+    colorLabelSecondary,
+    barWidth,
+    barWidthSecondary,
+    colorTextName,
+    legendCircleItemSize,
+    tipItemGap,
+    tipIconGap,
+    tipValueGap,
+  } = aliasToken;
 
   return {
     nameColor: colorLabelSecondary,
     labelColor: colorLabel,
-    axisLineColor: colorAxisLine,
     itemBgEmpty: colorPlaceholder,
     borderWidth,
     borderColor: colorNone,
     borderRadius,
     fontSize: textFontSize,
-    labelFontSize
+    labelFontSize,
+    barWidth,
+    stackBarWidth: barWidthSecondary,
+    tipSeriesNameColor: colorTextName,
+    tipNameColor: colorLabelSecondary,
+    tipValueColor: colorLabel,
+    legendCircleItemSize,
+    tipItemGap,
+    tipIconGap,
+    tipValueGap,
   };
 };
 

@@ -9,12 +9,11 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import { BASICUNIT, CHARTTYPENAME, DOUBLEBASICOPTION, SERIES_NAME } from './BaseOption';
+import { BASICUNIT, CHARTTYPENAME, SERIES_NAME, getDoubleYaxis, getDoubleGrid, getDoubleXaxis } from './BaseOption';
 import merge from '../../util/merge';
 import defendXSS from '../../util/defendXSS';
 import { isString, isArray } from '../../util/type';
 import { getBarColor } from './handleSeries';
-import cloneDeep from '../../util/cloneDeep';
 import chartToken from './chartToken';
 
 function handleGridWidth(baseOpt, padding, chartInstance) {
@@ -59,7 +58,7 @@ function handleMergeOption(target, source) {
 
 function handleGrid(baseOpt, iChartOpt, doubleSide, chartInstance) {
   if (doubleSide) {
-    baseOpt.grid = cloneDeep(DOUBLEBASICOPTION.grid);
+    baseOpt.grid = getDoubleGrid()
     handleDoubleGrid(baseOpt, iChartOpt, chartInstance);
   } else {
     baseOpt.grid[0].containLabel = false;
@@ -71,9 +70,7 @@ function handleGrid(baseOpt, iChartOpt, doubleSide, chartInstance) {
 
 function handleYaxis(baseOpt, iChartOpt, dataSet, doubleSide) {
   if (doubleSide) {
-    baseOpt.yAxis = cloneDeep(DOUBLEBASICOPTION.yAxis);
-    baseOpt.yAxis[0].show = true;
-    baseOpt.yAxis[0].axisLine.lineStyle.color = chartToken.axisLineColor;
+    baseOpt.yAxis = getDoubleYaxis()
     baseOpt.yAxis[0].data = dataSet.barName[0];
     baseOpt.yAxis[1].data = dataSet.barName[1];
   } else {
@@ -89,7 +86,7 @@ function handleYaxis(baseOpt, iChartOpt, dataSet, doubleSide) {
 
 function handleXaxis(baseOpt, doubleSide, iChartOpt) {
   if (doubleSide) {
-    baseOpt.xAxis = cloneDeep(DOUBLEBASICOPTION.xAxis);
+    baseOpt.xAxis = getDoubleXaxis()
   } else {
     baseOpt.xAxis[0].show = false;
     baseOpt.xAxis[0].type = 'value';
@@ -139,7 +136,7 @@ function handleTipFormatter(baseOpt, iChartOpt, dataSet, doubleSide) {
   const innerUnit = unit || unit === '' ? unit : BASICUNIT;
   const isItemTooltip = baseOpt.tooltip.trigger === 'item';
   const ichartTooltipFormatter = iChartOpt?.tooltip?.formatter;
-
+  const { tipNameColor, tipValueColor, legendCircleItemSize, tipIconGap, tipValueGap } = chartToken
   baseOpt.tooltip.formatter = echartsParams => {
     const params = isItemTooltip ? echartsParams : echartsParams[0];
     const name = params.name;
@@ -155,21 +152,13 @@ function handleTipFormatter(baseOpt, iChartOpt, dataSet, doubleSide) {
       return ichartTooltipFormatter(customParams);
     }
     if (name === 'null') return;
-    const htmlString = `
-                          <div>
-                              <span style="display:inline-block;width:10px;height:10px;
-                              border-radius:5px;background-color:${defendXSS(color)};">
-                              </span>
-                              <span style="margin-left:5px;">
-                                  <span style="display:inline-block;margin-right:8px;min-width:80px;">${defendXSS(
-      name,
-    )}</span> 
-                                  <span style="font-weight:bold">${validData ? '--' : defendXSS(value)}${defendXSS(
-      innerUnit,
-    )}</span>
-                              </span>
-                          </div>
-                      `;
+    const htmlString = `<div style="display:flex;align-items:center;justify-content:space-between;gap:${tipValueGap}px">
+                      <div style="display:flex;gap:${tipIconGap}px;align-items:center;">
+                      <div style="width:${legendCircleItemSize}px;height:${legendCircleItemSize}px;border-radius:50%;background-color:${defendXSS(color)};"></div>
+                      <span style="display:inline-block;color:${tipNameColor};">${defendXSS(name)}</span>
+                      </div>
+                      <span style="font-weight:bold;color:${tipValueColor};">${validData ? '--' : defendXSS(value)}${defendXSS(innerUnit)}</span>
+                </div>`;
     return htmlString;
   };
 }
@@ -181,26 +170,24 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
     baseOpt.tooltip.formatter = tipHtml;
     return;
   }
+  const { tipSeriesNameColor, tipNameColor, tipValueColor, legendCircleItemSize, tipIconGap, tipValueGap, tipItemGap } = chartToken
   baseOpt.tooltip.formatter = params => {
     const name = params[0].name
     if (name === 'null') return
-    let htmlString = `<div style="margin-bottom:4px;">${defendXSS(name)}</div>`;
+    let content = `<div style="color:${tipSeriesNameColor}">${defendXSS(name)}</div>`;
     params.forEach((param, index) => {
       if (index > 1) {
         const value = param.data._initValue || param.data.value;
-        htmlString += `<div>
-      <span style="display:inline-block;width:10px;height:10px;
-      border-radius:5px;background-color:${defendXSS(param.color)};">
-      </span>
-      <span style="margin-left:5px;">
-          <span style="display:inline-block;margin-right:8px;min-width:80px;">${defendXSS(param.seriesName)}</span>
-          <span style="font-weight:bold">${defendXSS(value) || (defendXSS(value) === 0 ? defendXSS(value) : '--')}${defendXSS(iChartOpt.unit) || ''
-          }</span>
-      </span>
-  </div>
-`;
+        content += `<div style="display:flex;align-items:center;justify-content:space-between;gap:${tipValueGap}px">
+                      <div style="display:flex;gap:${tipIconGap}px;align-items:center;">
+                      <div style="width:${legendCircleItemSize}px;height:${legendCircleItemSize}px;border-radius:50%;background-color:${defendXSS(param.color)};"></div>
+                      <span style="display:inline-block;color:${tipNameColor};">${defendXSS(param.seriesName)}</span>
+                      </div>
+                      <span style="font-weight:bold;color:${tipValueColor};">${defendXSS(value) || (defendXSS(value) === 0 ? defendXSS(value) : '--')}${defendXSS(iChartOpt.unit) || ''}</span>
+                </div>`;
       }
     });
+    const htmlString = `<div style="display:flex;flex-direction:column;gap:${tipItemGap}px;">${content}</div>`
     return htmlString;
   };
 }

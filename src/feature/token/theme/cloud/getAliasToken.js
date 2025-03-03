@@ -31,7 +31,6 @@ function getAliasToken(globalToken, light = true) {
     space4x,
     size05x,
     size6x,
-    size5x,
     size2x,
     sizeBase,
   } = globalToken;
@@ -204,6 +203,9 @@ function getAliasToken(globalToken, light = true) {
     paddingSM: spaceBase,
     padding: space2x,
     paddingLG: space4x,
+    tipItemGap:size2x,
+    tipIconGap:sizeBase,
+    tipValueGap:size2x,
     // -----------------------------------------------------------------边框------------------------------------------------------------------------------
     // zoom数据区域边框
     zoomDataAreaBorderWidth: borderBase,
@@ -226,8 +228,8 @@ function getAliasToken(globalToken, light = true) {
     symbolSizeSM: sizeBase,
     // 柱条的宽度
     barWidth: size2x,
-    // 堆叠进度图宽度 20
-    barWidthLG: size5x,
+    // 堆叠进度图宽度 
+    barWidthSecondary: size2x,
     // 图例单元尺寸
     legendItemSize: size05x,
     // 图例圆形单元尺寸

@@ -19,7 +19,8 @@ function PieChart(aliasToken) {
     colorLabelLine,
     borderRadiusNone,
     colorPlaceholder,
-    colorLabelSecondary
+    colorLabelSecondary,
+    barWidth
   } = aliasToken;
 
   return {
@@ -41,6 +42,7 @@ function PieChart(aliasToken) {
     labelLineLength,
     // 标签引导线颜色
     labelLineColor: colorLabelLine,
+    barWidth
   };
 };
 
