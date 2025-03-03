@@ -25,31 +25,37 @@ const PROCESSBARTYPE = 'double-sides';
 // 基础进度图的默认单位
 const BASICUNIT = '%'
 
-const BASICBARWIDTH = {
-  ProcessBarChart: 8,
-  StackProcessBarChart: 16,
-}
-
 const SERIES_NAME = {
   markLine: 'markLine',
   background: 'background',
   seriesName: 'seriesName'
 }
 
+function getBarWidth(stack) {
+  return stack ? chartToken.stackBarWidth : chartToken.barWidth
+}
+
+// 文本与柱子居中对齐，文本与柱子的间距8（行高一半4+间距4）
+function getOffsetY() {
+  return chartToken.fontSize + 8
+}
+
 // 进度图数据名称的series
-function getDataNameSeries() {
+function getDataNameSeries(stack = false) {
+  const barWidth = getBarWidth(stack)
+  const offset = getOffsetY()
   return {
     // 用来做前面的文本显示
     name: SERIES_NAME.seriesName,
     type: 'bar',
-    barWidth: 8,
+    barWidth,
     barGap: '-100%',
     // 这条series不响应鼠标事件
     silent: true,
     label: {
       show: true,
       color: chartToken.nameColor,
-      position: [0, -20],
+      position: [0, -offset],
       fontSize: chartToken.fontSize,
       formatter(params) {
         return params.name === 'null' || params.name === 'undefined' ? '' : params.name;
@@ -59,12 +65,14 @@ function getDataNameSeries() {
   }
 }
 // 进度图背景柱子的series
-function getBackgroundSeries() {
+function getBackgroundSeries(stack = false) {
+  const barWidth = getBarWidth(stack)
+  const offset = getOffsetY()
   return {
     // 底色 +右侧label文本显示
     name: SERIES_NAME.background,
     type: 'bar',
-    barWidth: 8,
+    barWidth,
     barGap: '-100%',
     itemStyle: {
       color: chartToken.itemBgEmpty,
@@ -75,9 +83,10 @@ function getBackgroundSeries() {
       disabled: true,
     },
     label: {
+      distance: 0,
       show: true,
       color: chartToken.labelColor,
-      offset: [0, -24],
+      offset: [0, -offset],
       position: 'insideTopRight',
       fontSize: chartToken.fontSize,
       formatter: undefined,
@@ -87,12 +96,13 @@ function getBackgroundSeries() {
 }
 
 // 用于显示基础进度图的实际数据的series
-function getDataSeries() {
+function getDataSeries(stack = false) {
+  const barWidth = getBarWidth(stack)
   return {
     name: 'data',
     type: 'bar',
     zlevel: 2,
-    barWidth: 8,
+    barWidth,
     cursor: 'pointer',
     itemStyle: {
       borderRadius: chartToken.borderRadius,
@@ -100,6 +110,7 @@ function getDataSeries() {
     },
     data: undefined,
     label: {
+      distance: 0,
       show: false,
       fontSize: chartToken.labelFontSize,
       color: chartToken.labelColor,
@@ -115,7 +126,7 @@ function getDoubleBackgroundSeries(left = true) {
     type: 'bar',
     xAxisIndex: left ? 0 : 1,
     yAxisIndex: left ? 0 : 1,
-    barWidth: 8,
+    barWidth: chartToken.barWidth,
     barGap: '-100%',
     itemStyle: {
       color: chartToken.itemBgEmpty,
@@ -155,7 +166,7 @@ function getDoubleDataNameSeries(left = true) {
     yAxisIndex: left ? 0 : 1,
     type: 'bar',
     zlevel: 2,
-    barWidth: 8,
+    barWidth: chartToken.barWidth,
     itemStyle: {
       borderRadius: left ? [chartToken.borderRadius, 0, 0, chartToken.borderRadius] : [0, chartToken.borderRadius, chartToken.borderRadius, 0],
       color: undefined,
@@ -261,7 +272,7 @@ function getMarkLineSeries() {
     symbol: 'roundRect',
     name: SERIES_NAME.markLine,
     silent: true,
-    symbolSize: [2, 4],
+    symbolSize: [2, chartToken.barWidth / 2],
     zlevel: 999,
     data: undefined,
     color: undefined,
@@ -272,7 +283,6 @@ export {
   PROCESSBARTYPE,
   CHARTTYPENAME,
   BASICUNIT,
-  BASICBARWIDTH,
   SERIES_NAME,
   getMarkLineSeries,
   getDataNameSeries,

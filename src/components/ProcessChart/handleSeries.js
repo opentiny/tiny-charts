@@ -12,7 +12,6 @@
 import {
   CHARTTYPENAME,
   BASICUNIT,
-  BASICBARWIDTH,
   getDataNameSeries,
   getBackgroundSeries,
   getDataSeries,
@@ -191,11 +190,11 @@ function setText(bgSeries, dataSet, iChartOpt, stack) {
 // 设置占位用的数据名称和背景series
 function setPlaceholderSeries(series, dataSet, iChartOpt, stack) {
   const dataNumber = stack ? dataSet.seriesName.length : dataSet.barData.length
-  const nameSeries = getDataNameSeries()
+  const nameSeries = getDataNameSeries(stack)
   nameSeries.data = createPlaceholderArray(dataNumber, 0)
   // 标题文本显示省略
   if (iChartOpt.title) merge(nameSeries.label, iChartOpt.title);
-  const bgSeries = getBackgroundSeries()
+  const bgSeries = getBackgroundSeries(stack)
   bgSeries.data = createPlaceholderArray(dataNumber, dataSet.maxValue)
   bgSeries.label.formatter = params => setBgLabelFormatter(params, dataSet, iChartOpt, stack)
   setText(bgSeries, dataSet, iChartOpt, stack)
@@ -208,7 +207,7 @@ function setDataSeries(series, dataSet, iChartOpt, stack) {
     // 处理堆叠情况下图表的两端圆角情况,在数据项中加入圆角的配置
     setStackBordRadius(dataSet);
     dataSet.barData.forEach((item, index) => {
-      const unitSeries = getDataSeries()
+      const unitSeries = getDataSeries(stack)
       unitSeries.data = item;
       unitSeries.itemStyle.borderRadius = undefined;
       unitSeries.itemStyle.borderWidth = chartToken.borderWidth;
@@ -313,13 +312,17 @@ function getMaxValLength(dataSet, iChartOpt, index) {
 
 
 function setBarWidth(baseOpt, iChartOpt) {
-  const { name } = iChartOpt;
-  const barWidth = iChartOpt.barWidth || BASICBARWIDTH[name];
-  baseOpt.series.forEach(serie => {
-    if (serie.name !== SERIES_NAME.markLine) {
-      serie.barWidth = barWidth;
-    }
-  });
+  const { barWidth } = iChartOpt;
+  if (barWidth) {
+    baseOpt.series.forEach(serie => {
+      if (serie.name === SERIES_NAME.markLine) {
+        serie.symbolSize = [2, barWidth / 2]
+      } else {
+        serie.barWidth = barWidth;
+      }
+    });
+  }
+
 }
 
 function setDoublePlaceholderSeries(series, dataSet, iChartOpt, left, index) {
