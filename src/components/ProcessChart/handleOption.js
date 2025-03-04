@@ -11,10 +11,9 @@
  */
 import { BASICUNIT, CHARTTYPENAME, SERIES_NAME, getDoubleYaxis, getDoubleGrid, getDoubleXaxis } from './BaseOption';
 import merge from '../../util/merge';
-import defendXSS from '../../util/defendXSS';
 import { isString, isArray } from '../../util/type';
 import { getBarColor } from './handleSeries';
-import chartToken from './chartToken';
+import getTooltipContentHtmlStr, { getDataHtmlStr } from '../../option/config/tooltip/formatter'
 
 function handleGridWidth(baseOpt, padding, chartInstance) {
   const right = padding[1];
@@ -136,30 +135,29 @@ function handleTipFormatter(baseOpt, iChartOpt, dataSet, doubleSide) {
   const innerUnit = unit || unit === '' ? unit : BASICUNIT;
   const isItemTooltip = baseOpt.tooltip.trigger === 'item';
   const ichartTooltipFormatter = iChartOpt?.tooltip?.formatter;
-  const { tipNameColor, tipValueColor, legendCircleItemSize, tipIconGap, tipValueGap } = chartToken
   baseOpt.tooltip.formatter = echartsParams => {
     const params = isItemTooltip ? echartsParams : echartsParams[0];
     const name = params.name;
     const seriesName = params.seriesName;
     const value = getTipValue(params, dataSet, doubleSide);
+    const index = doubleSide ? Math.floor(params.seriesIndex / 2) : params.dataIndex
     const color =
       seriesName === SERIES_NAME.background
-        ? getBarColor(value, iChartOpt, params.dataIndex)
+        ? getBarColor(value, iChartOpt, index)
         : params.color;
-    const validData = value === null || value === undefined;
     if (ichartTooltipFormatter) {
       const customParams = { ...params, value, color, data: value, unit: innerUnit };
       return ichartTooltipFormatter(customParams);
     }
     if (name === 'null') return;
-    const htmlString = `<div style="display:flex;align-items:center;justify-content:space-between;gap:${tipValueGap}px">
-                      <div style="display:flex;gap:${tipIconGap}px;align-items:center;">
-                      <div style="width:${legendCircleItemSize}px;height:${legendCircleItemSize}px;border-radius:50%;background-color:${defendXSS(color)};"></div>
-                      <span style="display:inline-block;color:${tipNameColor};">${defendXSS(name)}</span>
-                      </div>
-                      <span style="font-weight:bold;color:${tipValueColor};">${validData ? '--' : defendXSS(value)}${defendXSS(innerUnit)}</span>
-                </div>`;
-    return htmlString;
+
+    const config = {
+      name,
+      value,
+      iconColor: color,
+      unit: innerUnit
+    }
+    return getDataHtmlStr(config)
   };
 }
 
@@ -170,25 +168,26 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
     baseOpt.tooltip.formatter = tipHtml;
     return;
   }
-  const { tipSeriesNameColor, tipNameColor, tipValueColor, legendCircleItemSize, tipIconGap, tipValueGap, tipItemGap } = chartToken
   baseOpt.tooltip.formatter = params => {
     const name = params[0].name
     if (name === 'null') return
-    let content = `<div style="color:${tipSeriesNameColor}">${defendXSS(name)}</div>`;
+    const config = {
+      title: name,
+      children: []
+    }
     params.forEach((param, index) => {
       if (index > 1) {
         const value = param.data._initValue || param.data.value;
-        content += `<div style="display:flex;align-items:center;justify-content:space-between;gap:${tipValueGap}px">
-                      <div style="display:flex;gap:${tipIconGap}px;align-items:center;">
-                      <div style="width:${legendCircleItemSize}px;height:${legendCircleItemSize}px;border-radius:50%;background-color:${defendXSS(param.color)};"></div>
-                      <span style="display:inline-block;color:${tipNameColor};">${defendXSS(param.seriesName)}</span>
-                      </div>
-                      <span style="font-weight:bold;color:${tipValueColor};">${defendXSS(value) || (defendXSS(value) === 0 ? defendXSS(value) : '--')}${defendXSS(iChartOpt.unit) || ''}</span>
-                </div>`;
+        const dataItem = {
+          name: param.seriesName,
+          value,
+          iconColor: param.color,
+          unit: iChartOpt.unit
+        }
+        config.children.push(dataItem)
       }
     });
-    const htmlString = `<div style="display:flex;flex-direction:column;gap:${tipItemGap}px;">${content}</div>`
-    return htmlString;
+    return getTooltipContentHtmlStr(config)
   };
 }
 

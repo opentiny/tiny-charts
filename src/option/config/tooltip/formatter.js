@@ -7,7 +7,7 @@ function validateName(name) {
 
 // 暂时不校验''
 function formatValue(value) {
-    if (value === null || value === undefined) {
+    if (value === null || value === undefined || value === '') {
         return '--'
     }
     return value
