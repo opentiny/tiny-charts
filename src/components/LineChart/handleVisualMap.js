@@ -128,7 +128,8 @@ function transformData(seriesUnit, data, defaultColor, markLineConfig) {
       emphasis: {
         itemStyle: {
           borderColor,
-          color: chartToken.maskColor
+          color: chartToken.maskColor,
+          opacity: 1
         }
       }
     }

@@ -67,6 +67,7 @@ function getBaseOption() {
     itemHeight: Theme.config.legendCircleItemHeight,
     itemStyle: {
       borderWidth: Theme.config.legendItemBorderWidth,
+      opacity:1,
     },
     ...getUnitAnimationConfig()
   };

@@ -10,9 +10,9 @@
  *
  */
 import cloneDeep from '../../util/cloneDeep';
-import defendXSS from '../../util/defendXSS';
 import chartToken from './chartToken';
 import { judgeFilterAreaSeries } from './AreaChart/bottomArea';
+import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter'
 
 // 给图例和x轴赋值
 export function handleData(baseOpt, legendData, xAxisData) {
@@ -92,23 +92,22 @@ export function discrete(iChartOption, baseOption) {
 }
 
 function defaultFormatter(params) {
-  const { tipSeriesNameColor, tipNameColor, tipValueColor, legendCircleItemSize } = chartToken
-  let content = '';
+  const config = {
+    title: '',
+    children: []
+  }
   params.forEach((item, index) => {
     if (index === 0) {
-      content += `<div style="color:${tipSeriesNameColor}">${defendXSS(item.name)}</div>`;
+      config.title = item.name
     }
-    content += `<div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
-                      <div style="display:flex;gap:8px;align-items:center;">
-                      <div style="width:${legendCircleItemSize}px;height:${legendCircleItemSize}px;border-radius:50%;background-color:${defendXSS(item.color)};"></div>
-                      <span style="display:inline-block;color:${tipNameColor};">${defendXSS(item.seriesName)}</span>
-                      </div>
-                      <span style="font-weight:bold;color:${tipValueColor};">${defendXSS(item.value)}</span>
-                </div>`;
+    const dataItem = {
+      name: item.seriesName,
+      value: item.value,
+      iconColor: item.color,
+    }
+    config.children.push(dataItem)
   });
-  const htmlString = `<div style="display:flex;flex-direction:column;gap:8px;">${content}</div>`
-  return htmlString;
-
+  return getTooltipContentHtmlStr(config)
 }
 
 export function setTooltip(baseOpt, iChartOpt, legendData) {
