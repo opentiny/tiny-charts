@@ -15,6 +15,7 @@ import { isNumber } from '../../../util/type';
 import { getColor, codeToRGB } from '../../../util/color';
 import chartToken from './chartToken';
 import Theme from '../../../feature/token';
+import {getDataWidthNoObject} from './bottomArea'
 
 function markLineArea(baseOption, iChartOption, YAxiMin) {
   if (
@@ -28,7 +29,9 @@ function markLineArea(baseOption, iChartOption, YAxiMin) {
     const markLine = iChartOption.markLine;
     const topColor = codeToRGB(markLine.topColor, 0.15) || codeToRGB(Theme.config.colorState.colorError, 0.15);
     baseOption.series.forEach((item, index) => {
-      const maxValue = max(item.data);
+      // data中的阈值项data转换为object，此时找最小值需要转换回来
+      const seriesData = getDataWidthNoObject(item.data)
+      const maxValue = max(seriesData);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0);
       const colorFrom = codeToRGB(color, 0.15);
@@ -95,7 +98,9 @@ function splitArea(baseOption, iChartOption, YAxiMin) {
     const colors = baseOption.color;
     const splitLine = iChartOption.splitLine;
     baseOption.series.forEach((item, index) => {
-      const maxValue = max(item.data);
+      // data中的阈值项data转换为object，此时找最小值需要转换回来
+      const seriesData = getDataWidthNoObject(item.data)
+      const maxValue = max(seriesData);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0.15);
       const colorFrom = codeToRGB(color, 0.15);
