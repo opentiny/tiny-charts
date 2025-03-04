@@ -10,13 +10,13 @@
  *
  */
 import merge from '../../util/merge';
-import defendXSS from '../../util/defendXSS';
 import { getColor } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
 import { isArray, isNumber } from '../../util/type';
 import { getMarkLineDefault } from '../../option/config/mark';
 import chartToken from './chartToken';
 import Theme from '../../feature/token';
+import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter'
 
 function handleYaxis(barSeries, yAxis) {
   if (Array.isArray(yAxis)) {
@@ -264,7 +264,7 @@ export function setSeries(seriesData, legendData, iChartOption) {
   const seriesInit_ = handleItemStyle(direction, iChartOption.itemStyle);
   // 拼装series
   const series = [];
-  
+
   legendData.forEach((legend, index) => {
     const seriesUnit = cloneDeep(seriesInit_);
     // 数值显示
@@ -273,23 +273,23 @@ export function setSeries(seriesData, legendData, iChartOption) {
     handleFocus(seriesUnit, iChartOption);
     // 数据 / 数据名称
     seriesUnit.name = legend;
-    
 
-    if (iChartOption.itemStyle && iChartOption.itemStyle.barMinHeight ) {
+
+    if (iChartOption.itemStyle && iChartOption.itemStyle.barMinHeight) {
       const barMinHeight = iChartOption.itemStyle.barMinHeight;
       seriesUnit.data = seriesData[legend];
       // 如果有%根据数据最大值来计算最小高度，是数值则按echarts原生属性控制
-      if(barMinHeight.toString().indexOf('%') !== -1){
+      if (barMinHeight.toString().indexOf('%') !== -1) {
         let itemMaxData = []
         legendData.forEach((legend) => {
-          itemMaxData.push(Math.max.apply(null,seriesData[legend]))
+          itemMaxData.push(Math.max.apply(null, seriesData[legend]))
         })
-        const MaxData = Math.max.apply(null,itemMaxData)
-       
-        let minNum = MaxData*percentToDecimal(barMinHeight);
+        const MaxData = Math.max.apply(null, itemMaxData)
+
+        let minNum = MaxData * percentToDecimal(barMinHeight);
         for (let i = 0; i < seriesUnit.data.length; i++) {
-          if(!seriesUnit.data[i] == 0) {
-            seriesUnit.data[i]  = seriesUnit.data[i]  < minNum ? minNum : seriesUnit.data[i];
+          if (!seriesUnit.data[i] == 0) {
+            seriesUnit.data[i] = seriesUnit.data[i] < minNum ? minNum : seriesUnit.data[i];
           }
         }
       } else {
@@ -300,7 +300,7 @@ export function setSeries(seriesData, legendData, iChartOption) {
       }
     } else {
       seriesUnit.data = seriesData[legend];
-    } 
+    }
     // 阈值线
     handleMarkLine(seriesUnit, iChartOption, direction);
     // 堆叠图
@@ -641,9 +641,9 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
       return exclude.indexOf(item.seriesName) === -1;
     });
     // 如果设置了最小高度高度，并按%计算，将newParams值重新校正
-    if(barMinHeight && barMinHeight.toString().indexOf('%') !== -1) {
+    if (barMinHeight && barMinHeight.toString().indexOf('%') !== -1) {
       newParams.forEach((item) => {
-        if(iChartOption.data && iChartOption.data[item.dataIndex] && isNumber(iChartOption.data[item.dataIndex][item.seriesName])){
+        if (iChartOption.data && iChartOption.data[item.dataIndex] && isNumber(iChartOption.data[item.dataIndex][item.seriesName])) {
           item.data = item.value = iChartOption.data[item.dataIndex][item.seriesName]
         }
       })
@@ -651,34 +651,26 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
     if (toolTipFormatter) {
       return toolTipFormatter(newParams, ticket, callback);
     }
-    let htmlString = '';
+    const config = {
+      title: '',
+      children: []
+    }
     newParams.forEach((item, index) => {
       if (index === 0) {
-        htmlString += `<div style="margin-bottom:4px;">${defendXSS(item.name)}</div>`;
+        config.title = item.name
       }
       const itemColor = typeof item.color === 'string' ? item.color : getColor(colors, index);
-      htmlString += `
-                    <div>
-                        <span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:${defendXSS(
-        itemColor,
-      )};">
-                        </span>
-                        <span style="margin-left:5px;">
-                            <span style="display:inline-block;margin-right:8px;min-width:60px;">${defendXSS(
-        item.seriesName,
-      )}</span>
-                            <span style="font-weight:bold">
-                              ${defendXSS(
-        type === 'range' ?
+      const dataVal = type === 'range' ?
         `${`${`[${params[index * 2].value}`}-${params[index * 2].value + item.value}`}]`
-        : (item.value || seriesData[item.seriesName][item.dataIndex]),
-      )}
-                            </span>
-                        </span>
-                    </div>
-                `;
+        : (item.value || seriesData[item.seriesName][item.dataIndex])
+      const dataItem = {
+        name: item.seriesName,
+        value: dataVal,
+        iconColor: itemColor
+      }
+      config.children.push(dataItem)
     });
-    return htmlString;
+    return getTooltipContentHtmlStr(config);
   };
 }
 
