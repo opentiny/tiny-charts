@@ -9,8 +9,9 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import defendXSS from '../../util/defendXSS';
 import chartToken from './chartToken';
+import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter'
+import { isNumber } from '../../util/type';
 
 /**
  * 给堆叠图的柱子中间加上空白缝隙, 处理柱子圆角的递进关系
@@ -55,25 +56,24 @@ function setAbsoluteYaxisLabel(baseOption) {
   });
 }
 
-function setTipFormatter(params, ticket, callback) {
-  let html = '';
+function setTipFormatter(params) {
+  const config = {
+    title: '',
+    children: []
+  }
   params.forEach((item, index) => {
     if (index === 0) {
-      html += `<div style="margin-bottom:4px;">${defendXSS(item.name)}</div>`;
+      config.title = item.name
     }
-    html += `<div>
-                <span style="display:inline-block;width:10px;height:10px;border-radius:5px;background-color:${defendXSS(
-      item.color,
-    )};"></span>
-                <span style="margin-left:5px;color:#000000">
-                    <span style="display:inline-block; margin-right:8px;min-width:48px;">${defendXSS(
-      item.seriesName,
-    )}</span> 
-                    <span style="font-weight:bold">${defendXSS(item.value ? Math.abs(item.value) : '-')}</span>
-                </span>
-            </div>`;
+    const value = isNumber(item.value) ? Math.abs(item.value) : item.value
+    const dataItem = {
+      name: item.seriesName,
+      value,
+      iconColor: item.color
+    }
+    config.children.push(dataItem)
   });
-  return html;
+  return getTooltipContentHtmlStr(config);
 }
 
 /**
