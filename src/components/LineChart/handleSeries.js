@@ -42,12 +42,16 @@ export const seriesInit = () => {
     // 峰值标志
     markPoint: null,
     // 折线点的每个样式配置项
-    itemStyle: {},
+    itemStyle: {
+      //避免hover时偶现实心symbol的情况
+      opacity: 0
+    },
     emphasis: {
       itemStyle: {
         borderColor: undefined,
         borderWidth: chartToken.border,
-        color: chartToken.maskColor
+        color: chartToken.maskColor,
+        opacity: 1
       }
     }
   };
