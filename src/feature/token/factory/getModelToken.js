@@ -73,7 +73,11 @@ function getModelToken(aliasToken) {
     colorZoomSelectDataAreaBorder,
     shadowOffsetYHandle,
     shadowBlurHandle,
-    zoomDataAreaBorderWidth
+    zoomDataAreaBorderWidth,
+    tipItemGap,
+    tipIconGap,
+    tipValueGap,
+    colorLabelSecondary
   } = aliasToken;
 
   return {
@@ -295,7 +299,18 @@ function getModelToken(aliasToken) {
     tooltipBorderWidth: borderWidthNone,
     // tip的padding
     tooltipPadding: paddingLG,
-
+    // 默认tip的子项间距
+    tooltipItemGap: tipItemGap,
+    // 默认tip的icon间距
+    tooltipIconGap: tipIconGap,
+    // 默认ip的icon间距
+    tooltipValueGap: tipValueGap,
+    // 标题颜色
+    tooltipTitleColor: colorSubTitle,
+    // 数据项颜色
+    tooltipDataNameColor: colorLabelSecondary,
+    // 数据value颜色
+    tooltipValueColor: colorLabel,
     /** -----visualMap------ */
     // 文本颜色
     visualMapTextColor: colorLabel,
