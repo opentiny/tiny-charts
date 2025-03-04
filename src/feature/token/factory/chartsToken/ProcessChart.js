@@ -21,11 +21,6 @@ function ProcessChart(aliasToken) {
     colorLabelSecondary,
     barWidth,
     barWidthSecondary,
-    colorTextName,
-    legendCircleItemSize,
-    tipItemGap,
-    tipIconGap,
-    tipValueGap,
   } = aliasToken;
 
   return {
@@ -39,13 +34,6 @@ function ProcessChart(aliasToken) {
     labelFontSize,
     barWidth,
     stackBarWidth: barWidthSecondary,
-    tipSeriesNameColor: colorTextName,
-    tipNameColor: colorLabelSecondary,
-    tipValueColor: colorLabel,
-    legendCircleItemSize,
-    tipItemGap,
-    tipIconGap,
-    tipValueGap,
   };
 };
 
