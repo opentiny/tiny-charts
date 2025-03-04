@@ -11,6 +11,7 @@
  */
 import chartToken from './chartToken';
 import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter'
+import { isNumber } from '../../util/type';
 
 /**
  * 给堆叠图的柱子中间加上空白缝隙, 处理柱子圆角的递进关系
@@ -64,9 +65,10 @@ function setTipFormatter(params) {
     if (index === 0) {
       config.title = item.name
     }
+    const value = isNumber(item.value) ? Math.abs(item.value) : item.value
     const dataItem = {
       name: item.seriesName,
-      value: item.value ? Math.abs(item.value) : '-',
+      value,
       iconColor: item.color
     }
     config.children.push(dataItem)
