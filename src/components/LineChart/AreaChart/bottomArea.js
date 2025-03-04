@@ -14,7 +14,6 @@ import { isNumber, isObject } from '../../../util/type';
 import { getColor, codeToRGB } from '../../../util/color';
 import chartToken from './chartToken';
 import Theme from '../../../feature/token';
-import { isDarkTheme } from '../handleOptipn';
 
 // 创建一个渐变色-同名的Series，用来显示分割渐变区域
 function gradientBottomArea(item, percent, colorTo, colorFrom) {
@@ -68,7 +67,9 @@ function splitArea(baseOption, iChartOption, YAxiMax) {
     const temp = [];
     const colors = baseOption.color;
     baseOption.series.forEach((item, index) => {
-      const minValue = min(item.data);
+      // data中的阈值项data转换为object，此时找最小值需要转换回来
+      const seriesData = getDataWidthNoObject(item.data)
+      const minValue = min(seriesData);
       const percent = (iChartOption.splitLine - minValue) / (YAxiMax - minValue);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0.15);
@@ -141,7 +142,7 @@ function markLineArea(baseOption, iChartOption, YAxiMax) {
     const temp = [];
     baseOption.series.forEach(item => {
       const bottomColor = codeToRGB(iChartOption.markLine.bottomColor, 0.15) || codeToRGB(Theme.config.colorState.colorError, 0.15);
-      // 黑色主题的时候把data中的阈值项data转换为object，此时找最小值需要转换回来
+      // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
       const percent = (iChartOption.markLine.bottom - minValue) / (YAxiMax - minValue);
@@ -173,4 +174,4 @@ function bottomArea(baseOption, iChartOption, YAxiMax) {
 
 
 export default bottomArea;
-export { judgeFilterAreaSeries }
+export { judgeFilterAreaSeries,getDataWidthNoObject }

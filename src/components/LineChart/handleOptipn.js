@@ -12,7 +12,6 @@
 import cloneDeep from '../../util/cloneDeep';
 import defendXSS from '../../util/defendXSS';
 import chartToken from './chartToken';
-import Theme from '../../feature/token';
 import { judgeFilterAreaSeries } from './AreaChart/bottomArea';
 
 // 给图例和x轴赋值
@@ -111,14 +110,6 @@ function defaultFormatter(params) {
   return htmlString;
 
 }
-
-
-
-export function isDarkTheme() {
-  const theme = Theme.themeName
-  return theme.includes('dark')
-}
-
 
 export function setTooltip(baseOpt, iChartOpt, legendData) {
   const { discrete, predict, tipHtml, tooltip } = iChartOpt
