@@ -65,15 +65,15 @@ export function getLabelData(data) {
 }
 
 function tooltipFormatter(params) {
+  const { tipNameColor, tipValueColor } = chartToken;
   const seriesName = params.name;
   const color = params.color;
   const value = params.value;
   const htmlString = `<div>
-                            <span style="display:inline-block;width:10px;height:10px;
-                            margin-right:8px;border-radius:5px;border-style: solid;border-width:1px;
-                            border-color:${defendXSS(color)};background-color:${defendXSS(color)};"></span>
-                            <span style="margin-right:16px">${defendXSS(seriesName)}</span>
-                            <span>${defendXSS(value)}</span>
+                            <span style="display:inline-block;width:8px;height:8px;
+                            margin-right:4px;border-radius:4px;background-color:${defendXSS(color)};"></span>
+                            <span style="margin-right:16px;color:${tipNameColor};">${defendXSS(seriesName)}</span>
+                            <span style="color:${tipValueColor};">${defendXSS(value)}</span>
                        </div>`;
   return htmlString;
 }

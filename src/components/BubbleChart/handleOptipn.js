@@ -9,40 +9,42 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
+import chartToken from './chartToken';
 import { changeRgbaOpacity } from '../../util/color';
 import defendXSS from '../../util/defendXSS';
 function tooltipFormatter(params) {
+  const { tipSeriesNameColor, tipNameColor, tipValueColor } = chartToken;
   const seriesName = params.seriesName;
   const color = params.color;
   const data = params.data;
   const [x, y, radius, name] = data;
-  let htmlString = `<div style="margin-bottom:4px;">
+  let htmlString = `<div style="margin-bottom:4px;color:${tipSeriesNameColor};">
                                 ${defendXSS(seriesName)}
                          </div>`;
   htmlString += `<div style="margin-bottom:4px;">
-                            <span style="display:inline-block;width:10px;height:10px;
-                            margin-right:8px;border-radius:5px;border-style: solid;border-width:1px;
+                            <span style="display:inline-block;width:8px;height:8px;
+                            margin-right:8px;border-radius:4px;border-style: solid;border-width:1px;
                             border-color:${defendXSS(changeRgbaOpacity(color, 1))};background-color:${defendXSS(
     color,
   )};"></span>
-                            <span>${defendXSS(name)}</span>
+                            <span style="color:${tipValueColor};>${defendXSS(name)}</span>
                        </div>`;
   htmlString += `
             <div>
-                <span style="display:inline-block;margin-right:8px;min-width:60px;">x维度</span> 
-                <span>${defendXSS(x)}</span>
+                <span style="display:inline-block;margin-right:8px;min-width:60px;color:${tipNameColor};">x维度</span> 
+                <span style="color:${tipValueColor};>${defendXSS(x)}</span>
             </div>
         `;
   htmlString += `
             <div>
-                <span style="display:inline-block;margin-right:8px;min-width:60px;">y维度</span> 
-                <span>${defendXSS(y)}</span>
+                <span style="display:inline-block;margin-right:8px;min-width:60px;color:${tipNameColor};">y维度</span> 
+                <span style="color:${tipValueColor};>${defendXSS(y)}</span>
             </div>
         `;
   htmlString += `
             <div>
-                <span style="display:inline-block;margin-right:8px;min-width:60px;">半径维度</span> 
-                <span>${defendXSS(radius)}</span>
+                <span style="display:inline-block;margin-right:8px;min-width:60px;color:${tipNameColor};">半径维度</span> 
+                <span style="color:${tipValueColor};>${defendXSS(radius)}</span>
             </div>
         `;
   return htmlString;

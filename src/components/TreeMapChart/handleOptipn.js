@@ -9,6 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
+import chartToken from './chartToken';
 import grid from '../../option/config/grid';
 import tooltip from '../../option/config/tooltip';
 import defendXSS from '../../util/defendXSS';
@@ -18,15 +19,16 @@ import { CHART_TYPE } from '../../util/constants';
  * Tips提示框回调函数
  */
 function toolTipFormatter(params) {
+  const { tipSeriesNameColor, tipNameColor, tipValueColor } = chartToken;
   const data = params.data;
   const { value, name } = data;
-  let htmlString = `<div style="margin-bottom:4px;">
+  let htmlString = `<div style="margin-bottom:4px;color:${tipSeriesNameColor};">
   树节点${name || ''}
                             </div>`;
   htmlString += `
                             <div>
-                                <span style="display:inline-block;margin-right:8px;min-width:60px;">value:</span>
-                                <span>${defendXSS(value)}</span>
+                                <span style="display:inline-block;margin-right:8px;min-width:60px;color:${tipNameColor};">value:</span>
+                                <span style="color:${tipValueColor};">${defendXSS(value)}</span>
                             </div>`;
   return htmlString;
 }
