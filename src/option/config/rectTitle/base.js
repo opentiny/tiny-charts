@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 
 // 直角坐标系中的title用于y轴名称
 function getBaseOption() {
@@ -17,8 +17,8 @@ function getBaseOption() {
     text: '',
     textStyle: {
       fontWeight: 'normal',
-      color: Theme.config.yAxisNameColor,
-      fontSize: Theme.config.yAxisNameFontSize,
+      color: Token.config.yAxisNameColor,
+      fontSize: Token.config.yAxisNameFontSize,
     },
     padding: [0, 0, 0, 0],
   };

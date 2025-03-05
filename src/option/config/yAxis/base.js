@@ -9,44 +9,44 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 import { getBasicAnimationConfig } from '../animation';
 
 function base() {
   return {
     type: 'value',
-    nameGap: Theme.config.yAxisNameGap,
+    nameGap: Token.config.yAxisNameGap,
     axisLine: {
       show: false,
       lineStyle: {
-        width: Theme.config.yAxisLineWidth,
-        type: Theme.config.yAxisLineType,
-        color: Theme.config.yAxisLineColor,
+        width: Token.config.yAxisLineWidth,
+        type: Token.config.yAxisLineType,
+        color: Token.config.yAxisLineColor,
       },
     },
     axisTick: {
       show: false,
       lineStyle: {
-        width: Theme.config.yAxisTickLineWidth,
-        type: Theme.config.yAxisTickLineType,
-        color: Theme.config.yAxisTickLineColor,
+        width: Token.config.yAxisTickLineWidth,
+        type: Token.config.yAxisTickLineType,
+        color: Token.config.yAxisTickLineColor,
       },
     },
     axisLabel: {
       show: true,
-      color: Theme.config.yAxisLabelColor,
-      fontSize: Theme.config.yAxisLabelFontSize,
+      color: Token.config.yAxisLabelColor,
+      fontSize: Token.config.yAxisLabelFontSize,
     },
     nameTextStyle: {
-      color: Theme.config.yAxisNameColor,
-      fontSize: Theme.config.yAxisNameFontSize,
+      color: Token.config.yAxisNameColor,
+      fontSize: Token.config.yAxisNameFontSize,
     },
     splitLine: {
       show: true,
       lineStyle: {
-        width: Theme.config.yAxisSplitLineWidth,
-        type: Theme.config.yAxisSplitLineType,
-        color: Theme.config.yAxisSplitLineColor,
+        width: Token.config.yAxisSplitLineWidth,
+        type: Token.config.yAxisSplitLineType,
+        color: Token.config.yAxisSplitLineColor,
       },
       minInterval: undefined,
       maxInterval: undefined,

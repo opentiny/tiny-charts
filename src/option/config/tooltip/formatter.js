@@ -1,5 +1,5 @@
 import defendXSS from '../../../util/defendXSS';
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 
 function validateName(name) {
     return name !== null && name !== undefined && name !== ''
@@ -14,7 +14,7 @@ function formatValue(value) {
 }
 
 function getDataHtmlStr(dataConfig) {
-    const { tooltipIconGap, tooltipValueGap, legendCircleItemHeight, tooltipDataNameColor, tooltipValueColor } = Theme.config
+    const { tooltipIconGap, tooltipValueGap, legendCircleItemHeight, tooltipDataNameColor, tooltipValueColor } = Token.config
     const {
         iconColor,
         name,
@@ -45,7 +45,7 @@ function getDataHtmlStr(dataConfig) {
 }
 
 function getTooltipContentHtmlStr(tipConfig) {
-    const { tooltipItemGap, tooltipTitleColor } = Theme.config
+    const { tooltipItemGap, tooltipTitleColor } = Token.config
     const { title, titleColor = tooltipTitleColor, children } = tipConfig
     let content = ''
     if (validateName(title)) {

@@ -1,4 +1,4 @@
-import Theme from '../../../feature/token'
+import Token from '../../../feature/token'
 
 function getCommonProperty() {
     return {
@@ -46,8 +46,8 @@ function getCommonProperty() {
         // borderWidth: 0,
         // visualMap 文字样式
         textStyle: {
-            color: Theme.config.visualMapTextColor,
-            fontSize: Theme.config.visualMapTextFontSize
+            color: Token.config.visualMapTextColor,
+            fontSize: Token.config.visualMapTextFontSize
         },
         formatter: undefined,
     }

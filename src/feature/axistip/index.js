@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../token';
+import Token from '../token';
 import { isArray, isBoolean } from '../../util/type';
 
 const distanceX = 16; // 鼠标与气泡框之间的左右偏移量
@@ -60,11 +60,11 @@ function setPosition(tipContainer, echartsDom, param) {
     padding: 8px;
     top:${tipTop}px;
     left:${tipLeft}px;
-    color: ${Theme.config.tooltipTextColor};
-    font-size: ${Theme.config.tooltipTextFontSize};
-    background: ${Theme.config.tooltipBg};
-    box-shadow:0 ${Theme.config.tooltipShadowOffsetY}px
-    ${Theme.config.tooltipShadowBlur}px 0 ${Theme.config.tooltipShadowColor};
+    color: ${Token.config.tooltipTextColor};
+    font-size: ${Token.config.tooltipTextFontSize};
+    background: ${Token.config.tooltipBg};
+    box-shadow:0 ${Token.config.tooltipShadowOffsetY}px
+    ${Token.config.tooltipShadowBlur}px 0 ${Token.config.tooltipShadowColor};
   `
 }
 
@@ -98,7 +98,7 @@ function axistip(echartsDom, echartsIns, eChartOption, axistip) {
       tipContainer.style.cssText = `
         opacity:0;
         padding: 8px;
-        font-size: ${Theme.config.tooltipTextFontSize};
+        font-size: ${Token.config.tooltipTextFontSize};
         position: absolute;
         display: inline-block;
         word-break: break-all;

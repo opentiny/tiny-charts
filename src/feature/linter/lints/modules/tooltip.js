@@ -9,10 +9,10 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../token'
+import Token from '../../../token'
 
 function getTooltipToken() {
-  const token = Theme.getToken()
+  const token = Token.getToken()
   return {
     borderRadius: token.tooltipBorderRaduis,
     textStyle: {

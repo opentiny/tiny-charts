@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 
 const chartType = [
   'CircleProcessChart',
@@ -32,28 +32,28 @@ function base(chartName) {
   return {
     trigger,
     confine: true,
-    borderRadius: Theme.config.tooltipBorderRaduis,
+    borderRadius: Token.config.tooltipBorderRaduis,
     axisPointer: {
       z: 0,
       type: 'line',
       lineStyle: {
-        type: Theme.config.tooltipAxisPointerLineType,
-        width: Theme.config.tooltipAxisPointerLineWidth,
-        color: Theme.config.tooltipAxisPointerLineColor,
+        type: Token.config.tooltipAxisPointerLineType,
+        width: Token.config.tooltipAxisPointerLineWidth,
+        color: Token.config.tooltipAxisPointerLineColor,
       },
       shadowStyle: {
-        color: Theme.config.tooltipAxisPointerShadowColor,
+        color: Token.config.tooltipAxisPointerShadowColor,
       },
     },
     textStyle: {
-      color: Theme.config.tooltipTextColor,
-      fontSize: Theme.config.tooltipTextFontSize,
+      color: Token.config.tooltipTextColor,
+      fontSize: Token.config.tooltipTextFontSize,
     },
-    borderWidth: Theme.config.tooltipBorderWidth,
-    padding: Theme.config.tooltipPadding,
-    backgroundColor: Theme.config.tooltipBg,
+    borderWidth: Token.config.tooltipBorderWidth,
+    padding: Token.config.tooltipPadding,
+    backgroundColor: Token.config.tooltipBg,
     formatter: undefined,
-    extraCssText: `box-shadow:0 ${Theme.config.tooltipShadowOffsetY}px ${Theme.config.tooltipShadowBlur}px 0 ${Theme.config.tooltipShadowColor};`,
+    extraCssText: `box-shadow:0 ${Token.config.tooltipShadowOffsetY}px ${Token.config.tooltipShadowBlur}px 0 ${Token.config.tooltipShadowColor};`,
   };
 }
 

@@ -14,7 +14,7 @@
 </template>
 <script>
 import IntegrateChart from "../../../../src/index";
-import Theme from "../../../../src/feature/token";
+import Token from "../../../../src/feature/token";
 
 
 const ChartData1 = {
@@ -250,7 +250,7 @@ export default {
             this.integrateChart1.render();
             this.integrateChart2.setSimpleOption("PieChart", ChartData2, {});
             this.integrateChart2.render();
-            Theme.setDefaultTheme(val);
+            Token.setDefaultTheme(val);
             this.integrateChart1.changeTheme();
             this.integrateChart2.changeTheme();
         });

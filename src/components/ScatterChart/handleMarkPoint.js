@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import { isObject } from '../../util/type';
 import chartToken from './chartToken';
 
@@ -43,7 +43,7 @@ export default function handleMarkPoint(iChartOpt) {
     // 将超出临界值红点的数据放在一个图例里
     errorSeriesName && (markData[`${errorSeriesName}`] = errorSeriesData);
   });
-  const {colorError}=Theme.config.colorState
+  const {colorError}=Token.config.colorState
   // 设置iChartOpt中超过markPoint点的数据
   Object.keys(markData).forEach(item => {
     const seriesItem = {

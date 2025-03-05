@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 import { getBasicAnimationConfig } from '../animation';
 
 function base() {
@@ -17,33 +17,33 @@ function base() {
     axisLine: {
       show: false,
       lineStyle: {
-        color: Theme.config.radiusAxisLineColor,
-        width: Theme.config.radiusAxisLineWidth,
-        type: Theme.config.radiusAxisLineType,
+        color: Token.config.radiusAxisLineColor,
+        width: Token.config.radiusAxisLineWidth,
+        type: Token.config.radiusAxisLineType,
       },
     },
     axisTick: {
       length: 5,
       show: false,
       lineStyle: {
-        color: Theme.config.radiusAxisTickLineColor,
-        width: Theme.config.radiusAxisTickLineWidth,
-        type: Theme.config.radiusAxisTickLineType,
+        color: Token.config.radiusAxisTickLineColor,
+        width: Token.config.radiusAxisTickLineWidth,
+        type: Token.config.radiusAxisTickLineType,
       },
     },
     axisLabel: {
       show: true,
-      color: Theme.config.radiusAxisLabelColor,
-      fontSize: Theme.config.radiusAxisLabelFontSize,
+      color: Token.config.radiusAxisLabelColor,
+      fontSize: Token.config.radiusAxisLabelFontSize,
       align: 'right',
-      margin: Theme.config.radiusAxisLabelGap * 5,
+      margin: Token.config.radiusAxisLabelGap * 5,
       interval: 0,
     },
     splitLine: {
       lineStyle: {
-        type: Theme.config.radiusAxisSplitLineType,
-        color: Theme.config.radiusAxisSplitLineColor,
-        width: Theme.config.radiusAxisSplitLineWidth,
+        type: Token.config.radiusAxisSplitLineType,
+        color: Token.config.radiusAxisSplitLineColor,
+        width: Token.config.radiusAxisSplitLineWidth,
       },
     },
     ...getBasicAnimationConfig()

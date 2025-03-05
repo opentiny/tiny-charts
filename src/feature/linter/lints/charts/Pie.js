@@ -9,11 +9,11 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from "../../../token"
+import Token from "../../../token"
 import { CHART_TYPE } from '../../../../util/constants'
 
 function getPieRule() {
-    const chartToken = Theme.getChartTokenByName(CHART_TYPE.PIE)
+    const chartToken = Token.getChartTokenByName(CHART_TYPE.PIE)
     return {
         series: {
             itemStyle: {

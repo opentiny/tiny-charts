@@ -11,7 +11,7 @@
  */
 import base from './base';
 import merge from '../../../util/merge';
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 
 function radiusAxis(iChartOption, chartName) {
   let radiusAxisOpt;
@@ -22,7 +22,7 @@ function radiusAxis(iChartOption, chartName) {
       break;
     case 'PolarBarChart':
       radiusAxisOpt = base();
-      radiusAxisOpt.axisLabel.margin = Theme.config.radiusAxisLabelGap;
+      radiusAxisOpt.axisLabel.margin = Token.config.radiusAxisLabelGap;
       merge(radiusAxisOpt, iChartOption.radiusAxis);
       break;
     case 'CircleProcessChart':

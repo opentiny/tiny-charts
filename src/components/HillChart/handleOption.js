@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import { codeToHex, codeToRGB } from '../../util/color';
 import merge from '../../util/merge';
 import chartToken from './chartToken';
@@ -119,7 +119,7 @@ const colorWhole = (baseOpt, item, markLine, colorError, index) => {
 
 const colorExcess = (baseOpt, iChartOpt, item, index, i) => {
   const { markLine, color, opacity } = iChartOpt;
-  const { colorError } = Theme.config.colorState;
+  const { colorError } = Token.config.colorState;
   baseOpt.series[0].data[index] = {
     value: item,
     itemStyle: {
@@ -154,7 +154,7 @@ const colorExcess = (baseOpt, iChartOpt, item, index, i) => {
 
 const reviseMarkLineData = (baseOpt, iChartOpt, i) => {
   const { markLine } = iChartOpt;
-  const { colorError } = Theme.config.colorState;
+  const { colorError } = Token.config.colorState;
   baseOpt.series[0].data.forEach((item, index) => {
     if (item > markLine[i] && i === 'top') {
       // 整体变色

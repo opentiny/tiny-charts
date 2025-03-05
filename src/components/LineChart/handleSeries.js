@@ -13,7 +13,7 @@ import cloneDeep from '../../util/cloneDeep';
 import { isString, isObject } from '../../util/type';
 import { getMarkLineDefault, getMarkPointDefault, setThresholdMarkLineLabel } from '../../option/config/mark';
 import chartToken from './chartToken';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import { getColor } from '../../util/color';
 
 
@@ -140,7 +140,7 @@ function handleMarkLine(markLine, seriesUnit, seriesName) {
 
 function handleMarkPoint(markPoint, seriesUnit, seriesName) {
   seriesUnit.markPoint = getMarkPointDefault();
-  const { colorError } = Theme.config.colorState
+  const { colorError } = Token.config.colorState
   if (markPoint.max && !(markPoint.maxUse && markPoint.maxUse.indexOf(seriesName) === -1)) {
     const max = {
       type: 'max',

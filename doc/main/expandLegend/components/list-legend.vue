@@ -8,7 +8,7 @@
 </template>
 <script>
 import IntegrateChart from '../../../../src/index';
-import Theme from '../../../../src/feature/token';
+import Token from '../../../../src/feature/token';
 
 const chartData = {
 	legend: {
@@ -190,7 +190,7 @@ export default {
 		this.$bus.on('themeChange', val => {
 			this.airportIntegrateChart.setSimpleOption('LineChart', chartData, {});
 			this.airportIntegrateChart.render();
-			Theme.setDefaultTheme(val);
+			Token.setDefaultTheme(val);
 			this.airportIntegrateChart.changeTheme();
 		})
 

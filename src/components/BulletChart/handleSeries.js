@@ -13,11 +13,11 @@ import { codeToRGB } from '../../util/color';
 import merge from '../../util/merge';
 import chartToken from './chartToken';
 import { isArray } from '../../util/type';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 
 // 设置背景色颜色
 function handleSetColor(data,opacity) {
-    const { colorState } = Theme.config
+    const { colorState } = Token.config
     const stateColorGroup = {
         info: colorState.colorInfo,
         error: colorState.colorError,
@@ -37,7 +37,7 @@ function handleSetColor(data,opacity) {
 
 function handleLabel(barData,iChartOpt,baseOpt) {
     const label = iChartOpt.label;
-    const { colorBoard } = Theme.config;
+    const { colorBoard } = Token.config;
     const orange = colorBoard.orange.colorOrange40;
     const green = colorBoard.green.colorGreen40;
     let labelOption = label;

@@ -9,11 +9,11 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../token'
+import Token from '../../../token'
 import { rectSysAxisPropertyPermissions, generatedMatchedUiRule } from './util'
 
 function getyAxisToken(echartsModule) {
-    const token = Theme.getToken()
+    const token = Token.getToken()
     const uiRule = {
         nameGap: token.yAxisNameGap,
         nameTextStyle: {

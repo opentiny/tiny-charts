@@ -9,12 +9,12 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 function icon(legend, iChartOption) {
   if (iChartOption.legend.icon == 'line') {
     legend.icon = 'rect';
-    legend.itemHeight = Theme.config.legendReactItemHeight;
-    legend.itemWidth = Theme.config.legendItemWidth;
+    legend.itemHeight = Token.config.legendReactItemHeight;
+    legend.itemWidth = Token.config.legendItemWidth;
   }
 }
 

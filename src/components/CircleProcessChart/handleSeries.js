@@ -12,7 +12,7 @@
 import chartToken from './chartToken';
 import { emptySeriesUnit } from '../GaugeChart/handleSeries';
 import cloneDeep from '../../util/cloneDeep';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 
 function getSeriesInit() {
   return {
@@ -54,7 +54,7 @@ export function setSeries(seriesData, iChartOption, chartInstance) {
 }
 
 function getThemeStatusColor(status = 'success'){
-  const {colorError, colorAlert, colorWarning, colorSuccess} = Theme.config.colorState
+  const {colorError, colorAlert, colorWarning, colorSuccess} = Token.config.colorState
   const statusColorGroup = {
     error: colorError,
     alert: colorAlert,

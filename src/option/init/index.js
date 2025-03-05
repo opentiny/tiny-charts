@@ -10,7 +10,7 @@
  *
  */
 import { isArray, isString } from '../../util/type';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import { DEFAULT_THEME_NAME } from '../../util/constants'
 
 /**
@@ -18,7 +18,7 @@ import { DEFAULT_THEME_NAME } from '../../util/constants'
  * @param {外部传入的配置} iChartOption
  */
 function setDefaultTheme(iChartOption) {
-  iChartOption.theme = iChartOption.theme || Theme.themeName || DEFAULT_THEME_NAME;
+  iChartOption.theme = iChartOption.theme || Token.themeName || DEFAULT_THEME_NAME;
 }
 
 /**
@@ -27,7 +27,7 @@ function setDefaultTheme(iChartOption) {
  */
 function setDefaultColor(iChartOption) {
   if (!iChartOption.color) {
-    iChartOption.color = Theme.config.colorGroup;
+    iChartOption.color = Token.config.colorGroup;
   }
 }
 

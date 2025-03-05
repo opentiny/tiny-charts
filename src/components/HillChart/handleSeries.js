@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import merge from '../../util/merge';
 import chartToken from './chartToken';
 
@@ -24,7 +24,7 @@ export const handleEmphasis = (baseOpt, iChartOpt) => {
     disabled: true,
     label: {
       // 为啥是蓝色待确定
-      color: Theme.config.colorState.colorInfo,
+      color: Token.config.colorState.colorInfo,
     },
     itemStyle: {
       borderColor: chartToken.emphasisItemBorderColor,

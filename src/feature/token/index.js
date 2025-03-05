@@ -31,7 +31,7 @@ const themeToken = new HashMap({
   [THEMES.HDESIGN_DARK]: cloneDeep(hdesignDark),
   [CURRENT_THEME]: cloneDeep(ictLight),
 });
-class Theme {
+class Token {
   // 当前主题名称
   static themeName = undefined;
 
@@ -154,4 +154,4 @@ class Theme {
 }
 
 export { THEMES };
-export default Theme;
+export default Token;

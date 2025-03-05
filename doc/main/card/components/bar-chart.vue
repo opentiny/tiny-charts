@@ -13,7 +13,7 @@
 <script>
 import IntegrateChart from '../../../../src/index';
 import CardManager from '../../../../src/feature/card';
-import Theme from '../../../../src/feature/token';
+import Token from '../../../../src/feature/token';
 // 机场日周月数据
 const airportChartData = {
 	today: {
@@ -269,7 +269,7 @@ export default {
 		this.renderChart();
 		let airportChart = new CardManager(airportCardCon, airportCardData);
 		let productChart = new CardManager(productCardCon, productCardData);
-        Theme.setDefaultTheme(this.currentTheme);
+        Token.setDefaultTheme(this.currentTheme);
         airportChart.changeTheme();
 		productChart.changeTheme();
 		// 检测主题变换
@@ -280,7 +280,7 @@ export default {
 			this.productIntegrateChart.setSimpleOption('LineChart', productChartOpt, {});
 			this.airportIntegrateChart.render();
 			this.productIntegrateChart.render();
-            Theme.setDefaultTheme(val);
+            Token.setDefaultTheme(val);
             airportChart.changeTheme();
 			productChart.changeTheme();
 		})

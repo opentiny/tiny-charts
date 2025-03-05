@@ -12,7 +12,7 @@
 import merge from '../../util/merge';
 import cloneDeep from '../../util/cloneDeep';
 import chartToken from './chartToken';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 
 export const seriesInit = {
   type: 'liquidFill',
@@ -65,7 +65,7 @@ function setLabel(seriesTarget, seriesSource, label) {
 
 // 设置Outline的属性
 function setOutline(seriesTarget, seriesSource, outline) {
-  const { colorGroup } = Theme.config;
+  const { colorGroup } = Token.config;
   const itemStyle = seriesTarget.outline.itemStyle;
   // 多个数据：series里面outline存在
   // 单个数据：没有series时一级属性outline存在
@@ -86,7 +86,7 @@ function setOutline(seriesTarget, seriesSource, outline) {
 
 // 设置Color的属性
 function setColor(seriesTarget, seriesSource, color) {
-  const { colorGroup } = Theme.config;
+  const { colorGroup } = Token.config;
   // 多个数据：series里面color存在
   // 单个数据：没有series时一级属性存在color
   if (seriesSource.color !== undefined) {

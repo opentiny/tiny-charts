@@ -14,7 +14,7 @@ import { BASICSERIES } from './BaseOption';
 import LineChart from '../LineChart';
 import BarChart from '../BarChart';
 import { xkey } from '../../option/RectSys';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 
 // 用于计算相关的平均值
 function calculateMA(dayCount, data) {
@@ -106,7 +106,7 @@ function handleMaAndVolSeries(baseOpt, iChartOpt, inerData, { upStateColor, down
 
 function handleSeries(baseOpt, iChartOpt, data, chartInstance) {
   const { upColor, downColor } = iChartOpt;
-  const { colorState } = Theme.config;
+  const { colorState } = Token.config;
   const upStateColor = upColor || colorState.colorError;
   const downStateColor = downColor || colorState.colorSuccess;
   const baseSeries = cloneDeep(BASICSERIES);

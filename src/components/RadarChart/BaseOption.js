@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../feature/token'
+import Token from '../../feature/token'
 import chartToken from './chartToken';
 
 // 雷达坐标系基础配置
@@ -29,33 +29,33 @@ function getRadar() {
         // 坐标轴射线
         axisLine: {
             lineStyle: {
-                color: Theme.config.radarAxisLineColor,
-                width: Theme.config.radarAxisLineWidth,
-                type: Theme.config.radarAxisLineType,
+                color: Token.config.radarAxisLineColor,
+                width: Token.config.radarAxisLineWidth,
+                type: Token.config.radarAxisLineType,
             },
         },
         axisTick: {
             show: false,
             lineStyle: {
-                color: Theme.config.radarAxisTickLineColor,
-                width: Theme.config.radarAxisTickLineWidth,
-                type: Theme.config.radarAxisTickLineType
+                color: Token.config.radarAxisTickLineColor,
+                width: Token.config.radarAxisTickLineWidth,
+                type: Token.config.radarAxisTickLineType
             }
         },
         // 坐标轴射线的刻度,只显示一条射线的刻度,其他射线的刻度需要在指示器数据indicator中每项单独配置axisLabel: { show: false }
         axisLabel: {
             show: false,
-            color: Theme.config.radarAxisLabelColor,
-            fontSize: Theme.config.radarAxisLabelFontSize
+            color: Token.config.radarAxisLabelColor,
+            fontSize: Token.config.radarAxisLabelFontSize
         },
         // 坐标轴圆环分隔区域填充
         splitArea: { show: false },
         // 坐标轴圆环分隔线
         splitLine: {
             lineStyle: {
-                color: Theme.config.radarSplitLineColor,
-                width: Theme.config.radarSplitLineWidth,
-                type: Theme.config.radarSplitLineType,
+                color: Token.config.radarSplitLineColor,
+                width: Token.config.radarSplitLineWidth,
+                type: Token.config.radarSplitLineType,
             },
         },
         // 坐标轴数据
@@ -63,8 +63,8 @@ function getRadar() {
         // 指示器名称样式设置
         axisName: {
             show: true,
-            color: Theme.config.radarAxisNameColor,
-            fontSize: Theme.config.radarAxisNameFontSize,
+            color: Token.config.radarAxisNameColor,
+            fontSize: Token.config.radarAxisNameFontSize,
         },
     }
 }
@@ -95,8 +95,8 @@ function getMarkRadarOption() {
         splitLine: {
             show: true,
             lineStyle: {
-                width: Theme.config.radarSplitLineWidth,
-                color: Theme.config.colorState.colorError,
+                width: Token.config.radarSplitLineWidth,
+                color: Token.config.colorState.colorError,
                 type: 'dashed',
             },
         },
@@ -194,7 +194,7 @@ function getThresholdSeries() {
             color: chartToken.areaColor,
         },
         lineStyle: {
-            color: Theme.config.colorState.colorError,
+            color: Token.config.colorState.colorError,
             width: chartToken.lineWidth,
             type: 'dashed',
         },
@@ -205,7 +205,7 @@ function getThresholdSeries() {
 
 //  阈值线雷达图红点基础series配置
 function handleRedPointerSeries(index, dataValue, seriesName, isgradient = false) {
-    const { colorError } = Theme.config.colorState
+    const { colorError } = Token.config.colorState
     return {
         name: 'threshold',
         type: 'radar',

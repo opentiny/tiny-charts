@@ -9,11 +9,11 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../token'
+import Token from '../../../token'
 
 function getColorToken() {
-    const token = Theme.getToken()
-    return  token.colorGroup
+    const token = Token.getToken()
+    return token.colorGroup
 }
 
 export default getColorToken
