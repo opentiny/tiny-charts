@@ -63,6 +63,7 @@ export function discrete(iChartOption, baseOption) {
       const newSeries = cloneDeep(series);
       newSeries.symbolSize = chartToken.symbolSizeSM;
       newSeries.itemStyle.borderWidth = chartToken.borderZero;
+      newSeries.itemStyle.opacity = 1;
       newSeries.showSymbol = true;
       newSeries.showAllSymbol = true;
       newSeries.emphasis = {
