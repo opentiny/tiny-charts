@@ -61,4 +61,4 @@ function getTooltipContentHtmlStr(tipConfig) {
 }
 
 export default getTooltipContentHtmlStr
-export { getDataHtmlStr, formatValue }
+export { getDataHtmlStr, formatValue, validateName }
