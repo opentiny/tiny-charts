@@ -10,15 +10,15 @@
  *
  */
 
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 import merge from '../../../util/merge';
 
 function getThresholdMarkLineLabel() {
-  const { colorError } = Theme.config.colorState
+  const { colorError } = Token.config.colorState
   return {
     label: {
       color: colorError,
-      fontSize: Theme.config.markLineLabelFontSize,
+      fontSize: Token.config.markLineLabelFontSize,
       lineHeight: 20,
       position: 'insideEnd'
     },
@@ -37,9 +37,9 @@ function setThresholdMarkLineLabel(markLine) {
 // 默认场景就是阈值线
 function getMarkLineDefault(isThreshold = false) {
   const lineStyle = {
-    width: Theme.config.markLineWidth,
+    width: Token.config.markLineWidth,
   }
-  if (isThreshold) lineStyle.color = Theme.config.colorState.colorError
+  if (isThreshold) lineStyle.color = Token.config.colorState.colorError
   return {
     symbol: 'none',
     silent: true,
@@ -52,7 +52,7 @@ function getMarkLineDefault(isThreshold = false) {
         show: false,
       },
       lineStyle: {
-        width: Theme.config.markLineEmphasisWidth,
+        width: Token.config.markLineEmphasisWidth,
       },
     },
     data: [],

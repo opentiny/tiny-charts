@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import chartToken from './chartToken';
 import { setChartPadding } from './handleOptipn';
 import merge from '../../util/merge';
@@ -46,7 +46,7 @@ function getSeriesUnit(type) {
     },
     // 图元设置
     itemStyle: {
-      color: Theme.config.colorState.colorInfo
+      color: Token.config.colorState.colorInfo
     },
     symbolSize: 10,
     initialTreeDepth: 1,

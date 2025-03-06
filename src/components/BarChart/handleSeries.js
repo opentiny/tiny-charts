@@ -15,7 +15,7 @@ import cloneDeep from '../../util/cloneDeep';
 import { isArray, isNumber } from '../../util/type';
 import { getMarkLineDefault } from '../../option/config/mark';
 import chartToken from './chartToken';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter'
 
 function handleYaxis(barSeries, yAxis) {
@@ -323,7 +323,7 @@ export function setSeries(seriesData, legendData, iChartOption) {
 }
 
 function handleColorStops(percent, originColor, markLineColor) {
-  const { colorError } = Theme.config.colorState
+  const { colorError } = Token.config.colorState
   const colorStops = [
     {
       offset: 0,
@@ -381,14 +381,14 @@ function handleBottomObj(d, direction, percent, originColor, markLineColor) {
 
 function getColorStopsOrigin() {
   return [
-    { offset: 0, color: Theme.config.colorState.colorError },
-    { offset: 1, color: Theme.config.colorState.colorError },
+    { offset: 0, color: Token.config.colorState.colorError },
+    { offset: 1, color: Token.config.colorState.colorError },
   ];
 }
 
 
 function handleColorStopsTop(originColor, bottomPercent) {
-  const { colorError } = Theme.config.colorState
+  const { colorError } = Token.config.colorState
   const colorStops = [
     { offset: 0, color: originColor },
     { offset: bottomPercent, color: originColor },
@@ -399,7 +399,7 @@ function handleColorStopsTop(originColor, bottomPercent) {
 }
 
 function handleColorStopsBottom(originColor, topPercent) {
-  const { colorError } = Theme.config.colorState
+  const { colorError } = Token.config.colorState
   const colorStops = [
     { offset: 0, color: colorError },
     { offset: topPercent, color: colorError },
@@ -410,7 +410,7 @@ function handleColorStopsBottom(originColor, topPercent) {
 }
 
 function handleColorStopsOther(originColor, topPercent, bottomPercent) {
-  const { colorError } = Theme.config.colorState
+  const { colorError } = Token.config.colorState
   const colorStops = [
     { offset: 0, color: colorError },
     { offset: topPercent, color: colorError },

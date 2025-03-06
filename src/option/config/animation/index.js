@@ -9,15 +9,15 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from "../../../feature/token"
+import Token from "../../../feature/token"
 
 // 图例翻页是否使用动画和动画时长，具有共性，提取
 function getUnitAnimationConfig() {
     return {
         // 是否开启动画 
-        animation: Theme.config.animation,
+        animation: Token.config.animation,
         // 数据更新动画的时长
-        animationDurationUpdate: Theme.config.animationDurationUpdate,
+        animationDurationUpdate: Token.config.animationDurationUpdate,
     }
 }
 
@@ -26,9 +26,9 @@ function getStateAnimation() {
     return {
         stateAnimation: {
             // 状态切换的动画时长
-            duration: Theme.config.stateAnimationDuration,
+            duration: Token.config.stateAnimationDuration,
             // 状态切换的动画缓动
-            easing: Theme.config.stateAnimationEasing
+            easing: Token.config.stateAnimationEasing
         },
     }
 }
@@ -38,17 +38,17 @@ function getBasicAnimationConfig() {
     return {
         ...getUnitAnimationConfig(),
         // 是否开启动画的阈值
-        animationThreshold: Theme.config.animationThreshold,
+        animationThreshold: Token.config.animationThreshold,
         // 初始动画的时长
-        animationDuration: Theme.config.animationDuration,
+        animationDuration: Token.config.animationDuration,
         // 初始动画的缓动效果
-        animationEasing: Theme.config.animationEasing,
+        animationEasing: Token.config.animationEasing,
         // 初始动画的延迟
-        animationDelay: Theme.config.animationDelay,
+        animationDelay: Token.config.animationDelay,
         // 数据更新动画的缓动效果
-        animationEasingUpdate: Theme.config.animationEasingUpdate,
+        animationEasingUpdate: Token.config.animationEasingUpdate,
         // 数据更新动画的延迟
-        animationDelayUpdate: Theme.config.animationDelayUpdate,
+        animationDelayUpdate: Token.config.animationDelayUpdate,
     }
 }
 

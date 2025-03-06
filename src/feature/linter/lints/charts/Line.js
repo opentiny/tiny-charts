@@ -9,12 +9,12 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from "../../../token"
+import Token from "../../../token"
 import { CHART_TYPE } from '../../../../util/constants'
 
 // itemStyle  emphasis.itemStyle;待定
 function getLineRule() {
-    const chartToken = Theme.getChartTokenByName(CHART_TYPE.LINE)
+    const chartToken = Token.getChartTokenByName(CHART_TYPE.LINE)
     return {
         series: {
             label: {

@@ -13,7 +13,7 @@ import min from '../../util/sort/min';
 import max from '../../util/sort/max';
 import { isNumber } from '../../util/type';
 import { getColor } from '../../util/color';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import chartToken from './chartToken'
 
 function handleVisualMapItem({ index, topColor, top, bottom, bottomColor, vmColor, defaultColor }) {
@@ -51,7 +51,7 @@ export function setVisualMap(legendData, seriesData, iChartOpt, baseOpt) {
   if (markLine) {
     let topValue = markLine.top;
     let bottomValue = markLine.bottom;
-    const vmColor = Theme.config.colorState.colorError;
+    const vmColor = Token.config.colorState.colorError;
     const topColor = markLine.topColor || vmColor;
     const bottomColor = markLine.bottomColor || vmColor;
     if (!isNumber(topValue)) {

@@ -9,12 +9,12 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 import { getBasicAnimationConfig } from '../animation';
 
 function base() {
   return {
-    nameGap: Theme.config.xAxisNameGap,
+    nameGap: Token.config.xAxisNameGap,
     data: [],
     // 坐标轴类型
     type: 'category',
@@ -24,37 +24,37 @@ function base() {
     splitLine: {
       show: false,
       lineStyle: {
-        width: Theme.config.xAxisSplitLineWidth,
-        color: Theme.config.xAxisSplitLineColor,
-        type: Theme.config.xAxisSplitLineType,
+        width: Token.config.xAxisSplitLineWidth,
+        color: Token.config.xAxisSplitLineColor,
+        type: Token.config.xAxisSplitLineType,
       },
     },
     // 坐标轴名称样式配置
     nameTextStyle: {
-      color: Theme.config.xAxisNameColor,
-      fontSize: Theme.config.xAxisNameFontSize,
+      color: Token.config.xAxisNameColor,
+      fontSize: Token.config.xAxisNameFontSize,
     },
     // 坐标轴线配置
     axisLine: {
       lineStyle: {
-        width: Theme.config.xAxisLineWidth,
-        color: Theme.config.xAxisLineColor,
-        type: Theme.config.xAxisLineType,
+        width: Token.config.xAxisLineWidth,
+        color: Token.config.xAxisLineColor,
+        type: Token.config.xAxisLineType,
       },
     },
     // 坐标轴刻度配置
     axisTick: {
       alignWithLabel: true,
       lineStyle: {
-        width: Theme.config.xAxisTickLineWidth,
-        color: Theme.config.xAxisTickLineColor,
-        type: Theme.config.xAxisTickLineType,
+        width: Token.config.xAxisTickLineWidth,
+        color: Token.config.xAxisTickLineColor,
+        type: Token.config.xAxisTickLineType,
       },
     },
     // 坐标轴刻度标签配置
     axisLabel: {
-      color: Theme.config.xAxisLabelColor,
-      fontSize: Theme.config.xAxisLabelFontSize,
+      color: Token.config.xAxisLabelColor,
+      fontSize: Token.config.xAxisLabelFontSize,
     },
     // 动画配置
     ...getBasicAnimationConfig()

@@ -12,7 +12,7 @@
 import min from '../../util/sort/min';
 import max from '../../util/sort/max';
 import { getColor } from '../../util/color';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 
 export function setVisualMap(legendData, seriesData, markLine, colors) {
   const visualMap = [];
@@ -39,7 +39,7 @@ export function setVisualMap(legendData, seriesData, markLine, colors) {
           },
         ],
         outOfRange: {
-          color:Theme.config.colorState.colorError,
+          color:Token.config.colorState.colorError,
         },
       });
     });

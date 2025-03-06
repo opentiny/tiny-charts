@@ -9,12 +9,12 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from "../../../token"
+import Token from "../../../token"
 import { CHART_TYPE } from '../../../../util/constants'
 
 // itemStyle  emphasis.itemStyle;待定
 function getRadarRule() {
-    const chartToken = Theme.getChartTokenByName(CHART_TYPE.RADAR)
+    const chartToken = Token.getChartTokenByName(CHART_TYPE.RADAR)
     return {
         series: {
             symbolSize: chartToken.symbolSize - 2,

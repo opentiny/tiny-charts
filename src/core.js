@@ -11,7 +11,7 @@
  */
 import tips from './util/tips';
 import * as echarts from 'echarts';
-import Theme from './feature/token';
+import Token from './feature/token';
 import xssOption from './feature/xss';
 import throttle from './util/throttle';
 import axistip from './feature/axistip';
@@ -85,7 +85,7 @@ export default class CoreChart extends BaseChart {
       tips.error('The second parameter config is required');
       return;
     }
-    Theme.set(name, config);
+    Token.set(name, config);
   }
 
   // 注册配置
@@ -94,17 +94,17 @@ export default class CoreChart extends BaseChart {
       tips.error('The second parameter config is required');
       return;
     }
-    Theme.setConfig(name, config);
+    Token.setConfig(name, config);
   }
 
   // 设置主题
   static theme(name) {
-    Theme.setDefaultTheme(name);
+    Token.setDefaultTheme(name);
   }
 
   // 重置token变量
   static resetThemeCongfig() {
-    Theme.resetThemeCongfig();
+    Token.resetThemeCongfig();
   }
 
   // 开启响应式布局（类媒体查询效果）
@@ -156,7 +156,7 @@ export default class CoreChart extends BaseChart {
     iChartOption = xssOption(iChartOption);
     // 设定主题、自适应图表
     if (isInit) {
-      Theme.setDefaultTheme(iChartOption.theme);
+      Token.setDefaultTheme(iChartOption.theme);
       this.mediaScreenObserver && this.mediaScreenObserver.setInitOption(iChartOption, ChartClass);
     }
     // 添加读屏能力

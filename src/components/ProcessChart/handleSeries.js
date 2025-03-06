@@ -22,7 +22,7 @@ import { getColor } from '../../util/color';
 import merge from '../../util/merge';
 import { getTextWidth } from '../../util/dom';
 import chartToken from './chartToken';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import { getMarkLineSeries, SERIES_NAME } from './BaseOption'
 import { isString } from '../../util/type';
 import { percentToDecimal } from '../../util/math';
@@ -95,7 +95,7 @@ function getMarkValue(value, dataSet) {
 }
 
 function getThemeStateColorGroup() {
-  const { colorState: { colorError, colorAlert, colorWarning, colorSuccess } } = Theme.config
+  const { colorState: { colorError, colorAlert, colorWarning, colorSuccess } } = Token.config
   const stateColorGroup = {
     error: colorError,
     warning: colorAlert,

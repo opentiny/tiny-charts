@@ -1,4 +1,4 @@
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 
 function base() {
   return {
@@ -24,15 +24,15 @@ function base() {
     tooltip: {
       show: false,
       formatter: undefined,
-      borderRadius: Theme.config.tooltipBorderRaduis,
+      borderRadius: Token.config.tooltipBorderRaduis,
       textStyle: {
-        color: Theme.config.tooltipTextColor,
-        fontSize: Theme.config.tooltipTextFontSize,
+        color: Token.config.tooltipTextColor,
+        fontSize: Token.config.tooltipTextFontSize,
       },
-      borderWidth: Theme.config.tooltipBorderWidth,
-      padding: Theme.config.tooltipPadding,
-      backgroundColor: Theme.config.tooltipBg,
-      extraCssText: `box-shadow:0 ${Theme.config.tooltipShadowOffsetY}px ${Theme.config.tooltipShadowBlur}px 0 ${Theme.config.tooltipShadowColor};`
+      borderWidth: Token.config.tooltipBorderWidth,
+      padding: Token.config.tooltipPadding,
+      backgroundColor: Token.config.tooltipBg,
+      extraCssText: `box-shadow:0 ${Token.config.tooltipShadowOffsetY}px ${Token.config.tooltipShadowBlur}px 0 ${Token.config.tooltipShadowColor};`
     }
   };
 }

@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 
 function axisPointer(tooltip, chartName) {
   switch (chartName) {
@@ -19,7 +19,7 @@ function axisPointer(tooltip, chartName) {
         z: -999,
         type: 'shadow',
         shadowStyle: {
-          color: Theme.config.tooltipAxisPointerShadowColor,
+          color: Token.config.tooltipAxisPointerShadowColor,
         },
       };
       break;

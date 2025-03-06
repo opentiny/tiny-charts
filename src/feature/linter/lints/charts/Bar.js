@@ -9,12 +9,12 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from "../../../token"
+import Token from "../../../token"
 import { CHART_TYPE } from '../../../../util/constants'
 
 // itemStyle  emphasis.itemStyle;待定
 function getBarRule(echartsOpt) {
-    const chartToken = Theme.getChartTokenByName(CHART_TYPE.BAR)
+    const chartToken = Token.getChartTokenByName(CHART_TYPE.BAR)
     let barObj = {
         series: {
             label: {

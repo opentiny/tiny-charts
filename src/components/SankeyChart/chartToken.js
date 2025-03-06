@@ -9,9 +9,9 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import {CHART_TYPE} from '../../util/constants'
 
-const chartToken = Theme.getTokenByName(CHART_TYPE.SANKEY)
+const chartToken = Token.getTokenByName(CHART_TYPE.SANKEY)
 
 export default chartToken;

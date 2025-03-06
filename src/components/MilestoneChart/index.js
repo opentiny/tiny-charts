@@ -12,7 +12,7 @@
 import BaseChart from '../BaseChart';
 import Node from './Node';
 import { initContainer } from './insertDom';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import { CHART_TYPE } from '../../util/constants';
 
 export default class MilestoneChart extends BaseChart {
@@ -62,11 +62,11 @@ export default class MilestoneChart extends BaseChart {
     this.data = this.option.data;
     const container = this.dom.getElementsByClassName('mc-container')[0];
     this.Node = new Node(this.data, this.option, container);
-    this.Node.create(this.data, this.option, Theme);
-    container.style.setProperty('--operationButtonBgColor', Theme.config.colorBoard.blue.colorBlue50);
-    container.style.setProperty('--tooltipBgColor', Theme.config.tooltipBg);
-    container.style.setProperty('--tooltipBoxShadow', `0 ${Theme.config.tooltipShadowOffsetY}px ${Theme.config.tooltipShadowBlur}px 0 ${Theme.config.tooltipShadowColor}`);
-    container.style.setProperty('--currentTextColor', Theme.config.titleTextColor);
+    this.Node.create(this.data, this.option, Token);
+    container.style.setProperty('--operationButtonBgColor', Token.config.colorBoard.blue.colorBlue50);
+    container.style.setProperty('--tooltipBgColor', Token.config.tooltipBg);
+    container.style.setProperty('--tooltipBoxShadow', `0 ${Token.config.tooltipShadowOffsetY}px ${Token.config.tooltipShadowBlur}px 0 ${Token.config.tooltipShadowColor}`);
+    container.style.setProperty('--currentTextColor', Token.config.titleTextColor);
     container.style.setProperty('--newPitch', this.option.padding || '0, 20px');
     container.style.setProperty('--maxWidth', this.option.itemStyle.maxWidth+'px' || '160px');
     container.style.setProperty('--maxHeight', this.option.itemStyle.maxHeight+'px' || '120px');

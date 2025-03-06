@@ -17,7 +17,7 @@ import tips from '../../util/tips';
 import title from '../../option/config/polarTitle';
 import tooltip from '../../option/config/tooltip';
 import legend from '../../option/config/legend';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import getRadar, { getMarkRadarOption, getThresholdSeries } from './BaseOption';
 import { getColor } from '../../util/color';
 
@@ -198,7 +198,7 @@ function getCommonDataColor(iChartOpt, data, dataName) {
 
 function handleFormatter(tooltip, iChartOpt, radarKeys, data) {
   const { markLine } = iChartOpt;
-  const alarmColor = Theme.config.colorState.colorError;
+  const alarmColor = Token.config.colorState.colorError;
   const isThreshold = !!(isObject(markLine) && markLine?.threshold);
   tooltip.formatter = params => {
     const seriesdata = params.data;

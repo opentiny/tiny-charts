@@ -5,7 +5,7 @@
 </template>
 <script>
 import IntegrateChart from "../../../../src/index";
-import Theme from "../../../../src/feature/token";
+import Token from "../../../../src/feature/token";
 
 const ChartData = {
     legend: {
@@ -201,7 +201,7 @@ export default {
         this.$bus.on("themeChange", (val) => {
             this.integrateChart.setSimpleOption("LineChart", ChartData, {});
             this.integrateChart.render();
-            Theme.setDefaultTheme(val);
+            Token.setDefaultTheme(val);
             this.integrateChart.changeTheme();
         });
     },

@@ -14,7 +14,7 @@
 </template>
 <script>
 import IntegrateChart from '../../../../src/index';
-import Theme from '../../../../src/feature/token';
+import Token from '../../../../src/feature/token';
 
 const chartData1 = {
 	legend: {
@@ -243,7 +243,7 @@ export default {
 			this.chartContainer1.render();
 			this.chartContainer2.setSimpleOption('PieChart', chartContainer2, {});
 			this.chartContainer2.render();
-			Theme.setDefaultTheme(val);
+			Token.setDefaultTheme(val);
 			this.chartContainer1.changeTheme();
 			this.chartContainer2.changeTheme();
 		})

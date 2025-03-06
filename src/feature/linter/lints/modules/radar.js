@@ -9,11 +9,11 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../token'
+import Token from '../../../token'
 import { axisCommonPropertyPermissions, judgeAxisComonProperty, generatedMatchedUiRule } from './util'
 
 function getRadarToken(echartsModule) {
-    const token = Theme.getToken()
+    const token = Token.getToken()
     const uiRule = {
         axisLine: {
             lineStyle: {

@@ -11,7 +11,7 @@
  */
 import { formatDate } from '../../util/convert';
 import defendXSS from '../../util/defendXSS';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import chartToken from './chartToken';
 
 export default class TimeLine {
@@ -30,9 +30,9 @@ export default class TimeLine {
         // 自定义时间轴的背景色
         this.canvas.style.background = this.option.background || 'transparent';
         // 自定义时间轴刻度线的颜色
-        this.axisLineColor = (this.option.axisLineStyle && this.option.axisLineStyle.color) || Theme.config.xAxisTickLineColor;
+        this.axisLineColor = (this.option.axisLineStyle && this.option.axisLineStyle.color) || Token.config.xAxisTickLineColor;
         // 自定义时间轴文本颜色
-        this.labelColor = (this.option.labelStyle && this.option.labelStyle.color) || Theme.config.xAxisLabelColor;
+        this.labelColor = (this.option.labelStyle && this.option.labelStyle.color) || Token.config.xAxisLabelColor;
         // 整个时间轴的时间
         this.totalHours = null;
         // 刻度间隔(分钟)
@@ -202,7 +202,7 @@ export default class TimeLine {
             this.ctx.beginPath();
             this.ctx.arc(x, this.canvas.height - 60, 7, 0, 2 * Math.PI);
             this.ctx.closePath();
-            this.ctx.fillStyle = background[type] || Theme.config.colorState.colorNone;
+            this.ctx.fillStyle = background[type] || Token.config.colorState.colorNone;
             this.ctx.fill();
         }
     }
@@ -227,7 +227,7 @@ export default class TimeLine {
                 this.ctx.rect(startPosition, this.canvas.height - 40, endPosition - startPosition, 8);
             }
             this.ctx.closePath();
-            this.ctx.fillStyle = background[type] || Theme.config.colorState.colorNone;
+            this.ctx.fillStyle = background[type] || Token.config.colorState.colorNone;
             this.ctx.fill();
         }
     }

@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 import { pageIconArr } from './pageIcon';
 import { getUnitAnimationConfig } from '../animation'
 
@@ -19,32 +19,32 @@ function getBaseOption() {
     icon: 'circle',
     left: 'center',
     bottom: 12,
-    padding: Theme.config.legendPadding,
-    inactiveColor: Theme.config.legendInactiveColor,
-    inactiveBorderColor: Theme.config.legendInactiveBorderColor,
-    inactiveBorderWidth: Theme.config.legendInactiveBorderWidth,
-    borderWidth: Theme.config.legendBorderWidth,
+    padding: Token.config.legendPadding,
+    inactiveColor: Token.config.legendInactiveColor,
+    inactiveBorderColor: Token.config.legendInactiveBorderColor,
+    inactiveBorderWidth: Token.config.legendInactiveBorderWidth,
+    borderWidth: Token.config.legendBorderWidth,
     formatter: undefined,
     textStyle: {
-      fontSize: Theme.config.legendTextFontSize,
-      color: Theme.config.legendTextColor,
+      fontSize: Token.config.legendTextFontSize,
+      color: Token.config.legendTextColor,
       align: 'left',
       verticalAlign: 'top',
-      padding: Theme.config.legendTextPadding,
+      padding: Token.config.legendTextPadding,
       rich: {
         a: {
-          fontSize: Theme.config.legendTextRichFontSize,
-          color: Theme.config.legendTextRichColor,
+          fontSize: Token.config.legendTextRichFontSize,
+          color: Token.config.legendTextRichColor,
           align: 'left',
           verticalAlign: 'top',
-          padding: Theme.config.legendTextRichPadding,
+          padding: Token.config.legendTextRichPadding,
         },
         b: {
-          fontSize: Theme.config.legendTextRichFontSize,
-          color: Theme.config.legendTextRichColor,
+          fontSize: Token.config.legendTextRichFontSize,
+          color: Token.config.legendTextRichColor,
           align: 'left',
           verticalAlign: 'top',
-          padding: Theme.config.legendTextRichPadding,
+          padding: Token.config.legendTextRichPadding,
         },
       },
       overflow: 'none',
@@ -52,21 +52,21 @@ function getBaseOption() {
     },
     width: undefined,
     pageTextStyle: {
-      color: Theme.config.legendPageTextColor,
+      color: Token.config.legendPageTextColor,
     },
-    pageIconColor: Theme.config.legendPageIconColor,
-    pageIconInactiveColor: Theme.config.legendPageIconInactiveColor,
+    pageIconColor: Token.config.legendPageIconColor,
+    pageIconInactiveColor: Token.config.legendPageIconInactiveColor,
     pageIcons: {
       horizontal: pageIconArr,
       vertical: pageIconArr,
     },
     selectedMode: true,
     align: 'left',
-    itemGap: Theme.config.legendItemGap,
-    itemWidth: Theme.config.legendItemWidth,
-    itemHeight: Theme.config.legendCircleItemHeight,
+    itemGap: Token.config.legendItemGap,
+    itemWidth: Token.config.legendItemWidth,
+    itemHeight: Token.config.legendCircleItemHeight,
     itemStyle: {
-      borderWidth: Theme.config.legendItemBorderWidth,
+      borderWidth: Token.config.legendItemBorderWidth,
       opacity:1,
     },
     ...getUnitAnimationConfig()

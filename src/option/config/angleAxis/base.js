@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 import { getBasicAnimationConfig } from '../animation';
 
 function base() {
@@ -19,32 +19,32 @@ function base() {
     axisLine: {
       show: false,
       lineStyle: {
-        color: Theme.config.angleAxisLineColor,
-        width: Theme.config.angleAxisLineWidth,
-        type: Theme.config.angleAxisLineType,
+        color: Token.config.angleAxisLineColor,
+        width: Token.config.angleAxisLineWidth,
+        type: Token.config.angleAxisLineType,
       },
     },
     splitLine: {
       show: false,
       lineStyle: {
-        color: Theme.config.angleAxisSplitLineColor,
-        width: Theme.config.angleAxisSplitLineWidth,
-        type: Theme.config.angleAxisSplitLineType,
+        color: Token.config.angleAxisSplitLineColor,
+        width: Token.config.angleAxisSplitLineWidth,
+        type: Token.config.angleAxisSplitLineType,
       },
     },
     axisTick: {
       show: false,
       length: 5,
       lineStyle: {
-        color: Theme.config.angleAxisTickLineColor,
-        width: Theme.config.angleAxisTickLineWidth,
-        type: Theme.config.angleAxisTickLineType,
+        color: Token.config.angleAxisTickLineColor,
+        width: Token.config.angleAxisTickLineWidth,
+        type: Token.config.angleAxisTickLineType,
       },
     },
     axisLabel: {
       show: true,
-      fontSize: Theme.config.angleAxisLabelFontSize,
-      color: Theme.config.angleAxisLabelColor,
+      fontSize: Token.config.angleAxisLabelFontSize,
+      color: Token.config.angleAxisLabelColor,
       formatter: undefined,
     },
     ...getBasicAnimationConfig()

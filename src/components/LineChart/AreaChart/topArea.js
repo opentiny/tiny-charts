@@ -14,7 +14,7 @@ import max from '../../../util/sort/max';
 import { isNumber } from '../../../util/type';
 import { getColor, codeToRGB } from '../../../util/color';
 import chartToken from './chartToken';
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 import {getDataWidthNoObject} from './bottomArea'
 
 function markLineArea(baseOption, iChartOption, YAxiMin) {
@@ -27,7 +27,7 @@ function markLineArea(baseOption, iChartOption, YAxiMin) {
   ) {
     const colors = baseOption.color;
     const markLine = iChartOption.markLine;
-    const topColor = codeToRGB(markLine.topColor, 0.15) || codeToRGB(Theme.config.colorState.colorError, 0.15);
+    const topColor = codeToRGB(markLine.topColor, 0.15) || codeToRGB(Token.config.colorState.colorError, 0.15);
     baseOption.series.forEach((item, index) => {
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)

@@ -9,12 +9,12 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../token'
+import Token from '../../../token'
 import { codeToRGB } from '../../../../util/color'
 
 function getDataZoomToken() {
-    const token = Theme.getToken()
-    const color = Theme.themeName.includes('dark') ? '#1B3F86' : '#8CA3FA';
+    const token = Token.getToken()
+    const color = Token.themeName.includes('dark') ? '#1B3F86' : '#8CA3FA';
     return {
         borderColor: token.dataZoomBackgroundColor,
         backgroundColor: token.dataZoomBackgroundColor,

@@ -12,7 +12,7 @@
 import { codeToHex, codeToRGB } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
 import chartToken from './chartToken';
-import Theme from '../../feature/token';
+import Token from '../../feature/token';
 import merge from '../../util/merge';
 
 export const emptySeriesUnit = {
@@ -390,7 +390,7 @@ function setMarkLine(series, markLine, marklineColor) {
 }
 
 function handleOther(iChartOption, seriesUnit, series, data) {
-  const marklineColor = Theme.config.colorState.colorError
+  const marklineColor = Token.config.colorState.colorError
   if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
     setSplitColor(seriesUnit, iChartOption.splitColor, iChartOption.pointerStyle);
   } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 0) {

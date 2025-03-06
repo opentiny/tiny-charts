@@ -13,7 +13,7 @@ import min from '../../../util/sort/min';
 import { isNumber, isObject } from '../../../util/type';
 import { getColor, codeToRGB } from '../../../util/color';
 import chartToken from './chartToken';
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 
 // 创建一个渐变色-同名的Series，用来显示分割渐变区域
 function gradientBottomArea(item, percent, colorTo, colorFrom) {
@@ -141,7 +141,7 @@ function markLineArea(baseOption, iChartOption, YAxiMax) {
   ) {
     const temp = [];
     baseOption.series.forEach(item => {
-      const bottomColor = codeToRGB(iChartOption.markLine.bottomColor, 0.15) || codeToRGB(Theme.config.colorState.colorError, 0.15);
+      const bottomColor = codeToRGB(iChartOption.markLine.bottomColor, 0.15) || codeToRGB(Token.config.colorState.colorError, 0.15);
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);

@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import Theme from '../../../feature/token';
+import Token from '../../../feature/token';
 
 function getBaseTitle() {
   return {
@@ -17,16 +17,16 @@ function getBaseTitle() {
     subtext: '',
     top: 'center',
     left: 'center',
-    itemGap: Theme.config.titleItemGap,
+    itemGap: Token.config.titleItemGap,
     textStyle: {
-      color: Theme.config.titleTextColor,
-      fontSize: Theme.config.titleTextFontSize,
+      color: Token.config.titleTextColor,
+      fontSize: Token.config.titleTextFontSize,
       lineHeight: 28,
       fontWeight: 'normal',
     },
     subtextStyle: {
-      color: Theme.config.titleSubTextColor,
-      fontSize: Theme.config.titleSubtextFontSize,
+      color: Token.config.titleSubTextColor,
+      fontSize: Token.config.titleSubtextFontSize,
       lineHeight: 24,
       fontWeight: 'normal',
     },
