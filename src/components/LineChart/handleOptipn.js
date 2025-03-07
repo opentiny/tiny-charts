@@ -11,8 +11,11 @@
  */
 import cloneDeep from '../../util/cloneDeep';
 import chartToken from './chartToken';
-import { judgeFilterAreaSeries } from './AreaChart/bottomArea';
-import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter'
+import { judgeFilterAreaSeries, getDataWidthNoObject } from './AreaChart/bottomArea';
+import getTooltipContentHtmlStr, { validateName } from '../../option/config/tooltip/formatter'
+import { isObject } from '../../util/type';
+import { getColor } from '../../util/color';
+
 
 // 给图例和x轴赋值
 export function handleData(baseOpt, legendData, xAxisData) {
@@ -72,10 +75,11 @@ export function discrete(iChartOption, baseOption) {
         },
       };
       const discreteData = [];
-      for (let index = 0; index < newSeries.data.length; index++) {
-        const pre = newSeries.data[index - 1];
-        const next = newSeries.data[index];
-        const cur = newSeries.data[index + 1];
+      const seriesData = getDataWidthNoObject(newSeries.data)
+      for (let index = 0; index < seriesData.length; index++) {
+        const pre = seriesData[index - 1];
+        const next = seriesData[index];
+        const cur = seriesData[index + 1];
         if (!isNullValue(pre) || !isNullValue(cur)) {
           discreteData.push(null);
         } else {
@@ -92,7 +96,7 @@ export function discrete(iChartOption, baseOption) {
   }
 }
 
-function defaultFormatter(params) {
+function defaultFormatter(params, color) {
   const config = {
     title: '',
     children: []
@@ -101,18 +105,30 @@ function defaultFormatter(params) {
     if (index === 0) {
       config.title = item.name
     }
+    const iconColor = validateName(item.value) ? item.color : getColor(color, item.seriesIndex)
     const dataItem = {
       name: item.seriesName,
       value: item.value,
-      iconColor: item.color,
+      iconColor,
     }
     config.children.push(dataItem)
   });
   return getTooltipContentHtmlStr(config)
 }
 
+// 阈值场景将data中的数据转为obj，需要转换回来
+function coverObjDataToInit(params) {
+  if (params && params.length !== 0) {
+    return params.map(item => {
+      const data = isObject(item.data) ? item.data.value : item.data
+      return { ...item, data }
+    })
+  }
+  return params
+}
+
 export function setTooltip(baseOpt, iChartOpt, legendData) {
-  const { discrete, predict, tipHtml, tooltip } = iChartOpt
+  const { discrete, predict, tipHtml, tooltip, color } = iChartOpt
   // 判断面积图是否要过滤series
   const filterArea = judgeFilterAreaSeries(iChartOpt)
   const isFilter = discrete || predict || filterArea
@@ -123,6 +139,7 @@ export function setTooltip(baseOpt, iChartOpt, legendData) {
       const lineNumber = legendData.length
       params = echartsParams.slice(0, lineNumber)
     }
-    return formatter ? formatter(params, ticket, callback) : defaultFormatter(params)
+    const initParams = coverObjDataToInit(params)
+    return formatter ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color)
   }
 }
