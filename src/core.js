@@ -24,6 +24,9 @@ import merge, { mergeExtend } from './util/merge';
 import WcagObserver from './feature/wcag';
 import chartLinter from './feature/linter';
 import { event } from './util/event'
+import cloneDeep from './util/cloneDeep';
+import { uuid } from './util/math';
+import Theme from './theme';
 
 const SELF_CHART = [
   'FlowChart',
@@ -77,6 +80,8 @@ export default class CoreChart extends BaseChart {
     this.mediaScreenObserver = undefined;
     // 图表可选择能力
     this.wcagObserver = undefined;
+    // 图表uuid
+    this.uuid = `hui-charts-${uuid()}`;
   }
 
   // 注册主题
@@ -156,7 +161,7 @@ export default class CoreChart extends BaseChart {
     iChartOption = xssOption(iChartOption);
     // 设定主题、自适应图表
     if (isInit) {
-      Token.setDefaultTheme(iChartOption.theme);
+      Token.setDefaultTheme(Theme.globalName || iChartOption.theme);
       this.mediaScreenObserver && this.mediaScreenObserver.setInitOption(iChartOption, ChartClass);
     }
     // 添加读屏能力
@@ -168,6 +173,7 @@ export default class CoreChart extends BaseChart {
       this.redirectSelfChart(ChartClass, iChartOption, plugins);
       return;
     }
+    this.initIChartOption = cloneDeep(iChartOption);
     this.plugins = plugins;
     this.chartClass = ChartClass;
     this.iChartOption = iChartOption;
@@ -218,6 +224,8 @@ export default class CoreChart extends BaseChart {
     this.renderCallBack && this.renderCallBack(this.echartsIns);
     // 监听全键盘事件
     this.keyboardFocus();
+    // 收集实例
+    Theme.registerCharts(this, this.uuid);
   }
 
   // 第一次渲染: 调用echarts原生的setOption
@@ -335,6 +343,8 @@ export default class CoreChart extends BaseChart {
       this.echartsIns.dispose();
     }
     this.echartsIns = null;
+    // 移除主题中收集的实例
+    Theme.deleteCharts(this.uuid);
   }
 
   // 获取到ECharts实例

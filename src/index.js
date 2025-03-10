@@ -12,6 +12,7 @@
 import HuiChart from './chart';
 
 export { default as core } from './core';
+export { default as Theme } from './theme';
 export { default as Dragger } from './feature/drag';
 export { default as Card } from './feature/card';
 export { default as BarChart } from './components/BarChart';
