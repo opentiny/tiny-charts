@@ -29,6 +29,7 @@ function getBaseOption() {
     handleSize: '68%', // 控制手柄的尺寸
     handleIcon: 'path://M0 0 L5 0 L5 12 L0 12 L0 0 Z', // 手柄形状
     showDetail: false,
+    brushSelect: false,
     handleStyle: {
       color: Token.config.dataZoomHandleColor,  // 手柄颜色
       shadowBlur: Token.config.dataZoomHandleShadowBlur,
@@ -91,6 +92,7 @@ function getMiniBaseOption() {
     handleSize: '100%', // 控制手柄的尺寸
     handleIcon: 'path://M0 0 L8 0 L8 12 L0 12 L0 0 Z', // 手柄形状
     showDetail: false,
+    brushSelect: false,
     //min形态关闭数据阴影,所以dataBackground和selectedDataBackground不配置
     showDataShadow: false,
     handleStyle: {
