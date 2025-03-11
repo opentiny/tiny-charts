@@ -14,21 +14,25 @@ import getGlobalToken from './getGlobalToken';
 import getAliasToken from './getAliasToken';
 import getModelToken from './getModelToken';
 import getChartsToken from './chartsToken';
-
+import getSceneToken from './getSceneToken';
+import getExportColors from './getExportColors';
 /**
  * 获取相应的主题的token
  * @param {string} themeName  主题名称
  */
 function getToken(themeName) {
   const globalToken = getGlobalToken(themeName);
-  const aliasToken = getAliasToken(themeName, globalToken);
+  const sceneToken = getSceneToken(themeName, globalToken)
+  const aliasToken = getAliasToken(themeName, globalToken, sceneToken);
   const modelToken = getModelToken(aliasToken);
   const chartsToken = getChartsToken(aliasToken);
+  const exportColors = getExportColors(color[themeName].colorSet, sceneToken)
   return {
     ...color[themeName].colorSet,
     ...modelToken,
     ...chartsToken,
     colorBoard: color[themeName].colorBoard,
+    exportColors
   };
 }
 

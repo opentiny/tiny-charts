@@ -10,10 +10,14 @@
  *
  */
 import Token from './feature/token';
+import { THEMES } from './feature/token';
+import cloneDeep from './util/cloneDeep';
+
 export default class Theme {
   static currentChartsInstance = {};
   static preChartsInstance = {};
   static globalName = undefined;
+  static THEMES = cloneDeep(THEMES)
   constructor() { }
 
   // 收集图表类
@@ -50,5 +54,9 @@ export default class Theme {
         item.refresh?.(item.initIChartOption);
       }
     }
+  }
+
+  static getColors() {
+    return Token.getColors()
   }
 }

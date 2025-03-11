@@ -32,6 +32,15 @@ const colorState = {
   colorNone: board.gray.colorGray50,
 };
 
+// 告警色组
+const colorAlarms = {
+  colorAlarmFatal: board.red.colorRed100,
+  colorAlarmError: board.red.colorRed80,
+  colorAlarmWarning: board.orange.colorOrange80,
+  colorAlarmSecondary: board.yellow.colorYellow70,
+  colorAlarmOrdinary: board.lemon.colorLemon60,
+}
+
 // 图表配色对象
 const colorChart = {
   colorChart1: board.blue.colorBlue70,
@@ -64,6 +73,6 @@ const colorChart = {
 // 图表内置的颜色组
 const colorGroup = getColorGroup(colorChart);
 
-const dark = getThemeColor(gray, colorState, colorGroup, board);
+const dark = getThemeColor(gray, colorState, colorGroup, colorAlarms, board);
 
 export default dark;

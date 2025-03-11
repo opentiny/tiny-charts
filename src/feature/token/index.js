@@ -19,6 +19,7 @@ import cloneDeep from '../../util/cloneDeep';
 import tips from '../../util/tips';
 import { THEMES, CURRENT_THEME, DEFAULT_THEME_NAME, THEME_ERROR_TIP_MESSAGE } from '../../util/constants';
 import mergeToken from './factory/mergeToken';
+import { EXPORT_COLORS_KEY } from './factory/getExportColors';
 
 const themeToken = new HashMap({
   [THEMES.LIGHT]: cloneDeep(ictLight),
@@ -147,9 +148,27 @@ class Token {
     return this.config[chartName]
   }
 
+  static getToken() {
+    return this.config
+  }
 
-  static getToken(){
-     return this.config
+  /**
+   * Theme暴露使用的颜色变量
+   * @returns object
+   */
+  static getColors() {
+
+    const colorHandler = (_, prop) => {
+      const vaild = EXPORT_COLORS_KEY.includes(prop)
+      return vaild ? this.config.exportColors[prop] : undefined
+    }
+
+    return new Proxy(
+      {},
+      {
+        get: colorHandler,
+      },
+    );
   }
 }
 

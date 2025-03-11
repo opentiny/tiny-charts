@@ -14,26 +14,26 @@ import { getIctAliasToken } from '../theme/ict/getAliasToken';
 import { getCloudAliasToken } from '../theme/cloud/getAliasToken';
 import { getHdesignAliasToken } from '../theme/hdesign/getAliasToken';
 
-// aliasToken的回调映射,bit先和hdesign拉齐原先那套暂不删除
 const aliasTokenMap = {
   [THEMES.LIGHT]: getIctAliasToken,
-  [THEMES.DARK]: globalToken => getIctAliasToken(globalToken, false),
+  [THEMES.DARK]: getIctAliasToken,
   [THEMES.BPIT_LIGHT]: getHdesignAliasToken,
-  [THEMES.BPIT_DARK]: globalToken => getHdesignAliasToken(globalToken, false),
+  [THEMES.BPIT_DARK]: getHdesignAliasToken,
   [THEMES.CLOUD_LIGHT]: getCloudAliasToken,
-  [THEMES.CLOUD_DARK]: globalToken => getCloudAliasToken(globalToken, false),
+  [THEMES.CLOUD_DARK]: getCloudAliasToken,
   [THEMES.HDESIGN_LIGHT]: getHdesignAliasToken,
-  [THEMES.HDESIGN_DARK]: globalToken => getHdesignAliasToken(globalToken, false),
+  [THEMES.HDESIGN_DARK]: getHdesignAliasToken,
 };
 
 /**
  *  根据globalToken获取aliasToken
  * @param {string} themeName  主题名称
  * @param {object} globalToken  globalToken
+ * @param {object} sceneToken  sceneToken
  */
-function getAliasToken(themeName, globalToken) {
+function getAliasToken(themeName, globalToken, sceneToken) {
   return {
-    ...aliasTokenMap[themeName](globalToken),
+    ...aliasTokenMap[themeName](globalToken, sceneToken),
   };
 }
 

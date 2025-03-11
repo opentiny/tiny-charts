@@ -19,17 +19,28 @@ const gray = {
 
 // 图表的状态颜色
 const colorState = {
-	// 信息色
-  colorInfo: board.blue.colorBlue50,
-  // 失效色
-  colorNone: board.gray.colorGray30,
-  colorAlert: board.orange.colorOrange50,
-	// 错误色
+  // 错误色
   colorError: board.red.colorRed50,
+  colorAlert: board.orange.colorOrange50,
   colorWarning: board.yellow.colorYellow50,
   // 成功色
   colorSuccess: board.mint.colorMint50,
+  // 信息色
+  colorInfo: board.blue.colorBlue50,
+  // 失效色
+  colorNone: board.gray.colorGray30,
 };
+
+// 告警色组
+const colorAlarms = {
+  // 暂定
+  colorAlarmFatal: board.red.colorRed70,
+  colorAlarmError: board.red.colorRed50,
+  colorAlarmWarning: board.orange.colorOrange50,
+  colorAlarmSecondary: board.yellow.colorYellow50,
+  // 暂定
+  colorAlarmOrdinary: board.yellow.colorYellow20,
+}
 
 // 图表配色对象
 const colorChart = {
@@ -50,6 +61,6 @@ const colorChart = {
 // 图表内置的颜色组
 const colorGroup = getColorGroup(colorChart);
 
-const light = getThemeColor(gray, colorState, colorGroup,board,board);
+const light = getThemeColor(gray, colorState, colorGroup, colorAlarms, board);
 
 export default light;
