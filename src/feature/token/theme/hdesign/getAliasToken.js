@@ -9,9 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import getSceneToken from './getSceneToken';
-
-function getAliasToken(globalToken, light = true) {
+function getAliasToken(globalToken, sceneToken) {
 
   const {
     fontSizeBase,
@@ -67,7 +65,7 @@ function getAliasToken(globalToken, light = true) {
     shadowOffsetYSecondary,
     shadowBlurPrimary,
     shadowBlurSecondary,
-  } = getSceneToken(globalToken, light)
+  } = sceneToken
 
   return {
     // -----------------------------------------------------颜色-------------------------------------------------------------------------
@@ -205,9 +203,9 @@ function getAliasToken(globalToken, light = true) {
     paddingSM: spaceBase,
     padding: space2x,
     paddingLG: space4x,
-    tipItemGap:size2x,
-    tipIconGap:size2x,
-    tipValueGap:size4x,
+    tipItemGap: size2x,
+    tipIconGap: size2x,
+    tipValueGap: size4x,
     // -----------------------------------------------------------------边框------------------------------------------------------------------------------
     // zoom数据区域边框
     zoomDataAreaBorderWidth: borderBase,
@@ -223,7 +221,7 @@ function getAliasToken(globalToken, light = true) {
     symbolBorderWidth: border2x,
     // -------------------------------------------------------------size----------------------------------------------------------------------------------------
     // 图元 
-    symbolSize: size3x-2,
+    symbolSize: size3x - 2,
     // 雷达图专用
     symbolSizeSecondary: size3x - 2,
     // 图元  线形图用
@@ -248,5 +246,4 @@ function getAliasToken(globalToken, light = true) {
   };
 }
 
-export default getAliasToken;
 export { getAliasToken as getHdesignAliasToken };

@@ -14,9 +14,10 @@
  * @param {object} gray 灰阶包含透明色
  * @param {object} colorState 状态色
  * @param {Array} colorGroup 颜色组
+ * @param {object} colorState 告警色
  * @param {object} colorBoard 色板
  */
-function getThemeColor(gray, colorState, colorGroup, colorBoard) {
+function getThemeColor(gray, colorState, colorGroup, colorAlarms, colorBoard) {
   return {
     grayScale: {
       ...gray,
@@ -24,6 +25,7 @@ function getThemeColor(gray, colorState, colorGroup, colorBoard) {
     colorSet: {
       colorState,
       colorGroup,
+      colorAlarms
     },
     colorBoard
   };

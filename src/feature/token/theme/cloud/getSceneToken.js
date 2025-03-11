@@ -71,4 +71,4 @@ function getSceneToken(globalToken, light = true) {
     }
 }
 
-export default getSceneToken
+export { getSceneToken as getCloudSceneToken }
