@@ -12,11 +12,12 @@
 import merge from '../../util/merge';
 import { getColor } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
-import { isArray, isNumber } from '../../util/type';
+import { isArray, isNumber, isObject} from '../../util/type';
 import { getMarkLineDefault } from '../../option/config/mark';
 import chartToken from './chartToken';
 import Token from '../../feature/token';
 import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter'
+import borderRadius from '../../feature/token/factory/globalToken/borderRadius';
 
 function handleYaxis(barSeries, yAxis) {
   if (Array.isArray(yAxis)) {
@@ -30,19 +31,25 @@ function handleYaxis(barSeries, yAxis) {
   }
 }
 
-function handleLabel(seriesUnit, iChartOption, index) {
+function handleLabel(seriesUnit, iChartOption, index, direction) {
   const label = iChartOption.label;
   let labelOption;
+  let initPosition = 'top';
+  let initOffset = [0, -4];
   if (label && isArray(label)) {
     labelOption = label[index];
   } else {
     labelOption = label;
   }
+  if (direction && direction === 'horizontal') { 
+    initPosition = 'right';
+    initOffset = [4, 0];
+  }
   if (labelOption && labelOption.show) {
     merge(seriesUnit.label, labelOption);
     seriesUnit.label.show = true;
-    seriesUnit.label.offset = labelOption.offset || [0, 0];
-    seriesUnit.label.position = labelOption.position || 'inside';
+    seriesUnit.label.offset = labelOption.offset || initOffset;
+    seriesUnit.label.position = labelOption.position || initPosition;
     seriesUnit.label.formatter = labelOption.formatter;
   }
 }
@@ -123,6 +130,37 @@ function handleContain(type, seriesUnit) {
   if (type && type === 'contain') {
     seriesUnit.barGap = '-100%';
   }
+}
+
+// 处理有负值柱状图
+function handlePlusMinus(seriesUnit, direction) {
+  let borderRadiusArr =  [0, 0,chartToken.borderRadius, chartToken.borderRadius];
+  let minusPosition = 'bottom';
+  let minusOffset = [0, 4];
+  if (direction && direction === 'horizontal') {
+    borderRadiusArr = [chartToken.borderRadius, 0, 0, chartToken.borderRadius];
+    minusPosition = 'left';
+    minusOffset = [-4, 0];
+  }
+  const minusDataObj = {
+    itemStyle: {
+      borderRadius: borderRadiusArr
+    },
+    label: {
+      position: minusPosition,
+      offset: minusOffset
+    }
+  }
+  seriesUnit.data.forEach((item,index) => {
+    if(isObject(item)) {
+      item.value < 0 && merge(item,minusDataObj);
+    } else {
+      if(item < 0) {
+        let objData = merge({value: item}, minusDataObj);
+        seriesUnit.data[index] = objData;
+      }
+    }
+  })
 }
 
 function handleFocus(seriesUnit, iChartOption) {
@@ -268,7 +306,7 @@ export function setSeries(seriesData, legendData, iChartOption) {
   legendData.forEach((legend, index) => {
     const seriesUnit = cloneDeep(seriesInit_);
     // 数值显示
-    handleLabel(seriesUnit, iChartOption, index);
+    handleLabel(seriesUnit, iChartOption, index, direction);
     // 聚焦效果
     handleFocus(seriesUnit, iChartOption);
     // 数据 / 数据名称
@@ -315,6 +353,8 @@ export function setSeries(seriesData, legendData, iChartOption) {
     handleRange(type, seriesUnit);
     // 包含图
     handleContain(type, seriesUnit);
+    // 处理有负值情况
+    handlePlusMinus(seriesUnit, direction);
     series.push(seriesUnit);
   });
   // 配置多个series的y轴index
