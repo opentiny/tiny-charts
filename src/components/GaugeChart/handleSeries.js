@@ -186,11 +186,12 @@ function setSplitColor(series, splitColor, pointerStyle) {
 
 // 给series配置progress渐变色，并考虑纯色情况
 function setGradientColor(series, gradientColor, pointerStyle) {
+  const value = series.data[0] ? series.data[0].value : 0;
   const linearColor = {
     type: 'linear',
     x: 0,
     y: 0,
-    x2: 1 / (series.data[0].value / series.max),
+    x2: 1 / (value / series.max),
     y2: 0,
     colorStops: gradientColor.map((item, index) => {
       return {
@@ -438,7 +439,7 @@ function setSeriesInit(seriesUnit, iChartOption) {
   const chartPosition = iChartOption.position || iChartOption.chartPosition || {};
   const { pointerStyle, pointer, min, max, startAngle, endAngle } = iChartOption;
   seriesUnit.name = iChartOption.seriesName || iChartOption.name;
-  seriesUnit.data = iChartOption.data;
+  seriesUnit.data = iChartOption.data.length ? iChartOption.data : [{value:0,name: ''}];
   // 指针
   seriesUnit.pointer.show = pointer || false;
   seriesUnit.pointer.width = (pointerStyle && pointerStyle.width) || 16;
@@ -466,7 +467,7 @@ function setSeriesInit(seriesUnit, iChartOption) {
  * @returns
  */
 function handleSeries(iChartOption) {
-  const data = iChartOption.data;
+  const data = iChartOption.data.length ? iChartOption.data : [{value:0,name: ''}];
   const text = iChartOption.text || {};
   const axisLabelStyle = iChartOption.axisLabelStyle || {};
   const { silent } = iChartOption;
