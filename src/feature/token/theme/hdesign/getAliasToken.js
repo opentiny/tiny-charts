@@ -33,6 +33,7 @@ function getAliasToken(globalToken, sceneToken) {
     size6x,
     size05x,
     borderRadiusLg,
+    fontSize3xl
   } = globalToken;
 
   const {
@@ -139,6 +140,12 @@ function getAliasToken(globalToken, sceneToken) {
     colorShadowHandle: colorShadowSecondary,
     // symbol hover填充
     symbolFillHover: colorBgMask,
+    // 中心center数值
+    colorCenterValue: colorTextPrimary,
+    // 中心center单位
+    colorCenterUnit: colorTextPrimary,
+    // 中心center名称
+    colorCenterName: colorTextSecondary,
     // ---------------------------------------------------阴影-------------------------------------------------
     // tip阴影offsetY
     shadowOffsetYContainer: shadowOffsetYPrimary,
@@ -159,6 +166,12 @@ function getAliasToken(globalToken, sceneToken) {
     subtitleFontSize: fontSizeLg,
     // label字号
     labelFontSize: fontSizeBase,
+    // 中心数值字号
+    centerValueFontSize: fontSize3xl * 2,
+    // 中心单位字号
+    centerUnitFontSize: fontSize3xl,
+    // 中心名称字号
+    centerNameFontSize: fontSizeLg,
     // ----------------------------------------------线宽---------------------------------------------------------
     // 坐标轴线宽 2
     axisLineWidth: border2x,
@@ -206,6 +219,8 @@ function getAliasToken(globalToken, sceneToken) {
     tipItemGap: size2x,
     tipIconGap: size2x,
     tipValueGap: size4x,
+    //中心文本主副标题间距
+    centerTitleSpace: space4x,
     // -----------------------------------------------------------------边框------------------------------------------------------------------------------
     // zoom数据区域边框
     zoomDataAreaBorderWidth: borderBase,

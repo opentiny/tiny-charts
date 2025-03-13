@@ -17,18 +17,15 @@ function getBaseTitle() {
     subtext: '',
     top: 'center',
     left: 'center',
-    itemGap: Token.config.titleItemGap,
+    itemGap: Token.config.centerTitleItemGap,
     textStyle: {
-      color: Token.config.titleTextColor,
-      fontSize: Token.config.titleTextFontSize,
-      lineHeight: 28,
-      fontWeight: 'normal',
+      color: Token.config.centerTitleTextColor,
+      fontSize: Token.config.centerTitleTextFontSize,
+      fontWeight: 'normal'
     },
     subtextStyle: {
-      color: Token.config.titleSubTextColor,
-      fontSize: Token.config.titleSubtextFontSize,
-      lineHeight: 24,
-      fontWeight: 'normal',
+      color: Token.config.centerTitleSubTextColor,
+      fontSize: Token.config.centerTitleSubtextFontSize,
     },
   };
 }
