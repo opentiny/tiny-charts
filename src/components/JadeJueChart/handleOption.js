@@ -27,27 +27,19 @@ const defaultThemeBarWidth = {
   small: 8
 };
 
-const gap = {
-  large: 8,
-  medium: 4,
-  small: 0
-};
 // 以208尺寸为界限，小于208限定宽度为8，间隙为12；大于208则主题规则
 const outerRingLimit = 208;
 
 // 主题中 线宽由线数量来决定
-function setThemeBarRule(theme, data, baseOpt, chartInstance) {
+function setThemeBarRule(theme, data, baseOpt, chartInstance, gap) {
   const isCloud = theme.includes('cloud');
-  let barWidth, textGap;
+  let barWidth, textGap = gap || 2;
   if (data.length >= 5) {
     barWidth = isCloud ? cloudThemeBarWidth.small : defaultThemeBarWidth.small;
-    textGap = gap.small;
   } else if (data.length === 4) {
     barWidth = isCloud ? cloudThemeBarWidth.medium : defaultThemeBarWidth.medium;
-    textGap = gap.medium;
   } else if (data.length <= 3) {
     barWidth = isCloud ? cloudThemeBarWidth.large : defaultThemeBarWidth.large;
-    textGap = gap.large;
   }
   let outerRing = getOuterRing(baseOpt, chartInstance);
   if (outerRing < outerRingLimit / 2) {
@@ -81,11 +73,11 @@ function getOuterRing(baseOpt, chartInstance) {
 
 // 配置玉玦图默认线宽为8
 export function setbarWidth(iChartOption, baseOpt, chartInstance, chartType) {
-  const { barWidth, theme, data, position } = iChartOption;
+  const { barWidth, theme, data, position, textGap } = iChartOption;
   // 有配置主题时，根据规范设置线宽 与 线间距
   let themeBarWidth;
   if (theme) {
-    let themeBarRile = setThemeBarRule(theme, data, baseOpt, chartInstance);
+    let themeBarRile = setThemeBarRule(theme, data, baseOpt, chartInstance, textGap);
     themeBarWidth = themeBarRile.barWidth;
     // 配置了position.radius 且第一个为auto, 自动计算内圈
     if (!position?.radius || position?.radius?.[0] === 'auto') {
