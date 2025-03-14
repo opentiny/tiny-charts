@@ -13,6 +13,18 @@ import Token from './feature/token';
 import { THEMES } from './feature/token';
 import cloneDeep from './util/cloneDeep';
 
+window.getConsoleContext?.().get({ name: 'theme' }).getThemeFlagAsync().then((theme) => {
+  const cftheme = theme === 'dark' ? 'cloud-dark' : 'cloud-light';
+  Theme.init(cftheme);
+})
+
+window.addEventListener('cfThemeChange', (e) => {
+  if (e.detail.themeFlag) {
+    const cftheme = e.detail.themeFlag === 'dark' ? 'cloud-dark' : 'cloud-light';
+    Theme.set(cftheme);
+  }
+})
+
 export default class Theme {
   static currentChartsInstance = {};
   static preChartsInstance = {};
