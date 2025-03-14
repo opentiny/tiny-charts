@@ -2,7 +2,8 @@
 引擎支持使用 Vue 组件编写节点，将节点渲染在图表中，同时提供了节点更新和卸载的接口。
 
 ## 1.渲染节点
-用户需要使用 Vue 组件节点时，需要引入`{{VITE_BASECOPYRIGHTSPAT}}/feature/nodeRender/vue-node.js`，这个文件可以解析传入的 Vue 组件并渲染至图表中。
+用户需要使用 Vue 组件节点时，若您当前环境为Vue3，需要引入`{{VITE_BASECOPYRIGHTSPAT}}/feature/nodeRender/vue-node.js`；若您当前环境为Vue2，需要引入`{{VITE_BASECOPYRIGHTSPAT}}/feature/nodeRender/vue2-node.js`。这个文件可以解析传入的 Vue 组件并渲染至图表中。
+
 
 ### 创建 Vue 组件节点
 ```javascript
