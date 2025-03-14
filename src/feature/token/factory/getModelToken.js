@@ -77,7 +77,14 @@ function getModelToken(aliasToken) {
     tipItemGap,
     tipIconGap,
     tipValueGap,
-    colorLabelSecondary
+    colorLabelSecondary,
+    colorCenterValue,
+    colorCenterUnit,
+    colorCenterName,
+    centerTitleSpace,
+    centerValueFontSize,
+    centerUnitFontSize,
+    centerNameFontSize
   } = aliasToken;
 
   return {
@@ -92,6 +99,21 @@ function getModelToken(aliasToken) {
     titleTextFontSize: titleFontSize,
     // 标题副文本字号
     titleSubtextFontSize: subtitleFontSize,
+
+    // 中心标题间距
+    centerTitleItemGap: centerTitleSpace,
+    // 中心标题标题颜色
+    centerTitleTextColor: colorCenterValue,
+    // 中心标题单位颜色
+    centerTitleTextUnitColor: colorCenterUnit,
+    // 中心标题副标题颜色
+    centerTitleSubTextColor: colorCenterName,
+    // 中心标题文本字号
+    centerTitleTextFontSize: centerValueFontSize,
+    // 中心标题单位字号
+    centerTitleTextUnitFontSize: centerUnitFontSize,
+    // 中心标题副文本字号
+    centerTitleSubtextFontSize: centerNameFontSize,
 
     /** -----图例------ */
     // 图例文本颜色

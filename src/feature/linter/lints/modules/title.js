@@ -15,14 +15,14 @@ import { generatedMatchedUiRule } from './util'
 function getTitleToken(echartsModule) {
     const token = Token.getToken()
     const uiRule = {
-        itemGap: token.titleItemGap,
+        itemGap: token.centerTitleItemGap,
         textStyle: {
-            color: token.titleTextColor,
-            fontSize: token.titleTextFontSize,
+            color: token.centerTitleTextColor,
+            fontSize: token.centerTitleTextFontSize,
         },
         subtextStyle: {
-            color: token.titleSubTextColor,
-            fontSize: token.titleSubtextFontSize
+            color: token.centerTitleSubTextColor,
+            fontSize: token.centerTitleSubtextFontSize
         }
     }
     const commonProperty = ['itemGap']
