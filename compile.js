@@ -39,6 +39,7 @@ const inputOptions = {
     input: [
         './src/index.js',
         './src/feature/nodeRender/vue-node.js',
+        './src/feature/nodeRender/vue2-node.js',
         './src/feature/nodeRender/angular-node.js',
         './src/feature/nodeRender/react-node.js',
         './src/framework/module/animation/index.js',
