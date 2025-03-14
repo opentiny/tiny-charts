@@ -33,7 +33,9 @@ function getAliasToken(globalToken, sceneToken) {
     size6x,
     size05x,
     borderRadiusLg,
-    fontSize3xl
+    fontSize3xl,
+    fontSize5xl,
+    fontSize2xl
   } = globalToken;
 
   const {
@@ -167,11 +169,11 @@ function getAliasToken(globalToken, sceneToken) {
     // label字号
     labelFontSize: fontSizeBase,
     // 中心数值字号
-    centerValueFontSize: fontSize3xl * 2,
+    centerValueFontSize: fontSize5xl * 2,
     // 中心单位字号
     centerUnitFontSize: fontSize3xl,
     // 中心名称字号
-    centerNameFontSize: fontSizeLg,
+    centerNameFontSize: fontSize2xl,
     // ----------------------------------------------线宽---------------------------------------------------------
     // 坐标轴线宽 2
     axisLineWidth: border2x,

@@ -169,7 +169,7 @@ function getAliasToken(globalToken, sceneToken) {
     // 中心数值字号
     centerValueFontSize: fontSize3xl * 2,
     // 中心单位字号
-    centerUnitFontSize: fontSize3xl,
+    centerUnitFontSize: fontSizeLg,
     // 中心名称字号
     centerNameFontSize: fontSizeLg,
     // ----------------------------------------------线宽---------------------------------------------------------
