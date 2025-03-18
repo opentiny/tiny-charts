@@ -78,7 +78,6 @@ function isDOM(obj) {
 
 // Vue 组件渲染
 function renderVueComponent(container, component, data, nodeInstance) {
-  // debugger
   // 函数式组件处理
   if (typeof component === 'function') {
     const dom = component(container, data);

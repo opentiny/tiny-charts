@@ -10,18 +10,10 @@
  *
  */
 // Vue 框架依赖配置
-import { h } from 'vue';
 import Vue from 'vue';
 // 原有的nodeRender方法
 import nodeRender from './index';
 
-// 创建 Vue 组件或元素
-function createElement(tag, props, children) {
-  if (!h) {
-    throw new Error('Vue is not installed. Please install Vue to use the createElement function.');
-  }
-  return h(tag, props, children);
-}
 
 // 渲染vue组件
 function createVue(container, component, data, nodeInstance) {
@@ -29,27 +21,29 @@ function createVue(container, component, data, nodeInstance) {
   const vm = new Vue({
     data() {
       return {
-        data: data
+        currentComponent: component,
+        componentData: { ...data }
       }
     },
-    render() {
-      return createElement(component, {
+    render(createElement) {
+      return createElement(this.currentComponent, {
         props: {
-          data: this.data
+          data: this.componentData
         }
       });
     }
   });
-  vm.$mount();
+  vm.$mount(container);
   container.appendChild(vm.$el);
   // 添加Vue节点实例
   setTimeout(() => {
     nodeInstance.setComponentApp({
-        app: vm,
-        unmount: () => { vm.$destroy() },
-        update: (newdata) => {
-          vm.data = Object.assign({}, vm.data, newdata);
-        }
+      app: vm,
+      unmount: () => { vm.$destroy() },
+      update: (newdata) => {
+        Object.assign(vm.componentData, newdata);
+        vm.$forceUpdate();
+      }
     })
   }, 10);
 }
@@ -73,7 +67,6 @@ function isDOM(obj) {
 
 // Vue 组件渲染
 function renderVueComponent(container, component, data, nodeInstance) {
-  // debugger
   // 函数式组件处理
   if (typeof component === 'function') {
     const dom = component(container, data);
