@@ -50,7 +50,7 @@ export default function max(arr) {
     const data = handle(arr).slice(0);
     if (!(data instanceof Array)) return;
     if (data instanceof Array && data.length === 1) {
-      return data;
+      return data[0];
     }
     buildHeap(data);
     for (let i = data.length - 1; i >= 0; i--) {
