@@ -65,7 +65,7 @@ function isVueComponent(component) {
   if (typeof component === 'function' && component.prototype && component.prototype.$options) {
     return true;
   }
-  if (typeof component === 'object' && (component.render || (component.type?.render && component.type?.__scopeId))) {
+  if (typeof component === 'object' && (component.render || (component.type?.render && component.type?.__scopeId) || component.__scopeId)) {
     return true;
   }
   return false;
