@@ -82,8 +82,10 @@ function getAliasToken(globalToken, sceneToken) {
     colorTitle: colorTextPrimary,
     // 副标题颜色
     colorSubTitle: colorTextSecondary,
-    // 名称文本（轴名称，legend名称等）
+    // 名称文本（轴名称等）
     colorTextName: colorTextSecondary,
+    // 图例名称
+    colorLegendName: colorTextSecondary,
     // 轴label
     colorAxisLabel: colorTextPlaceholder,
     // label颜色

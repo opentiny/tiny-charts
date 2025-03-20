@@ -13,6 +13,8 @@ import { THEMES } from '../../../util/constants';
 import { getIctAliasToken } from '../theme/ict/getAliasToken';
 import { getCloudAliasToken } from '../theme/cloud/getAliasToken';
 import { getHdesignAliasToken } from '../theme/hdesign/getAliasToken';
+import { getDpuiAliasToken } from '../theme/dpui/getAliasToken';
+
 
 const aliasTokenMap = {
   [THEMES.LIGHT]: getIctAliasToken,
@@ -23,6 +25,8 @@ const aliasTokenMap = {
   [THEMES.CLOUD_DARK]: getCloudAliasToken,
   [THEMES.HDESIGN_LIGHT]: getHdesignAliasToken,
   [THEMES.HDESIGN_DARK]: getHdesignAliasToken,
+  [THEMES.DPUI_LIGHT]: getDpuiAliasToken,
+  [THEMES.DPUI_DARK]: getDpuiAliasToken,
 };
 
 /**

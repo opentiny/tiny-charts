@@ -16,22 +16,26 @@ function getAliasToken(globalToken, sceneToken) {
     fontSizeMd,
     space2x,
     spaceBase,
-    fontSizeLg,
-    fontSize4xl,
     lineTypeSolid,
-    lineTypeDashedLG,
     borderNone,
     borderBase,
-    borderRadiusBase,
     border2x,
+    fontSizeLg,
     borderRadiusNone,
+    fontSize4xl,
+    size3x,
+    size2x,
+    size4x,
+    sizeBase,
     spaceNone,
     space4x,
-    size05x,
     size6x,
-    size2x,
-    sizeBase,
-    fontSize3xl
+    size05x,
+    borderRadiusLg,
+    fontSize5xl,
+    fontSize3xl,
+    fontSize2xl,
+    borderRadiusXs
   } = globalToken;
 
   const {
@@ -66,10 +70,6 @@ function getAliasToken(globalToken, sceneToken) {
     shadowBlurSecondary,
   } = sceneToken
 
-
-
-
-  
   return {
     // -----------------------------------------------------颜色-------------------------------------------------------------------------
     // 卡片背景
@@ -83,15 +83,15 @@ function getAliasToken(globalToken, sceneToken) {
     // 副标题颜色
     colorSubTitle: colorTextSecondary,
     // 名称文本（轴名称等）
-    colorTextName: colorTextPlaceholder,
+    colorTextName: colorTextSecondary,
     // 图例名称
-    colorLegendName: colorTextPlaceholder,
+    colorLegendName: colorTextSecondary,
     // 轴label
     colorAxisLabel: colorTextPlaceholder,
     // label颜色
     colorLabel: colorTextPrimary,
     // 进度图专用name名称
-    colorLabelSecondary: colorTextPlaceholder,
+    colorLabelSecondary: colorTextPrimary,
     // label禁用颜色
     colorLabelDisabled: colorTextDisabled,
     // 图标色
@@ -101,9 +101,9 @@ function getAliasToken(globalToken, sceneToken) {
     // 坐标轴线颜色
     colorAxisLine: colorLine,
     // 刻度线颜色
-    colorAxisTickLine: colorLineSecondary,
+    colorAxisTickLine: colorLine, // 确定
     // 分隔线颜色
-    colorAxisSplitLine: colorLine,
+    colorAxisSplitLine: colorLineSecondary, // 确定
     // 用于极坐标的径向轴和雷达坐标的分隔线颜色，和坐标轴线颜色保持一致，特殊处理专用
     colorAxisSplitLineSecondary: colorLine,
     // 坐标轴指示器悬浮线
@@ -111,7 +111,7 @@ function getAliasToken(globalToken, sceneToken) {
     // 分隔线
     colorSeparatorLine: colorLineSeparator,
     // lableline
-    colorLabelLine: colorLine,
+    colorLabelLine: colorLineSeparator,
     // 无色
     colorNone: colorFillNone,
     // 占位色
@@ -161,9 +161,9 @@ function getAliasToken(globalToken, sceneToken) {
     shadowBlurHandle: shadowBlurSecondary,
     // ------------------------------------------------------------------字号---------------------------------------------------
     // 主文本字号
-    textFontSize: fontSizeMd, // 确定
+    textFontSize: fontSizeMd,
     // 次级文本字号
-    subtextFontSize: fontSizeBase, // 确定
+    subtextFontSize: fontSizeBase,
     // 标题文本字号
     titleFontSize: fontSize4xl,
     // 副标题文本字号
@@ -171,17 +171,17 @@ function getAliasToken(globalToken, sceneToken) {
     // label字号
     labelFontSize: fontSizeBase,
     // 中心数值字号
-    centerValueFontSize: fontSize3xl * 2,
+    centerValueFontSize: fontSize5xl * 2,
     // 中心单位字号
-    centerUnitFontSize: fontSizeMd,
+    centerUnitFontSize: fontSize3xl,
     // 中心名称字号
-    centerNameFontSize: fontSizeMd,
+    centerNameFontSize: fontSize2xl,
     // ----------------------------------------------线宽---------------------------------------------------------
-    // 坐标轴 1
+    // 坐标轴线宽 1
     axisLineWidth: borderBase,
     // 用于极坐标系和雷达坐标系
-    axisLineWidthSecondary: borderBase,// 确定
-    //   刻度线  1
+    axisLineWidthSecondary: borderBase,
+    // 刻度线线宽 1
     axisTickLineWidth: borderBase,
     // 分隔线线宽 1
     axisSplitLineWidth: borderBase,
@@ -199,12 +199,12 @@ function getAliasToken(globalToken, sceneToken) {
     // 刻度线类型
     axisTickLineType: lineTypeSolid,
     // 直角坐标系分隔线类型
-    axisSplitLineType: lineTypeDashedLG,
+    axisSplitLineType: lineTypeSolid,
     // 极坐标系分隔线类型
     axisSplitLineTypeSecondary: lineTypeSolid,
     // 坐标轴指示器标线类型
     axisPointerLineType: lineTypeSolid,
-    // ---------------------------------------------------------------------间距------------------------------------------------------------------------------- 
+    // ---------------------------------------------------------------------间距-------------------------------------------------------------------------------
     // 坐标轴名称间距
     axisNameSpace: space2x,
     // 坐标轴文本间距
@@ -221,13 +221,13 @@ function getAliasToken(globalToken, sceneToken) {
     padding: space2x,
     paddingLG: space4x,
     tipItemGap: size2x,
-    tipIconGap: sizeBase,
-    tipValueGap: size2x,
+    tipIconGap: size2x,
+    tipValueGap: size4x,
     //中心文本主副标题间距
     centerTitleSpace: space4x,
     // -----------------------------------------------------------------边框------------------------------------------------------------------------------
     // zoom数据区域边框
-    zoomDataAreaBorderWidth: borderBase,
+    zoomDataAreaBorderWidth: borderNone,
     // 边框 细
     borderWidth: borderBase,
     // 边框
@@ -240,29 +240,29 @@ function getAliasToken(globalToken, sceneToken) {
     symbolBorderWidth: border2x,
     // -------------------------------------------------------------size----------------------------------------------------------------------------------------
     // 图元 
-    symbolSize: size2x,
+    symbolSize: size3x - 2,
     // 雷达图专用
-    symbolSizeSecondary: size2x - 2,
+    symbolSizeSecondary: size3x - 2,
     // 图元  线形图用
     symbolSizeSM: sizeBase,
     // 柱条的宽度
-    barWidth: size2x,
-    // 堆叠进度图宽度 
-    barWidthSecondary: size2x,
+    barWidth: size4x * 2,
+    // 堆叠进度图宽度
+    barWidthSecondary: size4x,
     // 图例单元尺寸
     legendItemSize: size05x,
     // 图例圆形单元尺寸
-    legendCircleItemSize: size2x - 2,
+    legendCircleItemSize: size2x,
     // labelLine的长度
     labelLineLength: size6x,
     // ------------------------------------------------圆角---------------------------------------------------
     // 容器的圆角
-    containerBoderRadius: borderRadiusBase,
+    containerBoderRadius: borderRadiusLg,
     // 圆角 0
     borderRadiusNone,
     // 圆角 小
-    borderRadius: borderRadiusBase,
+    borderRadius: borderRadiusXs,
   };
 }
 
-export { getAliasToken as getCloudAliasToken };
+export { getAliasToken as getDpuiAliasToken };

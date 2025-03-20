@@ -13,6 +13,7 @@ import { ictLight, ictDark } from './theme/ict';
 import { bpitLight, bpitDark } from './theme/bpit';
 import { cloudLight, cloudDark } from './theme/cloud';
 import { hdesignLight, hdesignDark } from './theme/hdesign';
+import { dpuiLight, dpuiDark } from './theme/dpui'
 import merge from '../../util/merge';
 import HashMap from '../../util/hashMap';
 import cloneDeep from '../../util/cloneDeep';
@@ -30,8 +31,11 @@ const themeToken = new HashMap({
   [THEMES.CLOUD_DARK]: cloneDeep(cloudDark),
   [THEMES.HDESIGN_LIGHT]: cloneDeep(hdesignLight),
   [THEMES.HDESIGN_DARK]: cloneDeep(hdesignDark),
+  [THEMES.DPUI_LIGHT]: cloneDeep(dpuiLight),
+  [THEMES.DPUI_DARK]: cloneDeep(dpuiDark),
   [CURRENT_THEME]: cloneDeep(ictLight),
 });
+
 class Token {
   // 当前主题名称
   static themeName = undefined;

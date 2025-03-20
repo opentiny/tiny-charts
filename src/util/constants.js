@@ -19,6 +19,8 @@ const THEMES = {
   CLOUD_LIGHT: 'cloud-light',
   HDESIGN_LIGHT: 'hdesign-light',
   HDESIGN_DARK: 'hdesign-dark',
+  DPUI_LIGHT: 'dpui-light',
+  DPUI_DARK: 'dpui-dark',
 };
 
 // 该值表示当前主题键名，内部使用，防止外部更改

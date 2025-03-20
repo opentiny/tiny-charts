@@ -14,6 +14,7 @@ import ict from './ict';
 import bpit from './bpit';
 import cloud from './cloud';
 import hdesign from './hdesign';
+import dpui from './dpui'
 
 const color = {
   [THEMES.LIGHT]: ict.light,
@@ -24,6 +25,8 @@ const color = {
   [THEMES.CLOUD_DARK]: cloud.dark,
   [THEMES.HDESIGN_LIGHT]: hdesign.light,
   [THEMES.HDESIGN_DARK]: hdesign.dark,
+  [THEMES.DPUI_LIGHT]: dpui.light,
+  [THEMES.DPUI_DARK]: dpui.dark,
 };
 
 export default color;
