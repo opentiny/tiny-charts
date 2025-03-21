@@ -242,13 +242,13 @@ export default class WaveChart extends BaseChart {
     // 设置雷达图覆盖颜色
     if (type === 'health') {
       chartOption.color = Token.config.colorState.colorSuccess;
-      chartOption.radar.axisLine.lineStyle.color = codeToRGB(Token.config.colorState.colorSuccess, 0.1)
+      chartOption.radar.axisLine.lineStyle.color = codeToRGB(Token.config.colorState.colorSuccess, 0.1);
     } else if (type === 'warning') {
       chartOption.color = Token.config.colorAlarms.colorAlarmSecondary;
-      chartOption.radar.axisLine.lineStyle.color = codeToRGB(Token.config.colorAlarms.colorAlarmSecondary, 0.1)
+      chartOption.radar.axisLine.lineStyle.color = codeToRGB(Token.config.colorAlarms.colorAlarmSecondary, 0.1);
     } else if (type === 'risk') {
       chartOption.color = Token.config.colorState.colorError;
-      chartOption.radar.axisLine.lineStyle.color = codeToRGB(Token.config.colorState.colorError, 0.1)
+      chartOption.radar.axisLine.lineStyle.color = codeToRGB(Token.config.colorState.colorError, 0.1);
     }
     // 雷达图数据为空时，显示分割线
     if (isArray(this.data)) {
