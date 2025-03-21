@@ -20,6 +20,8 @@ import { isString, isDOM, isArray } from '../../util/type';
 import { insertStateDom, removeStateDom } from '../../util/init/insert';
 import chartToken from './chartToken';
 import { CHART_TYPE } from '../../util/constants';
+import Token from '../../feature/token';
+import { codeToRGB } from '../../util/color';
 
 const LARGE_SYMBOL_SIZE = 12;
 const SMALL_SYMBOL_SIZE = 8;
@@ -72,7 +74,7 @@ export default class WaveChart extends BaseChart {
     this.dom = dom;
   }
 
-	// 图表渲染回调
+  // 图表渲染回调
   render() {
     this.data = this.option.data;
     // 渲染dom
@@ -206,7 +208,7 @@ export default class WaveChart extends BaseChart {
         },
         axisLine: {
           lineStyle: {
-            color: axisLineColor,
+            color: codeToRGB(axisLineColor, 0.1),
           },
         },
         splitLine: {
@@ -239,11 +241,14 @@ export default class WaveChart extends BaseChart {
     };
     // 设置雷达图覆盖颜色
     if (type === 'health') {
-      chartOption.color = ['#5CB300'];
+      chartOption.color = Token.config.colorState.colorSuccess;
+      chartOption.radar.axisLine.lineStyle.color = codeToRGB(Token.config.colorState.colorSuccess, 0.1);
     } else if (type === 'warning') {
-      chartOption.color = ['#FFB700'];
+      chartOption.color = Token.config.colorAlarms.colorAlarmSecondary;
+      chartOption.radar.axisLine.lineStyle.color = codeToRGB(Token.config.colorAlarms.colorAlarmSecondary, 0.1);
     } else if (type === 'risk') {
-      chartOption.color = ['#F23030'];
+      chartOption.color = Token.config.colorState.colorError;
+      chartOption.radar.axisLine.lineStyle.color = codeToRGB(Token.config.colorState.colorError, 0.1);
     }
     // 雷达图数据为空时，显示分割线
     if (isArray(this.data)) {
@@ -307,12 +312,11 @@ export default class WaveChart extends BaseChart {
   resizeDom() {
     this.setPointAndLineStyle();
     const loadingSvg = this.dom.getElementsByClassName('wave_loading_svg')[0];
-    const scaleWidth = `${
-      Math.min(this.clientWidth, this.clientHeight) * this.innerRadiusDecimal -
+    const scaleWidth = `${Math.min(this.clientWidth, this.clientHeight) * this.innerRadiusDecimal -
       Math.min(this.clientWidth, this.clientHeight) *
-        (this.outerRadiusDecimal - this.innerRadiusDecimal) *
-        (1 / this.splitNumber)
-    }px`;
+      (this.outerRadiusDecimal - this.innerRadiusDecimal) *
+      (1 / this.splitNumber)
+      }px`;
     const innerWidth = `${Math.min(this.clientWidth, this.clientHeight) * this.innerRadiusDecimal + 1}px`;
     this.domContainer.style.width = scaleWidth;
     this.domContainer.style.height = scaleWidth;
