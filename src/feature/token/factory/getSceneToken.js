@@ -13,16 +13,19 @@ import { THEMES } from '../../../util/constants';
 import { getIctSceneToken } from '../theme/ict/getSceneToken';
 import { getCloudSceneToken } from '../theme/cloud/getSceneToken';
 import { getHdesignSceneToken } from '../theme/hdesign/getSceneToken';
+import { getDpuiSceneToken } from '../theme/dpui/getSceneToken'
 
 const sceneTokenMap = {
     [THEMES.LIGHT]: getIctSceneToken,
-    [THEMES.DARK]:  globalToken => getIctSceneToken(globalToken, false),
+    [THEMES.DARK]: globalToken => getIctSceneToken(globalToken, false),
     [THEMES.BPIT_LIGHT]: getHdesignSceneToken,
-    [THEMES.BPIT_DARK]:  globalToken => getHdesignSceneToken(globalToken, false),
+    [THEMES.BPIT_DARK]: globalToken => getHdesignSceneToken(globalToken, false),
     [THEMES.CLOUD_LIGHT]: getCloudSceneToken,
     [THEMES.CLOUD_DARK]: globalToken => getCloudSceneToken(globalToken, false),
     [THEMES.HDESIGN_LIGHT]: getHdesignSceneToken,
-    [THEMES.HDESIGN_DARK]:  globalToken => getHdesignSceneToken(globalToken, false),
+    [THEMES.HDESIGN_DARK]: globalToken => getHdesignSceneToken(globalToken, false),
+    [THEMES.DPUI_LIGHT]: getDpuiSceneToken,
+    [THEMES.DPUI_DARK]: globalToken => getDpuiSceneToken(globalToken, false),
 };
 
 

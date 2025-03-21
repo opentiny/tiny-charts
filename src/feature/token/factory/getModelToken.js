@@ -84,7 +84,8 @@ function getModelToken(aliasToken) {
     centerTitleSpace,
     centerValueFontSize,
     centerUnitFontSize,
-    centerNameFontSize
+    centerNameFontSize,
+    colorLegendName
   } = aliasToken;
 
   return {
@@ -117,9 +118,9 @@ function getModelToken(aliasToken) {
 
     /** -----图例------ */
     // 图例文本颜色
-    legendTextColor: colorTextName,
+    legendTextColor: colorLegendName,
     // 图例富文本颜色
-    legendTextRichColor: colorTextName,
+    legendTextRichColor: colorLegendName,
     // 图例文本字号
     legendTextFontSize: subtextFontSize,
     // 图例富文本颜色
