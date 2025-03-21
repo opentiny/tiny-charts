@@ -39,18 +39,38 @@ export function setSeries(seriesData, iChartOption, chartInstance) {
     const seriesUnit = getSeriesInit();
     seriesUnit.name = item.name;
     seriesUnit.data = seriesData[i];
-    seriesUnit.itemStyle = item.itemStyle || itemStyle;
+    seriesUnit.itemStyle = item.itemStyle || itemStyle || {};
     seriesUnit.backgroundStyle.color = chartToken.background;
     seriesUnit.barWidth = barWidth;
     seriesUnit.emphasis = iChartOption.emphasis;
     series.push(seriesUnit);
   });
+  if(!itemStyle?.borderRadius){
+    setBordRadius(series, iChartOption, barWidth)
+  }
   // 阈值线
   if (markLine) {
     const markLineUnit = setMarkLine(data, markLine,  iChartOption, chartInstance, barWidth);
     series.push(markLineUnit);
   }
   return series;
+}
+
+function setBordRadius(series, iChartOption, barWidth) {
+  const { data } = iChartOption;
+  const borderRadius = barWidth / 2;
+  const len = series.length;
+  if (len === 1) {
+    series[0].itemStyle.borderRadius = borderRadius
+  } else {
+    series[0].itemStyle.borderRadius = [borderRadius, 0, borderRadius, 0];
+    let lastPosition = len - 1;
+    //最后一个值不存在时纠正圆角显示位置
+    if(!data[len - 1].value){
+      lastPosition = len - 2;
+    }
+    series[lastPosition].itemStyle.borderRadius = [0, borderRadius,0 , borderRadius];
+  }
 }
 
 function getThemeStatusColor(status = 'success'){
@@ -70,7 +90,8 @@ function setMarkLine(data, markLine, iChartOption, chartInstance, barWidth) {
   const  marklineColor = getThemeStatusColor(status);
   const temp = cloneDeep(emptySeriesUnit);
   const markLineUnit = cloneDeep(temp);
-  if(data[0].value > value){
+  const sumValue = data.reduce((a,b) => a + b.value, 0)
+  if(sumValue > value){
     color = '#FFFFFF'
   }
   markLineUnit.name = 'markLine';
