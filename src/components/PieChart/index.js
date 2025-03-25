@@ -14,6 +14,7 @@ import handleMulti from './handleMulti';
 import handleSeries from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
+import handleCenterTitle from '../../option/config/polarTitle/handleCenterTitle';
 
 class PieChart {
 
@@ -23,6 +24,7 @@ class PieChart {
   constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
+    this.chartInstance = chartInstance;
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
@@ -35,9 +37,9 @@ class PieChart {
     // 装载除series之外的其他配置
     PolarCoordSys(this.baseOption, this.iChartOption, 'PieChart');
     // 兼容旧属性chartPosition
-    const position = iChartOption.position || iChartOption.chartPosition;
+    this.position = iChartOption.position || iChartOption.chartPosition;
     // 处理series数据
-    this.baseOption.series = handleSeries(type, iChartOption, chartInstance, position, this.baseOption.legend);
+    this.baseOption.series = handleSeries(type, iChartOption, chartInstance, this.position, this.baseOption.legend);
     // 针对给定的color值，需要进行特殊处理
     this.baseOption.color = iChartOption.color;
     // 针对多重圆环图表需求，图表需要进行特殊处理
@@ -46,6 +48,9 @@ class PieChart {
     if (iChartOption.silent) {
       this.baseOption.tooltip = {};
     }
+    if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
+      handleCenterTitle(this.position, chartInstance, this.baseOption, iChartOption);
+    }
   }
 
   getOption() {
@@ -53,6 +58,11 @@ class PieChart {
   }
 
   setOption() { }
+
+  resize(callback) {
+    this.updateOption(this.chartInstance);
+    callback(this.baseOption);
+  }
 }
 
 export default PieChart;

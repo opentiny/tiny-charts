@@ -12,7 +12,6 @@ const option = {
     },
     title: {
         text: '{a|0}\n{b|链路总数}',
-        top: '40%',
         textStyle: {
             rich: {
                 a: {

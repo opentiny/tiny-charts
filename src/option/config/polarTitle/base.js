@@ -9,14 +9,16 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
+import { text } from 'd3';
 import Token from '../../../feature/token';
 
 function getBaseTitle() {
   return {
     text: '',
     subtext: '',
-    top: 'center',
+    top: 'middle',
     left: 'center',
+    textAlign: 'center',
     itemGap: Token.config.centerTitleItemGap,
     textStyle: {
       color: Token.config.centerTitleTextColor,

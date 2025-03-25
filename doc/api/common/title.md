@@ -1,4 +1,4 @@
-说明：对齐 echarts 的 `title` 属性，替代旧属性`text`
+说明：对齐 echarts 的 `title` 属性，替代旧属性`text`，默认中心文本自动居中对齐
 
 格式：
 
@@ -6,20 +6,18 @@
 title:{
     text: " ",
     subtext: " ",
-    top: 'center',
+    top: 'middle',
     left: 'center',
-    itemGap: 8,
+    textAlign: 'center',
+    itemGap: 16,
     textStyle: {
         color: '#191919',
-        fontSize: 28,
-        lineHeight: 28,
-        fontWeight: 'normal',
+        fontSize: 60,
+        fontWeight: 'normal'
     },
     subtextStyle: {
         color: '#bbbbbb',
-        fontSize: 16,
-        lineHeight: 24,
-        fontWeight: 'normal',
+        fontSize: 20,
     },
 }
 ```
