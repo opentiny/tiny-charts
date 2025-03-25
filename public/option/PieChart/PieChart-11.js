@@ -1,8 +1,7 @@
 const option = {
     theme: 'light',
     title: {
-        text: '{a|数量监测}\n{e|平台监测站}{d|}\n{b|373}{c|个} ',
-        top: '40%',
+        text: '{a|数量监测}\n{b|平台监测站}{c|}\n{d|373}{e|个} ',
         textStyle: {
             rich: {
                 a: {
@@ -10,29 +9,28 @@ const option = {
                     fontSize: 20,
                     padding: [0, 0, 10, 0]
                 },
-                e: {
+                b: {
                     color: '#999',
                     fontSize: 16,
                     padding: [0, 10, 0, 0]
                 },
-                b: {
-                    fontSize: 36,
-                    fontWeight: 'bold',
-                    padding: [10, 0, -20, 20]
-                },
                 c: {
-                    fontSize: 24,
-                    color: '#bbbbbb',
-                    padding: [10, 0, -20, 0]
-                },
-                d: {
                     width: 12,
                     height: 12,
                     backgroundColor: {
                         image: './image/charts/pie/ic_jiantou_hong.svg'
                     },
-
-                }
+                },
+                d: {
+                    fontSize: 36,
+                    fontWeight: 'bold',
+                    padding: [10, 0, -20, 20]
+                },
+                e: {
+                    fontSize: 24,
+                    color: '#bbbbbb',
+                    padding: [10, 0, -20, 0]
+                },
             }
         },
     },

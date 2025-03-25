@@ -14,7 +14,6 @@ const option = {
     title: {
         text: '345',
         subtext: '总数量\n(用户数)',
-        top: '40%',
         itemGap: 12,
         textStyle: {
             fontSize: 42,
