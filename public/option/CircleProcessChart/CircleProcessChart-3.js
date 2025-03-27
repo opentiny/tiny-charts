@@ -41,18 +41,16 @@ const option = {
   title: {
     text: '{value|65}{unit|%}',
     subtext: '问题IP',
-    itemGap: -18,
     textStyle: {
       fontWeight: 'bold',
       rich: {
         value: {
-          padding: [-20, 0, 0, 0],
           fontSize: 60
         },
         unit: {
           fontSize: 16,
           fontWeight: 'bolder',
-          padding: [0, 0, 0, 6]
+          padding: [20, 0, 0, 6]
         },
       }
     },
