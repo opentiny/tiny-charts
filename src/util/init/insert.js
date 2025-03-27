@@ -10,6 +10,7 @@
  *
  */
 import defendXSS from '../defendXSS';
+import Theme from '../../theme';
 
 const ERROR_SVG = (fillColor) => {
     return `<svg width="80px" height="80px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -104,10 +105,10 @@ function hasStateDom(container, state) {
     }
 }
 
-function insertStateDom(container, state, option = { theme: 'light' }) {
+function insertStateDom(container, state, option = {}) {
     let text = '';
     let image = '';
-    let theme = option.theme || 'light';
+    let theme = option.theme || Theme.globalName || 'light';
     let textSize = option.textSize || 14;
     let textShow = option.textShow === false ? false : true;
     let imageSize = option.imageSize || 'auto';
