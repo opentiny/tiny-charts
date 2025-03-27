@@ -31,6 +31,7 @@ export function onlyOnePoint(baseOption) {
   baseOption.series.forEach(itemObj => {
     if (itemObj.data.length === 1) {
       itemObj.showSymbol = true;
+      itemObj.itemStyle.opacity = 1
     }
   });
 }
