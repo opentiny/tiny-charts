@@ -17,6 +17,7 @@ import { handleLabelFormatter } from './labelFormatter';
 import PolarCoordSys from '../../option/PolarSys';
 import { setStartAngle, setbarWidth, handleLegendData, bindLegendEvent } from './handleOption';
 import { CHART_TYPE } from '../../util/constants';
+import handleCenterTitle from '../../option/config/polarTitle/handleCenterTitle';
 
 class JadeJueChart {
 
@@ -54,6 +55,10 @@ class JadeJueChart {
     handleLegendData(iChartOption, this.baseOption, this.chartType);
     // 绑定图例点击事件，更新背景柱条对应series的数据
     bindLegendEvent(this, chartInstance);
+    if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
+      let position = iChartOption.position || this.baseOption.polar;
+      handleCenterTitle(position, chartInstance, this.baseOption, iChartOption);
+    }
   }
 
   getOption() {
@@ -64,6 +69,10 @@ class JadeJueChart {
 
   resize(callback){
     setbarWidth(this.iChartOption, this.baseOption, this.chartInstance, this.chartType);
+    if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
+      let position = this.iChartOption.position || this.baseOption.polar;
+      handleCenterTitle(position, this.chartInstance, this.baseOption, this.iChartOption);
+    }
     callback(this.baseOption)
   }
 }
