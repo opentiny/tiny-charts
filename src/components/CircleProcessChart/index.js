@@ -16,6 +16,7 @@ import { setSeries, updateMarkLine, setRadius } from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
 import { mergeSeries } from '../../util/merge';
+import handleCenterTitle from '../../option/config/polarTitle/handleCenterTitle';
 
 export default class CircleProcessChart {
 
@@ -46,6 +47,10 @@ export default class CircleProcessChart {
     this.baseOption.angleAxis.max = iChartOption.max || 100;
     if( this.baseOption.title ) setTitle(iChartOption);
     setRadius(this.baseOption, chartInstance, iChartOption);
+    if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
+      let position = iChartOption.position || this.baseOption.polar;
+      handleCenterTitle(position, chartInstance, this.baseOption, iChartOption);
+    }
     mergeSeries(iChartOption, this.baseOption);
     mini(iChartOption, this.baseOption);
   }
@@ -56,6 +61,10 @@ export default class CircleProcessChart {
 
   resize(callback) {
     setRadius(this.baseOption, this.chartInstance, this.iChartOption);
+    if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
+      let position = this.iChartOption.position || this.baseOption.polar;
+      handleCenterTitle(position, this.chartInstance, this.baseOption, this.iChartOption);
+    }
     // 有阈值线时，更新阈值线位置
     if(this.iChartOption.markLine){
       updateMarkLine(this.iChartOption, this.baseOption, this.chartInstance)
