@@ -13,6 +13,8 @@ import chartToken from './chartToken';
 import { emptySeriesUnit } from '../GaugeChart/handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import Token from '../../feature/token';
+import { isArray, isNumber, isString } from '../../util/type';
+import { percentToDecimal } from '../../util/math';
 
 function getSeriesInit() {
   return {
@@ -41,16 +43,16 @@ export function setSeries(seriesData, iChartOption, chartInstance) {
     seriesUnit.data = seriesData[i];
     seriesUnit.itemStyle = item.itemStyle || itemStyle || {};
     seriesUnit.backgroundStyle.color = chartToken.background;
-    seriesUnit.barWidth = barWidth;
+    // seriesUnit.barWidth = barWidth;
     seriesUnit.emphasis = iChartOption.emphasis;
     series.push(seriesUnit);
   });
-  if(!itemStyle?.borderRadius){
+  if (!itemStyle?.borderRadius) {
     setBordRadius(series, iChartOption, barWidth)
   }
   // 阈值线
   if (markLine) {
-    const markLineUnit = setMarkLine(data, markLine,  iChartOption, chartInstance, barWidth);
+    const markLineUnit = setMarkLine(data, markLine, iChartOption, chartInstance, barWidth);
     series.push(markLineUnit);
   }
   return series;
@@ -66,15 +68,38 @@ function setBordRadius(series, iChartOption, barWidth) {
     series[0].itemStyle.borderRadius = [borderRadius, 0, borderRadius, 0];
     let lastPosition = len - 1;
     //最后一个值不存在时纠正圆角显示位置
-    if(!data[len - 1].value){
+    if (!data[len - 1].value) {
       lastPosition = len - 2;
     }
-    series[lastPosition].itemStyle.borderRadius = [0, borderRadius,0 , borderRadius];
+    series[lastPosition].itemStyle.borderRadius = [0, borderRadius, 0, borderRadius];
   }
 }
 
-function getThemeStatusColor(status = 'success'){
-  const {colorError, colorAlert, colorWarning, colorSuccess} = Token.config.colorState
+export function setRadius(baseOption, chartInstance, iChartOption) {
+  let radius = iChartOption.position.radius;
+  const barWidth = Number(iChartOption.barWidth) || chartToken.barWidth;
+  const width = chartInstance.getWidth();
+  const height = chartInstance.getHeight();
+  const canvasRadius = Math.min(width / 2, height / 2);
+  //内圆-4为纠正为实际显示尺寸
+  if (isNumber(radius)) {
+    baseOption.polar.radius = [radius - barWidth - 4, radius];
+  } else if (isString(radius)) {
+    let newRadius = radius.includes('%') ? percentToDecimal(radius) * Math.min(chartInstance.getWidth() / 2, chartInstance.getHeight() / 2) : parseFloat(radius);
+    baseOption.polar.radius = [newRadius - barWidth - 4, newRadius];
+  } else {
+    if (radius.length === 1) {
+      // 数组1项时，根据barWidth补齐内圆
+      let outerRing = radius[0].includes('%') ? percentToDecimal(radius[0]) * canvasRadius : parseFloat(radius[0]);
+      baseOption.polar.radius = [outerRing - barWidth - 4, radius[0]];
+    } else {
+      baseOption.polar.radius = radius;
+    }
+  }
+}
+
+function getThemeStatusColor(status = 'success') {
+  const { colorError, colorAlert, colorWarning, colorSuccess } = Token.config.colorState
   const statusColorGroup = {
     error: colorError,
     alert: colorAlert,
@@ -86,12 +111,12 @@ function getThemeStatusColor(status = 'success'){
 
 // 添加一个空series，使用该空series的pointer来作为阈值线的红线
 function setMarkLine(data, markLine, iChartOption, chartInstance, barWidth) {
-  let {color, status='success', value} = markLine;
-  const  marklineColor = getThemeStatusColor(status);
+  let { color, status = 'success', value } = markLine;
+  const marklineColor = getThemeStatusColor(status);
   const temp = cloneDeep(emptySeriesUnit);
   const markLineUnit = cloneDeep(temp);
-  const sumValue = data.reduce((a,b) => a + b.value, 0)
-  if(sumValue > value){
+  const sumValue = data.reduce((a, b) => a + b.value, 0)
+  if (sumValue > value) {
     color = '#FFFFFF'
   }
   markLineUnit.name = 'markLine';
@@ -102,14 +127,14 @@ function setMarkLine(data, markLine, iChartOption, chartInstance, barWidth) {
   markLineUnit.center = iChartOption.position.center || ['50%', '50%'];
   markLineUnit.radius = iChartOption.position.radius || '50%';
   markLineUnit.animation = false;
-  let pointerOffsetCenter = computeMarkLinePosition(markLineUnit.radius, barWidth, chartInstance);
+  let markLineParameter = computeMarkLine(markLineUnit.radius, barWidth, chartInstance) || {};
   markLineUnit.pointer = {
     icon: 'path://M0 0 L30 0 L30 100 L0 100 Z',
     width: 2,
-    length: barWidth / 2 ,
-    offsetCenter: iChartOption.markLine.offsetCenter || [0,  -pointerOffsetCenter],
+    length: (markLineParameter.actualBarWidth || barWidth) / 2,
+    offsetCenter: iChartOption.markLine.offsetCenter || [0, -markLineParameter.position],
     itemStyle: {
-      color:  color || marklineColor,
+      color: color || marklineColor,
     }
   };
   markLineUnit.data = [{ value: markLine.value }];
@@ -119,30 +144,42 @@ function setMarkLine(data, markLine, iChartOption, chartInstance, barWidth) {
 }
 
 // 计算阈值线位置 
-function computeMarkLinePosition(radius, barWidth, chartInstance){
+function computeMarkLine(radius, barWidth, chartInstance) {
   let position;
+  let actualBarWidth;
   const width = chartInstance.getWidth();
   const height = chartInstance.getHeight();
-  const canvasRadius = width > height ? height / 2 : width / 2;
-  if(typeof radius === 'number'){
-    position = radius / 2 - (barWidth / 4) 
-  }else if(radius.indexOf('%')>-1){
-    radius = Number(radius.slice(0,-1)) / 100;
-    position = radius*canvasRadius / 2 - (barWidth / 4)
-  }else if(typeof radius === 'string'){
-    position = Number(radius) / 2 - (barWidth / 4)
+  const canvasRadius = Math.min(width / 2, height / 2);
+  // 位置-2为纠正阈值线的位置
+  if (isNumber(radius)) {
+    position = radius - 2 - (barWidth / 4) * 3
+  } else if (isString(radius)) {
+    radius = radius.includes('%') ? percentToDecimal(radius) * canvasRadius : parseFloat(radius);
+    position = radius - 2 - (barWidth / 4) * 3
+  } else {
+    if (radius.length === 1) {
+      let outerRing = radius[0].includes('%') ? percentToDecimal(radius[0]) * canvasRadius : parseFloat(radius[0]);
+      position = outerRing - 2 - (barWidth / 4) * 3
+    } else {
+      // 数组2项时，根据内外圆大小计算出位置以及阈值线的长度
+      let outerRing = radius[1].includes('%') ? percentToDecimal(radius[1]) * canvasRadius : parseFloat(radius[1]);
+      let innerRing = radius[0].includes('%') ? percentToDecimal(radius[0]) * canvasRadius : parseFloat(radius[0]);
+      actualBarWidth = outerRing - innerRing - 4;
+      position = outerRing - 2 - (actualBarWidth / 4) * 3
+    }
   }
-  return position
+  return { position, actualBarWidth }
 }
 
 // 更新阈值线位置
-export function updateMarkLine(iChartOption, eChartOption, chartInstance){
+export function updateMarkLine(iChartOption, eChartOption, chartInstance) {
   let radius = iChartOption.position.radius || '50%';
   const barWidth = Number(iChartOption.barWidth) || chartToken.barWidth;
-  const pointerOffsetCenter = computeMarkLinePosition(radius, barWidth, chartInstance);
-  eChartOption.series.forEach(item=>{
-    if(item.name === 'markLine'){
-      item.pointer.offsetCenter = iChartOption.markLine.offsetCenter || [0,  -pointerOffsetCenter];
+  const markLineParameter = computeMarkLine(radius, barWidth, chartInstance) || {};
+  eChartOption.series.forEach(item => {
+    if (item.name === 'markLine') {
+      item.pointer.offsetCenter = iChartOption.markLine.offsetCenter || [0, -markLineParameter.position];
+      item.pointer.length = (markLineParameter.actualBarWidth || barWidth) / 2
     }
   })
 }

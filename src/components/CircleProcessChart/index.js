@@ -12,7 +12,7 @@
 import init from '../../option/init';
 import mini from '../../feature/mini/miniCircleProcessChart';
 import { getSeriesData, setTooltip, setTitle } from './handleOption';
-import { setSeries, updateMarkLine } from './handleSeries';
+import { setSeries, updateMarkLine, setRadius } from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
 import { mergeSeries } from '../../util/merge';
@@ -44,7 +44,8 @@ export default class CircleProcessChart {
     this.baseOption.series = setSeries(seriesData, iChartOption, chartInstance);
     // 范围设置
     this.baseOption.angleAxis.max = iChartOption.max || 100;
-    if( this.baseOption.title) setTitle(iChartOption);
+    if( this.baseOption.title ) setTitle(iChartOption);
+    setRadius(this.baseOption, chartInstance, iChartOption);
     mergeSeries(iChartOption, this.baseOption);
     mini(iChartOption, this.baseOption);
   }
@@ -54,6 +55,7 @@ export default class CircleProcessChart {
   }
 
   resize(callback) {
+    setRadius(this.baseOption, this.chartInstance, this.iChartOption);
     // 有阈值线时，更新阈值线位置
     if(this.iChartOption.markLine){
       updateMarkLine(this.iChartOption, this.baseOption, this.chartInstance)
