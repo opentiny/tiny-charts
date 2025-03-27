@@ -15,11 +15,6 @@
           "imagePath": "./image/theme/light/JadeJueChart/JadeJueChart-5.png"
         },
         {
-          "name": "进度玉玦图",
-          "routePath": "JadeJueChart-11",
-          "imagePath": "./image/theme/light/JadeJueChart/JadeJueChart-11.png"
-        },
-        {
           "name": "数据为0时最小占比",
           "routePath": "JadeJueChart-10",
           "imagePath": "./image/theme/light/JadeJueChart/JadeJueChart-10.png"
