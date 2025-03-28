@@ -175,12 +175,36 @@ function transColor(colorStr) {
 
   // 如果匹配到了 3 个字符，则将其每个字符重复一遍
   if (matches) {
-      return `#${matches[1]}${matches[1]}${matches[2]}${matches[2]}${matches[3]}${matches[3]}`;
+    return `#${matches[1]}${matches[1]}${matches[2]}${matches[2]}${matches[3]}${matches[3]}`;
   }
 
   // 如果颜色代码格式不正确，则直接返回原来的代码
   return colorStr;
 }
+
+// 获取两种颜色的混合之后的颜色。ratio为后者的颜色占比，默认0.5，两者比例各占50%去混合
+const getMixColor = (c1, c2, ratio = 0.5) => {
+  if (typeof c1 !== 'string' || typeof c2 !== 'string') return '';
+  const color1 = codeToHex(c1);
+  const color2 = codeToHex(c2);
+
+  let r1 = parseInt(color1.substring(1, 3), 16);
+  let g1 = parseInt(color1.substring(3, 5), 16);
+  let b1 = parseInt(color1.substring(5, 7), 16);
+
+  let r2 = parseInt(color2.substring(1, 3), 16);
+  let g2 = parseInt(color2.substring(3, 5), 16);
+  let b2 = parseInt(color2.substring(5, 7), 16);
+
+  let r = Math.round(r1 * (1 - ratio) + r2 * ratio);
+  let g = Math.round(g1 * (1 - ratio) + g2 * ratio);
+  let b = Math.round(b1 * (1 - ratio) + b2 * ratio);
+
+  r = ('0' + (r || 0).toString(16)).slice(-2);
+  g = ('0' + (g || 0).toString(16)).slice(-2);
+  b = ('0' + (b || 0).toString(16)).slice(-2);
+  return '#' + r + g + b;
+};
 
 
 export {
@@ -189,5 +213,6 @@ export {
   codeToHex,
   colorsBetween,
   changeRgbaOpacity,
-  transColor
+  transColor,
+  getMixColor
 };

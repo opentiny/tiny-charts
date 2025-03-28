@@ -12,6 +12,7 @@
 import cloneDeep from '../../util/cloneDeep';
 import { random } from '../../util/math';
 import { CHARTTYPE } from './BaseOption';
+import { getMixColor, codeToRGB } from '../../util/color';
 
 function setChartPosition(polarInfo, chartInstance) {
   let radius = polarInfo.radius, widthDis, heightDis;
@@ -145,6 +146,12 @@ export function handleRootData(d3, { baseOption, chartInstance, iChartOption, ch
         stroke: node.data.borderColor,
         // 设置球的背景色
         fill: node.data.color,
+      },
+      emphasis: {
+        style: {
+          stroke: getMixColor(node.data.borderColor, '#FFFFFF', .3),
+          fill: codeToRGB(getMixColor(node.data.borderColor, '#FFFFFF', .3), chartType !== CHARTTYPE.NESTED ? 1 : .2),
+        },
       },
       // 设置球的跳动范围
       keyframeAnimation: {
