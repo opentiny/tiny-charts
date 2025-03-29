@@ -9,7 +9,6 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import { text } from 'd3';
 import Token from '../../../feature/token';
 
 function getBaseTitle() {
