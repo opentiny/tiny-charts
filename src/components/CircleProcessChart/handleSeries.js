@@ -76,7 +76,7 @@ function setBordRadius(series, iChartOption, barWidth) {
 }
 
 export function setRadius(baseOption, chartInstance, iChartOption) {
-  let radius = iChartOption.position.radius;
+  let radius = iChartOption.position?.radius || '50%';
   const barWidth = Number(iChartOption.barWidth) || chartToken.barWidth;
   const width = chartInstance.getWidth();
   const height = chartInstance.getHeight();
