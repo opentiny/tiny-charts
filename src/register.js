@@ -36,6 +36,7 @@ import CandlestickChart from './components/CandlestickChart';
 import GraphChart from './components/GraphChart';
 import AssembleBubbleChart from './components/AssembleBubbleChart';
 import BulletChart from './components/BulletChart';
+import BarLineChart from './components/BarLineChart';
 
 function Register() {
   this.registeredComp = {};
@@ -169,6 +170,10 @@ const components = [
   {
     name: 'BulletChart',
     component: BulletChart,
+  },
+  {
+    name: 'BarLineChart',
+    component: BarLineChart,
   },
 ];
 

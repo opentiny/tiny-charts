@@ -39,6 +39,7 @@ import OrganizationChart from './OrganizationChart';
 import AssembleBubbleChart from './AssembleBubbleChart';
 import CircleProcessChart from './CircleProcessChart';
 import AutonaviMapChart from './AutonaviMapChart';
+import BarLineChart from './BarLineChart';
 
 export default {
     LineChart,
@@ -80,5 +81,6 @@ export default {
     OrganizationChart,
     CircleProcessChart,
     AssembleBubbleChart,
-    BulletChart
+    BulletChart,
+    BarLineChart
 };
