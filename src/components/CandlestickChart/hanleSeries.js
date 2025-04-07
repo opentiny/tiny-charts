@@ -115,6 +115,7 @@ function handleSeries(baseOpt, iChartOpt, data, chartInstance) {
   baseSeries[0].itemStyle.color0 = downStateColor;
   baseSeries[0].itemStyle.borderColor = upStateColor;
   baseSeries[0].itemStyle.borderColor0 = downStateColor;
+  baseSeries[0].name = iChartOpt.dataName ? iChartOpt.dataName : baseSeries[0].name;
   baseOpt.series = baseSeries;
 
   handleMaAndVolSeries(baseOpt, iChartOpt, data, { upStateColor, downStateColor }, chartInstance);
