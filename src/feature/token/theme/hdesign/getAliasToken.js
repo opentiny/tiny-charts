@@ -45,6 +45,7 @@ function getAliasToken(globalToken, sceneToken) {
     colorBgPlaceholder,
     colorBgHover,
     colorBgHandle,
+    colorBgActive,
     colorTextPrimary,
     colorTextSecondary,
     colorTextPlaceholder,
@@ -78,6 +79,8 @@ function getAliasToken(globalToken, sceneToken) {
     colorBgContainerSecondary: colorBgSecondary,
     // 悬浮背景
     colorBgContainerHover: colorBgHover,
+    // 仪表盘中心文本卡片
+    colorBgControl: colorBgActive,
     // 标题颜色
     colorTitle: colorTextPrimary,
     // 副标题颜色
