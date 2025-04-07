@@ -52,6 +52,7 @@ export default class Theme {
   // 初始化主题
   static init(theme) {
     this.globalName = theme;
+    Token.setDefaultTheme(theme);
   }
 
   // 设置主题
