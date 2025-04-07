@@ -34,6 +34,8 @@ function getSceneToken(globalToken, light = true) {
         colorBgHover: light ? colorGray5 : colorGray80,
         // datazoom  handle border
         colorBgHandle: light ? colorGray0 : colorGray60,
+        // 仪表盘中心文本卡片
+        colorBgActive: light ? colorGray5 : colorGray10,
         // 主要文本色
         colorTextPrimary: light ? colorGray90 : colorGray0,
         // 次要文本色
