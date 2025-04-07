@@ -435,6 +435,74 @@ function handleOther(iChartOption, seriesUnit, series, data) {
   }
 }
 
+function handleStatus(seriesUnit, iChartOption){
+  let status = iChartOption.data[0].status;
+  let statusText = iChartOption.data[0].statusText;
+  let statusColor = {
+    error: Token.config.colorAlarms.colorAlarmError,
+    fatal: Token.config.colorAlarms.colorAlarmFatal,
+    ordinary: Token.config.colorAlarms.colorAlarmOrdinary,
+    secondary: Token.config.colorAlarms.colorAlarmSecondary,
+    warning: Token.config.colorAlarms.colorAlarmWarning,
+    success: Token.config.colorState.colorSuccess
+  }
+  let statusLabel = {
+    fatal: '致命',
+    error: '高风险',
+    warning: '中风险',
+    secondary: '低风险',
+    ordinary: '提示',
+    success: '正常'
+  }
+  let color = statusColor[status];
+  let label = statusText ? statusText : statusLabel[status];
+  
+  if(!status || !color) {
+    return
+  }
+  seriesUnit.color = color;
+
+  if(!seriesUnit.text) {
+    let name = iChartOption.data[0].name;
+    seriesUnit.detail = {
+      valueAnimation: true,
+      offset: ['0%', '35%'],
+      formatter: function (value) {
+        
+          return '{value|' + value + '}{unit|%}\n{name|'+ name +'}\n\n\n{status|'+ label +'}'
+      },
+      rich: {
+        value: {
+          fontSize: 50,
+          fontWeight: 'bolder',
+          color: chartToken.detailRichColor,
+          padding: [0, 0, 30, 0]
+        },
+        unit: {
+          fontSize: 14,
+          color: chartToken.unitColor,
+          padding: [22, 0, 30, 0],
+        },
+        name: {
+          fontSize: 14,
+          color: chartToken.descRichColor,
+          padding: [15, 5, 5, 5],
+        },
+        status: {
+          fontWeight: 'bolder',
+          fontSize: 12,
+          color: chartToken.detailRichColor,
+          backgroundColor: chartToken.colorBgControl,
+          width: 120,
+          height: 32,
+          borderRadius: 20,
+          align: 'center',
+        }
+      }
+    }
+  }
+}
+
 function setSeriesInit(seriesUnit, iChartOption) {
   const chartPosition = iChartOption.position || iChartOption.chartPosition || {};
   const { pointerStyle, pointer, min, max, startAngle, endAngle } = iChartOption;
@@ -493,6 +561,8 @@ function handleSeries(iChartOption) {
   // 进度条宽度
   handleProgress(seriesUnit, iChartOption, data);
   handleAxisLine(seriesUnit, iChartOption);
+  // 内置状态仪表盘
+  handleStatus(seriesUnit, iChartOption);
 
   // 轨道颜色分块、progress渐变只能二选一
   handleOther(iChartOption, seriesUnit, series, data);

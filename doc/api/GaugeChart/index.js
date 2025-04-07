@@ -21,6 +21,8 @@ import pointerStyleMd from './pointerStyle.md?raw'
 import maskMd from './mask.md?raw'
 import orbitalColorMd from './orbitalColor.md?raw'
 import silentMd from './silent.md?raw'
+import statusMd from './status.md?raw'
+import statusTextMd from './statusText.md?raw'
 
 const data = {
     dataset: [
@@ -47,6 +49,8 @@ const data = {
         ['mask', '外层光晕蒙层配置', 'object', '{show:false,hightLight:true}'],
         ['orbitalColor', '仪表盘的轨道颜色', 'string', '随主题'],
         ['silent', '是否关闭hover动效', 'boolean', 'false'],
+        ['status', '仪表盘状态', 'string', '无'],
+        ['statusText', '仪表盘状态按钮文本', 'string', '无'],
 
     ],
     markdown: [
@@ -73,6 +77,8 @@ const data = {
         maskMd,
         orbitalColorMd,
         silentMd,
+        statusMd,
+        statusTextMd
     ],
 };
 
