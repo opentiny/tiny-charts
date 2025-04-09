@@ -49,8 +49,10 @@ function getSceneToken(globalToken, light = true) {
         colorIconDisabled: colorGray50,
         colorLine: colorGray20,
         colorLineSecondary: light ? colorGray40 : colorGray20,
-        //分隔线
-        colorLineSeparator: colorGray90,
+        // 指示线
+        colorLinePointer: colorGray90,
+        // 分割线
+        colorLineSeparator: light ? colorGray20 : colorGray10,
         colorFillNone: colorTransparent,
         // datzoom 未选中数据  fill
         colorFill: light ? codeToRGB(colorGray100, 0.05) : codeToRGB(colorGray100, 0.1),

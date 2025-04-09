@@ -35,17 +35,6 @@ function getLegendToken(echartsModule) {
             borderWidth: token.legendItemBorderWidth,
         }
     }
-    // 以下待讨论
-    // 图例富文本颜色
-    // legendTextRichColor
-    // 图例富文本颜色
-    // legendTextRichFontSize
-    // 图例富文本的padding
-    // legendTextRichPadding
-    // 圆形图例时每项的高度
-    // legendCircleItemHeight
-    // 方形图例时每项的高度
-    // legendReactItemHeight
 
     const commonProperty = ['padding', 'inactiveColor', 'inactiveBorderColor', 'inactiveBorderWidth', 'borderWidth', 'textStyle', 'itemGap', 'itemStyle']
     const propertyPermissions = [
