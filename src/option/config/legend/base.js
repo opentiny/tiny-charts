@@ -31,22 +31,6 @@ function getBaseOption() {
       align: 'left',
       verticalAlign: 'top',
       padding: Token.config.legendTextPadding,
-      rich: {
-        a: {
-          fontSize: Token.config.legendTextRichFontSize,
-          color: Token.config.legendTextRichColor,
-          align: 'left',
-          verticalAlign: 'top',
-          padding: Token.config.legendTextRichPadding,
-        },
-        b: {
-          fontSize: Token.config.legendTextRichFontSize,
-          color: Token.config.legendTextRichColor,
-          align: 'left',
-          verticalAlign: 'top',
-          padding: Token.config.legendTextRichPadding,
-        },
-      },
       overflow: 'none',
       width: undefined,
     },

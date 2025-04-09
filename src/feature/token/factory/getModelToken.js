@@ -85,7 +85,8 @@ function getModelToken(aliasToken) {
     centerValueFontSize,
     centerUnitFontSize,
     centerNameFontSize,
-    colorLegendName
+    colorLegendName,
+    colorSeparatorLine
   } = aliasToken;
 
   return {
@@ -119,16 +120,20 @@ function getModelToken(aliasToken) {
     /** -----图例------ */
     // 图例文本颜色
     legendTextColor: colorLegendName,
-    // 图例富文本颜色
-    legendTextRichColor: colorLegendName,
+    // 图例富文本分割线颜色
+    legendTextSplitColor: colorSeparatorLine,
+    // 图例富文本名称颜色
+    legendTextNameColor: colorLegendName,
+    // 图例富文本数值颜色
+    legendTextValueColor: colorLabel,
     // 图例文本字号
     legendTextFontSize: subtextFontSize,
-    // 图例富文本颜色
-    legendTextRichFontSize: subtextFontSize,
+    // 图例富文本名称字号
+    legendTextNameFontSize: subtextFontSize,
+    // 图例富文本数值字号
+    legendTextValueFontSize: textFontSize,
     // 图例文本的padding
     legendTextPadding: [containerGap, 0, 0, 0],
-    // 图例富文本的padding
-    legendTextRichPadding: [containerGap, 0, 0, 0],
     // 图例每项之间的间隔
     legendItemGap: legendSpace,
     // 圆形图例时每项的宽度

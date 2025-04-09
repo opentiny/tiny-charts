@@ -52,6 +52,7 @@ function getAliasToken(globalToken, sceneToken) {
     colorIconDisabled,
     colorLine,
     colorLineSecondary,
+    colorLinePointer,
     colorLineSeparator,
     colorFillNone,
     colorFill,
@@ -108,11 +109,11 @@ function getAliasToken(globalToken, sceneToken) {
     // 用于极坐标的径向轴和雷达坐标的分隔线颜色，和坐标轴线颜色保持一致，特殊处理专用
     colorAxisSplitLineSecondary: colorLine,
     // 坐标轴指示器悬浮线
-    colorAxisPointerLine: colorLineSeparator,
+    colorAxisPointerLine: colorLinePointer,
     // 分隔线
     colorSeparatorLine: colorLineSeparator,
     // lableline
-    colorLabelLine: colorLineSeparator,
+    colorLabelLine: colorLinePointer,
     // 无色
     colorNone: colorFillNone,
     //  占位色
