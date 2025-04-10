@@ -435,9 +435,9 @@ function handleOther(iChartOption, seriesUnit, series, data) {
   }
 }
 
-function handleStatus(seriesUnit, iChartOption){
-  let status = iChartOption.data[0].status;
-  let statusText = iChartOption.data[0].statusText;
+function handleStatus(seriesUnit, iChartOption,containerWidth){
+  let status = iChartOption.status;
+  let statusText = iChartOption.statusText;
   let statusColor = {
     error: Token.config.colorAlarms.colorAlarmError,
     fatal: Token.config.colorAlarms.colorAlarmFatal,
@@ -446,6 +446,12 @@ function handleStatus(seriesUnit, iChartOption){
     warning: Token.config.colorAlarms.colorAlarmWarning,
     success: Token.config.colorState.colorSuccess
   }
+  let radius = seriesUnit.radius.indexOf('%') == -1 ? seriesUnit.radius : containerWidth * parseFloat(seriesUnit.radius) / 100 / 2;
+  let lineHeight = radius / 104 * 110;
+  let valuePadding = radius / 104 * 115;
+  let namePadding = valuePadding + 30;
+  let unitPadding = valuePadding + 48;
+
   let statusLabel = {
     fatal: '致命',
     error: '高风险',
@@ -461,42 +467,46 @@ function handleStatus(seriesUnit, iChartOption){
     return
   }
   seriesUnit.color = color;
-
+  
   if(!seriesUnit.text) {
     let name = iChartOption.data[0].name;
+  
     seriesUnit.detail = {
       valueAnimation: true,
-      offset: ['0%', '35%'],
+      offsetCenter: [0, 0],
       formatter: function (value) {
-        
-          return '{value|' + value + '}{unit|%}\n{name|'+ name +'}\n\n\n{status|'+ label +'}'
+          return '{value|' + value + '}{unit|%}\n{name|'+ name +'}\n{status|'+ label +'}'
       },
       rich: {
         value: {
-          fontSize: 50,
+          fontSize: 48,
           fontWeight: 'bolder',
           color: chartToken.detailRichColor,
-          padding: [0, 0, 30, 0]
+          padding: [valuePadding, 0, 0, 0],
+    
         },
         unit: {
           fontSize: 14,
           color: chartToken.unitColor,
-          padding: [22, 0, 30, 0],
+          padding: [unitPadding, 0, 30, 0],
         },
         name: {
           fontSize: 14,
           color: chartToken.descRichColor,
-          padding: [15, 5, 5, 5],
+          padding: [namePadding, 0, 0, 0],
         },
         status: {
           fontWeight: 'bolder',
           fontSize: 12,
           color: chartToken.detailRichColor,
-          backgroundColor: chartToken.colorBgControl,
-          width: 120,
-          height: 32,
+          backgroundColor: chartToken.btnBgColor,
+          width: 96,
+          height: 24,
           borderRadius: 20,
+
+          lineHeight: lineHeight,
           align: 'center',
+          verticalAlign: 'bottom'
         }
       }
     }
@@ -534,7 +544,7 @@ function setSeriesInit(seriesUnit, iChartOption) {
  * @param {数据} data
  * @returns
  */
-function handleSeries(iChartOption) {
+function handleSeries(iChartOption,optionColor,containerWidth) {
   const data = iChartOption.data.length ? iChartOption.data : [{value:0,name: ''}];
   const text = iChartOption.text || {};
   const axisLabelStyle = iChartOption.axisLabelStyle || {};
@@ -562,7 +572,7 @@ function handleSeries(iChartOption) {
   handleProgress(seriesUnit, iChartOption, data);
   handleAxisLine(seriesUnit, iChartOption);
   // 内置状态仪表盘
-  handleStatus(seriesUnit, iChartOption);
+  handleStatus(seriesUnit, iChartOption,containerWidth);
 
   // 轨道颜色分块、progress渐变只能二选一
   handleOther(iChartOption, seriesUnit, series, data);
