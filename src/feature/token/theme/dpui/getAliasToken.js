@@ -87,7 +87,7 @@ function getAliasToken(globalToken, sceneToken) {
     // 副标题颜色
     colorSubTitle: colorTextSecondary,
     // 名称文本（轴名称等）
-    colorTextName: colorTextSecondary,
+    colorTextName: colorTextPlaceholder,
     // 图例名称
     colorLegendName: colorTextSecondary,
     // 轴label
@@ -266,6 +266,8 @@ function getAliasToken(globalToken, sceneToken) {
     borderRadiusNone,
     // 圆角 小
     borderRadius: borderRadiusXs,
+    // 全局透明度
+    colorAlpha: 0.2
   };
 }
 

@@ -264,6 +264,8 @@ function getAliasToken(globalToken, sceneToken) {
     borderRadiusNone,
     // 圆角 小
     borderRadius: borderRadiusBase,
+    // 全局透明度
+    colorAlpha: 0.15
   };
 }
 
