@@ -18,6 +18,7 @@ import { getColor } from '../../util/color';
 
 
 export const seriesInit = () => {
+  const lineCap = Token.themeName.includes('dpui') ? 'round' : 'butt'
   return {
     label: { show: false },
     // 连线上的小圆点样式
@@ -31,6 +32,7 @@ export const seriesInit = () => {
     // 线条样式
     lineStyle: {
       width: chartToken.lineWidth,
+      cap: lineCap
     },
     massive: false,
     // 折线阶梯

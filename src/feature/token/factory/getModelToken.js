@@ -86,7 +86,8 @@ function getModelToken(aliasToken) {
     centerUnitFontSize,
     centerNameFontSize,
     colorLegendName,
-    colorSeparatorLine
+    colorSeparatorLine,
+    colorAlpha
   } = aliasToken;
 
   return {
@@ -411,6 +412,8 @@ function getModelToken(aliasToken) {
     stateAnimationDuration: 300,
     // 状态切换的动画缓动
     stateAnimationEasing: 'quinticInOut',
+    // 全局颜色透明度
+    globalColorAlpha:colorAlpha
   };
 }
 
