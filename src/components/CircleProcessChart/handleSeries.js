@@ -33,20 +33,32 @@ function getSeriesInit() {
   };
 }
 
+function setSeriesUnit(data, index, itemStyle, seriesData, iChartOption){
+  const seriesUnit = getSeriesInit();
+  seriesUnit.name = data.name;
+  seriesUnit.data = seriesData[index];
+  seriesUnit.itemStyle = data.itemStyle || itemStyle || {};
+  seriesUnit.backgroundStyle.color = chartToken.background;
+  // seriesUnit.barWidth = barWidth;
+  seriesUnit.emphasis = iChartOption.emphasis;
+  return seriesUnit;
+}
+
 export function setSeries(seriesData, iChartOption, chartInstance) {
   const { data, itemStyle, markLine } = iChartOption;
   const series = [];
   const barWidth = Number(iChartOption.barWidth) || chartToken.barWidth;
   data.forEach((item, i) => {
-    const seriesUnit = getSeriesInit();
-    seriesUnit.name = item.name;
-    seriesUnit.data = seriesData[i];
-    seriesUnit.itemStyle = item.itemStyle || itemStyle || {};
-    seriesUnit.backgroundStyle.color = chartToken.background;
-    // seriesUnit.barWidth = barWidth;
-    seriesUnit.emphasis = iChartOption.emphasis;
+    const seriesUnit = setSeriesUnit(item, i, itemStyle, seriesData, iChartOption)
     series.push(seriesUnit);
   });
+  // 没有数据时显示空白圆
+  if(!data || data.length === 0){
+    const bgData = { value: 0 };
+    const bgsSeriesData = [[0]];
+    const seriesUnit = setSeriesUnit(bgData, 0, itemStyle, bgsSeriesData, iChartOption)
+    series.push(seriesUnit);
+  }
   if (!itemStyle?.borderRadius) {
     setBordRadius(series, iChartOption, barWidth)
   }
@@ -62,6 +74,7 @@ function setBordRadius(series, iChartOption, barWidth) {
   const { data } = iChartOption;
   const borderRadius = barWidth / 2;
   const len = series.length;
+  if( !len || !series ) return;
   if (len === 1) {
     series[0].itemStyle.borderRadius = borderRadius
   } else {
