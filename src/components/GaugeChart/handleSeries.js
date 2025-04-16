@@ -153,6 +153,9 @@ function handleDetail(seriesUnit, text, data) {
       color: chartToken.descRichColor,
       padding: [24, 0, 0, 0],
     },
+    unit: {
+      color: chartToken.detailRichColor
+    }
   };
   if (text?.formatterStyle) {
     merge(seriesUnit.detail.rich, text.formatterStyle)
