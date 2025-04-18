@@ -82,7 +82,7 @@ const getTextHeight = (text, fontSize = 12, lineHeight, padding) => {
     let result = 0;
     const ele = document.createElement('div');
     ele.style.fontSize = `${fontSize}px`;
-    if (lineHeight) ele.style.lineHeight = lineHeight;
+    if (lineHeight) ele.style.lineHeight = `${lineHeight}px`;
     if (padding !== undefined) {
         if (typeof padding === 'number') {
             ele.style.padding = `${padding}px`;
