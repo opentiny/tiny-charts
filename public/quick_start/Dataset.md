@@ -1,7 +1,7 @@
 # 数据集
 图表的数据，常规配置是在option.data中设置数据，但是从 ECharts4 支持数据集开始，更推荐使用数据集来管理数据。因为这样，数据可以被多个组件复用，也方便进行 “数据和其他配置” 分离的配置风格。毕竟，在运行时，数据是最常改变的，而其他配置大多并不会改变。
 因此 {{VITE_BASECOPYRIGHTSPAT}} 也可以支持dataset，您可以在 {{VITE_BASECOPYRIGHTSPAT}} 的配置项上面添加`dataset`配置进行扩展。
-数据集在`1.3.28`版本开始支持，并且在该版本，仅支持下`线形图`和`柱状图`，且仅在图表初始化数据时生效，暂不支持refreshData等更新数据的场景。
+数据集在`1.3.28`版本开始支持，并且在该版本，仅支持`线形图`和`柱状图`，且仅在图表初始化数据时生效，暂不支持refreshData等更新数据的场景。
 
 ```javascript
 // 常规data的配置
@@ -43,7 +43,7 @@ option = {
 
 ```
 
-二、source为`二维数组`，通过encode配置映射到x和y轴的数据，只需要配置series长度为1
+二、source为`二维数组`，通过encode配置映射到x和y轴的数据，只需要配置series长度为1。
 ```javascript
 option = {
     theme: 'hdesign-light',
@@ -76,7 +76,7 @@ option = {
 
 ```
 
-三、source为`对象数组`，类目和系列名放在dimensions维度里。同时，可以支持采集不同频率的dimensions,例如折线数据多于柱状图数据，采集的频率不同。
+三、source为`对象数组`，类目和系列名放在dimensions维度里。同时，可以支持采集不同频率的dimensions，例如折线数据多于柱状图数据，采集的频率不同。
 ```javascript
 option = {
     theme: 'hdesign-light',
