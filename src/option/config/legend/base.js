@@ -28,9 +28,12 @@ function getBaseOption() {
     textStyle: {
       fontSize: Token.config.legendTextFontSize,
       color: Token.config.legendTextColor,
-      align: 'left',
-      verticalAlign: 'top',
       padding: Token.config.legendTextPadding,
+      rich:{
+        title:{
+          verticalAlign:'middle'
+        }
+      },
       overflow: 'none',
       width: undefined,
     },
