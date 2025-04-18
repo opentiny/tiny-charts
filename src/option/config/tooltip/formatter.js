@@ -46,15 +46,17 @@ function getDataHtmlStr(dataConfig) {
 
 function getTooltipContentHtmlStr(tipConfig) {
     const { tooltipItemGap, tooltipTitleColor } = Token.config
-    const { title, titleColor = tooltipTitleColor, children } = tipConfig
+    const { title, titleColor = tooltipTitleColor, children, hideEmpty } = tipConfig
     let content = ''
     if (validateName(title)) {
         content = `<div style="color:${titleColor}">${defendXSS(title)}</div>`;
     }
     if (children && children.length !== 0) {
-        children.forEach(item => {
+        for (let index = 0; index < children.length; index++) {
+            const item = children[index];
+            if( hideEmpty && (item.value === null || item.value === undefined || item.value === '')) continue;
             content += getDataHtmlStr(item)
-        })
+        }
     }
     const htmlString = `<div style="display:flex;flex-direction:column;gap:${tooltipItemGap}px;">${content}</div>`
     return htmlString;

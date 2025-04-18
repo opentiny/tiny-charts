@@ -693,7 +693,8 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
     }
     const config = {
       title: '',
-      children: []
+      children: [],
+      hideEmpty: baseOption.tooltip?.hideEmpty
     }
     newParams.forEach((item, index) => {
       if (index === 0) {
