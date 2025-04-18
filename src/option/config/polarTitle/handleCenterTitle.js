@@ -19,9 +19,9 @@ function updateTitle(position, chartInstance, baseOption, iChartOption) {
   // 圆环图中心位置
   const newPosition = (position && position.center && Array.isArray(position.center)) ? position.center : ['50%', '45%'];
 
-  const chartWidth = chartInstance.getWidth();
+  const chartWidth = chartInstance?.getWidth?.();
   // 容器高度
-  const chartHeight = chartInstance.getHeight();
+  const chartHeight = chartInstance?.getHeight?.();
   // 圆环中心到容器的距离
   const chartCenterX = chartWidth * percentToDecimal(newPosition[0]);
   const chartCenterY = chartHeight * percentToDecimal(newPosition[1]);
