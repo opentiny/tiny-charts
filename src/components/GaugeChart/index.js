@@ -32,12 +32,14 @@ class GaugeChart {
   }
 
   updateOption(iChartOption, chartInstance) {
+    let containerDom = chartInstance._dom;
+    let containerWidth = containerDom.clientWidth;
     // 图表基础颜色
     this.baseOption.color = iChartOption.color;
     // 图表鼠标悬浮提示框
     this.baseOption.tooltip = handleTooltip(iChartOption, CHART_TYPE.GAUGE);
     // 赋值数据
-    this.baseOption.series = handleSeries(iChartOption, this.baseOption.color);
+    this.baseOption.series = handleSeries(iChartOption, this.baseOption.color,containerWidth);
     // 合并用户自定义series
     this.baseOption.legend.show = false;
     mergeSeries(iChartOption, this.baseOption);
@@ -45,6 +47,7 @@ class GaugeChart {
 
   getOption() {
     return this.baseOption;
+   
   }
 
   setOption() { }
