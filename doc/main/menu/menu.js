@@ -227,6 +227,11 @@ const NAV_DATA = [
         value: 'EChartsNative',
       },
       {
+        title: '数据集',
+        titleId: 'ic_dataset',
+        value: 'Dataset',
+      },
+      {
         title: '图例扩展',
         titleId: 'ic_expandLegend',
         value: 'ExpandLegend',

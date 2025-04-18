@@ -28,7 +28,8 @@ const BarChartOption = (width, option, type, stack) => {
     columns = option.series.length / 2;
   }
 
-  const rows = option.series[0]?.data?.length;
+  // data的数据是异步时，option.series可能不存在，需要多场景测试
+  const rows = option.series[0]?.data?.length || option.series?.length;
   const intervalRows = rows;
 
   // 柱子宽度为16px的初始间距 

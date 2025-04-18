@@ -41,7 +41,7 @@ function handleLabel(seriesUnit, iChartOption, index, direction) {
   } else {
     labelOption = label;
   }
-  if (direction && direction === 'horizontal') { 
+  if (direction && direction === 'horizontal') {
     initPosition = 'right';
     initOffset = [4, 0];
   }
@@ -696,21 +696,41 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
       children: []
     }
     newParams.forEach((item, index) => {
+      let value = item.value || seriesData[item.seriesName][item.dataIndex];
+      if (isObject(item.data) && iChartOption.series) {
+        if (iChartOption.series[0]?.encode) {
+          value = item.data[item.encode.x[0]];
+        } else {
+          value = seriesData[item.seriesName] && seriesData[item.seriesName][item.dataIndex];
+        }
+      }
       if (index === 0) {
         config.title = item.name
       }
       const itemColor = typeof item.color === 'string' ? item.color : getColor(colors, index);
       const dataVal = type === 'range' ?
         `${`${`[${params[index * 2].value}`}-${params[index * 2].value + item.value}`}]`
-        : (item.value || seriesData[item.seriesName][item.dataIndex])
+        : value
       const dataItem = {
         name: item.seriesName,
         value: dataVal,
         iconColor: itemColor
       }
-      config.children.push(dataItem)
+      value && config.children.push(dataItem)
     });
     return getTooltipContentHtmlStr(config);
   };
 }
 
+// 自定义dataset和series
+export function setDatasetSeries(baseOpt, iChartOpt) {
+  let seriesItem = cloneDeep(seriesInit());
+  if (iChartOpt.series) {
+    baseOpt.series = [];
+    baseOpt.dataset = iChartOpt.dataset;
+    baseOpt.series = iChartOpt.series.map(item => {
+      seriesItem.data = undefined;
+      return Object.assign({}, seriesItem, item)
+    })
+  }
+}

@@ -305,6 +305,21 @@
           "imagePath": "./image/theme/light/BarChart/BarChart-33.png"
         }
       ]
+    },
+    {
+      "title": "dataset数据集",
+      "children": [
+        {
+          "name": "二维数组",
+          "routePath": "BarChart-51",
+          "imagePath": "./image/theme/light/BarChart/BarChart-51.png"
+        },
+        {
+          "name": "对象数组",
+          "routePath": "BarChart-52",
+          "imagePath": "./image/theme/light/BarChart/BarChart-52.png"
+        }
+      ]
     }
   ]
 }
