@@ -27,7 +27,6 @@ const option = {
 option = {
     theme: 'hdesign-light',
     dataset: {
-        // 提供一份数据。
         source: [
             ['product', '2015', '2016', '2017'],
             ['Matcha Latte', 43.3, 85.8, 93.7],
@@ -49,18 +48,18 @@ option = {
 option = {
     theme: 'hdesign-light',
     dataset: {
-    source: [
-        ['score', 'amount', 'product'],
-        [89.3, 58212, 'Matcha Latte'],
-        [57.1, 78254, 'Milk Tea'],
-        [74.4, 41032, 'Cheese Cocoa'],
-        [50.1, 12755, 'Cheese Brownie'],
-        [89.7, 20145, 'Matcha Cocoa'],
-        [68.1, 79146, 'Tea'],
-        [19.6, 91852, 'Orange Juice'],
-        [10.6, 101852, 'Lemon Juice'],
-        [32.7, 20112, 'Walnut Brownie']
-    ]
+        source: [
+            ['score', 'amount', 'product'],
+            [89.3, 58212, 'Matcha Latte'],
+            [57.1, 78254, 'Milk Tea'],
+            [74.4, 41032, 'Cheese Cocoa'],
+            [50.1, 12755, 'Cheese Brownie'],
+            [89.7, 20145, 'Matcha Cocoa'],
+            [68.1, 79146, 'Tea'],
+            [19.6, 91852, 'Orange Juice'],
+            [10.6, 101852, 'Lemon Juice'],
+            [32.7, 20112, 'Walnut Brownie']
+        ]
     },
     series: [
     {
@@ -82,7 +81,7 @@ option = {
 option = {
     theme: 'hdesign-light',
     dataset: {
-        // 用 dimensions 指定了维度的顺序。直角坐标系中，如果 X 轴 type 为 category，
+        // 用 dimensions 指定了维度的顺序，第一项默认字段为product，其他项是系列名。
         dimensions: ['product', '2015', '2016', '2017'],
         source: [
             { product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7 },
@@ -90,7 +89,7 @@ option = {
             { product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5 },
             { product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1 }
         ],
-        // 支持采集不同频率的dimensions,有的系列无数据
+        // 支持采集不同频率的dimensions，有的系列无数据
         // source: [
         //     { product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7 },
         //     { product: 'Milk Tea', '2015': 83.1, '2017': 55.1 },

@@ -1,7 +1,6 @@
 const option = {
     theme: 'hdesign-light',
     dataset: {
-        // 用 dimensions 指定了维度的顺序。直角坐标系中，如果 X 轴 type 为 category，
         dimensions: ['product', '2015', '2016', '2017'],
         source: [
             { product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7 },
