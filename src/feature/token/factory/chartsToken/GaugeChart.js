@@ -10,14 +10,16 @@
  *
  */
 function GaugeChart(aliasToken) {
-  const { colorPlaceholder, colorAxisTickLine, colorTitle, colorSubTitle, colorAxisLabel, barWidth } = aliasToken;
+  const { colorPlaceholder, colorAxisTickLine, colorCenterValue, colorCenterName, colorAxisLabel, barWidth, colorCenterUnit, colorBgControl} = aliasToken;
 
   return {
     // 用于轨道，特殊使用空数据颜色
     axisLineColor: colorPlaceholder,
     splitLineColor: colorAxisTickLine,
-    detailRichColor: colorTitle,
-    descRichColor: colorSubTitle,
+    detailRichColor: colorCenterValue,
+    descRichColor: colorCenterName,
+    unitColor: colorCenterUnit,
+    btnBgColor: colorBgControl,
     axisLabel: colorAxisLabel,
     barWidth
   };

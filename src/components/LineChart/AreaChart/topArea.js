@@ -15,7 +15,7 @@ import { isNumber } from '../../../util/type';
 import { getColor, codeToRGB } from '../../../util/color';
 import chartToken from './chartToken';
 import Token from '../../../feature/token';
-import {getDataWidthNoObject} from './bottomArea'
+import { getDataWidthNoObject } from './bottomArea'
 
 function markLineArea(baseOption, iChartOption, YAxiMin) {
   if (
@@ -27,14 +27,15 @@ function markLineArea(baseOption, iChartOption, YAxiMin) {
   ) {
     const colors = baseOption.color;
     const markLine = iChartOption.markLine;
-    const topColor = codeToRGB(markLine.topColor, 0.15) || codeToRGB(Token.config.colorState.colorError, 0.15);
+    const colorAlpha = Token.config.globalColorAlpha
+    const topColor = codeToRGB(markLine.topColor, colorAlpha) || codeToRGB(Token.config.colorState.colorError, colorAlpha);
     baseOption.series.forEach((item, index) => {
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const maxValue = max(seriesData);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0);
-      const colorFrom = codeToRGB(color, 0.15);
+      const colorFrom = codeToRGB(color, colorAlpha);
       const percent = (maxValue - markLine.top) / (maxValue - YAxiMin);
       if (maxValue > markLine.top) {
         item.areaStyle = {
@@ -72,10 +73,11 @@ function markLineArea(baseOption, iChartOption, YAxiMin) {
 function defaultArea(baseOption, iChartOption, YAxiMin) {
   if (iChartOption.area) {
     const colors = baseOption.color;
+    const colorAlpha = Token.config.globalColorAlpha
     baseOption.series.forEach((item, index) => {
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0);
-      const colorFrom = codeToRGB(color, 0.15);
+      const colorFrom = codeToRGB(color, colorAlpha);
       item.areaStyle = {
         opacity: 1,
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -97,13 +99,14 @@ function splitArea(baseOption, iChartOption, YAxiMin) {
   if (iChartOption.area && iChartOption.splitLine) {
     const colors = baseOption.color;
     const splitLine = iChartOption.splitLine;
+    const colorAlpha = Token.config.globalColorAlpha
     baseOption.series.forEach((item, index) => {
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const maxValue = max(seriesData);
       const color = getColor(colors, index);
-      const colorTo = codeToRGB(color, 0.15);
-      const colorFrom = codeToRGB(color, 0.15);
+      const colorTo = codeToRGB(color, colorAlpha);
+      const colorFrom = codeToRGB(color, colorAlpha);
       const percent = (maxValue - splitLine) / (maxValue - YAxiMin);
       item.areaStyle = {
         color: {

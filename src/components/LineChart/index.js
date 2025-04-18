@@ -17,6 +17,7 @@ import BaseOption from '../../option/base';
 import { setVisualMap } from './handleVisualMap';
 import { handlePredict } from './handlePredict';
 import { topArea, bottomArea } from './AreaChart';
+import { getDatasetData } from '../../util/dataset';
 import { mergeVisualMap, mergeSeries } from '../../util/merge';
 import { handleData, onlyOnePoint, discrete, setTooltip } from './handleOptipn';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
@@ -32,6 +33,7 @@ class LineChart {
     this.baseOption = {};
     this.baseOption = cloneDeep(BaseOption);
     this.iChartOption = {};
+    getDatasetData(iChartOption);
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption

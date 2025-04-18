@@ -133,8 +133,14 @@ export function handleSeries(baseOpt, iChartOpt, legendData ,seriesData) {
             }
             series.push(totalData);
         });
-        let xaxisData = Object.assign({},baseOpt.xAxis[0]);
-        xaxisData.show = false;
+        let xaxisData = {
+            type: 'category',
+            show: false,
+            axisLine: { show : false },
+            axisTick: { show : false },
+            axisLabel: { show : false },
+        }
+        xaxisData.data = baseOpt.xAxis[0].data;
         baseOpt.xAxis.push(xaxisData);
     }
     series.unshift(scatterObj);

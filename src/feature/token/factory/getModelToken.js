@@ -86,7 +86,8 @@ function getModelToken(aliasToken) {
     centerUnitFontSize,
     centerNameFontSize,
     colorLegendName,
-    colorSeparatorLine
+    colorSeparatorLine,
+    colorAlpha
   } = aliasToken;
 
   return {
@@ -133,7 +134,7 @@ function getModelToken(aliasToken) {
     // 图例富文本数值字号
     legendTextValueFontSize: textFontSize,
     // 图例文本的padding
-    legendTextPadding: [containerGap, 0, 0, 0],
+    legendTextPadding: [containerGap - 1, 0, 0, 0],
     // 图例每项之间的间隔
     legendItemGap: legendSpace,
     // 圆形图例时每项的宽度
@@ -411,6 +412,8 @@ function getModelToken(aliasToken) {
     stateAnimationDuration: 300,
     // 状态切换的动画缓动
     stateAnimationEasing: 'quinticInOut',
+    // 全局颜色透明度
+    globalColorAlpha: colorAlpha
   };
 }
 

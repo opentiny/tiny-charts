@@ -140,6 +140,16 @@
           "imagePath": "./image/theme/light/GaugeChart/GaugeChart-10.png"
         }
       ]
+    },
+    {
+      "title": "状态",
+      "children": [
+        {
+          "name": "仪表盘-状态",
+          "routePath": "GaugeChart-23",
+          "imagePath": "./image/theme/light/GaugeChart/GaugeChart-23.png"
+        }
+      ]
     }
   ]
 }
