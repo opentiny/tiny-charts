@@ -87,7 +87,7 @@ export function setDoubleSides(baseOption, iChartOption) {
     setAbsoluteYaxisLabel(baseOption)
     if (!baseOption.tooltip.formatter) {
       baseOption.tooltip.formatter = (echartsParams, ticket, callback)=>{
-        setTipFormatter(echartsParams, baseOption.tooltip?.hideEmpty)
+        return setTipFormatter(echartsParams, baseOption.tooltip?.hideEmpty)
       } 
     }
   }
