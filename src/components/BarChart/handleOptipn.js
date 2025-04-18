@@ -56,10 +56,11 @@ function setAbsoluteYaxisLabel(baseOption) {
   });
 }
 
-function setTipFormatter(params) {
+function setTipFormatter(params, hideEmpty) {
   const config = {
     title: '',
-    children: []
+    children: [],
+    hideEmpty
   }
   params.forEach((item, index) => {
     if (index === 0) {
@@ -85,7 +86,9 @@ export function setDoubleSides(baseOption, iChartOption) {
   if (type && type === 'double-sides') {
     setAbsoluteYaxisLabel(baseOption)
     if (!baseOption.tooltip.formatter) {
-      baseOption.tooltip.formatter = setTipFormatter
+      baseOption.tooltip.formatter = (echartsParams, ticket, callback)=>{
+        setTipFormatter(echartsParams, baseOption.tooltip?.hideEmpty)
+      } 
     }
   }
 }

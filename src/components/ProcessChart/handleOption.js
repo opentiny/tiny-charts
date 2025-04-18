@@ -173,7 +173,8 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
     if (name === 'null') return
     const config = {
       title: name,
-      children: []
+      children: [],
+      hideEmpty: baseOpt.tooltip?.hideEmpty
     }
     params.forEach((param, index) => {
       if (index > 1) {
