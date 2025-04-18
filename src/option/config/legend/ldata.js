@@ -13,15 +13,18 @@
  * 从数据中拿出legend-data
  */
 function ldata(data, xAxisKey) {
-    const legendData = [];
+    let legendData = [];
     if (data.length > 0) {
-        const temp = data[0];
-        for (const key in temp) {
-            if (key !== xAxisKey) {
-                legendData.push(key);
+        data.forEach(temp => {
+            for (const key in temp) {
+                if (key !== xAxisKey) {
+                    legendData.push(key);
+                }
             }
-        }
+        });
     }
+    // 去重
+    legendData = [...new Set(legendData)]
     return legendData;
 }
 
