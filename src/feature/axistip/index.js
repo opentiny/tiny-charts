@@ -15,12 +15,17 @@ import { isArray, isBoolean } from '../../util/type';
 const distanceX = 16; // 鼠标与气泡框之间的左右偏移量
 const distanceY = 24; // 鼠标与气泡框之间的上偏移量
 const axisType = ['xAxis', 'yAxis'];
+let textFormatter = {};
 
 // 设置 TriggerEvent
 function setAxisTriggerEvent(eChartOption, type) {
   if (!eChartOption[type]) return;
   if (isArray(eChartOption[type])) {
     eChartOption[type].forEach((subitem) => {
+      textFormatter[type] = undefined;
+      if(subitem.axisLabel?.formatter){
+        textFormatter[type] = subitem.axisLabel.formatter
+      }
       subitem.triggerEvent = true;
     })
   } else {
@@ -78,6 +83,7 @@ function axistip(echartsDom, echartsIns, eChartOption, axistip) {
     })
   }
   Object.keys(axistip).forEach(item => {
+    if(!axistip[item]) return;
     setAxisTriggerEvent(eChartOption, item);
   })
   // 气泡容器
@@ -86,8 +92,12 @@ function axistip(echartsDom, echartsIns, eChartOption, axistip) {
   tipContainer.style.display = 'inline-block';
   tipContainer.style.opacity = '0';
   echartsIns.on('mousemove', (param) => {
-    tipContainer.textContent = param.value;
-
+    let type = param.componentType;
+    if(param.name){
+      tipContainer.textContent = param.name;
+    }else{
+      tipContainer.textContent = textFormatter[type] ? textFormatter[type](param.value) : param.value;
+    }
     if(axisType.indexOf(param.componentType) !== -1) {
       setPosition(tipContainer, echartsDom, param);
     }
