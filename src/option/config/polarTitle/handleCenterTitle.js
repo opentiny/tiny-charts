@@ -14,14 +14,14 @@ function updateTitle(position, chartInstance, baseOption, iChartOption) {
   // itemGap有默认值16
   const itemGap = baseOption.title.itemGap;
   // 主副文本行高默认值1
-  const textLineHeight = textStyle?.lineHeight || 1;
-  const subtextLineHeight = subtextStyle?.lineHeight || 1;
+  const textLineHeight = textStyle?.lineHeight || textFontSize;
+  const subtextLineHeight = subtextStyle?.lineHeight || subtextFontSize;
   // 圆环图中心位置
   const newPosition = (position && position.center && Array.isArray(position.center)) ? position.center : ['50%', '45%'];
 
-  const chartWidth = chartInstance.getWidth();
+  const chartWidth = chartInstance?.getWidth?.();
   // 容器高度
-  const chartHeight = chartInstance.getHeight();
+  const chartHeight = chartInstance?.getHeight?.();
   // 圆环中心到容器的距离
   const chartCenterX = chartWidth * percentToDecimal(newPosition[0]);
   const chartCenterY = chartHeight * percentToDecimal(newPosition[1]);
@@ -95,7 +95,7 @@ function calculateLineHeight(line, style) {
       const [name, value] = part.split('|');
       const partStyleName = name.replace(/[{}]/g, '').trim();
       const partFontSize = extractStyle(style.rich, partStyleName, 'fontSize') || style.fontSize;
-      const partLineHeight = extractStyle(style.rich, partStyleName, 'lineHeight') || style.lineHeight || 1;
+      const partLineHeight = extractStyle(style.rich, partStyleName, 'lineHeight') || style.lineHeight || partFontSize;
       const partPadding = extractStyle(style.rich, partStyleName, 'padding');
       const partHeight = getTextHeight(value, partFontSize, partLineHeight, partPadding);
       maxHeight = Math.max(maxHeight, partHeight);
