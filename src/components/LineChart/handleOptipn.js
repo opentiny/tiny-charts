@@ -97,10 +97,11 @@ export function discrete(iChartOption, baseOption) {
   }
 }
 
-function defaultFormatter(params, color, iChartOpt) {
+function defaultFormatter(params, color, iChartOpt, hideEmpty) {
   const config = {
     title: '',
-    children: []
+    children: [],
+    hideEmpty
   }
   params.forEach((item, index) => {
     let value = item.value;
@@ -150,6 +151,6 @@ export function setTooltip(baseOpt, iChartOpt, legendData) {
       params = echartsParams.slice(0, lineNumber)
     }
     const initParams = coverObjDataToInit(params)
-    return formatter ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt)
+    return formatter ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty)
   }
 }
