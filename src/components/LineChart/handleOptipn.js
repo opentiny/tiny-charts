@@ -122,7 +122,7 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty) {
       value,
       iconColor,
     }
-    value && config.children.push(dataItem)
+    config.children.push(dataItem)
   });
   return getTooltipContentHtmlStr(config)
 }

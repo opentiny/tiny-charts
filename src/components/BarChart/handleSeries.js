@@ -717,7 +717,7 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
         value: dataVal,
         iconColor: itemColor
       }
-      value && config.children.push(dataItem)
+      config.children.push(dataItem)
     });
     return getTooltipContentHtmlStr(config);
   };
