@@ -24,9 +24,8 @@ function ldata(data, xAxisKey) {
         });
     }
     // 去重
-    legendData = [...new Set(legendData)]
+    legendData = legendData.filter((item, index) => legendData.indexOf(item) === index);
     return legendData;
 }
 
 export default ldata;
-
