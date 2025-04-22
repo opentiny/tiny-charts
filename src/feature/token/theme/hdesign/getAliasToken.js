@@ -251,6 +251,10 @@ function getAliasToken(globalToken, sceneToken) {
     symbolSizeSM: sizeBase,
     // 柱条的宽度
     barWidth: size4x,
+    // 柱条的最小宽度
+    barMinWidth: size05x,
+    // 柱条的最大宽度
+    barMaxWidth: size4x,
     // 堆叠进度图宽度
     barWidthSecondary: size4x,
     // 图例单元尺寸
