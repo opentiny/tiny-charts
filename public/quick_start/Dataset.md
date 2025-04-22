@@ -8,10 +8,10 @@
 const option = {
     theme: 'hdesign-light',
     data: [
-        { 'Month': 'Jan', 'Domestics': 33, 'Abroad': 37 },
-        { 'Month': 'Feb', 'Domestics': 27, 'Abroad': 39 },
-        { 'Month': 'Mar', 'Domestics': 31, 'Abroad': 20 },
-        { 'Month': 'Apr', 'Domestics': 30, 'Abroad': 15 },
+        { 'Month': 'Jan', 'Domestic': 33, 'Abroad': 37 },
+        { 'Month': 'Feb', 'Domestic': 27, 'Abroad': 39 },
+        { 'Month': 'Mar', 'Domestic': 31, 'Abroad': 20 },
+        { 'Month': 'Apr', 'Domestic': 30, 'Abroad': 15 },
     ],
     xAxis: {
         data: 'Month',
