@@ -16,6 +16,10 @@ const distanceX = 16; // 鼠标与气泡框之间的左右偏移量
 const distanceY = 24; // 鼠标与气泡框之间的上偏移量
 const axisType = ['xAxis', 'yAxis'];
 
+function allFalse(obj){
+  return Object.keys(obj).every(key => obj[key] === false);
+}
+
 // 设置 TriggerEvent
 function setAxisTriggerEvent(eChartOption, type) {
   if (!eChartOption[type]) return;
@@ -77,22 +81,39 @@ function axistip(echartsDom, echartsIns, eChartOption, axistip) {
       axistip[item] = true;
     })
   }
+  if(allFalse(axistip)) return;
   Object.keys(axistip).forEach(item => {
+    if(!axistip[item]) return;
     setAxisTriggerEvent(eChartOption, item);
   })
   // 气泡容器
   const tipContainer = document.createElement('div');
   tipContainer.className = 'labeltip';
+  tipContainer.style.position = 'absolute';
   tipContainer.style.display = 'inline-block';
   tipContainer.style.opacity = '0';
+  tipContainer.style.top = 0;
+  tipContainer.style.left = 0;
+  let textFormatter = {};
   echartsIns.on('mousemove', (param) => {
-    tipContainer.textContent = param.value;
-
-    if(axisType.indexOf(param.componentType) !== -1) {
+    let type = param.componentType;
+    if(param.name){
+      tipContainer.textContent = param.name;
+    }else{
+      eChartOption[type].forEach(item=>{
+        textFormatter[type] = undefined;
+        if(item.axisLabel.formatter && typeof item.axisLabel.formatter === 'function') {
+          textFormatter[type] = item.axisLabel.formatter
+        }
+      })
+      tipContainer.textContent = textFormatter[type] !== undefined ? textFormatter[type](param.value) : param.value;
+    }
+    if(axisType.indexOf(type) !== -1) {
       setPosition(tipContainer, echartsDom, param);
     }
   });
   echartsIns.on('mouseout', (param) => {
+    textFormatter = {};
     if (axisType.indexOf(param.componentType) !== -1) {
       tipContainer.textContent = '';
       tipContainer.style.cssText = `
@@ -102,6 +123,8 @@ function axistip(echartsDom, echartsIns, eChartOption, axistip) {
         position: absolute;
         display: inline-block;
         word-break: break-all;
+        top: 0;
+        left: 0;
       `;
     }
   })
