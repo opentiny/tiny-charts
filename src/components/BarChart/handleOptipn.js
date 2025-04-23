@@ -103,3 +103,16 @@ export function setDirection(baseOption, direction) {
     baseOption.yAxis = temp;
   }
 }
+
+/**
+ * 设置柱状图的datazoom时最大最小柱宽
+ */
+export function setBarMinMaxWidth(iChartOption, baseOption){
+  baseOption.series.forEach(item=>{
+    item.barMaxWidth = chartToken.barMaxWidth;
+    item.barMinWidth = chartToken.barMinWidth;
+    if(!iChartOption.itemStyle?.barWidth){
+      delete item.barWidth;
+    }
+  })
+}

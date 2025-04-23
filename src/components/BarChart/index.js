@@ -17,7 +17,7 @@ import BaseOption from '../../option/base';
 import updateWidth from './barChartOption';
 import { getDatasetData } from '../../util/dataset';
 import { mergeVisualMap, mergeSeries } from '../../util/merge';
-import { setStack, setDirection, setDoubleSides } from './handleOptipn';
+import { setStack, setDirection, setDoubleSides, setBarMinMaxWidth } from './handleOptipn';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 import { setSeries, setRange, setMarkLine, setWaterFall, setLimitFormatter, setDatasetSeries } from './handleSeries';
 import { CHART_TYPE, ADAPTIVE_THEME } from '../../util/constants';
@@ -81,6 +81,10 @@ class BarChart {
       setDatasetSeries(this.baseOption, iChartOption);
     } else {
       mergeSeries(iChartOption, this.baseOption);
+    }
+    //在datazoom下添加最小最大柱宽
+    if (this.baseOption.dataZoom?.[0]?.show === true) {
+      setBarMinMaxWidth(iChartOption, this.baseOption)
     }
     // 合并用户自定义visualMap
     mergeVisualMap(iChartOption, this.baseOption);
