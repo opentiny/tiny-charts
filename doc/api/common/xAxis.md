@@ -120,7 +120,7 @@ xAxisInterval: (index,value) => {
 ```css
 xAxis.ellipsis:{
     overflow:'truncate',
-    width:20
+    labelWidth:20
 }
 ```
 <p class='ev_expand_introduce'>说明：设置 x 轴刻度文本过长展示方式(<code>xAxis.ellipsis</code>即<code>xAxisEllipsis</code>)

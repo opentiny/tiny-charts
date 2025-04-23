@@ -25,6 +25,7 @@ const data = {
         tooltip,
         event,
         ['data', '图表数据(必填)', 'array', '无'],
+        ['dataRules', '某个数据设置指定颜色', 'object', '无'],
         ['type', '圆盘图类型', 'string', 'circle'],
         ['position', '图表位置及大小', 'object', '{center:[\'50%\',\'45%\'],radius: [\'44%\', \'50%\']}'],
         ['minAngle', '最小扇区角度', 'number', '无'],
@@ -34,8 +35,6 @@ const data = {
         ['stillShowZeroSum', '是否在数据和为0的时候仍显示扇区', 'boolean', 'true'],
         ['selectedMode', '扇区选中模式配置', 'boolean', 'false'],
         ['roseType', '是否展示成南丁格尔图', 'boolean', 'false'],
-        ['dataRules', '某个数据设置指定颜色', 'object', '无'],
-
     ],
     markdown: [
         themeMd,
@@ -45,6 +44,7 @@ const data = {
         tooltipMd,
         eventMd,
         dataMd,
+        dataRulesMd,
         typeMd,
         positionMd,
         minAngleMd,
@@ -53,8 +53,7 @@ const data = {
         itemStyleMd,
         stillShowZeroSumMd,
         selectedModeMd,
-        roseTypeMd,
-        dataRulesMd,
+        roseTypeMd, 
     ],
 };
 
