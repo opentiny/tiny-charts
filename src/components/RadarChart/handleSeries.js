@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import { isObject } from '../../util/type';
+import { isObject, isFunction, isBoolean } from '../../util/type';
 import { getSeriesUnit, getRedPointerRadar, handleRedPointerSeries } from './BaseOption'
 import { setRadarShape } from './handleOptipn'
 import { getColor } from '../../util/color';
@@ -66,10 +66,21 @@ function handleRedPointerRadar(baseOpt, radarKeys, dataNameIndex, dataName) {
   return redPointerRadar;
 }
 
-
+// 根据用户的配置与阈值筛选出符合的值
+function getExceededThresholdPointRule(value, markLineVal, thresholdPointRule){
+  if ( thresholdPointRule === undefined ){
+    return value >= markLineVal
+  }else if(isFunction(thresholdPointRule)){
+    return thresholdPointRule(value, markLineVal)
+  }else if(isBoolean(thresholdPointRule?.outer) && thresholdPointRule?.outer){
+    return value >= markLineVal
+  }else{
+    return value < markLineVal
+  }
+}
 
 // 计算出大于等于阈值的数据
-function getExceededMarkLineValue(data, markLine, isThreshold) {
+function getExceededMarkLineValue(data, markLine, isThreshold, thresholdPointRule) {
   const thresholdPoint = [];
   const names = Object.keys(data);
   for (let i = 0; i < names.length; i++) {
@@ -78,7 +89,7 @@ function getExceededMarkLineValue(data, markLine, isThreshold) {
     for (let j = 0; j < keys.length; j++) {
       const key = keys[j];
       const markLineVal = isThreshold ? markLine.threshold[key] : markLine;
-      if ((markLineVal||markLineVal===0) && data[name][key] >= markLineVal) {
+      if ((markLineVal||markLineVal===0) && getExceededThresholdPointRule(data[name][key], markLineVal, thresholdPointRule) ) {
         thresholdPoint.push({
           seriesName: name,
           dataName: key,
@@ -98,10 +109,10 @@ export function setMarkLineSeries(baseOpt, iChartOpt, radarKeys) {
   const { markLine, gradient } = iChartOpt;
   if (gradient) return
   if (markLine) {
-    const { data } = iChartOpt;
+    const { data, thresholdPointRule } = iChartOpt;
     const isThreshold = !!(isObject(markLine) && markLine?.threshold);
     // 超过阈值的数据
-    const exceeded = getExceededMarkLineValue(data, markLine, isThreshold);
+    const exceeded = getExceededMarkLineValue(data, markLine, isThreshold, thresholdPointRule);
     exceeded.forEach((item, index) => {
       const seriesName = item.seriesName;
       const dataName = item.dataName;

@@ -7,6 +7,7 @@ import { eventMd, event } from '../common/event';
 import dataMd from './data.md?raw';
 import positionMd from './position.md?raw';
 import markLineMd from './markLine.md?raw';
+import thresholdPointRuleMd from './thresholdPointRule.md?raw';
 import radarMaxMd from './radarMax.md?raw';
 import radarMarkMd from './radarMark.md?raw';
 import radarMd from './radar.md?raw';
@@ -20,13 +21,14 @@ const data = {
     title,
     legend,
     tooltip,
-    ['markLine', '阈值线配置', 'number | Array', '无'],
-    ['radarMax', '最外圈代表的数值', 'number | Array', '坐标系的最外圈为数据中的最大值'],
     event,
+    ['markLine', '阈值线', 'number | array', '无'],
+    ['thresholdPointRule', '阈值点规则', 'object | function', 'true'],
+    ['radarMax', '最外圈代表的数值', 'number | array', '坐标系的最外圈为数据中的最大值'],
     ['position', '图表位置及大小', 'object', '{center:[\'50%\',\'50%\'],radius: \'50%\'}'],
     ['radarMark', '底部坐标系刻度值显示', 'boolean', 'true'],
-    ['radar', '雷达图的坐标系配置', 'Object', '无'],
-    ['area', '雷达图图形区域配置', 'Object', '无'],
+    ['radar', '雷达图的坐标系配置', 'object', '无'],
+    ['area', '雷达图图形区域配置', 'object', '无'],
   ],
   markdown: [
     dataMd,
@@ -35,9 +37,10 @@ const data = {
     titleMd,
     legendMd,
     tooltipMd,
-    markLineMd,
-    radarMaxMd,
     eventMd,
+    markLineMd,
+    thresholdPointRuleMd,
+    radarMaxMd,
     positionMd,
     radarMarkMd,
     radarMd,
