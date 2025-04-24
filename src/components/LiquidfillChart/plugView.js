@@ -54,8 +54,8 @@ echarts.extendChartView({
         var center = itemModel.get('center');
         var radius = itemModel.get('radius');
 
-        var width = api.getWidth();
-        var height = api.getHeight();
+        var width = api?.getWidth?.();
+        var height = api?.getHeight?.();
         var size = Math.min(width, height);
         // itemStyle
         var outlineDistance = 0;

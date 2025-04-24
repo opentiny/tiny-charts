@@ -16,8 +16,8 @@ import { getMixColor, codeToRGB } from '../../util/color';
 
 function setChartPosition(polarInfo, chartInstance) {
   let radius = polarInfo.radius, widthDis, heightDis;
-  const width = chartInstance.getWidth();
-  const height = chartInstance.getHeight();
+  const width = chartInstance?.getWidth?.();
+  const height = chartInstance?.getHeight?.();
 
   const getNumber = (value, { callback1, callback2, callback3 }) => {
     let correctValue;
@@ -101,7 +101,7 @@ export function handleRootData(d3, { baseOption, chartInstance, iChartOption, ch
       context.nodes = {};
       d3
         .pack()
-        .size([api.getWidth() - 2, api.getHeight() - 2])
+        .size([api?.getWidth?.() - 2, api?.getHeight?.() - 2])
         .padding(distance)(displayRoot);
       displayRoot.descendants().forEach(node => { context.nodes[node.id] = node; });
     }

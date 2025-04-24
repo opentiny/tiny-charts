@@ -95,8 +95,8 @@ function computeCoordinates(arr, number, halfWidth, r) {
  */
 function handleHexagonData(data, iChartOption, chartInstance) {
   // 获取chart容器的宽高
-  const containerWidth = chartInstance.getWidth();
-  const containerHeight = chartInstance.getHeight();
+  const containerWidth = chartInstance?.getWidth?.();
+  const containerHeight = chartInstance?.getHeight?.();
   // 处理的数据
   const hexagonData = [];
   // 每行的图形个数

@@ -18,7 +18,7 @@ import getTooltipContentHtmlStr, { getDataHtmlStr } from '../../option/config/to
 function handleGridWidth(baseOpt, padding, chartInstance) {
   const right = padding[1];
   const left = padding[3];
-  const containerWidth = chartInstance.getWidth();
+  const containerWidth = chartInstance?.getWidth?.();
   const isStrR = isString(right);
   const isStrL = isString(left);
   const isPtR = isStrR && right.includes('%');

@@ -91,14 +91,14 @@ function setBordRadius(series, iChartOption, barWidth) {
 export function setRadius(baseOption, chartInstance, iChartOption) {
   let radius = iChartOption.position?.radius || '50%';
   const barWidth = Number(iChartOption.barWidth) || chartToken.barWidth;
-  const width = chartInstance.getWidth();
-  const height = chartInstance.getHeight();
+  const width = chartInstance?.getWidth?.();
+  const height = chartInstance?.getHeight?.();
   const canvasRadius = Math.min(width / 2, height / 2);
   //内圆-4为纠正为实际显示尺寸
   if (isNumber(radius)) {
     baseOption.polar.radius = [radius - barWidth - 4, radius];
   } else if (isString(radius)) {
-    let newRadius = radius.includes('%') ? percentToDecimal(radius) * Math.min(chartInstance.getWidth() / 2, chartInstance.getHeight() / 2) : parseFloat(radius);
+    let newRadius = radius.includes('%') ? percentToDecimal(radius) * Math.min(chartInstance?.getWidth?.() / 2, chartInstance?.getHeight?.() / 2) : parseFloat(radius);
     baseOption.polar.radius = [newRadius - barWidth - 4, newRadius];
   } else {
     if (radius.length === 1) {
@@ -160,8 +160,8 @@ function setMarkLine(data, markLine, iChartOption, chartInstance, barWidth) {
 function computeMarkLine(radius, barWidth, chartInstance) {
   let position;
   let actualBarWidth;
-  const width = chartInstance.getWidth();
-  const height = chartInstance.getHeight();
+  const width = chartInstance?.getWidth?.();
+  const height = chartInstance?.getHeight?.();
   const canvasRadius = Math.min(width / 2, height / 2);
   // 位置-2为纠正阈值线的位置
   if (isNumber(radius)) {
