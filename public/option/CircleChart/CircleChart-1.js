@@ -2,7 +2,7 @@ const option = {
   theme: 'hdesign-light',
   layout: {
     type: 'circle',
-    center: [600,380],
+    center: [600, 380],
     radius: 350
   },
   node: {
@@ -26,13 +26,13 @@ const option = {
   canvas: {
     show: true,
     grid: {
-        size: 20,
-        show: true,
-        type: 'dot',
-        config: {
-          color: '#fff',
-          unitSize: 1,
-        }
+      size: 20,
+      show: true,
+      type: 'dot',
+      config: {
+        color: '#fff',
+        unitSize: 1,
+      }
     }
   },
   connector: {
@@ -58,175 +58,175 @@ const option = {
   // 图表数据
   data: {
     nodes: [{
-        id: '0',
-        text: 'gridbox-colud-space-ceil-1',
-        name: 'main',
-      },
-      {
-        id: '1',
-        text: 'gridbox-colud-space-ceil-2',
-        name: 'portal'
-      },
-      {
-        id: '2',
-        text: 'gridbox-colud-space-ceil-3',
-        name: 'portal'
-      },
-      {
-        id: '3',
-        text: 'gridbox-colud-space-ceil-4',
-        name: 'portal'
-      },
-      {
-        id: '4',
-        text: 'gridbox-colud-space-ceil-5',
-        name: 'hecs'
-      },
-      {
-        id: '5',
-        text: 'gridbox-colud-space-ceil-6',
-        name: 'hecs'
-      },
-      {
-        id: '6',
-        text: 'gridbox-colud-space-ceil-7',
-        name: 'bms'
-      },
-      {
-        id: '7',
-        text: 'gridbox-colud-space-ceil-8',
-        name: 'bms'
-      },
-      {
-        id: '8',
-        text: 'gridbox-colud-space-ceil-9',
-        name: 'bms'
-      },
-      {
-        id: '9',
-        text: 'gridbox-colud-space-ceil-10',
-        name: 'ecs'
-      },
-      {
-        id: '10',
-        text: 'gridbox-colud-space-ceil-11',
-        name: 'ecs'
-      },
-      {
-        id: '11',
-        text: 'gridbox-colud-space-ceil-12',
-        name: 'ecs'
-      },
-      {
-        id: '12',
-        text: 'gridbox-colud-space-ceil-13',
-        name: 'portal'
-      },
-      {
-        id: '13',
-        text: 'gridbox-colud-space-ceil-14',
-        name: 'portal'
-      },
-      {
-        id: '14',
-        text: 'gridbox-colud-space-ceil-15',
-        name: 'ecs'
-      },
-      {
-        id: '15',
-        text: 'gridbox-colud-space-ceil-16',
-        name: 'ecs'
-      },
-      {
-        id: '16',
-        text: 'gridbox-colud-space-ceil-17',
-        name: 'bms'
-      },
-      {
-        id: '17',
-        text: 'gridbox-colud-space-ceil-18',
-        name: 'bms'
-      },
-      {
-        id: '18',
-        text: 'gridbox-colud-space-ceil-19',
-        name: 'bms'
-      },
-      {
-        id: '19',
-        text: 'gridbox-colud-space-ceil-20',
-        name: 'portal'
-      },
-      {
-        id: '20',
-        text: 'gridbox-colud-space-ceil-21',
-        name: 'portal'
-      },
-      {
-        id: '21',
-        text: 'gridbox-colud-space-ceil-22',
-        name: 'portal'
-      },
-      {
-        id: '22',
-        text: 'gridbox-colud-space-ceil-23',
-        name: 'hecs'
-      },
-      {
-        id: '23',
-        text: 'gridbox-colud-space-ceil-24',
-        name: 'hecs'
-      },
-      {
-        id: '24',
-        text: 'gridbox-colud-space-ceil-25',
-        name: 'hecs'
-      },
-      {
-        id: '25',
-        text: 'gridbox-colud-space-ceil-26',
-        name: 'bms'
-      },
-      {
-        id: '26',
-        text: 'gridbox-colud-space-ceil-27',
-        name: 'bms'
-      },
-      {
-        id: '27',
-        text: 'gridbox-colud-space-ceil-27',
-        name: 'bms'
-      },
-      {
-        id: '28',
-        text: 'gridbox-colud-space-ceil-29',
-        name: 'bms'
-      },
-      {
-        id: '29',
-        text: 'gridbox-colud-space-ceil-30',
-        name: 'portal'
-      },
-      {
-        id: '30',
-        text: 'gridbox-colud-space-ceil-31',
-        name: 'portal'
-      },
-      {
-        id: '31',
-        text: 'gridbox-colud-space-ceil-32',
-        name: 'portal'
-      },
-      {
-        id: '32',
-        text: 'gridbox-colud-space-ceil-33',
-        name: 'ecs'
-      },
-      {
-        id: '33',
-        text: 'gridbox-colud-space-ceil-34',
-        name: 'ecs'
-      },
+      id: '0',
+      text: 'gridbox-colud-space-ceil-1',
+      name: 'main',
+    },
+    {
+      id: '1',
+      text: 'gridbox-colud-space-ceil-2',
+      name: 'portal'
+    },
+    {
+      id: '2',
+      text: 'gridbox-colud-space-ceil-3',
+      name: 'portal'
+    },
+    {
+      id: '3',
+      text: 'gridbox-colud-space-ceil-4',
+      name: 'portal'
+    },
+    {
+      id: '4',
+      text: 'gridbox-colud-space-ceil-5',
+      name: 'hecs'
+    },
+    {
+      id: '5',
+      text: 'gridbox-colud-space-ceil-6',
+      name: 'hecs'
+    },
+    {
+      id: '6',
+      text: 'gridbox-colud-space-ceil-7',
+      name: 'bms'
+    },
+    {
+      id: '7',
+      text: 'gridbox-colud-space-ceil-8',
+      name: 'bms'
+    },
+    {
+      id: '8',
+      text: 'gridbox-colud-space-ceil-9',
+      name: 'bms'
+    },
+    {
+      id: '9',
+      text: 'gridbox-colud-space-ceil-10',
+      name: 'ecs'
+    },
+    {
+      id: '10',
+      text: 'gridbox-colud-space-ceil-11',
+      name: 'ecs'
+    },
+    {
+      id: '11',
+      text: 'gridbox-colud-space-ceil-12',
+      name: 'ecs'
+    },
+    {
+      id: '12',
+      text: 'gridbox-colud-space-ceil-13',
+      name: 'portal'
+    },
+    {
+      id: '13',
+      text: 'gridbox-colud-space-ceil-14',
+      name: 'portal'
+    },
+    {
+      id: '14',
+      text: 'gridbox-colud-space-ceil-15',
+      name: 'ecs'
+    },
+    {
+      id: '15',
+      text: 'gridbox-colud-space-ceil-16',
+      name: 'ecs'
+    },
+    {
+      id: '16',
+      text: 'gridbox-colud-space-ceil-17',
+      name: 'bms'
+    },
+    {
+      id: '17',
+      text: 'gridbox-colud-space-ceil-18',
+      name: 'bms'
+    },
+    {
+      id: '18',
+      text: 'gridbox-colud-space-ceil-19',
+      name: 'bms'
+    },
+    {
+      id: '19',
+      text: 'gridbox-colud-space-ceil-20',
+      name: 'portal'
+    },
+    {
+      id: '20',
+      text: 'gridbox-colud-space-ceil-21',
+      name: 'portal'
+    },
+    {
+      id: '21',
+      text: 'gridbox-colud-space-ceil-22',
+      name: 'portal'
+    },
+    {
+      id: '22',
+      text: 'gridbox-colud-space-ceil-23',
+      name: 'hecs'
+    },
+    {
+      id: '23',
+      text: 'gridbox-colud-space-ceil-24',
+      name: 'hecs'
+    },
+    {
+      id: '24',
+      text: 'gridbox-colud-space-ceil-25',
+      name: 'hecs'
+    },
+    {
+      id: '25',
+      text: 'gridbox-colud-space-ceil-26',
+      name: 'bms'
+    },
+    {
+      id: '26',
+      text: 'gridbox-colud-space-ceil-27',
+      name: 'bms'
+    },
+    {
+      id: '27',
+      text: 'gridbox-colud-space-ceil-27',
+      name: 'bms'
+    },
+    {
+      id: '28',
+      text: 'gridbox-colud-space-ceil-29',
+      name: 'bms'
+    },
+    {
+      id: '29',
+      text: 'gridbox-colud-space-ceil-30',
+      name: 'portal'
+    },
+    {
+      id: '30',
+      text: 'gridbox-colud-space-ceil-31',
+      name: 'portal'
+    },
+    {
+      id: '31',
+      text: 'gridbox-colud-space-ceil-32',
+      name: 'portal'
+    },
+    {
+      id: '32',
+      text: 'gridbox-colud-space-ceil-33',
+      name: 'ecs'
+    },
+    {
+      id: '33',
+      text: 'gridbox-colud-space-ceil-34',
+      name: 'ecs'
+    },
     ],
     edges: [
       {
@@ -471,5 +471,5 @@ const option = {
       },
     ],
   }
-  
+
 };

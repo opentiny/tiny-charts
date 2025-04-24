@@ -24,13 +24,13 @@ const option = {
   canvas: {
     show: true,
     grid: {
-        size: 20,
-        show: true,
-        type: 'dot',
-        config: {
-          color: '#fff',
-          unitSize: 1,
-        }
+      size: 20,
+      show: true,
+      type: 'dot',
+      config: {
+        color: '#fff',
+        unitSize: 1,
+      }
     }
   },
   connector: {
@@ -41,209 +41,209 @@ const option = {
   // 图表数据
   data: {
     nodes: [{
-        id: '0',
-        text: 'gridbox-server-ceil-1',
-        name: 'main',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '1',
-        text: 'gridbox-server-ceil-2',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '2',
-        text: 'gridbox-server-ceil-3',
-        name: 'ecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '3',
-        text: 'gridbox-server-ceil-4',
-        name: 'ecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '4',
-        text: 'gridbox-server-ceil-5',
-        name: 'hecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '5',
-        text: 'gridbox-server-ceil-6',
-        name: 'hecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '6',
-        text: 'gridbox-server-ceil-7',
-        name: 'hecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '7',
-        text: 'gridbox-server-ceil-8',
-        name: 'bms',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '8',
-        text: 'gridbox-server-ceil-9',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '9',
-        text: 'gridbox-server-ceil-10',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '10',
-        text: 'gridbox-server-ceil-11',
-        name: 'hecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '11',
-        text: 'gridbox-server-ceil-12',
-        name: 'hecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '12',
-        text: 'gridbox-server-ceil-13',
-        name: 'hecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '13',
-        text: 'gridbox-server-ceil-14',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '14',
-        text: 'gridbox-server-ceil-15',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '15',
-        text: 'gridbox-server-ceil-16',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '16',
-        text: 'gridbox-server-ceil-17',
-        name: 'bms',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '17',
-        text: 'gridbox-server-ceil-18',
-        name: 'bms',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '18',
-        text: 'gridbox-server-ceil-19',
-        name: 'bms',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '19',
-        text: 'gridbox-server-ceil-20',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '20',
-        text: 'gridbox-server-ceil-21',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '21',
-        text: 'gridbox-server-ceil-22',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '22',
-        text: 'gridbox-server-ceil-23',
-        name: 'ecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '23',
-        text: 'gridbox-server-ceil-24',
-        name: 'ecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '24',
-        text: 'gridbox-server-ceil-25',
-        name: 'ecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '25',
-        text: 'gridbox-server-ceil-26',
-        name: 'ecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '26',
-        text: 'gridbox-server-ceil-27',
-        name: 'hecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '27',
-        text: 'gridbox-server-ceil-27',
-        name: 'hecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '28',
-        text: 'gridbox-server-ceil-29',
-        name: 'hecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '29',
-        text: 'gridbox-server-ceil-30',
-        name: 'hecs',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '30',
-        text: 'gridbox-server-ceil-31',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '31',
-        text: 'gridbox-server-ceil-32',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '32',
-        text: 'gridbox-server-ceil-33',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
-      {
-        id: '33',
-        text: 'gridbox-server-ceil-34',
-        name: 'portal',
-        ip: '101.0.1.128'
-      },
+      id: '0',
+      text: 'gridbox-server-ceil-1',
+      name: 'main',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '1',
+      text: 'gridbox-server-ceil-2',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '2',
+      text: 'gridbox-server-ceil-3',
+      name: 'ecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '3',
+      text: 'gridbox-server-ceil-4',
+      name: 'ecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '4',
+      text: 'gridbox-server-ceil-5',
+      name: 'hecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '5',
+      text: 'gridbox-server-ceil-6',
+      name: 'hecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '6',
+      text: 'gridbox-server-ceil-7',
+      name: 'hecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '7',
+      text: 'gridbox-server-ceil-8',
+      name: 'bms',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '8',
+      text: 'gridbox-server-ceil-9',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '9',
+      text: 'gridbox-server-ceil-10',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '10',
+      text: 'gridbox-server-ceil-11',
+      name: 'hecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '11',
+      text: 'gridbox-server-ceil-12',
+      name: 'hecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '12',
+      text: 'gridbox-server-ceil-13',
+      name: 'hecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '13',
+      text: 'gridbox-server-ceil-14',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '14',
+      text: 'gridbox-server-ceil-15',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '15',
+      text: 'gridbox-server-ceil-16',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '16',
+      text: 'gridbox-server-ceil-17',
+      name: 'bms',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '17',
+      text: 'gridbox-server-ceil-18',
+      name: 'bms',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '18',
+      text: 'gridbox-server-ceil-19',
+      name: 'bms',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '19',
+      text: 'gridbox-server-ceil-20',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '20',
+      text: 'gridbox-server-ceil-21',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '21',
+      text: 'gridbox-server-ceil-22',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '22',
+      text: 'gridbox-server-ceil-23',
+      name: 'ecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '23',
+      text: 'gridbox-server-ceil-24',
+      name: 'ecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '24',
+      text: 'gridbox-server-ceil-25',
+      name: 'ecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '25',
+      text: 'gridbox-server-ceil-26',
+      name: 'ecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '26',
+      text: 'gridbox-server-ceil-27',
+      name: 'hecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '27',
+      text: 'gridbox-server-ceil-27',
+      name: 'hecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '28',
+      text: 'gridbox-server-ceil-29',
+      name: 'hecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '29',
+      text: 'gridbox-server-ceil-30',
+      name: 'hecs',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '30',
+      text: 'gridbox-server-ceil-31',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '31',
+      text: 'gridbox-server-ceil-32',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '32',
+      text: 'gridbox-server-ceil-33',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
+    {
+      id: '33',
+      text: 'gridbox-server-ceil-34',
+      name: 'portal',
+      ip: '101.0.1.128'
+    },
     ],
     edges: [
       {
@@ -488,5 +488,5 @@ const option = {
       },
     ],
   }
-  
+
 };
