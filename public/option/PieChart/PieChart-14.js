@@ -22,20 +22,24 @@ const option = {
                 return a + b.value;
             }, 0);
             let item = data.filter((item) => item.name === name)[0];
-            return '{title|' + name + '}{value|' + item.value + '}{split||}{value|' + total + '}'
+            return '{title|' + name + '}{value1|' + item.value + '}{split||}{value2|' + total + '}'
         },
+        legendType: 'value',
         textStyle: {
             rich: {
                 title: {
-                    color: '#808080',
                     fontSize: 14,
                     padding: [0, 0, 0, 5],
                     width: 80,
                 },
-                value: {
+                value1: {
                     fontSize: 12,
-                    width:20,
-                    color: '#191919',
+                    width: 20,
+                    fontWeight:'bold',
+                },
+                value2: {
+                    fontSize: 12,
+                    width: 20,
                     fontWeight:'bold',
                 },
                 split:{
