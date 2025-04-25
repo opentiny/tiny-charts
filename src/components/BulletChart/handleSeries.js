@@ -105,7 +105,7 @@ export function handleSeries(baseOpt, iChartOpt, legendData ,seriesData) {
         type: 'scatter',
         symbol: 'rect',
         silent: true,
-        symbolSize: iChartOpt.markLine.symbolSize ? iChartOpt.markLine.symbolSize : [32, 2],
+        symbolSize: iChartOpt.markLine.symbolSize ? iChartOpt.markLine.symbolSize : [backgroundWidth, 2],
         symbolOffset: iChartOpt.markLine.symbolOffset ? iChartOpt.markLine.symbolOffset : [0, 0],
         z: 20,
         data: markLineData,
