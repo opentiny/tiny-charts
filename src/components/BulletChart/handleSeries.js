@@ -109,7 +109,7 @@ export function handleSeries(baseOpt, iChartOpt, legendData ,seriesData) {
         symbolOffset: iChartOpt.markLine.symbolOffset ? iChartOpt.markLine.symbolOffset : [0, 0],
         z: 20,
         data: markLineData,
-        color: iChartOpt.markLine.color ? iChartOpt.markLine.color : handleSetColor(iChartOpt.markLine,1),
+        color: iChartOpt.markLine.color ? iChartOpt.markLine.color : baseOpt.color[0],
         emphasis: {
             scale: false
         }
