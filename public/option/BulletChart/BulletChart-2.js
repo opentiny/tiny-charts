@@ -1,10 +1,10 @@
 const option = {
-  theme: 'light',
-  padding: [30, 80, 50, 20],
-  data: [
+	theme: 'light',
+	padding: [30, 80, 50, 20],
+	data: [
 		{ 'Month': '一月', 'Score': 400 },
 		{ 'Month': '二月', 'Score': 500, },
-		{ 'Month': '三月', 'Score': 900,},
+		{ 'Month': '三月', 'Score': 900, },
 		{ 'Month': '四月', 'Score': 700 },
 		{ 'Month': '五月', 'Score': 800 },
 		{ 'Month': '六月', 'Score': 500 },
@@ -25,18 +25,17 @@ const option = {
 	markLine: {
 		data: 800,
 		name: 'info',
-		symbolSize: [2, 32],
 	},
 	background: [{
 		name: 'error',
 		data: 100,
-	},{
+	}, {
 		name: 'warning',
 		data: 200,
-	},{
+	}, {
 		name: 'subwarning',
 		data: 300,
-	},{
+	}, {
 		name: 'success',
 		data: 400,
 	}]

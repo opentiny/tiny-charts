@@ -16,7 +16,7 @@ import { isArray } from '../../util/type';
 import Token from '../../feature/token';
 
 // 设置背景色颜色
-function handleSetColor(data,opacity) {
+function handleSetColor(data, opacity) {
     const { colorState } = Token.config
     const stateColorGroup = {
         info: colorState.colorInfo,
@@ -25,17 +25,17 @@ function handleSetColor(data,opacity) {
         subwarning: colorState.colorWarning,
         success: colorState.colorSuccess,
     };
-    
+
     let backgroundColor;
-    if(data.color) {
+    if (data.color) {
         backgroundColor = data.color
     } else {
-        backgroundColor = stateColorGroup[data.name] ?  codeToRGB(stateColorGroup[data.name],opacity) : ''
+        backgroundColor = stateColorGroup[data.name] ? codeToRGB(stateColorGroup[data.name], opacity) : ''
     }
     return backgroundColor;
 }
 
-function handleLabel(barData,iChartOpt,baseOpt) {
+function handleLabel(barData, iChartOpt, baseOpt) {
     const label = iChartOpt.label;
     const { colorBoard } = Token.config;
     const orange = colorBoard.orange.colorOrange40;
@@ -43,7 +43,7 @@ function handleLabel(barData,iChartOpt,baseOpt) {
     let labelOption = label;
     if (labelOption && labelOption.show) {
         let showLabelArr = [];
-        barData.forEach((item,index) => {
+        barData.forEach((item, index) => {
             let markLineNum = isArray(iChartOpt.markLine.data) ? iChartOpt.markLine.data[index] : iChartOpt.markLine.data;
             let showLabel = Math.round((item - markLineNum) / markLineNum * 100);
             showLabelArr.push(showLabel);
@@ -54,35 +54,37 @@ function handleLabel(barData,iChartOpt,baseOpt) {
             position: 'top',
             data: showLabelArr,
             axisLabel: {
-                show:true,
+                show: true,
                 fontSize: chartToken.fontSize,
-                formatter: (value)=>{
+                formatter: (value) => {
                     return value + '%'
                 },
-                color: (value)=>{
+                color: (value) => {
                     return value >= 0 ? green : orange;
                 }
             },
             axisLine: {
-                show:false
+                show: false
             },
             axisTick: {
-                show:false
+                show: false
             },
         }
         baseOpt.xAxis.push(categoryX);
     }
 }
 
-export function handleSeries(baseOpt, iChartOpt, legendData ,seriesData) {
+export function handleSeries(baseOpt, iChartOpt, legendData, seriesData) {
     const series = [];
     const barWidth = iChartOpt.itemStyle?.barWidth ? iChartOpt.itemStyle.barWidth : chartToken.barWidth;
     const backgroundWidth = iChartOpt.itemStyle?.backgroundWidth ? iChartOpt.itemStyle.backgroundWidth : chartToken.barBgWidth;
     const barData = seriesData[legendData[0]];
     const radius = chartToken.borderRadius;
     let borderRadius = [radius, radius, 0, 0];
-    if(iChartOpt.direction === 'horizontal') {
+    let symbolSize = iChartOpt.markLine.symbolSize ? iChartOpt.markLine.symbolSize : [backgroundWidth, 2];
+    if (iChartOpt.direction === 'horizontal') {
         borderRadius = [0, radius, radius, 0];
+        symbolSize = iChartOpt.markLine.symbolSize ? iChartOpt.markLine.symbolSize : [2, backgroundWidth]
     }
 
     const barObj = {
@@ -98,24 +100,24 @@ export function handleSeries(baseOpt, iChartOpt, legendData ,seriesData) {
         }
     }
     // 设置图例
-    handleLabel(barData,iChartOpt,baseOpt);
+    handleLabel(barData, iChartOpt, baseOpt);
     const markLineData = isArray(iChartOpt.markLine.data) ? iChartOpt.markLine.data : iChartOpt.data.map(() => { return iChartOpt.markLine.data });
     // 设置阈值
     const scatterObj = {
         type: 'scatter',
         symbol: 'rect',
         silent: true,
-        symbolSize: iChartOpt.markLine.symbolSize ? iChartOpt.markLine.symbolSize : [backgroundWidth, 2],
+        symbolSize: symbolSize,
         symbolOffset: iChartOpt.markLine.symbolOffset ? iChartOpt.markLine.symbolOffset : [0, 0],
         z: 20,
         data: markLineData,
-        color: iChartOpt.markLine.color ? iChartOpt.markLine.color : handleSetColor(iChartOpt.markLine,1),
+        color: iChartOpt.markLine.color ? iChartOpt.markLine.color : handleSetColor(iChartOpt.markLine, 1),
         emphasis: {
             scale: false
         }
     }
     // 设置柱子背景
-    if(iChartOpt.background) {
+    if (iChartOpt.background) {
         iChartOpt.background.forEach(item => {
             const rectData = isArray(item.data) ? item.data : iChartOpt.data.map(() => { return item.data });
             let totalData = {
@@ -123,10 +125,10 @@ export function handleSeries(baseOpt, iChartOpt, legendData ,seriesData) {
                 barWidth: backgroundWidth,
                 stack: 'total',
                 data: rectData,
-                color: iChartOpt.theme.indexOf('dark')!== -1 ? handleSetColor(item,0.3) : handleSetColor(item,0.15),
+                color: iChartOpt.theme.indexOf('dark') !== -1 ? handleSetColor(item, 0.3) : handleSetColor(item, 0.15),
                 barGap: 0
             }
-            if(iChartOpt.direction === 'horizontal') {
+            if (iChartOpt.direction === 'horizontal') {
                 totalData.yAxisIndex = 1;
             } else {
                 totalData.xAxisIndex = 1;
@@ -136,9 +138,9 @@ export function handleSeries(baseOpt, iChartOpt, legendData ,seriesData) {
         let xaxisData = {
             type: 'category',
             show: false,
-            axisLine: { show : false },
-            axisTick: { show : false },
-            axisLabel: { show : false },
+            axisLine: { show: false },
+            axisTick: { show: false },
+            axisLabel: { show: false },
         }
         xaxisData.data = baseOpt.xAxis[0].data;
         baseOpt.xAxis.push(xaxisData);
