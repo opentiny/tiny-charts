@@ -1,8 +1,10 @@
-import { getTextHeight } from '../../../util/dom';
+import { getTextHeight, removeOuterSpaces } from '../../../util/dom';
 import { percentToDecimal } from '../../../util/math';
 
 function updateTitle(position, chartInstance, baseOption, iChartOption) {
   // 获取圆环主副文本
+  baseOption.title.text = removeOuterSpaces(baseOption.title.text);
+  baseOption.title.subtext = removeOuterSpaces(baseOption.title.subtext);
   const textContent = baseOption.title.text;
   const subtextContent = baseOption.title.subtext;
   const textStyle = baseOption.title.textStyle;
