@@ -1,5 +1,5 @@
 const option = {
-  theme:"hdesign-dark",
+  theme: 'hdesign-light',
   data: [
     { time: '09:00', 'Domestic': 35 },
     { time: '10:00', 'Domestic': 35 },
@@ -27,7 +27,7 @@ const option = {
     {
       name: 'Domestic',
       symbolSize: 15,
-      symbol:'circle',
+      symbol: 'circle',
       showSymbol: true,
       hoverAnimation: false,
       label: {

@@ -44,7 +44,7 @@ const option = {
     style: {
       active: {
         color: 'red',
-        width:2,
+        width: 2,
       },
       disable: {
         color: 'blue'
@@ -56,9 +56,9 @@ const option = {
     grid: {
       size: 20,
       show: true,
-      type: 'dot', 
+      type: 'dot',
       config: {
-        color: '#aaaaaa', 
+        color: '#aaaaaa',
         unitSize: 1,
       }
     }

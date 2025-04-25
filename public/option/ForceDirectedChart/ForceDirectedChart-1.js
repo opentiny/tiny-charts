@@ -12,23 +12,23 @@ const option = {
   },
   data: {
     nodes: [
-      { 
-        pid: 'Myriel', 
+      {
+        pid: 'Myriel',
         symbolSize: 20, // 节点标记的大小
         group: 1
       },
-      { pid: 'Napoleon',symbolSize: 10, group: 1 },
-      { pid: 'Mlle.Baptistine',symbolSize: 30, group: 1 },
-      { pid: 'Mme.Magloire',symbolSize: 60, group: 1 },
-      { pid: 'CountessdeLo',symbolSize: 30, group: 1 },
-      { pid: 'Geborand',symbolSize: 60, group: 1 },
+      { pid: 'Napoleon', symbolSize: 10, group: 1 },
+      { pid: 'Mlle.Baptistine', symbolSize: 30, group: 1 },
+      { pid: 'Mme.Magloire', symbolSize: 60, group: 1 },
+      { pid: 'CountessdeLo', symbolSize: 30, group: 1 },
+      { pid: 'Geborand', symbolSize: 60, group: 1 },
       { pid: 'Champtercier', group: 1 },
       { pid: 'Cravatte', group: 1 },
       { pid: 'Count', group: 1 },
       { pid: 'OldMan', group: 1 },
       { pid: 'Labarre', group: 2 },
       { pid: 'Valjean', group: 2 },
-      { pid: 'Marguerite',symbolSize: 60, group: 3 },
+      { pid: 'Marguerite', symbolSize: 60, group: 3 },
       { pid: 'Mme.deR', group: 2 },
       { pid: 'Isabeau', group: 2 },
       { pid: 'Gervais', group: 2 },
