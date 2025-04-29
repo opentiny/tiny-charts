@@ -12,6 +12,7 @@
 import Token from './feature/token';
 import { THEMES } from './feature/token';
 import cloneDeep from './util/cloneDeep';
+import { updateStateDom } from './util/init/insert';
 
 window.getConsoleContext?.().get?.({ name: 'theme' })?.getThemeFlagAsync?.().then((theme) => {
   const cftheme = theme === 'dark' ? 'cloud-dark' : 'cloud-light';
@@ -67,6 +68,8 @@ export default class Theme {
         item.refresh?.(item.initIChartOption);
       }
     }
+    // 更新‘数据状态’相关节点
+    updateStateDom();
   }
 
   static getColors() {
