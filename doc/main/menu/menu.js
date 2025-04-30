@@ -542,12 +542,6 @@ const NAV_DATA = [
     value: 'MindmapChart',
     isRelation: true
   },
-//   {
-//     title: '力导向图 ForceDirectedChart',
-//     titleId: 'ic_ForceDirectedChart',
-//     value: 'ForceDirectedChart',
-//     isHigher: true
-//   },
   {
     title: '网格图 GridChart',
     titleId: 'ic_GridChart',

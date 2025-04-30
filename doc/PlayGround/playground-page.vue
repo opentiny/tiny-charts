@@ -82,7 +82,6 @@ import CircleArcChart from '../../src/framework/charts/CircleArcChart';
 import CustomizeChart from '../../src/framework/charts/CustomizeChart';
 import Demo from '../nodeExample/demoDrop.vue';
 import '../../src/feature/nodeRender/vue-node';
-import ForceDirectedChart from '../../src/framework/charts/ForceDirectedChart';
 import GridNode from '../nodeExample/GridNode.vue';
 import NodeOne from '../nodeExample/NodeOne.vue';
 import NodeTwo from '../nodeExample/NodeTwo.vue';
@@ -307,12 +306,6 @@ export default {
         if (num < 2) {
           option.component = Demo;
         }
-        this.integrateChart.setOption(option);
-        this.integrateChart.render();
-      } else if (this.chartName === 'ForceDirectedChart') {
-        this.$refs.chartRef.innerHTML = '';
-        this.integrateChart = new ForceDirectedChart();
-        this.integrateChart.init(this.$refs.chartRef);
         this.integrateChart.setOption(option);
         this.integrateChart.render();
       } else if (this.chartName === 'GridChart') {
