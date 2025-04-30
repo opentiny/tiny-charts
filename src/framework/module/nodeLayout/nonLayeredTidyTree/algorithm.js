@@ -1,261 +1,212 @@
-/**
- * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
- * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
- *
- * Use of this source code is governed by an MIT-style license.
- *
- * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
- * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
- * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
- *
- */
-// wrap tree node
-function WrappedTree(w, h, y, c = []) {
-    const me = this;
-      // size
-    me.w = w || 0;
-    me.h = h || 0;
-  
-      // position
-    me.y = y || 0;
-    me.x = 0;
-  
-      // children
-    me.c = c || [];
-    me.cs = c.length;
-  
-      // modified
-    me.prelim = 0;
-    me.mod = 0;
-    me.shift = 0;
-    me.change = 0;
-  
-      // left/right tree
-    me.tl = null;
-    me.tr = null;
-  
-      // extreme left/right tree
-    me.el = null;
-    me.er = null;
-  
-      // modified left/right tree
-    me.msel = 0;
-    me.mser = 0;
-  }
-
-WrappedTree.fromNode = (root, isHorizontal) => {
-  if (!root) return null;
-  const children = [];
-  root.children.forEach(child => {
-    children.push(WrappedTree.fromNode(child, isHorizontal));
+function WrappedTree(e, c, n, t = []) {
+  const r = this;
+  r.w = e || 0;
+  r.h = c || 0;
+  r.y = n || 0;
+  r.x = 0;
+  r.c = t || [];
+  r.cs = t.length;
+  r.prelim = 0;
+  r.mod = 0;
+  r.shift = 0;
+  r.change = 0;
+  r.tl = null;
+  r.tr = null;
+  r.el = null;
+  r.er = null;
+  r.msel = 0;
+  r.mser = 0;
+}
+WrappedTree.fromNode = (e, c) => {
+  if (!e) return null;
+  const n = [];
+  e.children.forEach((e) => {
+    n.push(WrappedTree.fromNode(e, c));
   });
-  if (isHorizontal) return new WrappedTree(root.height, root.width, root.x, children);
-  return new WrappedTree(root.width, root.height, root.y, children);
+  if (c) return new WrappedTree(e.height, e.width, e.x, n);
+  return new WrappedTree(e.width, e.height, e.y, n);
 };
-
-// node utils
-function moveRight(node, move, isHorizontal) {
-  if (isHorizontal) {
-    node.y += move;
+function moveRight(e, c, n) {
+  if (n) {
+    e.y += c;
   } else {
-    node.x += move;
+    e.x += c;
   }
-  node.children.forEach(child => {
-    moveRight(child, move, isHorizontal);
+  e.children.forEach((e) => {
+    moveRight(e, c, n);
   });
 }
-
-function getMin(node, isHorizontal) {
-  let res = isHorizontal ? node.y : node.x;
-  node.children.forEach(child => {
-    res = Math.min(getMin(child, isHorizontal), res);
+function getMin(e, c) {
+  let n = c ? e.y : e.x;
+  e.children.forEach((e) => {
+    n = Math.min(getMin(e, c), n);
   });
-  return res;
+  return n;
 }
-
-function normalize(node, isHorizontal) {
-  const min = getMin(node, isHorizontal);
-  moveRight(node, -min, isHorizontal);
+function normalize(e, c) {
+  const n = getMin(e, c);
+  moveRight(e, -n, c);
 }
-
-function convertBack(converted/* WrappedTree */, root/* TreeNode */, isHorizontal) {
-  if (isHorizontal) {
-    root.y = converted.x;
+function convertBack(e, n, t) {
+  if (t) {
+    n.y = e.x;
   } else {
-    root.x = converted.x;
+    n.x = e.x;
   }
-  converted.c.forEach((child, i) => {
-    convertBack(child, root.children[i], isHorizontal);
+  e.c.forEach((e, c) => {
+    convertBack(e, n.children[c], t);
   });
 }
-
-function layer(node, isHorizontal, d = 0) {
-  if (isHorizontal) {
-    node.x = d;
-    d += node.width;
+function layer(e, c, n = 0) {
+  if (c) {
+    e.x = n;
+    n += e.width;
   } else {
-    node.y = d;
-    d += node.height;
+    e.y = n;
+    n += e.height;
   }
-  node.children.forEach(child => {
-    layer(child, isHorizontal, d);
+  e.children.forEach((e) => {
+    layer(e, c, n);
   });
 }
-
-export default (root, options = {}) => {
-  const isHorizontal = options.isHorizontal;
-  function firstWalk(t) {
-    if (t.cs === 0) {
-      setExtremes(t);
+export default (e, c = {}) => {
+  const n = c.isHorizontal;
+  function r(c) {
+    if (c.cs === 0) {
+      l(c);
       return;
     }
-    firstWalk(t.c[0]);
-    let ih = updateIYL(bottom(t.c[0].el), 0, null);
-    for (let i = 1; i < t.cs; ++i) {
-      firstWalk(t.c[i]);
-      const min = bottom(t.c[i].er);
-      separate(t, i, ih);
-      ih = updateIYL(min, i, ih);
+    r(c.c[0]);
+    let n = x(d(c.c[0].el), 0, null);
+    for (let e = 1; e < c.cs; ++e) {
+      r(c.c[e]);
+      const t = d(c.c[e].er);
+      i(c, e, n);
+      n = x(t, e, n);
     }
-    positionRoot(t);
-    setExtremes(t);
+    o(c);
+    l(c);
   }
-
-  function setExtremes(t) {
-    if (t.cs === 0) {
-      t.el = t;
-      t.er = t;
-      t.msel = t.mser = 0;
+  function l(e) {
+    if (e.cs === 0) {
+      e.el = e;
+      e.er = e;
+      e.msel = e.mser = 0;
     } else {
-      t.el = t.c[0].el;
-      t.msel = t.c[0].msel;
-      t.er = t.c[t.cs - 1].er;
-      t.mser = t.c[t.cs - 1].mser;
+      e.el = e.c[0].el;
+      e.msel = e.c[0].msel;
+      e.er = e.c[e.cs - 1].er;
+      e.mser = e.c[e.cs - 1].mser;
     }
   }
-
-  function separate(t, i, ih) {
-    let sr = t.c[i - 1];
-    let mssr = sr.mod;
-    let cl = t.c[i];
-    let mscl = cl.mod;
-    while (sr !== null && cl !== null) {
-      if (bottom(sr) > ih.low) ih = ih.nxt;
-      const dist = (mssr + sr.prelim + sr.w) - (mscl + cl.prelim);
-      if (dist > 0) {
-        mscl += dist;
-        moveSubtree(t, i, ih.index, dist);
+  function i(e, c, n) {
+    let t = e.c[c - 1];
+    let r = t.mod;
+    let l = e.c[c];
+    let i = l.mod;
+    while (t !== null && l !== null) {
+      if (d(t) > n.low) n = n.nxt;
+      const o = r + t.prelim + t.w - (i + l.prelim);
+      if (o > 0) {
+        i += o;
+        m(e, c, n.index, o);
       }
-      const sy = bottom(sr);
-      const cy = bottom(cl);
-      if (sy <= cy) {
-        sr = nextRightContour(sr);
-        if (sr !== null) mssr += sr.mod;
+      const s = d(t);
+      const f = d(l);
+      if (s <= f) {
+        t = h(t);
+        if (t !== null) r += t.mod;
       }
-      if (sy >= cy) {
-        cl = nextLeftContour(cl);
-        if (cl !== null) mscl += cl.mod;
+      if (s >= f) {
+        l = u(l);
+        if (l !== null) i += l.mod;
       }
     }
-    if (!sr && !!cl) {
-      setLeftThread(t, i, cl, mscl);
-    } else if (!!sr && !cl) {
-      setRightThread(t, i, sr, mssr);
+    if (!t && !!l) {
+      a(e, c, l, i);
+    } else if (!!t && !l) {
+      p(e, c, t, r);
     }
   }
-
-  function moveSubtree(t, i, si, dist) {
-    t.c[i].mod += dist;
-    t.c[i].msel += dist;
-    t.c[i].mser += dist;
-    distributeExtra(t, i, si, dist);
+  function m(e, c, n, t) {
+    e.c[c].mod += t;
+    e.c[c].msel += t;
+    e.c[c].mser += t;
+    s(e, c, n, t);
   }
-
-  function nextLeftContour(t) {
-    return t.cs === 0 ? t.tl : t.c[0];
+  function u(e) {
+    return e.cs === 0 ? e.tl : e.c[0];
   }
-
-  function nextRightContour(t) {
-    return t.cs === 0 ? t.tr : t.c[t.cs - 1];
+  function h(e) {
+    return e.cs === 0 ? e.tr : e.c[e.cs - 1];
   }
-
-  function bottom(t) {
-    return t.y + t.h;
+  function d(e) {
+    return e.y + e.h;
   }
-
-  function setLeftThread(t, i, cl, modsumcl) {
-    const li = t.c[0].el;
-    li.tl = cl;
-    const diff = (modsumcl - cl.mod) - t.c[0].msel;
-    li.mod += diff;
-    li.prelim -= diff;
-    t.c[0].el = t.c[i].el;
-    t.c[0].msel = t.c[i].msel;
+  function a(e, c, n, t) {
+    const r = e.c[0].el;
+    r.tl = n;
+    const l = t - n.mod - e.c[0].msel;
+    r.mod += l;
+    r.prelim -= l;
+    e.c[0].el = e.c[c].el;
+    e.c[0].msel = e.c[c].msel;
   }
-
-  function setRightThread(t, i, sr, modsumsr) {
-    const ri = t.c[i].er;
-    ri.tr = sr;
-    const diff = (modsumsr - sr.mod) - t.c[i].mser;
-    ri.mod += diff;
-    ri.prelim -= diff;
-    t.c[i].er = t.c[i - 1].er;
-    t.c[i].mser = t.c[i - 1].mser;
+  function p(e, c, n, t) {
+    const r = e.c[c].er;
+    r.tr = n;
+    const l = t - n.mod - e.c[c].mser;
+    r.mod += l;
+    r.prelim -= l;
+    e.c[c].er = e.c[c - 1].er;
+    e.c[c].mser = e.c[c - 1].mser;
   }
-
-  function positionRoot(t) {
-    t.prelim = (
-      t.c[0].prelim + t.c[0].mod + t.c[t.cs - 1].mod +
-      t.c[t.cs - 1].prelim + t.c[t.cs - 1].w
-    ) / 2 - t.w / 2;
+  function o(e) {
+    e.prelim =
+      (e.c[0].prelim +
+        e.c[0].mod +
+        e.c[e.cs - 1].mod +
+        e.c[e.cs - 1].prelim +
+        e.c[e.cs - 1].w) /
+        2 -
+      e.w / 2;
   }
-
-  function secondWalk(t, modsum) {
-    modsum += t.mod;
-    t.x = t.prelim + modsum;
-    addChildSpacing(t);
-    for (let i = 0; i < t.cs; i++) {
-      secondWalk(t.c[i], modsum);
+  function t(c, n) {
+    n += c.mod;
+    c.x = c.prelim + n;
+    f(c);
+    for (let e = 0; e < c.cs; e++) {
+      t(c.c[e], n);
     }
   }
-
-  function distributeExtra(t, i, si, dist) {
-    if (si !== i - 1) {
-      const nr = i - si;
-      t.c[si + 1].shift += dist / nr;
-      t.c[i].shift -= dist / nr;
-      t.c[i].change -= dist - dist / nr;
+  function s(e, c, n, t) {
+    if (n !== c - 1) {
+      const r = c - n;
+      e.c[n + 1].shift += t / r;
+      e.c[c].shift -= t / r;
+      e.c[c].change -= t - t / r;
     }
   }
-
-  function addChildSpacing(t) {
-    let d = 0;
-    let modsumdelta = 0;
-    for (let i = 0; i < t.cs; i++) {
-      d += t.c[i].shift;
-      modsumdelta += d + t.c[i].change;
-      t.c[i].mod += modsumdelta;
+  function f(c) {
+    let n = 0;
+    let t = 0;
+    for (let e = 0; e < c.cs; e++) {
+      n += c.c[e].shift;
+      t += n + c.c[e].change;
+      c.c[e].mod += t;
     }
   }
-
-  function updateIYL(low, index, ih) {
-    while (ih !== null && low >= ih.low) {
-      ih = ih.nxt;
+  function x(e, c, n) {
+    while (n !== null && e >= n.low) {
+      n = n.nxt;
     }
-    return {
-      low,
-      index,
-      nxt: ih
-    };
+    return { low: e, index: c, nxt: n };
   }
-
-  // do layout
-  layer(root, isHorizontal);
-  const wt = WrappedTree.fromNode(root, isHorizontal);
-  firstWalk(wt);
-  secondWalk(wt, 0);
-  convertBack(wt, root, isHorizontal);
-  normalize(root, isHorizontal);
-
-  return root;
+  layer(e, n);
+  const w = WrappedTree.fromNode(e, n);
+  r(w);
+  t(w, 0);
+  convertBack(w, e, n);
+  normalize(e, n);
+  return e;
 };
