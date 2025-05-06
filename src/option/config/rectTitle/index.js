@@ -33,7 +33,7 @@ function title(iChartOption, chartName, nameTextStyle = {}) {
   // 名称
   title.text = name;
   // 如果图表为柱状图，并且为横向
-  if (chartName == 'BarChart' && iChartOption.direction === 'horizontal') {
+  if (chartName == 'BarChart' || chartName == 'BulletChart' && iChartOption.direction === 'horizontal') {
     const nameLength = getTextWidth(name, 12);
     title.right = padding[1] - nameLength - 24;
     title.bottom = padding[2];
