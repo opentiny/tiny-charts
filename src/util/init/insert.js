@@ -108,7 +108,7 @@ function hasStateDom(container, state) {
 function insertStateDom(container, state, option = {}) {
     let text = '';
     let image = '';
-    let theme = option.theme || Theme.globalName || 'light';
+    let theme = Theme.globalName || option.theme || 'light';
     let textSize = option.textSize || 14;
     let textShow = option.textShow === false ? false : true;
     let imageSize = option.imageSize || 'auto';
@@ -128,7 +128,7 @@ function insertStateDom(container, state, option = {}) {
           break;
         case 'loading':
           image = LOADING_SVG(defendXSS(imageColor));
-          backgroundColor = option.backgroundColor || (theme.indexOf('dark') !== -1 ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)');
+          //backgroundColor = option.backgroundColor || (theme.indexOf('dark') !== -1 ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)');
           text = '加载中...';
           break;
         case 'stage_empty':
@@ -145,8 +145,8 @@ function insertStateDom(container, state, option = {}) {
     text = option.text || text;
     let stateDom =
         `<div class="huicharts-state-container huicharts-${defendXSS(state)}" style="background-color: ${defendXSS(backgroundColor)};position:absolute;top: 0;left: 0;width: 100%;height: 100%;display: flex;align-items: center;flex-direction: column;justify-content: center;z-index: 99;">
-            <div style="display: ${imageShow ? 'flex' : 'none'};width: ${defendXSS(imageSize)}px;height: ${defendXSS(imageSize)}px;padding: 0;margin: 0;align-items: center;justify-content: center;">${image}</div>
-            <div style="color: ${defendXSS(textColor)};font-size: ${defendXSS(textSize)}px;line-height: ${defendXSS(textSize)}px;display: ${textShow ? 'block' : 'none'};margin-top: 14px;letter-spacing: 0.5px;">${text}</div>
+            <div class="huicharts-state-img" style="display: ${imageShow ? 'flex' : 'none'};width: ${defendXSS(imageSize)}px;height: ${defendXSS(imageSize)}px;padding: 0;margin: 0;align-items: center;justify-content: center;">${image}</div>
+            <div class="huicharts-state-text" style="color: ${defendXSS(textColor)};font-size: ${defendXSS(textSize)}px;line-height: ${defendXSS(textSize)}px;display: ${textShow ? 'block' : 'none'};margin-top: 14px;letter-spacing: 0.5px;">${text}</div>
         </div>`
     container.insertAdjacentHTML('beforeend', stateDom);
 }
@@ -159,8 +159,42 @@ function removeStateDom(container, state) {
     }
 }
 
+function updateStateDom() {
+    let theme = Theme.globalName  || 'light';
+    let doms = document.getElementsByClassName('huicharts-state-container');
+    for (let index = 0; index < doms.length; index++) {
+        let item = doms[index];
+        let textColor = theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#808080';
+        let imageColor = theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#191919';
+        let backgroundColor = theme.indexOf('dark') !== -1 ? '#191919' : '#FFFFFF';
+        let state = item.className.replace('huicharts-state-container','').split('huicharts-')[1] || '';
+        let image = '';
+        switch (state) {
+            case 'error':
+              image = ERROR_SVG(defendXSS(imageColor));
+              break;
+            case 'empty':
+              image = STAGE_EMPTY_SVG(defendXSS(imageColor));
+              break;
+            case 'loading':
+              image = LOADING_SVG(defendXSS(imageColor));
+              backgroundColor = theme.indexOf('dark') !== -1 ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)';
+              break;
+            case 'stage_empty':
+              image = STAGE_EMPTY_SVG(defendXSS(imageColor));
+              break;
+        }
+        item.style['background-color'] = backgroundColor;
+        item.getElementsByClassName('huicharts-state-text')[0].style['color'] = textColor;
+        if(state !== 'custom' && image){
+            item.getElementsByClassName('huicharts-state-img')[0].innerHTML = image;
+        }
+    }
+}
+
 export {
     insertStateDom,
     removeStateDom,
-    hasStateDom
+    hasStateDom,
+    updateStateDom
 }
