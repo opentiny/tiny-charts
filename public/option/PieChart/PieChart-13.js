@@ -35,23 +35,8 @@ const option = {
                 {value: 14, name: 'SG' },
             ]
             let item = data.filter((item) => item.name === name)[0];
-            return '{title|' + name + '}{value1|' + item.value +  'GB}'
-        },
-        legendType: 'value',
-        textStyle: {
-            rich: {
-                title: {
-                    fontSize: 14,
-                    padding: [0, 0, 0, 5],
-                    width: 80,
-                },
-                value1: {
-                    fontSize: 12,
-                    width: 20,
-                    fontWeight:'bold',
-                },
-            },
-        },
+            return '{title|' + name + '}{value|' + item.value +  'GB}'
+        }
     },
     tooltip:{
 
