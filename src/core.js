@@ -42,7 +42,6 @@ const SELF_CHART = [
   'TimelineChart',
   'MilestoneChart',
   'MindmapChart',
-  'ForceDirectedChart',
   'GridChart',
   'CircleChart',
   'LinearArcChart',
