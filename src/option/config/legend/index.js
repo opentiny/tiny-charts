@@ -59,7 +59,7 @@ function legend(iChartOption, chartName) {
   // 自定义icon
   icon(legend, iChartOption);
   // 图例多形态
-  if(legend.legendType === 'value' && legend.orient === 'vertical'){
+  if( legend.orient === 'vertical' ){
     setPolymorphism(legend, iChartOption)
   }
   return legend;
