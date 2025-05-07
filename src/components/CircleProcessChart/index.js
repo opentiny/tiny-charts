@@ -60,7 +60,7 @@ export default class CircleProcessChart {
   }
 
   resize(callback) {
-    setRadius(this.baseOption, this.chartInstance, this.iChartOption);
+    if(!this.iChartOption?.mini) setRadius(this.baseOption, this.chartInstance, this.iChartOption);
     if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
       let position = this.iChartOption.position || this.baseOption.polar;
       handleCenterTitle(position, this.chartInstance, this.baseOption, this.iChartOption);
