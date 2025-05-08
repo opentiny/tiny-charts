@@ -104,8 +104,8 @@ const getTextHeight = (text, fontSize = 12, lineHeight, padding) => {
 }
 
 function removeOuterSpaces(text) {
-    // 使用正则表达式移除 {} 外的空格
-    return text.replace(/(?<=\})\s+|\s+(?=\{)/g, '').trim();
+    // 使用正则表达式仅移除 {} 外的普通空格字符
+    return text.replace(/(?<=\})[ ]+|[ ]+(?=\{)/g, '').trim();
 }
 
 export {
