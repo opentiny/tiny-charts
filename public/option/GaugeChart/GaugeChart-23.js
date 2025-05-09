@@ -10,6 +10,7 @@ const option = {
         show: false,
     },
     status: 'warning',
+    unit: '%',
     data: [
         {
             value: 46.2,
