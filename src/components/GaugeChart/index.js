@@ -61,12 +61,12 @@ class GaugeChart {
     let containerHeight = containerDom.clientHeight;
     const radiusSize = containerWidth > containerHeight ? containerHeight : containerWidth;
     const series = this.baseOption.series[0];
-    const fontSizeData = handleSize(series,radiusSize);
+    const sizeData = handleSize(series,radiusSize);
     const text = this.iChartOption.text || {};
     // 中间文本
-    handleDetail(series, text, this.iChartOption.data,fontSizeData);
+    handleDetail(series, text, this.iChartOption.data,sizeData);
     // 内置状态仪表盘
-    handleStatus(series, this.iChartOption,radiusSize,text,fontSizeData);
+    handleStatus(series, this.iChartOption,radiusSize,text,sizeData);
     callback(this.baseOption);
 
   }
