@@ -515,7 +515,7 @@ export function handleStatus(seriesUnit, iChartOption,radiusSize,text,sizeData){
       }
     }
   }
-
+  console.log(77777,seriesUnit.detail.rich )
   if (text?.formatterStyle) {
     merge(seriesUnit.detail.rich, text.formatterStyle)
   }
@@ -529,17 +529,17 @@ export function handleSize(seriesUnit,radiusSize){
     NumSize = 48;
     subTitleSize = 14;
     btnWidthSize = 96;
-    space = 20;
+    space = 28;
   } else if (diameter < 200 && diameter >= 160) {
     NumSize = 36;
     subTitleSize = 12;
     btnWidthSize = 80;
-    space = 16;
+    space = 4;
   } else {
     NumSize = 32;
     subTitleSize = 12;
     btnWidthSize = 64;
-    space = 9;
+    space = 0;
   }
   return {
     NumSize: NumSize,
