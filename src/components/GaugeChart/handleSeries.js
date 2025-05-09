@@ -515,7 +515,6 @@ export function handleStatus(seriesUnit, iChartOption,radiusSize,text,sizeData){
       }
     }
   }
-  console.log(77777,seriesUnit.detail.rich )
   if (text?.formatterStyle) {
     merge(seriesUnit.detail.rich, text.formatterStyle)
   }
