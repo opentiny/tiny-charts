@@ -10,7 +10,7 @@
  *
  */
 import BaseOption from './BaseOption';
-import handleSeries from './handleSeries';
+import {handleSeries,handleSize,handleDetail,handleStatus} from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import { handleTooltip } from './handleOptipn';
 import { mergeSeries } from '../../util/merge';
@@ -27,6 +27,7 @@ class GaugeChart {
     this.baseOption = cloneDeep(BaseOption);
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
+    this.chartInstance = chartInstance;
     // 根据 iChartOption 组装 baseOption
     this.updateOption(iChartOption, chartInstance);
   }
@@ -34,12 +35,13 @@ class GaugeChart {
   updateOption(iChartOption, chartInstance) {
     let containerDom = chartInstance._dom;
     let containerWidth = containerDom.clientWidth;
+    let containerHeight = containerDom.clientHeight;
     // 图表基础颜色
     this.baseOption.color = iChartOption.color;
     // 图表鼠标悬浮提示框
     this.baseOption.tooltip = handleTooltip(iChartOption, CHART_TYPE.GAUGE);
     // 赋值数据
-    this.baseOption.series = handleSeries(iChartOption, this.baseOption.color,containerWidth);
+    this.baseOption.series = handleSeries(iChartOption, this.baseOption.color,containerWidth,containerHeight);
     // 合并用户自定义series
     this.baseOption.legend.show = false;
     mergeSeries(iChartOption, this.baseOption);
@@ -51,6 +53,23 @@ class GaugeChart {
   }
 
   setOption() { }
+
+  resize(callback) {
+
+    let containerDom = this.chartInstance._dom;
+    let containerWidth = containerDom.clientWidth;
+    let containerHeight = containerDom.clientHeight;
+    const radiusSize = containerWidth > containerHeight ? containerHeight : containerWidth;
+    const series = this.baseOption.series[0];
+    const sizeData = handleSize(series,radiusSize);
+    const text = this.iChartOption.text || {};
+    // 中间文本
+    handleDetail(series, text, this.iChartOption.data,sizeData);
+    // 内置状态仪表盘
+    handleStatus(series, this.iChartOption,radiusSize,text,sizeData);
+    callback(this.baseOption);
+
+  }
 }
 
 export default GaugeChart;
