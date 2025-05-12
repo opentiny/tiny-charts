@@ -34,7 +34,10 @@ function title(iChartOption, chartName, nameTextStyle = {}) {
   title.text = name;
   // 如果图表为柱状图，并且为横向
   if (chartName == 'BarChart' && iChartOption.direction === 'horizontal') {
-    const nameLength = getTextWidth(name, 12);
+    let nameLength =  getTextWidth(name, 12);
+    if(nameTextStyle?.overflow === 'truncate' && nameTextStyle.width){
+      nameLength = nameTextStyle.width
+    }
     title.right = padding[1] - nameLength - 24;
     title.bottom = padding[2];
     title.textAlign = 'left';
