@@ -11,10 +11,11 @@
  */
 import min from '../../util/sort/min';
 import max from '../../util/sort/max';
-import { isNumber } from '../../util/type';
+import { isArray, isNumber } from '../../util/type';
 import { getColor } from '../../util/color';
 import Token from '../../feature/token';
 import chartToken from './chartToken'
+import { mergeVisualMapPieces } from '../../option/config/visualMap'
 
 function handleVisualMapItem({ index, topColor, top, bottom, bottomColor, vmColor, defaultColor }) {
   const visualMapItem = {
@@ -47,8 +48,31 @@ function handleVisualMapItem({ index, topColor, top, bottom, bottomColor, vmColo
 
 export function setVisualMap(legendData, seriesData, iChartOpt, baseOpt) {
   const visualMap = [];
-  const { color: colors, markLine } = iChartOpt
-  if (markLine) {
+  const { color: colors, markLine } = iChartOpt;
+  if (!markLine) return visualMap;
+  if (isArray(markLine)) {
+    legendData.forEach((legend, index) => {
+      let visualMapItem = {
+        show: false,
+        type: 'piecewise',
+        dimension: 1,
+        seriesIndex: index,
+        outOfRange: {
+          color: colors[index],
+        }
+      }
+      mergeVisualMapPieces(visualMapItem, markLine, colors, legend);
+      const vmColor = Token.config.colorState.colorError;
+      const seriesUnit = baseOpt.series[index];
+      const data = seriesData[legend];
+      const defaultColor = getColor(colors, index);
+      if (visualMapItem.pieces?.length > 0) {
+        transformPiecesData(seriesUnit, data, defaultColor, visualMapItem.pieces, vmColor)
+
+        visualMap.push(visualMapItem);
+      }
+    })
+  } else {
     let topValue = markLine.top;
     let bottomValue = markLine.bottom;
     const vmColor = Token.config.colorState.colorError;
@@ -134,5 +158,45 @@ function transformData(seriesUnit, data, defaultColor, markLineConfig) {
       }
     }
   })
+  seriesUnit.data = newData
+}
+
+function transformPiecesData(seriesUnit, data, defaultColor, VMpieces, vmColor) {
+  const newData = data.map(item => {
+    let borderColor = defaultColor;
+    VMpieces.forEach(pieces => {
+      let { lt, lte, gt, gte, color, min, max, value } = pieces;
+      if (min !== undefined) lte = min;
+      if (max !== undefined) gte = max;
+      if (gte !== undefined || gt !== undefined) {
+        if ((item > gt || item >= gte) && ((lt !== undefined && item < lt) || (lte !== undefined && item <= lte))) {
+          borderColor = color || vmColor;
+        } else if ((item > gt || item >= gte) && lte === undefined && lt === undefined) {
+          borderColor = color || vmColor;
+        } else {
+          return item;
+        }
+      } else if (((lt !== undefined && item < lt) || (lt !== undefined && item <= lt)) && (gte === undefined && gt === undefined)) {
+        borderColor = color || vmColor;
+      } else {
+        return item;
+      }
+      if (value !== undefined && item === value) {
+        borderColor = color || vmColor;
+      }
+    })
+
+    return {
+      value: item,
+      emphasis: {
+        itemStyle: {
+          borderColor,
+          color: chartToken.maskColor,
+          opacity: 1
+        }
+      }
+    }
+  })
+
   seriesUnit.data = newData
 }

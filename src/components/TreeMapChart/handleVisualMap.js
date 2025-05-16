@@ -10,7 +10,7 @@
  *
  */
 import merge from '../../util/merge';
-import visualMap from '../../option/config/visualMap'
+import { visualMap } from '../../option/config/visualMap'
 
 export function handleVisualMap(option, iChartOption) {
   let defaultVisualMap = visualMap(iChartOption.type || 'piecewise');

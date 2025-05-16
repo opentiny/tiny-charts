@@ -10,8 +10,8 @@
  *
  */
 import cloneDeep from '../../util/cloneDeep';
-import { isString, isObject } from '../../util/type';
-import { getMarkLineDefault, getMarkPointDefault, setThresholdMarkLineLabel } from '../../option/config/mark';
+import { isString, isObject, isArray } from '../../util/type';
+import { getMarkLineDefault, getMarkPointDefault, setThresholdMarkLineLabel, setThresholdMarkLine } from '../../option/config/mark';
 import chartToken from './chartToken';
 import Token from '../../feature/token';
 import { getColor } from '../../util/color';
@@ -131,12 +131,16 @@ function isTopOrBottom(markLine, seriesUnit, flag) {
 }
 
 function handleMarkLine(markLine, seriesUnit, seriesName) {
-  seriesUnit.markLine = getMarkLineDefault()
-  if (markLine.top && !(markLine.topUse && markLine.topUse.indexOf(seriesName) === -1)) {
-    isTopOrBottom(markLine, seriesUnit, 'top')
-  }
-  if (markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(seriesName) === -1)) {
-    isTopOrBottom(markLine, seriesUnit, 'bottom')
+  if(isArray(markLine)){
+    setThresholdMarkLine(markLine, seriesUnit, seriesName)
+  }else{
+    seriesUnit.markLine = getMarkLineDefault()
+    if (markLine.top && !(markLine.topUse && markLine.topUse.indexOf(seriesName) === -1)) {
+      isTopOrBottom(markLine, seriesUnit, 'top')
+    }
+    if (markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(seriesName) === -1)) {
+      isTopOrBottom(markLine, seriesUnit, 'bottom')
+    }
   }
 }
 
@@ -163,7 +167,6 @@ function handleMarkPoint(markPoint, seriesUnit, seriesName) {
     seriesUnit.markPoint.data.push(min);
   }
 }
-
 
 function setStack(stack, seriesUnit) {
   for (const name in stack) {

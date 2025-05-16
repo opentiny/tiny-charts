@@ -1,4 +1,5 @@
 import Token from '../../../feature/token'
+import { isArray } from '../../../util/type';
 
 function getCommonProperty() {
     return {
@@ -88,4 +89,34 @@ function visualMap(type = 'piecewise') {
     }
 }
 
-export default visualMap
+function mergeVisualMapPieces(visualMapItem, markLine, colors, legend) {
+    let pieces = [];
+    markLine.forEach((item, index) => {
+        if ((item.belong && item.belong.includes(legend)) && item.pieces) {
+            if (isArray(item.pieces)) {
+                item.pieces.forEach(element => {
+                    let obj = {
+                        ...element,
+                        color: element.color || item.lineStyle?.color || colors[index]
+                    }
+                    if(!element.color){
+                        obj.defColor =  item.lineStyle?.color || colors[index]
+                    }
+                    pieces.push(obj)
+                })
+            } else {
+                let obj = {
+                    ...item.pieces,
+                    color: item.pieces.color || item.lineStyle?.color || colors[index]
+                }
+                if(!item.pieces.color){
+                    obj.defColor =  item.lineStyle?.color || colors[index]
+                }
+                pieces.push(obj)
+            }
+        }
+    })
+    visualMapItem.pieces = pieces;
+}
+
+export { visualMap, mergeVisualMapPieces }

@@ -70,5 +70,31 @@ function getMarkPointDefault() {
   };
 }
 
+function setThresholdMarkLine(markLine, seriesUnit, seriesName) {
+  seriesUnit.markLine = getMarkLineDefault();
+  delete seriesUnit.markLine.symbol;
+  markLine.forEach(item => {
+    if ((item.belong && item.belong.includes(seriesName))) {
+      let defMarkLineData = item.yAxis ? { yAxis: item.yAxis } : { xAxis: item.xAxis };
+      // 加载规范阈值线的label配置
+      setThresholdMarkLineLabel(defMarkLineData);
+      defMarkLineData.label.position = 'insideEndTop';
+      defMarkLineData.label.show = true;
+      // 无阈值线颜色时，设置颜色
+      if (!item?.lineStyle?.color) {
+        if (!item.lineStyle) item.lineStyle = {};
+        item.lineStyle.color = Token.config.colorState.colorError
+      }
+      // 合并用户数据
+      merge(defMarkLineData, item);
+      // 移除内部symbol
+      delete defMarkLineData.symbol;
+      seriesUnit.markLine.data.push(defMarkLineData)
+    }
+    // 设置端点
+    if (item.symbol && !seriesUnit.markLine.symbol) seriesUnit.markLine.symbol = item.symbol;
+  })
+}
 
-export { getMarkLineDefault, getMarkPointDefault, setThresholdMarkLineLabel }
+
+export { getMarkLineDefault, getMarkPointDefault, setThresholdMarkLineLabel, setThresholdMarkLine }

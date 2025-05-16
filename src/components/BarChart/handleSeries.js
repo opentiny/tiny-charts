@@ -13,7 +13,7 @@ import merge from '../../util/merge';
 import { getColor } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
 import { isArray, isNumber, isObject} from '../../util/type';
-import { getMarkLineDefault } from '../../option/config/mark';
+import { getMarkLineDefault, setThresholdMarkLine } from '../../option/config/mark';
 import chartToken from './chartToken';
 import Token from '../../feature/token';
 import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter'
@@ -193,29 +193,33 @@ function handleItemStyle(direction, itemStyle) {
   return seriesInit_;
 }
 
-function handleMarkLine(seriesUnit, iChartOption, direction) {
+function handleMarkLine(seriesUnit, iChartOption, direction, seriesName) {
   const name = seriesUnit.name;
   const markLine = iChartOption.markLine;
-  const isTopMarkLine = markLine && markLine.top && !(markLine.topUse && markLine.topUse.indexOf(name) === -1);
-  const isBottomMarkLine =
-    markLine && markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(name) === -1);
-  if (isTopMarkLine || isBottomMarkLine) {
-    seriesUnit.markLine = getMarkLineDefault(true)
-    merge(seriesUnit.markLine, markLine);
-    if (markLine.color) seriesUnit.markLine.lineStyle.color = markLine.color
-  }
-  if (isTopMarkLine) {
-    if (direction && direction === 'horizontal') {
-      seriesUnit.markLine.data.push({ xAxis: markLine.top });
-    } else {
-      seriesUnit.markLine.data.push({ yAxis: markLine.top });
+  if(isArray(markLine)){
+    setThresholdMarkLine(markLine, seriesUnit, seriesName)
+  }else{
+    const isTopMarkLine = markLine && markLine.top && !(markLine.topUse && markLine.topUse.indexOf(name) === -1);
+    const isBottomMarkLine =
+      markLine && markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(name) === -1);
+    if (isTopMarkLine || isBottomMarkLine) {
+      seriesUnit.markLine = getMarkLineDefault(true)
+      merge(seriesUnit.markLine, markLine);
+      if (markLine.color) seriesUnit.markLine.lineStyle.color = markLine.color
     }
-  }
-  if (isBottomMarkLine) {
-    if (direction && direction === 'horizontal') {
-      seriesUnit.markLine.data.push({ xAxis: markLine.bottom });
-    } else {
-      seriesUnit.markLine.data.push({ yAxis: markLine.bottom });
+    if (isTopMarkLine) {
+      if (direction && direction === 'horizontal') {
+        seriesUnit.markLine.data.push({ xAxis: markLine.top });
+      } else {
+        seriesUnit.markLine.data.push({ yAxis: markLine.top });
+      }
+    }
+    if (isBottomMarkLine) {
+      if (direction && direction === 'horizontal') {
+        seriesUnit.markLine.data.push({ xAxis: markLine.bottom });
+      } else {
+        seriesUnit.markLine.data.push({ yAxis: markLine.bottom });
+      }
     }
   }
 }
@@ -340,7 +344,7 @@ export function setSeries(seriesData, legendData, iChartOption) {
       seriesUnit.data = seriesData[legend];
     }
     // 阈值线
-    handleMarkLine(seriesUnit, iChartOption, direction);
+    iChartOption.markLine && handleMarkLine(seriesUnit, iChartOption, direction, legend);
     // 堆叠图
     handleStack(type, seriesUnit, index, legendData, iChartOption);
     // 双向图
