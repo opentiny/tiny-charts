@@ -15,7 +15,7 @@ import { isArray, isNumber } from '../../util/type';
 import { getColor } from '../../util/color';
 import Token from '../../feature/token';
 import chartToken from './chartToken'
-import {mergeVisualMapPieces} from '../../option/config/visualMap'
+import { mergeVisualMapPieces } from '../../option/config/visualMap'
 
 function handleVisualMapItem({ index, topColor, top, bottom, bottomColor, vmColor, defaultColor }) {
   const visualMapItem = {
@@ -68,7 +68,7 @@ export function setVisualMap(legendData, seriesData, iChartOpt, baseOpt) {
       const defaultColor = getColor(colors, index);
       if (visualMapItem.pieces?.length > 0) {
         transformPiecesData(seriesUnit, data, defaultColor, visualMapItem.pieces, vmColor)
-        
+
         visualMap.push(visualMapItem);
       }
     })
@@ -164,28 +164,28 @@ function transformData(seriesUnit, data, defaultColor, markLineConfig) {
 function transformPiecesData(seriesUnit, data, defaultColor, VMpieces, vmColor) {
   const newData = data.map(item => {
     let borderColor = defaultColor;
-    VMpieces.forEach( pieces => {
+    VMpieces.forEach(pieces => {
       let { lt, lte, gt, gte, color, min, max, value } = pieces;
-      if(min) lte = min;
-      if(max) gte = max;
-      if( gte !== undefined ||  gt !== undefined ){
-        if ((item > gt || item >= gte)  &&  ((lt !== undefined  &&  item < lt) || (lte !== undefined  &&  item <= lte)) ) {
+      if (min !== undefined) lte = min;
+      if (max !== undefined) gte = max;
+      if (gte !== undefined || gt !== undefined) {
+        if ((item > gt || item >= gte) && ((lt !== undefined && item < lt) || (lte !== undefined && item <= lte))) {
           borderColor = color || vmColor;
-        }else if( (item > gt || item >= gte)  &&  lte === undefined  &&  lt === undefined ){
+        } else if ((item > gt || item >= gte) && lte === undefined && lt === undefined) {
           borderColor = color || vmColor;
-        }else{
+        } else {
           return item;
         }
-      }else if(( (lt !== undefined && item < lt) || (lt !== undefined  && item <= lt) ) && (gte === undefined && gt === undefined) ){
+      } else if (((lt !== undefined && item < lt) || (lt !== undefined && item <= lt)) && (gte === undefined && gt === undefined)) {
         borderColor = color || vmColor;
-      }else {
+      } else {
         return item;
       }
-      if(value !== undefined && item === value){
+      if (value !== undefined && item === value) {
         borderColor = color || vmColor;
       }
     })
-    
+
     return {
       value: item,
       emphasis: {
@@ -197,6 +197,6 @@ function transformPiecesData(seriesUnit, data, defaultColor, VMpieces, vmColor) 
       }
     }
   })
-  
+
   seriesUnit.data = newData
 }
