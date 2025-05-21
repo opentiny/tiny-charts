@@ -32,7 +32,8 @@ export const seriesInit = () => {
     // 线条样式
     lineStyle: {
       width: chartToken.lineWidth,
-      cap: lineCap
+      cap: lineCap,
+      join: lineCap
     },
     massive: false,
     // 折线阶梯
