@@ -14,6 +14,13 @@ const BarChartOption = (width, option, type, stack) => {
 
   // 计算柱子宽度
   let barWidth;
+  // 柱状图的series
+  let barSeries = [];
+  option.series.forEach(item => {
+    if(item.type === 'bar') {
+      barSeries.push(item);
+    }
+  })
   // 定义默认列数
   let columns = option.series.length;
   // 包含柱状图/双向柱状图只有一个柱子

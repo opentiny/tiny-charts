@@ -18,7 +18,8 @@ import BaseOption from '../../option/base';
 import updateWidth from './barChartOption';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 import { CHART_TYPE, ADAPTIVE_THEME } from '../../util/constants';
-import { getTextWidth } from '../../util/dom';
+import Theme from '../../feature/token'
+
 
 
 class BarLineChart {
@@ -64,18 +65,27 @@ class BarLineChart {
     const lineDataName = lineOption.dataName;
     const barDataName = barOption.dataName;
     const series = [];
-    const dataMaxObj = {};
+
     // 折线图数据
     if (lineDataName && lineDataName.length > 0) {
       const newLineOption = merge(iChartOption,lineOption);
       const lineChartBaseOpt = new LineChart(newLineOption, {}, this.chartInstance);
       const lineBaseOption = lineChartBaseOpt.getOption();
       const lineSeries = lineBaseOption.series;
+      let num = 0;
+      let lineColor = lineOption.lineColor;
+      let baseColor = Theme.config.colorState.colorSuccess;
       lineDataName.forEach(lineName => {
         for (let i = 0; i < lineSeries.length; i++) {
           if (lineSeries[i].name === lineName) {
            series.push(lineSeries[i]);
-           dataMaxObj[lineSeries[i].name] = Math.max(...lineSeries[i].data);
+           if(lineColor) {
+            let color = lineColor[num] ? lineColor[num] : lineColor[0];
+            lineSeries[i].color = color;
+           } else {
+            lineSeries[i].color = baseColor;
+           }
+           num++
           }
         }
         
@@ -91,7 +101,6 @@ class BarLineChart {
         for (let i = 0; i < barSeries.length; i++) {
           if (barSeries[i].name === lineName) {
            series.push(barSeries[i]);
-           dataMaxObj[barSeries[i].name] = Math.max(...barSeries[i].data);
           }
         }
       });
@@ -99,45 +108,47 @@ class BarLineChart {
     baseOption.series = series;
     // 处理双Y轴对齐
     if(baseOption.yAxis && baseOption.yAxis.length === 2) {
+      const result = [];
       const yAxisLeft = baseOption.yAxis[0];
       const yAxisRight = baseOption.yAxis[1];
-      const yAxisLeftArr = [];
-      const yAxisRightArr = [];
-      yAxisLeft.dataName.forEach(item => {
-        yAxisLeftArr.push(dataMaxObj[item]);
+      const padding = iChartOption.padding;
+      result.push({
+        text:yAxisLeft.name,
+        textStyle: {
+          fontWeight: 'normal',
+          color: Theme.config.yAxisNameColor,
+          fontSize: Theme.config.yAxisNameFontSize,
+        },
+        padding:0,
+        top: padding[0] - 30,
+        left: padding[3]
       })
-      yAxisRight.dataName.forEach(item => {
-        yAxisRightArr.push(dataMaxObj[item]);
+      result.push({
+        text:yAxisRight.name,
+        textStyle: {
+          fontWeight: 'normal',
+          color: Theme.config.yAxisNameColor,
+          fontSize: Theme.config.yAxisNameFontSize,
+        },
+        padding:0,
+        textAlign: 'left',
+        top: padding[0] - 30,
+        right: padding[1]
       })
-      const yAxisLeftMax = Math.max(...yAxisLeftArr);
-      const yAxisRightMax = Math.max(...yAxisRightArr);
-      const yAxisLeftUnit = yAxisLeft.unit ? yAxisLeft.unit : '';
-      const yAxisRightUnit = yAxisRight.unit ? yAxisRight.unit : '';
-      const leftNumerical = Math.floor((Math.floor(Math.log10(yAxisLeftMax)) ) / 3);
-      const rightNumerical = Math.floor((Math.floor(Math.log10(yAxisRightMax)) ) / 3);
-      const yAxisLeftLabelWidth = getTextWidth(yAxisLeftMax + yAxisLeftUnit) + 12 + leftNumerical * 4;
-      const yAxisRightLabelWidth = getTextWidth(yAxisRightMax + yAxisRightUnit) + 12 + rightNumerical * 4;
-      const leftNameTextStyle = yAxisLeft.nameTextStyle;
-      const rightNameTextStyle = yAxisRight.nameTextStyle;
-      if(!leftNameTextStyle) {
-        yAxisLeft.nameTextStyle = {
-          align: 'left',
-          padding: [0, 0, 0, -yAxisLeftLabelWidth],
-        }
-      } else {
-        leftNameTextStyle.align =  leftNameTextStyle.align ? leftNameTextStyle.align : 'left';
-        leftNameTextStyle.padding =  leftNameTextStyle.padding ? leftNameTextStyle.padding : [0, 0, 0, -yAxisLeftLabelWidth];
-      }
-      if(!rightNameTextStyle) {
-        yAxisRight.nameTextStyle = {
-          align: 'right',
-          padding: [0, -yAxisRightLabelWidth, 0, 0],
-        }
-      } else {
-        rightNameTextStyle.align =  rightNameTextStyle.align ? rightNameTextStyle.align : 'right';
-        rightNameTextStyle.padding =  rightNameTextStyle.padding ? rightNameTextStyle.padding : [0, -yAxisRightLabelWidth, 0, 0];
-      }
-      
+      baseOption.title = result;
+      yAxisLeft.name = '';
+      yAxisRight.name = '';
+    }
+    // 如果存在 dataZoom，提前返回
+    if (this.baseOption.dataZoom[0].show === true) {
+      return;
+    };
+    // 如果用户自定义了 barWidth，提前返回
+    if (this.iChartOption.itemStyle?.barWidth) {
+      return;
+    }
+    if (ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
+      updateWidth(this.baseOption, this.chartInstance, this.iChartOption);
     }
     
   }
