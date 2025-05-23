@@ -62,7 +62,8 @@ export function handlePadding(iChartOption, baseOpt) {
     top: iChartOption.padding[0],
     right: iChartOption.padding[1],
     bottom: iChartOption.padding[2],
-    left: iChartOption.padding[3] + 25,
+    left: iChartOption.padding[3],
+    containLabel: true
   };
 }
 

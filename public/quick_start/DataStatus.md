@@ -23,7 +23,7 @@
 </div>
 
 ```jsx
-// 开启loading
+// 开启loading --- 如使用全局切换主题，则不需要传入theme字段，theme取自全局切换后的主题
 let option = { theme: 'hdesign-light' };
 chartInstance.showLoading(option);
 
@@ -62,7 +62,7 @@ chartInstance.closeLoading();
 </div>
 
 ```jsx
-// 显示错误状态
+// 显示错误状态 --- 如使用全局切换主题，则不需要传入theme字段，theme取自全局切换后的主题
 let option = { theme: 'hdesign-light' };
 chartInstance.showError(option);
 
@@ -101,7 +101,7 @@ chartInstance.closeError();
 </div>
 
 ```jsx
-// 显示空数据状态
+// 显示空数据状态 --- 如使用全局切换主题，则不需要传入theme字段，theme取自全局切换后的主题
 let option = { theme: 'hdesign-light' };
 chartInstance.showEmpty(option);
 
@@ -141,7 +141,7 @@ chartInstance.closeEmpty();
 
 
 ```jsx
-// 显示阶段空数据状态
+// 显示阶段空数据状态 --- 如使用全局切换主题，则不需要传入theme字段，theme取自全局切换后的主题
 let option = { theme: 'hdesign-light' };
 chartInstance.showStageEmpty(option);
 
@@ -180,7 +180,7 @@ chartInstance.closeStageEmpty();
 </div>
 
 ```jsx
-// 显示自定义状态
+// 显示自定义状态 --- 如使用全局切换主题，则不需要传入theme字段，theme取自全局切换后的主题
 let option = {
     theme: 'hdesign-light',
     text: '自定义文本',

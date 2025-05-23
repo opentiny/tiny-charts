@@ -1,0 +1,274 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+function getAliasToken(globalToken, sceneToken) {
+
+  const {
+    fontSizeBase,
+    fontSizeMd,
+    space2x,
+    spaceBase,
+    lineTypeSolid,
+    borderNone,
+    borderBase,
+    border2x,
+    fontSizeLg,
+    borderRadiusNone,
+    fontSize4xl,
+    size3x,
+    size2x,
+    size4x,
+    sizeBase,
+    spaceNone,
+    space4x,
+    size6x,
+    size05x,
+    borderRadiusLg,
+    fontSize5xl,
+    fontSize3xl,
+    fontSize2xl,
+    borderRadiusXs
+  } = globalToken;
+
+  const {
+    colorBgMask,
+    colorBgPrimary,
+    colorBgSecondary,
+    colorBgPlaceholder,
+    colorBgHover,
+    colorBgHandle,
+    colorBgActive,
+    colorTextPrimary,
+    colorTextSecondary,
+    colorTextPlaceholder,
+    colorTextDisabled,
+    colorIconPrimary,
+    colorIconDisabled,
+    colorLine,
+    colorLineSecondary,
+    colorLinePointer,
+    colorLineSeparator,
+    colorFillNone,
+    colorFill,
+    colorFillSelect,
+    colorFillSelectSecondary,
+    colorFillHover,
+    colorFillHandle,
+    colorBorder,
+    colorBorderSelect,
+    colorShadowPrimary,
+    colorShadowSecondary,
+    shadowOffsetYPrimary,
+    shadowOffsetYSecondary,
+    shadowBlurPrimary,
+    shadowBlurSecondary,
+  } = sceneToken
+
+  return {
+    // -----------------------------------------------------颜色-------------------------------------------------------------------------
+    // 卡片背景
+    colorBgContainer: colorBgPrimary,
+    // tip背景
+    colorBgContainerSecondary: colorBgSecondary,
+    // 悬浮背景
+    colorBgContainerHover: colorBgHover,
+    // 仪表盘中心文本卡片
+    colorBgControl: colorBgActive,
+    // 标题颜色
+    colorTitle: colorTextPrimary,
+    // 副标题颜色
+    colorSubTitle: colorTextSecondary,
+    // 名称文本（轴名称等）
+    colorTextName: colorTextPlaceholder,
+    // 图例名称
+    colorLegendName: colorTextSecondary,
+    // 轴label
+    colorAxisLabel: colorTextPlaceholder,
+    // label颜色
+    colorLabel: colorTextPrimary,
+    // 进度图专用name名称
+    colorLabelSecondary: colorTextPrimary,
+    // label禁用颜色
+    colorLabelDisabled: colorTextDisabled,
+    // 图标色
+    colorIcon: colorIconPrimary,
+    // 图标失效色
+    colorIconInactive: colorIconDisabled,
+    // 坐标轴线颜色
+    colorAxisLine: colorLine,
+    // 刻度线颜色
+    colorAxisTickLine: colorLine, // 确定
+    // 分隔线颜色
+    colorAxisSplitLine: colorLineSecondary, // 确定
+    // 用于极坐标的径向轴和雷达坐标的分隔线颜色，和坐标轴线颜色保持一致，特殊处理专用
+    colorAxisSplitLineSecondary: colorLine,
+    // 坐标轴指示器悬浮线
+    colorAxisPointerLine: colorLinePointer,
+    // 分隔线
+    colorSeparatorLine: colorLineSeparator,
+    // lableline
+    colorLabelLine: colorLinePointer,
+    // 无色
+    colorNone: colorFillNone,
+    // 占位色
+    colorPlaceholder: colorBgPlaceholder,
+    // 遮盖色
+    colorMask: colorBgMask,
+    // zoom背景色
+    colorZoomBg: colorBgHover,
+    // zoom border颜色
+    colorZoomBorder: colorFillNone,
+    // zoom 数据区域 border
+    colorZoomDataAreaBorder: colorBorder,
+    // zoom 数据区域填充
+    colorZoomDataAreaFill: colorFill,
+    // zoom 选中区域填充
+    colorZoomFill: colorFillSelect,
+    // zoom 选中区域数据border
+    colorZoomSelectDataAreaBorder: colorBorderSelect,
+    // zoom 选中区域数据填充
+    colorZoomSelectDataAreaFill: colorFillSelectSecondary,
+    // zoom 手柄颜色
+    colorZoomHandle: colorFillHandle,
+    // zoom 手柄border
+    colorZoomHandleBorder: colorBgHandle,
+    // hover阴影
+    colorShadowHover: colorFillHover,
+    // tip阴影
+    colorShadowContainer: colorShadowPrimary,
+    // 手柄阴影
+    colorShadowHandle: colorShadowSecondary,
+    // symbol hover填充
+    symbolFillHover: colorBgMask,
+    // 中心center数值
+    colorCenterValue: colorTextPrimary,
+    // 中心center单位
+    colorCenterUnit: colorTextPrimary,
+    // 中心center名称
+    colorCenterName: colorTextSecondary,
+    // ---------------------------------------------------阴影-------------------------------------------------
+    // tip阴影offsetY
+    shadowOffsetYContainer: shadowOffsetYPrimary,
+    // 手柄阴影offsetY
+    shadowOffsetYHandle: shadowOffsetYSecondary,
+    // tip阴影模糊
+    shadowBlurContainer: shadowBlurPrimary,
+    // 手柄阴影模糊
+    shadowBlurHandle: shadowBlurSecondary,
+    // ------------------------------------------------------------------字号---------------------------------------------------
+    // 主文本字号
+    textFontSize: fontSizeMd,
+    // 次级文本字号
+    subtextFontSize: fontSizeBase,
+    // 标题文本字号
+    titleFontSize: fontSize4xl,
+    // 副标题文本字号
+    subtitleFontSize: fontSizeLg,
+    // label字号
+    labelFontSize: fontSizeBase,
+    // 中心数值字号
+    centerValueFontSize: fontSize5xl * 2,
+    // 中心单位字号
+    centerUnitFontSize: fontSize3xl,
+    // 中心名称字号
+    centerNameFontSize: fontSize2xl,
+    // ----------------------------------------------线宽---------------------------------------------------------
+    // 坐标轴线宽 1
+    axisLineWidth: borderBase,
+    // 用于极坐标系和雷达坐标系
+    axisLineWidthSecondary: borderBase,
+    // 刻度线线宽 1
+    axisTickLineWidth: borderBase,
+    // 分隔线线宽 1
+    axisSplitLineWidth: borderBase,
+    // 坐标轴指示器的标线线宽 1
+    axisPointerLineWidth: borderBase,
+    // 常规线宽
+    lineWidth: border2x,
+    // 二级线宽
+    lineWidthSecondary: borderBase,
+    // 无线宽
+    lineWidthNone: borderNone,
+    // -------------------------------------------------------------------线型-------------------------------------------------------------------
+    // 坐标轴类型
+    axisLineType: lineTypeSolid,
+    // 刻度线类型
+    axisTickLineType: lineTypeSolid,
+    // 直角坐标系分隔线类型
+    axisSplitLineType: lineTypeSolid,
+    // 极坐标系分隔线类型
+    axisSplitLineTypeSecondary: lineTypeSolid,
+    // 坐标轴指示器标线类型
+    axisPointerLineType: lineTypeSolid,
+    // ---------------------------------------------------------------------间距-------------------------------------------------------------------------------
+    // 坐标轴名称间距
+    axisNameSpace: space2x,
+    // 坐标轴文本间距
+    axisLabelSpace: spaceBase,
+    // 标题文本间距
+    titleSpace: space2x,
+    // 容器的间距
+    containerGap: spaceBase,
+    // 图例的间距
+    legendSpace: space4x,
+    // 无padding
+    paddingNone: spaceNone,
+    paddingSM: spaceBase,
+    padding: space2x,
+    paddingLG: space4x,
+    tipItemGap: size2x,
+    tipIconGap: size2x,
+    tipValueGap: size4x,
+    //中心文本主副标题间距
+    centerTitleSpace: space4x,
+    // -----------------------------------------------------------------边框------------------------------------------------------------------------------
+    // zoom数据区域边框
+    zoomDataAreaBorderWidth: borderNone,
+    // 边框 细
+    borderWidth: borderBase,
+    // 边框
+    borderWidthLG: border2x,
+    //  border 0
+    borderWidthNone: borderNone,
+    // 图元的边框0
+    symbolBorderWidthNone: borderNone,
+    // 图元的边框
+    symbolBorderWidth: border2x,
+    // -------------------------------------------------------------size----------------------------------------------------------------------------------------
+    // 图元 
+    symbolSize: size3x - 2,
+    // 雷达图专用
+    symbolSizeSecondary: size3x - 2,
+    // 图元  线形图用
+    symbolSizeSM: sizeBase,
+    // 柱条的宽度
+    barWidth: size4x * 2,
+    // 堆叠进度图宽度
+    barWidthSecondary: size4x,
+    // 图例单元尺寸
+    legendItemSize: size05x,
+    // 图例圆形单元尺寸
+    legendCircleItemSize: size2x,
+    // labelLine的长度
+    labelLineLength: size6x,
+    // ------------------------------------------------圆角---------------------------------------------------
+    // 容器的圆角
+    containerBoderRadius: borderRadiusLg,
+    // 圆角 0
+    borderRadiusNone,
+    // 圆角 小
+    borderRadius: borderRadiusXs,
+    // 全局透明度
+    colorAlpha: 0.2
+  };
+}
+
+export { getAliasToken as getDpuiAliasToken };

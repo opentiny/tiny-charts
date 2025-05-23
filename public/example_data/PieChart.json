@@ -70,6 +70,11 @@
           "imagePath": "./image/theme/light/PieChart/PieChart-11.png"
         },
         {
+          "name": "中心文本单位配置",
+          "routePath": "PieChart-13",
+          "imagePath": "./image/theme/light/PieChart/PieChart-13.png"
+        },
+        {
           "name": "label文本配置",
           "routePath": "PieChart-12",
           "imagePath": "./image/theme/light/PieChart/PieChart-12.png"

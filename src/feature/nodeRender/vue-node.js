@@ -65,7 +65,7 @@ function isVueComponent(component) {
   if (typeof component === 'function' && component.prototype && component.prototype.$options) {
     return true;
   }
-  if (typeof component === 'object' && (component.render || (component.type?.render && component.type?.__scopeId))) {
+  if (typeof component === 'object' && (component.render || (component.type?.render && component.type?.__scopeId) || component.__scopeId)) {
     return true;
   }
   return false;
@@ -78,7 +78,6 @@ function isDOM(obj) {
 
 // Vue 组件渲染
 function renderVueComponent(container, component, data, nodeInstance) {
-  // debugger
   // 函数式组件处理
   if (typeof component === 'function') {
     const dom = component(container, data);

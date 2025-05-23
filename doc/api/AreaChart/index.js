@@ -6,6 +6,7 @@ import { tooltipMd, tooltip } from '../common/tooltip'
 import { xAxisMd, xAxis } from '../common/xAxis'
 import { yAxisMd, yAxis } from '../common/yAxis'
 import { dataZoomMd, dataZoom } from '../common/dataZoom'
+import { dataRulesMd, dataRules } from '../common/dataRules'
 import { eventMd, event } from '../common/event'
 import dataMd from '../LineChart/data.md?raw'
 import itemStyleMd from '../LineChart/itemStyle.md?raw'
@@ -28,6 +29,7 @@ const data = {
         xAxis,
         yAxis,
         dataZoom,
+        dataRules,
         event,
         ['data', '图表数据(必填)', 'array', '无'],
         ['area', '面积图是否更改为折线图', 'boolean', 'false'],
@@ -49,6 +51,7 @@ const data = {
         xAxisMd,
         yAxisMd,
         dataZoomMd,
+        dataRulesMd,
         eventMd,
         dataMd,
         areaMd,

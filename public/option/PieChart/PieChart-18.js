@@ -7,8 +7,6 @@ const option = {
     },
     title: {
         text: '{a|500}\n{b|波道总数}',
-        left: '40%',
-        textAlign: 'center',
         textStyle: {
             rich: {
                 a: {

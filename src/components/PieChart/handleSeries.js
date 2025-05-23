@@ -71,8 +71,8 @@ function setPieRadius(pieType, radius, chartInstance) {
  * 根据参数计算出圆盘图的圆环类型的内外半径
  */
 function setPieCircleRadius(radius, chartInstance){
-  const width = chartInstance.getWidth();
-  const height = chartInstance.getHeight();
+  const width = chartInstance?.getWidth?.();
+  const height = chartInstance?.getHeight?.();
   const canvasRadius = width > height ? height / 2 : width / 2;
   const barWidth = chartToken.barWidth
   let outerRing = isArray(radius) ? radius[1] || radius[0] : radius;
@@ -124,11 +124,11 @@ function getNewRadius(radius, chartInstance) {
   if (isNumber(radius)) {
     return radius;
   } else if (isString(radius)) {
-    return radius.endsWith('%') ? percentToDecimal(radius) * (Math.min(chartInstance.getWidth(), chartInstance.getHeight()) / 2) : parseFloat(radius);
+    return radius.endsWith('%') ? percentToDecimal(radius) * (Math.min(chartInstance?.getWidth?.(), chartInstance?.getHeight?.()) / 2) : parseFloat(radius);
   } else if (isArray(radius)) {
-    const decimalRadiusArr = radius.map(r => isNumber(r) ? r / Math.min(chartInstance.getWidth(), chartInstance.getHeight()) : r.endsWith('%') ? percentToDecimal(r) : parseFloat(r));
+    const decimalRadiusArr = radius.map(r => isNumber(r) ? r / Math.min(chartInstance?.getWidth?.(), chartInstance?.getHeight?.()) : r.endsWith('%') ? percentToDecimal(r) : parseFloat(r));
     const decimalRadius = decimalRadiusArr[0] === 0 ? decimalRadiusArr[1] : decimalRadiusArr[0];
-    return decimalRadius * (Math.min(chartInstance.getWidth(), chartInstance.getHeight()) / 2);
+    return decimalRadius * (Math.min(chartInstance?.getWidth?.(), chartInstance?.getHeight?.()) / 2);
   }
 }
 

@@ -169,6 +169,16 @@
           "name": "单独为某条线配置峰值标记",
           "routePath": "LineChart-27",
           "imagePath": "./image/theme/light/LineChart/LineChart-27.png"
+        },
+        {
+          "name": "多阈值线",
+          "routePath": "LineChart-35",
+          "imagePath": "./image/theme/light/LineChart/LineChart-35.png"
+        },
+        {
+          "name": "多阈值线-变色",
+          "routePath": "LineChart-36",
+          "imagePath": "./image/theme/light/LineChart/LineChart-36.png"
         }
       ]
     },

@@ -66,14 +66,15 @@ function splitArea(baseOption, iChartOption, YAxiMax) {
   if (iChartOption.area && iChartOption.splitLine) {
     const temp = [];
     const colors = baseOption.color;
+    const colorAlpha = Token.config.globalColorAlpha
     baseOption.series.forEach((item, index) => {
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
       const percent = (iChartOption.splitLine - minValue) / (YAxiMax - minValue);
       const color = getColor(colors, index);
-      const colorTo = codeToRGB(color, 0.15);
-      const colorFrom = codeToRGB(color, 0.15);
+      const colorTo = codeToRGB(color, colorAlpha);
+      const colorFrom = codeToRGB(color, colorAlpha);
       // 该series是为了实现红色特殊area的样式而加的，因此在tooltip中应该被屏蔽
       const newSeries = gradientBottomArea(item, percent, colorTo, colorFrom);
       temp.push(newSeries);
@@ -140,8 +141,9 @@ function markLineArea(baseOption, iChartOption, YAxiMax) {
     isNumber(iChartOption.markLine.bottom)
   ) {
     const temp = [];
+    const colorAlpha = Token.config.globalColorAlpha
     baseOption.series.forEach(item => {
-      const bottomColor = codeToRGB(iChartOption.markLine.bottomColor, 0.15) || codeToRGB(Token.config.colorState.colorError, 0.15);
+      const bottomColor = codeToRGB(iChartOption.markLine.bottomColor, colorAlpha) || codeToRGB(Token.config.colorState.colorError, colorAlpha);
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
@@ -174,4 +176,4 @@ function bottomArea(baseOption, iChartOption, YAxiMax) {
 
 
 export default bottomArea;
-export { judgeFilterAreaSeries,getDataWidthNoObject }
+export { judgeFilterAreaSeries, getDataWidthNoObject }

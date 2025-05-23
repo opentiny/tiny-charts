@@ -19,6 +19,8 @@ const THEMES = {
   CLOUD_LIGHT: 'cloud-light',
   HDESIGN_LIGHT: 'hdesign-light',
   HDESIGN_DARK: 'hdesign-dark',
+  DPUI_LIGHT: 'dpui-light',
+  DPUI_DARK: 'dpui-dark',
 };
 
 // 该值表示当前主题键名，内部使用，防止外部更改
@@ -54,7 +56,6 @@ const TOKENCHARTNAMES = [
   'MindmapChart',
   'ChartCard',
   'BulletChart',
-  'ForceDirectedChart',
   'GridChart',
   'CircleChart',
   'LinearArcChart',
@@ -113,7 +114,6 @@ const CHART_TYPE = {
   WORD_CLOUD: 'WordCloudChart',
   CHART_CARD: 'ChartCard',
   MINDMAP: 'MindmapChart',
-  FORCE_DIRECTED: 'ForceDirectedChart',
   GRID: 'GridChart',
   CIRCLE: 'CircleChart',
   LINEARARC: 'LinearArcChart',
@@ -122,6 +122,6 @@ const CHART_TYPE = {
   BARLINE: 'BarLineChart'
 }
 
-const ADAPTIVE_THEME = ['hdesign-light', 'hdesign-dark'];
+const ADAPTIVE_THEME = ['hdesign-light', 'hdesign-dark', 'bpit-light', 'bpit-dark'];
 
 export { THEMES, CURRENT_THEME, DEFAULT_THEME_NAME, THEME_ERROR_TIP_MESSAGE, TOKENCHARTNAMES, CHART_TYPE, ADAPTIVE_THEME };

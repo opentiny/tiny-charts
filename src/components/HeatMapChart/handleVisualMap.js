@@ -13,7 +13,7 @@ import min from '../../util/sort/min';
 import max from '../../util/sort/max';
 import { CHARTTYPE } from './BaseOption';
 import merge from '../../util/merge';
-import visualMap from '../../option/config/visualMap';
+import { visualMap } from '../../option/config/visualMap';
 
 /**
  * 设置日历热力图视觉滑块控制手柄

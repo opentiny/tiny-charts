@@ -51,8 +51,14 @@ function hasLabelFormatterFun(labelFormatterType, seriesUnit, sum) {
         if (params.value === 0) {
           return '0(0 %)';
         } else {
-          const percent = ((params.value * 100) / sum).toFixed(2);
-          return `${percent} %`;
+          const percent = params.value / sum * 100;
+          // 检查是否有小数
+          if (Number.isInteger(percent)) {
+            return `${percent} %`
+          } else {
+            return `${percent.toFixed(2)} %`
+          }
+          ;
         }
       };
       break;

@@ -13,153 +13,119 @@ const DEFAULT_BOX_FONTSIZE = 18;
 const DEFAULT_BOX_HEIGHT = 36;
 const DEFAULT_BOX_GAP = 18;
 const DEFAULT_BOX_OPTIONS = {
-  getId(d) {
-    return d.id || d.name;
+  getId(t) {
+    return t.id || t.name;
   },
-  getPreH(d) {
-    return d.preH || 0;
+  getPreH(t) {
+    return t.preH || 0;
   },
-  getPreV(d) {
-    return d.preV || 0;
+  getPreV(t) {
+    return t.preV || 0;
   },
-  getHGap(d) {
-    return d.hgap || DEFAULT_BOX_GAP;
+  getHGap(t) {
+    return t.hgap || DEFAULT_BOX_GAP;
   },
-  getVGap(d) {
-    return d.vgap || DEFAULT_BOX_GAP;
+  getVGap(t) {
+    return t.vgap || DEFAULT_BOX_GAP;
   },
-  getChildren(d) {
-    return d.children;
+  getChildren(t) {
+    return t.children;
   },
-  getHeight(d) {
-    return d.height || DEFAULT_BOX_HEIGHT;
+  getHeight(t) {
+    return t.height || DEFAULT_BOX_HEIGHT;
   },
-  getWidth(d) {
-    const label = d.label || ' ';
-    return d.width || label.split('').length * DEFAULT_BOX_FONTSIZE;
+  getWidth(t) {
+    const h = t.label || " ";
+    return t.width || h.split("").length * DEFAULT_BOX_FONTSIZE;
   },
 };
-
-/**
- * 将每个node进行盒模型计算
- *
- * Gaps: filling space between nodes
- * (x, y) ----------------------
- * |            vgap            |
- * |    --------------------    h
- * | h |                    |   e
- * | g |                    |   i
- * | a |                    |   g
- * | p |                    |   h
- * |   ---------------------    t
- * |                            |
- *  -----------width------------
- *
- */
 export default class NodeBox {
-  constructor(data, options) {
-    this.options = Object.assign(DEFAULT_BOX_OPTIONS, options);
-
+  constructor(t, h) {
+    this.options = Object.assign(DEFAULT_BOX_OPTIONS, h);
     this.vgap = this.hgap = 0;
-
-    const hgap = this.options.getHGap(data);
-    const vgap = this.options.getVGap(data);
-    this.preH = this.options.getPreH(data);
-    this.preV = this.options.getPreV(data);
-    this.width = this.options.getWidth(data);
-    this.height = this.options.getHeight(data);
+    const e = this.options.getHGap(t);
+    const i = this.options.getVGap(t);
+    this.preH = this.options.getPreH(t);
+    this.preV = this.options.getPreV(t);
+    this.width = this.options.getWidth(t);
+    this.height = this.options.getHeight(t);
     this.width += this.preH;
     this.height += this.preV;
-    this.id = this.options.getId(data);
+    this.id = this.options.getId(t);
     this.x = 0;
     this.y = 0;
-    this.depth = data.depth;
+    this.depth = t.depth;
     if (!this.children) {
       this.children = [];
     }
-    this.addGap(hgap, vgap);
+    this.addGap(e, i);
   }
-
   isRoot() {
     return this.depth === 0;
   }
-
   isLeaf() {
     return this.children.length === 0;
   }
-
-  addGap(hgap, vgap) {
-    this.hgap += hgap;
-    this.vgap += vgap;
-    this.width += 2 * hgap;
-    this.height += 2 * vgap;
+  addGap(t, h) {
+    this.hgap += t;
+    this.vgap += h;
+    this.width += 2 * t;
+    this.height += 2 * h;
   }
-
-  // Depth First traverse
-  eachNode(callback) {
-    let nodes = [this];
-    let current;
-    while ((current = nodes.shift())) {
-      callback(current);
-      nodes = current.children.concat(nodes);
+  eachNode(t) {
+    let h = [this];
+    let e;
+    while ((e = h.shift())) {
+      t(e);
+      h = e.children.concat(h);
     }
   }
-
-  // Depth First traverse
-  DFTraverse(callback) {
-    this.eachNode(callback);
+  DFTraverse(t) {
+    this.eachNode(t);
   }
-
-  // Breadth First traverse
-  BFTraverse(callback) {
-    let nodes = [this];
-    let current;
-    while ((current = nodes.shift())) {
-      callback(current);
-      nodes = nodes.concat(current.children);
+  BFTraverse(t) {
+    let h = [this];
+    let e;
+    while ((e = h.shift())) {
+      t(e);
+      h = h.concat(e.children);
     }
   }
-
   getBoundingBox() {
-    // BBox for just one tree node
-    const bb = {
+    const h = {
       left: Number.MAX_VALUE,
       top: Number.MAX_VALUE,
       width: 0,
       height: 0,
     };
-    this.eachNode(node => {
-      bb.left = Math.min(bb.left, node.x);
-      bb.top = Math.min(bb.top, node.y);
-      bb.width = Math.max(bb.width, node.x + node.width);
-      bb.height = Math.max(bb.height, node.y + node.height);
+    this.eachNode((t) => {
+      h.left = Math.min(h.left, t.x);
+      h.top = Math.min(h.top, t.y);
+      h.width = Math.max(h.width, t.x + t.width);
+      h.height = Math.max(h.height, t.y + t.height);
     });
-    return bb;
+    return h;
   }
-
-  // translate
-  translate(tx = 0, ty = 0) {
-    this.eachNode(node => {
-      node.x += tx;
-      node.y += ty;
-      node.x += node.preH;
-      node.y += node.preV;
+  translate(h = 0, e = 0) {
+    this.eachNode((t) => {
+      t.x += h;
+      t.y += e;
+      t.x += t.preH;
+      t.y += t.preV;
     });
   }
-
   right2left() {
-    const bb = this.getBoundingBox();
-    this.eachNode(node => {
-      node.x = node.x - (node.x - bb.left) * 2 - node.width;
+    const h = this.getBoundingBox();
+    this.eachNode((t) => {
+      t.x = t.x - (t.x - h.left) * 2 - t.width;
     });
-    this.translate(bb.width, 0);
+    this.translate(h.width, 0);
   }
-
   bottom2top() {
-    const bb = this.getBoundingBox();
-    this.eachNode(node => {
-      node.y = node.y - (node.y - bb.top) * 2 - node.height;
+    const h = this.getBoundingBox();
+    this.eachNode((t) => {
+      t.y = t.y - (t.y - h.top) * 2 - t.height;
     });
-    this.translate(0, bb.height);
+    this.translate(0, h.height);
   }
 }

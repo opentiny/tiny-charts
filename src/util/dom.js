@@ -77,6 +77,36 @@ const getTextWidth = (text, fontSize = 12) => {
     return result;
 }
 
+// 计算一段字符的像素高度
+const getTextHeight = (text, fontSize = 12, lineHeight, padding) => {
+    let result = 0;
+    const ele = document.createElement('div');
+    ele.style.fontSize = `${fontSize}px`;
+    if (lineHeight) ele.style.lineHeight = `${lineHeight}px`;
+    if (padding !== undefined) {
+        if (typeof padding === 'number') {
+            ele.style.padding = `${padding}px`;
+        } else if (Array.isArray(padding)) {
+            if (padding.length === 2) {
+                ele.style.padding = `${padding[0]}px ${padding[1]}px`;
+            } else if (padding.length === 4) {
+                ele.style.padding = `${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`;
+            }
+        }
+    }
+    // 使用 white-space: pre-wrap 来保留空白符并正常换行
+    ele.style.whiteSpace = 'pre-wrap';
+    ele.innerHTML = text;
+    document.documentElement.append(ele);
+    result = ele.offsetHeight;
+    document.documentElement.removeChild(ele);
+    return result;
+}
+
+function removeOuterSpaces(text) {
+    // 使用正则表达式仅移除 {} 外的普通空格字符
+    return text.replace(/(?<=\})[ ]+|[ ]+(?=\{)/g, '').trim();
+}
 
 export {
     appendHTML,
@@ -86,5 +116,7 @@ export {
     attr,
     setStyle,
     isParent,
-    getTextWidth
+    getTextWidth,
+    getTextHeight,
+    removeOuterSpaces
 }

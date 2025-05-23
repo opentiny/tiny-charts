@@ -15,8 +15,9 @@ function getBaseTitle() {
   return {
     text: '',
     subtext: '',
-    top: 'center',
+    top: 'middle',
     left: 'center',
+    textAlign: 'center',
     itemGap: Token.config.centerTitleItemGap,
     textStyle: {
       color: Token.config.centerTitleTextColor,

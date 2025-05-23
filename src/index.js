@@ -56,7 +56,6 @@ export { default as CandlestickChart } from './components/CandlestickChart';
 export { default as OrganizationChart } from './components/OrganizationChart';
 export { default as CircleProcessChart } from './components/CircleProcessChart';
 export { default as AssembleBubbleChart } from './components/AssembleBubbleChart';
-export { default as ForceDirectedChart } from './framework/charts/ForceDirectedChart';
 export { default as GridChart } from './framework/charts/GridChart';
 export { default as CircleChart } from './framework/charts/CircleChart';
 export { default as LinearArcChart } from './framework/charts/LinearArcChart';

@@ -28,24 +28,11 @@ function getBaseOption() {
     textStyle: {
       fontSize: Token.config.legendTextFontSize,
       color: Token.config.legendTextColor,
-      align: 'left',
-      verticalAlign: 'top',
       padding: Token.config.legendTextPadding,
-      rich: {
-        a: {
-          fontSize: Token.config.legendTextRichFontSize,
-          color: Token.config.legendTextRichColor,
-          align: 'left',
-          verticalAlign: 'top',
-          padding: Token.config.legendTextRichPadding,
-        },
-        b: {
-          fontSize: Token.config.legendTextRichFontSize,
-          color: Token.config.legendTextRichColor,
-          align: 'left',
-          verticalAlign: 'top',
-          padding: Token.config.legendTextRichPadding,
-        },
+      rich:{
+        title:{
+          verticalAlign:'middle'
+        }
       },
       overflow: 'none',
       width: undefined,

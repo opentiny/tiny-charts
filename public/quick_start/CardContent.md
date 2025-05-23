@@ -18,11 +18,11 @@ import '{{VITE_BASECOPYRIGHTSPAT}}/feature/card/index.css';
 </div>
 
 // 渲染卡片
-const cardContainer = document.getElementByClassName('.card-container')[0];
+const cardContainer = document.getElementsByClassName('card-container')[0];
 let card = new CardManager(cardContainer,cardOption);
 
 // 渲染图表
-const chartContainer = document.getElementByClassName('.chart-container')[0];
+const chartContainer = document.getElementsByClassName('chart-container')[0];
 let chartIns = new HuiCharts();
 chartIns.init(chartContainer);
 chartIns.setSimpleOption('BarChart', barChartOpt, {});

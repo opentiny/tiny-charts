@@ -16,13 +16,14 @@ import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../option/base';
 import { setVisualMap } from './handleVisualMap';
 import { handlePredict } from './handlePredict';
-import { topArea, bottomArea } from './AreaChart';
+import { topArea, bottomArea,  } from './AreaChart';
+import { getDatasetData } from '../../util/dataset';
 import { mergeVisualMap, mergeSeries } from '../../util/merge';
 import { handleData, onlyOnePoint, discrete, setTooltip } from './handleOptipn';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 import { lttb } from '../../feature/performance/lttb';
 import { CHART_TYPE } from '../../util/constants';
-
+import { isArray } from '../../util/type';
 
 class LineChart {
 
@@ -32,6 +33,7 @@ class LineChart {
     this.baseOption = {};
     this.baseOption = cloneDeep(BaseOption);
     this.iChartOption = {};
+    getDatasetData(iChartOption);
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
@@ -97,10 +99,15 @@ class LineChart {
   updateOptionAgain(echartsIns) {
     const YAxiMax = this.getYAxisMaxValue(echartsIns, 0);
     const YAxiMin = this.getYAxisMinValue(echartsIns, 0);
-    // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
-    topArea(this.baseOption, this.iChartOption, YAxiMin);
-    // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
-    bottomArea(this.baseOption, this.iChartOption, YAxiMax);
+    if(isArray(this.iChartOption.markLine)){
+
+    }else{
+      // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
+      topArea(this.baseOption, this.iChartOption, YAxiMin);
+      // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
+      bottomArea(this.baseOption, this.iChartOption, YAxiMax);
+    }
+    
     // 合并用户自定义series
     mergeSeries(this.iChartOption, this.baseOption);
   }

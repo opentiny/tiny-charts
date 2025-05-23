@@ -202,3 +202,4 @@ const board = {
 };
 
 export default board;
+export { gray }

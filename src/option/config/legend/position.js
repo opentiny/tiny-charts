@@ -10,10 +10,11 @@
  *
  */
 function position(legend, selfLegend){
-    legend.top = selfLegend.position.top || 'auto';
-    legend.left = selfLegend.position.left || 'auto';
-    legend.right = selfLegend.position.right || 'auto';
-    legend.bottom = selfLegend.position.bottom || 'auto';
+    const { position } = selfLegend;
+    legend.top = position?.top !== undefined ? position.top : 'auto';
+    legend.left = position?.left !== undefined ? position.left : 'auto';
+    legend.right = position?.right !== undefined ? position.right : 'auto';
+    legend.bottom = position?.bottom !== undefined ? position.bottom : 'auto';
 }
 
 export default position;

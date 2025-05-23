@@ -25,9 +25,6 @@ const option = {
         textStyle: {
             fontSize: 42,
         },
-        left: '35%',
-        top: '43%',
-        textAlign: 'center',
     },
     legend: {
         show: true,

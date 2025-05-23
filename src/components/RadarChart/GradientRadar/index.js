@@ -81,8 +81,8 @@ class GradientRadar {
   }
 
   getContainerSize() {
-    this.containerDom.width = this.echartsIns.getWidth();
-    this.containerDom.height = this.echartsIns.getHeight();
+    this.containerDom.width = this.echartsIns?.getWidth?.();
+    this.containerDom.height = this.echartsIns?.getHeight?.();
   }
 
   setCanvasSize() {

@@ -1,5 +1,6 @@
 import defendXSS from '../../../util/defendXSS';
 import Token from '../../../feature/token';
+import { isObject } from '../../../util/type';
 
 function validateName(name) {
     return name !== null && name !== undefined && name !== ''
@@ -7,6 +8,9 @@ function validateName(name) {
 
 // 暂时不校验''
 function formatValue(value) {
+    if(isObject(value)){
+        value = value.value
+    }
     if (value === null || value === undefined || value === '') {
         return '--'
     }
@@ -46,15 +50,17 @@ function getDataHtmlStr(dataConfig) {
 
 function getTooltipContentHtmlStr(tipConfig) {
     const { tooltipItemGap, tooltipTitleColor } = Token.config
-    const { title, titleColor = tooltipTitleColor, children } = tipConfig
+    const { title, titleColor = tooltipTitleColor, children, hideEmpty } = tipConfig
     let content = ''
     if (validateName(title)) {
         content = `<div style="color:${titleColor}">${defendXSS(title)}</div>`;
     }
     if (children && children.length !== 0) {
-        children.forEach(item => {
+        for (let index = 0; index < children.length; index++) {
+            const item = children[index];
+            if( hideEmpty && (item.value === null || item.value === undefined || item.value === '')) continue;
             content += getDataHtmlStr(item)
-        })
+        }
     }
     const htmlString = `<div style="display:flex;flex-direction:column;gap:${tooltipItemGap}px;">${content}</div>`
     return htmlString;

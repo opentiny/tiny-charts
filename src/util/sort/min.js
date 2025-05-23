@@ -50,7 +50,7 @@ export default function min(arrMin) {
     const dataMin = handleMin(arrMin).slice(0);
     if (!(dataMin instanceof Array)) return;
     if (dataMin instanceof Array && dataMin.length === 1) {
-      return dataMin;
+      return dataMin[0];
     }
     buildHeapMin(dataMin);
     for (let iMin = dataMin.length - 1; iMin >= 0; iMin--) {

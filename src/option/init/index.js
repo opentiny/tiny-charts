@@ -107,6 +107,16 @@ function setDefaultLegend(iChartOption) {
       orient: 'horizontal',
     };
   }
+  const isMac = isMacComputer();
+  if (isMac) {
+    if (!iChartOption.legend.textStyle) {
+      iChartOption.legend.textStyle = {
+        padding: 0
+      }
+    } else {
+      iChartOption.legend.textStyle.padding = 0;
+    }
+  }
   if (iChartOption.legend.show === undefined) {
     iChartOption.legend.show = false;
   }
@@ -187,6 +197,11 @@ function filterDisplayData(iChartOption) {
     })
     iChartOption.data = newData;
   }
+}
+
+// 判断电脑是否是mac
+function isMacComputer() {
+  return /macintosh|mac os x/i.test(window.navigator.userAgent);
 }
 
 // 初始化 iChartOption 的默认配置

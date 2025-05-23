@@ -227,6 +227,11 @@ const NAV_DATA = [
         value: 'EChartsNative',
       },
       {
+        title: '数据集',
+        titleId: 'ic_dataset',
+        value: 'Dataset',
+      },
+      {
         title: '图例扩展',
         titleId: 'ic_expandLegend',
         value: 'ExpandLegend',
@@ -542,12 +547,6 @@ const NAV_DATA = [
     value: 'MindmapChart',
     isRelation: true
   },
-//   {
-//     title: '力导向图 ForceDirectedChart',
-//     titleId: 'ic_ForceDirectedChart',
-//     value: 'ForceDirectedChart',
-//     isHigher: true
-//   },
   {
     title: '网格图 GridChart',
     titleId: 'ic_GridChart',

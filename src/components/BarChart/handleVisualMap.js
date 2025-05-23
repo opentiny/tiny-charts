@@ -13,10 +13,28 @@ import min from '../../util/sort/min';
 import max from '../../util/sort/max';
 import { getColor } from '../../util/color';
 import Token from '../../feature/token';
+import {mergeVisualMapPieces} from '../../option/config/visualMap'
 
 export function setVisualMap(legendData, seriesData, markLine, colors) {
   const visualMap = [];
-  if (markLine) {
+  if (!markLine) return visualMap;
+  if (isArray(markLine)) {
+    legendData.forEach((legend, index) => {
+      let visualMapItem = {
+        show: false,
+        type: 'piecewise',
+        dimension: 1,
+        seriesIndex: index,
+        outOfRange: {
+          color: colors[index],
+        }
+      }
+      mergeVisualMapPieces(visualMapItem, markLine, colors, legend);
+      if (visualMapItem.pieces?.length > 0) {
+        visualMap.push(visualMapItem);
+      }
+    })
+  } else {
     const topValue = markLine.top;
     const bottomValue = markLine.bottom;
     legendData.forEach((legendName, index) => {

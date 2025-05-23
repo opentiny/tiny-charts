@@ -15,10 +15,11 @@ import init from '../../option/init';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../option/base';
 import updateWidth from './barChartOption';
+import { getDatasetData } from '../../util/dataset';
 import { mergeVisualMap, mergeSeries } from '../../util/merge';
-import { setStack, setDirection, setDoubleSides } from './handleOptipn';
+import { setStack, setDirection, setDoubleSides, setBarMinMaxWidth } from './handleOptipn';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
-import { setSeries, setRange, setMarkLine, setWaterFall, setLimitFormatter } from './handleSeries';
+import { setSeries, setRange, setMarkLine, setWaterFall, setLimitFormatter, setDatasetSeries } from './handleSeries';
 import { CHART_TYPE, ADAPTIVE_THEME } from '../../util/constants';
 
 class BarChart {
@@ -29,6 +30,7 @@ class BarChart {
     this.baseOption = {};
     this.baseOption = cloneDeep(BaseOption);
     this.chartInstance = chartInstance;
+    getDatasetData(iChartOption);
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
@@ -44,7 +46,10 @@ class BarChart {
     // x轴数据
     const xAxisData = xdata(iChartOption.data, xAxisKey);
     // 图例数据
-    const legendData = ldata(iChartOption.data, xAxisKey);
+    let legendData = ldata(iChartOption.data, xAxisKey);
+    if (iChartOption.dataset?.dimensions) {
+      legendData = iChartOption.dataset.dimensions.slice(1)
+    }
     // 连线的数据
     const seriesData = ydata(iChartOption.data, legendData);
     // 赋值数据
@@ -72,7 +77,15 @@ class BarChart {
       this.baseOption.tooltip = {};
     }
     // 合并用户自定义series
-    mergeSeries(iChartOption, this.baseOption);
+    if (iChartOption.dataset) {
+      setDatasetSeries(this.baseOption, iChartOption);
+    } else {
+      mergeSeries(iChartOption, this.baseOption);
+    }
+    //在datazoom下添加最小最大柱宽
+    if (this.baseOption.dataZoom?.[0]?.show === true) {
+      setBarMinMaxWidth(iChartOption, this.baseOption)
+    }
     // 合并用户自定义visualMap
     mergeVisualMap(iChartOption, this.baseOption);
     // 处理特性

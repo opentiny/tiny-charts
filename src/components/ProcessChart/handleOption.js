@@ -18,7 +18,7 @@ import getTooltipContentHtmlStr, { getDataHtmlStr } from '../../option/config/to
 function handleGridWidth(baseOpt, padding, chartInstance) {
   const right = padding[1];
   const left = padding[3];
-  const containerWidth = chartInstance.getWidth();
+  const containerWidth = chartInstance?.getWidth?.();
   const isStrR = isString(right);
   const isStrL = isString(left);
   const isPtR = isStrR && right.includes('%');
@@ -173,7 +173,8 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
     if (name === 'null') return
     const config = {
       title: name,
-      children: []
+      children: [],
+      hideEmpty: baseOpt.tooltip?.hideEmpty
     }
     params.forEach((param, index) => {
       if (index > 1) {

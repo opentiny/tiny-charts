@@ -45,6 +45,7 @@ function getAliasToken(globalToken, sceneToken) {
     colorBgPlaceholder,
     colorBgHover,
     colorBgHandle,
+    colorBgActive,
     colorTextPrimary,
     colorTextSecondary,
     colorTextPlaceholder,
@@ -53,6 +54,7 @@ function getAliasToken(globalToken, sceneToken) {
     colorIconDisabled,
     colorLine,
     colorLineSecondary,
+    colorLinePointer,
     colorLineSeparator,
     colorFillNone,
     colorFill,
@@ -78,12 +80,16 @@ function getAliasToken(globalToken, sceneToken) {
     colorBgContainerSecondary: colorBgSecondary,
     // 悬浮背景
     colorBgContainerHover: colorBgHover,
+    // 仪表盘中心文本卡片
+    colorBgControl: colorBgActive,
     // 标题颜色
     colorTitle: colorTextPrimary,
     // 副标题颜色
     colorSubTitle: colorTextSecondary,
-    // 名称文本（轴名称，legend名称等）
+    // 名称文本（轴名称等）
     colorTextName: colorTextSecondary,
+    // 图例名称
+    colorLegendName: colorTextSecondary,
     // 轴label
     colorAxisLabel: colorTextPlaceholder,
     // label颜色
@@ -105,11 +111,11 @@ function getAliasToken(globalToken, sceneToken) {
     // 用于极坐标的径向轴和雷达坐标的分隔线颜色，和坐标轴线颜色保持一致，特殊处理专用
     colorAxisSplitLineSecondary: colorLine,
     // 坐标轴指示器悬浮线
-    colorAxisPointerLine: colorLineSeparator,
+    colorAxisPointerLine: colorLinePointer,
     // 分隔线
     colorSeparatorLine: colorLineSeparator,
     // lableline
-    colorLabelLine: colorLineSeparator,
+    colorLabelLine: colorLinePointer,
     // 无色
     colorNone: colorFillNone,
     // 占位色
@@ -245,6 +251,10 @@ function getAliasToken(globalToken, sceneToken) {
     symbolSizeSM: sizeBase,
     // 柱条的宽度
     barWidth: size4x,
+    // 柱条的最小宽度
+    barMinWidth: size05x,
+    // 柱条的最大宽度
+    barMaxWidth: size4x,
     // 堆叠进度图宽度
     barWidthSecondary: size4x,
     // 图例单元尺寸
@@ -260,6 +270,8 @@ function getAliasToken(globalToken, sceneToken) {
     borderRadiusNone,
     // 圆角 小
     borderRadius: borderRadiusBase,
+    // 全局透明度
+    colorAlpha: 0.15
   };
 }
 

@@ -354,6 +354,9 @@ class CanvasManager {
 
     // 移动画布，使target显示在容器正中心的位置
     moveTargetToCenter(target, callback) {
+        this.lastNodeOffset = this.nodeOffset;
+        this.lastLineGOffset = this.lineGOffset || {x:0,y:0}
+        this.lastScale = this.scale || 1;
         // 原传参类型为dom节点，新增选择器传参，如id选择器和class选择器的字符串
         if (typeof (target) === 'string') {
             target = document.querySelector(target);

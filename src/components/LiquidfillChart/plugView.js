@@ -1,537 +1,358 @@
-import * as echarts from 'echarts';
-import LiquidShape from './plugShape';
-
-// 补齐未定义的_trim和parsePercent函数
-function _trim(str) {
-    return str.replace(/^\s+|\s+$/g, '');
-  }
-function parsePercent(percent, all) {
-    switch (percent) {
-        case 'center':
-        case 'middle':
-        percent = '50%';
-        break;
-
-        case 'left':
-        case 'top':
-        percent = '0%';
-        break;
-
-        case 'right':
-        case 'bottom':
-        percent = '100%';
-        break;
-    }
-
-    if (typeof percent === 'string') {
-        if (_trim(percent).match(/%$/)) {
-        return parseFloat(percent) / 100 * all;
-        }
-
-        return parseFloat(percent);
-    }
-
-    return percent == null ? NaN : +percent;
-}  
-
-function isPathSymbol(symbol) {
-    return symbol && symbol.indexOf('path://') === 0
+import * as echarts from "echarts";
+import LiquidShape from "./plugShape";
+function _trim(e) {
+  return e.replace(/^\s+|\s+$/g, "");
 }
-
-echarts.extendChartView({
-
-    type: 'liquidFill',
-
-    render: function (seriesModel, ecModel, api) {
-        var self = this;
-        var group = this.group;
-        group.removeAll();
-
-        var data = seriesModel.getData();
-
-        var itemModel = data.getItemModel(0);
-
-        var center = itemModel.get('center');
-        var radius = itemModel.get('radius');
-
-        var width = api.getWidth();
-        var height = api.getHeight();
-        var size = Math.min(width, height);
-        // itemStyle
-        var outlineDistance = 0;
-        var outlineBorderWidth = 0;
-        var showOutline = seriesModel.get('outline.show');
-
-        if (showOutline) {
-            outlineDistance = seriesModel.get('outline.borderDistance');
-            outlineBorderWidth = parsePercent(
-                seriesModel.get('outline.itemStyle.borderWidth'), size
-            );
-        }
-
-        var cx = parsePercent(center[0], width);
-        var cy = parsePercent(center[1], height);
-
-        var outterRadius;
-        var innerRadius;
-        var paddingRadius;
-
-        var isFillContainer = false;
-
-        var symbol = seriesModel.get('shape');
-        if (symbol === 'container') {
-            // a shape that fully fills the container
-            isFillContainer = true;
-
-            outterRadius = [
-                width / 2,
-                height / 2
-            ];
-            innerRadius = [
-                outterRadius[0] - outlineBorderWidth / 2,
-                outterRadius[1] - outlineBorderWidth / 2
-            ];
-            paddingRadius = [
-                parsePercent(outlineDistance, width),
-                parsePercent(outlineDistance, height)
-            ];
-
-            radius = [
-                Math.max(innerRadius[0] - paddingRadius[0], 0),
-                Math.max(innerRadius[1] - paddingRadius[1], 0)
-            ];
-        }
-        else {
-            outterRadius = parsePercent(radius, size) / 2;
-            innerRadius = outterRadius - outlineBorderWidth / 2;
-            paddingRadius = parsePercent(outlineDistance, size);
-
-            radius = Math.max(innerRadius - paddingRadius, 0);
-        }
-
-        if (showOutline) {
-            var outline = getOutline();
-            outline.style.lineWidth = outlineBorderWidth;
-            group.add(getOutline());
-        }
-
-        var left = isFillContainer ? 0 : cx - radius;
-        var top = isFillContainer ? 0 : cy - radius;
-
-        var wavePath = null;
-
-        group.add(getBackground());
-
-        // each data item for a wave
-        var oldData = this._data;
-        var waves = [];
-        data.diff(oldData)
-            .add(function (idx) {
-                var wave = getWave(idx, false);
-
-                var waterLevel = wave.shape.waterLevel;
-                wave.shape.waterLevel = isFillContainer ? height / 2 : radius;
-                echarts.graphic.initProps(wave, {
-                    shape: {
-                        waterLevel: waterLevel
-                    }
-                }, seriesModel);
-
-                wave.z2 = 2;
-                setWaveAnimation(idx, wave, null);
-
-                group.add(wave);
-                data.setItemGraphicEl(idx, wave);
-                waves.push(wave);
-            })
-            .update(function (newIdx, oldIdx) {
-                var waveElement = oldData.getItemGraphicEl(oldIdx);
-
-                // new wave is used to calculate position, but not added
-                var newWave = getWave(newIdx, false, waveElement);
-
-                // changes with animation
-                var shape = {};
-                var shapeAttrs = ['amplitude', 'cx', 'cy', 'phase', 'radius', 'radiusY', 'waterLevel', 'waveLength'];
-                for (var i = 0; i < shapeAttrs.length; ++i) {
-                    var attr = shapeAttrs[i];
-                    if (newWave.shape.hasOwnProperty(attr)) {
-                        shape[attr] = newWave.shape[attr];
-                    }
-                }
-
-                var style = {};
-                var styleAttrs = ['fill', 'opacity', 'shadowBlur', 'shadowColor'];
-                for (var i = 0; i < styleAttrs.length; ++i) {
-                    var attr = styleAttrs[i];
-                    if (newWave.style.hasOwnProperty(attr)) {
-                        style[attr] = newWave.style[attr];
-                    }
-                }
-
-                if (isFillContainer) {
-                    shape.radiusY = height / 2;
-                }
-
-                // changes with animation
-                echarts.graphic.updateProps(waveElement, {
-                    shape: shape,
-                    x: newWave.x,
-                    y: newWave.y
-                }, seriesModel);
-
-                if (seriesModel.isUniversalTransitionEnabled && seriesModel.isUniversalTransitionEnabled()) {
-                    echarts.graphic.updateProps(waveElement, {
-                        style: style
-                    }, seriesModel);
-                }
-                else {
-                    waveElement.useStyle(style);
-                }
-
-                // instant changes
-                var oldWaveClipPath = waveElement.getClipPath();
-                var newWaveClipPath = newWave.getClipPath();
-
-                waveElement.setClipPath(newWave.getClipPath());
-                waveElement.shape.inverse = newWave.inverse;
-
-                if (oldWaveClipPath && newWaveClipPath
-                    && self._shape === symbol
-                    // TODO use zrender morphing to apply complex symbol animation.
-                    && !isPathSymbol(symbol)
-                ) {
-                    // Can be animated.
-                    echarts.graphic.updateProps(newWaveClipPath, {
-                        shape: oldWaveClipPath.shape
-                    }, seriesModel, { isFrom: true });
-                }
-
-                setWaveAnimation(newIdx, waveElement, waveElement);
-                group.add(waveElement);
-                data.setItemGraphicEl(newIdx, waveElement);
-                waves.push(waveElement);
-            })
-            .remove(function (idx) {
-                var wave = oldData.getItemGraphicEl(idx);
-                group.remove(wave);
-            })
-            .execute();
-
-        if (itemModel.get('label.show')) {
-            group.add(getText(waves));
-        }
-
-        this._shape = symbol;
-        this._data = data;
-
-        /**
-         * Get path for outline, background and clipping
-         *
-         * @param {number} r outter radius of shape
-         * @param {boolean|undefined} isForClipping if the shape is used
-         *                                          for clipping
-         */
-        function getPath(r, isForClipping) {
-            if (symbol) {
-                // customed symbol path
-                if (isPathSymbol(symbol)) {
-                    var path = echarts.graphic.makePath(symbol.slice(7), {});
-                    var bouding = path.getBoundingRect();
-                    var w = bouding.width;
-                    var h = bouding.height;
-                    if (w > h) {
-                        h = r * 2 / w * h;
-                        w = r * 2;
-                    }
-                    else {
-                        w = r * 2 / h * w;
-                        h = r * 2;
-                    }
-
-                    var left = isForClipping ? 0 : cx - w / 2;
-                    var top = isForClipping ? 0 : cy - h / 2;
-                    path = echarts.graphic.makePath(
-                        symbol.slice(7),
-                        {},
-                        new echarts.graphic.BoundingRect(left, top, w, h)
-                    );
-                    if (isForClipping) {
-                        path.x = -w / 2;
-                        path.y = -h / 2;
-                    }
-                    return path;
-                }
-                else if (isFillContainer) {
-                    // fully fill the container
-                    var x = isForClipping ? -r[0] : cx - r[0];
-                    var y = isForClipping ? -r[1] : cy - r[1];
-                    return echarts.helper.createSymbol(
-                        'rect', x, y, r[0] * 2, r[1] * 2
-                    );
-                }
-                else {
-                    var x = isForClipping ? -r : cx - r;
-                    var y = isForClipping ? -r : cy - r;
-                    if (symbol === 'pin') {
-                        y += r;
-                    }
-                    else if (symbol === 'arrow') {
-                        y -= r;
-                    }
-                    return echarts.helper.createSymbol(symbol, x, y, r * 2, r * 2);
-                }
-            }
-
-            return new echarts.graphic.Circle({
-                shape: {
-                    cx: isForClipping ? 0 : cx,
-                    cy: isForClipping ? 0 : cy,
-                    r: r
-                }
-            });
-        }
-        /**
-         * Create outline
-         */
-        function getOutline() {
-            var outlinePath = getPath(outterRadius);
-            outlinePath.style.fill = null;
-
-            outlinePath.setStyle(seriesModel.getModel('outline.itemStyle')
-                .getItemStyle());
-
-            return outlinePath;
-        }
-
-        /**
-         * Create background
-         */
-        function getBackground() {
-            // Seperate stroke and fill, so we can use stroke to cover the alias of clipping.
-            var strokePath = getPath(radius);
-            strokePath.setStyle(seriesModel.getModel('backgroundStyle')
-                .getItemStyle());
-            strokePath.style.fill = null;
-
-            // Stroke is front of wave
-            strokePath.z2 = 5;
-
-            var fillPath = getPath(radius);
-            fillPath.setStyle(seriesModel.getModel('backgroundStyle')
-                .getItemStyle());
-            fillPath.style.stroke = null;
-
-            var group = new echarts.graphic.Group();
-            group.add(strokePath);
-            group.add(fillPath);
-
-            return group;
-        }
-
-        /**
-         * wave shape
-         */
-        function getWave(idx, isInverse, oldWave) {
-            var radiusX = isFillContainer ? radius[0] : radius;
-            var radiusY = isFillContainer ? height / 2 : radius;
-
-            var itemModel = data.getItemModel(idx);
-            var itemStyleModel = itemModel.getModel('itemStyle');
-            var phase = itemModel.get('phase');
-            var amplitude = parsePercent(itemModel.get('amplitude'),
-                radiusY * 2);
-            var waveLength = parsePercent(itemModel.get('waveLength'),
-                radiusX * 2);
-
-            var value = data.get('value', idx);
-            var waterLevel = radiusY - value * radiusY * 2;
-            phase = oldWave ? oldWave.shape.phase
-                : (phase === 'auto' ? idx * Math.PI / 4 : phase);
-            var normalStyle = itemStyleModel.getItemStyle();
-            if (!normalStyle.fill) {
-                var seriesColor = seriesModel.get('color');
-                var id = idx % seriesColor.length;
-                normalStyle.fill = seriesColor[id];
-            }
-
-            var x = radiusX * 2;
-            var wave = new LiquidShape({
-                shape: {
-                    waveLength: waveLength,
-                    radius: radiusX,
-                    radiusY: radiusY,
-                    cx: x,
-                    cy: 0,
-                    waterLevel: waterLevel,
-                    amplitude: amplitude,
-                    phase: phase,
-                    inverse: isInverse
-                },
-                style: normalStyle,
-                x: cx,
-                y: cy,
-            });
-            wave.shape._waterLevel = waterLevel;
-
-            var hoverStyle = itemModel.getModel('emphasis.itemStyle')
-                .getItemStyle();
-            hoverStyle.lineWidth = 0;
-
-            wave.ensureState('emphasis').style = hoverStyle;
-            echarts.helper.enableHoverEmphasis(wave);
-
-            // clip out the part outside the circle
-            var clip = getPath(radius, true);
-            // set fill for clipPath, otherwise it will not trigger hover event
-            clip.setStyle({
-                fill: 'white'
-            });
-            wave.setClipPath(clip);
-
-            return wave;
-        }
-
-        function setWaveAnimation(idx, wave, oldWave) {
-            var itemModel = data.getItemModel(idx);
-
-            var maxSpeed = itemModel.get('period');
-            var direction = itemModel.get('direction');
-
-            var value = data.get('value', idx);
-
-            var phase = itemModel.get('phase');
-            phase = oldWave ? oldWave.shape.phase
-                : (phase === 'auto' ? idx * Math.PI / 4 : phase);
-
-            var defaultSpeed = function (maxSpeed) {
-                var cnt = data.count();
-                return cnt === 0 ? maxSpeed : maxSpeed *
-                    (0.2 + (cnt - idx) / cnt * 0.8);
-            };
-            var speed = 0;
-            if (maxSpeed === 'auto') {
-                speed = defaultSpeed(5000);
-            }
-            else {
-                speed = typeof maxSpeed === 'function'
-                    ? maxSpeed(value, idx) : maxSpeed;
-            }
-
-            // phase for moving left/right
-            var phaseOffset = 0;
-            if (direction === 'right' || direction == null) {
-                phaseOffset = Math.PI;
-            }
-            else if (direction === 'left') {
-                phaseOffset = -Math.PI;
-            }
-            else if (direction === 'none') {
-                phaseOffset = 0;
-            }
-            else {
-                console.error('Illegal direction value for liquid fill.');
-            }
-
-            // wave animation of moving left/right
-            if (direction !== 'none' && itemModel.get('waveAnimation')) {
-                wave
-                    .animate('shape', true)
-                    .when(0, {
-                        phase: phase
-                    })
-                    .when(speed / 2, {
-                        phase: phaseOffset + phase
-                    })
-                    .when(speed, {
-                        phase: phaseOffset * 2 + phase
-                    })
-                    .during(function () {
-                        if (wavePath) {
-                            wavePath.dirty(true);
-                        }
-                    })
-                    .start();
-            }
-        }
-
-        /**
-         * text on wave
-         */
-        function getText(waves) {
-            var labelModel = itemModel.getModel('label');
-
-            function formatLabel() {
-                var formatted = seriesModel.getFormattedLabel(0, 'normal');
-                var defaultVal = (data.get('value', 0) * 100);
-                var defaultLabel = data.getName(0) || seriesModel.name;
-                if (!isNaN(defaultVal)) {
-                    defaultLabel = defaultVal.toFixed(0) + '%';
-                }
-                return formatted == null ? defaultLabel : formatted;
-            }
-
-            var textRectOption = {
-                z2: 10,
-                shape: {
-                    x: left,
-                    y: top,
-                    width: (isFillContainer ? radius[0] : radius) * 2,
-                    height: (isFillContainer ? radius[1] : radius) * 2
-                },
-                style: {
-                    fill: 'transparent'
-                },
-                textConfig: {
-                    position: labelModel.get('position') || 'inside'
-                },
-                silent: true
-            };
-            var textOption = {
-                style: {
-                    text: formatLabel(),
-                    textAlign: labelModel.get('align'),
-                    textVerticalAlign: labelModel.get('baseline')
-                }
-            };
-            Object.assign(textOption.style, echarts.helper.createTextStyle(labelModel));
-
-            var outsideTextRect = new echarts.graphic.Rect(textRectOption);
-            var insideTextRect = new echarts.graphic.Rect(textRectOption);
-            insideTextRect.disableLabelAnimation = true;
-            outsideTextRect.disableLabelAnimation = true;
-
-            var outsideText = new echarts.graphic.Text(textOption);
-            var insideText = new echarts.graphic.Text(textOption);
-            outsideTextRect.setTextContent(outsideText);
-
-            insideTextRect.setTextContent(insideText);
-            var insColor = labelModel.get('insideColor');
-            insideText.style.fill = insColor;
-
-            var group = new echarts.graphic.Group();
-            group.add(outsideTextRect);
-            group.add(insideTextRect);
-
-            // clip out waves for insideText
-            var boundingCircle = getPath(radius, true);
-
-            wavePath = new echarts.graphic.CompoundPath({
-                shape: {
-                    paths: waves
-                },
-                x: cx,
-                y: cy
-            });
-
-            wavePath.setClipPath(boundingCircle);
-            insideTextRect.setClipPath(wavePath);
-
-            return group;
-        }
-    },
-
-    dispose: function () {
-        // dispose nothing here
+function parsePercent(e, t) {
+  switch (e) {
+    case "center":
+    case "middle":
+      e = "50%";
+      break;
+    case "left":
+    case "top":
+      e = "0%";
+      break;
+    case "right":
+    case "bottom":
+      e = "100%";
+      break;
+  }
+  if (typeof e === "string") {
+    if (_trim(e).match(/%$/)) {
+      return (parseFloat(e) / 100) * t;
     }
+    return parseFloat(e);
+  }
+  return e == null ? NaN : +e;
+}
+function isPathSymbol(e) {
+  return e && e.indexOf("path://") === 0;
+}
+echarts.extendChartView({
+  type: "liquidFill",
+  render: function (w, e, t) {
+    var c = this;
+    var u = this.group;
+    u.removeAll();
+    var P = w.getData();
+    var g = P.getItemModel(0);
+    var a = g.get("center");
+    var S = g.get("radius");
+    var r = t?.getWidth?.();
+    var b = t?.getHeight?.();
+    var i = Math.min(r, b);
+    var s = 0;
+    var l = 0;
+    var n = w.get("outline.show");
+    if (n) {
+      s = w.get("outline.borderDistance");
+      l = parsePercent(w.get("outline.itemStyle.borderWidth"), i);
+    }
+    var x = parsePercent(a[0], r);
+    var I = parsePercent(a[1], b);
+    var h;
+    var v;
+    var o;
+    var M = false;
+    var d = w.get("shape");
+    if (d === "container") {
+      M = true;
+      h = [r / 2, b / 2];
+      v = [h[0] - l / 2, h[1] - l / 2];
+      o = [parsePercent(s, r), parsePercent(s, b)];
+      S = [Math.max(v[0] - o[0], 0), Math.max(v[1] - o[1], 0)];
+    } else {
+      h = parsePercent(S, i) / 2;
+      v = h - l / 2;
+      o = parsePercent(s, i);
+      S = Math.max(v - o, 0);
+    }
+    if (n) {
+      var p = E();
+      p.style.lineWidth = l;
+      u.add(E());
+    }
+    var f = M ? 0 : x - S;
+    var m = M ? 0 : I - S;
+    var y = null;
+    u.add(T());
+    var C = this._data;
+    var L = [];
+    P.diff(C)
+      .add(function (e) {
+        var t = _(e, false);
+        var a = t.shape.waterLevel;
+        t.shape.waterLevel = M ? b / 2 : S;
+        echarts.graphic.initProps(t, { shape: { waterLevel: a } }, w);
+        t.z2 = 2;
+        A(e, t, null);
+        u.add(t);
+        P.setItemGraphicEl(e, t);
+        L.push(t);
+      })
+      .update(function (e, t) {
+        var a = C.getItemGraphicEl(t);
+        var r = _(e, false, a);
+        var i = {};
+        var s = [
+          "amplitude",
+          "cx",
+          "cy",
+          "phase",
+          "radius",
+          "radiusY",
+          "waterLevel",
+          "waveLength",
+        ];
+        for (var l = 0; l < s.length; ++l) {
+          var n = s[l];
+          if (r.shape.hasOwnProperty(n)) {
+            i[n] = r.shape[n];
+          }
+        }
+        var h = {};
+        var v = ["fill", "opacity", "shadowBlur", "shadowColor"];
+        for (var l = 0; l < v.length; ++l) {
+          var n = v[l];
+          if (r.style.hasOwnProperty(n)) {
+            h[n] = r.style[n];
+          }
+        }
+        if (M) {
+          i.radiusY = b / 2;
+        }
+        echarts.graphic.updateProps(a, { shape: i, x: r.x, y: r.y }, w);
+        if (
+          w.isUniversalTransitionEnabled &&
+          w.isUniversalTransitionEnabled()
+        ) {
+          echarts.graphic.updateProps(a, { style: h }, w);
+        } else {
+          a.useStyle(h);
+        }
+        var o = a.getClipPath();
+        var p = r.getClipPath();
+        a.setClipPath(r.getClipPath());
+        a.shape.inverse = r.inverse;
+        if (o && p && c._shape === d && !isPathSymbol(d)) {
+          echarts.graphic.updateProps(p, { shape: o.shape }, w, {
+            isFrom: true,
+          });
+        }
+        A(e, a, a);
+        u.add(a);
+        P.setItemGraphicEl(e, a);
+        L.push(a);
+      })
+      .remove(function (e) {
+        var t = C.getItemGraphicEl(e);
+        u.remove(t);
+      })
+      .execute();
+    if (g.get("label.show")) {
+      u.add(F(L));
+    }
+    this._shape = d;
+    this._data = P;
+    function k(e, t) {
+      if (d) {
+        if (isPathSymbol(d)) {
+          var a = echarts.graphic.makePath(d.slice(7), {});
+          var r = a.getBoundingRect();
+          var i = r.width;
+          var s = r.height;
+          if (i > s) {
+            s = ((e * 2) / i) * s;
+            i = e * 2;
+          } else {
+            i = ((e * 2) / s) * i;
+            s = e * 2;
+          }
+          var l = t ? 0 : x - i / 2;
+          var n = t ? 0 : I - s / 2;
+          a = echarts.graphic.makePath(
+            d.slice(7),
+            {},
+            new echarts.graphic.BoundingRect(l, n, i, s)
+          );
+          if (t) {
+            a.x = -i / 2;
+            a.y = -s / 2;
+          }
+          return a;
+        } else if (M) {
+          var h = t ? -e[0] : x - e[0];
+          var v = t ? -e[1] : I - e[1];
+          return echarts.helper.createSymbol("rect", h, v, e[0] * 2, e[1] * 2);
+        } else {
+          var h = t ? -e : x - e;
+          var v = t ? -e : I - e;
+          if (d === "pin") {
+            v += e;
+          } else if (d === "arrow") {
+            v -= e;
+          }
+          return echarts.helper.createSymbol(d, h, v, e * 2, e * 2);
+        }
+      }
+      return new echarts.graphic.Circle({
+        shape: { cx: t ? 0 : x, cy: t ? 0 : I, r: e },
+      });
+    }
+    function E() {
+      var e = k(h);
+      e.style.fill = null;
+      e.setStyle(w.getModel("outline.itemStyle").getItemStyle());
+      return e;
+    }
+    function T() {
+      var e = k(S);
+      e.setStyle(w.getModel("backgroundStyle").getItemStyle());
+      e.style.fill = null;
+      e.z2 = 5;
+      var t = k(S);
+      t.setStyle(w.getModel("backgroundStyle").getItemStyle());
+      t.style.stroke = null;
+      var a = new echarts.graphic.Group();
+      a.add(e);
+      a.add(t);
+      return a;
+    }
+    function _(e, t, a) {
+      var r = M ? S[0] : S;
+      var i = M ? b / 2 : S;
+      var s = P.getItemModel(e);
+      var l = s.getModel("itemStyle");
+      var n = s.get("phase");
+      var h = parsePercent(s.get("amplitude"), i * 2);
+      var v = parsePercent(s.get("waveLength"), r * 2);
+      var o = P.get("value", e);
+      var p = i - o * i * 2;
+      n = a ? a.shape.phase : n === "auto" ? (e * Math.PI) / 4 : n;
+      var c = l.getItemStyle();
+      if (!c.fill) {
+        var u = w.get("color");
+        var g = e % u.length;
+        c.fill = u[g];
+      }
+      var d = r * 2;
+      var f = new LiquidShape({
+        shape: {
+          waveLength: v,
+          radius: r,
+          radiusY: i,
+          cx: d,
+          cy: 0,
+          waterLevel: p,
+          amplitude: h,
+          phase: n,
+          inverse: t,
+        },
+        style: c,
+        x: x,
+        y: I,
+      });
+      f.shape._waterLevel = p;
+      var m = s.getModel("emphasis.itemStyle").getItemStyle();
+      m.lineWidth = 0;
+      f.ensureState("emphasis").style = m;
+      echarts.helper.enableHoverEmphasis(f);
+      var y = k(S, true);
+      y.setStyle({ fill: "white" });
+      f.setClipPath(y);
+      return f;
+    }
+    function A(a, e, t) {
+      var r = P.getItemModel(a);
+      var i = r.get("period");
+      var s = r.get("direction");
+      var l = P.get("value", a);
+      var n = r.get("phase");
+      n = t ? t.shape.phase : n === "auto" ? (a * Math.PI) / 4 : n;
+      var h = function (e) {
+        var t = P.count();
+        return t === 0 ? e : e * (0.2 + ((t - a) / t) * 0.8);
+      };
+      var v = 0;
+      if (i === "auto") {
+        v = h(5e3);
+      } else {
+        v = typeof i === "function" ? i(l, a) : i;
+      }
+      var o = 0;
+      if (s === "right" || s == null) {
+        o = Math.PI;
+      } else if (s === "left") {
+        o = -Math.PI;
+      } else if (s === "none") {
+        o = 0;
+      } else {
+        console.error("Illegal direction value for liquid fill.");
+      }
+      if (s !== "none" && r.get("waveAnimation")) {
+        e.animate("shape", true)
+          .when(0, { phase: n })
+          .when(v / 2, { phase: o + n })
+          .when(v, { phase: o * 2 + n })
+          .during(function () {
+            if (y) {
+              y.dirty(true);
+            }
+          })
+          .start();
+      }
+    }
+    function F(e) {
+      var t = g.getModel("label");
+      function a() {
+        var e = w.getFormattedLabel(0, "normal");
+        var t = P.get("value", 0) * 100;
+        var a = P.getName(0) || w.name;
+        if (!isNaN(t)) {
+          a = t.toFixed(0) + "%";
+        }
+        return e == null ? a : e;
+      }
+      var r = {
+        z2: 10,
+        shape: {
+          x: f,
+          y: m,
+          width: (M ? S[0] : S) * 2,
+          height: (M ? S[1] : S) * 2,
+        },
+        style: { fill: "transparent" },
+        textConfig: { position: t.get("position") || "inside" },
+        silent: true,
+      };
+      var i = {
+        style: {
+          text: a(),
+          textAlign: t.get("align"),
+          textVerticalAlign: t.get("baseline"),
+        },
+      };
+      Object.assign(i.style, echarts.helper.createTextStyle(t));
+      var s = new echarts.graphic.Rect(r);
+      var l = new echarts.graphic.Rect(r);
+      l.disableLabelAnimation = true;
+      s.disableLabelAnimation = true;
+      var n = new echarts.graphic.Text(i);
+      var h = new echarts.graphic.Text(i);
+      s.setTextContent(n);
+      l.setTextContent(h);
+      var v = t.get("insideColor");
+      h.style.fill = v;
+      var o = new echarts.graphic.Group();
+      o.add(s);
+      o.add(l);
+      var p = k(S, true);
+      y = new echarts.graphic.CompoundPath({ shape: { paths: e }, x: x, y: I });
+      y.setClipPath(p);
+      l.setClipPath(y);
+      return o;
+    }
+  },
+  dispose: function () {},
 });

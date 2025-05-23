@@ -13,7 +13,7 @@ import merge from '../../util/merge';
 import { getColor } from '../../util/color';
 import cloneDeep from '../../util/cloneDeep';
 import { isArray, isNumber, isObject} from '../../util/type';
-import { getMarkLineDefault } from '../../option/config/mark';
+import { getMarkLineDefault, setThresholdMarkLine } from '../../option/config/mark';
 import chartToken from './chartToken';
 import Token from '../../feature/token';
 import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter'
@@ -41,7 +41,7 @@ function handleLabel(seriesUnit, iChartOption, index, direction) {
   } else {
     labelOption = label;
   }
-  if (direction && direction === 'horizontal') { 
+  if (direction && direction === 'horizontal') {
     initPosition = 'right';
     initOffset = [4, 0];
   }
@@ -193,29 +193,33 @@ function handleItemStyle(direction, itemStyle) {
   return seriesInit_;
 }
 
-function handleMarkLine(seriesUnit, iChartOption, direction) {
+function handleMarkLine(seriesUnit, iChartOption, direction, seriesName) {
   const name = seriesUnit.name;
   const markLine = iChartOption.markLine;
-  const isTopMarkLine = markLine && markLine.top && !(markLine.topUse && markLine.topUse.indexOf(name) === -1);
-  const isBottomMarkLine =
-    markLine && markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(name) === -1);
-  if (isTopMarkLine || isBottomMarkLine) {
-    seriesUnit.markLine = getMarkLineDefault(true)
-    merge(seriesUnit.markLine, markLine);
-    if (markLine.color) seriesUnit.markLine.lineStyle.color = markLine.color
-  }
-  if (isTopMarkLine) {
-    if (direction && direction === 'horizontal') {
-      seriesUnit.markLine.data.push({ xAxis: markLine.top });
-    } else {
-      seriesUnit.markLine.data.push({ yAxis: markLine.top });
+  if(isArray(markLine)){
+    setThresholdMarkLine(markLine, seriesUnit, seriesName)
+  }else{
+    const isTopMarkLine = markLine && markLine.top && !(markLine.topUse && markLine.topUse.indexOf(name) === -1);
+    const isBottomMarkLine =
+      markLine && markLine.bottom && !(markLine.bottomUse && markLine.bottomUse.indexOf(name) === -1);
+    if (isTopMarkLine || isBottomMarkLine) {
+      seriesUnit.markLine = getMarkLineDefault(true)
+      merge(seriesUnit.markLine, markLine);
+      if (markLine.color) seriesUnit.markLine.lineStyle.color = markLine.color
     }
-  }
-  if (isBottomMarkLine) {
-    if (direction && direction === 'horizontal') {
-      seriesUnit.markLine.data.push({ xAxis: markLine.bottom });
-    } else {
-      seriesUnit.markLine.data.push({ yAxis: markLine.bottom });
+    if (isTopMarkLine) {
+      if (direction && direction === 'horizontal') {
+        seriesUnit.markLine.data.push({ xAxis: markLine.top });
+      } else {
+        seriesUnit.markLine.data.push({ yAxis: markLine.top });
+      }
+    }
+    if (isBottomMarkLine) {
+      if (direction && direction === 'horizontal') {
+        seriesUnit.markLine.data.push({ xAxis: markLine.bottom });
+      } else {
+        seriesUnit.markLine.data.push({ yAxis: markLine.bottom });
+      }
     }
   }
 }
@@ -340,7 +344,7 @@ export function setSeries(seriesData, legendData, iChartOption) {
       seriesUnit.data = seriesData[legend];
     }
     // 阈值线
-    handleMarkLine(seriesUnit, iChartOption, direction);
+    iChartOption.markLine && handleMarkLine(seriesUnit, iChartOption, direction, legend);
     // 堆叠图
     handleStack(type, seriesUnit, index, legendData, iChartOption);
     // 双向图
@@ -693,16 +697,25 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
     }
     const config = {
       title: '',
-      children: []
+      children: [],
+      hideEmpty: baseOption.tooltip?.hideEmpty
     }
     newParams.forEach((item, index) => {
+      let value = item.value || seriesData[item.seriesName][item.dataIndex];
+      if (isObject(item.data) && iChartOption.series) {
+        if (iChartOption.series[0]?.encode) {
+          value = item.data[item.encode.x[0]];
+        } else {
+          value = seriesData[item.seriesName] && seriesData[item.seriesName][item.dataIndex];
+        }
+      }
       if (index === 0) {
         config.title = item.name
       }
       const itemColor = typeof item.color === 'string' ? item.color : getColor(colors, index);
       const dataVal = type === 'range' ?
         `${`${`[${params[index * 2].value}`}-${params[index * 2].value + item.value}`}]`
-        : (item.value || seriesData[item.seriesName][item.dataIndex])
+        : value
       const dataItem = {
         name: item.seriesName,
         value: dataVal,
@@ -714,3 +727,15 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
   };
 }
 
+// 自定义dataset和series
+export function setDatasetSeries(baseOpt, iChartOpt) {
+  let seriesItem = cloneDeep(seriesInit());
+  if (iChartOpt.series) {
+    baseOpt.series = [];
+    baseOpt.dataset = iChartOpt.dataset;
+    baseOpt.series = iChartOpt.series.map(item => {
+      seriesItem.data = undefined;
+      return Object.assign({}, seriesItem, item)
+    })
+  }
+}

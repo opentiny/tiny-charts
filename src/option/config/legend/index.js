@@ -16,6 +16,7 @@ import position from './position';
 import textStyle from './textStyle';
 import itemStyle from './itemStyle';
 import merge from '../../../util/merge';
+import setPolymorphism from './polymorphism';
 
 function legend(iChartOption, chartName) {
   const selfLegend = iChartOption.legend;
@@ -57,6 +58,10 @@ function legend(iChartOption, chartName) {
   merge(legend, iChartOption.legend);
   // 自定义icon
   icon(legend, iChartOption);
+  // 图例多形态
+  if( legend.orient === 'vertical' ){
+    setPolymorphism(legend, iChartOption)
+  }
   return legend;
 }
 
