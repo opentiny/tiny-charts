@@ -1,0 +1,16 @@
+{
+  "title": "折柱混合图 BarLineChart",
+  "paths": [
+    {
+      "title": "折柱混合图",
+      "children": [
+        {
+          "name": "折柱混合图",
+          "routePath": "BarLineChart-1",
+          "imagePath": "./image/theme/light/BarLineChart/BarLineChart-1.png"
+        }
+               
+      ]
+    }  
+  ]
+}

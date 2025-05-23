@@ -60,7 +60,8 @@ const TOKENCHARTNAMES = [
   'CircleChart',
   'LinearArcChart',
   'CircleArcChart',
-  'CustomizeChart'
+  'CustomizeChart',
+  'BarLineChart'
 ];
 
 // 默认主题
@@ -117,7 +118,8 @@ const CHART_TYPE = {
   CIRCLE: 'CircleChart',
   LINEARARC: 'LinearArcChart',
   CIRCLEARC: 'CircleArcChart',
-  CUSTOMIZE: 'CustomizeChart'
+  CUSTOMIZE: 'CustomizeChart',
+  BARLINE: 'BarLineChart'
 }
 
 const ADAPTIVE_THEME = ['hdesign-light', 'hdesign-dark', 'bpit-light', 'bpit-dark'];

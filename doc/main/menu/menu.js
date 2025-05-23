@@ -354,6 +354,11 @@ const NAV_DATA = [
     value: 'GaugeChart',
   },
   {
+    title: '折柱混合图 BarLineChart',
+    titleMd: 'BarLineChart',
+    value: 'BarLineChart'
+  },
+  {
     title: '进度图 ProcessChart',
     titleId: 'ic_ProcessChart',
     value: 'ProcessChart',

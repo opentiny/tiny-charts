@@ -24,6 +24,7 @@ export { default as TreeChart } from './components/TreeChart';
 export { default as FlowChart } from './components/FlowChart';
 export { default as RadarChart } from './components/RadarChart';
 export { default as GanttChart } from './components/GanttChart';
+export { default as BarLineChart } from './components/BarLineChart';
 export { default as GaugeChart } from './components/GaugeChart';
 export { default as GraphChart } from './components/GraphChart';
 export { default as RiverChart } from './components/RiverChart';
