@@ -1,5 +1,6 @@
 import defendXSS from '../../../util/defendXSS';
 import Token from '../../../feature/token';
+import { isObject } from '../../../util/type';
 
 function validateName(name) {
     return name !== null && name !== undefined && name !== ''
@@ -7,6 +8,9 @@ function validateName(name) {
 
 // 暂时不校验''
 function formatValue(value) {
+    if(isObject(value)){
+        value = value.value
+    }
     if (value === null || value === undefined || value === '') {
         return '--'
     }
