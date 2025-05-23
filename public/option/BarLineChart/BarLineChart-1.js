@@ -15,7 +15,6 @@ const option = {
         { 'Month': 'Nov', 'Domestic': 42, 'Abroad': 22, 'Exit': 29 },
         { 'Month': 'Dec', 'Domestic': 32, 'Abroad': 11, 'Exit': 13 }
     ],
-    
     lineOption:{
         // 需要转换为折线图的数据名称
         dataName: ['Domestic'],
@@ -57,5 +56,4 @@ const option = {
             unit: '%',
         },
     ],
-    
 };
