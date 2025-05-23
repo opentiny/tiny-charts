@@ -22,7 +22,8 @@ const BarChartOption = (width, option, type, stack) => {
     }
   })
   // 定义默认列数
-  let columns = option.series.length;
+  let columns = barSeries.length;
+
   // 包含柱状图/双向柱状图只有一个柱子
   if (type === 'contain' || type === 'both-sides' || type === 'double-sides') {
     columns = 1;
@@ -32,10 +33,10 @@ const BarChartOption = (width, option, type, stack) => {
     columns = stack ? Object.keys(stack).length : 1;
   }
   else if (type === 'range' || type === 'water-fall') {
-    columns = option.series.length / 2;
+    columns = barSeries.length / 2;
   }
 
-  const rows = option.series[0]?.data?.length;
+  const rows = barSeries[0]?.data?.length;
   const intervalRows = rows;
 
   // 柱子宽度为16px的初始间距 
@@ -59,7 +60,7 @@ const BarChartOption = (width, option, type, stack) => {
     barGap = `${4 / barWidth * 100}%`
   }
 
-  option.series.forEach(item => {
+  barSeries.forEach(item => {
     Object.assign(item, {
       barWidth,
       barGap
