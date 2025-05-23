@@ -44,8 +44,7 @@ const demoChartArr = [
   'JadeJueChart',
   'SankeyChart',
   'FunnelChart',
-  'HeatMapChart',
-  'BarLineChart'
+  'HeatMapChart'
 ];
 
 NAV_DATA.forEach(v => {
