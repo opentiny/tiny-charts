@@ -30,7 +30,7 @@ const chartData1 = {
 			statistics: {
 				firstColumnWidth:"35%",
 				head: [" ", "当前", "占比", "同比"],
-				data: new Array(19).fill(0).map((item, index) => {
+				data: new Array(20).fill(0).map((item, index) => {
 					return [ index+"%",index+"%",index+"%" ]
 				})
 			}
