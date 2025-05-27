@@ -194,6 +194,16 @@
           "name": "区域缩放轴颜色配置",
           "routePath": "LineChart-18",
           "imagePath": "./image/theme/light/LineChart/LineChart-18.png"
+        },
+        {
+          "name": "区域缩放轴-双缩放轴",
+          "routePath": "LineChart-38",
+          "imagePath": "./image/theme/light/LineChart/LineChart-38.png"
+        },
+        {
+          "name": "区域缩放轴-滚轮缩放",
+          "routePath": "LineChart-37",
+          "imagePath": "./image/theme/light/LineChart/LineChart-37.png"
         }
       ]
     },

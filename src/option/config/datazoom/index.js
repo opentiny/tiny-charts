@@ -16,7 +16,7 @@ import { toArray } from '../../../util/type';
 function datazoom(iChartOption) {
   const self = iChartOption.dataZoom || {}
   const dataZoom = toArray(self).map((item, index) => {
-    if (index === 0) {
+    if (!item.type || item.type === 'slider' ) {
       const { show, position, start, end, startValue, endValue, style, height, top, left, right, bottom } = item;
       const baseZoom = base(item)
       if (show) {
