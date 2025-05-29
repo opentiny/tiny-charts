@@ -187,6 +187,8 @@ function getAliasToken(globalToken, sceneToken) {
     axisLineWidthSecondary: borderBase,// 确定
     // 刻度线线宽 2
     axisTickLineWidth: border2x,
+    // 刻度线长度 2
+    axisTickLineLength: border2x + borderBase, // 长度 + 1
     // 分隔线线宽 1
     axisSplitLineWidth: borderBase,
     // 坐标轴指示器的标线线宽 1
