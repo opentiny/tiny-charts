@@ -19,7 +19,7 @@ import '{{VITE_BASECOPYRIGHTSPAT}}/feature/card/index.css';
 
 // 渲染卡片
 const cardContainer = document.getElementsByClassName('card-container')[0];
-let card = new CardManager(cardContainer,cardOption);
+let cardIns = new CardManager(cardContainer,cardOption);
 
 // 渲染图表
 const chartContainer = document.getElementsByClassName('chart-container')[0];
