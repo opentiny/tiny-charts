@@ -45,6 +45,7 @@ function base() {
     // 坐标轴刻度配置
     axisTick: {
       alignWithLabel: true,
+      length: Token.config.xAxisTickLineLength,
       lineStyle: {
         width: Token.config.xAxisTickLineWidth,
         color: Token.config.xAxisTickLineColor,

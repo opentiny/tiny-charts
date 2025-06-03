@@ -26,6 +26,7 @@ function base() {
     },
     axisTick: {
       show: false,
+      length: Token.config.yAxisTickLineLength,
       lineStyle: {
         width: Token.config.yAxisTickLineWidth,
         type: Token.config.yAxisTickLineType,
