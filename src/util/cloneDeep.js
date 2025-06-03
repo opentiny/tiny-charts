@@ -16,7 +16,10 @@ function cloneDeep(obj) {
   // 进行深拷贝的不能为空，并且是对象或者是数组
   if (obj && typeof obj === 'object') {
     for (const key in obj) {
-      if (obj[key] && typeof obj[key] === 'object') {
+      // dom 节点直接继承
+      if(obj[key] && obj[key].nodeType && obj[key].nodeType === 1){
+        objClone[key] = obj[key];
+      }else if (obj[key] && typeof obj[key] === 'object') {
         objClone[key] = cloneDeep(obj[key]);
       } else {
         objClone[key] = obj[key];
