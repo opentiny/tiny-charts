@@ -22,6 +22,7 @@ import chartToken from './chartToken';
 import { CHART_TYPE } from '../../util/constants';
 import Token from '../../feature/token';
 import { codeToRGB } from '../../util/color';
+import merge from '../../util/merge';
 
 const LARGE_SYMBOL_SIZE = 12;
 const SMALL_SYMBOL_SIZE = 8;
@@ -59,6 +60,8 @@ export default class WaveChart extends BaseChart {
     this.radius = null;
     // 阈值线的数量
     this.splitNumber = null;
+    // 坐标系配置
+    this.radar = null;
     // 刻度值的最大值
     this.radarMax = null;
     // loading文本容器
@@ -168,6 +171,7 @@ export default class WaveChart extends BaseChart {
     const { type = 'health', theme = 'light' } = this.option;
     const { axisLineColor, axisLabelColor, splitLineColor, axisNameColor } = chartToken;
     this.splitNumber = 3;
+    this.radar = this.option.radar;
     this.radarMax = this.option.radarMax;
     this.radarMark = this.option.radarMark;
     // 创建图表实例
@@ -284,6 +288,7 @@ export default class WaveChart extends BaseChart {
       this.innerContainer.style.display = 'none';
       chartOption['tooltip'] = { show: false };
     }
+    merge(chartOption.radar,this.radar);
     chartIns.setSimpleOption(RadarChart, chartOption);
     // 开始渲染
     chartIns.render();
