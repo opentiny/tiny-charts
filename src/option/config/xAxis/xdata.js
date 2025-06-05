@@ -9,14 +9,18 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
+import { isArray } from "../../../util/type";
+
 /**
  * 从数据中拿出x轴的坐标数据
  */
 function xdata(data, xAxisKey){
     const xAxisData = [];
-    data.forEach(item => {
-      xAxisData.push(item[xAxisKey]);
-    });
+    if (isArray(data)){
+      data.forEach(item => {
+        xAxisData.push(item[xAxisKey]);
+      });
+    }
     return xAxisData;
 }
 
