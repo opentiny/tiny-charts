@@ -157,7 +157,8 @@ export default class CoreChart extends BaseChart {
 
   // 传入简化后的icharts-option
   setSimpleOption(ChartClass, option, plugins = {}, isInit = true) {
-    let iChartOption = cloneDeep(option);
+    let iChartOption = {};
+    merge(iChartOption, option);
     iChartOption = xssOption(iChartOption);
     // 设定主题、自适应图表
     if (isInit) {
@@ -173,7 +174,7 @@ export default class CoreChart extends BaseChart {
       this.redirectSelfChart(ChartClass, iChartOption, plugins);
       return;
     }
-    this.initIChartOption = cloneDeep(iChartOption);
+    this.initIChartOption = option;
     this.plugins = plugins;
     this.chartClass = ChartClass;
     this.iChartOption = iChartOption;
@@ -269,7 +270,8 @@ export default class CoreChart extends BaseChart {
 
   // 图表刷新，包括刷新配置和数据
   refresh(option) {
-    this.iChartOption = cloneDeep(option);
+    this.iChartOption = {};
+    merge(this.iChartOption, option);
     this.setSimpleOption(this.chartClass, this.iChartOption, this.plugins);
     this.render();
     this.mediaScreenObserver && this.mediaScreenObserver.refresh();
