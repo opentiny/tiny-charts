@@ -15,6 +15,7 @@ function getAliasToken(globalToken, sceneToken) {
   const {
     fontSizeBase,
     fontSizeMd,
+    space05x,
     space2x,
     spaceBase,
     lineTypeSolid,
@@ -219,6 +220,8 @@ function getAliasToken(globalToken, sceneToken) {
     containerGap: spaceBase,
     // 图例的间距
     legendSpace: space4x,
+    // 图例文字与图标的间距(只需要调整最后一位数)
+    legendTextAndIconSpace: (- space05x * 3) + spaceBase,
     // 无padding
     paddingNone: spaceNone,
     paddingSM: spaceBase,
