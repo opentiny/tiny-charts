@@ -139,7 +139,7 @@ export function handleDetail(seriesUnit, text, data, sizeData) {
   seriesUnit.detail.formatter =
     text.formatter ||
     function (value) {
-      return `{value|${value}}\n{name|${data[0].name}}`;
+      return `{value|${value}}\n{name|${data[0]?.name || ''}}`;
     };
   seriesUnit.detail.offsetCenter = text.offset || [0, 0];
   seriesUnit.detail.rich = {
