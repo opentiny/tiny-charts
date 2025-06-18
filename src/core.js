@@ -149,8 +149,8 @@ export default class CoreChart extends BaseChart {
   // 图表宽高自适应
   setResize() {
     this.mediaScreenObserver && this.mediaScreenObserver.observe();
-    this.echartsIns && this.echartsIns.resize && this.echartsIns.resize({ width: 'auto' });
-    this.ichartsIns && this.ichartsIns.resize && this.ichartsIns.resize((resizedOption) => {
+    this.echartsIns && this.echartsIns._dom && this.echartsIns.resize && this.echartsIns.resize({ width: 'auto' });
+    this.echartsIns && this.echartsIns._dom && this.ichartsIns && this.ichartsIns.resize && this.ichartsIns.resize((resizedOption) => {
       this.setOption(resizedOption);
     });
   }
