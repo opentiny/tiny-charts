@@ -19,7 +19,7 @@ import updateWidth from './barChartOption';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 import { CHART_TYPE, ADAPTIVE_THEME } from '../../util/constants';
 import Theme from '../../feature/token'
-
+import { mergeVisualMap, mergeSeries } from '../../util/merge';
 
 
 class BarLineChart {
@@ -53,7 +53,8 @@ class BarLineChart {
     this.baseOption.xAxis.forEach(item => {
       item.data = xAxisData;
     });
-   
+    // 合并用户自定义series
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   // 根据渲染出的结果，二次计算option

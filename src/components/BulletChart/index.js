@@ -15,6 +15,7 @@ import updateWidth from './bulletChartOption';
 import { handleTooltip, setDirection } from './handleOptipn';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 import { CHART_TYPE, ADAPTIVE_THEME } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 class BulletChart {
 
@@ -50,6 +51,8 @@ class BulletChart {
     handleSeries(this.baseOption, iChartOption, legendData, seriesData);
     // 设置柱状图的方向
     setDirection(this.baseOption, iChartOption.direction);
+    // 合并用户自定义series
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   // 根据渲染出的结果，二次计算option

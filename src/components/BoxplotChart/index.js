@@ -14,6 +14,7 @@ import  setSeries from './handleSeries';
 import { setDirection, setTooltip } from './handleOption';
 import RectCoordSys from '../../option/RectSys';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 export default class BoxplotChart {
 
@@ -39,6 +40,8 @@ export default class BoxplotChart {
     setDirection(this.baseOption, iChartOption.direction);
     // 提示框
     setTooltip(this.baseOption);
+    // 合并用户自定义series
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   getOption() {

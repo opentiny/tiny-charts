@@ -14,6 +14,7 @@ import { handleXaxis, handleYaxis, handleGrid, handleTooltip } from './handleOpt
 import init from '../../option/init';
 import RectCoordSys from '../../option/RectSys';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 class ScatterChart {
 
@@ -48,6 +49,8 @@ class ScatterChart {
     handleTooltip(this.baseOption, iChartOption);
     // 图表的series
     handleSeries(this.baseOption, iChartOption);
+    // 合并用户自定义series
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   getOption() {

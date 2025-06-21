@@ -15,6 +15,7 @@ import { setTooltip } from './handleOptipn';
 import handleSeries from './handleSeries';
 import init from '../../option/init';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 class WordCloudChart {
  
@@ -55,6 +56,8 @@ class WordCloudChart {
     this.baseOption.grid.right = iChartOption.padding[1];
     this.baseOption.grid.bottom = iChartOption.padding[2];
     this.baseOption.grid.left = iChartOption.padding[3];
+    // 合并用户自定义series
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   getOption() {

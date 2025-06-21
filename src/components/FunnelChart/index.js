@@ -14,6 +14,7 @@ import { setLegend } from './handleLegend.js';
 import { setSeries } from './handleSeries.js';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 export default class FunnelChart {
 
@@ -36,6 +37,8 @@ export default class FunnelChart {
     this.baseOption.series = setSeries(iChartOption);
     // 组装legend.data
     this.baseOption.legend.data ? this.baseOption.legend.data : setLegend(this.baseOption);
+    // 合并用户自定义series
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   getOption() {

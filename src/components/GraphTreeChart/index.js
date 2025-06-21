@@ -16,6 +16,7 @@ import { handleData, updateData } from './handleData';
 import { handleCategories, handleForce, handleArrow, handlePosition, handleLineStyle } from './handleOption';
 import { mixTree } from './mixTree';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 class GraphTreeChart {
 
@@ -48,6 +49,8 @@ class GraphTreeChart {
     handleLineStyle(iChartOption, this.baseOption, theme);
     // GraphTreeChart聚合树图, 需要走一遍echarts Tree图获取节点对应坐标;
     mixTree(this, chartInstance, this.baseOption);
+    // 合并用户自定义series
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   updateNodesData(positionArr, idArr) {
