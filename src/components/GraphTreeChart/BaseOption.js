@@ -12,6 +12,7 @@
 const BaseOption = {
   series: [
     {
+      name: 'data',
       type: 'graph',
       layout: 'force',
       // 可拖动

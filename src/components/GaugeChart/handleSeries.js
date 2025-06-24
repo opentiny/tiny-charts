@@ -551,7 +551,7 @@ export function handleSize(seriesUnit,radiusSize){
 function setSeriesInit(seriesUnit, iChartOption) {
   const chartPosition = iChartOption.position || iChartOption.chartPosition || {};
   const { pointerStyle, pointer, min, max, startAngle, endAngle } = iChartOption;
-  seriesUnit.name = iChartOption.seriesName || iChartOption.name;
+  seriesUnit.name = iChartOption.seriesName || iChartOption.name || 'data';
   seriesUnit.data = iChartOption.data.length ? iChartOption.data : [{value:0,name: ''}];
   // 指针
   seriesUnit.pointer.show = pointer || false;

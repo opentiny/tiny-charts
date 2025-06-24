@@ -16,6 +16,7 @@ import Token from '../../feature/token';
 
 export const seriesInit = {
   type: 'liquidFill',
+  name: 'data',
   center: ['50%', '50%'],
   waveAnimation: true,
   color: '',

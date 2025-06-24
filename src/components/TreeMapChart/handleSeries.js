@@ -27,11 +27,12 @@ export function handleSeries(baseOpt, iChartOpt) {
     formatter: '{b}',
     fontStyle: 'normal',
   }, optionLabel);
-
+  baseOpt.color = color;
   if (data && isArray(data)) {
     const seriesItem = {
       data,
       type: 'treemap',
+      name: 'data',
       roam: roam || false,
       nodeClick: roam ? 'zoomToNode' : false,
       breadcrumb: {
