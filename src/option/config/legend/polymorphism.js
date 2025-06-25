@@ -22,14 +22,14 @@ function setPolymorphism(legend) {
         color: Token.config.legendTextNameColor 
     },
     value1: {
-        fontSize: Token.config.textFontSize,
+        fontSize: Token.config.legendTextValueFontSize,
         width: 20,
         align:'right',
         fontWeight: 'bold',
         color: Token.config.legendTextValueColor
     },
     value2: {
-        fontSize: Token.config.textFontSize,
+        fontSize: Token.config.legendTextValueFontSize,
         width: 20,
         align:'right',
         fontWeight: 'bold',
@@ -41,7 +41,7 @@ function setPolymorphism(legend) {
         color: Token.config.legendTextSplitColor  
     },
     value: {
-      fontSize: Token.config.textFontSize,
+      fontSize: Token.config.legendTextValueFontSize,
       width: 20,
       align:'right',
       fontWeight: 'bold',
