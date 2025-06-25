@@ -145,6 +145,10 @@ function getModelToken(aliasToken) {
     legendCircleItemHeight: legendCircleItemSize,
     // 方形图例时每项的高度
     legendReactItemHeight: legendItemSize,
+    // 虚线图例时每项的高度
+    legendDashedItemHeight: legendItemSize * 4,
+    // 虚线图例时每项的宽度
+    legendDashedItemWidth: legendItemSize * 9,
     // 图例翻页文本颜色
     legendPageTextColor: colorLabel,
     // 图例翻页图标激活颜色
