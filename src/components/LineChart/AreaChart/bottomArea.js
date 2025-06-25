@@ -10,6 +10,7 @@
  *
  */
 import min from '../../../util/sort/min';
+import max from '../../../util/sort/max';
 import { isNumber, isObject } from '../../../util/type';
 import { getColor, codeToRGB } from '../../../util/color';
 import chartToken from './chartToken';
@@ -17,6 +18,38 @@ import Token from '../../../feature/token';
 
 // 创建一个渐变色-同名的Series，用来显示分割渐变区域
 function gradientBottomArea(item, percent, colorTo, colorFrom) {
+  let colorStops;
+  if (percent > 1) {
+    colorStops =  [
+      {
+        offset: 0,
+        color: chartToken.colorAreaTP,
+      },
+      {
+        offset: 1,
+        color: colorFrom,
+      },
+    ]
+  }else{
+    colorStops =  [
+      {
+        offset: 0,
+        color: chartToken.colorAreaTP,
+      },
+      {
+        offset: Math.abs(1 - percent - 0.00001),
+        color: chartToken.colorAreaTP,
+      },
+      {
+        offset: Math.abs(1 - percent),
+        color: colorTo,
+      },
+      {
+        offset: 1,
+        color: colorFrom,
+      },
+    ]
+  }
   const newSeries = {
     type: item.type,
     name: item.name,
@@ -35,24 +68,7 @@ function gradientBottomArea(item, percent, colorTo, colorFrom) {
         y2: 1,
         x: 0,
         y: 0,
-        colorStops: [
-          {
-            offset: 0,
-            color: chartToken.colorAreaTP,
-          },
-          {
-            offset: 1 - percent - 0.00001,
-            color: chartToken.colorAreaTP,
-          },
-          {
-            offset: 1 - percent,
-            color: colorTo,
-          },
-          {
-            offset: 1,
-            color: colorFrom,
-          },
-        ],
+        colorStops
       },
     },
   };
@@ -62,16 +78,18 @@ function gradientBottomArea(item, percent, colorTo, colorFrom) {
 /**
  * 为series添加split分割区域的底部areaStyle,
  */
-function splitArea(baseOption, iChartOption, YAxiMax) {
-  if (iChartOption.area && iChartOption.splitLine) {
+function splitArea(baseOption, iChartOption, YAxiMax, YAxiMin) {
+  const {area,splitLine} = iChartOption
+  if (area && splitLine) {
     const temp = [];
     const colors = baseOption.color;
     const colorAlpha = Token.config.globalColorAlpha
     baseOption.series.forEach((item, index) => {
+      if(!item.data) return;
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
-      const percent = (iChartOption.splitLine - minValue) / (YAxiMax - minValue);
+      let percent = Math.abs(splitLine - minValue) / (YAxiMax - minValue);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, colorAlpha);
       const colorFrom = codeToRGB(color, colorAlpha);
@@ -91,6 +109,38 @@ function judgeFilterAreaSeries(iChartOption) {
 
 // 创建一个纯色-同名Series，用来显示红色阈值区域
 function pureBottomArea(itemx, percentx, bottomColorx) {
+  let colorStops;
+  if (percentx > 1) {
+    colorStops = [
+      {
+        offset: 0,
+        color: chartToken.colorAreaTP, //解决svg渲染方式下面积图低阈值黑色背景的问题
+      },
+      {
+        offset: 1,
+        color: bottomColorx,
+      },
+    ]
+  }else{
+    colorStops = [
+      {
+        offset: 0,
+        color: chartToken.colorAreaTP, //解决svg渲染方式下面积图低阈值黑色背景的问题
+      },
+      {
+        offset: Math.abs(1 - percentx - 0.00001),
+        color: chartToken.colorAreaTP,
+      },
+      {
+        offset: Math.abs(1 - percentx),
+        color: bottomColorx,
+      },
+      {
+        offset: 1,
+        color: bottomColorx,
+      },
+    ]
+  }
   const seriesObj = {
     type: itemx.type,
     name: itemx.name,
@@ -104,24 +154,7 @@ function pureBottomArea(itemx, percentx, bottomColorx) {
         y: 0,
         x2: 0,
         y2: 1,
-        colorStops: [
-          {
-            offset: 0,
-            color: chartToken.colorAreaTP, //解决svg渲染方式下面积图低阈值黑色背景的问题
-          },
-          {
-            offset: 1 - percentx - 0.00001,
-            color: chartToken.colorAreaTP,
-          },
-          {
-            offset: 1 - percentx,
-            color: bottomColorx,
-          },
-          {
-            offset: 1,
-            color: bottomColorx,
-          },
-        ],
+        colorStops,
         type: 'linear',
       },
       origin: 'end',
@@ -147,7 +180,7 @@ function markLineArea(baseOption, iChartOption, YAxiMax) {
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
-      const percent = (iChartOption.markLine.bottom - minValue) / (YAxiMax - minValue);
+      const percent = Math.abs((iChartOption.markLine.bottom - minValue) / (YAxiMax - minValue));
       if (iChartOption.markLine.bottom >= minValue) {
         // 该series是为了实现红色特殊area的样式而加的，因此在tooltip中应该被屏蔽
         const newSeries = pureBottomArea(item, percent, bottomColor);
@@ -167,11 +200,11 @@ function getDataWidthNoObject(data) {
 /**
  * 为series添加areaStyle
  */
-function bottomArea(baseOption, iChartOption, YAxiMax) {
+function bottomArea(baseOption, iChartOption, YAxiMax, YAxiMin) {
   // 添加markLine的areaStyle
-  markLineArea(baseOption, iChartOption, YAxiMax);
+  markLineArea(baseOption, iChartOption, YAxiMax, YAxiMin);
   // 添加split的areaStyle
-  splitArea(baseOption, iChartOption, YAxiMax);
+  splitArea(baseOption, iChartOption, YAxiMax, YAxiMin);
 }
 
 

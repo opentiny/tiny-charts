@@ -12,7 +12,8 @@
 export default function max(arr) {
   function handle(arr) {
     return arr.filter(item => {
-      return Object.prototype.toString.call(item) === '[object Number]';
+      const newItem = item && typeof item === 'string' && Number(item) !== NaN ? Number(item) : item;
+      return Object.prototype.toString.call(newItem) === '[object Number]';
     });
   }
 

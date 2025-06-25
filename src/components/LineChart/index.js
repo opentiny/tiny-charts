@@ -103,9 +103,9 @@ class LineChart {
 
     }else{
       // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
-      topArea(this.baseOption, this.iChartOption, YAxiMin);
+      topArea(this.baseOption, this.iChartOption, YAxiMin, YAxiMax);
       // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
-      bottomArea(this.baseOption, this.iChartOption, YAxiMax);
+      bottomArea(this.baseOption, this.iChartOption, YAxiMax, YAxiMin);
     }
     
     // 合并用户自定义series
