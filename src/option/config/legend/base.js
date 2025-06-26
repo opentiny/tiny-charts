@@ -29,6 +29,7 @@ function getBaseOption() {
       fontSize: Token.config.legendTextFontSize,
       color: Token.config.legendTextColor,
       padding: Token.config.legendTextPadding,
+      verticalAlign: 'middle',
       rich:{
         title:{
           verticalAlign:'middle'

@@ -222,6 +222,10 @@ function getAliasToken(globalToken, sceneToken) {
     legendSpace: space4x,
     // 图例文字与图标的间距(只需要调整最后一位数)
     legendTextAndIconSpace: (- space05x * 3) + spaceBase,
+    // 图例value字体大小
+    legendTextValueFontSize: fontSizeBase,
+    // 图例名称字体大小
+    legendTextNameFontSize: fontSizeBase,
     // 无padding
     paddingNone: spaceNone,
     paddingSM: spaceBase,

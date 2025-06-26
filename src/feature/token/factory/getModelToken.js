@@ -49,6 +49,8 @@ function getModelToken(aliasToken) {
     legendItemSize,
     legendCircleItemSize,
     legendTextAndIconSpace, 
+    legendTextValueFontSize,
+    legendTextNameFontSize,
     containerGap,
     lineWidthSecondary,
     borderWidthNone,
@@ -132,9 +134,9 @@ function getModelToken(aliasToken) {
     // 图例文本字号
     legendTextFontSize: subtextFontSize,
     // 图例富文本名称字号
-    legendTextNameFontSize: subtextFontSize,
+    legendTextNameFontSize: legendTextNameFontSize,
     // 图例富文本数值字号
-    legendTextValueFontSize: textFontSize,
+    legendTextValueFontSize: legendTextValueFontSize,
     // 图例文本的padding
     legendTextPadding: [containerGap - 1, 0, 0, legendTextAndIconSpace],
     // 图例每项之间的间隔
