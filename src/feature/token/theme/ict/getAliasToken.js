@@ -248,9 +248,11 @@ function getAliasToken(globalToken, sceneToken) {
     // -------------------------------------------------------------size----------------------------------------------------------------------------------------
     // 图元
     symbolSize: size3x - 2,
-    // 雷达图专用
+    // 雷达图和箱型图使用
     symbolSizeSecondary: size3x - 2,
-    // 图元 线形图用
+    // 散点图使用
+    symbolSizeTertiary: size3x,
+    // 图元  线形图离散点用
     symbolSizeSM: sizeBase,
     // 柱条的宽度
     barWidth: size2x,

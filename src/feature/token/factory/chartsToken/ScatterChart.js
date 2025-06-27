@@ -10,11 +10,13 @@
  *
  */
 function ScatterChart(aliasToken) {
-  const { symbolFillHover } = aliasToken;
+  const { symbolFillHover, symbolSizeTertiary, symbolBorderWidth } = aliasToken;
 
   return {
     // 散点聚焦时圆圈颜色
     color: symbolFillHover,
+    symbolSize: symbolSizeTertiary,
+    symbolBorderWidth: symbolBorderWidth
   };
 };
 

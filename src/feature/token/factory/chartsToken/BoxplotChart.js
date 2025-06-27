@@ -10,12 +10,12 @@
  *
  */
 function BoxplotChart(aliasToken) {
-  const { lineWidth, symbolSize, symbolBorderWidthNone, colorNone, symbolBorderWidth, symbolFillHover } = aliasToken;
+  const { lineWidth, symbolSizeSecondary, symbolBorderWidthNone, colorNone, symbolBorderWidth, symbolFillHover } = aliasToken;
 
   return {
     boxplotItemStyleBorderWidth: lineWidth,
     boxplotEmphasisItemStyleBorderWidth: lineWidth,
-    scatterSymbolSize: symbolSize,
+    scatterSymbolSize: symbolSizeSecondary,
     scatterItemBorderWidth: symbolBorderWidthNone,
     scatterItemBorderColor: colorNone,
     scatterEmphasisItemBorderWidth: symbolBorderWidth,
