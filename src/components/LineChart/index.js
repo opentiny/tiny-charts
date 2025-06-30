@@ -11,7 +11,7 @@
  */
 import init from '../../option/init';
 import mini from '../../feature/mini/miniLineChart';
-import { setSeries } from './handleSeries';
+import { setSeries, setDatasetSeries } from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../option/base';
 import { setVisualMap } from './handleVisualMap';
@@ -88,7 +88,11 @@ class LineChart {
     discrete(iChartOption, this.baseOption);
     setTooltip(this.baseOption, iChartOption,legendData)
     // 合并用户自定义series
-    mergeSeries(iChartOption, this.baseOption);
+    if (iChartOption.dataset) {
+      setDatasetSeries(this.baseOption, iChartOption);
+    } else {
+      mergeSeries(iChartOption, this.baseOption);
+    }
     // 合并用户自定义visualMap
     mergeVisualMap(iChartOption, this.baseOption);
     // 处理特性
