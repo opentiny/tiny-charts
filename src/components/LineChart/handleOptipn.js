@@ -108,7 +108,7 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty) {
     let name = item.seriesName;
     if (isObject(value)){
       iChartOpt.data.forEach(data=>{
-        if (data.product === value[0]) {
+        if (data.product === value?.product) {
           value = data[name];
         }
       })
