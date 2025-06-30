@@ -8,7 +8,7 @@
 - 直接在 {{VITE_BASECOPYRIGHTS}} 提供好的属性上进行 ECharts 配置覆盖。
 - 使用 extend 字段，顶替掉 {{VITE_BASECOPYRIGHTS}} 默认配置。
 - 完全使用 ECharts 的原生配置。
-
+- 自定义 series 覆盖。
 </br>
 
 ## 扩展方式1：直接在 {{VITE_BASECOPYRIGHTS}} 提供的属性上添加 ECharts 配置
@@ -51,7 +51,7 @@ extend 字段内的所有属性必须为 ECharts 的原生配置属性，他们�
 ```javascript
 // 示例
 const chartIns = new HuiCharts();
-const chartType = 'lineChart';
+const chartType = 'LineChart';
 const chartOption = {
     data: [...],
     xAxis: {...},
@@ -97,3 +97,39 @@ chartIns.render();
 ```
 
 如果您需要获取 ECharts 实例，做进一步的处理，可以调用 `chartIns.getEchartsInstance()` 做进一步操作。
+</br>
+
+## 扩展方式4：自定义 Series 覆盖
+
+当您想通过自定义 Series 配置代替 {{VITE_BASECOPYRIGHTS}} 的生成的Series时，您可以使用以下方式实现。
+`注意`：series中name为数据中非X轴配置的key，例如下面例子中的'Domestic'或'Abroad'。
+
+```javascript
+// 示例
+const chartIns = new HuiCharts();
+const chartType = 'LineChart';
+const chartOption = {
+    data: [
+        { 'Month': 'Jan', 'Domestic': 33, 'Abroad': 37 },
+        { 'Month': 'Feb', 'Domestic': 27, 'Abroad': 29 },
+        { 'Month': 'Mar', 'Domestic': 31, 'Abroad': 20 },
+        { 'Month': 'Apr', 'Domestic': 30, 'Abroad': 12 },
+        { 'Month': 'May', 'Domestic': 33, 'Abroad': 11 },
+    ],
+    xAxis: {...},
+    series: [
+        {
+            name: 'Domestic', // 覆盖 Domestic 线条的样式
+            showSymbol: true,
+            symbol: 'circle',
+            symbolSize: 20,
+            itemStyle:{
+                opacity: 1
+            }
+        }
+    ]
+};
+chartIns.init(chartContainerDom);
+chartIns.setSimpleOption(chartType, chartOption);
+chartIns.render();
+```

@@ -34,6 +34,9 @@ const option = {
             name: 'Domestic', // 覆盖 Domestic 线条的样式
             showSymbol: true,
             symbol:'circle',
+            itemStyle:{
+                opacity: 1
+            },
             label: {
                 show: true,
                 formatter: (params) => {

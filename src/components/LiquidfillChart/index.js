@@ -13,6 +13,7 @@ import init from '../../option/init';
 import { setSeries } from './handleSeries.js';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 import './plugSeries.js';
 import './plugView.js';
 
@@ -35,6 +36,8 @@ export default class LiquidfillChart {
     PolarCoordSys(this.baseOption, iChartOption, CHART_TYPE.LIQUID_FILL);
     // 组装series 
     this.baseOption.series = setSeries(iChartOption);
+    // 合并用户自定义series
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   getOption() {

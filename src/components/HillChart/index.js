@@ -26,6 +26,7 @@ import toolTip from '../../option/config/tooltip';
 import xAxis from '../../option/config/xAxis';
 import yAxis from '../../option/config/yAxis';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 class HillChart {
 
@@ -84,6 +85,8 @@ class HillChart {
     handleMarkLine(this.baseOption, iChartOption);
     // 配置高亮状态
     handleEmphasis(this.baseOption, iChartOption);
+    // 合并用户自定义series
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   getOption() {

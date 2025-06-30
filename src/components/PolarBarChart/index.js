@@ -14,6 +14,7 @@ import { getSeriesData, getLabelData, setTooltip, setLabel } from './handleOptio
 import { setSeries } from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 export default class PolarBarChart {
 
@@ -54,6 +55,8 @@ export default class PolarBarChart {
             // pie数据
             const labelData = getLabelData(data);
             this.baseOption.series = setSeries(seriesData, labelData, iChartOption, this.baseOption.polar, type);
+            // 合并用户自定义series
+            mergeSeries(iChartOption, this.baseOption);
         }
     }
     getOption() {
