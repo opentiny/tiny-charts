@@ -22,13 +22,13 @@ export function handleSeries(baseOpt, iChartOpt) {
   data && isObject(data) && Object.keys(data).forEach(item => {
     const seriesItem = {
       name: item,
-      symbolSize: iChartOpt.symbolSize || 10,
+      symbolSize: iChartOpt.symbolSize || chartToken.symbolSize,
       data: data[item],
       type: 'scatter',
       emphasis: {
         itemStyle: {
           color: chartToken.color,
-          borderWidth: 4,
+          borderWidth: chartToken.symbolBorderWidth,
         },
         focus: 'series',
         scale: 1.3,
@@ -37,7 +37,7 @@ export function handleSeries(baseOpt, iChartOpt) {
         color(param) {
           return getColor(iChartOpt.color, param.seriesIndex);
         },
-        borderColor: () => {},
+        borderColor: () => { },
         borderWidth: 0,
       }
     };
