@@ -23,6 +23,9 @@ function codeToRGB(code, opacity) {
   if (code === undefined) {
     return undefined;
   }
+  if (color.includes('rgb')) {
+    return changeRgbaOpacity(code, opacity);
+  }
   const result = [];
   result.push(parseInt(code.substring(1, 3), 16));
   result.push(parseInt(code.substring(3, 5), 16));
