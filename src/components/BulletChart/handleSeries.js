@@ -105,6 +105,7 @@ export function handleSeries(baseOpt, iChartOpt, legendData, seriesData) {
     // 设置阈值
     const scatterObj = {
         type: 'scatter',
+        name: 'data',
         symbol: 'rect',
         silent: true,
         symbolSize: symbolSize,
@@ -125,6 +126,7 @@ export function handleSeries(baseOpt, iChartOpt, legendData, seriesData) {
                 barWidth: backgroundWidth,
                 stack: 'total',
                 data: rectData,
+                name: item.name,
                 color: iChartOpt.theme.indexOf('dark') !== -1 ? handleSetColor(item, 0.3) : handleSetColor(item, 0.15),
                 barGap: 0
             }

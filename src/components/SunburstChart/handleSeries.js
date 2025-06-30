@@ -20,6 +20,7 @@ export const seriesInit = {
   emphasis: {
     focus: 'descendant',
   },
+  name: 'data',
   itemStyle: {
     borderRadius: 4,
     borderWidth: 2,

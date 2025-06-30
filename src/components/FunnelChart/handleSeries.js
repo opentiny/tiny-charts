@@ -16,6 +16,7 @@ import chartToken from './chartToken';
 // 默认的seies配置
 function getSeriesInit() {
   return {
+    name: 'data',
     type: 'funnel',
     width: '80%',
     minSize: '0%',
