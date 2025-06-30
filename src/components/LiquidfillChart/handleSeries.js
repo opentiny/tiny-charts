@@ -13,6 +13,7 @@ import merge from '../../util/merge';
 import cloneDeep from '../../util/cloneDeep';
 import chartToken from './chartToken';
 import Token from '../../feature/token';
+import { isObject } from '../../util/type';
 
 export const seriesInit = {
   type: 'liquidFill',
@@ -124,6 +125,35 @@ function setBackgroundStyle(seriesTarget, seriesSource, backgroundStyle) {
   }
 }
 
+// 处理data为null情况
+function handleDataNull(data,seriesUnit) {
+  if(data.length) {
+    let isobjectFlag = isObject(data[0]);
+    if(isobjectFlag) {
+      data.sort((a,b) => {
+        if(a.value === null && b.value != null ) {
+          return 1;
+        } else if (a.value !== null && b.value === null) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+      let nullLength = 0;
+      data.forEach((item,index) => {
+        if(item.value == null) {
+          nullLength++
+        }
+      })
+      if(nullLength === data.length) {
+        seriesUnit.label.show = false;
+      }
+    }
+  }
+  seriesUnit.data = data;
+}
+
+
 /**
  * 组装echarts所需要的series
  * @param {传入数据} iChartOption
@@ -164,6 +194,9 @@ export function setSeries(iChartOption) {
     setOutline(seriesUnit, iChartOption);
     // 配置label
     setLabel(seriesUnit, iChartOption);
+    if(seriesUnit.data) {
+      handleDataNull(data,seriesUnit);
+    }
     series.push(seriesUnit);
   }
   return series;
