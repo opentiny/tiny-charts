@@ -11,6 +11,7 @@
  */
 import * as echarts from 'echarts';
 import max from '../../../util/sort/max';
+import min from '../../../util/sort/min';
 import { isNumber } from '../../../util/type';
 import { getColor, codeToRGB } from '../../../util/color';
 import chartToken from './chartToken';
@@ -30,13 +31,60 @@ function markLineArea(baseOption, iChartOption, YAxiMin) {
     const colorAlpha = Token.config.globalColorAlpha
     const topColor = codeToRGB(markLine.topColor, colorAlpha) || codeToRGB(Token.config.colorState.colorError, colorAlpha);
     baseOption.series.forEach((item, index) => {
+      if (!item.data) return;
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const maxValue = max(seriesData);
+      const minValue = min(seriesData);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0);
       const colorFrom = codeToRGB(color, colorAlpha);
-      const percent = (maxValue - markLine.top) / (maxValue - YAxiMin);
+      let percent;
+      let colorStops;
+      if (minValue < 0) {
+        percent = Math.abs((maxValue - markLine.top) / (maxValue - minValue));
+        if (markLine.top < 0 && maxValue < 0) {
+          percent = Math.abs((0 - markLine.top) / (0 - minValue));
+        }
+      } else {
+        percent = Math.abs((maxValue - markLine.top) / (maxValue - YAxiMin));
+      }
+      colorStops = [
+        {
+          offset: 0,
+          color: topColor,
+        },
+        {
+          offset: percent,
+          color: topColor,
+        },
+        {
+          offset: percent + 0.00001,
+          color: colorFrom,
+        }]
+      if (minValue < 0) {
+        const zeroPercent = Math.abs((maxValue - 0) / (maxValue - minValue));
+        if (maxValue > 0) {
+          colorStops.push(
+            {
+              offset: zeroPercent,
+              color: colorTo,
+            }
+          )
+        }
+        colorStops.push({
+          offset: 1,
+          color: colorFrom,
+        }
+        )
+      } else {
+        colorStops.push(
+          {
+            offset: 1,
+            color: colorTo,
+          }
+        )
+      }
       if (maxValue > markLine.top) {
         item.areaStyle = {
           color: {
@@ -45,24 +93,7 @@ function markLineArea(baseOption, iChartOption, YAxiMin) {
             y: 0,
             x2: 0,
             y2: 1,
-            colorStops: [
-              {
-                offset: 0,
-                color: topColor,
-              },
-              {
-                offset: percent,
-                color: topColor,
-              },
-              {
-                offset: percent + 0.00001,
-                color: colorFrom,
-              },
-              {
-                offset: 1,
-                color: colorTo,
-              },
-            ],
+            colorStops
           },
         };
       }
@@ -73,14 +104,45 @@ function markLineArea(baseOption, iChartOption, YAxiMin) {
 function defaultArea(baseOption, iChartOption, YAxiMin) {
   if (iChartOption.area) {
     const colors = baseOption.color;
-    const colorAlpha = Token.config.globalColorAlpha
+    const colorAlpha = Token.config.globalColorAlpha;
     baseOption.series.forEach((item, index) => {
+      const seriesData = getDataWidthNoObject(item.data)
+      const maxValue = max(seriesData);
+      const minValue = min(seriesData);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0);
       const colorFrom = codeToRGB(color, colorAlpha);
-      item.areaStyle = {
-        opacity: 1,
-        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+      let colorStops;
+      if (minValue < 0) {
+        const zeroPercent = Math.abs((maxValue - 0) / (maxValue - minValue));
+        colorStops = [
+          {
+            offset: 0,
+            color: colorFrom,
+          },
+          {
+            offset: zeroPercent,
+            color: colorTo,
+          },
+          {
+            offset: 1,
+            color: colorFrom,
+          }
+        ]
+        if (maxValue <= 0) {
+          colorStops = [
+            {
+              offset: 0,
+              color: colorTo,
+            },
+            {
+              offset: 1,
+              color: colorFrom,
+            },
+          ]
+        }
+      } else {
+        colorStops = [
           {
             offset: 0,
             color: colorFrom,
@@ -89,7 +151,11 @@ function defaultArea(baseOption, iChartOption, YAxiMin) {
             offset: 1,
             color: colorTo,
           },
-        ]),
+        ]
+      }
+      item.areaStyle = {
+        opacity: 1,
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, colorStops),
       };
     });
   }
@@ -104,10 +170,30 @@ function splitArea(baseOption, iChartOption, YAxiMin) {
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const maxValue = max(seriesData);
+      const minValue = min(seriesData);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, colorAlpha);
       const colorFrom = codeToRGB(color, colorAlpha);
-      const percent = (maxValue - splitLine) / (maxValue - YAxiMin);
+      let percent;
+      let colorStops;
+      if (minValue < 0) {
+        percent = Math.abs(Math.abs(maxValue - splitLine) / (maxValue - minValue));
+      } else {
+        percent = Math.abs((maxValue - splitLine) / (maxValue - YAxiMin));
+      }
+      if (percent > 1) {
+        colorStops = [
+          { offset: 0, color: colorFrom },
+          { offset: 1, color: chartToken.colorAreaTP },
+        ]
+      } else {
+        colorStops = [
+          { offset: 0, color: colorFrom },
+          { offset: percent, color: colorTo },
+          { offset: percent + 0.00001, color: chartToken.colorAreaTP },
+          { offset: 1, color: chartToken.colorAreaTP },
+        ]
+      }
       item.areaStyle = {
         color: {
           type: 'linear',
@@ -115,12 +201,7 @@ function splitArea(baseOption, iChartOption, YAxiMin) {
           y: 0,
           x2: 0,
           y2: 1,
-          colorStops: [
-            { offset: 0, color: colorFrom },
-            { offset: percent, color: colorTo },
-            { offset: percent + 0.00001, color: chartToken.colorAreaTP },
-            { offset: 1, color: chartToken.colorAreaTP },
-          ],
+          colorStops
         },
       };
     });
