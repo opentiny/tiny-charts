@@ -10,18 +10,20 @@
  *
  */
 class LineDashed {
-  constructor({ ctx, canvasWidth, canvasHeight }, verCenterPoint, interval, lineStrokeColor) {
+  constructor({ ctx, canvasWidth, canvasHeight, data }, verCenterPoint, interval, lineStrokeColor) {
+    const { lineWidth } = data;
     this.ctx = ctx;
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
     this.lineStrokeColor = lineStrokeColor;
+    this.lineWidth = lineWidth ?? 2;
   }
   draw() {
     this.ctx.moveTo(0, this.canvasHeight / 2);
     this.ctx.lineTo(this.canvasWidth, this.canvasHeight / 2);
-    this.ctx.lineWidth = 2;
+    this.ctx.lineWidth = this.lineWidth;
     this.ctx.strokeStyle = this.lineStrokeColor;
-    this.ctx.setLineDash([5, 5]);
+    this.ctx.setLineDash([this.lineWidth * 2, this.lineWidth * 2]);
     this.ctx.stroke();
   }
 }
