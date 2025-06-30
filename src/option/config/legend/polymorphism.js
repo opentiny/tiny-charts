@@ -15,33 +15,35 @@ import merge from '../../../util/merge';
 function setPolymorphism(legend) {
   const baseRich = {
     title: {
-        fontSize: Token.config.legendTextNameFontSize,
-        padding: [0, 0, 0, 5],
-        width: 80,
-        align:'left',
-        color: Token.config.legendTextNameColor 
+      fontSize: Token.config.legendTextNameFontSize,
+      padding: [0, 0, 0, 5],
+      width: 80,
+      align:'left',
+      color: Token.config.legendTextNameColor 
     },
     value1: {
-        fontSize: Token.config.textFontSize,
-        width: 20,
-        align:'right',
-        fontWeight: 'bold',
-        color: Token.config.legendTextValueColor
+      fontSize: Token.config.legendTextValueFontSize,
+      width: 20,
+      align:'right',
+      fontWeight: 'bold',
+      color: Token.config.legendTextValueColor
     },
     value2: {
-        fontSize: Token.config.textFontSize,
-        width: 20,
-        align:'right',
-        fontWeight: 'bold',
-        color: Token.config.legendTextValueColor
+      fontSize: Token.config.legendTextValueFontSize,
+      width: 20,
+      align:'right',
+      fontWeight: 'bold',
+      color: Token.config.legendTextValueColor
     },
     split:{
-        padding:[0, 8, 0, 8],
-        align:'right',
-        color: Token.config.legendTextSplitColor  
+      fontSize: Token.config.legendTextValueFontSize,
+      width: Token.config.legendTextValueFontSize -2 ,
+      padding:[0, Token.config.legendTextValueFontSize -2 , 0, 0],
+      align:'right',
+      color: Token.config.legendTextSplitColor  
     },
     value: {
-      fontSize: Token.config.textFontSize,
+      fontSize: Token.config.legendTextValueFontSize,
       width: 20,
       align:'right',
       fontWeight: 'bold',
