@@ -10,17 +10,19 @@
  *
  */
 class LineDotted {
-    constructor({ ctx, canvasWidth, canvasHeight }, verCenterPoint, interval, lineStrokeColor) {
+    constructor({ ctx, canvasWidth, canvasHeight, data }, verCenterPoint, interval, lineStrokeColor) {
+        const { lineWidth } = data;
         this.ctx = ctx;
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.lineStrokeColor = lineStrokeColor;
+        this.lineWidth = lineWidth ?? 1;
     }
     draw() {
         this.ctx.fillStyle = this.lineStrokeColor;
-        const size = 1
+        const size = this.lineWidth;
         for (let i = 0; i < this.canvasWidth; i += size * 2 * 2) {
-            this.ctx.arc(i, this.canvasHeight / 2, size, 0, Math.PI * 2)
+            this.ctx.arc(i, this.canvasHeight / 2, size, 0, Math.PI * 2);
         }
         this.ctx.fill();
     }

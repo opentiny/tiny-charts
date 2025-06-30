@@ -9,19 +9,32 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-// 2.4g、5g接入  无线信号
-const radioType = {
+// 用户传入的连线方式开头
+const ConnectType = {
+  SSID: 'SSID',
+  SSID_MIX: 'SSID-2.4G/5G',
+  Wireless: 'wireless',
+  Dashed: 'Dashed',
+  Dotted: 'Dotted',
+};
+
+// 组件提供的连线方式
+const LineType = {
   TYPE_Straight: 'Straight',
   TYPE_Arrow: 'Arrow',
   TYPE_Dashed: 'Dashed',
   TYPE_Dotted: 'Dotted',
 };
 
+const IntervalType = {
+  Wireless: 'wireless'
+};
+
 // 不同的箭头间隔
 const interval = {
   '2.4G': 12,
   '5G': 8,
-  'wireless': 8
+  [IntervalType.Wireless]: 8
 };
 
 // 连线文本样式
@@ -71,7 +84,9 @@ const subRootGap = 20;
 const distanceDrillDefault = 800;
 
 export {
-  radioType,
+  ConnectType,
+  LineType,
+  IntervalType,
   textStyle,
   direction,
   interval,
@@ -95,7 +110,7 @@ export {
 //   onlineStatus: number; // 1 在线
 //   mac: string; // 用作唯一标识？
 //   connectInterface: 'LAN*' | 'PON*' | 'SSID-2.4G'; // 接入方式
-//   // radioType: '2.4G' | '5G'; // 无线
+//   // LineType: '2.4G' | '5G'; // 无线
 //   onlineDuration: number; // 在线时长
 //   signalStrength: number; // 信号强度，不带单位, 2.4G 阈值-75，5G 阈值-72,（单位，自行判断是否超过阈值）
 //   rxPower: number; // 光功率（从网关需要判断：SSID 显示信号强度，其他显示光功率。 主网关固定光功率，主网关无信号强度字段。sta 固定信号强度）

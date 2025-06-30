@@ -181,7 +181,8 @@ const houseTag = (data, tagContainer, theme, scale) => {
     background: theme.indexOf('dark') !== -1 ? '#191919' : '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '999px'
+    borderRadius: '999px',
+    whiteSpace: 'nowrap',
   };
   if (data.connectInterface?.indexOf('SSID') === -1 && data.connectInterface?.indexOf('wireless') === -1) {
     setStyle(tagContainer, {
