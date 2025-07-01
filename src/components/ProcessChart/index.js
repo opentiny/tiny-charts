@@ -18,6 +18,7 @@ import { handleGrid, handleYaxis, handleXaxis, handleDataZoom, handleLegend, han
 import handleSeries from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import { CHART_TYPE } from '../../util/constants';
+import { mergeSeries } from '../../util/merge';
 
 class ProcessChart {
 
