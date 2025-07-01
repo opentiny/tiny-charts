@@ -94,6 +94,9 @@ export function setVisualMap(legendData, seriesData, iChartOpt, baseOpt) {
       const data = seriesData[legendName];
       const minData = min(data);
       const maxData = max(data);
+      if(!minData || !maxData){
+        return visualMap;
+      }
       const defaultColor = getColor(colors, index)
       let bottom = bottomValue;
       let top = topValue;
