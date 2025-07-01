@@ -23,7 +23,7 @@ function codeToRGB(code, opacity) {
   if (code === undefined) {
     return undefined;
   }
-  if (color.includes('rgb')) {
+  if (code.includes('rgb')) {
     return changeRgbaOpacity(code, opacity);
   }
   const result = [];
