@@ -217,12 +217,15 @@ const bindLegendEvent = ({ baseOption, chartType }, chartInstance) => {
 
   const baseCallback = (params) => {
     for (let type in params.selected) {
-      if (!params.selected[type]) {
-        // 图例隐藏，对应背景色柱条的值应该为sum
-        newSeries[newSeries.length - 1].data.find(v => v.name === type).value = baseOption.angleAxis.sum;
-      } else {
-        // 图例显示，对于背景色柱条的值应该为sum-value
-        newSeries[newSeries.length - 1].data.find(v => v.name === type).value = baseOption.angleAxis.sum - newSeries.find(v => v.name === type).data.find(v => v.name === type).value;
+      const selectedSeries = newSeries[newSeries.length - 1].data.find(v => v.name === type).value;
+      if (selectedSeries) {
+        if (!params.selected[type]) {
+          // 图例隐藏，对应背景色柱条的值应该为sum
+          selectedSeries = baseOption.angleAxis.sum;
+        } else {
+          // 图例显示，对于背景色柱条的值应该为sum-value
+          selectedSeries = baseOption.angleAxis.sum - newSeries.find(v => v.name === type).data.find(v => v.name === type).value;
+        }
       }
     }
   };
