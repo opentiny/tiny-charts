@@ -52,6 +52,8 @@ import {MindmapChart} from '{{VITE_BASECOPYRIGHTSPAT}}';
 import '{{VITE_BASECOPYRIGHTSPAT}}/feature/nodeRender/vue-node.js'
 // 引用节点组件
 import Node from './Node.vue';
+// 引用样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css'
 
 const option = {
   // 向图表中传入Vue组件，作为节点使用

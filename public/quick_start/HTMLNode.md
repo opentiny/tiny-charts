@@ -29,6 +29,8 @@ function HTMLNode(container, data) {
 ```javascript
 // 引用图表库
 import {MindmapChart} from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引用样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css'
 const option = {
   // 向图表中传入HTML方法，作为节点使用
   component: HTMLNode,

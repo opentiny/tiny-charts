@@ -9,6 +9,8 @@
 // javascript片段
 // 引用自定义布局图表
 import { MindmapChart } from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引用样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css'
 const option = {
   data,
   layout,

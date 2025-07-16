@@ -7,6 +7,8 @@
 ```javascript
 // 引用图表库
 import { MindmapChart } from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引用样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css'
 const option = {
   layout: {
     type: 'mindmap',

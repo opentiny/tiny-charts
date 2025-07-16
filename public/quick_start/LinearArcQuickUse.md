@@ -19,6 +19,8 @@ import { LinearArcChart } from '{{VITE_BASECOPYRIGHTSPAT}}';
 import '{{VITE_BASECOPYRIGHTSPAT}}/feature/nodeRender/vue-node.js';
 // 引用节点组件
 import LinearArcNode from './LinearArcNode.vue';
+// 引用样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css'
 const option = {
 	layout: {
 		type: 'lineaArc',
