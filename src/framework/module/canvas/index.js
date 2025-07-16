@@ -430,6 +430,29 @@ class CanvasManager {
         this.container = null;
     }
 
+    // 放大
+    zoomIn(){
+        this.bindMouseWheel({
+            deltaY: -100,
+            clientX: this.containerRect.left + this.containerRect.width / 2,
+            clientY: this.containerRect.top + this.containerRect.height / 2
+        }, true);
+    }
+
+    // 缩小
+    zoomOut(){
+        this.bindMouseWheel({
+            deltaY: 100,
+            clientX: this.containerRect.left + this.containerRect.width / 2,
+            clientY: this.containerRect.top + this.containerRect.height / 2
+        }, true);
+    }
+
+    // 还原
+    restore(){
+        this.reset();
+    }
+
     // 后续要添加刷新画布.刷新网格配置的接口
     // refresh .....
 }
