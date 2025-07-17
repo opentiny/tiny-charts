@@ -10,6 +10,8 @@
 // javascript片段
 // 引用自定义布局图表
 import { CustomizeChart } from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引用样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css'
 const option = {
   layout: {
     type: 'grid',

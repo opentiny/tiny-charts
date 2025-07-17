@@ -8,6 +8,8 @@
 // javascript片段
 // 引入图表库
 import { CircleChart } from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引用样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css'
 const chartDom = document.getElementById('dom');
 const chartOption = {
     data:  {...},
@@ -72,5 +74,29 @@ grid.type为doubleMesh时，grid.config的配置示例：
 | :----- |  :----- |  :----- |  :-----  |   :-----  |  
 | setGrid | 设置网格(传入canvas.grid新的配置项)  | `function` |`无` |{color: '#aaaaaa',unitSize: 1} |
 | onScale | 画布缩放时触发回调  | `function` |`无` | {args:{lastScale: 0.9, currentScale: 1 }} |
-| onMove | 画布移动时触发回调  | `function` |`无` |{type: 'move'或'scale', offset: 上次到当前偏移量, scale: 本次缩放值, lastScale: 上次缩放值, center: 画布中心} |
+| onMove | 画布移动时触发回调  | `function` |`无` | {type: 'move'或'scale', offset: 上次到当前偏移量, scale: 本次缩放值, lastScale: 上次缩放值, center: 画布中心} |
+| zoomIn | 放大画布  | `function` |`无` |`无` |
+| zoomOut | 缩小画布  | `function` |`无` |`无` |
+| restore | 复位  | `function` |`无` |`无` |
+
+`使用方式：`
+```javascript
+// chartIns: 图表实例
+// 画布缩放时触发回调 -- 需在图表render方法后使用
+chartIns.canvas.onScale = (param)=>{
+  // 当前缩放值
+  const currentScale = param.currentScale;
+}
+// 画布移动时触发回调 -- 需在图表render方法后使用
+chartIns.canvas.onMove = (param)=>{
+  // param： {type: 'move'或'scale', offset: 上次到当前偏移量, scale: 本次缩放值, lastScale: 上次缩放值, center: 画布中心}
+}
+// 放大
+chartIns.canvas.zoomIn()
+// 缩小
+chartIns.canvas.zoomOut()
+// 复位
+chartIns.canvas.restore()
+
+```
 

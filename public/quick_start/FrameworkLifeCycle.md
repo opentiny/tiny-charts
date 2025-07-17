@@ -7,6 +7,8 @@
 // javascript 片段
 // 引用图表库
 import {MindmapChart} from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引用样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css'
 // 图表配置项
 let chartOption = {
     layout: {
