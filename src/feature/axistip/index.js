@@ -109,7 +109,7 @@ function axistip(echartsDom, echartsIns, eChartOption, axistip) {
         })
       }else{
         textFormatter[type] = undefined;
-        if(eChartOption.axisLabel.formatter && typeof eChartOption.axisLabel.formatter === 'function') {
+        if(eChartOption?.axisLabel?.formatter && typeof eChartOption?.axisLabel?.formatter === 'function') {
           textFormatter[type] = eChartOption.axisLabel.formatter
         }
       }
