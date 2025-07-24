@@ -26,15 +26,15 @@ function getSceneToken(globalToken, light = true) {
         // 初级底色 (卡片)
         colorBgPrimary: light ? colorGray0 : colorGray10,
         // 次级背景色 tip背景
-        colorBgSecondary: light ? colorGray0 : colorGray15,
+        colorBgSecondary: light ? colorGray0 : colorGray20,
         // 占位背景色
-        colorBgPlaceholder: light ? colorGray30 : colorGray15,
+        colorBgPlaceholder: light ? colorGray30 : codeToRGB(colorGray100, 0.2),
         // datazoom背景
         colorBgHover: light ? colorGray10 : codeToRGB(colorGray100, 0.1),
         // datazoom  handle border todo 
         colorBgHandle: light ? colorBoard.blue.colorBlue60 : colorBoard.blue.colorBlue70,
         // 仪表盘中心文本卡片
-        colorBgActive: light ? colorGray10 : colorGray20,
+        colorBgActive: light ? colorGray10 : codeToRGB(colorGray100, 0.1),
         // 主要文本色
         colorTextPrimary: colorGray90,
         // 次要文本色
@@ -48,26 +48,26 @@ function getSceneToken(globalToken, light = true) {
         // 图标禁用色
         colorIconDisabled: colorGray50,
         colorLine: colorGray20,
-        colorLineSecondary: light ? colorGray40 : colorGray20,
+        colorLineSecondary: light ? colorGray20 : colorGray20,
         // 指示线
         colorLinePointer: colorGray90,
         // 分割线
         colorLineSeparator: light ? colorGray20 : codeToRGB(colorGray100, 0.1),
         colorFillNone: colorTransparent,
         // datzoom 未选中数据  fill
-        colorFill: light ? codeToRGB(colorGray100, 0.05) : codeToRGB(colorGray100, 0.1),
+        colorFill: light ? colorGray30 : codeToRGB(colorGray100, 0.2),
         // datzoom  选中区域 fill todo
         colorFillSelect: light ? codeToRGB(colorBoard.blue.colorBlue60, 0.2) : codeToRGB(colorBoard.blue.colorBlue70, 0.2),
         // datzoom  选中数据 fill todo
         colorFillSelectSecondary: light ? colorBoard.blue.colorBlue30 : colorBoard.blue.colorBlue100,
         // hover阴影
-        colorFillHover: light ? codeToRGB(colorGray100, 0.05) : codeToRGB(colorGray100, 0.1),
+        colorFillHover: light ? colorGray10 : codeToRGB(colorGray100, 0.1),
         // datzoom handle 填充
         colorFillHandle: light ? colorGray0 : colorGray100,
-        colorBorder: light ? colorGray50 : colorGray40,
-        colorBorderSelect: light ? colorBoard.blue.colorBlue60 : colorBoard.blue.colorBlue60,
-        colorShadowPrimary: light ? codeToRGB(colorGray100, 0.16) : codeToRGB(colorGray0, 0.08),
-        colorShadowSecondary: light ? codeToRGB(colorGray100, 0.08) : codeToRGB(colorGray0, 0.08),
+        colorBorder: light ? colorGray50 : colorGray50,
+        colorBorderSelect: light ? colorBoard.blue.colorBlue60 : colorBoard.blue.colorBlue70,
+        colorShadowPrimary: light ? codeToRGB(colorGray100, 0.16) : codeToRGB(colorGray0, 0.48),
+        colorShadowSecondary: light ? codeToRGB(colorGray100, 0.08) : codeToRGB(colorGray0, 0.48),
         shadowOffsetYPrimary: spaceBase,
         shadowOffsetYSecondary: space05x,
         shadowBlurPrimary: space4x,
