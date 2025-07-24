@@ -47,7 +47,7 @@ function getSceneToken(globalToken, light = true) {
         colorIconPrimary: light ? colorGray60 : colorGray70,
         // 图标禁用色
         colorIconDisabled: colorGray50,
-        colorLine: colorGray20,
+        colorLine: colorGray30,
         colorLineSecondary: light ? colorGray20 : colorGray20,
         // 指示线
         colorLinePointer: colorGray90,
