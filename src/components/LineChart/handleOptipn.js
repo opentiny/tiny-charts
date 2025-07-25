@@ -151,6 +151,6 @@ export function setTooltip(baseOpt, iChartOpt, legendData) {
       params = echartsParams.slice(0, lineNumber)
     }
     const initParams = coverObjDataToInit(params)
-    return formatter ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty)
+    return formatter && typeof formatter === 'function' ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty)
   }
 }
