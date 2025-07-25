@@ -1,9 +1,4 @@
-
-// import { codeToRGB } from '../../../../util/color';
-
-
 function getExportThemeToken(aliasToken, sceneToken, colorSet, colorBoard, themeName) {
-    console.log(11111)
     const {
         colorTextPrimary,
         colorTextPlaceholder,
