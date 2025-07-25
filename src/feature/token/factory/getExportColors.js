@@ -18,7 +18,7 @@ const EXPORT_COLORS_KEY = [
     'textDisabled'
 ]
 
-function getExportColors(colorSet, sceneToken) {
+function getExportColors(colorSet, sceneToken, themeToken) {
     const { colorTextPrimary, colorTextSecondary, colorTextPlaceholder, colorTextDisabled } = sceneToken
     return {
         group: colorSet.colorGroup,
@@ -38,7 +38,9 @@ function getExportColors(colorSet, sceneToken) {
         textPrimary: colorTextPrimary,
         textSecondary: colorTextSecondary,
         textPlaceholder: colorTextPlaceholder,
-        textDisabled: colorTextDisabled
+        textDisabled: colorTextDisabled,
+        // 主题token色导出
+        themeToken
     }
 }
 
