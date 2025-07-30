@@ -168,7 +168,6 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
     baseOpt.tooltip.formatter = tipHtml;
     return;
   }
-  const ichartTooltipFormatter = iChartOpt?.tooltip?.formatter;
   baseOpt.tooltip.formatter = (params, ticket, callback) => {
     const name = params[0].name
     if (name === 'null') return
@@ -189,10 +188,6 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
         config.children.push(dataItem)
       }
     });
-    if (ichartTooltipFormatter) {
-      const customParams = { params, config };
-      return ichartTooltipFormatter(customParams, ticket, callback);
-    }
     return getTooltipContentHtmlStr(config)
   };
 }
