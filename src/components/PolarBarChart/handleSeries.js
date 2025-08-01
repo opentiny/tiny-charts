@@ -42,7 +42,6 @@ function getSeriesInit(type) {
 function getPieInit() {
   return {
     type: 'pie',
-    name: 'label',
     label: {
       show: true,
       fontSize: 12,
