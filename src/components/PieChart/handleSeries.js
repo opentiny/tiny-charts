@@ -219,7 +219,6 @@ function handleSeries(pieType, iChartOption, chartInstance, position, legend) {
         seriesUnit[name] = existValue;
       }
     });
-    seriesUnit.name = 'data';
     seriesUnit.data = seriesUnit.data || iChartOption.data;
     seriesUnit.radius = setPieRadius(pieType, seriesUnit.radius, chartInstance);
     seriesUnit.minAngle =
