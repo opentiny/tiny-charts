@@ -11,7 +11,7 @@
  */
 import init from '../../option/init';
 import mini from '../../feature/mini/miniLineChart';
-import { setSeries, setDatasetSeries } from './handleSeries';
+import { setSeries, setDatasetSeries, handleMarkLineMax} from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../option/base';
 import { setVisualMap } from './handleVisualMap';
@@ -111,7 +111,10 @@ class LineChart {
       // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
       bottomArea(this.baseOption, this.iChartOption, YAxiMax, YAxiMin);
     }
-    
+    // 处理用户设置的阈值大于y轴，设置y轴max保证阈值显示
+    if(this.iChartOption.markLine){
+      handleMarkLineMax(this.baseOption, echartsIns, this.iChartOption);
+    }
     // 合并用户自定义series
     mergeSeries(this.iChartOption, this.baseOption);
   }
