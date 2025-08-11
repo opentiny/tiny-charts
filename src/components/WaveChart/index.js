@@ -144,8 +144,8 @@ export default class WaveChart extends BaseChart {
     this.domContainer.style.top = top;
     this.loadingContainer.style.left = left;
     this.loadingContainer.style.top = top;
-    this.innerContainer.style.left = `${(this.clientWidth * parseInt(left)) / 100}px`;
-    this.innerContainer.style.top = `${(this.clientHeight * parseInt(top)) / 100}px`;
+    this.innerContainer.style.left = left;
+    this.innerContainer.style.top = top;
   }
 
   // 设置雷达图点和线的样式随着尺寸自适应
@@ -288,7 +288,7 @@ export default class WaveChart extends BaseChart {
       this.innerContainer.style.display = 'none';
       chartOption['tooltip'] = { show: false };
     }
-    merge(chartOption.radar,this.radar);
+    merge(chartOption.radar, this.radar);
     chartIns.setSimpleOption(RadarChart, chartOption);
     // 开始渲染
     chartIns.render();
