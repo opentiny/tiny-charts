@@ -70,7 +70,7 @@ function getExportThemeToken(aliasToken, sceneToken, colorSet, colorBoard, theme
         "ti-color-bg-overlay-default": colorBgContainerSecondary,
         "ti-color-bg-active": colorBgContainerHover,
         "ti-color-bg-tag-gray": colorPlaceholder,
-        "ti-color-bg-default-2": colorShadowHover,
+        "ti-color-bg-default": colorShadowHover,
         "ti-color-border-chart-divider": colorAxisLine,
         "ti-color-border-hover": colorAxisPointerLine,
         "ti-color-bg-control-active": colorZoomSelectDataAreaBorder,
