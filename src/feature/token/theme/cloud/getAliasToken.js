@@ -229,7 +229,7 @@ function getAliasToken(globalToken, sceneToken) {
     // 图例value字体大小
     legendTextValueFontSize: fontSizeMd,
     // 图例名称字体大小
-    legendTextNameFontSize: fontSizeMd,
+    legendTextNameFontSize: fontSizeBase,
     // 无padding
     paddingNone: spaceNone,
     paddingSM: spaceBase,
