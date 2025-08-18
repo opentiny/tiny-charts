@@ -35,15 +35,15 @@ const BarChartOption = (width, option, type, stack, theme) => {
 
   // 初始柱宽和不同系列柱子间距 hd是16，cloud是8
   const rawBarwidth = (theme ?? '').includes('cloud') ? 8 : 16;
-  const rawbarGap = (theme ?? '').includes('cloud') ? 2 : 4;
+  const rawBarGap = (theme ?? '').includes('cloud') ? 2 : 4;
   // 需要根据主题设置柱子之间初始间距
-  const interval = (width - (rows * columns * rawBarwidth + rows * rawbarGap * (columns - 1))) / intervalRows
+  const interval = (width - (rows * columns * rawBarwidth + rows * rawBarGap * (columns - 1))) / intervalRows
 
   if (interval >= 16) {
     barWidth = rawBarwidth;
   }
   else {
-    const flag = (width - intervalRows * 16 - rows * rawbarGap * (columns - 1)) / (rows * columns)
+    const flag = (width - intervalRows * 16 - rows * rawBarGap * (columns - 1)) / (rows * columns)
     barWidth = flag > 2 ? flag : 2
   }
 
@@ -54,7 +54,7 @@ const BarChartOption = (width, option, type, stack, theme) => {
   }
   // 柱间距离hd规范是4px，cloud是2px
   else {
-    barGap = `${rawbarGap / barWidth * 100}%`
+    barGap = `${rawBarGap / barWidth * 100}%`
   }
 
   option.series.forEach(item => {
