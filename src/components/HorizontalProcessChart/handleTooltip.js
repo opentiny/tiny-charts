@@ -25,7 +25,6 @@ class Tooltip {
   }
 
   getBaseStyles() {
-    // 使用项目标准的 tooltip 样式（不直接依赖Token，手动设置标准值）
     const lightTheme = {
       background: '#FAFAFA',
       textColor: '#191919',

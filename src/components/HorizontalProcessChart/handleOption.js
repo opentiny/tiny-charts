@@ -3,15 +3,15 @@ export function handlePadding(padding, containerWidth, containerHeight) {
   const [top, right, bottom, left] = padding;
   
   return {
-    top: parseValue(top, 'vertical', containerWidth, containerHeight, true),
-    right: parseValue(right, 'horizontal', containerWidth, containerHeight, false),
-    bottom: parseValue(bottom, 'vertical', containerWidth, containerHeight, false),
-    left: parseValue(left, 'horizontal', containerWidth, containerHeight, true)
+    top: parseValue(top, 'vertical', containerWidth, containerHeight),
+    right: parseValue(right, 'horizontal', containerWidth, containerHeight),
+    bottom: parseValue(bottom, 'vertical', containerWidth, containerHeight),
+    left: parseValue(left, 'horizontal', containerWidth, containerHeight)
   };
 }
 
 // 用于解析padding值
-function parseValue(value, direction, containerWidth, containerHeight, allowPositionWords = true) {
+function parseValue(value, direction, containerWidth, containerHeight) {
   // 处理数值
   if (typeof value === 'number') {
     return value;
@@ -26,26 +26,21 @@ function parseValue(value, direction, containerWidth, containerHeight, allowPosi
         : containerWidth * percentage;
     }
 
-    // 处理位置词（仅当允许时）
-    if (allowPositionWords) {
-      if (direction === 'vertical') {
-        switch (value) {
-          case 'top': return 0;
-          case 'middle': return containerHeight / 2;
-          case 'bottom': return containerHeight;
-          default: return parseFloat(value) || 0;
-        }
-      } else {
-        switch (value) {
-          case 'left': return 0;
-          case 'center': return containerWidth / 2;
-          case 'right': return containerWidth;
-          default: return parseFloat(value) || 0;
-        }
+    // 处理位置词
+    if (direction === 'vertical') {
+      switch (value) {
+        case 'top': return 0;
+        case 'middle': return containerHeight / 2;
+        case 'bottom': return containerHeight;
+        default: return 0;
       }
     } else {
-      // 不允许位置词时，直接解析为数值
-      return parseFloat(value) || 0;
+      switch (value) {
+        case 'left': return 0;
+        case 'center': return containerWidth / 2;
+        case 'right': return containerWidth;
+        default: return containerWidth / 2;
+      }
     }
   }
 
