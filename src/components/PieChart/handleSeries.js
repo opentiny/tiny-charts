@@ -41,9 +41,9 @@ export const seriesInit = () => {
  */
 function setPieRadius(pieType, radius, chartInstance) {
   if (radius) {
-    if(pieType === 'circle' && !(isArray(radius) && radius.length === 2)){
+    if (pieType === 'circle' && !(isArray(radius) && radius.length === 2)) {
       return setPieCircleRadius(radius, chartInstance);
-    }else{
+    } else {
       return radius;
     }
   } else {
@@ -70,7 +70,7 @@ function setPieRadius(pieType, radius, chartInstance) {
 /**
  * 根据参数计算出圆盘图的圆环类型的内外半径
  */
-function setPieCircleRadius(radius, chartInstance){
+function setPieCircleRadius(radius, chartInstance) {
   const width = chartInstance?.getWidth?.();
   const height = chartInstance?.getHeight?.();
   const canvasRadius = width > height ? height / 2 : width / 2;
@@ -79,8 +79,9 @@ function setPieCircleRadius(radius, chartInstance){
   if (isString(outerRing) && outerRing.indexOf('%') > -1) {
     outerRing = (Number(outerRing.slice(0, -1)) / 100) * canvasRadius;
   }
-  let innerRing = Number(outerRing) - barWidth;
-  return [innerRing, outerRing]
+  // 去除borderwidth带来的粗细影响
+  let innerRing = Number(outerRing) - barWidth - 2;
+  return [innerRing, outerRing];
 }
 
 /**
