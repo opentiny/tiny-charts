@@ -18,6 +18,7 @@ import init from '../../option/init';
 import { isArray } from '../../util/type';
 import { CHART_TYPE } from '../../util/constants';
 import PolarCoordSys from '../../option/PolarSys';
+import { mergeSeries } from '../../util/merge';
 
 class AssembleBubbleChart {
 
@@ -51,6 +52,8 @@ class AssembleBubbleChart {
     delete this.baseOption.polar;
     // 自定义系列的图例点击事件需要自行绑定
     bindLegendEvent(this.baseOption, chartInstance);
+    // 合并用户自定义series
+    mergeSeries(this.iChartOption, this.baseOption);
   }
 
   getOption() {

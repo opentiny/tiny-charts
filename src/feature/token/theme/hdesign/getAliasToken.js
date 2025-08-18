@@ -224,6 +224,10 @@ function getAliasToken(globalToken, sceneToken) {
     legendSpace: space4x,
     // 图例文字与图标的间距(只需要调整最后一位数)
     legendTextAndIconSpace: (- space05x * 3) + spaceBase,
+    // 图例value字体大小
+    legendTextValueFontSize: fontSizeBase,
+    // 图例名称字体大小
+    legendTextNameFontSize: fontSizeBase,
     // 无padding
     paddingNone: spaceNone,
     paddingSM: spaceBase,
@@ -248,11 +252,13 @@ function getAliasToken(globalToken, sceneToken) {
     // 图元的边框
     symbolBorderWidth: border2x,
     // -------------------------------------------------------------size----------------------------------------------------------------------------------------
-    // 图元 
-    symbolSize: size3x - 2,
-    // 雷达图专用
-    symbolSizeSecondary: size3x - 2,
-    // 图元  线形图用
+    // 图元(线图) 
+    symbolSize: size2x,
+    // 雷达图和箱型图使用
+    symbolSizeSecondary: size2x - 2,
+    // 散点图使用
+    symbolSizeTertiary: size3x,
+    // 图元  线形图离散点用
     symbolSizeSM: sizeBase,
     // 柱条的宽度
     barWidth: size4x,

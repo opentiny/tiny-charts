@@ -139,7 +139,12 @@ export function handleDetail(seriesUnit, text, data, sizeData) {
   seriesUnit.detail.formatter =
     text.formatter ||
     function (value) {
-      return `{value|${value}}\n{name|${data[0]?.name || ''}}`;
+      if(Number.isFinite(value)) {
+        return `{value|${value}}\n{name|${data[0]?.name || ''}}`;
+      } else {
+        return `{name|${data[0]?.name || ''}}`
+      }
+      
     };
   seriesUnit.detail.offsetCenter = text.offset || [0, 0];
   seriesUnit.detail.rich = {
@@ -551,7 +556,7 @@ export function handleSize(seriesUnit,radiusSize){
 function setSeriesInit(seriesUnit, iChartOption) {
   const chartPosition = iChartOption.position || iChartOption.chartPosition || {};
   const { pointerStyle, pointer, min, max, startAngle, endAngle } = iChartOption;
-  seriesUnit.name = iChartOption.seriesName || iChartOption.name;
+  seriesUnit.name = iChartOption.seriesName || iChartOption.name || 'data';
   seriesUnit.data = iChartOption.data.length ? iChartOption.data : [{value:0,name: ''}];
   // 指针
   seriesUnit.pointer.show = pointer || false;

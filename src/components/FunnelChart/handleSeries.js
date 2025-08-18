@@ -40,10 +40,24 @@ function getSeriesInit() {
   };
 }
 
+// 处理值为null的情况
+function handleDataNull(data) {
+  if(data && data.length) {
+    data.forEach(item => {
+      if(item.value == null) {
+        item.value = 0;
+      }
+    })
+  }
+}
+
 function getSeriesUnit(iChartOption) {
   const { data, sort, size, position, gap, label } = iChartOption;
   const seriesUnit = getSeriesInit()
   data && (seriesUnit.data = data);
+  if(seriesUnit.data) {
+    handleDataNull(seriesUnit.data);
+  }
   sort && (seriesUnit.sort = sort);
   gap && (seriesUnit.gap = gap);
   // 配置漏斗图的label

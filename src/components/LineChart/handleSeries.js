@@ -270,3 +270,16 @@ export function setSeries(params) {
   handleYaxis(series, yAxis);
   return series;
 }
+
+// 自定义dataset和series
+export function setDatasetSeries(baseOpt, iChartOpt) {
+  let seriesItem = cloneDeep(seriesInit());
+  if (iChartOpt.series) {
+    baseOpt.series = [];
+    baseOpt.dataset = iChartOpt.dataset;
+    baseOpt.series = iChartOpt.series.map(item => {
+      seriesItem.data = undefined;
+      return Object.assign({}, seriesItem, item)
+    })
+  }
+}

@@ -49,7 +49,7 @@ export default function handleMarkPoint(iChartOpt) {
     const seriesItem = {
       // 将error的series数据和原图例的name保持一致，让echarts只渲染正确的图例数
       name: item,
-      symbolSize: iChartOpt.symbolSize || 10,
+      symbolSize: iChartOpt.symbolSize || chartToken.symbolSize,
       data: markData[item],
       type: 'scatter',
       emphasis: {

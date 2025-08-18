@@ -148,7 +148,7 @@ function getSeriesUnit() {
         name: 'data',
         // 使用的雷达坐标系
         radarIndex: 0,
-        // 拐点的标记大小(常规减去2是为了阈值状态下hover能盖住原有symbol点)
+        // 拐点的标记大小
         symbolSize: chartToken.symbolSize,
         // 拐点样式
         itemStyle: {
@@ -209,7 +209,7 @@ function handleRedPointerSeries(index, dataValue, seriesName, isgradient = false
     return {
         name: 'threshold',
         type: 'radar',
-        // 拐点大小  比常规的大小大2是为了盖住下方的点
+        // 拐点大小  比常规的大小大2是为了盖住下方的点hover的边框
         symbolSize: chartToken.symbolSize + 2,
         // 图形响应和触发鼠标事件
         silent: false,

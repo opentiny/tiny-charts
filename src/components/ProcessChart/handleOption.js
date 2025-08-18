@@ -168,7 +168,7 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
     baseOpt.tooltip.formatter = tipHtml;
     return;
   }
-  baseOpt.tooltip.formatter = params => {
+  baseOpt.tooltip.formatter = (params, ticket, callback) => {
     const name = params[0].name
     if (name === 'null') return
     const config = {

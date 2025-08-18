@@ -12,6 +12,8 @@
 // javascript片段
 // 引入图表库
 import { CircleChart } from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引用样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css'
 const chartOption = {
     data:  {...},
 		layout:{

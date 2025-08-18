@@ -15,6 +15,7 @@ import handleSeries from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
 import handleCenterTitle from '../../option/config/polarTitle/handleCenterTitle';
+import { mergeSeries } from '../../util/merge';
 
 class PieChart {
 
@@ -51,6 +52,8 @@ class PieChart {
     if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
       handleCenterTitle(this.position, chartInstance, this.baseOption, iChartOption);
     }
+    // 合并用户自定义series
+    mergeSeries(iChartOption, this.baseOption);
   }
 
   getOption() {

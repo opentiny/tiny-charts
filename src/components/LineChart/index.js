@@ -11,7 +11,7 @@
  */
 import init from '../../option/init';
 import mini from '../../feature/mini/miniLineChart';
-import { setSeries } from './handleSeries';
+import { setSeries, setDatasetSeries } from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../option/base';
 import { setVisualMap } from './handleVisualMap';
@@ -88,7 +88,11 @@ class LineChart {
     discrete(iChartOption, this.baseOption);
     setTooltip(this.baseOption, iChartOption,legendData)
     // 合并用户自定义series
-    mergeSeries(iChartOption, this.baseOption);
+    if (iChartOption.dataset) {
+      setDatasetSeries(this.baseOption, iChartOption);
+    } else {
+      mergeSeries(iChartOption, this.baseOption);
+    }
     // 合并用户自定义visualMap
     mergeVisualMap(iChartOption, this.baseOption);
     // 处理特性
@@ -103,9 +107,9 @@ class LineChart {
 
     }else{
       // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
-      topArea(this.baseOption, this.iChartOption, YAxiMin);
+      topArea(this.baseOption, this.iChartOption, YAxiMin, YAxiMax);
       // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
-      bottomArea(this.baseOption, this.iChartOption, YAxiMax);
+      bottomArea(this.baseOption, this.iChartOption, YAxiMax, YAxiMin);
     }
     
     // 合并用户自定义series

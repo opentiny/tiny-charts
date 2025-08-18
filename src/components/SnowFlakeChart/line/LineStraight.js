@@ -9,17 +9,21 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
+import { ConnectType } from '../CommonConstant';
+
 class LineStraight {
-  constructor({ ctx, canvasWidth, canvasHeight }, verCenterPoint, interval, lineStrokeColor) {
+  constructor({ ctx, canvasWidth, canvasHeight, data }, verCenterPoint, interval, lineStrokeColor) {
+    const { lineWidth, connectInterface } = data;
     this.ctx = ctx;
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
-    this.lineStrokeColor = lineStrokeColor;
+    this.lineStrokeColor = lineStrokeColor ?? (connectInterface === ConnectType.SSID_MIX ? '#8c57af' : '');
+    this.lineWidth = lineWidth ?? (connectInterface === ConnectType.SSID_MIX ? 8 : 2);
   }
   draw() {
     this.ctx.moveTo(0, this.canvasHeight / 2);
     this.ctx.lineTo(this.canvasWidth, this.canvasHeight / 2);
-    this.ctx.lineWidth = 2;
+    this.ctx.lineWidth = this.lineWidth;
     this.ctx.strokeStyle = this.lineStrokeColor;
     this.ctx.stroke();
   }

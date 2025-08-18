@@ -10,17 +10,17 @@
  *
  */
 import { pxToNumber, insertDom, getStyle, degPositive, getUnitText, getTextWidth, extractNumbersAndDots, judgeDisabled, pctToNumber, setDirection, setStyle } from '../util.js';
-import { radioType, direction, interval, textStyle, tagPosition } from '../CommonConstant.js';
+import { ConnectType, LineType, IntervalType, direction, interval, textStyle, tagPosition } from '../CommonConstant.js';
 import LineStraight from './LineStraight.js';
 import LineArrow from './LineArrow.js';
 import LineDashed from './LineDashed.js';
 import LineDotted from './LineDotted.js';
 
 const LineFactory = {
-  [radioType.TYPE_Straight]: LineStraight,
-  [radioType.TYPE_Arrow]: LineArrow,
-  [radioType.TYPE_Dashed]: LineDashed,
-  [radioType.TYPE_Dotted]: LineDotted,
+  [LineType.TYPE_Straight]: LineStraight,
+  [LineType.TYPE_Arrow]: LineArrow,
+  [LineType.TYPE_Dashed]: LineDashed,
+  [LineType.TYPE_Dotted]: LineDotted,
 };
 export default class LineManager {
   constructor({ lineWrapper, leafNode }, data, deg, { imageList, option, centerDom, distance, drag }, isSubRoot, tagWidth) {
@@ -127,18 +127,22 @@ export default class LineManager {
     const { connectInterface, lineStrokeColor } = this.data;
     let lineType;
     let intervalType;
-    if (connectInterface.indexOf('SSID') !== -1) {
-      lineType = 'Arrow';
-      intervalType = connectInterface.slice(5);
-    } else if (connectInterface.indexOf('wireless') !== -1) {
-      lineType = 'Arrow';
-      intervalType = 'wireless';
-    } else if (connectInterface.indexOf('Dashed') !== -1) {
-      lineType = 'Dashed';
-    } else if (connectInterface.indexOf('Dotted') !== -1) {
-      lineType = 'Dotted';
+    if (connectInterface.indexOf(ConnectType.SSID) !== -1) {
+      if (connectInterface === ConnectType.SSID_MIX) {
+        lineType = LineType.TYPE_Straight;
+      } else {
+        lineType = LineType.TYPE_Arrow;
+        intervalType = connectInterface.slice(5);
+      }
+    } else if (connectInterface.indexOf(ConnectType.Wireless) !== -1) {
+      lineType = LineType.TYPE_Arrow;
+      intervalType = IntervalType.Wireless;
+    } else if (connectInterface.indexOf(ConnectType.Dashed) !== -1) {
+      lineType = LineType.TYPE_Dashed;
+    } else if (connectInterface.indexOf(ConnectType.Dotted) !== -1) {
+      lineType = LineType.TYPE_Dotted;
     } else {
-      lineType = 'Straight';
+      lineType = LineType.TYPE_Straight;
     }
     const line = new LineFactory[lineType](this, verCenterPoint, interval[intervalType], lineStrokeColor, intervalType);
     line.draw();

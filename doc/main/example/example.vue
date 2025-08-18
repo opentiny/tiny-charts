@@ -28,6 +28,7 @@
         <Connector v-else-if="pageName === 'Connector'"></Connector>
         <Contextmenu v-else-if="pageName === 'Contextmenu'"></Contextmenu>
         <FrameWork v-else-if="pageName === 'FrameworkLifeCycle'"></FrameWork>
+        <QuickStart v-else-if="pageName === 'QuickStart'"></QuickStart>
         <template v-else>
             <MarkdownPage :mdName="mdName" v-if="showMarkdown" class="markdown-layout"></MarkdownPage>
             <template v-else>
@@ -122,6 +123,7 @@ import Connector from '../Connector/index.vue';
 import Contextmenu from '../contextmenu/index.vue';
 import MindmapLayout from '../mindmap/index.vue';
 import FrameWork from '../framework/index.vue';
+import QuickStart from '../quickStart/index.vue';
 
 export default {
     name: 'Example',
@@ -156,7 +158,8 @@ export default {
         Connector,
         Contextmenu,
         MindmapLayout,
-        FrameWork
+        FrameWork,
+        QuickStart
     },
     data() {
         return {

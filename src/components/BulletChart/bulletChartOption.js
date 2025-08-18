@@ -15,7 +15,7 @@ const BulletChartOption = (width, option, iChartOption) => {
   // 计算柱子宽度
   let barWidth;
   let backgroundWidth;
-  const rows = option.series[0].data.length;
+  const rows = option.series[0]?.data?.length || 0;
   const intervalRows = rows;
 
   // 柱子宽度为16px的初始间距 

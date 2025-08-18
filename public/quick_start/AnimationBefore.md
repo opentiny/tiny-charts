@@ -11,7 +11,8 @@
 ```javascript
 // 引用图表库
 import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
-
+// 引用样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css'
 // 创建图表实例
 const chartIns = new HuiCharts();
 

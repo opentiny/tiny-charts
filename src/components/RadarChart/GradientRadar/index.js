@@ -242,7 +242,10 @@ class GradientRadar {
     const x = point.point[0];
     const y = point.point[1];
     const fillColor = chartToken.gradientItemBorderColor;
-    const r = (chartToken.symbolSize + 1 - (2 * chartToken.lineWidth)) / 2 < 0 ? 0 : (chartToken.symbolSize + 1 - (2 * chartToken.lineWidth)) / 2;
+    // echarts使用canvas绘画拐点加边框时中线边框(即如果symbol的size时10，边框是2，hover的symbol尺寸是12)
+    const halfBorder = chartToken.lineWidth / 2
+    const fillSize = chartToken.symbolSize - halfBorder * 2
+    const r = fillSize < 0 ? 0 : fillSize / 2
     this.painter.fillStyle(fillColor);
     this.painter.beginPath();
     this.painter.moveTo(x, y);

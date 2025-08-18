@@ -21,6 +21,8 @@ import { CustomizeChart } from '{{VITE_BASECOPYRIGHTSPAT}}';
 import '{{VITE_BASECOPYRIGHTSPAT}}/feature/nodeRender/vue-node.js';
 // 引用节点组件
 import CustomizeNode from './CustomizeNode.vue';
+// 引用样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/index.css'
 const option = {
 	node: {
 		width: 50,

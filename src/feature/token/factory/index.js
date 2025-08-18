@@ -16,6 +16,7 @@ import getModelToken from './getModelToken';
 import getChartsToken from './chartsToken';
 import getSceneToken from './getSceneToken';
 import getExportColors from './getExportColors';
+import getExportThemeToken from './getExportThemeToken';
 /**
  * 获取相应的主题的token
  * @param {string} themeName  主题名称
@@ -26,7 +27,8 @@ function getToken(themeName) {
   const aliasToken = getAliasToken(themeName, globalToken, sceneToken);
   const modelToken = getModelToken(aliasToken);
   const chartsToken = getChartsToken(aliasToken);
-  const exportColors = getExportColors(color[themeName].colorSet, sceneToken)
+  const exportThemeToken = getExportThemeToken(aliasToken, sceneToken, color[themeName].colorSet, color[themeName].colorBoard, themeName)
+  const exportColors = getExportColors(color[themeName].colorSet, sceneToken, exportThemeToken)
   return {
     ...color[themeName].colorSet,
     ...modelToken,

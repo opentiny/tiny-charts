@@ -100,12 +100,19 @@ function axistip(echartsDom, echartsIns, eChartOption, axistip) {
     if(param.name){
       tipContainer.textContent = param.name;
     }else{
-      eChartOption[type].forEach(item=>{
+      if (isArray(eChartOption[type])) {
+        eChartOption[type].forEach(item=>{
+          textFormatter[type] = undefined;
+          if(item.axisLabel.formatter && typeof item.axisLabel.formatter === 'function') {
+            textFormatter[type] = item.axisLabel.formatter
+          }
+        })
+      }else{
         textFormatter[type] = undefined;
-        if(item.axisLabel.formatter && typeof item.axisLabel.formatter === 'function') {
-          textFormatter[type] = item.axisLabel.formatter
+        if(eChartOption?.axisLabel?.formatter && typeof eChartOption?.axisLabel?.formatter === 'function') {
+          textFormatter[type] = eChartOption.axisLabel.formatter
         }
-      })
+      }
       tipContainer.textContent = textFormatter[type] !== undefined ? textFormatter[type](param.value) : param.value;
     }
     if(axisType.indexOf(type) !== -1) {

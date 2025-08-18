@@ -103,26 +103,32 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty) {
     children: [],
     hideEmpty
   }
+  let seriesNames = [];
   params.forEach((item, index) => {
     let value = item.value;
     let name = item.seriesName;
-    if (isObject(value)){
-      iChartOpt.data.forEach(data=>{
-        if (data.product === value[0]) {
-          value = data[name];
-        }
-      })
+    if (iChartOpt.discrete && seriesNames.includes(name)) {
+      return;
+    }else{
+      seriesNames.push(name);
+      if (isObject(value)){
+        iChartOpt.data.forEach(data=>{
+          if (data.product === value?.product) {
+            value = data[name];
+          }
+        })
+      }
+      if (index === 0) {
+        config.title = item.name
+      }
+      const iconColor = validateName(value) ? item.color : getColor(color, item.seriesIndex)
+      const dataItem = {
+        name,
+        value,
+        iconColor,
+      }
+      config.children.push(dataItem)
     }
-    if (index === 0) {
-      config.title = item.name
-    }
-    const iconColor = validateName(value) ? item.color : getColor(color, item.seriesIndex)
-    const dataItem = {
-      name,
-      value,
-      iconColor,
-    }
-    config.children.push(dataItem)
   });
   return getTooltipContentHtmlStr(config)
 }
@@ -151,6 +157,6 @@ export function setTooltip(baseOpt, iChartOpt, legendData) {
       params = echartsParams.slice(0, lineNumber)
     }
     const initParams = coverObjDataToInit(params)
-    return formatter ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty)
+    return formatter && typeof formatter === 'function' ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty)
   }
 }
