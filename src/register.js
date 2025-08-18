@@ -37,6 +37,7 @@ import GraphChart from './components/GraphChart';
 import AssembleBubbleChart from './components/AssembleBubbleChart';
 import BulletChart from './components/BulletChart';
 import BarLineChart from './components/BarLineChart';
+import HorizontalProcessChart from './components/HorizontalProcessChart';
 
 function Register() {
   this.registeredComp = {};
@@ -174,6 +175,10 @@ const components = [
   {
     name: 'BarLineChart',
     component: BarLineChart,
+  },
+  {
+    name: 'HorizontalProcessChart',
+    component: HorizontalProcessChart,
   },
 ];
 

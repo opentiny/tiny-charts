@@ -46,7 +46,8 @@ const SELF_CHART = [
   'CircleChart',
   'LinearArcChart',
   'CircleArcChart',
-  'CustomizeChart'
+  'CustomizeChart',
+  'HorizontalProcessChart',
 ];
 
 // 图表核心对象，按需引入图表 class 给 CoreChart 渲染，打包容量较小

@@ -37,6 +37,7 @@ import WordCloudChart from './WordCloudChart';
 import TimelineChart from './TimelineChart';
 import ChartCard from './ChartCard'
 import BulletChart from './BulletChart'
+import HorizontalProcessChart from './HorizontalProcessChart'
 
 // 本文件getChartsToken的图表键名的增删请同步更改constants中的TOKENCHARTNAMES
 /**
@@ -72,7 +73,8 @@ function getChartsToken(aliasToken) {
     WaveChart: WaveChart(aliasToken),
     WordCloudChart: WordCloudChart(aliasToken),
     TimelineChart: TimelineChart(aliasToken),
-    ChartCard:ChartCard(aliasToken)
+    ChartCard:ChartCard(aliasToken),
+    HorizontalProcessChart: HorizontalProcessChart(aliasToken),
   };
 }
 

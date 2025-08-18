@@ -6,6 +6,7 @@ import PieChart from './PieChart';
 import GaugeChart from './GaugeChart';
 import RadarChart from './RadarChart';
 import ProcessChart from './ProcessChart';
+import HorizontalProcessChart from './HorizontalProcessChart';
 import BubbleChart from './BubbleChart';
 import HeatMapChart from './HeatMapChart';
 import ScatterChart from './ScatterChart';
@@ -49,6 +50,7 @@ export default {
     GaugeChart,
     RadarChart,
     ProcessChart,
+    HorizontalProcessChart,
     BubbleChart,
     HeatMapChart,
     ScatterChart,

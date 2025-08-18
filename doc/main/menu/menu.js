@@ -364,6 +364,11 @@ const NAV_DATA = [
     value: 'ProcessChart',
   },
   {
+    title: '横向进度图 HorizontalProcessChart',
+    titleId: 'ic_HorizontalProcessChart',
+    value: 'HorizontalProcessChart',
+  },
+  {
     title: '圆环进度图 CircleProcessChart',
     titleId: 'ic_CircleProcessChart',
     value: 'CircleProcessChart',
