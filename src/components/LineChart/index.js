@@ -101,13 +101,11 @@ class LineChart {
 
   // 根据渲染出的结果，二次计算option
   updateOptionAgain(echartsIns) {
-    const YAxiMax = this.getYAxisMaxValue(echartsIns, 0);
-    const YAxiMin = this.getYAxisMinValue(echartsIns, 0);
-    if(isObject(this.iChartOption.markLine)){
+    if(!isArray(this.iChartOption.markLine)){
       // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
-      topArea(this.baseOption, this.iChartOption, YAxiMin, YAxiMax);
+      topArea(this.baseOption, this.iChartOption, echartsIns, this);
       // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
-      bottomArea(this.baseOption, this.iChartOption, YAxiMax, YAxiMin);
+      bottomArea(this.baseOption, this.iChartOption, echartsIns, this);
     }
     
     // 合并用户自定义series
@@ -125,7 +123,7 @@ class LineChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMaxValue(echartsIns, index) {
-    return echartsIns.getModel().getComponent('yAxis', index)?.axis.scale._extent[1];
+    return echartsIns?.getModel()?.getComponent('yAxis', index)?.axis.scale._extent[1] || 0;
   }
 
   /**
@@ -135,7 +133,7 @@ class LineChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMinValue(echartsIns, index) {
-    return echartsIns.getModel().getComponent('yAxis', index)?.axis.scale._extent[0];
+    return echartsIns?.getModel()?.getComponent('yAxis', index)?.axis.scale._extent[0] || 0;
   }
 }
 
