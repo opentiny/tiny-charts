@@ -18,7 +18,7 @@ import chartToken from './chartToken';
 import Token from '../../../feature/token';
 import { getDataWidthNoObject } from './bottomArea'
 
-function markLineArea(baseOption, iChartOption, echartsIns, that) {
+function markLineArea(baseOption, iChartOption, echartsIns, chartsIns) {
   const markLine = iChartOption.markLine;
   if (
     iChartOption.area &&
@@ -39,9 +39,9 @@ function markLineArea(baseOption, iChartOption, echartsIns, that) {
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
       const maxValue = max(seriesData);
-      if( maxValue === 0 && minValue === 0 ) return;
+      if((!maxValue && !minValue) || (maxValue === 0 && minValue === 0) ) return;
       const yAxisIndex = item.yAxisIndex || 0;
-      const YAxiMin = that.getYAxisMinValue(echartsIns, yAxisIndex);
+      const YAxiMin = chartsIns.getYAxisMinValue(echartsIns, yAxisIndex);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0);
       const colorFrom = codeToRGB(color, colorAlpha);
@@ -116,7 +116,7 @@ function defaultArea(baseOption, iChartOption, echartsIns) {
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
       const maxValue = max(seriesData);
-      if( maxValue === 0 && minValue === 0 ) return;
+      if((!maxValue && !minValue) || (maxValue === 0 && minValue === 0) ) return;
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0);
       const colorFrom = codeToRGB(color, colorAlpha);
@@ -169,7 +169,7 @@ function defaultArea(baseOption, iChartOption, echartsIns) {
   }
 }
 
-function splitArea(baseOption, iChartOption, echartsIns, that) {
+function splitArea(baseOption, iChartOption, echartsIns, chartsIns) {
   if (iChartOption.area && iChartOption.splitLine) {
     const colors = baseOption.color;
     const splitLine = iChartOption.splitLine;
@@ -179,9 +179,9 @@ function splitArea(baseOption, iChartOption, echartsIns, that) {
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
       const maxValue = max(seriesData);
-      if( maxValue === 0 && minValue === 0 ) return;
+      if((!maxValue && !minValue) || (maxValue === 0 && minValue === 0) ) return;
       const yAxisIndex = item.yAxisIndex || 0;
-      const YAxiMin = that.getYAxisMinValue(echartsIns, yAxisIndex);
+      const YAxiMin = chartsIns.getYAxisMinValue(echartsIns, yAxisIndex);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, colorAlpha);
       const colorFrom = codeToRGB(color, colorAlpha);
@@ -222,13 +222,13 @@ function splitArea(baseOption, iChartOption, echartsIns, that) {
 /**
  * 为series添加areaStyle
  */
-function topArea(baseOption, iChartOption, echartsIns, that) {
+function topArea(baseOption, iChartOption, echartsIns, chartsIns) {
   // 添加默认areaStyle
-  defaultArea(baseOption, iChartOption, echartsIns, that);
+  defaultArea(baseOption, iChartOption, echartsIns, chartsIns);
   // 添加markLine的areaStyle
-  markLineArea(baseOption, iChartOption, echartsIns, that);
+  markLineArea(baseOption, iChartOption, echartsIns, chartsIns);
   // 添加split的areaStyle
-  splitArea(baseOption, iChartOption, echartsIns, that);
+  splitArea(baseOption, iChartOption, echartsIns, chartsIns);
 }
 
 export default topArea;

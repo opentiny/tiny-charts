@@ -79,7 +79,7 @@ function gradientBottomArea(item, percent, colorTo, colorFrom, yAxisIndex) {
 /**
  * 为series添加split分割区域的底部areaStyle,
  */
-function splitArea(baseOption, iChartOption, echartsIns, that) {
+function splitArea(baseOption, iChartOption, echartsIns, chartsIns) {
   const {area,splitLine} = iChartOption
   if (area && splitLine) {
     const temp = [];
@@ -91,9 +91,9 @@ function splitArea(baseOption, iChartOption, echartsIns, that) {
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
       const maxValue = max(seriesData);
-      if( maxValue === 0 && minValue === 0 ) return;
+      if((!maxValue && !minValue) || (maxValue === 0 && minValue === 0) ) return;
       const yAxisIndex = item.yAxisIndex || 0;
-      const YAxiMax = that.getYAxisMaxValue(echartsIns, yAxisIndex);
+      const YAxiMax = chartsIns.getYAxisMaxValue(echartsIns, yAxisIndex);
       let percent = Math.abs(splitLine - minValue) / (YAxiMax - minValue);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, colorAlpha);
@@ -172,7 +172,7 @@ function pureBottomArea(itemx, percentx, bottomColorx,yAxisIndex) {
   return seriesObj;
 }
 
-function markLineArea(baseOption, iChartOption, echartsIns, that) {
+function markLineArea(baseOption, iChartOption, echartsIns, chartsIns) {
   const markLine = iChartOption.markLine;
   if (
     iChartOption.area &&
@@ -190,9 +190,9 @@ function markLineArea(baseOption, iChartOption, echartsIns, that) {
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
       const maxValue = max(seriesData);
-      if( maxValue === 0 && minValue === 0 ) return;
+      if((!maxValue && !minValue) || (maxValue === 0 && minValue === 0) ) return;
       const yAxisIndex = item.yAxisIndex || 0;
-      const YAxiMax = that.getYAxisMaxValue(echartsIns, yAxisIndex);
+      const YAxiMax = chartsIns.getYAxisMaxValue(echartsIns, yAxisIndex);
       const percent = Math.abs((markLine.bottom - minValue) / (YAxiMax - minValue));
       if (markLine.bottom >= minValue) {
         // 该series是为了实现红色特殊area的样式而加的，因此在tooltip中应该被屏蔽
@@ -213,11 +213,11 @@ function getDataWidthNoObject(data) {
 /**
  * 为series添加areaStyle
  */
-function bottomArea(baseOption, iChartOption, echartsIns, that) {
+function bottomArea(baseOption, iChartOption, echartsIns, chartsIns) {
   // 添加markLine的areaStyle
-  markLineArea(baseOption, iChartOption, echartsIns, that);
+  markLineArea(baseOption, iChartOption, echartsIns, chartsIns);
   // 添加split的areaStyle
-  splitArea(baseOption, iChartOption, echartsIns, that);
+  splitArea(baseOption, iChartOption, echartsIns, chartsIns);
 }
 
 
