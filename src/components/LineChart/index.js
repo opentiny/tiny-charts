@@ -101,13 +101,11 @@ class LineChart {
 
   // 根据渲染出的结果，二次计算option
   updateOptionAgain(echartsIns) {
-    const YAxiMax = this.getYAxisMaxValue(echartsIns, 0);
-    const YAxiMin = this.getYAxisMinValue(echartsIns, 0);
-    if(isObject(this.iChartOption.markLine)){
+    if(!isArray(this.iChartOption.markLine)){
       // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
-      topArea(this.baseOption, this.iChartOption, YAxiMin, YAxiMax);
+      topArea(this.baseOption, this.iChartOption, echartsIns, this);
       // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
-      bottomArea(this.baseOption, this.iChartOption, YAxiMax, YAxiMin);
+      bottomArea(this.baseOption, this.iChartOption, echartsIns, this);
     }
     
     // 合并用户自定义series

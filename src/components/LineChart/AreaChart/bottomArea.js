@@ -17,7 +17,7 @@ import chartToken from './chartToken';
 import Token from '../../../feature/token';
 
 // 创建一个渐变色-同名的Series，用来显示分割渐变区域
-function gradientBottomArea(item, percent, colorTo, colorFrom) {
+function gradientBottomArea(item, percent, colorTo, colorFrom, yAxisIndex) {
   let colorStops;
   if (percent > 1) {
     colorStops =  [
@@ -56,6 +56,7 @@ function gradientBottomArea(item, percent, colorTo, colorFrom) {
     data: item.data,
     smooth: item.smooth,
     step: item.step,
+    yAxisIndex: yAxisIndex,
     lineStyle: {
       width: 0,
     },
@@ -78,7 +79,7 @@ function gradientBottomArea(item, percent, colorTo, colorFrom) {
 /**
  * 为series添加split分割区域的底部areaStyle,
  */
-function splitArea(baseOption, iChartOption, YAxiMax, YAxiMin) {
+function splitArea(baseOption, iChartOption, echartsIns, that) {
   const {area,splitLine} = iChartOption
   if (area && splitLine) {
     const temp = [];
@@ -89,12 +90,16 @@ function splitArea(baseOption, iChartOption, YAxiMax, YAxiMin) {
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
+      const maxValue = max(seriesData);
+      if( maxValue === 0 && minValue === 0 ) return;
+      const yAxisIndex = item.yAxisIndex || 0;
+      const YAxiMax = that.getYAxisMaxValue(echartsIns, yAxisIndex);
       let percent = Math.abs(splitLine - minValue) / (YAxiMax - minValue);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, colorAlpha);
       const colorFrom = codeToRGB(color, colorAlpha);
       // 该series是为了实现红色特殊area的样式而加的，因此在tooltip中应该被屏蔽
-      const newSeries = gradientBottomArea(item, percent, colorTo, colorFrom);
+      const newSeries = gradientBottomArea(item, percent, colorTo, colorFrom, yAxisIndex);
       temp.push(newSeries);
     });
     baseOption.series = baseOption.series.concat(temp);
@@ -108,7 +113,7 @@ function judgeFilterAreaSeries(iChartOption) {
 }
 
 // 创建一个纯色-同名Series，用来显示红色阈值区域
-function pureBottomArea(itemx, percentx, bottomColorx) {
+function pureBottomArea(itemx, percentx, bottomColorx,yAxisIndex) {
   let colorStops;
   if (percentx > 1) {
     colorStops = [
@@ -148,6 +153,7 @@ function pureBottomArea(itemx, percentx, bottomColorx) {
     smooth: itemx.smooth,
     step: itemx.step,
     symbol: 'none',
+    yAxisIndex: yAxisIndex,
     areaStyle: {
       color: {
         x: 0,
@@ -166,24 +172,31 @@ function pureBottomArea(itemx, percentx, bottomColorx) {
   return seriesObj;
 }
 
-function markLineArea(baseOption, iChartOption, YAxiMax) {
+function markLineArea(baseOption, iChartOption, echartsIns, that) {
+  const markLine = iChartOption.markLine;
   if (
     iChartOption.area &&
-    iChartOption.markLine &&
-    iChartOption.markLine.bottom &&
-    isNumber(iChartOption.markLine.bottom)
+    markLine &&
+    markLine.bottom &&
+    isNumber(markLine.bottom)
   ) {
     const temp = [];
     const colorAlpha = Token.config.globalColorAlpha
     baseOption.series.forEach(item => {
-      const bottomColor = codeToRGB(iChartOption.markLine.bottomColor, colorAlpha) || codeToRGB(Token.config.colorState.colorError, colorAlpha);
+      const seriesName = item.name;
+      if (markLine.bottomUse && markLine.bottomUse.indexOf(seriesName) === -1)  return;
+      const bottomColor = codeToRGB(markLine.bottomColor, colorAlpha) || codeToRGB(Token.config.colorState.colorError, colorAlpha);
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
-      const percent = Math.abs((iChartOption.markLine.bottom - minValue) / (YAxiMax - minValue));
-      if (iChartOption.markLine.bottom >= minValue) {
+      const maxValue = max(seriesData);
+      if( maxValue === 0 && minValue === 0 ) return;
+      const yAxisIndex = item.yAxisIndex || 0;
+      const YAxiMax = that.getYAxisMaxValue(echartsIns, yAxisIndex);
+      const percent = Math.abs((markLine.bottom - minValue) / (YAxiMax - minValue));
+      if (markLine.bottom >= minValue) {
         // 该series是为了实现红色特殊area的样式而加的，因此在tooltip中应该被屏蔽
-        const newSeries = pureBottomArea(item, percent, bottomColor);
+        const newSeries = pureBottomArea(item, percent, bottomColor, yAxisIndex);
         temp.push(newSeries);
       }
     });
@@ -200,11 +213,11 @@ function getDataWidthNoObject(data) {
 /**
  * 为series添加areaStyle
  */
-function bottomArea(baseOption, iChartOption, YAxiMax, YAxiMin) {
+function bottomArea(baseOption, iChartOption, echartsIns, that) {
   // 添加markLine的areaStyle
-  markLineArea(baseOption, iChartOption, YAxiMax, YAxiMin);
+  markLineArea(baseOption, iChartOption, echartsIns, that);
   // 添加split的areaStyle
-  splitArea(baseOption, iChartOption, YAxiMax, YAxiMin);
+  splitArea(baseOption, iChartOption, echartsIns, that);
 }
 
 

@@ -107,7 +107,7 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty) {
   params.forEach((item, index) => {
     let value = item.value;
     let name = item.seriesName;
-    if (iChartOpt.discrete && seriesNames.includes(name)) {
+    if ((iChartOpt.area || iChartOpt.discrete) && seriesNames.includes(name)) {
       return;
     }else{
       seriesNames.push(name);

@@ -18,24 +18,30 @@ import chartToken from './chartToken';
 import Token from '../../../feature/token';
 import { getDataWidthNoObject } from './bottomArea'
 
-function markLineArea(baseOption, iChartOption, YAxiMin) {
+function markLineArea(baseOption, iChartOption, echartsIns, that) {
+  const markLine = iChartOption.markLine;
   if (
     iChartOption.area &&
-    iChartOption.markLine &&
-    iChartOption.markLine.top &&
-    isNumber(iChartOption.markLine.top) &&
-    iChartOption.markLine.topChangeColor !== false
+    markLine &&
+    markLine.top &&
+    isNumber(markLine.top) &&
+    markLine.topChangeColor !== false
   ) {
     const colors = baseOption.color;
-    const markLine = iChartOption.markLine;
     const colorAlpha = Token.config.globalColorAlpha
     const topColor = codeToRGB(markLine.topColor, colorAlpha) || codeToRGB(Token.config.colorState.colorError, colorAlpha);
     baseOption.series.forEach((item, index) => {
       if (!item.data) return;
+      const seriesName = item.name;
+      if (markLine.topUse && markLine.topUse.indexOf(seriesName) === -1)  return;
+      
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
-      const maxValue = max(seriesData);
       const minValue = min(seriesData);
+      const maxValue = max(seriesData);
+      if( maxValue === 0 && minValue === 0 ) return;
+      const yAxisIndex = item.yAxisIndex || 0;
+      const YAxiMin = that.getYAxisMinValue(echartsIns, yAxisIndex);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0);
       const colorFrom = codeToRGB(color, colorAlpha);
@@ -101,14 +107,16 @@ function markLineArea(baseOption, iChartOption, YAxiMin) {
   }
 }
 
-function defaultArea(baseOption, iChartOption, YAxiMin) {
+function defaultArea(baseOption, iChartOption, echartsIns) {
   if (iChartOption.area) {
     const colors = baseOption.color;
     const colorAlpha = Token.config.globalColorAlpha;
     baseOption.series.forEach((item, index) => {
+      // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
-      const maxValue = max(seriesData);
       const minValue = min(seriesData);
+      const maxValue = max(seriesData);
+      if( maxValue === 0 && minValue === 0 ) return;
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0);
       const colorFrom = codeToRGB(color, colorAlpha);
@@ -161,7 +169,7 @@ function defaultArea(baseOption, iChartOption, YAxiMin) {
   }
 }
 
-function splitArea(baseOption, iChartOption, YAxiMin) {
+function splitArea(baseOption, iChartOption, echartsIns, that) {
   if (iChartOption.area && iChartOption.splitLine) {
     const colors = baseOption.color;
     const splitLine = iChartOption.splitLine;
@@ -169,8 +177,11 @@ function splitArea(baseOption, iChartOption, YAxiMin) {
     baseOption.series.forEach((item, index) => {
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
-      const maxValue = max(seriesData);
       const minValue = min(seriesData);
+      const maxValue = max(seriesData);
+      if( maxValue === 0 && minValue === 0 ) return;
+      const yAxisIndex = item.yAxisIndex || 0;
+      const YAxiMin = that.getYAxisMinValue(echartsIns, yAxisIndex);
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, colorAlpha);
       const colorFrom = codeToRGB(color, colorAlpha);
@@ -211,13 +222,13 @@ function splitArea(baseOption, iChartOption, YAxiMin) {
 /**
  * 为series添加areaStyle
  */
-function topArea(baseOption, iChartOption, YAxiMin) {
+function topArea(baseOption, iChartOption, echartsIns, that) {
   // 添加默认areaStyle
-  defaultArea(baseOption, iChartOption, YAxiMin);
+  defaultArea(baseOption, iChartOption, echartsIns, that);
   // 添加markLine的areaStyle
-  markLineArea(baseOption, iChartOption, YAxiMin);
+  markLineArea(baseOption, iChartOption, echartsIns, that);
   // 添加split的areaStyle
-  splitArea(baseOption, iChartOption, YAxiMin);
+  splitArea(baseOption, iChartOption, echartsIns, that);
 }
 
 export default topArea;
