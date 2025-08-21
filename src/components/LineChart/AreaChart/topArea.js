@@ -41,7 +41,7 @@ function markLineArea(baseOption, iChartOption, echartsIns, chartsIns) {
       const maxValue = max(seriesData);
       if((!maxValue && !minValue) || (maxValue === 0 && minValue === 0) ) return;
       const yAxisIndex = item.yAxisIndex || 0;
-      const YAxiMin = chartsIns.getYAxisMinValue(echartsIns, yAxisIndex);
+      const YAxiMin = chartsIns.getYAxisMinValue(echartsIns, yAxisIndex) || 0;
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, 0);
       const colorFrom = codeToRGB(color, colorAlpha);
@@ -181,7 +181,7 @@ function splitArea(baseOption, iChartOption, echartsIns, chartsIns) {
       const maxValue = max(seriesData);
       if((!maxValue && !minValue) || (maxValue === 0 && minValue === 0) ) return;
       const yAxisIndex = item.yAxisIndex || 0;
-      const YAxiMin = chartsIns.getYAxisMinValue(echartsIns, yAxisIndex);
+      const YAxiMin = chartsIns.getYAxisMinValue(echartsIns, yAxisIndex) || 0;
       const color = getColor(colors, index);
       const colorTo = codeToRGB(color, colorAlpha);
       const colorFrom = codeToRGB(color, colorAlpha);
