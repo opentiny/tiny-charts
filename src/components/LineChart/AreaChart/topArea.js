@@ -111,6 +111,7 @@ function defaultArea(baseOption, iChartOption, echartsIns) {
     const colors = baseOption.color;
     const colorAlpha = Token.config.globalColorAlpha;
     baseOption.series.forEach((item, index) => {
+      if(!item.data) return;
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
@@ -174,6 +175,7 @@ function splitArea(baseOption, iChartOption, echartsIns, chartsIns) {
     const splitLine = iChartOption.splitLine;
     const colorAlpha = Token.config.globalColorAlpha
     baseOption.series.forEach((item, index) => {
+      if(!item.data) return;
       // data中的阈值项data转换为object，此时找最小值需要转换回来
       const seriesData = getDataWidthNoObject(item.data)
       const minValue = min(seriesData);
