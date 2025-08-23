@@ -101,13 +101,10 @@ class LineChart {
 
   // 根据渲染出的结果，二次计算option
   updateOptionAgain(echartsIns) {
-    if(!isArray(this.iChartOption.markLine)){
-      // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
-      topArea(this.baseOption, this.iChartOption, echartsIns, this);
-      // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
-      bottomArea(this.baseOption, this.iChartOption, echartsIns, this);
-    }
-    
+    // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
+    topArea(this.baseOption, this.iChartOption, echartsIns, this);
+    // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
+    bottomArea(this.baseOption, this.iChartOption, echartsIns, this);    
     // 合并用户自定义series
     mergeSeries(this.iChartOption, this.baseOption);
   }
