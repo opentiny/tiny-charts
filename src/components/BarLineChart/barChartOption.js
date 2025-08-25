@@ -10,14 +10,14 @@
  *
  */
 // 柱状图柱条响应式配置
-const BarChartOption = (width, option, type, stack) => {
+const BarChartOption = (width, option, type, stack, theme) => {
 
   // 计算柱子宽度
   let barWidth;
   // 柱状图的series
   let barSeries = [];
   option.series.forEach(item => {
-    if(item.type === 'bar') {
+    if (item.type === 'bar') {
       barSeries.push(item);
     }
   })
@@ -36,17 +36,22 @@ const BarChartOption = (width, option, type, stack) => {
     columns = barSeries.length / 2;
   }
 
-  const rows = barSeries[0]?.data?.length;
+  // data的数据是异步时，option.series可能不存在，需要多场景测试
+  const rows = barSeries[0]?.data?.length || barSeries?.length;
+  // rows是数据行数，intervalRows是参与计算间距的行数
   const intervalRows = rows;
 
-  // 柱子宽度为16px的初始间距 
-  const interval = (width - (rows * columns * 16 + rows * 4 * (columns - 1))) / intervalRows
+  // 初始柱宽和不同系列柱子间距 hd是16，cloud是8
+  const rawBarwidth = (theme ?? '').includes('cloud') ? 8 : 16;
+  const rawBarGap = (theme ?? '').includes('cloud') ? 2 : 4;
+  // 需要根据主题设置柱子之间初始间距
+  const interval = (width - (rows * columns * rawBarwidth + rows * rawBarGap * (columns - 1))) / intervalRows
 
   if (interval >= 16) {
-    barWidth = 16;
+    barWidth = rawBarwidth;
   }
   else {
-    const flag = (width - intervalRows * 16 - rows * 4 * (columns - 1)) / (rows * columns)
+    const flag = (width - intervalRows * 16 - rows * rawBarGap * (columns - 1)) / (rows * columns)
     barWidth = flag > 2 ? flag : 2
   }
 
@@ -55,9 +60,9 @@ const BarChartOption = (width, option, type, stack) => {
   if (type === 'contain') {
     barGap = `-100%`;
   }
-  // 柱间距离规范是4px
+  // 柱间距离hd规范是4px，cloud是2px
   else {
-    barGap = `${4 / barWidth * 100}%`
+    barGap = `${rawBarGap / barWidth * 100}%`
   }
 
   barSeries.forEach(item => {
@@ -77,7 +82,7 @@ const updateWidth = (baseOption, chartInstance, iChartOption) => {
     } else {
       width = chartInstance.getModel().getComponent('grid').coordinateSystem.getRect().width;
     }
-    BarChartOption(width, baseOption, iChartOption.type, iChartOption.stack);
+    BarChartOption(width, baseOption, iChartOption.type, iChartOption.stack, iChartOption.theme);
   }
 }
 
