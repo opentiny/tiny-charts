@@ -17,8 +17,11 @@ import textStyle from './textStyle';
 import itemStyle from './itemStyle';
 import merge from '../../../util/merge';
 import setPolymorphism from './polymorphism';
+import xkey from '../xAxis/xkey';
+import ldata from './ldata';
+import { updateLegendOccupancy } from './calculate';
 
-function legend(iChartOption, chartName) {
+function legend(iChartOption, chartName, chartInstance) {
   const selfLegend = iChartOption.legend;
   const {
     data,
@@ -61,6 +64,14 @@ function legend(iChartOption, chartName) {
   // 图例多形态
   if( legend.orient === 'vertical' ){
     setPolymorphism(legend, iChartOption)
+  }
+  // 开启图例自适应的图表
+  const legendAdaptiveCharts = ['PieChart']; 
+  if (legendAdaptiveCharts.includes(chartName) && iChartOption.adaptive && legend.orient === 'vertical'){
+    const xAxisKey = xkey(iChartOption);
+    const lData = ldata(iChartOption.data, xAxisKey);
+    const legendData = iChartOption.data.map(item => item[lData[0]]) || [];
+    updateLegendOccupancy(iChartOption, legend, legendData, chartInstance);
   }
   return legend;
 }
