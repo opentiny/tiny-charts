@@ -185,9 +185,13 @@ function truncateText(text, maxWidth, fontSize, ellipsis, fontFamily = 'Arial'){
 
 // 图例截断处理
 function updateLegendOccupancy(iChartOption, legend, legendData, chartInstance){
-  const {textStyle, formatter} = legend;
+  const formatter = legend.formatter;
+  legend.textStyle = legend.textStyle || { rich: {} };
+  legend.textStyle.rich = legend.textStyle.rich || {};
+  const textStyle = legend.textStyle;
   const config = calculateOccupancy(iChartOption, legend, legendData)
-  const legendMaxWidth = Math.floor((chartInstance?._dom?.clientWidth || 0 ) * 0.4);
+  if (!config) return;
+  const legendMaxWidth = Math.floor(((chartInstance?.getWidth?.() || chartInstance?._dom?.clientWidth || 0)) * 0.4);
   const {richMaxWidth, maxWidth, titleName} = config;
   // 用户rich
   const rich = cloneDeep(textStyle.rich);
@@ -204,16 +208,6 @@ function updateLegendOccupancy(iChartOption, legend, legendData, chartInstance){
     titleWidth = iTitleMaxWidth ? iTitleMaxWidth : (titleMaxWidth - 16); // title与右边的间隙
   }
 
-  if (!textStyle) {
-    legend.textStyle = {
-      rich: {}
-    }
-  }
-
-  if (!textStyle.rich) {
-    legend.textStyle.rich = {}
-  }
-
   for (const key in richMaxWidth) {
     const element = richMaxWidth[key];
     let maxWidth = element.maxWidth || Math.max(...element.widths);
@@ -222,9 +216,9 @@ function updateLegendOccupancy(iChartOption, legend, legendData, chartInstance){
     }  
     const iWidth = textStyle.rich[key]?.width;
     // 更新内部用于截断文本用的rich
-    rich[key] = {...textStyle.rich[key], iWidth, width: iWidth === undefined ? maxWidth : iWidth }
+    rich[key] = {...(textStyle.rich?.[key] || {}), iWidth, width: iWidth === undefined ? maxWidth : iWidth }
     // 更新option中rich
-    textStyle.rich[key] = {...textStyle.rich[key], width: iWidth === undefined ? maxWidth : iWidth }
+    textStyle.rich[key] = {...(textStyle.rich?.[key] || {}), width: iWidth === undefined ? maxWidth : iWidth }
   }
 
   legend.left = '60%'; // 开启自适应 固定位置
