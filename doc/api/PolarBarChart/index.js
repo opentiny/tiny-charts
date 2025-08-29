@@ -9,6 +9,7 @@ import dataMd from './data.md?raw';
 import positionMd from './position.md?raw';
 import labelMd from './label.md?raw';
 import typeMd from './type.md?raw';
+import itemStyleMd from './itemStyle.md?raw';
 
 const data = {
     dataset: [
@@ -23,6 +24,7 @@ const data = {
         angleAxis,
         radiusAxis,
         ['type', '图表类型', 'string', 'normal'],
+        ['itemStyle', '柱体样式', 'object', 'normal'],
 
     ],
     markdown: [
@@ -37,6 +39,7 @@ const data = {
         angleAxisMd,
         radiusAxisMd,
         typeMd,
+        itemStyleMd
     ],
 };
 
