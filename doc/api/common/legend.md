@@ -118,13 +118,13 @@ data:[
 <p class='ev_expand_introduce'>说明：<br>
 针对不同的图例图标以数组的方式管理，定义此属性后则 <code>legend.icon</code> 失效<br><code>icon</code>：图例未选中时的背景，可使用 base64 编码的路径格式<br><code>iconChange</code>：图例选中时的背景，可使用 base64 编码的路径格式<br><code>name</code>：图例对应的名称
 
-<p class='ev_expand_title'>legend.itemHeight<span class='ev_expand_required'>非必填</span><span class='ev_expand_defaults'>有默认值</span><span class='ev_expand_type'>Nmuber</span>
+<p class='ev_expand_title'>legend.itemHeight<span class='ev_expand_required'>非必填</span><span class='ev_expand_defaults'>有默认值</span><span class='ev_expand_type'>Number</span>
 
 <p class='ev_expand_introduce'>默认值：<code>8</code>
 
 <p class='ev_expand_introduce'>说明：图例图标的高度
 
-<p class='ev_expand_title'>legend.itemWidth<span class='ev_expand_required'>非必填</span><span class='ev_expand_defaults'>有默认值</span><span class='ev_expand_type'>Nmuber</span>
+<p class='ev_expand_title'>legend.itemWidth<span class='ev_expand_required'>非必填</span><span class='ev_expand_defaults'>有默认值</span><span class='ev_expand_type'>Number</span>
 
 <p class='ev_expand_introduce'>默认值：<code>8</code>
 
