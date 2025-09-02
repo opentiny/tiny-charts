@@ -1,6 +1,4 @@
 import { showTooltip, hideTooltip } from "./handleTooltip.js";
-import { getColor } from '../../util/color';
-import Token from '../../feature/token';
 
 // 创建SVG元素并设置属性
 export const createSvgElement = (tag, attrs = {}) => {
@@ -13,7 +11,7 @@ export const createSvgElement = (tag, attrs = {}) => {
   return element;
 }
 
-// 判断值是否为纯对象
+// 判断值是否为对象
 const isObject = (value) => {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
@@ -29,20 +27,20 @@ export function merge(target, task) {
     if (isObject(task)) { // 如果源是对象
         for (const key in task) { 
             if (target[key] === undefined || target[key] === null) { 
-                target[key] = task[key]; // 目标属性不存在时直接赋值
+                target[key] = task[key];       // 目标属性不存在时直接赋值
             } else if (isObject(task[key]) && !isArray(task[key])) { 
                 merge(target[key], task[key]); // 递归合并嵌套对象
             } else { 
-                target[key] = task[key]; // 覆盖基本类型属性
+                target[key] = task[key];       // 覆盖基本类型属性
             } 
         } 
     } 
-    return target; // 返回合并后的对象
+    return target;
 } 
 
 // 模拟flex计算列的X轴位置
 export function calcColumnX(flexs, totalWidth, padding) { 
-  // flexs: 弹性系数数组, totalWidth: 容器的总宽度, padding: 内边距
+    // flexs: 弹性系数数组, totalWidth: 容器的总宽度, padding: 内边距
     const sum = flexs.reduce((s, f) => s + f, 0); // 计算flex系数总和
     let offset = 0;
     return flexs.map(f => {
@@ -62,7 +60,7 @@ export function setEllipsisWithTooltip(textElement, text, maxLength) {
     // 截断文本并添加省略号
     const truncatedText = text.slice(0, maxLength) + '...';
     textElement.textContent = truncatedText;
-    
+
     const handleMouseOver = (e) => {
         const data = {
             name: '',
@@ -100,7 +98,7 @@ export function throttle(fn, time) {
   return function(...args) {
     if(!timer){
       timer = setTimeout(function () {
-        fn.apply(context,args)
+        fn.apply(this, args)
         timer = null
       }, time)
     }
@@ -123,4 +121,26 @@ export function updateSvgs(updates) {
       }
     }
    })
+}
+
+// 通过JSON比较两个对象，可指定属性排除
+export function isChanged(curr, last, exclude = []) {
+  const currFiltered = filterOption(curr, exclude);
+  const lastFiltered = filterOption(last, exclude);
+
+  return JSON.stringify(currFiltered) !== JSON.stringify(lastFiltered);
+}
+
+// 过滤属性
+function filterOption(obj, exclude) {
+  if(exclude.length === 0) return obj
+  const filtered = {};
+
+  for (const key in obj) {
+    if (!exclude.includes(key)) {
+      filtered[key] = obj[key];
+    }
+  }
+
+  return filtered;
 }

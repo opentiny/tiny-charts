@@ -6,7 +6,6 @@ import PieChart from './PieChart';
 import GaugeChart from './GaugeChart';
 import RadarChart from './RadarChart';
 import ProcessChart from './ProcessChart';
-import HorizontalProcessChart from './HorizontalProcessChart';
 import BubbleChart from './BubbleChart';
 import HeatMapChart from './HeatMapChart';
 import ScatterChart from './ScatterChart';
@@ -41,6 +40,7 @@ import AssembleBubbleChart from './AssembleBubbleChart';
 import CircleProcessChart from './CircleProcessChart';
 import AutonaviMapChart from './AutonaviMapChart';
 import BarLineChart from './BarLineChart';
+import RankProcessChart from './RankProcessChart';
 
 export default {
     LineChart,
@@ -50,7 +50,7 @@ export default {
     GaugeChart,
     RadarChart,
     ProcessChart,
-    HorizontalProcessChart,
+    RankProcessChart,
     BubbleChart,
     HeatMapChart,
     ScatterChart,

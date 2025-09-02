@@ -1,8 +1,8 @@
 [
   {
     // 基础配置
-    name: 'HorizontalProcessChart',
-    type: 'svg',
+    name: 'RankProcessChart',
+    mode: 'svg',
     theme: 'hdesign-light',
     
     // 内边距配置

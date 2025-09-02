@@ -1,10 +1,8 @@
 const option = {
     // 图表名称
-    name: 'HorizontalProcessChart',
-    // 渲染类型canvas
-    mode: 'canvas',
+    name: 'RankProcessChart',
     // 主题,默认值'light'
-    theme: 'hdesign-light',
+    theme: 'dpui-light',
 
     // padding控制图表距离容器的上、右、下、左padding值
     padding: [16, 16, 0, 16], 

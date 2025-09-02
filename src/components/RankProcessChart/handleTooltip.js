@@ -4,10 +4,10 @@ import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter';
 let tooltip = null;
 
 class Tooltip {
-  constructor(dom, theme, tooltip) {
+  constructor(dom, theme, tooltipConfig) {
     this.dom = dom;
     this.isDark = theme && theme.includes('dark');
-    this.config = tooltip;
+    this.config = tooltipConfig;
     this.tooltip = null;
     this.offset = 10;
 
@@ -26,7 +26,7 @@ class Tooltip {
 
   getBaseStyles() {
     const lightTheme = {
-      background: '#FAFAFA',
+      background: '#ffffffff',
       textColor: '#191919',
       borderColor: 'transparent',
       shadowColor: 'rgba(0, 0, 0, 0.2)'
@@ -36,7 +36,7 @@ class Tooltip {
       background: '#393939',
       textColor: '#FFFFFF',
       borderColor: 'transparent',
-      shadowColor: 'rgba(210, 210, 210, 0.2)'
+      shadowColor: 'rgba(125, 125, 125, 0.3)'
     };
     
     const theme = this.isDark ? darkTheme : lightTheme;
@@ -74,7 +74,7 @@ class Tooltip {
     }
       
     if (data.percent) {
-      displayValue += (displayValue ? ' ' : '') + data.percent + '%';
+      displayValue += ' ' + data.percent + '%';
     }
       
     config.children.push({
@@ -159,20 +159,26 @@ class Tooltip {
     }
 
     requestAnimationFrame(() => {
-      this.tooltip.style.visibility = 'visible';
       this.tooltip.style.opacity = '1';
+      this.tooltip.style.visibility = 'visible';
     });
   }
 
   hide() {
-    if (this.tooltip) {
+    if (!this.tooltip) return;
+
+    requestAnimationFrame(() => {
       this.tooltip.style.opacity = '0';
-      
-      setTimeout(() => {
-        if (this.tooltip) {
-          this.tooltip.style.visibility = 'hidden';
-        }
-      }, 250);
+      this.tooltip.style.visibility = 'hidden';
+    })
+  }
+
+  // 更新主题
+  updateTheme(newTheme) {
+    this.isDark = newTheme && newTheme.includes('dark');
+    
+    if (this.tooltip) {
+      this.tooltip.style.cssText = this.getBaseStyles();
     }
   }
 

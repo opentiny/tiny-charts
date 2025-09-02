@@ -9,46 +9,45 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-function HorizontalProcessChart(aliasToken) {
+function RankProcessChart(aliasToken) {
   const {
-    colorLabel,
     colorPlaceholder,
     colorBgContainer,
     colorBgContainerSecondary,
-    colorAxisLabel,
     borderWidth,
     colorNone,
     borderRadius,
-    textFontSize,
-    colorLegendName,
-    barWidth
+    labelFontSize,
+    barWidth,
+    colorLabel,
+    colorAxisLabel,
+    colorLabelDisabled
   } = aliasToken;
 
   return {
-    fontSize: textFontSize,
+    fontSize: labelFontSize,
     borderWidth,
     borderColor: colorNone,
     borderRadius,
+    textDeepColor: colorLabel,
+    textPaleColor: colorAxisLabel,
 
     header: {
       bgColor: colorBgContainerSecondary,
-      textColor: colorLabel,
     },
 
     row: {
       bgColor: colorBgContainer,
-      infoColor: colorLabel,
       itemBgEmpty: colorPlaceholder,
-      progressBarHeight: barWidth * 0.75,
+      progressBarHeight: barWidth * 0.5,
       progressBarRadius: borderRadius,
     },
 
     scroll: {
-      trackColor: colorPlaceholder,
-      thumbColor: colorAxisLabel,
-      thumbHoverColor: colorLegendName,
+      trackColor: colorBgContainer,
+      thumbColor: colorLabelDisabled,
     }
   };
 };
 
-export default HorizontalProcessChart;
+export default RankProcessChart;

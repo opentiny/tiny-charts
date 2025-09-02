@@ -80,7 +80,6 @@ import CircleChart from '../../src/framework/charts/CircleChart';
 import LinearArcChart from '../../src/framework/charts/LinearArcChart';
 import CircleArcChart from '../../src/framework/charts/CircleArcChart';
 import CustomizeChart from '../../src/framework/charts/CustomizeChart';
-import HorizontalProcessChart from '../../src/components/HorizontalProcessChart';
 import Demo from '../nodeExample/demoDrop.vue';
 import '../../src/feature/nodeRender/vue-node';
 import GridNode from '../nodeExample/GridNode.vue';
@@ -291,7 +290,6 @@ export default {
         'TerraceChart': TerraceChart,
         'TimelineChart': TimelineChart,
         'MilestoneChart': MilestoneChart,
-        'HorizontalProcessChart': HorizontalProcessChart,
       }
       if (Object.keys(chartObj).includes(this.chartName)) {
         this.$refs.chartRef.innerHTML = '';

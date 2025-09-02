@@ -5,30 +5,30 @@ import {
   updateSvgs
 } from './utils.js';
 
-import {ROW, TEXT} from './constants.js'
+import { ROW, TEXT } from './constants.js'
 import { showTooltip, hideTooltip } from './handleTooltip.js';
-import chartToken from './chartToken';
+import chartToken from './chartToken.js'
 
 export class ContentRow {
   constructor(option) {
     const { data, index, rowWidth, rowHeight } = option;
-    this.data = data;                            // 行数据
-    this.index = index;                          // 行索引
-    this.rowWidth = rowWidth;                    // 行宽度
-    this.rowHeight = rowHeight;                  // 行高度
+    this.data = data;
+    this.index = index;
+    this.rowWidth = rowWidth;
+    this.rowHeight = rowHeight;
+    this.padding = TEXT.PADDING
 
     this.init();
   }
 
   init() {
-    this.padding = 24;                                         // 内边距
-    this.textBaselineY = ROW.textBaseLineY;                    // 文本Y轴基线
-    this.rankBgSize = ROW.rankBgSize;                          // 排名背景尺寸
-    this.progressBarWidth = this.rowWidth - 2 * this.padding;  // 进度条宽度
-    this.progressBarHeight = chartToken.row.progressBarHeight; // 进度条高度
+    this.textBaselineY = ROW.TEXTBASELINEY;
+    this.rankBgSize = ROW.RANKBGSIZE;
+    this.progressBarWidth = this.rowWidth - 2 * this.padding;
+    this.progressBarHeight = chartToken.row.progressBarHeight;
 
     // 计算文本x坐标
-    this.columnX = calcColumnX(TEXT.flex_space, this.rowWidth, this.padding);
+    this.columnX = calcColumnX(TEXT.FLEX_SPACE, this.rowWidth, this.padding);
   }
 
   render() {
@@ -38,11 +38,20 @@ export class ContentRow {
         transform: translate(0, ${this.index * this.rowHeight}px);
         transition: transform 0.5s ease;
         transform-box: fill-box;
-        transform-origin: 0 0;
       `
     });
 
-    // 创建行背景
+    this.renderRowBg();       // 渲染行背景
+    this.renderRank();        // 渲染排名
+    this.renderName();        // 渲染名称
+    this.renderValue();       // 渲染数值
+    this.renderPercent();     // 渲染百分比
+    this.renderProgressBar(); // 渲染进度条
+
+    return this.row;
+  }
+
+  renderRowBg() {
     this.rowBg = createSvgElement('rect', {
       x: '0',
       y: '0',
@@ -51,14 +60,6 @@ export class ContentRow {
       fill: chartToken.row.bgColor
     });
     this.row.appendChild(this.rowBg);
-
-    this.renderRank();        // 渲染排名
-    this.renderName();        // 渲染名称
-    this.renderValue();       // 渲染数值
-    this.renderPercent();     // 渲染百分比
-    this.renderProgressBar(); // 渲染进度条
-
-    return this.row;
   }
 
   renderRank() {
@@ -76,9 +77,9 @@ export class ContentRow {
     this.rankText = createSvgElement('text', {
       x: this.columnX[0] + this.rankBgSize / 2,
       y: this.textBaselineY,
+      fill: '#fff',
       'font-size': chartToken.fontSize,
       'font-weight': '500',
-      fill: '#fff',
       'text-anchor': 'middle',
     });
     this.rankText.textContent = `${this.index + 1}`;
@@ -89,9 +90,9 @@ export class ContentRow {
     this.nameText = createSvgElement('text', {
       x: this.padding + this.rankBgSize + this.rowHeight * 0.08,
       y: this.textBaselineY,
-      fill: chartToken.row.infoColor,
+      fill: chartToken.textPaleColor,
       'font-size': chartToken.fontSize,
-      'font-weight': '500',
+      'font-weight': '400',
       'text-anchor': 'start',
     });
     // 判断是否省略文本和挂载tooltip
@@ -103,9 +104,9 @@ export class ContentRow {
     this.valueText = createSvgElement('text', {
       x: this.columnX[1],
       y: this.textBaselineY,
-      fill: chartToken.row.infoColor,
+      fill: chartToken.textDeepColor,
       'font-size': chartToken.fontSize,
-      'font-weight': 'bold',
+      'font-weight': '600',
       'text-anchor': 'start',
     });
     this.valueText.textContent = this.data.value;
@@ -116,9 +117,9 @@ export class ContentRow {
     this.percentText = createSvgElement('text', {
       x: this.columnX[2],
       y: this.textBaselineY,
-      fill: chartToken.row.infoColor,
+      fill: chartToken.textDeepColor,
       'font-size': chartToken.fontSize,
-      'font-weight': 'bold',
+      'font-weight': '600',
       'text-anchor': 'start',
     });
     this.percentText.textContent = `${this.data.percent}%`;
@@ -134,6 +135,7 @@ export class ContentRow {
       rx: chartToken.row.progressBarRadius,
       ry: chartToken.row.progressBarRadius,
       fill: chartToken.row.itemBgEmpty,
+      style: 'transition: all 0.6s ease',
     });
     
     this.addTooltipEvents(this.progressBg);
@@ -147,16 +149,18 @@ export class ContentRow {
       rx: chartToken.row.progressBarRadius,
       ry: chartToken.row.progressBarRadius,
       fill: this.data.color,
-      style: 'transition: width 0.6s ease',
+      style: 'transition: all 0.6s ease',
     });
 
+    this.addTooltipEvents(this.progressBar);
+    this.row.appendChild(this.progressBar);
 
-    // 创建进度条动画
+    // 进度条动画
     const animate = createSvgElement('animate', {
       attributeName: 'width',
       from:           '0',
       to:             this.progressBarWidth * ((this.data.percent || 0) / 100),
-      dur:            '1s',
+      dur:            '1.2s',
       fill:           'freeze',
       calcMode:       'spline',
       keyTimes:       '0;1',
@@ -165,16 +169,10 @@ export class ContentRow {
 
     this.progressBar.appendChild(animate);
     animate.beginElement();
-    
-    this.addTooltipEvents(this.progressBar);
-    this.row.appendChild(this.progressBar);
 
-    if (this.data.content) {
-      this.row.setAttribute('data-content', this.data.content);
-    }
   }
 
-  addTooltipEvents(element) {
+  addTooltipEvents(el) {
     const handleMouseOver = (e) => {
       const data = {
         name: this.data.name,
@@ -190,18 +188,21 @@ export class ContentRow {
       hideTooltip();
     };
 
-    element.addEventListener('mouseenter', handleMouseOver);
-    element.addEventListener('mouseleave', handleMouseOut);
+    el.addEventListener('mouseenter', handleMouseOver);
+    el.addEventListener('mouseleave', handleMouseOut);
   }
 
   //自适应计算布局
   resize(newWidth) {
     this.rowWidth = newWidth;
     this.progressBarWidth = this.rowWidth - 2 * this.padding;
-    this.columnX = calcColumnX(TEXT.flex_space, this.rowWidth, this.padding);
+    this.columnX = calcColumnX(TEXT.FLEX_SPACE, this.rowWidth, this.padding);
 
-    const anim = this.progressBar.querySelector('animate');
-    if (anim) anim.remove();
+    // 移除原有的动画
+    if (this.progressBar) {
+      const anim = this.progressBar.querySelector('animate');
+      if (anim) anim.remove();
+    }
 
     updateSvgs([
       { el: this.rowBg, attrs: { width: this.rowWidth } },
@@ -212,16 +213,52 @@ export class ContentRow {
       { el: this.progressBg, attrs: { width: this.progressBarWidth } },
       { el: this.progressBar, attrs: { width: this.progressBarWidth * ((this.data.percent || 0) / 100) } }
     ]);
-    
+  }
+
+  // 更新主题样式
+  updateTheme(latestChartToken) {
+
+    updateSvgs([
+      { el: this.rowBg, attrs: { 
+        fill: latestChartToken.row.bgColor
+      }},
+      { el: this.rankText, attrs: { 
+        'font-size': latestChartToken.fontSize
+      }},
+      { el: this.nameText, attrs: { 
+        fill: latestChartToken.textPaleColor,
+        'font-size': latestChartToken.fontSize
+      }},
+      { el: this.valueText, attrs: { 
+        fill: latestChartToken.textDeepColor,
+        'font-size': latestChartToken.fontSize
+      }},
+      { el: this.percentText, attrs: { 
+        fill: latestChartToken.textDeepColor,
+        'font-size': latestChartToken.fontSize
+      }},
+      { el: this.progressBar, attrs: { 
+        width: this.progressBarWidth * ((this.data.percent || 0) / 100),
+        height: latestChartToken.row.progressBarHeight,
+        rx: latestChartToken.row.progressBarRadius,
+        ry: latestChartToken.row.progressBarRadius
+      }},
+      { el: this.progressBg, attrs: { 
+        width: this.progressBarWidth,
+        height: latestChartToken.row.progressBarHeight,
+        rx: latestChartToken.row.progressBarRadius,
+        ry: latestChartToken.row.progressBarRadius
+      }},
+    ]);
   }
 }
 
 // 获取排名对应的颜色
 function getRankColor(rank) {
   const rankColors = {
-    1: '#e74c3c',  // 第1名：红色
-    2: '#ffa600',  // 第2名：橙色
-    3: '#FFD700',  // 第3名：金色
+    1: '#E7434A',    // 第1名红色
+    2: '#F4840C',    // 第2名橙色
+    3: '#FCC800',    // 第3名金色
   };
-  return rankColors[rank] || '#cacaca'; // 默认：浅灰色
+  return rankColors[rank] || '#C9C9C9'; // 其他灰色
 }

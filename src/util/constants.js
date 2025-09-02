@@ -37,7 +37,6 @@ const TOKENCHARTNAMES = [
   'FunnelChart',
   'GaugeChart',
   'HeatMapChart',
-  'HorizontalProcessChart',
   'HillChart',
   'JadeJueChart',
   'LineChart',
@@ -62,7 +61,8 @@ const TOKENCHARTNAMES = [
   'LinearArcChart',
   'CircleArcChart',
   'CustomizeChart',
-  'BarLineChart'
+  'BarLineChart',
+  'RankProcessChart'
 ];
 
 // 默认主题
@@ -91,7 +91,7 @@ const CHART_TYPE = {
   HEAT_MAP: 'HeatMapChart',
   HILL: 'HillChart',
   HONEYCOMB: 'HoneycombChart',
-  HORIZONTALPROCESS: 'HorizontalProcessChart',
+  RANKPROCESS: 'RankProcessChart',
   JADGEJUE: 'JadeJueChart',
   LINE: 'LineChart',
   AREA: 'AreaChart',

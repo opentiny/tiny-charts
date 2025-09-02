@@ -1,6 +1,6 @@
 const option = {
     // 图表名称
-    name: 'HorizontalProcessChart',
+    name: 'RankProcessChart',
     // 主题,默认值'hdesign-light'
     theme: 'hdesign-light',
 
@@ -15,10 +15,8 @@ const option = {
     tooltip: {
         show: true,
         formatter: function(params) {
-            // params 包含: { name, value, percent, color, data }
             const { name, value, percent, color, content } = params;
             
-            // 自定义HTML格式
             return `
                 <div style="padding: 8px; min-width: 200px;">
                     <div style="font-weight: bold; font-size: 16px; margin-bottom: 8px; color: ${color};">
@@ -42,7 +40,7 @@ const option = {
         }
     },
     
-    // 自定义tooltip
+    // 数据
     data: [
         { 
             name: '张三', 

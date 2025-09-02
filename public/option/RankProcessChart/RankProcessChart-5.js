@@ -1,6 +1,6 @@
 const option = {
     // 图表名称
-    name: 'HorizontalProcessChart',
+    name: 'RankProcessChart',
     // 主题,默认值'hdesign-light'
     theme: 'hdesign-light',
 
