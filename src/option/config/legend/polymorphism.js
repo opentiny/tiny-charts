@@ -52,7 +52,6 @@ function setPolymorphism(legend, iChartOption) {
     baseRich.title.width = 80;
     baseRich.value1.width = 20;
     baseRich.value.width = 20;
-    baseRich.split = Token.config.legendTextValueFontSize - 2
   }
   let rich = legend?.textStyle?.rich || {};
   legend.textStyle.rich = merge(baseRich, rich);

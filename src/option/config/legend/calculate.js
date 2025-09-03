@@ -23,6 +23,8 @@ function formatRichText(text, styles, textStyle, richMaxWidth){
   text.replace(/\{(\w+)\|([^}]+)\}/g, (match, styleName, content) =>{
     const style = styles[styleName] || {};
     let fontSize = `${textStyle?.fontSize || 12}px;`
+    let fontWeight = textStyle?.fontWeight || 'normal';
+    let fontFamily =textStyle?.fontFamily || 'Arial';
     // 第一项为title
     if (!titleName) {
       titleName = styleName;
@@ -35,9 +37,15 @@ function formatRichText(text, styles, textStyle, richMaxWidth){
       if (key === 'fontSize'){
         fontSize = val + 'px'
       }
+      if (key === 'fontWeight'){
+        fontWeight = fontWeight
+      }
+      if (key === 'fontFamily'){
+        fontFamily = fontFamily
+      }
     }
     // 设置字体
-    ctx.font = `${fontSize} Arial`;
+    ctx.font = `${fontWeight} ${fontSize} ${fontFamily}`;
     // 获取宽度
     let textWidth = ctx.measureText(content).width;
     if(styleName === 'split'){// 分割线占宽20
@@ -121,12 +129,12 @@ function calculateOccupancy(iChartOption, legend, legendData){
 }
 
 // 文本截断处理
-function truncateText(text, maxWidth, fontSize, ellipsis, fontFamily = 'Arial'){
+function truncateText(text, maxWidth, fontSize, ellipsis, fontFamily = 'Arial', fontWeight = 'normal'){
   // 创建一个canvas
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   // 设置字体
-  ctx.font = `${fontSize} ${fontFamily} `;
+  ctx.font = `${fontWeight} ${fontSize} ${fontFamily}`;
   // 测量省略号宽度
   const ellipsisWidth = ctx.measureText(ellipsis).width;
   // 如果原始文本的宽度不超过maxWidth，直接返回
@@ -154,27 +162,28 @@ function updateLegendOccupancy(iChartOption, legend, legendData, chartInstance){
   const formatter = legend.formatter;
   legend.textStyle = legend.textStyle || { rich: {} };
   legend.textStyle.rich = legend.textStyle.rich || {};
-  const textStyle = legend.textStyle;
+  const textStyle = legend?.textStyle;
   const config = calculateOccupancy(iChartOption, legend, legendData)
   if (!config) return;
-  const legendMaxWidth = Math.floor(((chartInstance?.getWidth?.() || chartInstance?._dom?.clientWidth || 0)) * 0.4);
+  const legendMaxWidth = Math.floor(((chartInstance?.getWidth?.() || chartInstance?.getDom?.()?.clientWidth || chartInstance?._dom?.clientWidth || 0)) * 0.4);
   let {richMaxWidth, maxWidth, titleName, titlePaddingWidth} = config;
   // 用户rich
   const rich = cloneDeep(textStyle.rich);
   let titleExceed = false; // title超出标识
   let titleWidth = 0; // title宽度
-  const iTitleMaxWidth = Number(rich?.[titleName]?.width); // 用户配置宽度
+  const richTitle = rich?.[titleName];
+  const useTitleMaxWidth = richTitle?.width; // 用户配置宽度
+  const titlePaddingRight = isArray(richTitle?.padding) ? (Number(richTitle?.padding[1])|| 0) : Number(richTitle?.padding);
   let titleMaxWidth = richMaxWidth?.[titleName]?.maxWidth || 0;
-  // 计算宽度
-  if ((legendMaxWidth < maxWidth) || (legendMaxWidth < (maxWidth + titlePaddingWidth))) { // 内容大于图例最大宽 或 内容加title的padding大于图例最大宽
+  // 计算title宽度
+  if ((legendMaxWidth < maxWidth) || (legendMaxWidth < (maxWidth + (titlePaddingWidth || 0)))) { // 内容大于图例最大宽 或 内容加title的padding大于图例最大宽
     titleExceed = true;
-    titleWidth = titleMaxWidth - (maxWidth - legendMaxWidth) - titlePaddingWidth; // title与右边的间隙
-    titleWidth = iTitleMaxWidth ? iTitleMaxWidth : titleWidth;
+    titleWidth = titleMaxWidth - (maxWidth - legendMaxWidth) - (titlePaddingWidth || 0); // title与右边的间隙
+    titleWidth = isNumber(useTitleMaxWidth) ? useTitleMaxWidth : titleWidth;
     legend.tooltip = { show: true};
   } else {
-    titleWidth = iTitleMaxWidth ? iTitleMaxWidth : titleMaxWidth + 16; // title与右边的间隙
+    titleWidth = isNumber(useTitleMaxWidth) ? useTitleMaxWidth : (titleMaxWidth + titlePaddingRight); // title与右边的间隙
   }
-  
   // 更新rich 增加width
   for (const key in richMaxWidth) {
     const element = richMaxWidth[key];
@@ -185,11 +194,11 @@ function updateLegendOccupancy(iChartOption, legend, legendData, chartInstance){
       maxWidth = titleWidth
     }  
     // 用户传入宽度
-    const iWidth = textStyle.rich[key]?.width;
-    // 更新内部用于截断文本用的rich，iWidth用于判断是否为用户传入宽度
-    rich[key] = {...(textStyle.rich?.[key] || {}), iWidth, width: iWidth === undefined ? maxWidth : iWidth }
+    const useWidth = textStyle.rich[key]?.width;
+    // 更新内部用于截断文本用的rich，useWidth用于判断是否为用户传入宽度
+    rich[key] = {...(textStyle.rich?.[key] || {}), useWidth, width: useWidth === undefined ? maxWidth : useWidth }
     // 更新option中rich
-    textStyle.rich[key] = {...(textStyle.rich?.[key] || {}), width: iWidth === undefined ? maxWidth : iWidth }
+    textStyle.rich[key] = {...(textStyle.rich?.[key] || {}), width: useWidth === undefined ? maxWidth : useWidth }
   }
 
   legend.left = '60%'; // 开启自适应 固定位置
@@ -200,25 +209,29 @@ function updateLegendOccupancy(iChartOption, legend, legendData, chartInstance){
       let newText = text.replace(/\{(\w+)\|([^}]+)\}/g, (match, styleName, content) =>{
         let newContent = content;
         const richItem = rich[styleName] || {};
-        const iWidth = richItem?.width;
-        const isIWidth = richItem?.iWidth;
+        const widthNum = isNumber(richItem?.width) ? richItem?.width : undefined;
+        const hasUseWidth = richItem?.useWidth;
         const fontSize = (richItem.fontSize || textStyle?.fontSize || 12) + 'px';
+        const fontWeight = richItem?.fontWeight || textStyle?.fontWeight || 'normal';
+        const fontFamily = richItem?.fontFamily || textStyle?.fontFamily || 'Arial';
         // title的截断处理
-        if (!isIWidth && titleExceed && styleName === 'title'){
-          newContent = truncateText(content, iWidth - 10, fontSize, '...'); // 10为...的占位
+        if (!hasUseWidth && titleExceed && styleName === 'title' && isNumber(widthNum)){
+          newContent = truncateText(content, widthNum - 10, fontSize, '...', fontFamily, fontWeight); // 10为...的占位
         }
         // 用户设置了宽度的截断处理
-        if(isIWidth && styleName !== 'split'){
-          newContent = truncateText(content, iWidth - 10, fontSize, '...'); // 10为...的占位
+        if(hasUseWidth && styleName !== 'split' && isNumber(widthNum)){
+          newContent = truncateText(content, widthNum - 10, fontSize, '...', fontFamily, fontWeight); // 10为...的占位
         }
         return `{${styleName}|${newContent}}`
       })
       return newText
     } else {
       // 未设置formatter文本也超出也会截断
-      const fontSize = (legend?.textStyle?.fontSize || 12) + 'px';
+      const fontSize = (textStyle?.fontSize || 12) + 'px';
+      const fontWeight = textStyle?.fontWeight || 'normal';
+      const fontFamily = textStyle?.fontFamily || 'Arial';
       const maxWidth = legendMaxWidth - (titlePaddingWidth || 21);
-      const newContent = truncateText(name, maxWidth, fontSize, '...');
+      const newContent = truncateText(name, maxWidth, fontSize, '...', fontFamily, fontWeight);
       return newContent
     }
   }
