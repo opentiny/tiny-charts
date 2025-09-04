@@ -179,6 +179,10 @@ const ChartData = {
     smooth: true,
 };
 
+import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引入样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/feature/expandLegend/index.css'
+
 export default {
     name: "MutiselectLegend",
     data() {
@@ -188,7 +192,7 @@ export default {
         };
     },
     created() {
-        this.integrateChart = new IntegrateChart();
+        this.integrateChart = new HuiCharts();
     },
     mounted() {
         this.renderChart();
