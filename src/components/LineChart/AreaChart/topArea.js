@@ -19,7 +19,7 @@ import Token from '../../../feature/token';
 import { getDataWidthNoObject } from './bottomArea'
 
 function markLineArea(baseOption, iChartOption, echartsIns, chartsIns) {
-  const markLine = iChartOption.markLine;
+  const markLine = chartsIns?.transformMarkLine || iChartOption.markLine;
   if (
     iChartOption.area &&
     markLine &&

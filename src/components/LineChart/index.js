@@ -86,7 +86,7 @@ class LineChart {
     onlyOnePoint(this.baseOption);
     // 针对离散数据, 创建同名Series, 显示离散数据的单个点
     discrete(iChartOption, this.baseOption);
-    setTooltip(this.baseOption, iChartOption,legendData)
+    setTooltip(this.baseOption, iChartOption,legendData, this)
     // 合并用户自定义series
     if (iChartOption.dataset) {
       setDatasetSeries(this.baseOption, iChartOption);
@@ -101,6 +101,43 @@ class LineChart {
 
   // 根据渲染出的结果，二次计算option
   updateOptionAgain(echartsIns) {
+    const markLine = this.iChartOption.markLine;
+    if (isArray(markLine)) {
+      let top;
+      let bottom;
+      if (markLine.length > 1) {
+        markLine.forEach(item => {
+          item.newValue = item.yAxis || item.xAxis || item.value;
+          if (!top && !bottom) {
+            top = item;
+            bottom = item;
+          } else if (top.newValue < item.newValue) { 
+            top = item;
+          } else if (bottom.newValue > item.newValue) { 
+            bottom = item;
+          }
+        })
+      } else {
+        top = markLine[0];
+        top.newValue = top.yAxis || top.xAxis || top.value;
+      }
+      let topColor = top?.lineStyle?.color;
+      let bottomColor = bottom?.lineStyle?.color;
+      topColor = topColor && (topColor.includes('rgb') || topColor.includes('#')) ? topColor : undefined;
+      bottomColor = bottomColor && (bottomColor.includes('rgb') || bottomColor.includes('#')) ? bottomColor : undefined;
+      this.transformMarkLine = {
+        top: top?.newValue,
+        topColor: topColor,
+        topPosition: top?.label?.position,
+        topLabel: top?.label?.formatter,
+        topUse: top?.belong,
+        bottom: bottom?.newValue,
+        bottomColor: bottomColor,
+        bottomPosition: bottom?.label?.position,
+        bottomLabel: bottom?.label?.formatter,
+        bottomUse: bottom?.belong
+      }
+    }
     // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
     topArea(this.baseOption, this.iChartOption, echartsIns, this);
     // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
