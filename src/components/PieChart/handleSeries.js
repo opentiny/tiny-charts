@@ -37,12 +37,13 @@ export const seriesInit = () => {
 };
 
 /**
- * 根据参数计算出圆盘图的半径
+ * 根据参数计算出圆盘图的内外半径
  */
-function setPieRadius(pieType, radius, chartInstance) {
+function handleRadius(pieType, radius, chartInstance, iChartOption, legend) {
   if (radius) {
+    // 环形图且radius只有一项
     if (pieType === 'circle' && !(isArray(radius) && radius.length === 2)) {
-      return setPieCircleRadius(radius, chartInstance);
+      return setCircleRadius(radius, chartInstance, iChartOption, legend);
     } else {
       return radius;
     }
@@ -54,7 +55,7 @@ function setPieRadius(pieType, radius, chartInstance) {
         break;
       case 'circle':
         radius = ['44%', '50%'];
-        radius = setPieCircleRadius(radius, chartInstance);
+        radius = setCircleRadius(radius, chartInstance, iChartOption, legend);
         break;
       case 'multi-circle':
         radius = ['44%', '50%'];
@@ -68,18 +69,51 @@ function setPieRadius(pieType, radius, chartInstance) {
 }
 
 /**
- * 根据参数计算出圆盘图的圆环类型的内外半径
+ * 根据圆环粗细的规范重新计算圆盘图的圆环类型的内外半径
  */
-function setPieCircleRadius(radius, chartInstance) {
+function setCircleRadius(radius, chartInstance, iChartOption, legend) {
   const width = chartInstance?.getWidth?.();
   const height = chartInstance?.getHeight?.();
   const canvasRadius = width > height ? height / 2 : width / 2;
-  const barWidth = chartToken.barWidth
+  const adaptive = iChartOption?.adaptive;
+  // 暂时用来只开放华为云主题
+  const theme = iChartOption?.theme
+  let barWidth = chartToken.barWidth;
+
+  // 2.自适应根据圆环占比部分决定圆环粗细
+  if (adaptive && theme.includes('cloud')) {
+    // TODO 下面部分没有用到
+    if (theme.includes('hdesign') || theme.includes('bpit')) {
+      if (legend.orient === 'horizontal') {
+        // 上面圆环占比的部分
+        const circleSection = height - 16 - (legend.bottom !== 'auto' ? legend.bottom : 4);
+        if (circleSection >= 452) {
+          barWidth = 16;
+        } else if (circleSection > 296) {
+          barWidth = 12;
+        } else {
+          barWidth = 8;
+        }
+      } else {
+        // 左边圆环占比的部分
+        const circleSection = width * 0.6;
+        if (circleSection >= 271) {
+          barWidth = 16;
+        } else if (circleSection > 178) {
+          barWidth = 12;
+        } else {
+          barWidth = 8;
+        }
+      }
+    }
+    // 为了3计算字号算出内直径
+    iChartOption.barWidth = barWidth;
+  }
   let outerRing = isArray(radius) ? radius[1] || radius[0] : radius;
   if (isString(outerRing) && outerRing.indexOf('%') > -1) {
     outerRing = (Number(outerRing.slice(0, -1)) / 100) * canvasRadius;
   }
-  // 去除borderwidth带来的粗细影响
+  // -2去除borderwidth带来的粗细影响
   let innerRing = Number(outerRing) - barWidth - 2;
   return [innerRing, outerRing];
 }
@@ -221,11 +255,11 @@ function handleSeries(pieType, iChartOption, chartInstance, position, legend) {
       }
     });
     seriesUnit.data = seriesUnit.data || iChartOption.data;
-    seriesUnit.radius = setPieRadius(pieType, seriesUnit.radius, chartInstance);
+    seriesUnit.radius = handleRadius(pieType, seriesUnit.radius, chartInstance, iChartOption, legend);
     seriesUnit.minAngle =
       seriesUnit.minAngle !== undefined ? seriesUnit.minAngle : minAngle(seriesUnit.radius, chartInstance);
     setLabel(seriesUnit, seriesUnit.label, seriesUnit.data);
-    // 默认样式合并
+    // 和默认配置合并
     mergeDefaultSeries(seriesUnit);
   });
   // 数据和为0
