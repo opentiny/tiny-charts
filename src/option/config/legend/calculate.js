@@ -24,7 +24,7 @@ function formatRichText(text, styles, textStyle, richMaxWidth){
     const style = styles[styleName] || {};
     let fontSize = `${textStyle?.fontSize || 12}px;`
     let fontWeight = textStyle?.fontWeight || 'normal';
-    let fontFamily =textStyle?.fontFamily || 'Arial';
+    let fontFamily = textStyle?.fontFamily || 'Arial';
     // 第一项为title
     if (!titleName) {
       titleName = styleName;
@@ -48,7 +48,7 @@ function formatRichText(text, styles, textStyle, richMaxWidth){
     ctx.font = `${fontWeight} ${fontSize} ${fontFamily}`;
     // 获取宽度
     let textWidth = ctx.measureText(content).width;
-    if(styleName === 'split'){// 分割线占宽20
+    if (styleName === 'split'){ // 分割线占宽20---取自设计稿
       textWidth = style?.width ? style.width* 2 : 20;
     }
     if (richMaxWidth[styleName]){
@@ -89,9 +89,11 @@ function calculateOccupancy(iChartOption, legend, legendData){
           // 创建一个canvas
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
-          const fontSize = (legend?.textStyle?.fontSize || 12) + 'px';
+          let fontSize = `${textStyle?.fontSize || 12}px;`
+          let fontWeight = textStyle?.fontWeight || 'normal';
+          let fontFamily = textStyle?.fontFamily || 'Arial';
           // 设置字体
-          ctx.font = `${fontSize} Arial`;
+          ctx.font = `${fontWeight} ${fontSize} ${fontFamily}`;
           // 获取宽度
           let textWidth = ctx.measureText(name).width;
           if (richMaxWidth.title){
@@ -110,8 +112,8 @@ function calculateOccupancy(iChartOption, legend, legendData){
     for (const key in richMaxWidth) {
       const element = richMaxWidth[key];
       element.maxWidth = Math.max(...element.widths);
-      if(key === 'split'){
-        element.maxWidth = 20; //分割线占宽为取自设计稿
+      if (key === 'split'){
+        element.maxWidth = 20; //分割线占宽取自设计稿
       }
     }
     // 计算结果
@@ -122,7 +124,6 @@ function calculateOccupancy(iChartOption, legend, legendData){
       titleName,
       titlePaddingWidth
     }
-
   } catch (e) {
     console.error('计算图例宽度失败：', e);
   }
