@@ -48,10 +48,10 @@ function getSceneToken(globalToken, light = true) {
         colorIconPrimary: light ? colorGray90 : colorGray10,
         // 图标失效色
         colorIconDisabled: light ? colorGray20 : colorGray40,
-        colorLine: light ? colorGray10 : colorGray70,
-        colorLineSecondary: light ? colorGray5 : colorGray80,
+        colorLine: light ? colorGray10 : codeToRGB(colorGray5, 0.1),
+        colorLineSecondary: light ? colorGray5 : codeToRGB(colorGray5, 0.1),
         // 指示线
-        colorLinePointer: light ? colorGray10 : colorGray70,
+        colorLinePointer: light ? colorGray10 : codeToRGB(colorGray5, 0.1),
         // 分割线
         colorLineSeparator: light ? colorGray90 : colorGray0,
         colorFillNone: colorTransparent,
