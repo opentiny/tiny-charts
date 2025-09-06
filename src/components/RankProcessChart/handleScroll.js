@@ -1,25 +1,23 @@
 import { createSvgElement, updateSvgs } from './utils.js';
 import { HEADER_HEIGHT, SCROLL } from './constants.js';
+import { getScrollStyles } from './style.js';
 import chartToken from './chartToken.js';
 
 class ScrollArea {
   constructor(rootSvg, container, rowList, width, height, paddingConfig) {
-    this.svg = rootSvg;                // 根SVG
-    this.container = container;        // 容器元素
-    this.rowList = rowList;            // 行列表实例
+    this.svg = rootSvg;
+    this.container = container;
+    this.rowList = rowList;
     this.width = width;
     this.height = height;
     this.paddingConfig = paddingConfig;
     this.headerHeight = HEADER_HEIGHT;
+    this.scrollThumbWidth = SCROLL.THUMBWIDTH;
+    this.viewHeight = height - HEADER_HEIGHT;
     this.scrollY = 0;                  // 当前滚动位置
     this.lastClientY = 0;              // 拖动时最后鼠标Y坐标
     this.isDragging = false;           // 是否正在拖动滚动条
-    this.viewHeight = height - HEADER_HEIGHT;
     this.isVisible = false;            // 滚动条是否可见
-
-    this.show_transition = SCROLL.SHOW_TRANSITION; // 鼠标显示设置
-    this.hide_transition = SCROLL.HIDE_TRANSITION; // 鼠标隐藏设置
-    this.scrollThumbWidth = SCROLL.THUMBWIDTH;     // 滚动条轨道宽度
 
     this.init();
     this.renderScrollBar(); // 创建滚动条
@@ -28,17 +26,19 @@ class ScrollArea {
   }
 
   init() {
+    // 获取样式配置
+    this.styles = getScrollStyles(chartToken);
     this.rowList.updateVisibleRange(0);
 
-   this.viewArea = createSvgElement('g', {
-      transform: `translate(0, 0)`,
-      style: 'transition: all 0.6s ease',
-    });
+    this.viewArea = createSvgElement(
+      'g', 
+      this.styles.getViewArea()
+    );
 
-    this.scrollArea = createSvgElement('g', {
-      transform: 'translate(0, 0)',
-      style: 'transition: all 0.6s ease',
-    });
+    this.scrollArea = createSvgElement(
+      'g', 
+      this.styles.getScrollArea()
+    );
     this.scrollArea.appendChild(this.rowList.getContainer());
     this.viewArea.appendChild(this.scrollArea);
 
@@ -50,27 +50,15 @@ class ScrollArea {
     const rootSvgWidth = this.svg.clientWidth;
     this.scrollBarX = rootSvgWidth - this.scrollThumbWidth;
     
-    this.scrollThumbTrack = createSvgElement('rect', {
-      x: this.scrollBarX,
-      y: this.paddingConfig.top + this.headerHeight,
-      width: this.scrollThumbWidth,
-      height: this.viewHeight,
-      fill: chartToken.scroll.trackColor,
-      rx: this.scrollThumbWidth / 2,
-      ry: this.scrollThumbWidth / 2,
-      opacity: '0',
-    });
+    this.scrollThumbTrack = createSvgElement(
+      'rect', 
+      this.styles.getScrollTrack(this.scrollBarX, this.paddingConfig.top, this.headerHeight, this.viewHeight, this.scrollThumbWidth)
+    );
     
-    this.scrollThumb = createSvgElement('rect', {
-      x: this.scrollBarX,
-      y: this.paddingConfig.top + this.headerHeight,
-      width: this.scrollThumbWidth,
-      fill: chartToken.scroll.thumbColor,
-      rx: this.scrollThumbWidth / 2,
-      ry: this.scrollThumbWidth / 2,
-      cursor: 'pointer',
-      opacity: '0',
-    });
+    this.scrollThumb = createSvgElement(
+      'rect', 
+      this.styles.getScrollThumb(this.scrollBarX, this.paddingConfig.top, this.headerHeight, this.scrollThumbWidth)
+    );
 
     this.svg.appendChild(this.scrollThumbTrack);
     this.svg.appendChild(this.scrollThumb);
@@ -123,8 +111,8 @@ class ScrollArea {
   showScrollBar() {
     if (!this.isVisible) return;
     
-    this.scrollThumbTrack.style.transition = this.show_transition;
-    this.scrollThumb.style.transition = this.show_transition;
+    this.scrollThumbTrack.style.transition = this.styles.showTransition;
+    this.scrollThumb.style.transition = this.styles.showTransition;
     
     this.scrollThumbTrack.style.opacity = '1';
     this.scrollThumb.style.opacity = '1';
@@ -134,8 +122,8 @@ class ScrollArea {
   hideScrollBar() {
     if (!this.isVisible || this.isDragging) return;
     
-    this.scrollThumbTrack.style.transition = this.hide_transition;
-    this.scrollThumb.style.transition = this.hide_transition;
+    this.scrollThumbTrack.style.transition = this.styles.hideTransition;
+    this.scrollThumb.style.transition = this.styles.hideTransition;
     
     this.scrollThumbTrack.style.opacity = '0';
     this.scrollThumb.style.opacity = '0';
@@ -204,7 +192,6 @@ class ScrollArea {
     this.paddingConfig = paddingConfig;
     
     this.viewHeight = newHeight - this.headerHeight;
-    
     this.scrollY = this.clamp(this.scrollY, 0, this.maxScrollY);
     this.calcHeight();
 
@@ -214,28 +201,30 @@ class ScrollArea {
     updateSvgs([
       { 
         el: this.scrollThumbTrack, 
-        attrs: { 
-          x: scrollBarX, 
-          y: this.paddingConfig.top + this.headerHeight,
-          height: this.viewHeight
-        } 
+        attrs: this.styles.updateScrollTrack(scrollBarX, this.paddingConfig.top, this.headerHeight, this.viewHeight)
       },
       { 
         el: this.scrollThumb, 
-        attrs: { 
-          x: scrollBarX,
-          y: this.paddingConfig.top + this.headerHeight,
-          height: this.scrollThumb.getAttribute('height') || 30,
-        } 
+        attrs: this.styles.updateScrollThumb(scrollBarX, this.paddingConfig.top, this.headerHeight, this.scrollThumb.getAttribute('height') || 30)
       }
     ]);
   }
 
   // 更新主题样式
   updateTheme(latestChartToken) {
+    // 更新样式对象
+    this.styles = getScrollStyles(latestChartToken);
+    const newStyles = this.styles.getThemeUpdates();
+    
     updateSvgs([
-      { el: this.scrollThumbTrack, attrs: { fill: latestChartToken.scroll.trackColor } },
-      { el: this.scrollThumb, attrs: { fill: latestChartToken.scroll.thumbColor } }
+      { 
+        el: this.scrollThumbTrack, 
+        attrs: newStyles.track 
+      },
+      { 
+        el: this.scrollThumb, 
+        attrs: newStyles.thumb 
+      }
     ]);
   }
 

@@ -1,4 +1,5 @@
 import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter';
+import { getTooltipStyles } from './style.js';
 
 // 全局tooltip实例
 let tooltip = null;
@@ -6,10 +7,13 @@ let tooltip = null;
 class Tooltip {
   constructor(dom, theme, tooltipConfig) {
     this.dom = dom;
-    this.isDark = theme && theme.includes('dark');
+    this.theme = theme;
     this.config = tooltipConfig;
     this.tooltip = null;
     this.offset = 10;
+
+    // 获取样式配置
+    this.styles = getTooltipStyles();
 
     if (this.config.show) {
       this.createTooltip();
@@ -19,47 +23,11 @@ class Tooltip {
 
   createTooltip() {
     this.tooltip = document.createElement('div');
-    this.tooltip.style.cssText = this.getBaseStyles();
+    this.tooltip.style.cssText = this.styles.getBaseStyles(this.theme);
     this.tooltip.style.visibility = 'hidden';
     document.body.appendChild(this.tooltip);
   }
 
-  getBaseStyles() {
-    const lightTheme = {
-      background: '#ffffffff',
-      textColor: '#191919',
-      borderColor: 'transparent',
-      shadowColor: 'rgba(0, 0, 0, 0.2)'
-    };
-    
-    const darkTheme = {
-      background: '#393939',
-      textColor: '#FFFFFF',
-      borderColor: 'transparent',
-      shadowColor: 'rgba(125, 125, 125, 0.3)'
-    };
-    
-    const theme = this.isDark ? darkTheme : lightTheme;
-    
-    return `
-      position: fixed;
-      z-index: 9999;
-      padding: 16px;
-      background-color: ${theme.background};
-      color: ${theme.textColor};
-      border: 1px solid ${theme.borderColor};
-      border-radius: 4px;
-      box-shadow: 0 2px 8px 0 ${theme.shadowColor};
-      font-size: 14px;
-      font-weight: normal;
-      pointer-events: none;
-      line-height: 1.6;
-      text-align: left;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
-    `;
-  }
 
   getContent(data) {
     const config = {
@@ -129,9 +97,8 @@ class Tooltip {
       top = e.clientY - tooltipHeight - this.offset;
     }
 
-    // 设置最终位置
-    this.tooltip.style.left = `${left}px`;
-    this.tooltip.style.top = `${top}px`;
+    const position = this.styles.getPosition(left, top);
+    Object.assign(this.tooltip.style, position);
   }
 
   show(data, e) {
@@ -159,8 +126,8 @@ class Tooltip {
     }
 
     requestAnimationFrame(() => {
-      this.tooltip.style.opacity = '1';
-      this.tooltip.style.visibility = 'visible';
+      const visibilityStyles = this.styles.getVisibility(true);
+      Object.assign(this.tooltip.style, visibilityStyles);
     });
   }
 
@@ -168,17 +135,17 @@ class Tooltip {
     if (!this.tooltip) return;
 
     requestAnimationFrame(() => {
-      this.tooltip.style.opacity = '0';
-      this.tooltip.style.visibility = 'hidden';
+      const visibilityStyles = this.styles.getVisibility(false);
+      Object.assign(this.tooltip.style, visibilityStyles);
     })
   }
 
   // 更新主题
   updateTheme(newTheme) {
-    this.isDark = newTheme && newTheme.includes('dark');
+    this.theme = newTheme;
     
     if (this.tooltip) {
-      this.tooltip.style.cssText = this.getBaseStyles();
+      this.tooltip.style.cssText = this.styles.getThemeUpdate(newTheme);
     }
   }
 

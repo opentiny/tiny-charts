@@ -17,7 +17,10 @@ export const ROW = {
 // 滚动条配置
 export const SCROLL = {
   THUMBWIDTH: 4,
-
-  SHOW_TRANSITION: 'opacity 0.1s ease-in',
-  HIDE_TRANSITION: 'opacity 1s ease-out'
 };
+
+// 字段检查配置
+export const FIELD_CHECKS = [
+  'theme', 'titleName', 'valueName', 'percentName', 
+  'padding', 'data', 'color'
+]

@@ -1,5 +1,6 @@
 import { createSvgElement, calcColumnX, updateSvgs } from './utils.js';
 import { HEADER_HEIGHT, TEXT } from './constants.js';
+import { getHeaderStyles } from './style.js';
 import chartToken from './chartToken.js';
 
 class HeaderRow {
@@ -11,6 +12,8 @@ class HeaderRow {
     this.headerHeight = HEADER_HEIGHT;
     this.padding = TEXT.PADDING
 
+    // 获取样式配置
+    this.styles = getHeaderStyles(chartToken);
     // 计算文本的X坐标位置
     this.columnX = calcColumnX(TEXT.FLEX_SPACE, this.headerWidth, this.padding);
   }
@@ -25,11 +28,10 @@ class HeaderRow {
   }
 
   renderBg() {
-    this.headerBg = createSvgElement('rect', {
-      width: this.headerWidth,
-      height: this.headerHeight,
-      fill: chartToken.header.bgColor,
-    });
+    this.headerBg = createSvgElement(
+      'rect', 
+      this.styles.getHeaderBg(this.headerWidth, this.headerHeight)
+    );
     this.headerRow.appendChild(this.headerBg);
   }
 
@@ -37,19 +39,18 @@ class HeaderRow {
     // 存放svg文本元素
     this.textElements = [];
     
-    this.textContainer = createSvgElement('g', {
-      transform: `translate(0, ${this.headerHeight * 0.65})`
-    });
+    this.textContainer = createSvgElement(
+      'g', 
+      this.styles.getHeaderContainer(this.headerHeight)
+    );
     this.headerRow.appendChild(this.textContainer);
 
+    const textConfigs = this.styles.getHeaderText(this.columnX);
     this.headerFields.forEach((text, index) => {
-      const content = createSvgElement('text', {
-        x: this.columnX[index],
-        fill: chartToken.textDeepColor,
-        'font-size': chartToken.fontSize,
-        'font-weight': '600',
-        'text-anchor': 'start',
-      });
+      const content = createSvgElement(
+        'text', 
+        textConfigs[index]
+      );
       content.textContent = text;
       this.textContainer.appendChild(content);
       this.textElements.push(content);
@@ -62,24 +63,30 @@ class HeaderRow {
     this.columnX = calcColumnX(TEXT.FLEX_SPACE, newWidth, this.padding);
 
     updateSvgs([
-      { el: this.headerBg, attrs: { width: newWidth } },
+      { 
+        el: this.headerBg, 
+        attrs: this.styles.updateHeaderBg(newWidth) 
+      },
       ...this.textElements.map((text, index) => ({
         el: text,
-        attrs: { x: this.columnX[index] }
+        attrs: this.styles.updateHeaderText(this.columnX)[index]
       }))
     ]);
   }
 
   // 更新主题样式
   updateTheme(latestChartToken) {
+    this.styles = getHeaderStyles(latestChartToken);
+    const newStyle = this.styles.getThemeUpdates();
+    
     updateSvgs([
-      { el: this.headerBg, attrs: { fill: latestChartToken.header.bgColor } },
+      { 
+        el: this.headerBg, 
+        attrs: newStyle.headerBg 
+      },
       ...this.textElements.map(text => ({
         el: text,
-        attrs: { 
-          fill: latestChartToken.textDeepColor,
-          'font-size': latestChartToken.fontSize
-        }
+        attrs: newStyle.headerText
       }))
     ]);
   }
@@ -98,10 +105,13 @@ class HeaderRow {
       
       // 更新背景宽度和文本位置
       updateSvgs([
-        { el: this.headerBg, attrs: { width: headerWidth } },
+        { 
+          el: this.headerBg, 
+          attrs: this.styles.updateHeaderBg(this.headerWidth) 
+        },
         ...this.textElements.map((text, index) => ({
           el: text,
-          attrs: { x: this.columnX[index] }
+          attrs: this.styles.updateHeaderText(this.columnX)[index]
         }))
       ]);
     }

@@ -364,11 +364,6 @@ const NAV_DATA = [
     value: 'ProcessChart',
   },
   {
-    title: '排名进度图 RankProcessChart',
-    titleId: 'ic_RankProcessChart',
-    value: 'RankProcessChart',
-  },
-  {
     title: '圆环进度图 CircleProcessChart',
     titleId: 'ic_CircleProcessChart',
     value: 'CircleProcessChart',
@@ -485,6 +480,12 @@ const NAV_DATA = [
   //   titleId: 'ic_AutonaviMapChart',
   //   value: 'AutonaviMapChart',
   // },
+  {
+    title: '排名进度图 RankProcessChart',
+    titleId: 'ic_RankProcessChart',
+    value: 'RankProcessChart',
+    isHigher: true
+  },
   {
     title: '甘特图 GanttChart',
     titleId: 'ic_comp_GanttChart',

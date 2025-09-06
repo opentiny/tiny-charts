@@ -1,6 +1,6 @@
 import { createSvgElement, isChanged } from './utils.js';
-import { ContentRow } from './handleRow.js'; 
 import { ROW, HEADER_HEIGHT } from './constants.js'
+import { ContentRow } from './handleRow.js'; 
 
 class RowList { 
   constructor(options) { 
@@ -50,7 +50,7 @@ class RowList {
       this.startIndex = newStart; 
       this.endIndex = newEnd; 
       this.renderVisibleRows();
-    }
+    } 
   }
 
   // 渲染可见行
@@ -88,7 +88,6 @@ class RowList {
   getContainer() { 
     return this.container; 
   }
-
 
 // 获取总内容高度
   getTotalHeight() { 

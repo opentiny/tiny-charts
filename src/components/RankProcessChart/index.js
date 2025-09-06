@@ -4,7 +4,10 @@ import { createTooltip } from './handleTooltip.js';
 import { renderHeader } from './handleHeader.js';
 import { createRowList } from './handleRowList.js';
 import { createScrollArea } from './handleScroll.js';
-import { merge, debounce, updateSvgs } from './utils.js';
+import { updateSvgs } from './utils.js';
+import { getMainChartStyles } from './style.js';
+import merge from '../../util/merge.js';
+import debounce from '../../util/debounce.js';
 import { 
   resolveOption, 
   isUpdate
@@ -37,6 +40,9 @@ export default class RankProcessChart extends BaseChart {
     this.option = defaultOption;            // 配置选项，初始为默认配置
     this.lastOption = defaultOption;        // 上次的配置选项
     this.renderCallBack = null;             // 渲染完成回调函数
+    
+    // 获取样式配置
+    this.styles = getMainChartStyles(chartToken);
   }
 
   // 初始化图表容器
@@ -45,18 +51,13 @@ export default class RankProcessChart extends BaseChart {
     this.width = dom.clientWidth;
     this.height = dom.clientHeight;
 
-    // 创建根SVG元素
-    this.svg = createSvgElement('svg', {
-      width: `100%`,
-      height: `100%`,
-      style: `
-              border: ${chartToken.borderWidth}px solid ${chartToken.borderColor}; 
-              border-radius: ${chartToken.borderRadius}px;
-              transition: all 0.6s ease-in-out; 
-             `,
-      preserveAspectRatio: "xMidYMin meet"
-    });
+    if(this.svg) {
+      this.dom.appendChild(this.svg);
+      return;
+    }
 
+    // 创建根SVG元素
+    this.svg = createSvgElement('svg', this.styles.getSvgStyles());
     this.dom.appendChild(this.svg);
   }
 
@@ -72,7 +73,6 @@ export default class RankProcessChart extends BaseChart {
 
   // 图表渲染
   render() {
-    // 已经创建的话后续会进行更新
     if (this.shouldSkipRender()) {
       this.update();
       return;
@@ -90,25 +90,17 @@ export default class RankProcessChart extends BaseChart {
     // 挂载tooltip
     this.tooltip = createTooltip(this.svg, this.option.theme, tooltip);
     
-    this.contentGroup = createSvgElement('svg', {
-      transform: `translate(${paddingConfig.left}, ${paddingConfig.top})`,
-      width: contentWidth,
-      height: contentHeight,
-      style: 'transition: all 0.6s ease;',
-    });
+    this.contentGroup = createSvgElement(
+      'svg', 
+      this.styles.getContentGroupStyles(paddingConfig.left, paddingConfig.top, contentWidth, contentHeight)
+    );
     
-    // clipPath用来在bottom变化时裁剪以获得动画
-    this.clipPath = createSvgElement('clipPath', {
-      id: 'contentClipPath',
-    });
+    this.clipPath = createSvgElement('clipPath', this.styles.getClipPath());
     
-    this.clipRect = createSvgElement('rect', {
-      x: '0',
-      y: '0',
-      width: contentWidth,
-      height: contentHeight,
-      style: 'transition: all 0.6s ease;',
-    });
+    this.clipRect = createSvgElement(
+      'rect', 
+      this.styles.getClipRect(contentWidth, contentHeight)
+    );
     
     this.clipPath.appendChild(this.clipRect);
     this.svg.appendChild(this.clipPath);
@@ -183,16 +175,11 @@ export default class RankProcessChart extends BaseChart {
         updateSvgs([
           { 
             el: this.contentGroup, 
-            attrs: { 
-              transform: `translate(${paddingConfig.left}, ${paddingConfig.top})`,
-            } 
+            attrs: this.styles.updateContentGroup(paddingConfig.left, paddingConfig.top, contentWidth, contentHeight)
           },
           { 
             el: this.clipRect, 
-            attrs: { 
-              width: contentWidth,
-              height: contentHeight
-            } 
+            attrs: this.styles.updateClipRect(contentWidth, contentHeight)
           }
         ]);
 
@@ -243,18 +230,11 @@ export default class RankProcessChart extends BaseChart {
       updateSvgs([
         { 
           el: this.contentGroup, 
-          attrs: { 
-            transform: `translate(${paddingConfig.left}, ${paddingConfig.top})`,
-            width: contentWidth,
-            height: contentHeight
-          } 
+          attrs: this.styles.updateContentGroup(paddingConfig.left, paddingConfig.top, contentWidth, contentHeight)
         },
         { 
           el: this.clipRect, 
-          attrs: { 
-            width: contentWidth,
-            height: contentHeight
-          } 
+          attrs: this.styles.updateClipRect(contentWidth, contentHeight)
         }
       ]);
 
@@ -324,11 +304,13 @@ export default class RankProcessChart extends BaseChart {
 
   // 销毁图表
   destroy() {
-    this.uninstall();
-    this.dom.innerHTML = ''
-    if (this.tooltip) {
-      this.tooltip.destroy();
+    if (this.dom) {
+      this.uninstall();
+      this.dom.innerHTML = ''
+      if (this.tooltip) {
+        this.tooltip.destroy();
+      }
+      this.option = defaultOption;
     }
-    this.option = defaultOption;
   }
 }

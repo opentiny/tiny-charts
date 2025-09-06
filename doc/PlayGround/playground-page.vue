@@ -74,6 +74,7 @@ import HoneycombChart from '../../src/components/HoneycombChart';
 import AutonaviMapChart from '../../src/components/AutonaviMapChart';
 import OrganizationChart from '../../src/components/OrganizationChart';
 import MilestoneChart from '../../src/components/MilestoneChart';
+import RankProcessChart from '../../src/components/RankProcessChart';
 import MindmapChart from '../../src/framework/charts/MindmapChart';
 import GridChart from '../../src/framework/charts/GridChart';
 import CircleChart from '../../src/framework/charts/CircleChart';
@@ -290,6 +291,7 @@ export default {
         'TerraceChart': TerraceChart,
         'TimelineChart': TimelineChart,
         'MilestoneChart': MilestoneChart,
+        'RankProcessChart': RankProcessChart
       }
       if (Object.keys(chartObj).includes(this.chartName)) {
         this.$refs.chartRef.innerHTML = '';

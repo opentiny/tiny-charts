@@ -1,3 +1,5 @@
+import { FIELD_CHECKS } from './constants.js';
+import { isChanged } from './utils.js';
 export function handlePadding(padding, containerWidth, containerHeight) {
   const [top, right, bottom, left] = padding;
   
@@ -52,77 +54,31 @@ export function calcContentSize(containerWidth, containerHeight, padding) {
   const contentHeight = containerHeight - padding.top - padding.bottom;
   
   return {
-    contentWidth: Math.max(0, contentWidth),
-    contentHeight: Math.max(0, contentHeight)
+    contentWidth,
+    contentHeight
   };
 }
 
-// 检查是否theme变化
-function isThemeChange(currOption, lastOption) {
-  const res = currOption.theme !== lastOption.theme
-  if(res) return 'theme';
-}
-
-// 检查是否padding变化
-function isPaddingChange(currOption, lastOption) {
-  const currPadding = currOption.padding;
-  const lastPadding = lastOption.padding;
-  const res = JSON.stringify(currPadding) !== JSON.stringify(lastPadding);
-  if(res) return 'padding';
-}
-
-// 检查是否data变化
-function isDataChange(currOption, lastOption) {
-  const currData = currOption.data;
-  const lastData = lastOption.data;
-  const res = JSON.stringify(currData) !== JSON.stringify(lastData);
-  if(res) return 'data';
-}
-
-// 检查是否color变化
-function isColorChange(currOption, lastOption) {
-  const currColor = currOption.color;
-  const lastColor = lastOption.color;
-  const res = JSON.stringify(currColor) !== JSON.stringify(lastColor);
-  if(res) return 'color';
-}
-
-// 检查是否titleName变化
-function isTitleNameChange(currOption, lastOption) {
-  const res = currOption.titleName !== lastOption.titleName;
-  if(res) return 'titleName';
-}
-
-// 检查是否valueName变化
-function isValueNameChange(currOption, lastOption) {
-  const res = currOption.valueName !== lastOption.valueName;
-  if(res) return 'valueName';
-}
-
-// 检查是否percentName变化
-function isPercentNameChange(currOption, lastOption) {
-  const res = currOption.percentName !== lastOption.percentName;
-  if(res) return 'percentName';
+// 封装配置检查
+function checkFieldChange(currOption, lastOption, fieldName) {
+    const currValue = currOption[fieldName];
+    const lastValue = lastOption[fieldName];
+    const res = isChanged(currValue, lastValue);
+    if (res) return fieldName;
 }
 
 // 根据变化判断是否更新
 export function isUpdate(currOption, lastOption) {
-  const updates = []
+  const updates = [];
 
-  updates.push(isThemeChange(currOption, lastOption));
-  updates.push(isPaddingChange(currOption, lastOption));
-  updates.push(isDataChange(currOption, lastOption));
-  updates.push(isColorChange(currOption, lastOption));
-  updates.push(isTitleNameChange(currOption, lastOption));
-  updates.push(isValueNameChange(currOption, lastOption));
-  updates.push(isPercentNameChange(currOption, lastOption));
+  // 检查字段变化
+  FIELD_CHECKS.forEach(field => {
+    const result = checkFieldChange(currOption, lastOption, field);
+    if (result) updates.push(result);
+  });
 
-  // 如果没有字段变化，跳过渲染
-  if (updates.length === 0) {
-    return false;
-  }
-
-  return updates; 
+  // 根据是否有update走下一步
+  return updates.length > 0 ? updates : false;
 }
 
 export function resolveOption(option, containerWidth, containerHeight) {
