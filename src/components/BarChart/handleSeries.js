@@ -583,7 +583,6 @@ export function setMarkLine(baseOption, iChartOption) {
   if (iChartOption.markLine && type === 'range') {
     handleSeries(iChartOption, baseOption, exclude, colors, direction);
   }
-  
 }
 
 function placeFun(index, placeholderData) {
