@@ -24,6 +24,7 @@ import { isArray } from '../../../util/type';
 
 function legend(iChartOption, chartName, chartInstance) {
   const selfLegend = iChartOption.legend;
+  const theme = iChartOption.theme
   const {
     data,
     show,
@@ -68,7 +69,9 @@ function legend(iChartOption, chartName, chartInstance) {
   }
   // 开启图例自适应的图表
   const legendAdaptiveCharts = ['PieChart']; 
-  if (legendAdaptiveCharts.includes(chartName) && iChartOption.adaptive && legend.orient === 'vertical'){
+  const isCloud = theme?.includes('cloud');
+  if (legendAdaptiveCharts.includes(chartName) && isCloud && iChartOption.adaptive && legend.orient === 'vertical'){
+    if (!chartInstance) return;
     const dataArr = isArray(iChartOption.data) ? iChartOption.data : [];
     const xAxisKey = xkey(iChartOption);
     const lData = ldata(dataArr, xAxisKey) || [];
