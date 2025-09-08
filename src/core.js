@@ -169,6 +169,10 @@ export default class CoreChart extends BaseChart {
     if (iChartOption.readScreen) {
       readScreen(this.dom, iChartOption.readScreen);
     }
+    // 使用图例扩展时屏蔽默认图例
+    if (iChartOption?.legend?.upgrade?.type !== undefined){
+      iChartOption.legend.show = false;
+    }
     // 如果是复杂图表，则重定向this指向
     if (this.isSelfChart(ChartClass)) {
       this.redirectSelfChart(ChartClass, iChartOption, plugins);

@@ -206,6 +206,11 @@ const chartData2 = {
     type: "pie",
     selectedMode: "multiple",
 };
+
+import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引入样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/feature/expandLegend/index.css'
+
 export default {
 	name: 'TableLegend',
 	data() {
@@ -215,8 +220,8 @@ export default {
 		}
 	},
 	created() {
-		this.chartContainer1 = new IntegrateChart();
-		this.chartContainer2 = new IntegrateChart();
+		this.chartContainer1 = new HuiCharts();
+		this.chartContainer2 = new HuiCharts();
 
 	},
 	mounted() {
