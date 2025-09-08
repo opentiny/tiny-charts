@@ -22,6 +22,7 @@ import { mergeVisualMap, mergeSeries } from '../../util/merge';
 import { handleData, onlyOnePoint, discrete, setTooltip } from './handleOptipn';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 import { lttb } from '../../feature/performance/lttb';
+import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE } from '../../util/constants';
 import { isArray, isObject } from '../../util/type';
 
@@ -137,6 +138,10 @@ class LineChart {
         bottomLabel: bottom?.label?.formatter,
         bottomUse: bottom?.belong
       }
+    }
+    // 处理用户设置的阈值大于y轴，设置y轴max保证阈值显示
+    if(this.iChartOption.markLine){
+      handleMarkLineMax(this.baseOption, echartsIns, this.iChartOption);
     }
     // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
     topArea(this.baseOption, this.iChartOption, echartsIns, this);
