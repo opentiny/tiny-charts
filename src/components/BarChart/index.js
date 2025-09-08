@@ -19,7 +19,8 @@ import { getDatasetData } from '../../util/dataset';
 import { mergeVisualMap, mergeSeries } from '../../util/merge';
 import { setStack, setDirection, setDoubleSides, setBarMinMaxWidth } from './handleOptipn';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
-import { setSeries, setRange, setMarkLine, setWaterFall, setLimitFormatter, setDatasetSeries, handleMarkLineMax } from './handleSeries';
+import { setSeries, setRange, setMarkLine, setWaterFall, setLimitFormatter, setDatasetSeries } from './handleSeries';
+import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE, ADAPTIVE_THEME } from '../../util/constants';
 
 class BarChart {

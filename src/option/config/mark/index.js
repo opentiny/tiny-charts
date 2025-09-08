@@ -12,6 +12,7 @@
 
 import Token from '../../../feature/token';
 import merge from '../../../util/merge';
+import { isArray } from '../../../util/type';
 
 function getThresholdMarkLineLabel() {
   const { colorError } = Token.config.colorState
@@ -96,5 +97,73 @@ function setThresholdMarkLine(markLine, seriesUnit, seriesName) {
   })
 }
 
+function roundUpToStep(num,step = 0.1) {
+  // 计算基数
+  const base = Math.floor(num / step) * step;
 
-export { getMarkLineDefault, getMarkPointDefault, setThresholdMarkLineLabel, setThresholdMarkLine }
+  // 如果数字正好在基数上，直接返回
+  if(num === base) {
+    return num;
+  }
+  // 否则返回下一个基数
+  return base + step;
+}
+
+// 针对设置的阈值线大于y轴显示，设置max值来保证阈值线能够显示
+function handleMarkLineMax(baseOption, chartInstance, iChartOption) {
+  const direction = iChartOption.direction;
+  const markLine = iChartOption.markLine;
+  let handleAxis = direction === 'horizontal' ? baseOption.xAxis : baseOption.yAxis;
+  // 数组格式的markLine
+  if(isArray(markLine)) {
+      let markLineValue = [];
+      markLine.forEach(item => {
+        markLineValue.push({
+          belong: item.belong,
+          value: direction === 'horizontal' ? item.xAxis : item.yAxis
+        })
+      })
+      
+      // 单轴处理
+      if(handleAxis.length == 1) {
+        const markLineValueMax = Math.max(...markLineValue.map(item => {return item.value}));
+        // 获取单轴显示的最大值
+        const maxValue = chartInstance.getModel().getComponent( direction === 'horizontal' ? 'xAxis' : 'yAxis',0).axis.scale.getExtent()[1];
+        if(maxValue < markLineValueMax && !handleAxis[0].max ) {
+          handleAxis[0].max = (roundUpToStep(markLineValueMax / maxValue ) * maxValue).toFixed(2);
+        }
+      } else {
+        handleAxis.forEach((item,index) => {
+          const dataName = item.dataName;
+          let markLineValueArr = [];
+          let currentHandleAxis = handleAxis[index];
+          dataName.forEach(name => {
+            markLineValue.forEach(item => {
+              if(item.belong.indexOf(name) != -1) {
+                markLineValueArr.push(item.value)
+              }
+            })
+          })
+          const markLineValueMax = Math.max(...markLineValueArr);
+          const maxValue = chartInstance.getModel().getComponent( direction === 'horizontal' ? 'xAxis' : 'yAxis',index).axis.scale.getExtent()[1];
+          if(maxValue < markLineValueMax && !currentHandleAxis.max ) {
+            currentHandleAxis.max = (roundUpToStep(markLineValueMax / maxValue ) * maxValue).toFixed(2);
+          }
+        })
+      }
+  }
+  // 对象格式的markLine
+  else {
+    const markLineValueMax = markLine.top ? markLine.top : markLine.bottom;
+    handleAxis.forEach((item,index) => {
+      const maxValue = chartInstance.getModel().getComponent( direction === 'horizontal' ? 'xAxis' : 'yAxis',index).axis.scale.getExtent()[1];
+      if(maxValue < markLineValueMax && !handleAxis[index].max ) {
+        handleAxis[index].max = (roundUpToStep(markLineValueMax / maxValue ) * maxValue).toFixed(2);
+      }
+    })
+  }
+}
+
+
+
+export { getMarkLineDefault, getMarkPointDefault, setThresholdMarkLineLabel, setThresholdMarkLine, handleMarkLineMax}

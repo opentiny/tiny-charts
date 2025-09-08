@@ -11,7 +11,7 @@
  */
 import init from '../../option/init';
 import mini from '../../feature/mini/miniLineChart';
-import { setSeries, setDatasetSeries, handleMarkLineMax} from './handleSeries';
+import { setSeries, setDatasetSeries } from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../option/base';
 import { setVisualMap } from './handleVisualMap';
@@ -22,6 +22,7 @@ import { mergeVisualMap, mergeSeries } from '../../util/merge';
 import { handleData, onlyOnePoint, discrete, setTooltip } from './handleOptipn';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 import { lttb } from '../../feature/performance/lttb';
+import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE } from '../../util/constants';
 import { isArray } from '../../util/type';
 
