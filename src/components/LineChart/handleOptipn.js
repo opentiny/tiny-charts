@@ -97,7 +97,7 @@ export function discrete(iChartOption, baseOption) {
   }
 }
 
-function defaultFormatter(params, color, iChartOpt, hideEmpty) {
+function defaultFormatter(params, color, iChartOpt, hideEmpty, tooltip) {
   const config = {
     title: '',
     children: [],
@@ -107,7 +107,7 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty) {
   params.forEach((item, index) => {
     let value = item.value;
     let name = item.seriesName;
-    if (iChartOpt.discrete && seriesNames.includes(name)) {
+    if ((iChartOpt.area || iChartOpt.discrete) && seriesNames.includes(name)) {
       return;
     }else{
       seriesNames.push(name);
@@ -130,7 +130,7 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty) {
       config.children.push(dataItem)
     }
   });
-  return getTooltipContentHtmlStr(config)
+  return getTooltipContentHtmlStr(config, tooltip)
 }
 
 // 阈值场景将data中的数据转为obj，需要转换回来
@@ -157,6 +157,6 @@ export function setTooltip(baseOpt, iChartOpt, legendData) {
       params = echartsParams.slice(0, lineNumber)
     }
     const initParams = coverObjDataToInit(params)
-    return formatter && typeof formatter === 'function' ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty)
+    return formatter && typeof formatter === 'function' ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty, baseOpt.tooltip)
   }
 }

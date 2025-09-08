@@ -15,7 +15,8 @@ const EXPORT_COLORS_KEY = [
     'textPrimary',
     'textSecondary',
     'textPlaceholder',
-    'textDisabled'
+    'textDisabled',
+    'themeToken'
 ]
 
 function getExportColors(colorSet, sceneToken, themeToken) {

@@ -188,7 +188,7 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
         config.children.push(dataItem)
       }
     });
-    return getTooltipContentHtmlStr(config)
+    return getTooltipContentHtmlStr(config, baseOpt.tooltip)
   };
 }
 

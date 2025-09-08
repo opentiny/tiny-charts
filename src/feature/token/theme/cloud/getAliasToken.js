@@ -229,7 +229,7 @@ function getAliasToken(globalToken, sceneToken) {
     // 图例value字体大小
     legendTextValueFontSize: fontSizeMd,
     // 图例名称字体大小
-    legendTextNameFontSize: fontSizeMd,
+    legendTextNameFontSize: fontSizeBase,
     // 无padding
     paddingNone: spaceNone,
     paddingSM: spaceBase,
@@ -239,7 +239,7 @@ function getAliasToken(globalToken, sceneToken) {
     tipIconGap: sizeBase,
     tipValueGap: size2x,
     //中心文本主副标题间距
-    centerTitleSpace: space4x,
+    centerTitleSpace: spaceBase,
     // -----------------------------------------------------------------边框------------------------------------------------------------------------------
     // zoom数据区域边框
     zoomDataAreaBorderWidth: borderBase,

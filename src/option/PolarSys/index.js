@@ -17,7 +17,7 @@ import radiusAxis from '../config/radiusAxis';
 import polar from '../config/polar';
 
 // 极坐标系所需的基础配置
-function PolarCoordSys(baseOpt, iChartOpt, chartName) {
+function PolarCoordSys(baseOpt, iChartOpt, chartName, chartInstance) {
   // 图表基础颜色
   baseOpt.color = iChartOpt.color;
 
@@ -37,7 +37,7 @@ function PolarCoordSys(baseOpt, iChartOpt, chartName) {
   baseOpt.title = title(iChartOpt, chartName);
 
   // 图表图例
-  baseOpt.legend = legend(iChartOpt);
+  baseOpt.legend = legend(iChartOpt, chartName, chartInstance);
 }
 
 export default PolarCoordSys;

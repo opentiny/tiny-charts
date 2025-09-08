@@ -56,7 +56,7 @@ function setAbsoluteYaxisLabel(baseOption) {
   });
 }
 
-function setTipFormatter(params, hideEmpty) {
+function setTipFormatter(params, hideEmpty, tooltip) {
   const config = {
     title: '',
     children: [],
@@ -74,7 +74,7 @@ function setTipFormatter(params, hideEmpty) {
     }
     config.children.push(dataItem)
   });
-  return getTooltipContentHtmlStr(config);
+  return getTooltipContentHtmlStr(config, tooltip);
 }
 
 /**
@@ -87,7 +87,7 @@ export function setDoubleSides(baseOption, iChartOption) {
     setAbsoluteYaxisLabel(baseOption)
     if (!baseOption.tooltip.formatter) {
       baseOption.tooltip.formatter = (echartsParams, ticket, callback)=>{
-        setTipFormatter(echartsParams, baseOption.tooltip?.hideEmpty)
+        setTipFormatter(echartsParams, baseOption.tooltip?.hideEmpty, baseOption.tooltip)
       } 
     }
   }

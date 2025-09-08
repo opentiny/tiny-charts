@@ -43,30 +43,51 @@ function setPosition(tipContainer, echartsDom, param) {
   const { offsetX, offsetY } = param.event;
   let tipLeft = 0;
   let tipTop = 0;
-  // 判断tips 容器宽度是否小于图表容器
-  if (tipContainerW < echartsDomRect.width - echartsDomBorder) {
-    tipTop = offsetY - distanceY;
-    // 处理临界值 >0 时向右，<0 时向左
-    const reviseL = echartsDomRect.width - echartsDomBorder - offsetX - tipContainerW - distanceX;
-    if (reviseL > 0) {
-      tipLeft = offsetX + distanceX;
-    } else {
-      tipLeft = offsetX - tipContainerW - distanceX;
-    }
+  let tipBottom = 0;
+  let rightOffset = echartsDomRect.width - 2 * echartsDomBorder - offsetX - distanceX;
+  let bottomOffset = echartsDomRect.height - offsetY + distanceX;
+  
+  // 判断右侧是否可以放下tips
+  if (tipContainerW < rightOffset) {
+    tipLeft = offsetX + distanceX + 'px';
+    tipTop = offsetY - distanceY + 'px';
+    tipBottom = 'unset';
   } else {
-    tipTop = offsetY - tipContainerH - distanceY;
+    // 图表容器左侧部分
+    if (offsetX < (echartsDomRect.width / 2)){
+      if (tipContainerW > rightOffset) {
+        tipLeft = (echartsDomRect.width - tipContainerW) / 2 + 'px';
+        tipTop = 'unset';
+        tipBottom = bottomOffset + 'px';
+      }
+    } else {
+      if (tipContainerW > rightOffset) {
+        if (tipContainerW < offsetX) {
+          tipLeft = offsetX - tipContainerW - distanceX + 'px';
+          tipTop = offsetY - distanceY + 'px';
+          tipBottom = 'unset';
+        } else {
+          tipLeft = distanceX + 'px';
+          tipTop = 'unset';
+          tipBottom = bottomOffset + 'px';
+        }
+      }
+    }
   }
+
   tipContainer.style.cssText = `
     position: absolute;
     display: inline-block;
     word-break: break-all;
-    opacity: '1';
+    opacity: 1;
     padding: 8px;
-    top:${tipTop}px;
-    left:${tipLeft}px;
+    top:${tipTop};
+    left:${tipLeft};
+    bottom:${tipBottom};
     color: ${Token.config.tooltipTextColor};
     font-size: ${Token.config.tooltipTextFontSize};
     background: ${Token.config.tooltipBg};
+    max-width:calc(100% - ${2*distanceX}px);
     box-shadow:0 ${Token.config.tooltipShadowOffsetY}px
     ${Token.config.tooltipShadowBlur}px 0 ${Token.config.tooltipShadowColor};
   `
@@ -91,7 +112,7 @@ function axistip(echartsDom, echartsIns, eChartOption, axistip) {
   tipContainer.className = 'labeltip';
   tipContainer.style.position = 'absolute';
   tipContainer.style.display = 'inline-block';
-  tipContainer.style.opacity = '0';
+  tipContainer.style.opacity = 0;
   tipContainer.style.top = 0;
   tipContainer.style.left = 0;
   let textFormatter = {};
@@ -124,7 +145,7 @@ function axistip(echartsDom, echartsIns, eChartOption, axistip) {
     if (axisType.indexOf(param.componentType) !== -1) {
       tipContainer.textContent = '';
       tipContainer.style.cssText = `
-        opacity:0;
+        opacity: 0;
         padding: 8px;
         font-size: ${Token.config.tooltipTextFontSize};
         position: absolute;

@@ -723,7 +723,7 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
       }
       config.children.push(dataItem)
     });
-    return getTooltipContentHtmlStr(config);
+    return getTooltipContentHtmlStr(config, baseOption.tooltip);
   };
 }
 

@@ -105,7 +105,6 @@ function handleMulti(type, baseOption, legend, data) {
       tempSeries.radius = tempSeries.radius.map(item => {
         return `${parseFloat(item) + innerDiff * (innerIndex + 1)}%`;
       });
-      tempSeries.name = tempSeries.name + Number(innerIndex + 1) ;
       baseOption.series.push(tempSeries);
     });
     baseOption.series.forEach(i => {

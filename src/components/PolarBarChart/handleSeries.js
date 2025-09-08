@@ -42,7 +42,6 @@ function getSeriesInit(type) {
 function getPieInit() {
   return {
     type: 'pie',
-    name: 'label',
     label: {
       show: true,
       fontSize: 12,
@@ -96,19 +95,27 @@ export function handleBarItemStyle(iChartOption, seriesUnit) {
  * @returns
  */
 export function setSeries(seriesData, labelData, iChartOption, polar, type) {
-  const { data, label } = iChartOption;
+  const { data, label, itemStyle } = iChartOption;
   const series = [];
   if (type === 'normal') {
     data.forEach((item, i) => {
       const seriesUnit = getSeriesInit(type)
       seriesUnit.name = item.name;
       seriesUnit.data = seriesData[i];
+      // 最小高度
+      if(itemStyle?.barMinHeight){
+        seriesUnit.barMinHeight = itemStyle.barMinHeight;
+      }
       series.push(seriesUnit);
     });
   } else {
     const seriesUnit = getSeriesInit(type)
     seriesUnit.data = seriesData;
     handleBarItemStyle(iChartOption, seriesUnit);
+    // 最小高度
+    if(itemStyle?.barMinHeight){
+      seriesUnit.barMinHeight = itemStyle.barMinHeight;
+    }
     series.push(seriesUnit);
   }
   // 需要显示角度轴坐标文本

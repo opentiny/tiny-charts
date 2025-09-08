@@ -16,7 +16,7 @@ import merge from '../../../util/merge';
 /**
  * 配置纵轴名称
  */
-function title(iChartOption, chartName, nameTextStyle = {}) {
+function title(iChartOption, chartName, nameTextStyle = {},position) {
   let name = '';
   if (iChartOption.yAxisName) {
     name = iChartOption.yAxisName;
@@ -41,8 +41,13 @@ function title(iChartOption, chartName, nameTextStyle = {}) {
     title.textAlign = 'left';
   } else {
     // 位置
-    title.padding[0] = padding[0] - 30;
-    title.padding[3] = padding[3];
+    if(position === 'right') {
+      title.top = padding[0] - 30;
+      title.right = padding[1];
+    } else {
+      title.padding[0] = padding[0] - 30;
+      title.padding[3] = padding[3];
+    }
   }
   // y轴文本的样式需要合并到title配置上
   merge(title.textStyle, nameTextStyle);
@@ -51,4 +56,38 @@ function title(iChartOption, chartName, nameTextStyle = {}) {
   return title;
 }
 
-export default title;
+/**
+ * 配置左右纵轴名称
+ */
+function leftRightTitle(iChartOption, chartName,) {
+  let theme = iChartOption.theme;
+  let padding = iChartOption.padding;
+  let leftTitle = base(theme);
+  let rightTitle = base(theme);
+  const yAxis = iChartOption.yAxis;
+  if(iChartOption.direction !== 'horizontal') {
+    yAxis.length && yAxis.forEach(item => {
+      if (item.position === 'left') {
+        leftTitle.top =  padding[0] - 30;
+        leftTitle.left =  padding[3];
+        leftTitle.text = item.name;
+        const leftNameTextStyle = item.nameTextStyle ? item.nameTextStyle : {};
+        merge(leftTitle.textStyle, leftNameTextStyle);
+        merge(leftTitle.padding, leftNameTextStyle.padding);
+        delete leftTitle.textStyle.padding;
+      }
+      if (item.position === 'right') {
+        rightTitle.top =  padding[0] - 30;
+        rightTitle.right =  padding[1];
+        rightTitle.text = item.name;
+        const rightNameTextStyle = item.nameTextStyle ? item.nameTextStyle : {};
+        merge(rightTitle.textStyle, rightNameTextStyle);
+        merge(rightTitle.padding, rightNameTextStyle.padding);
+        delete rightTitle.textStyle.padding;
+      }
+    })
+  }
+  return [leftTitle,rightTitle]
+}
+
+export { title, leftRightTitle};

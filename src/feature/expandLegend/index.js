@@ -42,7 +42,6 @@ function expandLegend(chartsIns) {
             createSingleSelectLegend(chartsIns);
             break;
     }
-    chartsIns.setOption(option);
 }
 
 function createMutiSelect(chartsIns) {

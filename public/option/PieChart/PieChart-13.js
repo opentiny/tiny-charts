@@ -3,7 +3,7 @@ const option = {
     title: {
         text: '{a|225}{b|GB}',
         subtext: '总数',
-        itemGap:2,
+        itemGap: 4,
         textStyle: {
             rich: {
                 a: {
@@ -21,24 +21,24 @@ const option = {
     },
     legend: {
         show: true,
-        position:{
+        position: {
             right: '8%',
             top: 'center'
         },
-        orient:'vertical',
+        orient: 'vertical',
         // legend.formatter 用于自定义图例文本
-        formatter: (name)=>{
-            let data =  [                             
-                {value: 100,name: 'VPC'},
-                {value: 90, name: 'IM' },
-                {value: 49, name: 'EIP'},
-                {value: 14, name: 'SG' },
+        formatter: (name) => {
+            let data = [
+                { value: 100, name: 'VPC' },
+                { value: 90, name: 'IM' },
+                { value: 49, name: 'EIP' },
+                { value: 14, name: 'SG' },
             ]
             let item = data.filter((item) => item.name === name)[0];
-            return '{title|' + name + '}{value|' + item.value +  'GB}'
+            return '{title|' + name + '}{value|' + item.value + 'GB}'
         }
     },
-    tooltip:{
+    tooltip: {
 
     },
     label: {

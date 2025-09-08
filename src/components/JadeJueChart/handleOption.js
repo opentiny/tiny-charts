@@ -31,7 +31,7 @@ const defaultThemeBarWidth = {
 const outerRingLimit = 208;
 
 // 主题中 线宽由线数量来决定
-function setThemeBarRule(theme, data, baseOpt, chartInstance, gap) {
+function setThemeBarRule(theme, data, baseOpt, chartInstance, gap, iChartOption) {
   const isCloud = theme.includes('cloud');
   let barWidth, textGap = gap || 2;
   if (data.length >= 5) {
@@ -46,6 +46,11 @@ function setThemeBarRule(theme, data, baseOpt, chartInstance, gap) {
     barWidth = isCloud ? 4 : 8;
     textGap = 0;
   }
+  // 开启自适应, 华为云自适应时宽度为4，无文本间隙
+  if (iChartOption.adaptive && isCloud) {
+    textGap = 0;
+    barWidth = 4;
+  }
   return { barWidth, textGap };
 }
 
@@ -53,10 +58,17 @@ function setThemeBarRule(theme, data, baseOpt, chartInstance, gap) {
 // 计算内圈的大小，用外圈尺寸 - (lineHeight*data.length)
 function setThemeRadius(iChartOption, baseOpt, chartInstance, textGap) {
   const lineHeight = 20;
-  const { data } = iChartOption;
-  let outerRing = getOuterRing(baseOpt, chartInstance);
-  let innerRing = outerRing - ((lineHeight + textGap) * data.length);
-  baseOpt.polar.radius[0] = innerRing;
+  const { data, theme, adaptive } = iChartOption;
+  if (adaptive && theme.includes('cloud')) {
+    // 华为云主题 随数据增加，圆环由内往外逐渐增大
+    const innerRing = 10;
+    let outerRing = innerRing + ((lineHeight + textGap) * data.length);
+    baseOpt.polar.radius = [innerRing, outerRing];
+  } else {
+    let outerRing = getOuterRing(baseOpt, chartInstance);
+    let innerRing = outerRing - ((lineHeight + textGap) * data.length);
+    baseOpt.polar.radius[0] = innerRing;
+  }
 }
 
 function getOuterRing(baseOpt, chartInstance) {
@@ -77,7 +89,7 @@ export function setbarWidth(iChartOption, baseOpt, chartInstance, chartType) {
   // 有配置主题时，根据规范设置线宽 与 线间距
   let themeBarWidth;
   if (theme) {
-    let themeBarRile = setThemeBarRule(theme, data, baseOpt, chartInstance, textGap);
+    let themeBarRile = setThemeBarRule(theme, data, baseOpt, chartInstance, textGap, iChartOption);
     themeBarWidth = themeBarRile.barWidth;
     // 配置了position.radius 且第一个为auto, 自动计算内圈
     if (!position?.radius || position?.radius?.[0] === 'auto') {
@@ -217,16 +229,16 @@ const bindLegendEvent = ({ baseOption, chartType }, chartInstance) => {
 
   const baseCallback = (params) => {
     for (let type in params.selected) {
-      const selectedSeries = newSeries[newSeries.length - 1].data.find(v => v.name === type).value;
+      let selectedSeries = newSeries[newSeries.length - 1].data?.find(v => v.name === type);
       if (selectedSeries) {
-        if (!params.selected[type]) {
-          // 图例隐藏，对应背景色柱条的值应该为sum
-          selectedSeries = baseOption.angleAxis.sum;
-        } else {
-          // 图例显示，对于背景色柱条的值应该为sum-value
-          selectedSeries = baseOption.angleAxis.sum - newSeries.find(v => v.name === type).data.find(v => v.name === type).value;
-        }
+      if (!params.selected[type]) {
+        // 图例隐藏，对应背景色柱条的值应该为sum
+        selectedSeries.value = baseOption.angleAxis.sum;
+      } else {
+        // 图例显示，对于背景色柱条的值应该为sum-value
+        selectedSeries.value = baseOption.angleAxis.sum - newSeries.find(v => v.name === type)?.data.find(v => v.name === type)?.value || 0;
       }
+    }
     }
   };
 

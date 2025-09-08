@@ -16,7 +16,6 @@ import {random} from '../../util/math';
 
 export const seriesInit = {
   type: 'wordCloud',
-  name: 'data',
   // 网格大小，各项之间间距
   gridSize: 16,
   // 形状支持 circle 圆，cardioid  心， diamond 菱形， triangle-forward 、triangle 三角，star五角星

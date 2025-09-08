@@ -24,7 +24,7 @@ import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 import { lttb } from '../../feature/performance/lttb';
 import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE } from '../../util/constants';
-import { isArray } from '../../util/type';
+import { isArray, isObject } from '../../util/type';
 
 class LineChart {
 
@@ -87,7 +87,7 @@ class LineChart {
     onlyOnePoint(this.baseOption);
     // 针对离散数据, 创建同名Series, 显示离散数据的单个点
     discrete(iChartOption, this.baseOption);
-    setTooltip(this.baseOption, iChartOption,legendData)
+    setTooltip(this.baseOption, iChartOption,legendData, this)
     // 合并用户自定义series
     if (iChartOption.dataset) {
       setDatasetSeries(this.baseOption, iChartOption);
@@ -102,20 +102,51 @@ class LineChart {
 
   // 根据渲染出的结果，二次计算option
   updateOptionAgain(echartsIns) {
-    const YAxiMax = this.getYAxisMaxValue(echartsIns, 0);
-    const YAxiMin = this.getYAxisMinValue(echartsIns, 0);
-    if(isArray(this.iChartOption.markLine)){
-
-    }else{
-      // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
-      topArea(this.baseOption, this.iChartOption, YAxiMin, YAxiMax);
-      // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
-      bottomArea(this.baseOption, this.iChartOption, YAxiMax, YAxiMin);
+    const markLine = this.iChartOption.markLine;
+    if (isArray(markLine)) {
+      let top;
+      let bottom;
+      if (markLine.length > 1) {
+        markLine.forEach(item => {
+          item.newValue = item.yAxis || item.xAxis || item.value;
+          if (!top && !bottom) {
+            top = item;
+            bottom = item;
+          } else if (top.newValue < item.newValue) { 
+            top = item;
+          } else if (bottom.newValue > item.newValue) { 
+            bottom = item;
+          }
+        })
+      } else {
+        top = markLine[0];
+        top.newValue = top.yAxis || top.xAxis || top.value;
+      }
+      let topColor = top?.lineStyle?.color;
+      let bottomColor = bottom?.lineStyle?.color;
+      topColor = topColor && (topColor.includes('rgb') || topColor.includes('#')) ? topColor : undefined;
+      bottomColor = bottomColor && (bottomColor.includes('rgb') || bottomColor.includes('#')) ? bottomColor : undefined;
+      this.transformMarkLine = {
+        top: top?.newValue,
+        topColor: topColor,
+        topPosition: top?.label?.position,
+        topLabel: top?.label?.formatter,
+        topUse: top?.belong,
+        bottom: bottom?.newValue,
+        bottomColor: bottomColor,
+        bottomPosition: bottom?.label?.position,
+        bottomLabel: bottom?.label?.formatter,
+        bottomUse: bottom?.belong
+      }
     }
     // 处理用户设置的阈值大于y轴，设置y轴max保证阈值显示
     if(this.iChartOption.markLine){
       handleMarkLineMax(this.baseOption, echartsIns, this.iChartOption);
     }
+    // 面积图上部红色阈值区域需要在二次计算中实现 -- 在原有Series上添加areaStyle
+    topArea(this.baseOption, this.iChartOption, echartsIns, this);
+    // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
+    bottomArea(this.baseOption, this.iChartOption, echartsIns, this);    
     // 合并用户自定义series
     mergeSeries(this.iChartOption, this.baseOption);
   }
@@ -131,7 +162,7 @@ class LineChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMaxValue(echartsIns, index) {
-    return echartsIns.getModel().getComponent('yAxis', index)?.axis.scale._extent[1];
+    return echartsIns?.getModel()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[1] || 1;
   }
 
   /**
@@ -141,7 +172,7 @@ class LineChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMinValue(echartsIns, index) {
-    return echartsIns.getModel().getComponent('yAxis', index)?.axis.scale._extent[0];
+    return echartsIns?.getModel()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0] || 0;
   }
 }
 

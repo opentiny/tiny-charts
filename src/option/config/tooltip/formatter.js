@@ -48,12 +48,15 @@ function getDataHtmlStr(dataConfig) {
             </div>`;
 }
 
-function getTooltipContentHtmlStr(tipConfig) {
+function getTooltipContentHtmlStr(tipConfig, tooltip) {
     const { tooltipItemGap, tooltipTitleColor } = Token.config
-    const { title, titleColor = tooltipTitleColor, children, hideEmpty } = tipConfig
+    let { title, titleColor = tooltipTitleColor, children, hideEmpty } = tipConfig
     let content = ''
     if (validateName(title)) {
         content = `<div style="color:${titleColor}">${defendXSS(title)}</div>`;
+    }
+    if (tooltip?.order === 'seriesDesc') {
+        children = children.reverse();
     }
     if (children && children.length !== 0) {
         for (let index = 0; index < children.length; index++) {
