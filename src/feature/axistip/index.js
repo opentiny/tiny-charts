@@ -55,11 +55,7 @@ function setPosition(tipContainer, echartsDom, param) {
   } else {
     // 图表容器左侧部分
     if (offsetX < (echartsDomRect.width / 2)){
-      if (tipContainerW < rightOffset) {
-        tipLeft = distanceX + 'px';
-        tipTop = 'unset';
-        tipBottom = bottomOffset + 'px';
-      }else{
+      if (tipContainerW > rightOffset) {
         tipLeft = (echartsDomRect.width - tipContainerW) / 2 + 'px';
         tipTop = 'unset';
         tipBottom = bottomOffset + 'px';
@@ -83,7 +79,7 @@ function setPosition(tipContainer, echartsDom, param) {
     position: absolute;
     display: inline-block;
     word-break: break-all;
-    opacity: '1';
+    opacity: 1;
     padding: 8px;
     top:${tipTop};
     left:${tipLeft};
@@ -116,7 +112,7 @@ function axistip(echartsDom, echartsIns, eChartOption, axistip) {
   tipContainer.className = 'labeltip';
   tipContainer.style.position = 'absolute';
   tipContainer.style.display = 'inline-block';
-  tipContainer.style.opacity = '0';
+  tipContainer.style.opacity = 0;
   tipContainer.style.top = 0;
   tipContainer.style.left = 0;
   let textFormatter = {};
@@ -149,7 +145,7 @@ function axistip(echartsDom, echartsIns, eChartOption, axistip) {
     if (axisType.indexOf(param.componentType) !== -1) {
       tipContainer.textContent = '';
       tipContainer.style.cssText = `
-        opacity:0;
+        opacity: 0;
         padding: 8px;
         font-size: ${Token.config.tooltipTextFontSize};
         position: absolute;
