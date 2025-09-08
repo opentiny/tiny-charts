@@ -14,6 +14,7 @@ import splitColorMd from './splitColor.md?raw'
 import splitNumberMd from './splitNumber.md?raw'
 import splitLineMd from './splitLine.md?raw'
 import markLineMd from './markLine.md?raw'
+import markLineColorMd from './markLineColor.md?raw'
 import gradientColorMd from './gradientColor.md?raw'
 import itemStyleMd from './itemStyle.md?raw'
 import axisLabelStyleMd from './axisLabelStyle.md?raw'
@@ -42,6 +43,7 @@ const data = {
         ['splitNumber', '刻度线数量配置', 'number', '4'],
         ['splitLine', '刻度线及文本配置', 'object', '默认显示'],
         ['markLine', '阈值线配置', 'number', '无'],
+        ['markLineColor', '阈值线颜色配置', 'string', '随主题'],
         ['gradientColor', '线性渐变', 'array', '无'],
         ['itemStyle', '进度条样式配置', 'object', '见详情'],
         ['axisLabelStyle', '刻度线文本样式配置', 'object', '见详情'],
@@ -70,6 +72,7 @@ const data = {
         splitNumberMd,
         splitLineMd,
         markLineMd,
+        markLineColorMd,
         gradientColorMd,
         itemStyleMd,
         axisLabelStyleMd,
