@@ -15,12 +15,12 @@ import handleSeries from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
 import handleCenterTitle from '../../option/config/polarTitle/handleCenterTitle';
+import handleCenterPosition from './handleCenterPosition';
 import { mergeSeries } from '../../util/merge';
 
 class PieChart {
 
   static name = CHART_TYPE.PIE
-
 
   constructor(iChartOption, chartInstance) {
     this.baseOption = {};
@@ -37,8 +37,8 @@ class PieChart {
     const type = iChartOption.type || 'circle';
     // 装载除series之外的其他配置
     PolarCoordSys(this.baseOption, this.iChartOption, 'PieChart', chartInstance);
-    // 兼容旧属性chartPosition
-    this.position = iChartOption.position || iChartOption.chartPosition;
+    // 1.根据adaptive决定radius和center，再放到series里面处理
+    this.position = handleCenterPosition(iChartOption, this.baseOption.legend, chartInstance);
     // 处理series数据
     this.baseOption.series = handleSeries(type, iChartOption, chartInstance, this.position, this.baseOption.legend);
     // 针对给定的color值，需要进行特殊处理
@@ -49,6 +49,7 @@ class PieChart {
     if (iChartOption.silent) {
       this.baseOption.tooltip = {};
     }
+    // 3.自适应中心文本大小和中心文本位置，不影响默认居中功能
     if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
       handleCenterTitle(this.position, chartInstance, this.baseOption, iChartOption);
     }

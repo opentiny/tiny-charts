@@ -239,7 +239,7 @@ function getAliasToken(globalToken, sceneToken) {
     tipIconGap: sizeBase,
     tipValueGap: size2x,
     //中心文本主副标题间距
-    centerTitleSpace: space4x,
+    centerTitleSpace: spaceBase,
     // -----------------------------------------------------------------边框------------------------------------------------------------------------------
     // zoom数据区域边框
     zoomDataAreaBorderWidth: borderBase,
