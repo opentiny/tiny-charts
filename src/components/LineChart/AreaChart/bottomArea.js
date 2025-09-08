@@ -107,8 +107,9 @@ function splitArea(baseOption, iChartOption, echartsIns, chartsIns) {
 }
 
 // 判断是否需要过滤series
-function judgeFilterAreaSeries(iChartOption) {
-  const { area, splitLine, markLine } = iChartOption
+function judgeFilterAreaSeries(iChartOption, chartsIns) {
+  let { area, splitLine, markLine } = iChartOption
+  markLine = chartsIns?.transformMarkLine || markLine;
   return area && (splitLine || (markLine && markLine?.bottom && isNumber(markLine?.bottom)))
 }
 
@@ -173,7 +174,7 @@ function pureBottomArea(itemx, percentx, bottomColorx,yAxisIndex) {
 }
 
 function markLineArea(baseOption, iChartOption, echartsIns, chartsIns) {
-  const markLine = iChartOption.markLine;
+  const markLine = chartsIns?.transformMarkLine || iChartOption.markLine;
   if (
     iChartOption.area &&
     markLine &&
@@ -183,6 +184,7 @@ function markLineArea(baseOption, iChartOption, echartsIns, chartsIns) {
     const temp = [];
     const colorAlpha = Token.config.globalColorAlpha
     baseOption.series.forEach(item => {
+      if(!item.data) return;
       const seriesName = item.name;
       if (markLine.bottomUse && markLine.bottomUse.indexOf(seriesName) === -1)  return;
       const bottomColor = codeToRGB(markLine.bottomColor, colorAlpha) || codeToRGB(Token.config.colorState.colorError, colorAlpha);
@@ -205,6 +207,7 @@ function markLineArea(baseOption, iChartOption, echartsIns, chartsIns) {
 }
 
 function getDataWidthNoObject(data) {
+  if(!data) return data;
   return data.map(item => {
     return isObject(item) ? item.value : item
   })

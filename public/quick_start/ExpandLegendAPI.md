@@ -6,6 +6,10 @@
 
 ```javascript
 // 示例
+import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引入样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/feature/expandLegend/index.css'
+
 const chartIns = new HuiCharts();
 const chartType = "lineChart";
 const chartOption = {
@@ -33,6 +37,10 @@ chartIns.render();
 
 ```javascript
 // 示例
+import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引入样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/feature/expandLegend/index.css'
+
 const chartIns = new HuiCharts();
 const chartType = "lineChart";
 const chartOption = {
@@ -59,6 +67,10 @@ chartIns.render();
 
 ```javascript
 // 示例
+import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引入样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/feature/expandLegend/index.css'
+
 const chartIns = new HuiCharts();
 const chartType = "lineChart";
 const chartOption = {
@@ -87,6 +99,10 @@ chartIns.render();
 
 ```javascript
 // 示例
+import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引入样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/feature/expandLegend/index.css'
+
 const chartIns = new HuiCharts();
 const chartType = "lineChart";
 const chartOption = {
@@ -115,6 +131,10 @@ chartIns.render();
 
 ```javascript
 // 示例
+import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引入样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/feature/expandLegend/index.css'
+
 const chartIns = new HuiCharts();
 const chartType = "lineChart";
 const chartOption = {
@@ -150,6 +170,10 @@ chartIns.render();
 
 ```javascript
 // 示例
+import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引入样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/feature/expandLegend/index.css'
+
 const chartIns = new HuiCharts();
 const chartType = "lineChart";
 const chartOption = {

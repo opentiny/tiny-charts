@@ -164,6 +164,10 @@ const chartData = {
     smooth: true,
 };
 
+import HuiCharts from '{{VITE_BASECOPYRIGHTSPAT}}';
+// 引入样式
+import '{{VITE_BASECOPYRIGHTSPAT}}/feature/expandLegend/index.css'
+
 export default {
     name: "ListLegend",
     data() {
@@ -173,7 +177,7 @@ export default {
         };
     },
     created() {
-        this.airportIntegrateChart = new IntegrateChart();
+        this.airportIntegrateChart = new HuiCharts();
     },
     mounted() {
         this.renderChart();

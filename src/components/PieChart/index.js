@@ -36,7 +36,7 @@ class PieChart {
     const iChartOption = this.iChartOption;
     const type = iChartOption.type || 'circle';
     // 装载除series之外的其他配置
-    PolarCoordSys(this.baseOption, this.iChartOption, 'PieChart');
+    PolarCoordSys(this.baseOption, this.iChartOption, 'PieChart', chartInstance);
     // 1.根据adaptive决定radius和center，再放到series里面处理
     this.position = handleCenterPosition(iChartOption, this.baseOption.legend, chartInstance);
     // 处理series数据
