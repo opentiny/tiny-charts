@@ -25,10 +25,6 @@ const option = {
         position: 'right', // y轴位置
         name: '季度销售额',// y轴名称
         min: 0,           // 最小值
-        nameTextStyle: {   // y轴名称的位置
-            padding: [0, -36, 0, 0],
-            align: 'right',
-        },
         unit: '%'         // y轴数值单位
     },
 };

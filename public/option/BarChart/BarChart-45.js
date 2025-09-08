@@ -24,10 +24,6 @@ const option = {
         min: 0,
         position: 'right', // 位置
         name: '季度销售额',
-        nameTextStyle: {
-            align: 'right',
-            padding: [0, -36, 0, 0]
-        },
         unit: '%'
     },
 };
