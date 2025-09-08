@@ -399,7 +399,7 @@ function setMarkLine(series, markLine, marklineColor) {
 }
 
 function handleOther(iChartOption, seriesUnit, series, data) {
-  const marklineColor = Token.config.colorState.colorError
+  const marklineColor = iChartOption.markLineColor ? iChartOption.markLineColor : Token.config.colorState.colorError; 
   if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
     setSplitColor(seriesUnit, iChartOption.splitColor, iChartOption.pointerStyle);
   } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 0) {
