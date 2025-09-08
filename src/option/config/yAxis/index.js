@@ -10,7 +10,7 @@
  *
  */
 import base from './base';
-import title from '../rectTitle';
+import { title, leftRightTitle } from '../rectTitle';
 import { isArray } from '../../../util/type';
 import merge from '../../../util/merge';
 import axisOptimization from './axisOptimization'
@@ -25,6 +25,22 @@ function isNeedTitle(yAxisOpt, yAxisName) {
   return false;
 }
 
+// 只存在一个右Y轴的情况
+function alongRightTitle(yAxisOpt) {
+  if (yAxisOpt.length === 1 && yAxisOpt[0] && yAxisOpt[0].position === 'right') {
+    return true;
+  }
+}
+
+// 存在两个Y轴且为一左一右
+function alongLeftRightTitle(yAxisOpt) {
+  const conditionOne =  yAxisOpt[0] && yAxisOpt[0].position === 'left' && yAxisOpt[1] && yAxisOpt[1].position === 'right';
+  const conditionTwo =  yAxisOpt[0] && yAxisOpt[0].position === 'right' && yAxisOpt[1] && yAxisOpt[1].position === 'left';
+  if (yAxisOpt.length === 2 && (conditionOne || conditionTwo)) {
+    return true;
+  }
+}
+
 function yAxis(baseOpt, iChartOpt, chartName, callback) {
   let yAxisOpt = iChartOpt.yAxis;
   const yAxisName = iChartOpt.yAxisName;
@@ -34,6 +50,12 @@ function yAxis(baseOpt, iChartOpt, chartName, callback) {
   }
   if (isNeedTitle(yAxisOpt, yAxisName)) {
     baseOpt.title = title(iChartOpt, chartName, yAxisOpt[0]?.nameTextStyle);
+  }
+  if (alongRightTitle(yAxisOpt)) {
+    baseOpt.title = title(iChartOpt, chartName, yAxisOpt[0]?.nameTextStyle,'right');
+  }
+  if (alongLeftRightTitle(yAxisOpt)) {
+    baseOpt.title = leftRightTitle(iChartOpt, chartName);
   }
   // 循环y轴配置
   const yAxis = [];
@@ -57,7 +79,10 @@ function yAxis(baseOpt, iChartOpt, chartName, callback) {
     axisOptimization(item, temp, data)
     callback && callback(temp, index)
     temp = merge(temp, item);
-    if (index === 0 && yAxisOpt.length === 1 && temp.position !== 'right') {
+    if (index === 0 && yAxisOpt.length === 1) {
+      delete temp.name;
+    }
+    if (alongLeftRightTitle(yAxisOpt)) {
       delete temp.name;
     }
     yAxis.push(temp);

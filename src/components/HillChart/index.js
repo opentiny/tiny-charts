@@ -21,7 +21,7 @@ import {
 } from './handleOption';
 import { handleEmphasis } from './handleSeries';
 import init from '../../option/init';
-import title from '../../option/config/rectTitle';
+import { title } from '../../option/config/rectTitle';
 import toolTip from '../../option/config/tooltip';
 import xAxis from '../../option/config/xAxis';
 import yAxis from '../../option/config/yAxis';
