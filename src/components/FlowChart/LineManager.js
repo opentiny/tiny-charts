@@ -196,7 +196,7 @@ export default class LineManager {
           path = createTransLine(d, transLine(edge, id, edge.lineStyle?.transPattern || this.style.transPattern))
         }else{
           let childNode = document.getElementById(edge.id)
-          childNode && document.getElementById('fc-trans-container').removeChild(childNode)
+          !!childNode && document.getElementById('fc-trans-container').removeChild(childNode)
         }
         return path;
     }

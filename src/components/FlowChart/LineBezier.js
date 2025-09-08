@@ -36,6 +36,7 @@ export default class LineBezier {
         let end = edge.target;
         let start = edge.source;
         let nodesObj = data.nodesObj;
+        if(!nodesObj) return;
         // 起始点
         edge.startPoint = {
             x: nodesObj[start].x + nodesObj[start].width + ( nodesObj[start].innerWidth - nodesObj[start].width ) / 2-data.minX,
