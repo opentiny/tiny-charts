@@ -43,7 +43,7 @@ class WordCloudChart {
       width: iChartOption.width,
       height: iChartOption.height,
       gridSize: iChartOption.gridSize,
-      sizeRang: iChartOption.sizeRange,
+      sizeRange: iChartOption.sizeRange,
       rotationRange: iChartOption.rotationRange,
       rotationStep: iChartOption.rotationStep,
       shape: iChartOption.shape,
