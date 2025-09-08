@@ -69,14 +69,6 @@ export default function updateTitle(position, chartInstance, baseOption, iChartO
       }
 
       // 重新构建rich样式
-      // keys.forEach((key, index) => {
-      //   richStyle[key] = {
-      //     fontSize: index === 0 ? fontSize.mainFontSize : fontSize.subFontSize,
-      //     ...(index > 0 ? {
-      //       padding: [topPadding, 0, 0, 0,]
-      //     } : {})
-      //   };
-      // });
       const richStyle = { ...baseOption.title.textStyle.rich } || {}; // 浅拷贝，避免修改原对象
 
       keys.forEach((key, index) => {
@@ -195,9 +187,17 @@ export function calculateFontSize(circleSize, textContent, barWidth) {
     return 12;
   };
 
+  // add: 仪表盘需要
+  const getbtnWidthSize = (size) => {
+    if (size >= 200) return 96;
+    if (size >= 160) return 80;
+    return 64;
+  };
+
   // 5. 获取字号区间
   const mainSizes = getMainFontSizeRange(circleSize);
   const subFontSize = getSubFontSize(circleSize);
+  const btnWidthSize = getbtnWidthSize(circleSize);
 
   // 6. 尝试主文本每个字号，找到第一个不超宽的
   let mainFontSize = mainSizes[0]; // 默认最大字号
@@ -213,5 +213,5 @@ export function calculateFontSize(circleSize, textContent, barWidth) {
     }
   }
   if (!flag) mainFontSize = mainSizes[mainSizes.length - 1];
-  return { mainFontSize, subFontSize };
+  return { mainFontSize, subFontSize, btnWidthSize };
 }

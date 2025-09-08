@@ -1,5 +1,6 @@
 const option = {
     theme: 'hdesign-light',
+    adaptive: true,
     title: {
         text: '{a|225}{b|GB}',
         subtext: '总数',
