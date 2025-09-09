@@ -5,35 +5,29 @@ const option = {
     },
     legend: {
         show: true,
-        position:{
+        position: {
             right: '8%',
             top: 'center'
         },
-        orient:'vertical',
+        orient: 'vertical',
         // legend.formatter 用于自定义图例文本
-        formatter: (name)=>{
-            let data =  [                             
-                {value: 100,name: 'VPC'},
-                {value: 90, name: 'IM' },
-                {value: 49, name: 'EIP'},
-                {value: 14, name: 'SG' },
-            ]
-            let total=data.reduce((a, b) => {
+        formatter: (name) => {
+            let total = option.data.reduce((a, b) => {
                 return a + b.value;
             }, 0);
-            let item = data.filter((item) => item.name === name)[0];
+            let item = option.data.filter((item) => item.name === name)[0];
             return '{title|' + name + '}{value1|' + item.value + '}{split||}{value2|' + total + '}'
         },
     },
-    label:{
+    label: {
         show: true,
-        type:'percent',
+        type: 'percent',
         line: true,
     },
-    data:[                             
-        {value: 100,name: 'VPC'},
-        {value: 90, name: 'IM' },
-        {value: 49, name: 'EIP'},
-        {value: 10, name: 'SG' },
+    data: [
+        { value: 100, name: 'VPC' },
+        { value: 90, name: 'IM' },
+        { value: 49, name: 'EIP' },
+        { value: 10, name: 'SG' },
     ]
 };

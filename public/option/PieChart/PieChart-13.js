@@ -28,18 +28,9 @@ const option = {
         orient: 'vertical',
         // legend.formatter 用于自定义图例文本
         formatter: (name) => {
-            let data = [
-                { value: 100, name: 'VPC' },
-                { value: 90, name: 'IM' },
-                { value: 49, name: 'EIP' },
-                { value: 14, name: 'SG' },
-            ]
-            let item = data.filter((item) => item.name === name)[0];
+            let item = option.data.filter((item) => item.name === name)[0];
             return '{title|' + name + '}{value|' + item.value + 'GB}'
         }
-    },
-    tooltip: {
-
     },
     label: {
         show: false,

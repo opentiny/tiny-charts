@@ -30,15 +30,10 @@ const option = {
         orient: 'vertical',
         height: 120,
         formatter: (name) => {
-            let data = [
-                { value: 100, name: '<100G波道数' },
-                { value: 200, name: '100G波道数' },
-                { value: 200, name: '200G/400G波道数' },
-            ];
-            let total = data.reduce((a, b) => {
+            let total = option.data.reduce((a, b) => {
                 return a + b.value;
             }, 0);
-            let item = data.filter((item) => item.name === name)[0];
+            let item = option.data.filter((item) => item.name === name)[0];
             let percent = Math.floor((item.value / total) * 100 * 100) / 100 + '%';
             return '{value|' + item.value + '}{percent|' + (percent) + '}\n{title|' + name + '}'
         },
@@ -46,6 +41,7 @@ const option = {
             rich: {
                 value: {
                     fontSize: 24,
+                    width: 'auto',
                     color: '#191919',
                     padding: [24, 0, 0, 0],
                 },
