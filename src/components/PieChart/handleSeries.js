@@ -77,8 +77,8 @@ function setCircleRadius(radius, chartInstance, iChartOption, legend) {
   const canvasRadius = width > height ? height / 2 : width / 2;
   const adaptive = iChartOption?.adaptive;
   // 暂时用来只开放华为云主题
-  const theme = iChartOption?.theme
-  let barWidth = chartToken.barWidth;
+  const theme = iChartOption?.theme;
+  let barWidth = iChartOption.barWidth || chartToken.barWidth;
 
   // 2.自适应根据圆环占比部分决定圆环粗细
   if (adaptive && theme.includes('cloud')) {
