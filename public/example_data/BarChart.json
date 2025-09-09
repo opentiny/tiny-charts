@@ -260,6 +260,11 @@
           "imagePath": "./image/theme/light/BarChart/BarChart-45.png"
         },
         {
+          "name": "双y轴",
+          "routePath": "BarChart-53",
+          "imagePath": "./image/theme/light/BarChart/BarChart-53.png"
+        },
+        {
           "name": "多个y轴",
           "routePath": "BarChart-29",
           "imagePath": "./image/theme/light/BarChart/BarChart-29.png"
