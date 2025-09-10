@@ -13,10 +13,11 @@ import Token from '../../../feature/token';
 import merge from '../../../util/merge';
 
 function setPolymorphism(legend, iChartOption) {
+  const theme = iChartOption.theme;
   const baseRich = {
     title: {
       fontSize: Token.config.legendTextNameFontSize,
-      padding: [0, 16, 0, 5],
+      padding: [0, 0, 0, 5],
       align:'left',
       color: Token.config.legendTextNameColor 
     },
@@ -35,8 +36,8 @@ function setPolymorphism(legend, iChartOption) {
     },
     split:{
       fontSize: Token.config.legendTextValueFontSize,
-      width: Token.config.legendTextValueFontSize - 2,
-      padding:[0, Token.config.legendTextValueFontSize - 2, 0, 0],
+      width: 8,
+      padding:[0, 4, 0, 1],
       align:'right',
       color: Token.config.legendTextSplitColor  
     },
@@ -48,10 +49,13 @@ function setPolymorphism(legend, iChartOption) {
     }
   }
   // 非自适应情况，默认宽度配置
-  if(!iChartOption.adaptive){
+  if (!iChartOption.adaptive || (!theme.includes('cloud') && iChartOption.adaptive)) {
     baseRich.title.width = 80;
     baseRich.value1.width = 20;
     baseRich.value.width = 20;
+  }
+  if (iChartOption.adaptive && theme.includes('cloud')) {
+    baseRich.title.padding = [0, 16, 0, 5];
   }
   let rich = legend?.textStyle?.rich || {};
   legend.textStyle.rich = merge(baseRich, rich);
