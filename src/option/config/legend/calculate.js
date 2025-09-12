@@ -48,8 +48,8 @@ function formatRichText(text, styles, textStyle, richMaxWidth){
     ctx.font = `${fontWeight} ${fontSize} ${fontFamily}`;
     // 获取宽度
     let textWidth = ctx.measureText(content).width;
-    if (styleName === 'split'){ // 分割线占宽20---取自设计稿
-      textWidth = style?.width ? style.width* 2 : 20;
+    if (styleName === 'split'){ // 分割线占宽17---取自设计稿
+      textWidth = style?.width ? style.width* 2 : 17;
     }
     if (richMaxWidth[styleName]){
       richMaxWidth[styleName].widths.push(textWidth);
@@ -113,7 +113,7 @@ function calculateOccupancy(iChartOption, legend, legendData){
       const element = richMaxWidth[key];
       element.maxWidth = Math.max(...element.widths);
       if (key === 'split'){
-        element.maxWidth = 20; //分割线占宽取自设计稿
+        element.maxWidth = 17; //分割线占宽取自设计稿
       }
     }
     // 计算结果
@@ -183,7 +183,7 @@ function updateLegendOccupancy(iChartOption, legend, legendData, chartInstance){
     titleWidth = isNumber(useTitleMaxWidth) ? useTitleMaxWidth : titleWidth;
     legend.tooltip = { show: true};
   } else {
-    titleWidth = isNumber(useTitleMaxWidth) ? useTitleMaxWidth : (titleMaxWidth + titlePaddingRight); // title与右边的间隙
+    titleWidth = isNumber(useTitleMaxWidth) ? useTitleMaxWidth : titleMaxWidth ; 
   }
   // 更新rich 增加width
   for (const key in richMaxWidth) {
