@@ -36,8 +36,8 @@ function setPolymorphism(legend, iChartOption) {
     },
     split:{
       fontSize: Token.config.legendTextValueFontSize,
-      width: 8,
-      padding:[0, 4, 0, 1],
+      width: 12,
+      padding: [0, 7, 0, 0],
       align:'right',
       color: Token.config.legendTextSplitColor  
     },
