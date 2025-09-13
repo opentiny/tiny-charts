@@ -1,5 +1,5 @@
-import { createSvgElement, updateSvgs } from './utils.js';
-import { HEADER_HEIGHT, SCROLL } from './constants.js';
+import { createSvgElement, updateSvgs, handleEvents, unbindAllEvents } from './utils.js';
+import { HEADER, SCROLL } from './constants.js';
 import { getScrollStyles } from './style.js';
 import chartToken from './chartToken.js';
 
@@ -11,9 +11,9 @@ class ScrollArea {
     this.width = width;
     this.height = height;
     this.paddingConfig = paddingConfig;
-    this.headerHeight = HEADER_HEIGHT;
+    this.headerHeight = HEADER.HEIGHT;
     this.scrollThumbWidth = SCROLL.THUMBWIDTH;
-    this.viewHeight = height - HEADER_HEIGHT;
+    this.viewHeight = height - HEADER.HEIGHT;
     this.scrollY = 0;                  // 当前滚动位置
     this.lastClientY = 0;              // 拖动时最后鼠标Y坐标
     this.isDragging = false;           // 是否正在拖动滚动条
@@ -32,17 +32,16 @@ class ScrollArea {
 
     this.viewArea = createSvgElement(
       'g', 
-      this.styles.getViewArea()
+      this.styles.getViewArea(),
+      this.container
     );
 
     this.scrollArea = createSvgElement(
       'g', 
-      this.styles.getScrollArea()
+      this.styles.getScrollArea(),
+      this.viewArea
     );
-    this.scrollArea.appendChild(this.rowList.getContainer());
-    this.viewArea.appendChild(this.scrollArea);
-
-    this.container.appendChild(this.viewArea);
+    if(this.rowList.getContainer()) this.scrollArea.appendChild(this.rowList.getContainer());
   }
 
   renderScrollBar() {
@@ -52,16 +51,15 @@ class ScrollArea {
     
     this.scrollThumbTrack = createSvgElement(
       'rect', 
-      this.styles.getScrollTrack(this.scrollBarX, this.paddingConfig.top, this.headerHeight, this.viewHeight, this.scrollThumbWidth)
+      this.styles.getScrollTrack(this.scrollBarX, this.paddingConfig.top, this.headerHeight, this.viewHeight, this.scrollThumbWidth),
+      this.svg
     );
     
     this.scrollThumb = createSvgElement(
       'rect', 
-      this.styles.getScrollThumb(this.scrollBarX, this.paddingConfig.top, this.headerHeight, this.scrollThumbWidth)
+      this.styles.getScrollThumb(this.scrollBarX, this.paddingConfig.top, this.headerHeight, this.scrollThumbWidth),
+      this.svg
     );
-
-    this.svg.appendChild(this.scrollThumbTrack);
-    this.svg.appendChild(this.scrollThumb);
   }
 
   calcHeight() {
@@ -98,13 +96,11 @@ class ScrollArea {
   }
 
   bindEvents() {
-    this.container.addEventListener('wheel', this.handleWheel.bind(this));             // 鼠标滚动内容事件
-    this.scrollThumb.addEventListener('mousedown', this.startDrag.bind(this));         // 鼠标拖动事件
-    this.scrollThumbTrack.addEventListener('click', this.handleClickTrack.bind(this)); // 点击内容移动事件
-    
-    // 滚动条显隐挂载在根svg上
-    this.svg.addEventListener('mouseenter', this.showScrollBar.bind(this));
-    this.svg.addEventListener('mouseleave', this.hideScrollBar.bind(this));
+    handleEvents(this.container, 'wheel', [this.handleWheel.bind(this)], true);
+    handleEvents(this.scrollThumb, 'mousedown', [this.startDrag.bind(this)], true);
+    handleEvents(this.scrollThumbTrack, 'click', [this.handleClickTrack.bind(this)], true);
+    handleEvents(this.svg, 'mouseenter', [this.showScrollBar.bind(this)], true);
+    handleEvents(this.svg, 'mouseleave', [this.hideScrollBar.bind(this)], true);
   }
 
   // 显示滚动条
@@ -143,8 +139,8 @@ class ScrollArea {
     // 拖拽时保持滚动条可见
     this.showScrollBar();
 
-    window.addEventListener('mousemove', this.onDrag.bind(this));
-    window.addEventListener('mouseup', this.stopDrag.bind(this));
+    handleEvents(window, 'mousemove', [this.onDragBound], true);
+    handleEvents(window, 'mouseup', [this.stopDragBound], true);
   }
 
   onDrag(e) {
@@ -165,8 +161,8 @@ class ScrollArea {
     
     this.hideScrollBar();
     
-    window.removeEventListener('mousemove', this.onDrag.bind(this));
-    window.removeEventListener('mouseup', this.stopDrag.bind(this));
+    handleEvents(window, 'mousemove', [this.onDrag.bind(this)], false);
+    handleEvents(window, 'mouseup', [this.stopDrag.bind(this)], false);
   }
 
   handleClickTrack(e) {
@@ -187,27 +183,27 @@ class ScrollArea {
 
   // 自适应计算布局
   resize(newWidth, newHeight, paddingConfig) {
-    this.width = newWidth;
-    this.height = newHeight;
-    this.paddingConfig = paddingConfig;
-    
-    this.viewHeight = newHeight - this.headerHeight;
-    this.scrollY = this.clamp(this.scrollY, 0, this.maxScrollY);
-    this.calcHeight();
+      this.width = newWidth;
+      this.height = newHeight;
+      this.paddingConfig = paddingConfig;
+      
+      this.viewHeight = newHeight - this.headerHeight;
+      this.scrollY = this.clamp(this.scrollY, 0, this.maxScrollY);
+      this.calcHeight();
 
-    const rootSvgWidth = this.svg.clientWidth;
-    const scrollBarX = rootSvgWidth - this.scrollThumbWidth;
-    
-    updateSvgs([
-      { 
-        el: this.scrollThumbTrack, 
-        attrs: this.styles.updateScrollTrack(scrollBarX, this.paddingConfig.top, this.headerHeight, this.viewHeight)
-      },
-      { 
-        el: this.scrollThumb, 
-        attrs: this.styles.updateScrollThumb(scrollBarX, this.paddingConfig.top, this.headerHeight, this.scrollThumb.getAttribute('height') || 30)
-      }
-    ]);
+      const rootSvgWidth = this.svg.clientWidth;
+      const scrollBarX = rootSvgWidth - this.scrollThumbWidth;
+      
+      updateSvgs([
+        { 
+          el: this.scrollThumbTrack, 
+          attrs: this.styles.updateScrollTrack(scrollBarX, this.paddingConfig.top, this.headerHeight, this.viewHeight)
+        },
+        { 
+          el: this.scrollThumb, 
+          attrs: this.styles.updateScrollThumb(scrollBarX, this.paddingConfig.top, this.headerHeight, this.scrollThumb.getAttribute('height') || 30)
+        }
+      ]);
   }
 
   // 更新主题样式
@@ -241,6 +237,37 @@ class ScrollArea {
     if (this.maxScrollY === 0 || currentScrollY > this.maxScrollY) {
       this.scrollY = 0;
       this.updateView();
+    }
+  }
+
+  // 销毁滚动区域
+  destroy() {
+    if (this.container) {
+      unbindAllEvents(this.container);
+    }
+    if (this.scrollThumb) {
+      unbindAllEvents(this.scrollThumb);
+    }
+    if (this.scrollThumbTrack) {
+      unbindAllEvents(this.scrollThumbTrack);
+    }
+    
+    // 对于全局元素，只清除当前组件中挂载的事件
+    if (this.svg) {
+      handleEvents(window, 'mouseenter', [this.showScrollBar.bind(this)], false)
+      handleEvents(window, 'mouseleave', [this.hideScrollBar.bind(this)], false)
+    }
+    if (window) {
+      handleEvents(window, 'mousemove', [this.onDragBound], false);
+      handleEvents(window, 'mouseup', [this.stopDragBound], false);
+    }
+    
+    if(this.rowList) {
+      this.rowList.destroy()
+    }
+    if(this.viewArea && this.viewArea.parentNode) {
+      this.viewArea.parentNode.removeChild(this.viewArea);
+      this.viewArea = null;
     }
   }
 

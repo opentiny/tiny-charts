@@ -2,9 +2,10 @@ import {
   createSvgElement, 
   setEllipsisWithTooltip, 
   calcColumnX,
-  updateSvgs
+  updateSvgs,
+  handleEvents,
+  unbindAllEvents
 } from './utils.js';
-
 import { showTooltip, hideTooltip } from './handleTooltip.js';
 import { getRowStyles, getRankColor } from './style.js';
 import { ROW, TEXT } from './constants.js'
@@ -29,7 +30,6 @@ export class ContentRow {
     this.styles = getRowStyles(chartToken);
     this.progressBarWidth = this.rowWidth - 2 * this.padding;
     this.progressBarHeight = chartToken.row.progressBarHeight;
-
     // 计算文本x坐标
     this.columnX = calcColumnX(TEXT.FLEX_SPACE, this.rowWidth, this.padding);
   }
@@ -54,81 +54,82 @@ export class ContentRow {
   renderRowBg() {
     this.rowBg = createSvgElement(
       'rect', 
-      this.styles.getRowBg(this.rowWidth, this.rowHeight)
+      this.styles.getRowBg(this.rowWidth, this.rowHeight),
+      this.row
     );
-    this.row.appendChild(this.rowBg);
   }
 
   renderRank() {
     const rankColor = getRankColor(this.index + 1);
     this.rankBg = createSvgElement(
       'rect', 
-      this.styles.getRankBg(this.columnX[0], this.textBaselineY, this.rankBgSize, rankColor)
+      this.styles.getRankBg(this.columnX[0], this.textBaselineY, this.rankBgSize, rankColor),
+      this.row
     );
-    this.row.appendChild(this.rankBg);
 
     this.rankText = createSvgElement(
       'text', 
-      this.styles.getRankText(this.columnX[0], this.textBaselineY, this.rankBgSize)
+      this.styles.getRankText(this.columnX[0], this.textBaselineY, this.rankBgSize),
+      this.row
     );
     this.rankText.textContent = `${this.index + 1}`;
-    this.row.appendChild(this.rankText);
   }
 
   renderName() {
     this.nameText = createSvgElement(
       'text', 
-      this.styles.getNameText(this.padding, this.rankBgSize, this.textBaselineY)
+      this.styles.getNameText(this.padding, this.rankBgSize, this.textBaselineY),
+      this.row
     );
     // 判断是否省略文本和挂载tooltip
-    setEllipsisWithTooltip(this.nameText, this.data.name || '', 8);
-    this.row.appendChild(this.nameText);
+    setEllipsisWithTooltip(this.nameText, this.data.name || '', TEXT.MAX_NAME_LENGTH);
   }
 
   renderValue() {
     this.valueText = createSvgElement(
       'text', 
-      this.styles.getValueText(this.columnX[1], this.textBaselineY)
+      this.styles.getValueText(this.columnX[1], this.textBaselineY),
+      this.row
     );
-    this.valueText.textContent = this.data.value;
-    this.row.appendChild(this.valueText);
+    this.valueText.textContent = this.data.value || 0;
   }
 
   renderPercent() {
     this.percentText = createSvgElement(
       'text', 
-      this.styles.getPercentText(this.columnX[2], this.textBaselineY)
+      this.styles.getPercentText(this.columnX[2], this.textBaselineY),
+      this.row
     );
-    this.percentText.textContent = `${this.data.percent}%`;
-    this.row.appendChild(this.percentText);
+    this.percentText.textContent = this.data.percent ? `${this.data.percent}%` : '';
   }
 
   renderProgressBar() {
     this.progressBarBg = createSvgElement(
       'rect', 
-      this.styles.getProgressBarBg(this.padding, this.rowHeight, this.progressBarWidth, this.progressBarHeight)
+      this.styles.getProgressBarBg(this.padding, this.rowHeight, this.progressBarWidth, this.progressBarHeight),
+      this.row
     );
     this.addTooltipEvents(this.progressBarBg);
-    this.row.appendChild(this.progressBarBg);
 
     this.progressBar = createSvgElement(
       'rect', 
-      this.styles.getProgressBar(this.padding, this.rowHeight, this.progressBarHeight, this.data.color)
+      this.styles.getProgressBar(this.padding, this.rowHeight, this.progressBarHeight, this.data.color),
+      this.row
     );
     this.addTooltipEvents(this.progressBar);
-    this.row.appendChild(this.progressBar);
 
     // 进度条动画
     const animate = createSvgElement(
       'animate', 
-      this.styles.getAnimation(this.progressBarWidth, this.data.percent)
+      this.styles.getAnimation(this.progressBarWidth, this.data.percent || 0),
+      this.progressBar
     );
-    this.progressBar.appendChild(animate);
     animate.beginElement();
   }
 
   addTooltipEvents(el) {
     const handleMouseOver = (e) => {
+      // data在handleData中已做处理
       const data = {
         name: this.data.name,
         value: this.data.value,
@@ -143,8 +144,8 @@ export class ContentRow {
       hideTooltip();
     };
 
-    el.addEventListener('mouseenter', handleMouseOver);
-    el.addEventListener('mouseleave', handleMouseOut);
+    handleEvents(el, 'mouseenter', [handleMouseOver], true);
+    handleEvents(el, 'mouseleave', [handleMouseOut], true);
   }
 
   //自适应计算布局
@@ -230,5 +231,18 @@ export class ContentRow {
         width: this.progressBarWidth
       }},
     ]);
+  }
+
+  destroy() {
+    // 组件卸载时移除事件监听
+    if(this.progressBar) {
+      unbindAllEvents(this.progressBar)
+    }
+    if(this.progressBarBg) {
+      unbindAllEvents(this.progressBarBg)
+    }
+    if (this.nameText) {
+      unbindAllEvents(this.nameText);
+    }
   }
 }

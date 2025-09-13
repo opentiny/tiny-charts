@@ -1,5 +1,7 @@
 import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter';
+import { TOOLTIP } from './constants.js'
 import { getTooltipStyles } from './style.js';
+import { handleEvents } from './utils.js';
 
 // 全局tooltip实例
 let tooltip = null;
@@ -10,7 +12,7 @@ class Tooltip {
     this.theme = theme;
     this.config = tooltipConfig;
     this.tooltip = null;
-    this.offset = 10;
+    this.offset = TOOLTIP.OFFSET;
 
     // 获取样式配置
     this.styles = getTooltipStyles();
@@ -66,25 +68,33 @@ class Tooltip {
   followMouse() {
     if (!this.tooltip) return;
 
-    this.dom.addEventListener('mousemove', (e) => {
+    this.mouseMoveHandler = (e) => {
       // 只有当tooltip可见时才跟随
       if (!this.tooltip || this.tooltip.style.visibility !== 'visible') return;
       
       this.updateTooltipPosition(e);
-    });
+    };
+
+    handleEvents(this.dom, 'mousemove', [this.mouseMoveHandler], true);
   }
 
   // 更新tooltip位置
   updateTooltipPosition(e) {
-    if (!this.tooltip) return;
+    if (!this.tooltip || !this.dom) return;
 
-    // 获取容器边界信息
-    const { left: domLeft, top: domTop, width: domWidth, height: domHeight } = this.dom.getBoundingClientRect();
+    // 获取容器边界信息，同时做一些默认处理
+    const domRect = this.dom.getBoundingClientRect();
+    const domLeft = domRect.left || 0;
+    const domTop = domRect.top || 0;
+    const domWidth = domRect.width || 0;
+    const domHeight = domRect.height || 0;
     const maxX = domLeft + domWidth; // 容器右边界
     const maxY = domTop + domHeight; // 容器下边界
     
-    // 获取tooltip尺寸
-    const { width: tooltipWidth, height: tooltipHeight } = this.tooltip.getBoundingClientRect();
+    // 获取tooltip尺寸，同样做一些默认处理
+    const tooltipRect = this.tooltip.getBoundingClientRect();
+    const tooltipWidth = tooltipRect.width || 200;
+    const tooltipHeight = tooltipRect.height || 100;
 
     let left = e.clientX + this.offset; // 初始left位置
     let top = e.clientY + this.offset;  // 初始top位置
@@ -102,6 +112,7 @@ class Tooltip {
   }
 
   show(data, e) {
+    // show方法封装后只暴露给row，row的data经过handleData的处理，已具有默认值
     if (!this.tooltip || !this.config.show) return;
 
     let content;
@@ -150,6 +161,9 @@ class Tooltip {
   }
 
   destroy() {
+    if (this.dom) {
+      handleEvents(this.dom, 'mousemove', [this.mouseMoveHandler], false);
+    }
     if (this.tooltip && this.tooltip.parentNode) {
       this.tooltip.parentNode.removeChild(this.tooltip);
       this.tooltip = null;

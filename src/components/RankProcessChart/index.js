@@ -6,69 +6,54 @@ import { createRowList } from './handleRowList.js';
 import { createScrollArea } from './handleScroll.js';
 import { updateSvgs } from './utils.js';
 import { getMainChartStyles } from './style.js';
-import merge from '../../util/merge.js';
+import { isArray } from '../../util/type.js';
 import debounce from '../../util/debounce.js';
 import { 
   resolveOption, 
   isUpdate
 } from './handleOption.js';
-import { HEADER_HEIGHT } from './constants.js';
+import { HEADER, DEFAULT_OPTION, DEFAULT_SCROLL_INFO } from './constants.js';
 import chartToken from './chartToken.js';
-import init from '../../option/init/index.js';
-import Token from '../../feature/token/index.js';
-
-// 默认配置选项
-const defaultOption = {
-  mode: 'svg',                       // 图表渲染模式: svg, canvas
-  data: [],                          // 图表总数据
-  theme: 'hdesign-light',            // 主题样式
-  titleName: '名称',                 // 首部标题文本
-  valueName: '金额',                 // 首部数值文本
-  percentName: '贡献度',             // 首部百分比文本
-  padding: [16, 16, 0, 16],          // 图表内边距，顺序为[top, right, bottom, left]
-  color: null,                       // 图表未指定颜色时的默认颜色，指定时需为数组
-  tooltip: {                         // 提示框配置
-    show: true,                      // 是否显示提示框
-    formatter: null                  // 自定义格式化函数
-  }
-};
 
 export default class RankProcessChart extends BaseChart {
+
   constructor() {
     super();
-    this.dom = null;                        // 图表容器DOM元素
-    this.option = defaultOption;            // 配置选项，初始为默认配置
-    this.lastOption = defaultOption;        // 上次的配置选项
-    this.renderCallBack = null;             // 渲染完成回调函数
-    
-    // 获取样式配置
-    this.styles = getMainChartStyles(chartToken);
+    this.dom = null;                             // 图表容器
+    this.option = {...DEFAULT_OPTION};           // 本次的配置选项
+    this.lastOption = {...DEFAULT_OPTION};       // 上次的配置选项
+    this.renderCallBack = null;                  // 渲染完成回调函数
+
   }
 
   // 初始化图表容器
   init(dom) {
     this.dom = dom;
-    this.width = dom.clientWidth;
-    this.height = dom.clientHeight;
+    this.width = dom.clientWidth || 0;
+    this.height = dom.clientHeight || 0;
 
+    // 获取样式配置
+    this.styles = getMainChartStyles(chartToken);
+ 
     if(this.svg) {
       this.dom.appendChild(this.svg);
       return;
     }
 
     // 创建根SVG元素
-    this.svg = createSvgElement('svg', this.styles.getSvgStyles());
-    this.dom.appendChild(this.svg);
+    this.svg = createSvgElement(
+      'svg', 
+      this.styles.getSvgStyles(), 
+      this.dom
+    );
   }
 
   // 合并配置选项
   setSimpleOption(name, option) {
-    if (!option || typeof option !== 'object') option = {};
-
-    // 合并配置并初始化
-    this.option = merge(this.option, option);
-    this.option = init(this.option);
-    Token.setDefaultTheme(this.option.theme);
+    if (!option || typeof option !== 'object') option = DEFAULT_OPTION;
+    
+    // 把合并的逻辑放在handleOption中
+    this.resolvedOption = resolveOption(this.option, option, this.width, this.height);
   }
 
   // 图表渲染
@@ -78,41 +63,43 @@ export default class RankProcessChart extends BaseChart {
       return;
     }
 
-    const { titleName, valueName, percentName, tooltip } = this.option;
-    
     const { 
-      processedData: newData, 
+      titleName, 
+      valueName, 
+      percentName, 
+      data,  
+      tooltip, 
       paddingConfig, 
       contentWidth, 
-      contentHeight,
-    } = resolveOption(this.option, this.width, this.height);
+      contentHeight 
+    } = this.resolvedOption;
 
     // 挂载tooltip
-    this.tooltip = createTooltip(this.svg, this.option.theme, tooltip);
+    this.tooltip = createTooltip(this.svg, this.resolvedOption.theme, tooltip);
     
     this.contentGroup = createSvgElement(
       'svg', 
-      this.styles.getContentGroupStyles(paddingConfig.left, paddingConfig.top, contentWidth, contentHeight)
+      this.styles.getContentGroupStyles(paddingConfig.left, paddingConfig.top, contentWidth, contentHeight),
+      this.svg
     );
     
-    this.clipPath = createSvgElement('clipPath', this.styles.getClipPath());
+    this.clipPath = createSvgElement('clipPath', this.styles.getClipPath(), this.svg);
     
     this.clipRect = createSvgElement(
       'rect', 
-      this.styles.getClipRect(contentWidth, contentHeight)
+      this.styles.getClipRect(contentWidth, contentHeight),
+      this.clipPath
     );
     
-    this.clipPath.appendChild(this.clipRect);
-    this.svg.appendChild(this.clipPath);
     this.contentGroup.setAttribute('clip-path', 'url(#contentClipPath)');
     
     // 创建虚拟列表
     this.rowList = createRowList({
-      data: newData,
+      data,
       containerWidth: contentWidth, 
       scrollCallback: () => ({    // 闭包获取scrollArea中的属性，需要时调用回调获取
-        scrollY: this.scrollArea ? this.scrollArea.scrollY : 0,   // 当前滚动位置
-        viewHeight: contentHeight - HEADER_HEIGHT                 // 可视区域高度
+        scrollY: this.scrollArea ? this.scrollArea.scrollY : DEFAULT_SCROLL_INFO.SCROLLY,   // 当前滚动位置
+        viewHeight: contentHeight - HEADER.HEIGHT                 // 可视区域高度
       })
     });
 
@@ -170,8 +157,8 @@ export default class RankProcessChart extends BaseChart {
           paddingConfig, 
           contentWidth, 
           contentHeight,
-        } = resolveOption(this.option, newWidth, newHeight);
-        
+        } = resolveOption(this.option, this.option, newWidth, newHeight);
+
         updateSvgs([
           { 
             el: this.contentGroup, 
@@ -183,9 +170,9 @@ export default class RankProcessChart extends BaseChart {
           }
         ]);
 
-        this.headerGroup.resize(contentWidth);
-        this.rowList.resize(contentWidth);
-        this.scrollArea.resize(contentWidth, contentHeight, paddingConfig);
+        if(this.headerGroup) this.headerGroup.resize(contentWidth);
+        if(this.rowList) this.rowList.resize(contentWidth);
+        if(this.scrollArea) this.scrollArea.resize(contentWidth, contentHeight, paddingConfig);
       }
     };
 
@@ -201,10 +188,10 @@ export default class RankProcessChart extends BaseChart {
     import('../../feature/token/index.js').then(Token => {
       const latestChartToken = Token.default.getTokenByName('RankProcessChart');
       
-      this.headerGroup.updateTheme(latestChartToken);
-      this.rowList.updateTheme(latestChartToken);
-      this.scrollArea.updateTheme(latestChartToken);
-      this.tooltip.updateTheme(this.option.theme);
+      if(this.headerGroup) this.headerGroup.updateTheme(latestChartToken);
+      if(this.rowList) this.rowList.updateTheme(latestChartToken);
+      if(this.scrollArea) this.scrollArea.updateTheme(latestChartToken);
+      if(this.tooltip) this.tooltip.updateTheme(this.option.theme);
     });
   }
 
@@ -216,35 +203,26 @@ export default class RankProcessChart extends BaseChart {
   update() {
     // 判断哪些属性需要更新
     const updates = isUpdate(this.option, this.lastOption);
+    console.log('updates', updates);
 
     if (updates) {
-      const { titleName, valueName, percentName } = this.option;
-      
       const { 
-        processedData: newData, 
+        titleName, 
+        valueName, 
+        percentName,
+        data, 
         paddingConfig, 
         contentWidth, 
         contentHeight,
-      } = resolveOption(this.option, this.width, this.height);
-
-      updateSvgs([
-        { 
-          el: this.contentGroup, 
-          attrs: this.styles.updateContentGroup(paddingConfig.left, paddingConfig.top, contentWidth, contentHeight)
-        },
-        { 
-          el: this.clipRect, 
-          attrs: this.styles.updateClipRect(contentWidth, contentHeight)
-        }
-      ]);
+      } = resolveOption(this.option, this.option, this.width, this.height);
 
       if (updates.includes('data') || updates.includes('color') || updates.includes('padding')) {
         this.rowList.updateRows({
-          data: newData,
+          data,
           containerWidth: contentWidth,
           scrollCallback: () => ({
-            scrollY: this.scrollArea ? this.scrollArea.scrollY : 0,
-            viewHeight: contentHeight - HEADER_HEIGHT
+            scrollY: this.scrollArea ? this.scrollArea.scrollY : DEFAULT_SCROLL_INFO.SCROLLY,
+            viewHeight: contentHeight - HEADER.HEIGHT
           })
         });
       }
@@ -270,6 +248,10 @@ export default class RankProcessChart extends BaseChart {
         this.updateTheme();
       }
 
+      if(updates.includes('padding')) {
+        this.updateLayout();
+      }
+
       this.updateRenderCache();
     }
 
@@ -290,6 +272,9 @@ export default class RankProcessChart extends BaseChart {
 
   // 仅刷新数据
   refreshData(newData) {
+    if (!isArray(newData)) {
+      newData = [newData];
+    }
     this.option.data = newData;
     this.refresh(this.option);
   }
@@ -298,7 +283,11 @@ export default class RankProcessChart extends BaseChart {
   uninstall() {
     this.svg.innerHTML = '';
     if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
       this.resizeObserver = null;
+    }
+    if (this.scrollArea) {
+      this.scrollArea.destroy();
     }
   }
 
@@ -310,7 +299,7 @@ export default class RankProcessChart extends BaseChart {
       if (this.tooltip) {
         this.tooltip.destroy();
       }
-      this.option = defaultOption;
+      this.option = {...DEFAULT_OPTION};
     }
   }
 }

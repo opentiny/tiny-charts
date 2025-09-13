@@ -1,14 +1,26 @@
 import { showTooltip, hideTooltip } from "./handleTooltip.js";
 import { isObjEqual } from '../../util/equal.js';
+import { isNumber } from '../../util/type.js';
 
-// 创建SVG元素并设置属性
-export const createSvgElement = (tag, attrs = {}) => {
+// 验证数值是否有效（封装isNumber，确保为number的同时非NaN和Infinity）
+export const isValidNumber = (value) => {
+  return isNumber(value) && !isNaN(value) && isFinite(value);
+};
+
+// 创建SVG元素并设置属性,并且可以直接挂载在父元素上
+export const createSvgElement = (tag, attrs = {}, parent = null) => {
   const element = document.createElementNS('http://www.w3.org/2000/svg', tag);
   Object.entries(attrs).forEach(([key, value]) => {
     if (value) {
       element.setAttribute(key, value);
     }
   });
+  
+  // 如果提供了父容器，自动挂载元素
+  if (parent) {
+    parent.appendChild(element);
+  }
+  
   return element;
 }
 
@@ -26,6 +38,10 @@ export function calcColumnX(flexs, totalWidth, padding) {
 
 // 为文本元素设置省略号并添加tooltip
 export function setEllipsisWithTooltip(textElement, text, maxLength) { 
+    if (!textElement || typeof text !== 'string') {
+      return;
+    }
+
     if (text.length <= maxLength) {
       textElement.textContent = text;
       return; // 如果没有达到最大长度直接返回
@@ -50,9 +66,72 @@ export function setEllipsisWithTooltip(textElement, text, maxLength) {
         hideTooltip();
     };
     
+    handleEvents(textElement, 'mouseenter', [handleMouseOver], true);
+    handleEvents(textElement, 'mouseleave', [handleMouseOut], true);
+}
+
+// 处理事件绑定与解绑
+export function handleEvents(el, eventName, eventHandlers, isBind) {
+  if(!el.events) {
+    el.events = new Map();
+  }
+
+  if(isBind) {
     // 绑定事件
-    textElement.addEventListener('mouseenter', handleMouseOver);
-    textElement.addEventListener('mouseleave', handleMouseOut);
+    for(const handler of eventHandlers) {
+      el.addEventListener(eventName, handler);
+     
+      if(!el.events.has(eventName)) {
+        el.events.set(eventName, []);
+      }
+      el.events.get(eventName).push(handler);
+    }
+  } else {
+    if(!eventName) {
+      // 如果没有传eventName，解绑所有事件
+      el.events.forEach((handlers, eventName) => {
+        handlers.forEach(handler => {
+          el.removeEventListener(eventName, handler);
+        });
+      });
+      el.events.clear();
+    } 
+    else {
+      // 如果传了eventName和eventHandlers，只解绑指定的处理器
+      if(el.events.has(eventName)) {
+        if(eventHandlers && eventHandlers.length > 0) {
+          // 只解绑指定的处理器
+          const handlers = el.events.get(eventName);
+           
+          for(let i = handlers.length - 1; i >= 0; i--) {
+            const handler = handlers[i];
+            if(eventHandlers.includes(handler)) {
+              el.removeEventListener(eventName, handler);
+              handlers.splice(i, 1);
+            }
+          }
+           
+          // 如果该事件没有处理器了，删除整个事件
+          if(handlers.length === 0) {
+            el.events.delete(eventName);
+          }
+         } 
+         else {
+          // 没有eventHandlers就解绑指定事件名的所有处理器
+          const handlers = el.events.get(eventName);
+          handlers.forEach(handler => {
+            el.removeEventListener(eventName, handler);
+          });
+          el.events.delete(eventName);
+        }
+      }
+    }
+  }
+}
+
+// 解绑所有事件
+export function unbindAllEvents(el) {
+  handleEvents(el, null, [], false);
 }
 
 function setAttr(el, attrs) {
