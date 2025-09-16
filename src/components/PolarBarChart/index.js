@@ -33,7 +33,7 @@ export default class PolarBarChart {
         const iChartOption = this.iChartOption;
         const data = iChartOption.data;
         // 装载除series之外的其他配置
-        PolarCoordSys(this.baseOption, iChartOption, CHART_TYPE.POLAR_BAR);
+        PolarCoordSys(this.baseOption, iChartOption, CHART_TYPE.POLAR_BAR, chartInstance);
         const type = iChartOption.type || 'normal';
         // angleAxis赋值
         this.baseOption.angleAxis.data = [];
@@ -54,7 +54,7 @@ export default class PolarBarChart {
             const seriesData = getSeriesData(data, type, iChartOption);
             // pie数据
             const labelData = getLabelData(data);
-            this.baseOption.series = setSeries(seriesData, labelData, iChartOption, this.baseOption.polar, type);
+            this.baseOption.series = setSeries(seriesData, labelData, iChartOption, this.baseOption.polar, type, this.baseOption, chartInstance);
             // 合并用户自定义series
             mergeSeries(iChartOption, this.baseOption);
         }

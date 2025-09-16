@@ -68,14 +68,16 @@ function legend(iChartOption, chartName, chartInstance) {
     setPolymorphism(legend, iChartOption)
   }
   // 开启图例自适应的图表
-  const legendAdaptiveCharts = ['PieChart']; 
+  const legendAdaptiveCharts = ['PieChart', 'PolarBarChart', 'JadeJueChart']; 
   const isCloud = theme?.includes('cloud');
   if (legendAdaptiveCharts.includes(chartName) && isCloud && iChartOption.adaptive && legend.orient === 'vertical'){
-    if (!chartInstance) return;
+    if (!chartInstance) return legend;
     const dataArr = isArray(iChartOption.data) ? iChartOption.data : [];
     const xAxisKey = xkey(iChartOption);
     const lData = ldata(dataArr, xAxisKey) || [];
-    const key = isArray(lData) ? lData[0] : undefined;
+    let key = isArray(lData) ? lData[0] : undefined;
+    // 极坐标柱状图的key固定为name
+    if (chartName === 'PolarBarChart') key = 'name';
     const legendData = key ? dataArr.map((item) => item?.[key])|| [] : [];
     updateLegendOccupancy(iChartOption, legend, legendData, chartInstance);
   }
