@@ -42,11 +42,11 @@ export default class CircleProcessChart {
     this.baseOption.legend.data = iChartOption.data;
     // series bar数据
     const seriesData = getSeriesData(iChartOption.data);
+    setRadius(this.baseOption, chartInstance, iChartOption);
     this.baseOption.series = setSeries(seriesData, iChartOption, chartInstance);
     // 范围设置
     this.baseOption.angleAxis.max = iChartOption.max || 100;
     if( this.baseOption.title ) setTitle(iChartOption);
-    setRadius(this.baseOption, chartInstance, iChartOption);
     if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
       let position = iChartOption.position || this.baseOption.polar;
       handleCenterTitle(position, chartInstance, this.baseOption, iChartOption);

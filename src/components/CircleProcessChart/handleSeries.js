@@ -15,6 +15,7 @@ import cloneDeep from '../../util/cloneDeep';
 import Token from '../../feature/token';
 import { isArray, isNumber, isString } from '../../util/type';
 import { percentToDecimal } from '../../util/math';
+import handleCenterPosition from '../PieChart/handleCenterPosition'
 
 function getSeriesInit() {
   return {
@@ -108,6 +109,17 @@ export function setRadius(baseOption, chartInstance, iChartOption) {
     } else {
       baseOption.polar.radius = radius;
     }
+  }
+  if (!iChartOption.position) iChartOption.position = {};
+  let position = handleCenterPosition(iChartOption, baseOption.legend, chartInstance);
+  if (position && position.radius) {
+    let outerRing = position.radius;
+    iChartOption.position.radius = position.radius
+    baseOption.polar.radius = [outerRing - barWidth - 4, outerRing];
+  }
+  if (position && position.center) {
+    baseOption.polar.center = position.center;
+    iChartOption.position.center = position.center
   }
 }
 
