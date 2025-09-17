@@ -107,39 +107,6 @@ class BarLineChart {
       });
     }
     baseOption.series = series;
-    // 处理双Y轴对齐
-    if(baseOption.yAxis && baseOption.yAxis.length === 2) {
-      const result = [];
-      const yAxisLeft = baseOption.yAxis[0];
-      const yAxisRight = baseOption.yAxis[1];
-      const padding = iChartOption.padding;
-      result.push({
-        text:yAxisLeft.name,
-        textStyle: {
-          fontWeight: 'normal',
-          color: Theme.config.yAxisNameColor,
-          fontSize: Theme.config.yAxisNameFontSize,
-        },
-        padding:0,
-        top: padding[0] - 30,
-        left: padding[3]
-      })
-      result.push({
-        text:yAxisRight.name,
-        textStyle: {
-          fontWeight: 'normal',
-          color: Theme.config.yAxisNameColor,
-          fontSize: Theme.config.yAxisNameFontSize,
-        },
-        padding:0,
-        textAlign: 'left',
-        top: padding[0] - 30,
-        right: padding[1]
-      })
-      baseOption.title = result;
-      yAxisLeft.name = '';
-      yAxisRight.name = '';
-    }
     // 如果存在 dataZoom，提前返回
     if (this.baseOption.dataZoom[0].show === true) {
       return;
