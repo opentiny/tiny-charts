@@ -62,6 +62,56 @@ function parseValue(value, direction, containerWidth, containerHeight) {
   return 0;
 }
 
+// 数据排序
+export function sortData(data, sortField, sortOrder) {
+  if (sortOrder === 'none') {
+    return data;
+  }
+
+  const sortedData = [...data].sort((a, b) => {
+    let aValue, bValue;
+
+    switch (sortField) {
+      case 'value':
+        aValue = a.value || 0;
+        bValue = b.value || 0;
+        break;
+      case 'percent':
+        aValue = a.percent || 0;
+        bValue = b.percent || 0;
+        break;
+      default:
+        return data;
+    }
+
+    const diff = aValue - bValue;
+    return sortOrder === 'asc' ? diff : -diff;
+
+  });
+
+  return sortedData;
+}
+
+// 封装颜色处理和排序处理
+function processData(data, color, sort) {
+  // 处理默认颜色配置
+  if(color && !isArray(color)) {
+    color = [color];
+  }
+
+  // 处理进度条颜色，如果item有就使用，否则换为用户自定义或者默认颜色
+  const resolvedData = data.map((item, index) => ({
+    ...item,
+    color: item.color || color[index % color.length]
+  }));
+
+  // 排序
+  const { field, order } = sort || { field: 'value', order: 'desc' };
+  const sortedData = sortData(resolvedData, field, order);
+
+  return sortedData;
+}
+
 // 计算内容尺寸
 export function calcContentSize(containerWidth, containerHeight, padding) {
   // 确保宽高存在且不为负数，padding在上一步已做处理
@@ -108,21 +158,13 @@ export function resolveOption(lastOption, currOption, containerWidth, containerH
   const initedOption = init(mergedOption);
   Token.setDefaultTheme(initedOption.theme);
 
-  let { data, color, padding } = initedOption;
+  let { data, color, padding, sort } = initedOption;
   
   // 验证数据
   const validatedData = validateData(data);
   
-  // 处理默认颜色配置
-  if(color && !isArray(color)) {
-    color = [color];
-  }
-
-  // 处理进度条颜色，如果item有就使用，否则换为用户自定义或者默认颜色
-  const resolvedData = validatedData.map((item, index) => ({
-    ...item,
-    color: item.color || color[index % color.length]
-  }));
+  // 统一处理数据：设置颜色和排序
+  const processedData = processData(validatedData, color, sort);
 
   // 处理其他配置
   const paddingConfig = handlePadding(padding, containerWidth, containerHeight);
@@ -130,7 +172,7 @@ export function resolveOption(lastOption, currOption, containerWidth, containerH
 
   return {
     ...initedOption,
-    data: resolvedData,
+    data: processedData,
     paddingConfig,
     contentWidth,
     contentHeight,

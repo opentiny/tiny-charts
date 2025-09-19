@@ -6,7 +6,7 @@ import dataMd from './data.md?raw'
 import titleNameMd from './titleName.md?raw'
 import valueNameMd from './valueName.md?raw'
 import percentNameMd from './percentName.md?raw'
-import modeMd from './mode.md?raw'
+import sortMd from './sort.md?raw'
 
 const data = {
     dataset: [
@@ -18,7 +18,7 @@ const data = {
         ['titleName', '名称列标题', 'string', '名称'],
         ['valueName', '数值列标题', 'string', '金额'],
         ['percentName', '百分比列标题', 'string', '百分比'],
-        ['mode', '渲染类型', 'string', 'svg'],
+        ['sort', '排序配置', 'object', '{ field: "value", order: "desc" }'],
     ],
     markdown: [
         themeMd,
@@ -29,7 +29,7 @@ const data = {
         titleNameMd,
         valueNameMd,
         percentNameMd,
-        modeMd,
+        sortMd,
     ]
 }
 

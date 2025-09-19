@@ -5,14 +5,9 @@
       "title": "基础形态",
       "children": [
         {
-          "name": "SVG渲染",
+          "name": "排名进度图",
           "routePath": "RankProcessChart-1",
           "imagePath": "./image/theme/light/RankProcessChart/RankProcessChart-1.png"
-        },
-        {
-          "name": "Canvas渲染",
-          "routePath": "RankProcessChart-2",
-          "imagePath": "./image/theme/light/RankProcessChart/RankProcessChart-2.png"
         }
       ]
     },
@@ -20,29 +15,29 @@
       "title": "基础能力",
       "children": [
         {
-          "name": "自定义图表信息",
+          "name": "排名进度图-自定义排序",
+          "routePath": "RankProcessChart-2",
+          "imagePath": "./image/theme/light/RankProcessChart/RankProcessChart-2.png"
+        },
+        {
+          "name": "排名进度图-tooltip自定义",
           "routePath": "RankProcessChart-3",
           "imagePath": "./image/theme/light/RankProcessChart/RankProcessChart-3.png"
         },
         {
-          "name": "用户自定义悬浮tooltip",
+          "name": "排名进度图-纵向滚动条",
           "routePath": "RankProcessChart-4",
           "imagePath": "./image/theme/light/RankProcessChart/RankProcessChart-4.png"
         },
         {
-          "name": "纵向滚动条",
+          "name": "排名进度图-自定义配色",
           "routePath": "RankProcessChart-5",
           "imagePath": "./image/theme/light/RankProcessChart/RankProcessChart-5.png"
         },
         {
-          "name": "自定义配色",
+          "name": "排名进度图-过长标题显示tips",
           "routePath": "RankProcessChart-6",
           "imagePath": "./image/theme/light/RankProcessChart/RankProcessChart-6.png"
-        },
-        {
-          "name": "过长标题省略并显示tips",
-          "routePath": "RankProcessChart-7",
-          "imagePath": "./image/theme/light/RankProcessChart/RankProcessChart-7.png"
         }
       ]
     }

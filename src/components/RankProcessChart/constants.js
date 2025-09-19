@@ -36,12 +36,11 @@ export const TOOLTIP = {
 // 字段检查配置
 export const FIELD_CHECKS = [
   'theme', 'titleName', 'valueName', 'percentName', 
-  'padding', 'data', 'color'
+  'padding', 'data', 'color', 'sort'
 ]
 
 // 默认配置选项
 export const DEFAULT_OPTION = {
-  mode: 'svg',                       // 图表渲染模式: svg, canvas
   data: [],                          // 图表总数据
   theme: 'hdesign-light',            // 主题样式
   titleName: '标题',                 // 首部标题文本
@@ -49,6 +48,10 @@ export const DEFAULT_OPTION = {
   percentName: '百分比',             // 首部百分比文本
   padding: [16, 16, 0, 16],          // 图表内边距，顺序为[top, right, bottom, left]
   color: null,                       // 图表未指定颜色时的默认颜色，指定时一般为数组
+  sort: {
+    field: 'value',                  // 排序字段：value, percent
+    order: 'desc'                    // 排序顺序：asc, desc, none
+  },
   tooltip: {                         // 提示框配置
     show: true,                      // 是否显示提示框
     formatter: null                  // 自定义格式化函数

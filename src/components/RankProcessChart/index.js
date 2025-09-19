@@ -13,6 +13,7 @@ import {
   isUpdate
 } from './handleOption.js';
 import { HEADER, DEFAULT_OPTION, DEFAULT_SCROLL_INFO } from './constants.js';
+import cloneDeep from '../../util/cloneDeep.js';
 import chartToken from './chartToken.js';
 
 export default class RankProcessChart extends BaseChart {
@@ -143,38 +144,38 @@ export default class RankProcessChart extends BaseChart {
 
   // 更新渲染缓存
   updateRenderCache() {
-    this.lastOption = {...this.option};
+    this.lastOption = cloneDeep(this.option);
   }
 
   resizeHandler() {
-      const newWidth = this.dom.clientWidth;
-      const newHeight = this.dom.clientHeight;
-      if (newWidth && newHeight) {
-        this.width = newWidth;
-        this.height = newHeight;
+    const newWidth = this.dom.clientWidth;
+    const newHeight = this.dom.clientHeight;
+    if (newWidth && newHeight) {
+      this.width = newWidth;
+      this.height = newHeight;
         
-        const { 
-          paddingConfig, 
-          contentWidth, 
-          contentHeight,
-        } = resolveOption(this.option, this.option, newWidth, newHeight);
+      const { 
+        paddingConfig, 
+        contentWidth, 
+        contentHeight,
+      } = resolveOption(this.option, this.option, newWidth, newHeight);
 
-        updateSvgs([
-          { 
-            el: this.contentGroup, 
-            attrs: this.styles.updateContentGroup(paddingConfig.left, paddingConfig.top, contentWidth, contentHeight)
-          },
-          { 
-            el: this.clipRect, 
-            attrs: this.styles.updateClipRect(contentWidth, contentHeight)
-          }
-        ]);
+      updateSvgs([
+        { 
+          el: this.contentGroup, 
+          attrs: this.styles.updateContentGroup(paddingConfig.left, paddingConfig.top, contentWidth, contentHeight)
+        },
+        { 
+          el: this.clipRect, 
+          attrs: this.styles.updateClipRect(contentWidth, contentHeight)
+        }
+      ]);
 
-        if(this.headerGroup) this.headerGroup.resize(contentWidth);
-        if(this.rowList) this.rowList.resize(contentWidth);
-        if(this.scrollArea) this.scrollArea.resize(contentWidth, contentHeight, paddingConfig);
-      }
-    };
+      if(this.headerGroup) this.headerGroup.resize(contentWidth);
+      if(this.rowList) this.rowList.resize(contentWidth);
+      if(this.scrollArea) this.scrollArea.resize(contentWidth, contentHeight, paddingConfig);
+    }
+  };
 
   setResize() {
     this.resizeHandler();
@@ -203,7 +204,6 @@ export default class RankProcessChart extends BaseChart {
   update() {
     // 判断哪些属性需要更新
     const updates = isUpdate(this.option, this.lastOption);
-    console.log('updates', updates);
 
     if (updates) {
       const { 
@@ -216,7 +216,9 @@ export default class RankProcessChart extends BaseChart {
         contentHeight,
       } = resolveOption(this.option, this.option, this.width, this.height);
 
-      if (updates.includes('data') || updates.includes('color') || updates.includes('padding')) {
+      if (updates.includes('data') || updates.includes('color') || 
+          updates.includes('padding') || updates.includes('sort')) 
+      {
         this.rowList.updateRows({
           data,
           containerWidth: contentWidth,
@@ -235,7 +237,9 @@ export default class RankProcessChart extends BaseChart {
         });
       }
 
-      if (updates.includes('titleName') || updates.includes('valueName') || updates.includes('percentName') || updates.includes('padding')) {
+      if (updates.includes('titleName') || updates.includes('valueName') || 
+          updates.includes('percentName') || updates.includes('padding')) 
+      {
         this.headerGroup.updateText({
           titleName,
           valueName,
