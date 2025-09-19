@@ -20,6 +20,7 @@ import { mergeVisualMap, mergeSeries } from '../../util/merge';
 import { setStack, setDirection, setDoubleSides, setBarMinMaxWidth } from './handleOptipn';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 import { setSeries, setRange, setMarkLine, setWaterFall, setLimitFormatter, setDatasetSeries } from './handleSeries';
+import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE, ADAPTIVE_THEME } from '../../util/constants';
 
 class BarChart {
@@ -133,9 +134,16 @@ class BarChart {
     if (this.iChartOption.itemStyle?.barWidth) {
       return;
     }
+    // 处理用户设置的阈值大于y轴，设置y轴max保证阈值显示
+    if(iChartOption.markLine){
+      handleMarkLineMax(baseOption, this.chartInstance, this.iChartOption);
+    }
+    
+
     if (ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
       updateWidth(baseOption, this.chartInstance, this.iChartOption);
     }
+    
   }
 
   getOption() {

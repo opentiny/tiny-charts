@@ -120,6 +120,11 @@
                     "imagePath": "./image/theme/light/LineChart/LineChart-16.png"
                 },
                 {
+                    "name": "双y轴",
+                    "routePath": "LineChart-40",
+                    "imagePath": "./image/theme/light/LineChart/LineChart-40.png"
+                },
+                {
                     "name": "多个y轴",
                     "routePath": "LineChart-17",
                     "imagePath": "./image/theme/light/LineChart/LineChart-17.png"

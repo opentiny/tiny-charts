@@ -12,7 +12,7 @@
 import defendXSS from '../../util/defendXSS';
 import chartToken from './chartToken';
 // 获取bar的series数据
-export function getSeriesData(data, type) {
+export function getSeriesData(data, type, iChartOption) {
   const seriesData = [];
   if (type === 'normal') {
     data.forEach((item, i) => {
@@ -21,7 +21,8 @@ export function getSeriesData(data, type) {
         if (i == j) {
           seriesData[i][j] = item.value;
         } else {
-          seriesData[i][j] = 0;
+          // 设置了barMinHeight时 无数据区域设置为null
+          seriesData[i][j] = iChartOption?.itemStyle?.barMinHeight ? null : 0;
         }
       }
     });

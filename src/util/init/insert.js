@@ -113,9 +113,9 @@ function insertStateDom(container, state, option = {}) {
     let textShow = option.textShow === false ? false : true;
     let imageSize = option.imageSize || 'auto';
     let imageShow = option.imageShow === false ? false : true;
-    let textColor = option.textColor || (theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#808080');
+    let textColor = option.textColor || (theme.indexOf('dark') !== -1 ? (theme.includes('cloud') ? '#B3B3B3' : '#FFFFFF') : '#808080');
     let imageColor = option.imageColor || (theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#191919');
-    let backgroundColor = option.backgroundColor || (theme.indexOf('dark') !== -1 ? '#191919' : '#FFFFFF');
+    let backgroundColor = option.backgroundColor || (theme.indexOf('dark') !== -1 ? (theme.includes('cloud') ? '#1a1a1a' : '#191919') : '#FFFFFF');
     if (hasStateDom(container, state)) return;
     switch (state) {
         case 'error':
@@ -133,7 +133,7 @@ function insertStateDom(container, state, option = {}) {
           break;
         case 'stage_empty':
           image = STAGE_EMPTY_SVG(defendXSS(imageColor));
-          backgroundColor = option.backgroundColor || 'transparent';
+        //   backgroundColor = option.backgroundColor || 'transparent';
           text = '没有符合所选时间内的数据';
           break;
         case 'custom':
@@ -164,9 +164,9 @@ function updateStateDom() {
     let doms = document.getElementsByClassName('huicharts-state-container');
     for (let index = 0; index < doms.length; index++) {
         let item = doms[index];
-        let textColor = theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#808080';
+        let textColor = theme.indexOf('dark') !== -1 ?  (theme.includes('cloud') ? '#B3B3B3' : '#FFFFFF') : '#808080';
         let imageColor = theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#191919';
-        let backgroundColor = theme.indexOf('dark') !== -1 ? '#191919' : '#FFFFFF';
+        let backgroundColor = theme.indexOf('dark') !== -1 ? (theme.includes('cloud') ? '#1a1a1a' : '#191919') : '#FFFFFF';
         let state = item.className.replace('huicharts-state-container','').split('huicharts-')[1] || '';
         let image = '';
         switch (state) {
@@ -178,7 +178,7 @@ function updateStateDom() {
               break;
             case 'loading':
               image = LOADING_SVG(defendXSS(imageColor));
-              backgroundColor = theme.indexOf('dark') !== -1 ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)';
+            //   backgroundColor = theme.indexOf('dark') !== -1 ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)';
               break;
             case 'stage_empty':
               image = STAGE_EMPTY_SVG(defendXSS(imageColor));

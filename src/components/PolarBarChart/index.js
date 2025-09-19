@@ -51,7 +51,7 @@ export default class PolarBarChart {
             // legend数据
             this.baseOption.legend.data = type === 'normal' ? data : [];
             // series bar数据
-            const seriesData = getSeriesData(data, type);
+            const seriesData = getSeriesData(data, type, iChartOption);
             // pie数据
             const labelData = getLabelData(data);
             this.baseOption.series = setSeries(seriesData, labelData, iChartOption, this.baseOption.polar, type);

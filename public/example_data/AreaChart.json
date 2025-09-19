@@ -125,6 +125,11 @@
           "imagePath": "./image/theme/light/AreaChart/AreaChart-20.png"
         },
         {
+          "name": "双y轴",
+          "routePath": "AreaChart-31",
+          "imagePath": "./image/theme/light/AreaChart/AreaChart-31.png"
+        },
+        {
           "name": "多个y轴",
           "routePath": "AreaChart-12",
           "imagePath": "./image/theme/light/AreaChart/AreaChart-12.png"

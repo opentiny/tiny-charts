@@ -269,7 +269,7 @@ function getAliasToken(globalToken, sceneToken) {
     // 图例单元尺寸
     legendItemSize: size05x,
     // 图例圆形单元尺寸
-    legendCircleItemSize: size3x,
+    legendCircleItemSize: size3x - 2,
     // labelLine的长度
     labelLineLength: size6x,
     // ------------------------------------------------圆角---------------------------------------------------
