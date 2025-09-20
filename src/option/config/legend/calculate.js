@@ -20,6 +20,7 @@ function formatRichText(text, styles, textStyle, richMaxWidth){
   // 创建一个canvas
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
+  let itemHeight = 0;
   text.replace(/\{(\w+)\|([^}]+)\}/g, (match, styleName, content) =>{
     const style = styles[styleName] || {};
     let fontSize = `${textStyle?.fontSize || 12}px;`
@@ -46,8 +47,10 @@ function formatRichText(text, styles, textStyle, richMaxWidth){
     }
     // 设置字体
     ctx.font = `${fontWeight} ${fontSize} ${fontFamily}`;
+    const metrics = ctx.measureText(content);
     // 获取宽度
-    let textWidth = ctx.measureText(content).width;
+    let textWidth = metrics.width;
+    let textHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
     if (styleName === 'split'){ // 分割线占宽20---取自设计稿
       textWidth = style?.width ? style.width* 2 : 20;
     }
@@ -57,9 +60,13 @@ function formatRichText(text, styles, textStyle, richMaxWidth){
       richMaxWidth[styleName] = {};
       richMaxWidth[styleName].widths = [textWidth]
     }
-    totalWidth +=  textWidth  
+    totalWidth += textWidth;
+    if (textHeight > itemHeight){
+      itemHeight = textHeight;
+    }
   })
-  return {totalWidth, richMaxWidth, titleName, titlePaddingWidth}
+  canvas.remove();
+  return {totalWidth, richMaxWidth, titleName, titlePaddingWidth, itemHeight}
 }
 
 // 计算图例宽度
@@ -71,9 +78,14 @@ function calculateOccupancy(iChartOption, legend, legendData){
     const itemNameWidths = [];
     const richMaxWidth = {};
     const maxWidths = [];
+    const itemHeights = [];
     let titleName;
     let titlePaddingWidth;
-    const iconWidth = (Number(legend.itemWidth) || 8) + 6 // icon与文本的间隙
+    const iconWidth = (Number(legend.itemWidth) || 8) + 6; // icon与文本的间隙
+    const iconHeight = Number(legend.itemHeight) || 8;
+    // 创建一个canvas
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     // 为每个图例项创建测量元素
     legendData.forEach((name) => {
       // 应用formatter和rich样式
@@ -84,18 +96,18 @@ function calculateOccupancy(iChartOption, legend, legendData){
           titleName = formatterConfig.titleName
           maxWidths.push(formatterConfig.totalWidth)
           titlePaddingWidth = formatterConfig.titlePaddingWidth
+          itemHeights.push(formatterConfig.itemHeight)
         }else{
           // 未设置formatter
-          // 创建一个canvas
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
           let fontSize = `${textStyle?.fontSize || 12}px;`
           let fontWeight = textStyle?.fontWeight || 'normal';
           let fontFamily = textStyle?.fontFamily || 'Arial';
           // 设置字体
           ctx.font = `${fontWeight} ${fontSize} ${fontFamily}`;
+          const metrics = ctx.measureText(name);
           // 获取宽度
-          let textWidth = ctx.measureText(name).width;
+          let textWidth = metrics.width;
+          let textHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
           if (richMaxWidth.title){
             richMaxWidth.title.widths.push(textWidth);
           }else{
@@ -103,11 +115,14 @@ function calculateOccupancy(iChartOption, legend, legendData){
             richMaxWidth.title.widths = [textWidth]
           }
           maxWidths.push(textWidth)
+          itemHeights.push(textHeight)
         }
       } catch (e){
         console.warn(e)
       }
     })
+    // 移除canvas
+    canvas.remove();
     // 每一项最大值
     for (const key in richMaxWidth) {
       const element = richMaxWidth[key];
@@ -118,11 +133,13 @@ function calculateOccupancy(iChartOption, legend, legendData){
     }
     // 计算结果
     const maxWidth = Math.max(...maxWidths) + iconWidth;
+    const verticalHeight = itemHeights.reduce((sum, w) => {w = w > iconHeight ? w : iconHeight; return sum + w + 8}, 0); //图例间隙为8
     return {
       maxWidth,
       richMaxWidth,
       titleName,
-      titlePaddingWidth
+      titlePaddingWidth,
+      verticalHeight
     }
   } catch (e) {
     console.error('计算图例宽度失败：', e);
@@ -238,4 +255,46 @@ function updateLegendOccupancy(iChartOption, legend, legendData, chartInstance){
   }
 }
 
-export { updateLegendOccupancy }
+// 设置移动端图例
+function setMobileLegend(iChartOption, legend, legendData, chartInstance){
+  const config = calculateOccupancy(iChartOption, legend, legendData)
+  const textStyle = legend?.textStyle;
+  if (!config) return;
+  const chartWidth = chartInstance?.getWidth?.() || chartInstance?.getDom?.()?.clientWidth || chartInstance?._dom?.clientWidth || 0;
+  const chartHeight = chartInstance?.getHeight?.() || chartInstance?.getDom?.()?.clientHeight || chartInstance?._dom?.clientHeight || 0;
+  const legendMaxWidth = Math.floor(chartWidth * 0.5);
+  const iconWidth = (Number(legend.itemWidth) || 8) + 6; // icon与文本的间隙
+  let {richMaxWidth, maxWidth, titleName, titlePaddingWidth, verticalHeight} = config;
+  // 更新rich 增加width
+  for (const key in richMaxWidth) {
+    const element = richMaxWidth[key];
+    // 每一项的最大宽度
+    let richWidth = element.maxWidth || Math.max(...element.widths);
+    // 用户传入宽度
+    const useWidth = textStyle.rich[key]?.width;
+    if (key === titleName && ((legendMaxWidth < maxWidth) || (legendMaxWidth < (maxWidth + (titlePaddingWidth || 0))))) {
+      richWidth = chartWidth - (maxWidth - richWidth) -  titlePaddingWidth
+    } 
+    // 更新option中rich
+    textStyle.rich[key] = {...(textStyle.rich?.[key] || {}), width: useWidth === undefined ? richWidth : useWidth }
+  }
+  if ((legendMaxWidth < maxWidth) || (legendMaxWidth < (maxWidth + (titlePaddingWidth || 0)))) { // 内容大于图例最大宽 或 内容加title的padding大于图例最大宽
+    legend.left = 'center'; // 开启自适应 固定位置
+    legend.right = 'auto';
+    legend.top = 'auto';
+    legend.bottom = 0;
+    legend.orient = 'horizontal';
+    const pieHeight = chartHeight - verticalHeight - 16; //图例与图距离为16
+    if (!iChartOption.position) iChartOption.position = {};
+    if (pieHeight < 120) {
+      iChartOption.position.center = ['50%', 60];
+    } else {
+      iChartOption.position.center = ['50%', pieHeight / 2]
+    }
+  } else {
+    legend.left = '50%'; // 开启自适应 固定位置
+    legend.right = 'auto';
+  }
+}
+
+export { updateLegendOccupancy, setMobileLegend }

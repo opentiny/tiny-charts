@@ -17,6 +17,17 @@ function formatValue(value) {
     return value
 }
 
+// 移动端tolitip关闭按钮
+function getCloseIcon(tooltipCloseColor = '#191919') {
+   return `<svg width="16px" height="16px" viewBox="0 0 16 16" fill="none" customFrame="#000000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <rect id="close" width="16" height="16" x="0" y="0"/>
+      <g id="组合 1">
+          <path id="直线 1" d="M0 0L12 0" stroke="${tooltipCloseColor}" stroke-linecap="round" stroke-width="1" transform="matrix(0.707107,0.707107,-0.707107,0.707107,3.75,3.75)" />
+          <path id="直线 1" d="M0 0L12 0" stroke="${tooltipCloseColor}" stroke-linecap="round" stroke-width="1" transform="matrix(-0.707107,0.707107,-0.707107,-0.707107,12.2354,3.75)" />
+      </g>
+    </svg>`
+}
+
 function getDataHtmlStr(dataConfig) {
     const { tooltipIconGap, tooltipValueGap, legendCircleItemHeight, tooltipDataNameColor, tooltipValueColor } = Token.config
     const {
@@ -49,11 +60,11 @@ function getDataHtmlStr(dataConfig) {
 }
 
 function getTooltipContentHtmlStr(tipConfig, tooltip) {
-    const { tooltipItemGap, tooltipTitleColor } = Token.config
+    const { tooltipItemGap, tooltipTitleColor, tooltipCloseColor } = Token.config
     let { title, titleColor = tooltipTitleColor, children, hideEmpty } = tipConfig
     let content = ''
     if (validateName(title)) {
-        content = `<div style="color:${titleColor}">${defendXSS(title)}</div>`;
+        content = `<div class="hui-charts-tooltip-title" style="color:${titleColor}">${defendXSS(title)}</div>`;
     }
     if (tooltip?.order === 'seriesDesc') {
         children = children.reverse();
@@ -65,9 +76,11 @@ function getTooltipContentHtmlStr(tipConfig, tooltip) {
             content += getDataHtmlStr(item)
         }
     }
-    const htmlString = `<div style="display:flex;flex-direction:column;gap:${tooltipItemGap}px;">${content}</div>`
+    content += `<div class="hui-charts-tooltip-close">${getCloseIcon(tooltipCloseColor)}</div>`
+    const htmlString = `<div class="hui-charts-tooltip-container" style="display:flex;flex-direction:column;gap:${tooltipItemGap}px;">${content}</div>`
     return htmlString;
 }
 
 export default getTooltipContentHtmlStr
 export { getDataHtmlStr, formatValue, validateName }
+

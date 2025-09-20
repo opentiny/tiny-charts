@@ -19,8 +19,9 @@ import merge from '../../../util/merge';
 import setPolymorphism from './polymorphism';
 import xkey from '../xAxis/xkey';
 import ldata from './ldata';
-import { updateLegendOccupancy } from './calculate';
+import { updateLegendOccupancy, setMobileLegend } from './calculate';
 import { isArray } from '../../../util/type';
+import mobile from '../../../util/mobile';
 
 function legend(iChartOption, chartName, chartInstance) {
   const selfLegend = iChartOption.legend;
@@ -77,7 +78,12 @@ function legend(iChartOption, chartName, chartInstance) {
     const lData = ldata(dataArr, xAxisKey) || [];
     const key = isArray(lData) ? lData[0] : undefined;
     const legendData = key ? dataArr.map((item) => item?.[key])|| [] : [];
-    updateLegendOccupancy(iChartOption, legend, legendData, chartInstance);
+    const isMobile = mobile();
+    if (isMobile) {
+      setMobileLegend(iChartOption, legend, legendData, chartInstance);
+    }else{
+      updateLegendOccupancy(iChartOption, legend, legendData, chartInstance);
+    }
   }
   return legend;
 }

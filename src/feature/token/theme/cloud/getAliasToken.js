@@ -51,6 +51,7 @@ function getAliasToken(globalToken, sceneToken) {
     colorTextDisabled,
     colorIconPrimary,
     colorIconDisabled,
+    colorIconActive,
     colorLine,
     colorLineSecondary,
     colorLinePointer,
@@ -105,6 +106,8 @@ function getAliasToken(globalToken, sceneToken) {
     colorIcon: colorIconPrimary,
     // 图标失效色
     colorIconInactive: colorIconDisabled,
+    // 图表激活态
+    colorIconActive: colorIconActive,
     // 坐标轴线颜色
     colorAxisLine: colorLine,
     // 刻度线颜色
