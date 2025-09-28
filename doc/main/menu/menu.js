@@ -481,6 +481,12 @@ const NAV_DATA = [
   //   value: 'AutonaviMapChart',
   // },
   {
+    title: '排名进度图 RankProcessChart',
+    titleId: 'ic_RankProcessChart',
+    value: 'RankProcessChart',
+    isHigher: true
+  },
+  {
     title: '甘特图 GanttChart',
     titleId: 'ic_comp_GanttChart',
     value: 'GanttChart',
