@@ -4,11 +4,18 @@ import { ContentRow } from './handleRow.js';
 
 class RowList { 
   constructor(options) { 
+<<<<<<< HEAD
     const { data, containerWidth, scrollCallback, colorArray }= options; 
 
     this.data = data;
     this.containerWidth = containerWidth;
     this.colorArray = colorArray;
+=======
+    const { data, containerWidth, scrollCallback }= options; 
+
+    this.data = data;
+    this.containerWidth = containerWidth;
+>>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
     this.rowHeight = ROW.HEIGHT;
     this.headerHeight = HEADER.HEIGHT;
     this.lastData = data;
@@ -78,8 +85,12 @@ class RowList {
       data: this.data[index],
       index,
       rowWidth: this.containerWidth,
+<<<<<<< HEAD
       rowHeight: this.rowHeight,
       colorArray: this.colorArray
+=======
+      rowHeight: this.rowHeight
+>>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
     }); 
     this.registerRow(index, row);
   }
@@ -121,10 +132,17 @@ class RowList {
     }
   }
 
+<<<<<<< HEAD
   // 更新样式和颜色
   updateStyles(latestChartToken, colorArray) {
     for (const [_, row] of this.visibleRows.entries()) {
       row.updateStyles(latestChartToken, colorArray);
+=======
+  // 更新主题样式
+  updateTheme(latestChartToken) {
+    for (const [_, row] of this.visibleRows.entries()) {
+      row.updateTheme(latestChartToken);
+>>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
     }
   }
 

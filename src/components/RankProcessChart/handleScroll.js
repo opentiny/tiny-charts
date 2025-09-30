@@ -207,7 +207,11 @@ class ScrollArea {
   }
 
   // 更新主题样式
+<<<<<<< HEAD
   updateStyles(latestChartToken) {
+=======
+  updateTheme(latestChartToken) {
+>>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
     // 更新样式对象
     this.styles = getScrollStyles(latestChartToken);
     const newStyles = this.styles.getThemeUpdates();
