@@ -284,13 +284,9 @@ function setMobileLegend(iChartOption, legend, legendData, chartInstance){
     legend.top = 'auto';
     legend.bottom = 0;
     legend.orient = 'horizontal';
-    const pieHeight = chartHeight - verticalHeight - 16; //图例与图距离为16
+    const graphHeight = chartHeight - verticalHeight - 16; //图形区高度 = 总高 - 图例高度 - 间距16
     if (!iChartOption.position) iChartOption.position = {};
-    if (pieHeight < 120) {
-      iChartOption.position.center = ['50%', 60];
-    } else {
-      iChartOption.position.center = ['50%', pieHeight / 2]
-    }
+    iChartOption.graphHeight = graphHeight
   } else {
     legend.left = '50%'; // 开启自适应 固定位置
     legend.right = 'auto';
