@@ -19,6 +19,7 @@ function getModelToken(aliasToken) {
     colorLabel,
     colorBgContainerSecondary,
     colorIcon,
+    colorIconActive,
     colorAxisLine,
     colorIconInactive,
     colorAxisTickLine,
@@ -340,6 +341,8 @@ function getModelToken(aliasToken) {
     tooltipItemGap: tipItemGap,
     // 默认tip的icon间距
     tooltipIconGap: tipIconGap,
+    // 默认tip的close颜色
+    tooltipCloseColor: colorIconActive,
     // 默认ip的icon间距
     tooltipValueGap: tipValueGap,
     // 标题颜色

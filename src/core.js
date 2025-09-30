@@ -27,6 +27,7 @@ import { event } from './util/event'
 import cloneDeep from './util/cloneDeep';
 import { uuid } from './util/math';
 import Theme from './theme';
+import mobile from './util/mobile';
 
 const SELF_CHART = [
   'FlowChart',
@@ -129,6 +130,9 @@ export default class CoreChart extends BaseChart {
     };
     initOpts = merge(defaultInit, initOpts);
     this.dom = chartDom;
+    this.dom.classList.add('hui-charts-instance');
+    this.isMobile = mobile();
+    if (this.isMobile) this.dom.classList.add('mobile');
     this.echartsIns = echarts.init(chartDom, theme, initOpts);
     // resize节流函数
     this.throttleResize = initOpts.resizeThrottle === 0 ? this.setResize.bind(this) : throttle(initOpts.resizeThrottle, this.setResize.bind(this));
