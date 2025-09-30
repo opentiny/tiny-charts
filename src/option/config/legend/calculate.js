@@ -51,8 +51,8 @@ function formatRichText(text, styles, textStyle, richMaxWidth){
     // 获取宽度
     let textWidth = metrics.width;
     let textHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
-    if (styleName === 'split'){ // 分割线占宽20---取自设计稿
-      textWidth = style?.width ? style.width* 2 : 20;
+    if (styleName === 'split'){ // 分割线占宽17---取自设计稿
+      textWidth = style?.width ? style.width* 2 : 17;
     }
     if (richMaxWidth[styleName]){
       richMaxWidth[styleName].widths.push(textWidth);
@@ -128,7 +128,7 @@ function calculateOccupancy(iChartOption, legend, legendData){
       const element = richMaxWidth[key];
       element.maxWidth = Math.max(...element.widths);
       if (key === 'split'){
-        element.maxWidth = 20; //分割线占宽取自设计稿
+        element.maxWidth = 17; //分割线占宽取自设计稿
       }
     }
     // 计算结果
