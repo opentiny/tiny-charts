@@ -45,6 +45,8 @@ function getSceneToken(globalToken, light = true) {
         colorTextDisabled: colorGray50,
         // 图标色
         colorIconPrimary: light ? colorGray60 : colorGray70,
+        // 图标激活色
+        colorIconActive: colorGray90,
         // 图标禁用色
         colorIconDisabled: colorGray50,
         colorLine: colorGray30,
