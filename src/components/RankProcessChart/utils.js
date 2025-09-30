@@ -1,6 +1,7 @@
 import { showTooltip, hideTooltip } from "./handleTooltip.js";
 import { isObjEqual } from '../../util/equal.js';
 import { isNumber } from '../../util/type.js';
+import Token from '../../feature/token/index.js';
 
 // 验证数值是否有效（封装isNumber，确保为number的同时非NaN和Infinity）
 export const isValidNumber = (value) => {
@@ -172,4 +173,10 @@ function filterOption(obj, exclude) {
   }
 
   return filtered;
+}
+
+// 获取Token中的颜色
+export function getColorsFromToken() {
+  const colorGroup = Token.config.colorGroup || [];
+  return colorGroup;
 }

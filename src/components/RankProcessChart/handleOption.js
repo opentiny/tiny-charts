@@ -1,7 +1,7 @@
 import { isArray, isObject } from '../../util/type.js';
 import { validateData } from './handleData.js'
 import { FIELD_CHECKS } from './constants.js';
-import { isChanged } from './utils.js';
+import { isChanged, getColorsFromToken } from './utils.js';
 import merge from '../../util/merge.js';
 import init from '../../option/init/index.js';
 import Token from '../../feature/token/index.js';
@@ -92,24 +92,23 @@ export function sortData(data, sortField, sortOrder) {
   return sortedData;
 }
 
-// 封装颜色处理和排序处理
-function processData(data, color, sort) {
-  // 处理默认颜色配置
-  if(color && !isArray(color)) {
-    color = [color];
-  }
-
-  // 处理进度条颜色，如果item有就使用，否则换为用户自定义或者默认颜色
-  const resolvedData = data.map((item, index) => ({
-    ...item,
-    color: item.color || color[index % color.length]
-  }));
-
+// 封装排序处理
+function processData(data, sort) {
   // 排序
   const { field, order } = sort || { field: 'value', order: 'desc' };
-  const sortedData = sortData(resolvedData, field, order);
+  const sortedData = sortData(data, field, order);
 
   return sortedData;
+}
+
+function processColor(color) {
+  if(color && !isArray(color)) {
+    color = [color]
+  }
+
+  if(!color || color.length === 0) color = getColorsFromToken();
+
+  return color
 }
 
 // 计算内容尺寸
@@ -163,16 +162,18 @@ export function resolveOption(lastOption, currOption, containerWidth, containerH
   // 验证数据
   const validatedData = validateData(data);
   
-  // 统一处理数据：设置颜色和排序
-  const processedData = processData(validatedData, color, sort);
+  // 处理数据
+  const processedData = processData(validatedData, sort);
 
   // 处理其他配置
+  const processedColor = processColor(color)
   const paddingConfig = handlePadding(padding, containerWidth, containerHeight);
   const { contentWidth, contentHeight } = calcContentSize(containerWidth, containerHeight, paddingConfig);
 
   return {
     ...initedOption,
     data: processedData,
+    color: processedColor,
     paddingConfig,
     contentWidth,
     contentHeight,
