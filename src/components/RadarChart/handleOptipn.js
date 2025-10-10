@@ -20,6 +20,7 @@ import legend from '../../option/config/legend';
 import Token from '../../feature/token';
 import getRadar, { getMarkRadarOption, getThresholdSeries } from './BaseOption';
 import { getColor } from '../../util/color';
+import handleCenterPosition from '../PieChart/handleCenterPosition';
 
 function initRadarSys(baseOpt, iChartOpt) {
   baseOpt.color = iChartOpt.color;
@@ -125,10 +126,14 @@ function getRadarKeys(data) {
   return radarKeys;
 }
 
-function setCenterAndRadius(radar, iChartOpt) {
+function setCenterAndRadius(radar, iChartOpt, baseOpt, chartInstance) {
   const chartPosition = iChartOpt.chartPosition || iChartOpt.position || {};
   if (chartPosition.center) radar.center = chartPosition.center;
   if (chartPosition.radius) radar.radius = chartPosition.radius;
+  const position = handleCenterPosition(iChartOpt, baseOpt.legend, chartInstance)
+  if (position?.radius) {
+    radar.radius = position.radius
+  }
 }
 
 function setIndicator(radar, radarKeys, isCustomMaxVal, iChartOpt) {
@@ -169,11 +174,11 @@ function setRadarShape(radar, baseOpt) {
   radar.shape = baseOpt.radar[0].shape;
 }
 
-function setRadar(baseOpt, iChartOpt, radarKeys, isCustomMaxVal) {
+function setRadar(baseOpt, iChartOpt, radarKeys, isCustomMaxVal, chartInstance) {
   const radar = getRadar();
   // 坐标轴射线的刻度,只显示一条射线的刻度,其他射线的刻度需要在指示器数据indicator中每项单独配置axisLabel: { show: false }
   setAxisLabel(radar, iChartOpt)
-  setCenterAndRadius(radar, iChartOpt);
+  setCenterAndRadius(radar, iChartOpt, baseOpt, chartInstance);
   setIndicator(radar, radarKeys, isCustomMaxVal, iChartOpt);
   mergeRadar(radar, iChartOpt);
   baseOpt.radar.push(radar);
