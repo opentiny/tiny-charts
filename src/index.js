@@ -61,5 +61,6 @@ export { default as CircleChart } from './framework/charts/CircleChart';
 export { default as LinearArcChart } from './framework/charts/LinearArcChart';
 export { default as CircleArcChart } from './framework/charts/CircleArcChart';
 export { default as CustomizeChart } from './framework/charts/CustomizeChart';
+export { default as RankProcessChart } from './components/RankProcessChart';
 
 export default HuiChart;

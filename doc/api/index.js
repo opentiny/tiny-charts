@@ -40,6 +40,7 @@ import AssembleBubbleChart from './AssembleBubbleChart';
 import CircleProcessChart from './CircleProcessChart';
 import AutonaviMapChart from './AutonaviMapChart';
 import BarLineChart from './BarLineChart';
+import RankProcessChart from './RankProcessChart';
 
 export default {
     LineChart,
@@ -49,6 +50,7 @@ export default {
     GaugeChart,
     RadarChart,
     ProcessChart,
+    RankProcessChart,
     BubbleChart,
     HeatMapChart,
     ScatterChart,

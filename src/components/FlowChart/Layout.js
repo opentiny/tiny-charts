@@ -60,7 +60,7 @@ export default class Layout {
               NODE_HEIGHT = v.height
             }
           }
-        })
+        }) 
         let g = new dagre.graphlib.Graph();
         g.setDefaultEdgeLabel(()=> {
             return {};
