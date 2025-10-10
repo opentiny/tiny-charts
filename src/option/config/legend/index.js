@@ -69,7 +69,7 @@ function legend(iChartOption, chartName, chartInstance) {
     setPolymorphism(legend, iChartOption)
   }
   // 开启图例自适应的图表
-  const legendAdaptiveCharts = ['PieChart']; 
+  const legendAdaptiveCharts = ['PieChart', 'PolarBarChart', 'JadeJueChart']; 
   const isCloud = theme?.includes('cloud');
   const isMobile = mobile();
   const dataArr = isArray(iChartOption.data) ? iChartOption.data : [];

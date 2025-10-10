@@ -43,7 +43,7 @@ class JadeJueChart {
     // 对非堆叠类型数据取反（已对iChartOption进行深拷贝），实现数据从外向内展示（echarts默认为内向外）
     reverseData(iChartOption, this);
     // 装载除series之外的其他配置
-    PolarCoordSys(this.baseOption, iChartOption, CHART_TYPE.JADGEJUE);
+    PolarCoordSys(this.baseOption, iChartOption, CHART_TYPE.JADGEJUE, chartInstance);
     // 配置玉玦图的标定值和两种data下不同的angleAxis.sum和angleAxis.max
     handleLabelFormatter(iChartOption, this.baseOption, this.chartType);
     // 配置玉玦图的seriesData数据（value,name,color）
