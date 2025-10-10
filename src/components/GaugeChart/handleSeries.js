@@ -136,7 +136,7 @@ function handleTheme(iChartOption) {
 }
 
 // 配置仪表盘中心文本
-export function handleDetail(seriesUnit, text, data, sizeData,iSadaptive) {
+export function handleDetail(seriesUnit, text, data, sizeData,isAdaptive) {
   seriesUnit.detail.formatter =
     text.formatter ||
     function (value) {
@@ -147,8 +147,8 @@ export function handleDetail(seriesUnit, text, data, sizeData,iSadaptive) {
       }
       
     };
-  const space = iSadaptive ? sizeData.space : 24;
-  const valuePadding = iSadaptive ? sizeData.valuePadding : 0;
+  const space = isAdaptive ? sizeData.space : 24;
+  const valuePadding = isAdaptive ? sizeData.valuePadding : 0;
   seriesUnit.detail.offsetCenter = text.offset || [0, 0];
   seriesUnit.detail.rich = {
     value: {
@@ -448,7 +448,7 @@ function handleOther(iChartOption, seriesUnit, series, data) {
   }
 }
 
-export function handleStatus(seriesUnit, iChartOption,radiusSize,text,sizeData,iSadaptive){
+export function handleStatus(seriesUnit, iChartOption,radiusSize,text,sizeData,isAdaptive){
   let status = iChartOption.status;
   let statusText = iChartOption.statusText;
   let statusColor = {
@@ -460,17 +460,16 @@ export function handleStatus(seriesUnit, iChartOption,radiusSize,text,sizeData,i
     success: Token.config.colorState.colorSuccess
   }
   let radius = seriesUnit.radius.toString().indexOf('%') == -1 ? seriesUnit.radius : radiusSize * parseFloat(seriesUnit.radius) / 100 / 2;
-  if(iSadaptive) {
+  if(isAdaptive) {
     radius = radiusSize;
   }
-  const valuePadding = iSadaptive ? sizeData.valuePadding : 0;
+  const valuePadding = isAdaptive ? sizeData.valuePadding : 0;
   let lineHeight = radius / Math.sqrt(2) * 2 - 36;
   let mainFontSize = sizeData.mainFontSize;
   let unitPadding = lineHeight + 48 - (48 - mainFontSize) / 2;
-  if(iSadaptive) {
+  if(isAdaptive) {
     unitPadding = unitPadding + valuePadding;
   }
-  // let namePadding = lineHeight + 30 + (mainFontSize - 48);
 
   let statusLabel = {
     fatal: '致命',
