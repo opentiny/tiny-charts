@@ -23,7 +23,7 @@ import ydata from '../config/yAxis/ydata';
 import ldata from '../config/legend/ldata';
 
 // 组装直角坐标系所需的基础配置
-function RectCoordSys(baseOpt, iChartOpt, chartName) {
+function RectCoordSys(baseOpt, iChartOpt, chartName, chartInstance) {
     // 图表padding
     baseOpt.grid = grid(iChartOpt);
     // 图表基础颜色
@@ -35,7 +35,7 @@ function RectCoordSys(baseOpt, iChartOpt, chartName) {
     // 图表鼠标悬浮提示框
     baseOpt.tooltip = tooltip(iChartOpt, chartName);
     // 图表图例
-    baseOpt.legend = legend(iChartOpt, chartName);
+    baseOpt.legend = legend(iChartOpt, chartName, chartInstance);
     // 图表datazoom
     baseOpt.dataZoom = datazoom(iChartOpt);
     // 图表toolbox

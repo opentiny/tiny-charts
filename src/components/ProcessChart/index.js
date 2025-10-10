@@ -42,7 +42,7 @@ class ProcessChart {
       throw new Error('ProcessChart must have a name');
     }
     // 加载默认的直角坐标系
-    RectCoordSys(this.baseOption, iChartOption, iChartOption.name);
+    RectCoordSys(this.baseOption, iChartOption, iChartOption.name, this.chartInstance);
     // 是否是基础双向进度图
     const doubleSide = iChartOption.name === CHARTTYPENAME.ProcessBarChart && iChartOption.type && iChartOption.type === PROCESSBARTYPE;
     const dataSet = handleData(iChartOption, doubleSide);

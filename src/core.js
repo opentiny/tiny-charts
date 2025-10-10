@@ -175,7 +175,7 @@ export default class CoreChart extends BaseChart {
       readScreen(this.dom, iChartOption.readScreen);
     }
     // 使用图例扩展时屏蔽默认图例
-    if (iChartOption?.legend?.upgrade?.type !== undefined){
+    if (iChartOption?.legend?.upgrade?.type !== undefined || iChartOption?.legend?.svg){
       iChartOption.legend.show = false;
     }
     // 如果是复杂图表，则重定向this指向
