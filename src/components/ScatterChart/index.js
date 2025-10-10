@@ -38,7 +38,7 @@ class ScatterChart {
     });
     if (!data.length) return;
     // 图例数据
-    RectCoordSys(this.baseOption, iChartOption, CHART_TYPE.SCATTER);
+    RectCoordSys(this.baseOption, iChartOption, CHART_TYPE.SCATTER, this.chartInstance);
     // 图表x轴
     handleXaxis(this.baseOption, iChartOption);
     // 图表y轴

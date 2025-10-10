@@ -22,6 +22,7 @@ import ldata from './ldata';
 import { updateLegendOccupancy, setMobileLegend } from './calculate';
 import { isArray } from '../../../util/type';
 import mobile from '../../../util/mobile';
+import createSvgLegend from '../../../feature/svgLegend';
 
 function legend(iChartOption, chartName, chartInstance) {
   const selfLegend = iChartOption.legend;
@@ -68,24 +69,35 @@ function legend(iChartOption, chartName, chartInstance) {
   if( legend.orient === 'vertical' ){
     setPolymorphism(legend, iChartOption)
   }
+  // svg 图例
+  if (iChartOption.legend.svg) {
+    const cartesianAxisCharts = ['BarChart', 'LineChart', 'BarLineChart', 'LineChart', 'BulletChart', 'CandlestickChart'];
+    const dataArr = isArray(iChartOption.data) ? iChartOption.data : [];
+    const xAxisKey = xkey(iChartOption);
+    const lData = ldata(dataArr, xAxisKey) || [];
+    const key = isArray(lData) ? lData[0] : undefined;
+    let legendData = legend.data ||  key ? dataArr.map((item) => item?.[key]) || [] : [];
+    if (cartesianAxisCharts.includes(chartName)){
+      legendData = legend.data || lData;
+    }
+    createSvgLegend(legend, legendData, chartInstance, iChartOption)
+  }
   // 开启图例自适应的图表
   const legendAdaptiveCharts = ['PieChart']; 
   const isCloud = theme?.includes('cloud');
-  const isMobile = mobile();
-  const dataArr = isArray(iChartOption.data) ? iChartOption.data : [];
-  const xAxisKey = xkey(iChartOption);
-  const lData = ldata(dataArr, xAxisKey) || [];
-  const key = isArray(lData) ? lData[0] : undefined;
-  const legendData = key ? dataArr.map((item) => item?.[key])|| [] : [];
-  if (legendAdaptiveCharts.includes(chartName) && isCloud && iChartOption.adaptive ){
+  if (legendAdaptiveCharts.includes(chartName) && isCloud && iChartOption.adaptive && legend.orient === 'vertical'){
     if (!chartInstance) return;
+    const dataArr = isArray(iChartOption.data) ? iChartOption.data : [];
+    const xAxisKey = xkey(iChartOption);
+    const lData = ldata(dataArr, xAxisKey) || [];
+    const key = isArray(lData) ? lData[0] : undefined;
+    const legendData = legend.data || key ? dataArr.map((item) => item?.[key]) || [] : [];
+    const isMobile = mobile();
     if (isMobile) {
       setMobileLegend(iChartOption, legend, legendData, chartInstance);
-    }
-    if (legend.orient === 'vertical') {
+    }else{
       updateLegendOccupancy(iChartOption, legend, legendData, chartInstance);
     }
-     
   }
   return legend;
 }
