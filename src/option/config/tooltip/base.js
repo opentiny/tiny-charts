@@ -10,6 +10,7 @@
  *
  */
 import Token from '../../../feature/token';
+import mobile from '../../../util/mobile';
 
 const chartType = [
   'CircleProcessChart',
@@ -29,10 +30,12 @@ const chartType = [
 
 function base(chartName) {
   const trigger = chartName && chartType.includes(chartName) ? 'item' : 'axis';
+  const isMobile = mobile();
   return {
     trigger,
     confine: true,
     borderRadius: Token.config.tooltipBorderRaduis,
+    className: isMobile ? 'hui-charts-tooltip-container mobile' : 'hui-charts-tooltip-container',
     axisPointer: {
       z: 0,
       type: 'line',

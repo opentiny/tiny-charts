@@ -45,7 +45,7 @@ class LineChart {
   updateOption(chartInstance) {
     const iChartOption = this.iChartOption;
     // 装载除series之外的其他配置
-    RectCoordSys(this.baseOption, this.iChartOption, CHART_TYPE.LINE);
+    RectCoordSys(this.baseOption, this.iChartOption, CHART_TYPE.LINE, chartInstance);
     // x轴key值
     const xAxisKey = xkey(iChartOption);
     const data = iChartOption.massive ? lttb(iChartOption.data) : iChartOption.data
