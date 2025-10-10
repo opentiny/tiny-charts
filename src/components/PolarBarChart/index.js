@@ -15,6 +15,7 @@ import { setSeries } from './handleSeries';
 import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
 import { mergeSeries } from '../../util/merge';
+import AdaptivePolarSys from '../../option/PolarSys/adaptive';
 
 export default class PolarBarChart {
 
@@ -54,11 +55,19 @@ export default class PolarBarChart {
             const seriesData = getSeriesData(data, type, iChartOption);
             // pie数据
             const labelData = getLabelData(data);
-            this.baseOption.series = setSeries(seriesData, labelData, iChartOption, this.baseOption.polar, type);
+            this.baseOption.series = setSeries(seriesData, labelData, iChartOption, this.baseOption.polar, type, this.baseOption, chartInstance);
             // 合并用户自定义series
             mergeSeries(iChartOption, this.baseOption);
         }
     }
+
+    // 根据渲染出的结果，二次计算option
+    updateOptionAgain(echartsIns) {
+        
+        // 坐标轴二次计算
+        AdaptivePolarSys(this.baseOption, this.iChartOption, echartsIns, 'polarBar')
+    }
+
     getOption() {
         return this.baseOption;
     }

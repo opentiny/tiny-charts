@@ -11,6 +11,7 @@
  */
 import { getColor } from '../../util/color';
 import chartToken from './chartToken';
+import handleCenterPosition from '../PieChart/handleCenterPosition';
 
 function getSeriesInit(type) {
   const baseSeries = {
@@ -94,8 +95,9 @@ export function handleBarItemStyle(iChartOption, seriesUnit) {
  * @param {坐标} polar
  * @returns
  */
-export function setSeries(seriesData, labelData, iChartOption, polar, type) {
+export function setSeries(seriesData, labelData, iChartOption, polar, type, baseOpt, chartInstance) {
   const { data, label, itemStyle } = iChartOption;
+  const position = handleCenterPosition(iChartOption, baseOpt.legend, chartInstance)
   const series = [];
   if (type === 'normal') {
     data.forEach((item, i) => {
@@ -127,8 +129,12 @@ export function setSeries(seriesData, labelData, iChartOption, polar, type) {
     // 外radius
     const radius = polar.radius[1];
     const radiusN = Number(radius.substring(0, radius.length - 1));
-    pieUnit.radius = [radius, `${radiusN + 8}%`];
+    pieUnit.radius = position?.radius ? [position.radius*0.2, position.radius]:[radius, `${radiusN + 8}%`];
     series.push(pieUnit);
+  }
+  if (position?.radius) {
+    iChartOption.position.radius = [position.radius*0.2, position.radius]
+    baseOpt.polar.radius = [position.radius*0.2, position.radius]
   }
   return series;
 }

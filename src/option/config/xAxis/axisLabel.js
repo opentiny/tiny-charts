@@ -17,7 +17,7 @@ function axisLabel(xAxisUnit, xAxisItem, iChartOption) {
   // 自定义formatter 
   xAxisUnit.axisLabel.formatter = xAxisItem.formatter || undefined;
   // 显示间隔
-  xAxisUnit.axisLabel.interval = iChartOption.xAxisInterval || xAxisItem.interval;
+  xAxisUnit.axisLabel.interval = iChartOption.adaptive ? 0 : (iChartOption.xAxisInterval || xAxisItem.interval) ;
   // 旋转角度
   xAxisUnit.axisLabel.rotate = iChartOption.xAxisLabelRotate || xAxisItem.labelRotate;
   // 超出省略
