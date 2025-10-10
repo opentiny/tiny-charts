@@ -53,11 +53,6 @@ function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
       }
     }
   }
-  // width += (iXdata.length - 1) * 8;
-  // if((rect.width < width) && (!iChartOpt.dataZoom?.show || !iChartOpt.dataZoom?.[0]?.show)) {
-  //   iChartOpt.dataZoom.show = true;
-  //   iChartOpt.dataZoom.type = 'mini';
-  // }
   // 图表datazoom
   baseOpt.dataZoom = datazoom(iChartOpt);
 }
