@@ -10,7 +10,7 @@
  *
  */
 import BaseOption from './BaseOption';
-import {handleSeries,handleSize,handleDetail,handleStatus} from './handleSeries';
+import {handleSeries,handleSize,handleDetail,handleStatus,adapt} from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import { handleTooltip } from './handleOptipn';
 import { mergeSeries } from '../../util/merge';
@@ -44,6 +44,7 @@ class GaugeChart {
     this.baseOption.series = handleSeries(iChartOption, this.baseOption.color,containerWidth,containerHeight);
     // 合并用户自定义series
     this.baseOption.legend.show = false;
+    adapt(iChartOption,this.baseOption,containerWidth,containerHeight);
     mergeSeries(iChartOption, this.baseOption);
   }
 
@@ -67,8 +68,8 @@ class GaugeChart {
     handleDetail(series, text, this.iChartOption.data,sizeData);
     // 内置状态仪表盘
     handleStatus(series, this.iChartOption,radiusSize,text,sizeData);
+    adapt(this.iChartOption,this.baseOption,containerWidth,containerHeight);
     callback(this.baseOption);
-
   }
 }
 

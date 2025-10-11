@@ -41,7 +41,7 @@ class BarChart {
   updateOption() {
     const iChartOption = this.iChartOption;
     // 装载除series之外的其他配置
-    RectCoordSys(this.baseOption, this.iChartOption, CHART_TYPE.BAR);
+    RectCoordSys(this.baseOption, this.iChartOption, CHART_TYPE.BAR, this.chartInstance);
     // x轴key值
     const xAxisKey = xkey(iChartOption);
     // x轴数据

@@ -21,6 +21,7 @@ import { getDatasetData } from '../../util/dataset';
 import { mergeVisualMap, mergeSeries } from '../../util/merge';
 import { handleData, onlyOnePoint, discrete, setTooltip } from './handleOptipn';
 import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
+import AdaptiveRectSys from '../../option/RectSys/adaptive'
 import { lttb } from '../../feature/performance/lttb';
 import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE } from '../../util/constants';
@@ -44,7 +45,7 @@ class LineChart {
   updateOption(chartInstance) {
     const iChartOption = this.iChartOption;
     // 装载除series之外的其他配置
-    RectCoordSys(this.baseOption, this.iChartOption, CHART_TYPE.LINE);
+    RectCoordSys(this.baseOption, this.iChartOption, CHART_TYPE.LINE, chartInstance);
     // x轴key值
     const xAxisKey = xkey(iChartOption);
     const data = iChartOption.massive ? lttb(iChartOption.data) : iChartOption.data
@@ -119,8 +120,8 @@ class LineChart {
           }
         })
       } else {
-        top = markLine[0];
-        top.newValue = top.yAxis || top.xAxis || top.value;
+        top = markLine[0] || {};
+        top.newValue = top?.yAxis || top?.xAxis || top?.value;
       }
       let topColor = top?.lineStyle?.color;
       let bottomColor = bottom?.lineStyle?.color;
@@ -147,6 +148,8 @@ class LineChart {
     topArea(this.baseOption, this.iChartOption, echartsIns, this);
     // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
     bottomArea(this.baseOption, this.iChartOption, echartsIns, this);    
+    // 坐标轴二次计算
+    AdaptiveRectSys(this.baseOption, this.iChartOption, echartsIns, this)
     // 合并用户自定义series
     mergeSeries(this.iChartOption, this.baseOption);
   }

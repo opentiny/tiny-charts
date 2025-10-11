@@ -16,6 +16,7 @@ import { mergeSeries } from '../../util/merge';
 import { setRadar, setTooltip, getRadarMax, getRadarKeys, setMarkLine, initRadarSys } from './handleOptipn';
 import { CHART_TYPE } from '../../util/constants';
 import GradientRadar from './GradientRadar'
+import AdaptivePolarSys from '../../option/PolarSys/adaptive';
 
 class RadarChart {
 
@@ -46,7 +47,7 @@ class RadarChart {
       this.gradientRadar = new GradientRadar(chartInstance, { iChartOption, baseOption: this.baseOption, radarKeys })
     }
     // 绘制雷达地图
-    setRadar(this.baseOption, iChartOption, radarKeys, isCustomMaxVal);
+    setRadar(this.baseOption, iChartOption, radarKeys, isCustomMaxVal, chartInstance);
     // 赋值数据
     setSeries(this.baseOption, iChartOption, radarKeys, iChartOption.data);
     // 阈值线
@@ -64,6 +65,14 @@ class RadarChart {
       this.gradientRadar.setSeries()
     }
   }
+
+  // 根据渲染出的结果，二次计算option
+  updateOptionAgain(echartsIns) {
+        
+    // 坐标轴二次计算
+    AdaptivePolarSys(this.baseOption, this.iChartOption, echartsIns, 'radar')
+  }
+  
 
   getOption() {
     return this.baseOption;
