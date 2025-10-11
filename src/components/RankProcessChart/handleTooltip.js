@@ -152,11 +152,7 @@ class Tooltip {
   }
 
   // 更新主题
-<<<<<<< HEAD
   updateStyles(newTheme) {
-=======
-  updateTheme(newTheme) {
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
     this.theme = newTheme;
     
     if (this.tooltip) {

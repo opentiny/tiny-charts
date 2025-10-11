@@ -13,20 +13,13 @@ import chartToken from './chartToken.js'
 
 export class ContentRow {
   constructor(option) {
-<<<<<<< HEAD
     const { data, index, rowWidth, rowHeight, colorArray } = option;
-=======
-    const { data, index, rowWidth, rowHeight } = option;
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
 
     this.data = data;
     this.index = index;
     this.rowWidth = rowWidth;
     this.rowHeight = rowHeight;
-<<<<<<< HEAD
     this.colorArray = colorArray;
-=======
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
     this.padding = TEXT.PADDING
     this.textBaselineY = ROW.TEXTBASELINEY;
     this.rankBgSize = ROW.RANKBGSIZE;
@@ -42,7 +35,6 @@ export class ContentRow {
     this.columnX = calcColumnX(TEXT.FLEX_SPACE, this.rowWidth, this.padding);
   }
 
-<<<<<<< HEAD
   // 获取进度条颜色
   getProgressBarColor() {
     // 如果data中有颜色，直接使用
@@ -57,8 +49,6 @@ export class ContentRow {
     
   }
 
-=======
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
   render() {
     // 创建行容器
     this.row = createSvgElement(
@@ -136,16 +126,10 @@ export class ContentRow {
     );
     this.addTooltipEvents(this.progressBarBg);
 
-<<<<<<< HEAD
     const progressBarColor = this.getProgressBarColor();
     this.progressBar = createSvgElement(
       'rect', 
       this.styles.getProgressBar(this.padding, this.rowHeight, this.progressBarHeight, progressBarColor),
-=======
-    this.progressBar = createSvgElement(
-      'rect', 
-      this.styles.getProgressBar(this.padding, this.rowHeight, this.progressBarHeight, this.data.color),
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
       this.row
     );
     this.addTooltipEvents(this.progressBar);
@@ -225,18 +209,12 @@ export class ContentRow {
     ]);
   }
 
-<<<<<<< HEAD
   // 更新样式和颜色
   updateStyles(latestChartToken, colorArray) {
-=======
-  // 更新主题样式
-  updateTheme(latestChartToken) {
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
     // 更新样式对象
     this.styles = getRowStyles(latestChartToken);
     const newStyles = this.styles.getThemeUpdates();
 
-<<<<<<< HEAD
     // 更新colorArray
     if (colorArray) {
       this.colorArray = colorArray;
@@ -244,8 +222,6 @@ export class ContentRow {
 
     const progressBarColor = this.getProgressBarColor();
 
-=======
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
     updateSvgs([
       { 
         el: this.rowBg, 
@@ -269,10 +245,7 @@ export class ContentRow {
         el: this.progressBar, 
         attrs: {
         ...newStyles.progressBar,
-<<<<<<< HEAD
         fill: progressBarColor,
-=======
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
         width: this.progressBarWidth * ((this.data.percent || 0) / 100)
       }},
       { 

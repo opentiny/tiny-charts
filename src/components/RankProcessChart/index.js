@@ -4,21 +4,13 @@ import { createTooltip } from './handleTooltip.js';
 import { renderHeader } from './handleHeader.js';
 import { createRowList } from './handleRowList.js';
 import { createScrollArea } from './handleScroll.js';
-<<<<<<< HEAD
 import { updateSvgs, getColorsFromToken } from './utils.js';
-=======
-import { updateSvgs } from './utils.js';
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
 import { getMainChartStyles } from './style.js';
 import { isArray } from '../../util/type.js';
 import debounce from '../../util/debounce.js';
 import { 
   resolveOption, 
-<<<<<<< HEAD
   isUpdate,
-=======
-  isUpdate
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
 } from './handleOption.js';
 import { HEADER, DEFAULT_OPTION, DEFAULT_SCROLL_INFO } from './constants.js';
 import cloneDeep from '../../util/cloneDeep.js';
@@ -77,12 +69,8 @@ export default class RankProcessChart extends BaseChart {
       valueName, 
       percentName, 
       data,  
-<<<<<<< HEAD
       tooltip,
       color,
-=======
-      tooltip, 
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
       paddingConfig, 
       contentWidth, 
       contentHeight 
@@ -110,10 +98,7 @@ export default class RankProcessChart extends BaseChart {
     // 创建虚拟列表
     this.rowList = createRowList({
       data,
-<<<<<<< HEAD
       colorArray: color,
-=======
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
       containerWidth: contentWidth, 
       scrollCallback: () => ({    // 闭包获取scrollArea中的属性，需要时调用回调获取
         scrollY: this.scrollArea ? this.scrollArea.scrollY : DEFAULT_SCROLL_INFO.SCROLLY,   // 当前滚动位置
@@ -200,7 +185,6 @@ export default class RankProcessChart extends BaseChart {
     this.resizeObserver.observe(this.dom);
   }
 
-<<<<<<< HEAD
   // 更新样式和颜色
   updateStyles() {
     // 动态获取最新的 chartToken
@@ -219,18 +203,6 @@ export default class RankProcessChart extends BaseChart {
       if(this.rowList) this.rowList.updateStyles(latestChartToken, colorArray);
       if(this.scrollArea) this.scrollArea.updateStyles(latestChartToken);
       if(this.tooltip) this.tooltip.updateStyles(this.option.theme);
-=======
-  // 更新主题
-  updateTheme() {
-    // 动态获取最新的 chartToken
-    import('../../feature/token/index.js').then(Token => {
-      const latestChartToken = Token.default.getTokenByName('RankProcessChart');
-      
-      if(this.headerGroup) this.headerGroup.updateTheme(latestChartToken);
-      if(this.rowList) this.rowList.updateTheme(latestChartToken);
-      if(this.scrollArea) this.scrollArea.updateTheme(latestChartToken);
-      if(this.tooltip) this.tooltip.updateTheme(this.option.theme);
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
     });
   }
 
@@ -248,24 +220,15 @@ export default class RankProcessChart extends BaseChart {
         titleName, 
         valueName, 
         percentName,
-<<<<<<< HEAD
         data,
-=======
-        data, 
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
         paddingConfig, 
         contentWidth, 
         contentHeight,
       } = resolveOption(this.option, this.option, this.width, this.height);
 
-<<<<<<< HEAD
       if (updates.includes('data') || 
           updates.includes('sort') ||
           updates.includes('padding')) 
-=======
-      if (updates.includes('data') || updates.includes('color') || 
-          updates.includes('padding') || updates.includes('sort')) 
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
       {
         this.rowList.updateRows({
           data,
@@ -296,13 +259,8 @@ export default class RankProcessChart extends BaseChart {
         });
       }
 
-<<<<<<< HEAD
       if (updates.includes('theme') || updates.includes('color')) {
         this.updateStyles();
-=======
-      if (updates.includes('theme')) {
-        this.updateTheme();
->>>>>>> 36ad2d3953e279156d4255f82b8e916067efaacc
       }
 
       if(updates.includes('padding')) {
