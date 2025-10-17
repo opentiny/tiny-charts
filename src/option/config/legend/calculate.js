@@ -60,7 +60,11 @@ function formatRichText(text, styles, textStyle, richMaxWidth){
       richMaxWidth[styleName] = {};
       richMaxWidth[styleName].widths = [textWidth]
     }
-    totalWidth += textWidth;
+    if (style.width && style.width > textWidth){
+      totalWidth += style.width;
+    }else{
+      totalWidth += textWidth;
+    }
     if (textHeight > itemHeight){
       itemHeight = textHeight;
     }
@@ -200,7 +204,7 @@ function updateLegendOccupancy(iChartOption, legend, legendData, chartInstance){
     titleWidth = isNumber(useTitleMaxWidth) ? useTitleMaxWidth : titleWidth;
     legend.tooltip = { show: true};
   } else {
-    titleWidth = isNumber(useTitleMaxWidth) ? useTitleMaxWidth : (titleMaxWidth + titlePaddingRight); // title与右边的间隙
+    titleWidth = isNumber(useTitleMaxWidth) ? useTitleMaxWidth : (titleMaxWidth); // title与右边的间隙
   }
   // 更新rich 增加width
   for (const key in richMaxWidth) {
@@ -286,10 +290,11 @@ function setMobileLegend(iChartOption, legend, legendData, chartInstance){
     legend.orient = 'horizontal';
     const graphHeight = chartHeight - verticalHeight - 16; //图形区高度 = 总高 - 图例高度 - 间距16
     if (!iChartOption.position) iChartOption.position = {};
-    iChartOption.graphHeight = graphHeight
+    iChartOption.graphHeight = graphHeight;
   } else {
     legend.left = '50%'; // 开启自适应 固定位置
     legend.right = 'auto';
+    iChartOption.graphHeight = undefined;
   }
 }
 

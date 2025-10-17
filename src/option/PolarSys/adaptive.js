@@ -12,10 +12,11 @@
 
 import max from '../../util/sort/max';
 import min from '../../util/sort/min';
-import { isArray, isObject } from '../../util/type';
+import { isArray, isObject, isString } from '../../util/type';
 // 组装直角坐标系自适应
 function AdaptivePolarSys(baseOpt, iChartOpt, echartsIns, type) {
   if (!iChartOpt.adaptive) return;
+  const chartHeight = echartsIns?.getHeight?.() || echartsIns?.getDom?.()?.clientHeight || echartsIns?._dom?.clientHeight || 0;
   const radius = baseOpt.polar?.radius || baseOpt.radar[0].radius;
   let dataMax = 0, dataMin = 0;
   baseOpt.series.forEach((item, index) => {
@@ -33,8 +34,11 @@ function AdaptivePolarSys(baseOpt, iChartOpt, echartsIns, type) {
   if (iChartOpt.radarMax) {
     dataMax = iChartOpt.radarMax
   }
-  const polarHeight = isArray(radius) ? radius[1] - radius[0] : radius;
-  const scaleNumber = Math.trunc(polarHeight / 20); // 刻度轴行高18，最小间距2
+  let polarHeight = isArray(radius) ? radius[1] - radius[0] : radius;
+  if (isString(polarHeight) && polarHeight.includes('%')) {
+    polarHeight = ((parseFloat(polarHeight) / 100) * chartHeight) / 2;
+  }
+  const scaleNumber = Math.trunc(polarHeight / 20) || 4; // 刻度轴行高18，最小间距2
   let split = dataMax / scaleNumber;
   if (type === 'polarBar'){
     if (split > 10) {
