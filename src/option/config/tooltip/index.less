@@ -2,15 +2,22 @@
   &.mobile{
     top: auto !important;
     bottom: 0px !important;
-    left: 16px !important;
+    left: 0px !important;
     right: 0 !important;
-    width: calc(100% - 32px) !important;
-    transform: translateY(calc(100% - 12px)) !important;
+    width: 100% !important;
+    transform: translateY(calc(100% + 4px)) !important;
+    &.hide{
+      display: none !important;
+    }
+    .hui-charts-tooltip-item{
+      display: flex;
+      justify-content: space-between;
+    }
   }
   .hui-charts-tooltip-close{
     position: absolute;
     top: 12px;
-    right: 12px;
+    right: 16px;
     font-size: 9px;
   }
 }

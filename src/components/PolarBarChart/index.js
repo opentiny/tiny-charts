@@ -16,6 +16,7 @@ import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
 import { mergeSeries } from '../../util/merge';
 import AdaptivePolarSys from '../../option/PolarSys/adaptive';
+import legend from '../../option/config/legend';
 
 export default class PolarBarChart {
 
@@ -26,6 +27,7 @@ export default class PolarBarChart {
         this.iChartOption = {};
         // 组装 iChartOption, 补全默认值
         this.iChartOption = init(iChartOption);
+        this.chartInstance = chartInstance;
         // 根据 iChartOption 组装 baseOption
         this.updateOption(chartInstance);
     }
@@ -66,6 +68,22 @@ export default class PolarBarChart {
         
         // 坐标轴二次计算
         AdaptivePolarSys(this.baseOption, this.iChartOption, echartsIns, 'polarBar')
+    }
+
+    resize(callback) {
+        const {adaptive, theme} = this.iChartOption;
+        const adaptiveCloud = adaptive && theme.includes('cloud');
+        if (adaptiveCloud) {
+            this.baseOption.legend = legend(this.iChartOption, 'PolarBarChart', this.chartInstance);
+            const data = this.iChartOption.data;
+            if (data) {
+                const type = this.iChartOption.type || 'normal';
+                const seriesData = getSeriesData(data, type, this.iChartOption);
+                const labelData = getLabelData(data);
+                this.baseOption.series = setSeries(seriesData, labelData, this.iChartOption, this.baseOption.polar, type, this.baseOption, this.chartInstance)
+            }
+        }
+        callback(this.baseOption);
     }
 
     getOption() {
