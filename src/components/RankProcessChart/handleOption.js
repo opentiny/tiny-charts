@@ -5,57 +5,78 @@ import { isChanged, getColorsFromToken } from './utils.js';
 import merge from '../../util/merge.js';
 import init from '../../option/init/index.js';
 import Token from '../../feature/token/index.js';
+
 export function handlePadding(padding, containerWidth, containerHeight) {
-  // 如果padding为空或者不是数组，则返回默认值
-  if(!padding || !isArray(padding)) {
-    return {
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    };
+  const res = { top: 0, right: 0, bottom: 0, left: 0 };
+
+  if (!padding || !Array.isArray(padding)) {
+    return res;
   }
 
-  const [top, right, bottom, left] = padding;
-  return {
-    top: parseValue(top, 'vertical', containerWidth, containerHeight),
-    right: parseValue(right, 'horizontal', containerWidth, containerHeight),
-    bottom: parseValue(bottom, 'vertical', containerWidth, containerHeight),
-    left: parseValue(left, 'horizontal', containerWidth, containerHeight)
-  };
+  // 如果padding中存在未设置的方向，默认为0
+  const [top, right, bottom, left] = padding.concat([0, 0, 0, 0]);
+
+  // 先判断top和left，如果是位置词会覆盖对应位置的padding
+  const topIsKeyword = typeof top === 'string' && ['top', 'middle', 'bottom'].includes(top);
+  const leftIsKeyword = typeof left === 'string' && ['left', 'center', 'right'].includes(left);
+
+  if (topIsKeyword) {
+    switch (top) {
+      case 'top':
+        res.top = 0;
+        res.bottom = containerHeight / 2;
+        break;
+      case 'middle':
+        res.top = containerHeight / 4;
+        res.bottom = containerHeight / 4;
+        break;
+      case 'bottom':
+        res.top = containerHeight / 2;
+        res.bottom = 0;
+        break;
+      default:
+        res.top = 0;
+        res.bottom = 0;
+    }
+  } else {
+    res.top = parsePadding(top, 'vertical', containerWidth, containerHeight);
+    res.bottom = parsePadding(bottom, 'vertical', containerWidth, containerHeight);
+  }
+
+  if (leftIsKeyword) {
+    switch (left) {
+      case 'left':
+        res.left = 0;
+        res.right = containerWidth / 2;
+        break;
+      case 'center':
+        res.left = containerWidth / 4;
+        res.right = containerWidth / 4;
+        break;
+      case 'right':
+        res.left = containerWidth / 2;
+        res.right = 0;
+        break;
+      default:
+        res.left = 0;
+        res.right = 0;
+    }
+  } else {
+    res.left = parsePadding(left, 'horizontal', containerWidth, containerHeight);
+    res.right = parsePadding(right, 'horizontal', containerWidth, containerHeight);
+  }
+
+  return res;
 }
 
-// 用于解析padding值
-function parseValue(value, direction, containerWidth, containerHeight) {
-  // 处理数值
-  if (typeof value === 'number') {
-    return value;
-  }
+function parsePadding(value, direction, containerWidth, containerHeight) {
+  if (typeof value === 'number') return value;
 
-  if (typeof value === 'string') {
-    // 处理百分比
-    if (value.endsWith('%')) {
-      const percentage = parseFloat(value) / 100;
-      return direction === 'vertical' 
-        ? containerHeight * percentage 
-        : containerWidth * percentage;
-    }
-
-    // 处理位置词
-    if (direction === 'vertical') {
-      switch (value) {
-        case 'top': return 0;
-        case 'middle': return containerHeight / 2;
-        case 'bottom': return containerHeight;
-        default: return 0;
-      }
-    } else {
-      switch (value) {
-        case 'left': return 0;
-        case 'center': return containerWidth / 2;
-        case 'right': return containerWidth;
-        default: return 0;
-      }
+  if (typeof value === 'string' && value.endsWith('%')) {
+    const num = parseFloat(value.slice(0, -1));
+    if (!isNaN(num)) {
+      const ratio = num / 100;
+      return direction === 'vertical' ? containerHeight * ratio : containerWidth * ratio;
     }
   }
 
