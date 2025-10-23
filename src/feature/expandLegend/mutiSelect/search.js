@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import { CSS_CLASS, SVG_ICON } from "./constants";
+import { CSS_CLASS, SVG_ICON, CLOUD_SVG_ICON } from "./constants";
 import position from "./position";
 import { svgTransform } from "../../../util/convert";
 import debounce from "../../../util/debounce";
@@ -29,6 +29,7 @@ function search(container) {
     const searchInput = document.createElement("input");
     searchInput.name = "searchDom";
     searchInput.placeholder = "请输入关键词";
+    
     searchInput.addEventListener("wheel", function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -46,9 +47,9 @@ function search(container) {
                 if (item.name.toString().includes(searchInput.value)) {
                     let color = this.color[index % colorLength];
                     if(item.display&&item.display!=='none'){
-                        container.appendChild(createItem(item, index, color,this.itemStyle));
+                        container.appendChild(createItem(item, index, color,this.itemStyle, this));
                     }else if(item.display===undefined){
-                        container.appendChild(createItem(item, index, color,this.itemStyle));
+                        container.appendChild(createItem(item, index, color,this.itemStyle, this));
                     }
                     isEmpty = false;
                 }
@@ -72,7 +73,14 @@ function search(container) {
         })
     );
     searchInput.classList.add(CSS_CLASS.SEARCH_INPUT);
-    searchDom.append(searchIcon, searchInput);
+    
+    if (this.option?.theme?.includes('cloud')) {
+        searchInput.placeholder = "请输入关键词搜索";
+        searchDom.innerHTML = CLOUD_SVG_ICON.SEARCH
+        searchDom.append(searchInput);
+    } else {
+        searchDom.append(searchIcon, searchInput);
+    }
     return searchDom;
 }
 

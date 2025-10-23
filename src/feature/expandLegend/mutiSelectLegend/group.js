@@ -9,8 +9,9 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import { CSS_CLASS, SVG_ICON } from "./constants";
+import { CSS_CLASS, SVG_ICON, CLOUD_SVG_ICON } from "./constants";
 import { svgTransform } from "../../../util/convert";
+import Token from "../../token";
 
 // 计算每组内容所占内容是否超出父元素,并分组
 function group() {
@@ -89,10 +90,16 @@ function group() {
 
     // 判断分页按钮是否需要替换
     if (this.current + 1 === this.group.length) {
-        this.pagingRightIcon.src = svgTransform(SVG_ICON.LEFT_ARROW);
+        if (!this.option?.theme?.includes('cloud')) {
+            this.pagingRightIcon.src = svgTransform(SVG_ICON.LEFT_ARROW);
+        }
         this.pagingRightIcon.classList.add(CSS_CLASS.PAGING_ICON_ROTATE);
     }
     this.pagingText.innerText = `${this.current + 1}/${this.group.length > 0 ? this.group.length : 1}`;
+    if (this.group.length < 2) {
+        const iconInactiveColor = Token.config.legendPageIconInactiveColor;
+        this.pagingRight.setAttribute('style', `--pagingIconColor: ${iconInactiveColor};`);
+    }
 }
 
 /**
