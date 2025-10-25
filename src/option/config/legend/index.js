@@ -98,8 +98,7 @@ function legend(iChartOption, chartName, chartInstance) {
     const dataArr = isArray(iChartOption.data) ? iChartOption.data : [];
     const xAxisKey = xkey(iChartOption);
     const lData = ldata(dataArr, xAxisKey) || [];
-    let key = isArray(lData) ? lData[0] : undefined;
-    if (keyIsNameCharts.includes(chartName)) key = 'name';
+    let key = 'name';
     const legendData = legend.data || key ? dataArr.map((item) => item?.[key]) || [] : [];
     const isMobile = iChartOption.isMobile || mobile();
     if (isMobile) {
