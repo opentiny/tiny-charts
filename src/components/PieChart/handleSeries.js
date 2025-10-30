@@ -245,7 +245,7 @@ function handleSeries(pieType, iChartOption, chartInstance, position, legend) {
   // 给某个data指定的颜色
   setColor(iChartOption);
   selfSeries.forEach(seriesItem => {
-    const seriesUnit = seriesItem;
+    const seriesUnit = cloneDeep(seriesItem);
     const temp = cloneDeep(iChartOption);
     // 处理属性的优先级
     config.forEach(name => {
@@ -259,12 +259,13 @@ function handleSeries(pieType, iChartOption, chartInstance, position, legend) {
     seriesUnit.minAngle =
       seriesUnit.minAngle !== undefined ? seriesUnit.minAngle : minAngle(seriesUnit.radius, chartInstance);
     setLabel(seriesUnit, seriesUnit.label, seriesUnit.data);
+    if (iChartOption.seriesName) seriesUnit.name = iChartOption.seriesName
     // 和默认配置合并
     mergeDefaultSeries(seriesUnit);
+    series.push(seriesUnit)
   });
   // 数据和为0
-  handleEmptyData(data, selfSeries, selfSeries[0].center, selfSeries[0].radius, stillShowZeroSum, legend, iChartOption.color);
-  series = selfSeries;
+  handleEmptyData(data, series, series[0].center, series[0].radius, stillShowZeroSum, legend, iChartOption.color);
   return series;
 }
 
