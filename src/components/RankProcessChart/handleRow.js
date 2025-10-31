@@ -13,12 +13,13 @@ import chartToken from './chartToken.js'
 
 export class ContentRow {
   constructor(option) {
-    const { data, index, rowWidth, rowHeight } = option;
+    const { data, index, rowWidth, rowHeight, colorArray } = option;
 
     this.data = data;
     this.index = index;
     this.rowWidth = rowWidth;
     this.rowHeight = rowHeight;
+    this.colorArray = colorArray;
     this.padding = TEXT.PADDING
     this.textBaselineY = ROW.TEXTBASELINEY;
     this.rankBgSize = ROW.RANKBGSIZE;
@@ -32,6 +33,20 @@ export class ContentRow {
     this.progressBarHeight = chartToken.row.progressBarHeight;
     // 计算文本x坐标
     this.columnX = calcColumnX(TEXT.FLEX_SPACE, this.rowWidth, this.padding);
+  }
+
+  // 获取进度条颜色
+  getProgressBarColor() {
+    // 如果data中有颜色，直接使用
+    if (this.data.color) {
+      return this.data.color;
+    }
+    
+    // 否则使用colorArray中的颜色
+    if (this.colorArray && this.colorArray.length > 0) {
+      return this.colorArray[this.index % this.colorArray.length];
+    }
+    
   }
 
   render() {
@@ -111,9 +126,10 @@ export class ContentRow {
     );
     this.addTooltipEvents(this.progressBarBg);
 
+    const progressBarColor = this.getProgressBarColor();
     this.progressBar = createSvgElement(
       'rect', 
-      this.styles.getProgressBar(this.padding, this.rowHeight, this.progressBarHeight, this.data.color),
+      this.styles.getProgressBar(this.padding, this.rowHeight, this.progressBarHeight, progressBarColor),
       this.row
     );
     this.addTooltipEvents(this.progressBar);
@@ -193,11 +209,18 @@ export class ContentRow {
     ]);
   }
 
-  // 更新主题样式
-  updateTheme(latestChartToken) {
+  // 更新样式和颜色
+  updateStyles(latestChartToken, colorArray) {
     // 更新样式对象
     this.styles = getRowStyles(latestChartToken);
     const newStyles = this.styles.getThemeUpdates();
+
+    // 更新colorArray
+    if (colorArray) {
+      this.colorArray = colorArray;
+    }
+
+    const progressBarColor = this.getProgressBarColor();
 
     updateSvgs([
       { 
@@ -222,6 +245,7 @@ export class ContentRow {
         el: this.progressBar, 
         attrs: {
         ...newStyles.progressBar,
+        fill: progressBarColor,
         width: this.progressBarWidth * ((this.data.percent || 0) / 100)
       }},
       { 
