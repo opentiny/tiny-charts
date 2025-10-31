@@ -22,6 +22,7 @@ import getRadar, { getMarkRadarOption, getThresholdSeries } from './BaseOption';
 import { getColor } from '../../util/color';
 import handleCenterPosition from '../PieChart/handleCenterPosition';
 import mobile from '../../util/mobile';
+import { getCloseIcon } from '../../option/config/tooltip/formatter';
 
 function initRadarSys(baseOpt, iChartOpt) {
   baseOpt.color = iChartOpt.color;
@@ -231,8 +232,9 @@ function handleFormatter(tooltip, iChartOpt, radarKeys, data) {
         const markVal = isThreshold ? markLine.threshold[radarKeys[index]] : markLine;
         if (item >= markVal) color = alarmColor
       }
-      htmlString += `<div class="hui-charts-tooltip-item" style="margin-bottom:4px;">
-        <div>
+      let marginBottomStyle = index+1 === tipData.length ? '' : 'margin-bottom:4px;'
+      htmlString += `<div class="hui-charts-tooltip-item" style=${marginBottomStyle}>
+        <div style="display:inline-block;vertical-align: middle;">
           <span style="display:inline-block;width:${legendCircleItemHeight}px;height:${legendCircleItemHeight}px;margin-right:${tooltipIconGap}px;border-radius:5px;background-color:${defendXSS(color)};"></span>
           <span style="display:inline-block;margin-right:8px;min-width:60px;font-size:12px">${defendXSS(radarKeys[index])}</span>
         </div>  
