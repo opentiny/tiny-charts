@@ -23,10 +23,10 @@ const MOUSE_EVENT_NAMES = [
 
 // 绑定图表事件
 export function event(chartInstance, event) {
+  if (!event) return;
   MOUSE_EVENT_NAMES.forEach(eventName=>{
     chartInstance.off(eventName);
   })
-  if (!event) return;
   const queryKeys = Object.keys(event);
   queryKeys.forEach(qrKey => {
     const eKeys = Object.keys(event[qrKey]);
