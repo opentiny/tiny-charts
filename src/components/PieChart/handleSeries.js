@@ -148,7 +148,6 @@ function handleEmptyData(data, series, center, radius, stillShowZeroSum, legend,
         item.itemStyle = { color: colorArr[index] };
       });
       series.forEach(item => {
-        item.animation = false;
         item.color = chartToken.colorShowZero;
       });
     }
