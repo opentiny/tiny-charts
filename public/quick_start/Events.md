@@ -56,7 +56,15 @@ chartInstance.unbindEvents([
 ]);
 ```
 
-### 3.在配置项option中写入event事件
+### 3.获取ECharts原生实例进行事件监听
+```jsx
+//拿到ECharts实例
+chartInstance.getEchartsInstance().on('legendselectchanged', function (params) {
+    console.log(params);
+});
+```
+
+### 4.~~在配置项option中写入event事件~~ ---(已废弃，1.4.15往后版本不建议使用)
 此方法仅适用于存在query的事件监听
 ```jsx
 // 填入图表配置项
@@ -76,13 +84,6 @@ let chartOption = {
 chartInstance.setSimpleOption('LineChart', chartOption);
 ```
 
-### 4.获取ECharts原生实例进行事件监听
-```jsx
-//拿到ECharts实例
-chartInstance.getEchartsInstance().on('legendselectchanged', function (params) {
-    console.log(params);
-});
-```
 <br/>
 <br/>
 
