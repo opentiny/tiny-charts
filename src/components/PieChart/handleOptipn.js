@@ -10,7 +10,7 @@
  *
  */
 import getTooltipContentHtmlStr, { validateName } from '../../option/config/tooltip/formatter'
-import { isArray, isObject } from '../../util/type';
+import { isArray, isObject, isString } from '../../util/type';
 import { getColor } from '../../util/color';
 import mobile from '../../util/mobile';
 
@@ -33,7 +33,7 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty, tooltip) {
     })
   }
   
-  const iconColor = validateName(value) ? params.color : getColor(color, params.seriesIndex)
+  const iconColor = validateName(value) ?  (isString(params.color) ? params.color : getColor(color, params.seriesIndex)) : getColor(color, params.seriesIndex)
   const dataItem = {
     name,
     value,
@@ -57,7 +57,7 @@ function coverObjDataToInit(params) {
   return params
 }
 
-export function setTooltip(baseOpt, iChartOpt, legendData) {
+export function setTooltip(baseOpt, iChartOpt) {
   const { tipHtml, tooltip, color } = iChartOpt
   const formatter = tipHtml || tooltip?.formatter
   baseOpt.tooltip.formatter = (params, ticket, callback) => {
