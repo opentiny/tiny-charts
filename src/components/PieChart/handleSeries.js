@@ -229,7 +229,7 @@ const config = [
 ];
 
 function handleSeries(pieType, iChartOption, chartInstance, position, legend) {
-  const { data, stillShowZeroSum } = iChartOption;
+  const { data, stillShowZeroSum, showZeroBgColor } = iChartOption;
   position = position || {};
   iChartOption.center = position?.center;
   iChartOption.radius = position?.radius;
@@ -265,7 +265,9 @@ function handleSeries(pieType, iChartOption, chartInstance, position, legend) {
     series.push(seriesUnit)
   });
   // 数据和为0
-  handleEmptyData(data, series, series[0].center, series[0].radius, stillShowZeroSum, legend, iChartOption.color);
+  if (!showZeroBgColor) {
+    handleEmptyData(data, series, series[0].center, series[0].radius, stillShowZeroSum, legend, iChartOption.color);
+  }
   return series;
 }
 
