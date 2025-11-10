@@ -80,7 +80,7 @@ class HeaderRow {
   }
 
   // 更新主题样式
-  updateTheme(latestChartToken) {
+  updateStyles(latestChartToken) {
     this.styles = getHeaderStyles(latestChartToken);
     const newStyle = this.styles.getThemeUpdates();
     

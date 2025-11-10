@@ -16,7 +16,7 @@ function axisPointer(tooltip, chartName) {
     case 'ProcessBarChart':
     case 'BarChart':
       tooltip.axisPointer = {
-        z: -999,
+        z: 0,
         type: 'shadow',
         shadowStyle: {
           color: Token.config.tooltipAxisPointerShadowColor,
