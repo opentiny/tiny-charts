@@ -23,7 +23,7 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty, tooltip) {
   let seriesNames = [];
   let value = params.value;
   let name = params.name;
-  let type = params.seriesType;
+  let type = iChartOpt.legend?.icon;
   seriesNames.push(name);
   if (isObject(value)){
     iChartOpt.data.forEach(data=>{
@@ -59,7 +59,7 @@ function coverObjDataToInit(params) {
 
 export function setTooltip(baseOpt, iChartOpt) {
   const { tipHtml, tooltip, color } = iChartOpt
-  const formatter = tipHtml || tooltip?.formatter
+  const formatter = tipHtml || tooltip?.formatter || tooltip?.valueFormatter
   baseOpt.tooltip.formatter = (params, ticket, callback) => {
     const initParams = isArray(params) ? coverObjDataToInit(params) : params;
     return formatter && typeof formatter === 'function' ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty, baseOpt.tooltip)
