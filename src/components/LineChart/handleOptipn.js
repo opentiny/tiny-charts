@@ -107,7 +107,7 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty, tooltip) {
   params.forEach((item, index) => {
     let value = item.value;
     let name = item.seriesName;
-    let type = item.seriesType;
+    let type = iChartOpt.legend?.icon;
     if ((iChartOpt.area || iChartOpt.discrete) && seriesNames.includes(name)) {
       return;
     }else{
