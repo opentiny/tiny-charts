@@ -188,7 +188,7 @@ function setText(bgSeries, dataSet, iChartOpt, stack) {
 }
 
 // 设置占位用的数据名称和背景series
-function setPlaceholderSeries(series, dataSet, iChartOpt, stack) {
+function setPlaceholderSeries(series, dataSet, iChartOpt, stack, eChartInstance) {
   const dataNumber = stack ? dataSet.seriesName.length : dataSet.barData.length
   const nameSeries = getDataNameSeries(stack)
   nameSeries.data = createPlaceholderArray(dataNumber, 0)
@@ -197,10 +197,31 @@ function setPlaceholderSeries(series, dataSet, iChartOpt, stack) {
   const bgSeries = getBackgroundSeries(stack)
   bgSeries.data = createPlaceholderArray(dataNumber, dataSet.maxValue)
   bgSeries.label.formatter = params => setBgLabelFormatter(params, dataSet, iChartOpt, stack)
+  setNameSeriesWidth(nameSeries, dataSet, iChartOpt, eChartInstance)
   setText(bgSeries, dataSet, iChartOpt, stack)
   series.push(nameSeries)
   series.push(bgSeries)
 }
+
+// 设置name的宽度
+function setNameSeriesWidth(nameSeries, dataSet, iChartOpt, eChartInstance) {
+  // 用户设置了宽度 或者为双向进度图时跳出
+  if (iChartOpt.label?.width || iChartOpt.type === 'double-sides') return;
+  const innerUnit = iChartOpt.unit || iChartOpt.unit === '' ? iChartOpt.unit : BASICUNIT;
+  let maxLength = 0;
+  dataSet.barData.forEach(item => {
+    const val = item._initValue || item.value;
+    const len = val ? val.toString().length : 0;
+    if (len >= maxLength) maxLength = len;
+  });
+  let str = '8'.repeat(maxLength) + innerUnit; //使用数字8代替计算占宽
+  const valueWidth = getTextWidth(str, 14);
+  const instanceRect = eChartInstance.getModel?.()?.getComponent('grid')?.coordinateSystem?.getRect?.();
+  const domWidth = instanceRect?.width || (eChartInstance?.getWidth() || eChartInstance?._dom?.clientWidth) - (iChartOpt?.padding?.[1] || 0) - (iChartOpt?.padding?.[3] || 0);
+  const nameWidth = domWidth - valueWidth - 16; // 16为名称与数值之间的间隙
+  nameSeries.label.width = nameWidth;
+}
+
 
 function setDataSeries(series, dataSet, iChartOpt, stack) {
   if (stack) {
@@ -352,18 +373,18 @@ function setDoubleSideSeries(series, iChartOpt, dataSet) {
   })
 }
 
-function setCommonSeries(series, iChartOpt, dataSet) {
+function setCommonSeries(series, iChartOpt, dataSet, eChartInstance) {
   const stack = iChartOpt.name === CHARTTYPENAME.StackProcessBarChart
-  setPlaceholderSeries(series, dataSet, iChartOpt, stack)
+  setPlaceholderSeries(series, dataSet, iChartOpt, stack, eChartInstance)
   setDataSeries(series, dataSet, iChartOpt, stack)
   setMarkLine(series, iChartOpt, dataSet, stack)
 }
 
-function handleSeries(baseOpt, iChartOpt, dataSet, doubleSide) {
+function handleSeries(baseOpt, iChartOpt, dataSet, doubleSide, eChartInstance) {
   const series = []
-  doubleSide ? setDoubleSideSeries(series, iChartOpt, dataSet) : setCommonSeries(series, iChartOpt, dataSet)
+  doubleSide ? setDoubleSideSeries(series, iChartOpt, dataSet) : setCommonSeries(series, iChartOpt, dataSet, eChartInstance)
   baseOpt.series = series
   setBarWidth(baseOpt, iChartOpt);
 }
-export { setStateBarColor, getStateList, getBarColor };
+export { setStateBarColor, getStateList, getBarColor, setNameSeriesWidth };
 export default handleSeries;
