@@ -4,10 +4,11 @@ import { ContentRow } from './handleRow.js';
 
 class RowList { 
   constructor(options) { 
-    const { data, containerWidth, scrollCallback }= options; 
+    const { data, containerWidth, scrollCallback, colorArray }= options; 
 
     this.data = data;
     this.containerWidth = containerWidth;
+    this.colorArray = colorArray;
     this.rowHeight = ROW.HEIGHT;
     this.headerHeight = HEADER.HEIGHT;
     this.lastData = data;
@@ -77,7 +78,8 @@ class RowList {
       data: this.data[index],
       index,
       rowWidth: this.containerWidth,
-      rowHeight: this.rowHeight
+      rowHeight: this.rowHeight,
+      colorArray: this.colorArray
     }); 
     this.registerRow(index, row);
   }
@@ -119,10 +121,10 @@ class RowList {
     }
   }
 
-  // 更新主题样式
-  updateTheme(latestChartToken) {
+  // 更新样式和颜色
+  updateStyles(latestChartToken, colorArray) {
     for (const [_, row] of this.visibleRows.entries()) {
-      row.updateTheme(latestChartToken);
+      row.updateStyles(latestChartToken, colorArray);
     }
   }
 
