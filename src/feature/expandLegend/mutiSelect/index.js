@@ -13,6 +13,7 @@ import { CSS_CLASS } from "./constants";
 import search from "./search";
 import { item as createItem } from "./item";
 import position from "./position";
+import Token from "../../token";
 const DEFAULT_OPTION = {
     data: [1, 2, 3, 4, 5],
     onclick: () => {},
@@ -35,7 +36,8 @@ class MutiSelect {
 
     setOption(option) {
         option = option || DEFAULT_OPTION;
-        let { data, onclick } = option;
+        let { data, onclick, theme } = option;
+        this.option = option;
         if(option.color)
         this.color = option.color;
         this.itemStyle = option?.itemStyle;
@@ -69,18 +71,36 @@ class MutiSelect {
 
     // 创建下拉框dom
     mutiselect(onclick) {
+        const tokenConfig = Token.config;
+        const inactiveColor = tokenConfig.legendInactiveColor;
+        const nameColor = tokenConfig.legendPageTextColor;
+        const legendTextColor = tokenConfig.legendTextColor;
+        const itemHoverBg = tokenConfig.legendDropDownItemHover;
+        const checkboxPathFill = tokenConfig.colorState.colorInfo;
+        const iconInactiveColor = tokenConfig.legendPageIconInactiveColor;
+        const legendDropDownBgColor = tokenConfig.tooltipBg;
+        
         const mutiselectDom = document.createElement("div");
         mutiselectDom.classList.add(CSS_CLASS.MUTISELECT, CSS_CLASS.MUTISELECT_ACTIVE);
         const containerDom = this.container();
         const searchDom = search.call(this, containerDom);
         mutiselectDom.append(searchDom, containerDom);
-
+        if (this.option?.theme?.includes('cloud')) {
+            mutiselectDom.classList.add('cloud');
+            mutiselectDom.classList.add(this.option?.theme);
+            mutiselectDom.setAttribute('style', `--nameColor: ${nameColor};--textColor: ${legendTextColor};--itemHoverBg: ${itemHoverBg}; --checkboxPathFill:${checkboxPathFill}; --iconInactiveColor:${iconInactiveColor};--legendDropDownBgColor:${legendDropDownBgColor}`)
+            mutiselectDom.style['box-shadow'] = `0 ${tokenConfig.tooltipShadowOffsetY}px ${tokenConfig.tooltipShadowBlur}px 0 ${tokenConfig.tooltipShadowColor}`
+        }
         // 给每个选项绑定点击事件，并执行传入的回调事件
         mutiselectDom.addEventListener("click", (e) => {
             let target = e.target;
-            while (target.className.includes(CSS_CLASS.MUTISELECT) && target.className !== CSS_CLASS.ITEM) {
+            while (!target.className.includes) {
                 target = target.parentNode;
             }
+            while (target.className.includes?.(CSS_CLASS.MUTISELECT) && target.className !== CSS_CLASS.ITEM) {
+                target = target.parentNode;
+            }
+            
             if (target.className === CSS_CLASS.ITEM) {
                 target.firstChild.classList.toggle("active");
                 target.firstChild.firstChild?.classList.toggle("active");
