@@ -7,7 +7,7 @@
 }
 ```
 
-说明：调整波浪图的位置及大小
+说明：调整波纹图的位置及大小
 
 <p class='ev_expand_title'>position.center<span class='ev_expand_required'>非必填</span><span class='ev_expand_defaults'>有默认值</span><span class='ev_expand_type'>Array</span>
 
@@ -20,4 +20,4 @@
 
 <p class='ev_expand_introduce'>默认值：<code>['35%','70%']</code>
 
-<p class='ev_expand_introduce'>说明：波浪图占容器宽度的百分比。
+<p class='ev_expand_introduce'>说明：波纹图占容器宽度的百分比。
