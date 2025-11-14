@@ -57,6 +57,7 @@ function getDataNameSeries(stack = false) {
       color: chartToken.nameColor,
       position: [0, -offset],
       fontSize: chartToken.fontSize,
+      overflow:'truncate',
       formatter(params) {
         return params.name === 'null' || params.name === 'undefined' ? '' : params.name;
       },
