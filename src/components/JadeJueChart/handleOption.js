@@ -14,6 +14,7 @@ import { getColor } from '../../util/color';
 import defendXSS from '../../util/defendXSS';
 import { borderRadiusText, CHARTTYPE } from './BaseOption';
 import chartToken from './chartToken';
+import handleCenterPosition from '../PieChart/handleCenterPosition';
 
 const cloudThemeBarWidth = {
   large: 8,
@@ -61,9 +62,17 @@ function setThemeRadius(iChartOption, baseOpt, chartInstance, textGap) {
   const { data, theme, adaptive } = iChartOption;
   if (adaptive && theme.includes('cloud')) {
     // 华为云主题 随数据增加，圆环由内往外逐渐增大
-    const innerRing = 10;
-    let outerRing = innerRing + ((lineHeight + textGap) * data.length);
+    let position = handleCenterPosition(iChartOption, baseOpt.legend, chartInstance);
+    let outerRing = position.radius || 100;
+    let dataLength = data.length > 5 ? 5 : data.length; 
+    if (outerRing < (dataLength * 20)) { // 半径最小不能小于 数据长度*20
+      outerRing = dataLength * 20
+    }
+    let innerRing = outerRing - ((lineHeight + textGap) * data.length);
     baseOpt.polar.radius = [innerRing, outerRing];
+    if (position.center) {
+      baseOpt.polar.center = position.center;
+    }
   } else {
     let outerRing = getOuterRing(baseOpt, chartInstance);
     let innerRing = outerRing - ((lineHeight + textGap) * data.length);

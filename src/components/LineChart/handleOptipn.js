@@ -15,7 +15,7 @@ import { judgeFilterAreaSeries, getDataWidthNoObject } from './AreaChart/bottomA
 import getTooltipContentHtmlStr, { validateName } from '../../option/config/tooltip/formatter'
 import { isObject } from '../../util/type';
 import { getColor } from '../../util/color';
-
+import mobile from '../../util/mobile';
 
 // 给图例和x轴赋值
 export function handleData(baseOpt, legendData, xAxisData) {
@@ -107,6 +107,7 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty, tooltip) {
   params.forEach((item, index) => {
     let value = item.value;
     let name = item.seriesName;
+    let type = item.seriesType;
     if ((iChartOpt.area || iChartOpt.discrete) && seriesNames.includes(name)) {
       return;
     }else{
@@ -126,10 +127,13 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty, tooltip) {
         name,
         value,
         iconColor,
+        type
       }
       config.children.push(dataItem)
     }
   });
+  const isMobile = mobile();
+  config.isMobile = iChartOpt.isMobile || isMobile;
   return getTooltipContentHtmlStr(config, tooltip)
 }
 

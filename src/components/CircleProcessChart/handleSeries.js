@@ -112,14 +112,16 @@ export function setRadius(baseOption, chartInstance, iChartOption) {
   }
   if (!iChartOption.position) iChartOption.position = {};
   let position = handleCenterPosition(iChartOption, baseOption.legend, chartInstance);
-  if (position && position.radius) {
-    let outerRing = position.radius;
-    iChartOption.position.radius = position.radius
-    baseOption.polar.radius = [outerRing - barWidth - 4, outerRing];
-  }
-  if (position && position.center) {
-    baseOption.polar.center = position.center;
-    iChartOption.position.center = position.center
+  if (iChartOption.adaptive ) {
+    if (position && position.radius) {
+      let outerRing = position.radius;
+      iChartOption.position.radius = position.radius
+      baseOption.polar.radius = [outerRing - barWidth - 4, outerRing];
+    }
+    if (position && position.center) {
+      baseOption.polar.center = position.center;
+      iChartOption.position.center = position.center
+    }
   }
 }
 

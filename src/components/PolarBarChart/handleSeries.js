@@ -96,7 +96,7 @@ export function handleBarItemStyle(iChartOption, seriesUnit) {
  * @returns
  */
 export function setSeries(seriesData, labelData, iChartOption, polar, type, baseOption, chartInstance) {
-  const { data, label, itemStyle } = iChartOption;
+  const { data, label, itemStyle, adaptive, theme } = iChartOption;
   const position = handleCenterPosition(iChartOption, baseOption.legend, chartInstance)
   const series = [];
   if (type === 'normal') {
@@ -121,7 +121,9 @@ export function setSeries(seriesData, labelData, iChartOption, polar, type, base
     series.push(seriesUnit);
   }
   // 需要显示角度轴坐标文本
-  const showLabel = label ? label.show : true;
+  let showLabel = label ? label.show : true;
+  const adaptiveCloud = adaptive && theme.includes('cloud');
+  if (adaptive) showLabel = false;
   if (showLabel && type === 'normal') {
     const pieUnit = getPieInit()
     pieUnit.data = labelData;
@@ -129,16 +131,18 @@ export function setSeries(seriesData, labelData, iChartOption, polar, type, base
     // 外radius
     const radius = polar.radius[1];
     const radiusN = Number(radius.substring(0, radius.length - 1));
-    pieUnit.radius = position?.radius ? [position.radius*0.2, position.radius] : [radius, `${radiusN + 8}%`];
+    pieUnit.radius = adaptiveCloud && position?.radius ? [position.radius*0.2, position.radius] : [radius, `${radiusN + 8}%`];
     series.push(pieUnit);
   }
-  if (position?.radius) {
-    iChartOption.position.radius = [position.radius*0.2, position.radius]
-    baseOption.polar.radius = [position.radius*0.2, position.radius];
-  }
-  if (position?.center) {
-    baseOption.polar.center = position.center;
-    iChartOption.position.center = position.center
+  if (adaptiveCloud) {
+    if (position?.radius) {
+      iChartOption.position.radius = [position.radius*0.2, position.radius - 10] // 外层矫正
+      baseOption.polar.radius = [position.radius*0.2, position.radius - 10];
+    }
+    if (position?.center) {
+      baseOption.polar.center = position.center;
+      iChartOption.position.center = position.center
+    }
   }
 
   return series;

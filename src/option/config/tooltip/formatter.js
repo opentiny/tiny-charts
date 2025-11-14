@@ -19,7 +19,7 @@ function formatValue(value) {
 }
 
 // 移动端tooltip关闭按钮
-function getCloseIcon(tooltipCloseColor = '#191919') {
+function getCloseIcon(tooltipCloseColor = '#808080') {
    return `<svg width="16px" height="16px" viewBox="0 0 16 16" fill="none" customFrame="#000000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <rect id="close" width="16" height="16" x="0" y="0"/>
       <g id="组合 1">
@@ -38,11 +38,17 @@ function getDataHtmlStr(dataConfig) {
         value,
         valueColor = tooltipValueColor,
         unit = '',
-        unitColor = tooltipValueColor
+        unitColor = tooltipValueColor,
+        type
     } = dataConfig
-    let iconStr = '', unitStr = ''
+    let iconStr = '', unitStr = '', iconStyle = '';
+    if (type === 'line') {
+        iconStyle = `width:${legendCircleItemHeight + 2}px;height:2px;`
+    } else {
+        iconStyle = `width:${legendCircleItemHeight}px;height:${legendCircleItemHeight}px;border-radius:50%;`
+    }
     if (iconColor) {
-        iconStr = `<div style="width:${legendCircleItemHeight}px;height:${legendCircleItemHeight}px;border-radius:50%;background-color:${defendXSS(iconColor)};"></div>`
+        iconStr = `<div style="background-color:${defendXSS(iconColor)};${iconStyle}"></div>`
     }
     if (unit) {
         unitStr = `<span style="font-weight:bold;color:${unitColor};">${defendXSS(unit)}</span>`
@@ -62,7 +68,7 @@ function getDataHtmlStr(dataConfig) {
 
 function getTooltipContentHtmlStr(tipConfig, tooltip) {
     const { tooltipItemGap, tooltipTitleColor, tooltipCloseColor } = Token.config
-    let { title, titleColor = tooltipTitleColor, children, hideEmpty } = tipConfig
+    let { title, titleColor = tooltipTitleColor, children, hideEmpty, isMobile } = tipConfig
     let content = ''
     if (validateName(title)) {
         content = `<div class="hui-charts-tooltip-title" style="color:${titleColor}">${defendXSS(title)}</div>`;
@@ -77,7 +83,7 @@ function getTooltipContentHtmlStr(tipConfig, tooltip) {
             content += getDataHtmlStr(item)
         }
     }
-    if (mobile()) {
+    if (isMobile) {
         content += `<div class="hui-charts-tooltip-close">${getCloseIcon(tooltipCloseColor)}</div>`
     }
     const htmlString = `<div class="hui-charts-tooltip-container" style="display:flex;flex-direction:column;gap:${tooltipItemGap}px;">${content}</div>`
@@ -85,4 +91,4 @@ function getTooltipContentHtmlStr(tipConfig, tooltip) {
 }
 
 export default getTooltipContentHtmlStr
-export { getDataHtmlStr, formatValue, validateName }
+export { getDataHtmlStr, formatValue, validateName, getCloseIcon }

@@ -143,6 +143,7 @@ const setRadiusAxis = (baseOpt, data, chartType, iChartOption) => {
           color: chartToken.labelRatioColor,
           // 设置宽度才能保证name也右对齐
           width: getTextWidth('100%', baseOpt.radiusAxis.axisLabel.fontSize),
+          fontWeight: iChartOption.theme.includes('cloud') ? 'bold' : 'normal',
           align: 'right',
         }
       };
