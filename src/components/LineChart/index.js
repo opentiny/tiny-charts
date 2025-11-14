@@ -181,6 +181,8 @@ class LineChart {
   }
 
   resize(callback) {
+    // 坐标轴二次计算
+    AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
     this.baseOption.legend = legend(this.iChartOption, 'LineChart', this.chartInstance);
     callback(this.baseOption);
   }
