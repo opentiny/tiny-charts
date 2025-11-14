@@ -50,6 +50,8 @@ function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
           iChartOpt.dataZoom.type = isMobile ? "inside" : 'slider';
         }
         break;
+      } else {
+        iChartOpt.dataZoom.show = false;
       }
     }
   }
