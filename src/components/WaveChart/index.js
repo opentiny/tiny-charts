@@ -15,8 +15,8 @@ import RadarChart from '../RadarChart';
 import CoreChart from '../../core';
 import defendXSS from '../../util/defendXSS';
 import { percentToDecimal } from '../../util/math';
-import { appendHTML, appendDom } from '../../util/dom';
-import { isString, isDOM, isArray } from '../../util/type';
+import { getTextWidth } from '../../util/dom';
+import { isArray } from '../../util/type';
 import { insertStateDom, removeStateDom } from '../../util/init/insert';
 import chartToken from './chartToken';
 import { CHART_TYPE } from '../../util/constants';
@@ -70,6 +70,8 @@ export default class WaveChart extends BaseChart {
     this.resizeObserver = null;
     // 是否显示波纹
     this.showWave = null;
+    // 是否开启自适应
+    this.adaptive = false;
   }
 
   // 初始化图表渲染容器
@@ -103,18 +105,6 @@ export default class WaveChart extends BaseChart {
     this.rContainer = this.dom.getElementsByClassName('wave_radar_container')[0];
     this.loadingContainer = this.dom.getElementsByClassName('wave_loading_container')[0];
     this.loadingDom = this.dom.getElementsByClassName('loading_dom')[0];
-    const { centerDom } = this.option;
-    this.insertCenterDom(centerDom, this.domContainer);
-  }
-
-  // 自定义dom插入
-  insertCenterDom(centerDom, dom) {
-    if (centerDom) {
-      if (!dom) return;
-      const initCustomdom = centerDom(dom);
-      isString(initCustomdom) && appendHTML(dom, initCustomdom);
-      isDOM(initCustomdom) && appendDom(dom, initCustomdom);
-    }
   }
 
   // 设置dom位置
@@ -126,7 +116,14 @@ export default class WaveChart extends BaseChart {
     const position = this.option.position;
     this.radius = (position && position.radius) || basePosition.radius;
     this.center = (position && position.center) || basePosition.center;
-    // 处理只有外半径的情况 仅波纹图
+
+    // 1.自适应处理中心点位置，开启adaptive就会强行覆盖用户的radius
+    if (this.option.adaptive && this.option.theme.includes('cloud')) {
+      this.radarWidth = Math.max(200, this.rContainer.clientWidth * 0.8);
+      this.radius = `${(Math.max(200, this.rContainer.clientWidth * 0.8) / this.rContainer.clientWidth * 100).toString()}%`
+    }
+
+    // 处理只有外半径的情况 仅波纹图 前提是百分比 内环一定是外环的一半才行
     if (!isArray(this.radius)) {
       const innerRadius = `${((percentToDecimal(this.radius) / 2) * 100).toString()}%`;
       this.radius = [innerRadius, this.radius];
@@ -140,6 +137,9 @@ export default class WaveChart extends BaseChart {
     this.setPointAndLineStyle();
     const left = newPosition[0];
     const top = newPosition[1];
+    const tokenConfig = Token.config;
+    // 根据主题动态设置主副文本颜色token 前提得用规范的class
+    this.domContainer.style = `--wave-text-color:${tokenConfig.titleTextColor};--wave-subtext-color:${tokenConfig.titleSubTextColor};`
     this.domContainer.style.left = left;
     this.domContainer.style.top = top;
     this.loadingContainer.style.left = left;
@@ -264,11 +264,19 @@ export default class WaveChart extends BaseChart {
     }
     chartOption.isWaveRadar = theme.toLowerCase().indexOf('cloud-light') !== -1;
     theme && (chartOption.theme = this.option.theme);
+    // 2.自适应尺寸到达200裁剪坐标和名称
+    if (this.option.adaptive && this.option.theme.includes('cloud')) {
+      if (this.radarWidth === 200) {
+        this.radarMark = false;
+        chartOption.radar.axisName.show = false
+      }
+    }
     this.radarMark && (chartOption.radarMark = this.radarMark);
     this.radarMax && (chartOption.radarMax = this.radarMax);
     chartOption.position.center = this.center;
     chartOption.position.radius = this.radius;
     chartOption.radar.splitNumber = this.splitNumber;
+
     // 是否显示背景
     this.showWave = this.option.showWave !== undefined ? this.option.showWave : true;
     if (!this.showWave) {
@@ -332,6 +340,109 @@ export default class WaveChart extends BaseChart {
     this.loadingDom.style.height = scaleWidth;
     loadingSvg.style.width = scaleWidth;
     loadingSvg.style.height = scaleWidth;
+    this.setCenterDom(this.domContainer);
+  }
+
+  // 插入中心内容
+  setCenterDom(domContainer) {
+    if (!this.option.centerDom || !domContainer) return;
+    this.insertCenterDom(this.option.centerDom, domContainer);
+  }
+
+  // 自定义centerDom插入容器dom
+  insertCenterDom(centerDom, dom) {
+    let htmlContent = typeof centerDom === 'function' ? centerDom(dom) : centerDom;
+    if (!htmlContent || !dom) return;
+    // 3.自适应设置中心文本字体大小
+    if (this.option.adaptive && this.option.theme.includes('cloud')) {
+      htmlContent = this.setTitleFontSize(htmlContent, dom);
+    }
+    // 插入内容（清空旧内容）
+    if (typeof htmlContent === 'string') {
+      dom.innerHTML = htmlContent;
+    } else if (htmlContent instanceof Node) {
+      dom.innerHTML = '';
+      dom.appendChild(htmlContent);
+    }
+  }
+
+  // 获取中心文本设置字体大小
+  setTitleFontSize(htmlString, dom) {
+    const waveSize = this.radarWidth;
+    const domSize = this.domContainer.clientWidth;
+    // 创建临时容器解析 HTML 字符串
+    const tempContainer = document.createElement('div');
+    tempContainer.innerHTML = htmlString;
+
+    // 查找关键元素
+    const valueEl = tempContainer.querySelector('.wave_value');
+    const unitEl = tempContainer.querySelector('.wave_unit');
+    const subTextEl = tempContainer.querySelector('.wave_subText');
+
+    // 如果都不存在，直接返回原 HTML（避免报错）
+    if (!valueEl && !unitEl && !subTextEl) {
+      console.warn('DOM structure not as expected, skipping font size update');
+      return htmlString;
+    }
+    // 获取主文本（用于计算字体大小）
+    const valueText = valueEl && valueEl.textContent.trim(); // 如"96"
+    const unitText = unitEl && unitEl.textContent.trim(); // 如"分"
+    const fontSize = this.calculateFontSize(waveSize, domSize, valueText, unitText);
+
+    // 更新各个部分的字体大小
+    if (valueEl) {
+      valueEl.style.fontSize = `${fontSize.mainFontSize}px`;
+    }
+    if (unitEl) {
+      unitEl.style.fontSize = `${fontSize.subFontSize}px`;
+    }
+    if (subTextEl) {
+      subTextEl.style.fontSize = `${fontSize.subFontSize}px`;
+    }
+    // 返回更新后的 HTML 字符串
+    return tempContainer.innerHTML;
+  }
+
+  // 根据自适应规则计算中心文本字体
+  calculateFontSize(waveSize, domSize, valueText, unitText) {
+    // 1. 计算主文本最大可用宽度（dom直径的 80%）
+    const maxMainTextWidth = domSize * 0.8;
+
+    // 2. 根据尺寸确定主文本候选字号区间（从大到小）
+    const getMainFontSizeRange = (size) => {
+      if (size > 112) {
+        return [48, 36, 32];
+      } else {
+        return [32, 24]; // 默认值，暂时用不上
+      }
+    };
+
+    // 3. 确定副文本候选字号
+    const getSubFontSize = (size) => {
+      if (size >= 280) return 14;
+      return 12;
+    };
+
+    // 4. 获取字号区间
+    const mainSizes = getMainFontSizeRange(domSize);
+    const subFontSize = getSubFontSize(waveSize);
+
+    // 5. 尝试主文本每个字号，找到第一个不超宽的
+    let mainFontSize = mainSizes[0]; // 默认最大字号
+    let flag = false;
+    for (const size of mainSizes) {
+      const mainWidth = getTextWidth(valueText, size);
+      const unitWidth = unitText ? getTextWidth(unitText, subFontSize) : 0;
+      const totalWidth = mainWidth + unitWidth;
+      if (totalWidth <= maxMainTextWidth) {
+        flag = true
+        mainFontSize = size;
+        break;// 找到第一个合适的就停
+      }
+    }
+    // 如果都不合适，用最小字号兜底
+    if (!flag) mainFontSize = mainSizes[mainSizes.length - 1];
+    return { mainFontSize, subFontSize };
   }
 
   // 图表渲染完成时回调
@@ -359,7 +470,6 @@ export default class WaveChart extends BaseChart {
     this.option = option;
     this.data = option.data;
     this.centerDom = option.centerDom;
-    this.insertCenterDom(this.centerDom, this.domContainer);
     this.setPosition();
     this.data && this.setRadar();
     this.resizeDom();
