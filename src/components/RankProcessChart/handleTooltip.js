@@ -152,7 +152,7 @@ class Tooltip {
   }
 
   // 更新主题
-  updateTheme(newTheme) {
+  updateStyles(newTheme) {
     this.theme = newTheme;
     
     if (this.tooltip) {

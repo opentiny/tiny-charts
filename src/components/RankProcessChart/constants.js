@@ -47,7 +47,7 @@ export const DEFAULT_OPTION = {
   valueName: '数值',                 // 首部数值文本
   percentName: '百分比',             // 首部百分比文本
   padding: [16, 16, 0, 16],          // 图表内边距，顺序为[top, right, bottom, left]
-  color: null,                       // 图表未指定颜色时的默认颜色，指定时一般为数组
+  color: [],                       // 图表未指定颜色时的默认颜色，指定时一般为数组
   sort: {
     field: 'value',                  // 排序字段：value, percent
     order: 'desc'                    // 排序顺序：asc, desc, none

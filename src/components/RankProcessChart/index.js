@@ -4,13 +4,13 @@ import { createTooltip } from './handleTooltip.js';
 import { renderHeader } from './handleHeader.js';
 import { createRowList } from './handleRowList.js';
 import { createScrollArea } from './handleScroll.js';
-import { updateSvgs } from './utils.js';
+import { updateSvgs, getColorsFromToken } from './utils.js';
 import { getMainChartStyles } from './style.js';
 import { isArray } from '../../util/type.js';
 import debounce from '../../util/debounce.js';
 import { 
   resolveOption, 
-  isUpdate
+  isUpdate,
 } from './handleOption.js';
 import { HEADER, DEFAULT_OPTION, DEFAULT_SCROLL_INFO } from './constants.js';
 import cloneDeep from '../../util/cloneDeep.js';
@@ -69,7 +69,8 @@ export default class RankProcessChart extends BaseChart {
       valueName, 
       percentName, 
       data,  
-      tooltip, 
+      tooltip,
+      color,
       paddingConfig, 
       contentWidth, 
       contentHeight 
@@ -97,6 +98,7 @@ export default class RankProcessChart extends BaseChart {
     // 创建虚拟列表
     this.rowList = createRowList({
       data,
+      colorArray: color,
       containerWidth: contentWidth, 
       scrollCallback: () => ({    // 闭包获取scrollArea中的属性，需要时调用回调获取
         scrollY: this.scrollArea ? this.scrollArea.scrollY : DEFAULT_SCROLL_INFO.SCROLLY,   // 当前滚动位置
@@ -183,16 +185,24 @@ export default class RankProcessChart extends BaseChart {
     this.resizeObserver.observe(this.dom);
   }
 
-  // 更新主题
-  updateTheme() {
+  // 更新样式和颜色
+  updateStyles() {
     // 动态获取最新的 chartToken
     import('../../feature/token/index.js').then(Token => {
       const latestChartToken = Token.default.getTokenByName('RankProcessChart');
-      
-      if(this.headerGroup) this.headerGroup.updateTheme(latestChartToken);
-      if(this.rowList) this.rowList.updateTheme(latestChartToken);
-      if(this.scrollArea) this.scrollArea.updateTheme(latestChartToken);
-      if(this.tooltip) this.tooltip.updateTheme(this.option.theme);
+
+      // 更新时优先使用用户设置的颜色，如果没有则使用主题颜色
+      let colorArray = null;
+      if (this.option.color && this.option.color.length > 0) {
+        colorArray = this.option.color;
+      } else {
+        colorArray = getColorsFromToken();
+      }
+
+      if(this.headerGroup) this.headerGroup.updateStyles(latestChartToken);
+      if(this.rowList) this.rowList.updateStyles(latestChartToken, colorArray);
+      if(this.scrollArea) this.scrollArea.updateStyles(latestChartToken);
+      if(this.tooltip) this.tooltip.updateStyles(this.option.theme);
     });
   }
 
@@ -210,14 +220,15 @@ export default class RankProcessChart extends BaseChart {
         titleName, 
         valueName, 
         percentName,
-        data, 
+        data,
         paddingConfig, 
         contentWidth, 
         contentHeight,
       } = resolveOption(this.option, this.option, this.width, this.height);
 
-      if (updates.includes('data') || updates.includes('color') || 
-          updates.includes('padding') || updates.includes('sort')) 
+      if (updates.includes('data') || 
+          updates.includes('sort') ||
+          updates.includes('padding')) 
       {
         this.rowList.updateRows({
           data,
@@ -248,8 +259,8 @@ export default class RankProcessChart extends BaseChart {
         });
       }
 
-      if (updates.includes('theme')) {
-        this.updateTheme();
+      if (updates.includes('theme') || updates.includes('color')) {
+        this.updateStyles();
       }
 
       if(updates.includes('padding')) {
