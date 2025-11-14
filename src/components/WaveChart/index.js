@@ -262,6 +262,7 @@ export default class WaveChart extends BaseChart {
     } else {
       chartOption.data = this.data;
     }
+    chartOption.isMobile = this.option.isMobile;
     chartOption.isWaveRadar = theme.toLowerCase().indexOf('cloud-light') !== -1;
     theme && (chartOption.theme = this.option.theme);
     this.radarMark && (chartOption.radarMark = this.radarMark);
