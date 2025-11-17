@@ -10,7 +10,7 @@
  *
  */
 import getTooltipContentHtmlStr, { validateName } from '../../option/config/tooltip/formatter'
-import { isObject } from '../../util/type';
+import { isArray, isObject, isString } from '../../util/type';
 import { getColor } from '../../util/color';
 import mobile from '../../util/mobile';
 
@@ -22,8 +22,8 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty, tooltip) {
   }
   let seriesNames = [];
   let value = params.value;
-  let name = params.seriesName;
-  let type = params.seriesType;
+  let name = params.name;
+  let type = iChartOpt.legend?.icon;
   seriesNames.push(name);
   if (isObject(value)){
     iChartOpt.data.forEach(data=>{
@@ -33,7 +33,7 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty, tooltip) {
     })
   }
   
-  const iconColor = validateName(value) ? item.color : getColor(color, item.seriesIndex)
+  const iconColor = validateName(value) ?  (isString(params.color) ? params.color : getColor(color, params.seriesIndex)) : getColor(color, params.seriesIndex)
   const dataItem = {
     name,
     value,
@@ -57,12 +57,11 @@ function coverObjDataToInit(params) {
   return params
 }
 
-export function setTooltip(baseOpt, iChartOpt, legendData) {
+export function setTooltip(baseOpt, iChartOpt) {
   const { tipHtml, tooltip, color } = iChartOpt
-  const formatter = tipHtml || tooltip?.formatter
-  baseOpt.tooltip.formatter = (echartsParams, ticket, callback) => {
-    let params = echartsParams
-    const initParams = coverObjDataToInit(params)
+  const formatter = tipHtml || tooltip?.formatter || tooltip?.valueFormatter
+  baseOpt.tooltip.formatter = (params, ticket, callback) => {
+    const initParams = isArray(params) ? coverObjDataToInit(params) : params;
     return formatter && typeof formatter === 'function' ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty, baseOpt.tooltip)
   }
 }
