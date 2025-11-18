@@ -56,8 +56,7 @@ class PieChart {
       handleCenterTitle(this.position, chartInstance, this.baseOption, iChartOption);
     }
     //图例数据
-    const legendData = ldata(iChartOption.data, 'name');
-    setTooltip(this.baseOption, legendData, this);
+    setTooltip(this.baseOption, iChartOption,  this);
     // 合并用户自定义series
     mergeSeries(iChartOption, this.baseOption);
   }

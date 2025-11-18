@@ -22,6 +22,7 @@ import RectCoordSys, { xkey, xdata, ldata, ydata } from '../../option/RectSys';
 import { setSeries, setRange, setMarkLine, setWaterFall, setLimitFormatter, setDatasetSeries } from './handleSeries';
 import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE, ADAPTIVE_THEME } from '../../util/constants';
+import AdaptiveRectSys from '../../option/RectSys/adaptive';
 
 class BarChart {
 
@@ -143,6 +144,8 @@ class BarChart {
     if (ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
       updateWidth(baseOption, this.chartInstance, this.iChartOption);
     }
+    // 坐标轴二次计算
+    AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
     
   }
 
@@ -154,12 +157,18 @@ class BarChart {
 
   // 自适应柱条宽度
   resize(callback) {
+    if (this.iChartOption.adaptive) {
+      // 坐标轴二次计算
+      AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
+    }
     // 如果存在 dataZoom，提前返回
     if (this.baseOption.dataZoom[0].show === true) {
+      callback && callback(this.baseOption);
       return;
     };
     // 如果用户自定义了 barWidth，提前返回
     if (this.iChartOption.itemStyle?.barWidth) {
+      callback && callback(this.baseOption);
       return;
     }
     if (ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
