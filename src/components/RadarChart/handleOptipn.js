@@ -21,6 +21,8 @@ import Token from '../../feature/token';
 import getRadar, { getMarkRadarOption, getThresholdSeries } from './BaseOption';
 import { getColor } from '../../util/color';
 import handleCenterPosition from '../PieChart/handleCenterPosition';
+import mobile from '../../util/mobile';
+import { getCloseIcon } from '../../option/config/tooltip/formatter';
 
 function initRadarSys(baseOpt, iChartOpt) {
   baseOpt.color = iChartOpt.color;
@@ -202,9 +204,12 @@ function getCommonDataColor(iChartOpt, data, dataName) {
 }
 
 function handleFormatter(tooltip, iChartOpt, radarKeys, data) {
-  const { markLine } = iChartOpt;
+  const { markLine, theme } = iChartOpt;
+  const { tooltipItemGap, tooltipTitleColor, tooltipIconGap, tooltipValueGap, legendCircleItemHeight, tooltipDataNameColor, tooltipValueColor, tooltipCloseColor } = Token.config
   const alarmColor = Token.config.colorState.colorError;
   const isThreshold = !!(isObject(markLine) && markLine?.threshold);
+  const isMobile = iChartOpt.isMobile || mobile();
+  const valueFontWeight = theme.includes('cloud') ? 'font-weight:bold;' : '';
   tooltip.formatter = params => {
     const seriesdata = params.data;
     const dataName = seriesdata.name;
@@ -217,20 +222,23 @@ function handleFormatter(tooltip, iChartOpt, radarKeys, data) {
       })
       dataColor = getCommonDataColor(iChartOpt, data, dataName)
     }
-    let htmlString = `<div style="margin-bottom:4px;">${defendXSS(dataName)}</div>`;
+    let htmlString = `<div class="hui-charts-tooltip-title" style="margin-bottom:4px;color:${tooltipTitleColor}">${defendXSS(dataName)}</div>`;
+    if (isMobile) {
+      htmlString += `<div class="hui-charts-tooltip-close">${getCloseIcon(tooltipCloseColor)}</div>`
+    }
     tipData.forEach((item, index) => {
       let color = dataColor
       if (markLine) {
         const markVal = isThreshold ? markLine.threshold[radarKeys[index]] : markLine;
         if (item >= markVal) color = alarmColor
       }
-      htmlString += `<div style="margin-bottom:4px;">
-      <span style="display:inline-block;width:8px;
-      height:8px;margin-right:8px;border-radius:5px;
-      background-color:${defendXSS(color)};"></span>
-      <span style="display:inline-block;margin-right:8px;
-      min-width:60px;font-size:12px">${defendXSS(radarKeys[index])}</span>
-      <span style="font-size:14px">${defendXSS(checkValue(item))}</span>
+      let marginBottomStyle = index+1 === tipData.length ? '' : 'margin-bottom:4px;'
+      htmlString += `<div class="hui-charts-tooltip-item" style=${marginBottomStyle}>
+        <div style="display:inline-block;vertical-align: middle;">
+          <span style="display:inline-block;width:${legendCircleItemHeight}px;height:${legendCircleItemHeight}px;margin-right:${tooltipIconGap}px;border-radius:5px;background-color:${defendXSS(color)};"></span>
+          <span style="display:inline-block;margin-right:8px;min-width:60px;font-size:12px">${defendXSS(radarKeys[index])}</span>
+        </div>  
+        <span style="font-size:14px;${valueFontWeight}">${defendXSS(checkValue(item))}</span>
       </div>`;
     });
     return htmlString;

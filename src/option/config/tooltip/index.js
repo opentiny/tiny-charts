@@ -19,7 +19,7 @@ import merge from '../../../util/merge';
 function tooltip(iChartOption, chartName, callBack) {
   const formatter = iChartOption.tipHtml;
   const formatterStyle = iChartOption.tipHtmlStyle;
-  const tooltip = base(chartName);
+  const tooltip = base(chartName, iChartOption);
   // 组件默认的extraCssText样式
   const extraCssText = tooltip.extraCssText;
   if (formatter) {

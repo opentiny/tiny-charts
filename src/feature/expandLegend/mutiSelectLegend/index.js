@@ -46,6 +46,7 @@ class MutiSelectLegend {
 
     setOption(option) {
         option = option || DEFAULT_OPTION;
+        this.theme = option.theme;
         this.onclick = option.onclick;
         this.itemStyle = option.itemStyle;
         this.color = option.color;

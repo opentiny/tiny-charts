@@ -12,9 +12,10 @@
 import MutiSelect from "../mutiSelect";
 import item from "./item";
 import group from "./group";
-import { CSS_CLASS, SVG_ICON } from "./constants";
+import { CSS_CLASS, SVG_ICON, CLOUD_SVG_ICON } from "./constants";
 import { uuid } from "../../../util/math";
 import { svgTransform } from "../../../util/convert";
+import Token from "../../token";
 
 // 创建更多按钮
 function more() {
@@ -24,9 +25,16 @@ function more() {
     moreIcon.src = svgTransform(SVG_ICON.EVEN_MORE);
     more.classList.add(CSS_CLASS.MORE);
     more.appendChild(moreIcon);
+    if (this.theme?.includes('cloud')) {
+        more.innerHTML = "";
+        more.innerHTML = CLOUD_SVG_ICON.EVEN_MORE;
+        let moreColor = Token.config.legendPageTextColor;
+        this.root.parentNode.setAttribute('style', `--moreColor: ${moreColor};`);
+    }
     let dropdown = new MutiSelect(more);
     dropdown.setOption({
         data: this.data,
+        theme: this.theme,
         itemStyle:this.itemStyle,
         // 点击触发的事件
         onclick: (index) => {
@@ -68,17 +76,27 @@ function more() {
             // 对它们分组
             group.call(this);
             this.current = 0;
-
+            const isCloud = this.theme?.includes('cloud');
             // 分页按钮状态判断
             this.pagingText.innerText = `${this.current + 1}/${this.group.length > 0 ? this.group.length : 1}`;
+            if (this.group.length < 2) {
+                const iconInactiveColor = Token.config.legendPageIconInactiveColor;
+                this.pagingRight.setAttribute('style', `--pagingIconColor: ${iconInactiveColor};`);
+            }
             this.pagingLeftIcon.src = svgTransform(SVG_ICON.LEFT_ARROW);
-            this.pagingLeftIcon.classList.remove(CSS_CLASS.PAGING_ICON_ROTATE);
+            if (!isCloud) {
+                this.pagingLeftIcon.classList.remove(CSS_CLASS.PAGING_ICON_ROTATE);
+            }
             if (this.current + 1 === this.group.length || this.group.length === 0) {
                 this.pagingRightIcon.src = svgTransform(SVG_ICON.LEFT_ARROW);
-                this.pagingRightIcon.classList.add(CSS_CLASS.PAGING_ICON_ROTATE);
+                if (!isCloud) {
+                    this.pagingRightIcon.classList.add(CSS_CLASS.PAGING_ICON_ROTATE);
+                }
             } else {
                 this.pagingRightIcon.src = svgTransform(SVG_ICON.RIGHT_ARROW);
-                this.pagingRightIcon.classList.remove(CSS_CLASS.PAGING_ICON_ROTATE);
+                if (!isCloud) {
+                    this.pagingRightIcon.classList.remove(CSS_CLASS.PAGING_ICON_ROTATE);
+                }
             }
             this.onclick(this.data[index], this.data);
         },

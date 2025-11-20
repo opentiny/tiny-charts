@@ -26,6 +26,7 @@ import { lttb } from '../../feature/performance/lttb';
 import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE } from '../../util/constants';
 import { isArray, isObject } from '../../util/type';
+import legend from '../../option/config/legend';
 
 class LineChart {
 
@@ -35,6 +36,7 @@ class LineChart {
     this.baseOption = {};
     this.baseOption = cloneDeep(BaseOption);
     this.iChartOption = {};
+    this.chartInstance = chartInstance;
     getDatasetData(iChartOption);
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
@@ -176,6 +178,13 @@ class LineChart {
    */
   getYAxisMinValue(echartsIns, index) {
     return echartsIns?.getModel()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0] || 0;
+  }
+
+  resize(callback) {
+    // 坐标轴二次计算
+    AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
+    this.baseOption.legend = legend(this.iChartOption, 'LineChart', this.chartInstance);
+    callback(this.baseOption);
   }
 }
 

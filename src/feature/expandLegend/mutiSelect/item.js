@@ -9,12 +9,12 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import { CSS_CLASS, SVG_ICON } from "./constants";
+import { CSS_CLASS, SVG_ICON, CLOUD_SVG_ICON } from "./constants";
 import { svgTransform } from "../../../util/convert";
 const CIRCLE = "circle";
 const LINE = "line";
 // 创建每条下拉选项
-function item(data, index,color,itemStyle) {
+function item(data, index,color,itemStyle, that) {
 
     // 整个选项的dom，每个选项由图例和文字组成(图例可以是checkbox)
     const itemDom = document.createElement("div");
@@ -72,7 +72,6 @@ function item(data, index,color,itemStyle) {
         }
         itemDom.append(itemIcon, itemName, copy);
     }else{
-
         // 创建checkbox的dom
         const checkbox = document.createElement("div");
         checkbox.classList.add(CSS_CLASS.CHECKBOX);
@@ -82,8 +81,13 @@ function item(data, index,color,itemStyle) {
         if (data.selected) {
             checkbox.classList.add("active");
             checkboxIcon.classList.add("active");
+            checkboxIcon.src = svgTransform(SVG_ICON.TICK);
         }
-        checkbox.appendChild(checkboxIcon);
+        if (this?.option?.theme?.includes('cloud') || that?.option?.theme?.includes('cloud')) {
+            checkbox.innerHTML = CLOUD_SVG_ICON.CHECKBOX
+        } else {
+            checkbox.appendChild(checkboxIcon);
+        }
 
         // 文字的dom
         const itemName = document.createElement("span");

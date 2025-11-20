@@ -17,6 +17,8 @@ import { CHART_TYPE } from '../../util/constants';
 import handleCenterTitle from '../../option/config/polarTitle/handleCenterTitle';
 import handleCenterPosition from './handleCenterPosition';
 import { mergeSeries } from '../../util/merge';
+import { setTooltip } from './handleOptipn';
+import ldata from '../../option/config/legend/ldata';
 
 class PieChart {
 
@@ -53,6 +55,8 @@ class PieChart {
     if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
       handleCenterTitle(this.position, chartInstance, this.baseOption, iChartOption);
     }
+    //图例数据
+    setTooltip(this.baseOption, iChartOption,  this);
     // 合并用户自定义series
     mergeSeries(iChartOption, this.baseOption);
   }

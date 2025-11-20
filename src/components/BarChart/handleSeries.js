@@ -18,6 +18,7 @@ import chartToken from './chartToken';
 import Token from '../../feature/token';
 import getTooltipContentHtmlStr from '../../option/config/tooltip/formatter'
 import borderRadius from '../../feature/token/factory/globalToken/borderRadius';
+import mobile from '../../util/mobile';
 
 function handleYaxis(barSeries, yAxis) {
   if (Array.isArray(yAxis)) {
@@ -723,6 +724,8 @@ export function setLimitFormatter(baseOption, iChartOption, seriesData) {
       }
       config.children.push(dataItem)
     });
+    const isMobile = mobile();
+    config.isMobile = iChartOption.isMobile || isMobile;
     return getTooltipContentHtmlStr(config, baseOption.tooltip);
   };
 }

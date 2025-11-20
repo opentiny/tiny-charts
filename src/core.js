@@ -131,8 +131,6 @@ export default class CoreChart extends BaseChart {
     initOpts = merge(defaultInit, initOpts);
     this.dom = chartDom;
     this.dom.classList.add('hui-charts-instance');
-    this.isMobile = mobile();
-    if (this.isMobile) this.dom.classList.add('mobile');
     this.echartsIns = echarts.init(chartDom, theme, initOpts);
     // resize节流函数
     this.throttleResize = initOpts.resizeThrottle === 0 ? this.setResize.bind(this) : throttle(initOpts.resizeThrottle, this.setResize.bind(this));
@@ -174,7 +172,10 @@ export default class CoreChart extends BaseChart {
     if (iChartOption.readScreen) {
       readScreen(this.dom, iChartOption.readScreen);
     }
-    // 使用图例扩展时屏蔽默认图例
+    // 增加移动端类名
+    this.isMobile = mobile();
+    if (this.isMobile) this.dom.classList.add('mobile');
+    // 使用图例扩展或svg图例时屏蔽默认图例
     if (iChartOption?.legend?.upgrade?.type !== undefined || iChartOption?.legend?.svg){
       iChartOption.legend.show = false;
     }

@@ -20,7 +20,7 @@ function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
   const rect = echartsIns.getModel().getComponent('grid').coordinateSystem.getRect();
   let iXkey = xkey(iChartOpt);
   let iXdata = xdata(iChartOpt.data, iXkey);
-  const isMobile = mobile();
+  const isMobile = iChartOpt.isMobile ||mobile();
   // 创建一个canvas
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -50,6 +50,8 @@ function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
           iChartOpt.dataZoom.type = isMobile ? "inside" : 'slider';
         }
         break;
+      } else {
+        iChartOpt.dataZoom.show = false;
       }
     }
   }

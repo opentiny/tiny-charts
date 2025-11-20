@@ -52,6 +52,7 @@ function getModelToken(aliasToken) {
     legendTextAndIconSpace, 
     legendTextValueFontSize,
     legendTextNameFontSize,
+    colorLegendItemHover,
     containerGap,
     lineWidthSecondary,
     borderWidthNone,
@@ -166,6 +167,8 @@ function getModelToken(aliasToken) {
     legendItemBorderWidth: borderWidthNone,
     // 图例的padding
     legendPadding: paddingNone,
+    // 图例下拉hover
+    legendDropDownItemHover: colorLegendItemHover,
 
     /** -----x轴------ */
     // x轴名称间距
@@ -342,7 +345,7 @@ function getModelToken(aliasToken) {
     // 默认tip的icon间距
     tooltipIconGap: tipIconGap,
     // 默认tip的close颜色
-    tooltipCloseColor: colorIconActive,
+    tooltipCloseColor: colorIcon,
     // 默认ip的icon间距
     tooltipValueGap: tipValueGap,
     // 标题颜色

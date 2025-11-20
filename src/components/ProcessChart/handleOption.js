@@ -14,6 +14,7 @@ import merge from '../../util/merge';
 import { isString, isArray } from '../../util/type';
 import { getBarColor } from './handleSeries';
 import getTooltipContentHtmlStr, { getDataHtmlStr } from '../../option/config/tooltip/formatter'
+import mobile from '../../util/mobile';
 
 function handleGridWidth(baseOpt, padding, chartInstance) {
   const right = padding[1];
@@ -188,6 +189,7 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
         config.children.push(dataItem)
       }
     });
+    config.isMobile = iChartOpt.isMobile || mobile();
     return getTooltipContentHtmlStr(config, baseOpt.tooltip)
   };
 }

@@ -155,6 +155,8 @@ function getAliasToken(globalToken, sceneToken) {
     colorCenterUnit: colorTextPrimary,
     // 中心center名称
     colorCenterName: colorTextSecondary,
+    // 图例 item hover
+    colorLegendItemHover: colorFillHover,
     // ---------------------------------------------------阴影-------------------------------------------------
     // tip阴影offsetY
     shadowOffsetYContainer: shadowOffsetYPrimary,
