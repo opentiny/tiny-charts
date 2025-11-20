@@ -17,7 +17,6 @@ const option = {
     { name: '外部依赖', max: 11 },
     { name: '负载', max: 11 },
   ],
-  adaptive: true,
   centerDom: () => {
     const waveDom = `
       <div class="wave_center_content">
