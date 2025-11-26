@@ -139,7 +139,7 @@ class BarLineChart {
     }
     if (ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
       updateWidth(this.baseOption, this.chartInstance, this.iChartOption);
-      callback && callback(this.baseOption);
+      callback && callback(this.baseOption, { notMerge: false });
     }
   }
 }

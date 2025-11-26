@@ -17,7 +17,7 @@ import mobile from '../../util/mobile';
 function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
   if (baseOpt.xAxis[0].type !== 'category') return;
   if (!iChartOpt.adaptive) return;
-  const rect = echartsIns.getModel().getComponent('grid').coordinateSystem.getRect();
+  const rect = echartsIns.getModel?.()?.getComponent?.('grid')?.coordinateSystem?.getRect() || echartsIns?.getDom?.().getBoundingClientRect() || {}; 
   let iXkey = xkey(iChartOpt);
   let iXdata = xdata(iChartOpt.data, iXkey);
   const isMobile = iChartOpt.isMobile ||mobile();
