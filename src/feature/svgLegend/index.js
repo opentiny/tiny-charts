@@ -69,7 +69,7 @@ function createSvgLegend(legend, legendData, chartInstance, iChartOption) {
     totalWidth = legendWidth
   }
   // 图例渲染开始位置
-  if (legend.left === 'center' || (legend.left===undefined && legend.right=== 'center')) {
+  if (legend.left === 'center' || legend.left === 'auto' || (legend.left===undefined && (legend.right=== 'center' || legend.right=== 'auto'))) {
     startX = (containerRect.width - totalWidth)/2
   } else if (legendStartRight) {
     startX = legendStartRight - totalWidth;
@@ -103,7 +103,7 @@ function createLegend(option, secondaryRender){
     const style = {
       x: startX,
       y:  legendStartY || 0 ,
-      padding: '',
+      padding: iChartOption.padding,
       width: legend.itemWidth || 12,
       height: legend.itemHeight || 12,
       itemGap: itemGap,
@@ -172,23 +172,27 @@ function getLegendWidth(legend, chartInstance, iChartOption) {
   const right = legend.right;
   let userWidth = legend.width;
   userWidth = !isNaN(Number(userWidth)) ? userWidth : (userWidth?.includes?.('%') ? Number(userWidth.slice(0, -1)) * width / 100 : userWidth || 0);
-  if (!isNaN(Number(userWidth))) return userWidth;
+  if (!isNaN(Number(userWidth))) return Number(userWidth);
   let legendWidth = width;
-  if (left === 'center' || right === 'center') {
-    legendWidth = width
+  if (left === 'center' || left === 'auto') {
+    legendWidth -=  (iChartOption.padding?.[3] || 0)
+  }
+  if (right === 'center' || right === 'auto') {
+    legendWidth -= (iChartOption.padding?.[1] || 0)
   }
   if (!isNaN(Number(left))) {
-    legendWidth -= left
+    legendWidth -= Number(left)
   }
   if (!isNaN(Number(right))) {
-    legendWidth -= right
+    legendWidth -= Number(right)
   }
   if (left?.includes?.('%')) {
-    legendWidth -= Number(left.slice(0, -1)) * width / 100
+    legendWidth -= (Number(left.slice(0, -1)) * width / 100) + iChartOption.padding?.[1] || 0
   }
   if (right?.includes?.('%')) {
-    legendWidth -= Number(right.slice(0, -1)) * width / 100
+    legendWidth -= (Number(right.slice(0, -1)) * width / 100) + iChartOption.padding?.[3] || 0
   }
+
   return legendWidth
 }
 
@@ -261,13 +265,14 @@ function createItem(svg, type, style, svgNS, name, index, legend, legendWidth, s
   g.appendChild(legendText);
   svg.appendChild(g);
   itemWidth = legendText.getBBox().width + width + 6;// 文本与icon间隙6
-  let gRect = svg.getBoundingClientRect()
+  let gRect = svg.getBoundingClientRect();
   if (secondaryRender && ((gRect?.width || 0) + 22 + itemGap + width) > legendWidth){ // 超出宽度时截断显示 22是省略号
     const textLength = name.length;
-    let itemWidth = legendText.getBBox().width + width + 6;
+    let itemWidth = legendText.getBBox().width + width + 6; // icon占宽 + 间隙
     let newText;
     // 计算可显多少个文本((图例最大宽 - (节点的起始坐标 - 左边距 + 实际占宽 + ...宽度)) / 文本宽)   减3为 ... 的字符
-    let newTextLength = Math.trunc(textLength * ((legendWidth - (startX - (legendLeft || 0) + width + 6)) / itemWidth)) - 3; 
+    legendLeft = isNumber(Number(legendLeft)) && !isNaN(Number(legendLeft)) ? Number(legendLeft) : padding[3] || 0
+    let newTextLength = Math.trunc(textLength * ((legendWidth - (startX - legendLeft + width + 6)) / itemWidth)) - 4; 
     newTextLength = newTextLength < 0 ? 0 : newTextLength;
     if (textLength !== newTextLength) {
       newText = name.slice(0, newTextLength) + ' ...'
@@ -374,28 +379,36 @@ function showDropDown(e, container, legend){
   const dropDown = container.getElementsByClassName('hui-legend-dropdown')[0];
   const containerRect = container.getBoundingClientRect();
   const width = dropDown.clientWidth;
+  dropDown.style['max-width'] = (containerRect.width - 16) + 'px';
   let height = dropDown.clientHeight;
-  let top = transformPosition(legend.top, containerRect.height)
-  let bottom = transformPosition(legend.bottom, containerRect.height)
+  let top = transformPosition(legend.top, containerRect.height);
+  let bottom = transformPosition(legend.bottom, containerRect.height);
+
+  top = top === undefined ? containerRect.height - (bottom || 0) - 20 : top;// 20 为图例区占高
+  
   let dropDownLeft = e.clientX - containerRect.left;
   let dropDownTop = e.clientY - containerRect.top + 8;
-  const topSpace = isNumber(top) ? top : containerRect.height - bottom - 16;
-  const bottomSpace = isNumber(bottom) ? bottom : containerRect.height - top - 16;
+  let topSpace = isNumber(top) ? top : containerRect.height - bottom - 16;
+  let bottomSpace = isNumber(bottom) ? bottom : containerRect.height - top - 16;
   if ((dropDownLeft + width) > containerRect.width) {
     dropDownLeft -= width - 5; //预留间隙，避免与边框重合
   }
+  if (dropDownLeft < 8){
+    dropDownLeft = 8;
+  }
   if ((dropDownTop + height) > containerRect.height) {
     if (topSpace > bottomSpace) {
-      height = topSpace - 4; //预留间隙，避免与边框重合
-      top -= height + 16;
+      top -= 4 + height;
+      height = top - 4; //预留间隙，避免与边框重合
     } else {
       height = bottomSpace - 4;//预留间隙，避免与边框重合
     }
-    
+  } else {
+    top += 20;
   }
   dropDown.classList.toggle('show');
   dropDown.style.left = dropDownLeft + 'px';
-  dropDown.style.top = dropDownTop + 'px';
+  dropDown.style.top = top + 'px';
   dropDown.style['max-height'] = height + 'px';
   let flag = false;
   const hideDropDown = (event)=>{

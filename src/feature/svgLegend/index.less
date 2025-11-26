@@ -47,6 +47,11 @@
     cursor: default;
     user-select: none;
     pointer-events: all;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
     &:hover{
       background: var(--itemHoverBg);
     }
@@ -74,6 +79,9 @@
   &-text{
     margin-left: 4px;
     color:var(--textColor);
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
 }
