@@ -85,7 +85,7 @@ class ProcessChart {
         }
     });
     setNameSeriesWidth(nameSeries, this.dataSet, this.iChartOption, this.chartInstance);
-    callback(this.baseOption)
+    callback(this.baseOption, { notMerge: false })
   }
 
 }
