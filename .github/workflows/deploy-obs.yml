@@ -33,7 +33,8 @@ jobs:
       - name: Build doc
         run: npm run build:opentiny
         env:
-          VITE_BASE: //opentiny-assets.obs.cn-north-4.myhuaweicloud.com/tiny-charts-web-doc/${{ env.VERSION }}/
+          VITE_BASEROUTER: tiny-charts
+          VITE_PUBLISH_URL: //opentiny-assets.obs.cn-north-4.myhuaweicloud.com/tiny-charts-web-doc/${{ env.VERSION }}/
       - name: Copy files
         run: |
           cp dist/index.html dist/404.html
