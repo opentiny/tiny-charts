@@ -21,6 +21,9 @@ jobs:
         run: npm install --unsafe-perm=true --allow-root --legacy-peer-deps
       - name: Build doc
         run: npm run build:opentiny
+        env:
+          VITE_BASEROUTER: tiny-charts
+          VITE_PUBLISH_URL: /tiny-charts/
       - name: Copy files
         run: |
           cp dist/index.html dist/404.html
