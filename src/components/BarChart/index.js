@@ -23,6 +23,7 @@ import { setSeries, setRange, setMarkLine, setWaterFall, setLimitFormatter, setD
 import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE, ADAPTIVE_THEME } from '../../util/constants';
 import AdaptiveRectSys from '../../option/RectSys/adaptive';
+import legend from '../../option/config/legend';
 
 class BarChart {
 
@@ -160,20 +161,20 @@ class BarChart {
     if (this.iChartOption.adaptive) {
       // 坐标轴二次计算
       AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
+      this.baseOption.legend = legend(this.iChartOption, 'BarChart', this.chartInstance);
+      callback && callback(this.baseOption, { notMerge: false });
     }
     // 如果存在 dataZoom，提前返回
     if (this.baseOption.dataZoom[0].show === true) {
-      callback && callback(this.baseOption);
       return;
     };
     // 如果用户自定义了 barWidth，提前返回
     if (this.iChartOption.itemStyle?.barWidth) {
-      callback && callback(this.baseOption);
       return;
     }
     if (ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
       updateWidth(this.baseOption, this.chartInstance, this.iChartOption);
-      callback && callback(this.baseOption);
+      callback && callback(this.baseOption, { notMerge: false });
     }
   }
 }

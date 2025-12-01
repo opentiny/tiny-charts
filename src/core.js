@@ -153,8 +153,8 @@ export default class CoreChart extends BaseChart {
   setResize() {
     this.mediaScreenObserver && this.mediaScreenObserver.observe();
     this.echartsIns && this.echartsIns._dom && this.echartsIns.resize && this.echartsIns.resize({ width: 'auto' });
-    this.echartsIns && this.echartsIns._dom && this.ichartsIns && this.ichartsIns.resize && this.ichartsIns.resize((resizedOption) => {
-      this.setOption(resizedOption);
+    this.echartsIns && this.echartsIns._dom && this.ichartsIns && this.ichartsIns.resize && this.ichartsIns.resize((resizedOption, option = { notMerge: true } ) => {
+      this.setOption(resizedOption, option);
     });
   }
 
