@@ -107,7 +107,8 @@ class Grid {
         let { startX, endX, startY, endY, step } = option;
         // 绘制底图
         const size = (this.defaultOption.config.unitSize || 1) * this.scale; // 点的大小
-
+        this.bgCanvasCtx.fillStyle = this.defaultOption.config.color;
+        this.bgCanvasCtx.beginPath();
         for (let x = 0; x > startX; x -= step) {
             for (let y = 0; y > startY; y -= step) {
                 this.drawPoint(x, y, size);
@@ -124,15 +125,19 @@ class Grid {
                 this.drawPoint(x, y, size);
             }
         }
+        this.bgCanvasCtx.fill();
         this.bgCanvasCtx.restore();
     }
 
     // 绘制点
     drawPoint(x, y, size) {
-        this.bgCanvasCtx.fillStyle = this.defaultOption.config.color;
-        this.bgCanvasCtx.beginPath();
-        this.bgCanvasCtx.arc(x, y, size, 0, Math.PI * 2);
-        this.bgCanvasCtx.fill();
+        this.bgCanvasCtx.moveTo(x,y);
+        // 缩放值小于0.9时，使用rect渲染，减少性能消耗
+        if (this.scale < 0.9) {
+            this.bgCanvasCtx.rect(x - size, y - size, size*2, size*2);
+        } else {
+            this.bgCanvasCtx.arc(x, y, size, 0, Math.PI * 2);
+        }
     }
 
     // 绘制网格背景
@@ -140,31 +145,25 @@ class Grid {
         let { startX, endX, startY, endY, step } = option;
         this.bgCanvasCtx.strokeStyle =  this.defaultOption.config.color;
         this.bgCanvasCtx.lineWidth = (this.defaultOption.config.unitSize || 1) * this.scale;
+        this.bgCanvasCtx.beginPath();
         for (let x = 0; x > startX; x -= step) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(x, startY);
             this.bgCanvasCtx.lineTo(x, endY);
-            this.bgCanvasCtx.stroke();
         }
         for (let x = step; x <= endX; x += step) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(x, startY);
             this.bgCanvasCtx.lineTo(x, endY);
-            this.bgCanvasCtx.stroke();
         }
 
         for (let y = 0; y > startY; y -= step) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(startX, y);
             this.bgCanvasCtx.lineTo(endX, y);
-            this.bgCanvasCtx.stroke();
         }
         for (let y = 0; y <= endY; y += step) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(startX, y);
             this.bgCanvasCtx.lineTo(endX, y);
-            this.bgCanvasCtx.stroke();
         }
+        this.bgCanvasCtx.stroke();
         this.bgCanvasCtx.restore();
     }
 
@@ -176,60 +175,47 @@ class Grid {
         this.bgCanvasCtx.lineWidth = this.defaultOption.config[0]?.unitSize * this.scale;
         let secondGridSize = step * (this.defaultOption.config[1]?.factor || 4);
         
+        this.bgCanvasCtx.beginPath();
         for (let x = 0; x > startX; x -= step) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(x, startY);
             this.bgCanvasCtx.lineTo(x, endY);
-            this.bgCanvasCtx.stroke();
         }
         for (let x = step; x <= endX; x += step) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(x, startY);
             this.bgCanvasCtx.lineTo(x, endY);
-            this.bgCanvasCtx.stroke();
         }
 
         for (let y = 0; y > startY; y -= step) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(startX, y);
             this.bgCanvasCtx.lineTo(endX, y);
-            this.bgCanvasCtx.stroke();
         }
         for (let y = 0; y <= endY; y += step) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(startX, y);
             this.bgCanvasCtx.lineTo(endX, y);
-            this.bgCanvasCtx.stroke();
         }
-
+        this.bgCanvasCtx.stroke();
         // 绘制第二层网格
+        this.bgCanvasCtx.beginPath();
         this.bgCanvasCtx.strokeStyle = this.defaultOption.config[1]?.color;
         this.bgCanvasCtx.lineWidth = this.defaultOption.config[1]?.unitSize * this.scale;  
         for (let x = 0; x > startX; x -= secondGridSize) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(x, startY);
             this.bgCanvasCtx.lineTo(x, endY);
-            this.bgCanvasCtx.stroke();
         }
         for (let x = 0; x <= endX; x += secondGridSize) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(x, startY);
             this.bgCanvasCtx.lineTo(x, endY);
-            this.bgCanvasCtx.stroke();
         }
 
         for (let y = 0; y > startY; y -= secondGridSize) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(startX, y);
             this.bgCanvasCtx.lineTo(endX, y);
-            this.bgCanvasCtx.stroke();
         }
         for (let y = 0; y <= endY; y += secondGridSize) {
-            this.bgCanvasCtx.beginPath();
             this.bgCanvasCtx.moveTo(startX, y);
             this.bgCanvasCtx.lineTo(endX, y);
-            this.bgCanvasCtx.stroke();
         }
+        this.bgCanvasCtx.stroke();
         this.bgCanvasCtx.restore();
     }
 
