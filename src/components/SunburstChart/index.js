@@ -34,9 +34,7 @@ export default class SunburstChart {
         this.baseOption.color = ['', ...iChartOption.color];
         this.baseOption.series = setSeries(iChartOption);
         // 合并用户自定义series
-        merge(this.baseOption.series, iChartOption.series);
-        // 合并用户自定义series
-        mergeSeries(iChartOption, this.baseOption);
+        merge(this.baseOption.series, iChartOption.series);   
     }
     getOption() {
         return this.baseOption;
