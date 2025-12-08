@@ -135,12 +135,13 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty, tooltip) {
     });
   } else if(isObject(params)) {
     const dataItem = {
-          name: params.seriesName || '',
-          value: params.value || '',
-          iconColor: validateName(params.value) ? params.color : getColor(color, params.seriesIndex),
-          type: iChartOpt.legend?.icon
-        }
-        config.children.push(dataItem)
+      name: params.seriesName || '',
+      value: params.value || '',
+      iconColor: validateName(params.value) ? params.color : getColor(color, params.seriesIndex),
+      type: iChartOpt.legend?.icon
+    }
+    config.children.push(dataItem)
+    config.title = params.name
   }
   const isMobile = mobile();
   config.isMobile = iChartOpt.isMobile || isMobile;
