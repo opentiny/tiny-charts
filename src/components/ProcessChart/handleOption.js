@@ -189,7 +189,9 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
         config.children.push(dataItem)
       }
     });
-    config.isMobile = iChartOpt.isMobile || mobile();
+    const isMobile = mobile();
+    const isCloud = iChartOpt.theme?.includes('cloud');
+    config.isMobile = iChartOpt.adaptive && isCloud && (iChartOpt.isMobile || isMobile);
     return getTooltipContentHtmlStr(config, baseOpt.tooltip)
   };
 }

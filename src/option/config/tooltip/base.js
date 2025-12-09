@@ -31,9 +31,10 @@ const chartType = [
 function base(chartName, iChartOption) {
   const trigger = chartName && chartType.includes(chartName) ? 'item' : 'axis';
   const isMobile = iChartOption.isMobile || mobile();
+  const isCloud = iChartOption.theme?.includes('cloud');
   const isMobileShowTipChart = ['LineChart', 'AreaChart', 'BarChart', 'RadarChart'];
-  let className = isMobile ? 'hui-charts-tooltip-container mobile' : 'hui-charts-tooltip-container';
-  if (isMobile && !isMobileShowTipChart.includes(chartName)) {
+  let className = iChartOption.adaptive && isMobile && isCloud ? 'hui-charts-tooltip-container mobile' : 'hui-charts-tooltip-container';
+  if (iChartOption.adaptive && isMobile && isCloud && !isMobileShowTipChart.includes(chartName)) {
     className += ' hide'
   }
   return {

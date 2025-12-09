@@ -76,7 +76,8 @@ function setTipFormatter(params, hideEmpty, tooltip, iChartOption) {
     config.children.push(dataItem)
   });
   const isMobile = mobile();
-  config.isMobile = iChartOption.isMobile || isMobile;
+  const isCloud = iChartOption.theme?.includes('cloud');
+  config.isMobile = iChartOption.adaptive && isCloud && (iChartOption.isMobile || isMobile);
   return getTooltipContentHtmlStr(config, tooltip);
 }
 
