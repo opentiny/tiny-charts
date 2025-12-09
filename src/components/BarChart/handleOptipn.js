@@ -75,9 +75,9 @@ function setTipFormatter(params, hideEmpty, tooltip, iChartOption) {
     }
     config.children.push(dataItem)
   });
-  const isMobile = mobile();
+  const isMobile = iChartOption.isMobile || mobile();
   const isCloud = iChartOption.theme?.includes('cloud');
-  config.isMobile = iChartOption.adaptive && isCloud && (iChartOption.isMobile || isMobile);
+  config.isMobile = iChartOption.adaptive && isCloud && isMobile;
   return getTooltipContentHtmlStr(config, tooltip);
 }
 

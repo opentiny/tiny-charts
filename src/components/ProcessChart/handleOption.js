@@ -189,9 +189,9 @@ function handleStackTipFormatter(baseOpt, iChartOpt) {
         config.children.push(dataItem)
       }
     });
-    const isMobile = mobile();
+    const isMobile = iChartOpt.isMobile ||mobile();
     const isCloud = iChartOpt.theme?.includes('cloud');
-    config.isMobile = iChartOpt.adaptive && isCloud && (iChartOpt.isMobile || isMobile);
+    config.isMobile = iChartOpt.adaptive && isCloud && isMobile;
     return getTooltipContentHtmlStr(config, baseOpt.tooltip)
   };
 }
