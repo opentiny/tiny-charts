@@ -41,8 +41,9 @@ function defaultFormatter(params, color, iChartOpt, hideEmpty, tooltip) {
     type
   }
   config.children.push(dataItem);
-  const isMobile = mobile()
-  config.isMobile = iChartOpt.isMobile || isMobile;
+  const isMobile = iChartOpt.isMobile || mobile()
+  const isCloud = iChartOpt.theme?.includes('cloud');
+  config.isMobile = iChartOpt.adaptive && isCloud && isMobile;
   return getTooltipContentHtmlStr(config, tooltip)
 }
 
