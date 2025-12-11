@@ -5,6 +5,11 @@ on:
     branches: [dev]
 
   workflow_dispatch:
+    inputs:
+      version:
+        description: 输入您将要发布的版本号（默认使用 package.json 中的版本号），例如：`0.1.0`。
+        required: false
+        type: string
 
 env:
   # 在 GitHub 项目源码仓库 → 项目的 Settings → Secrets(Actions 里的 Repository secrets) 里提前建好以下变量
@@ -22,22 +27,50 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.ver.outputs.value }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install deps
         run: npm install --unsafe-perm=true --allow-root --legacy-peer-deps
-      - name: Get home version
+      - name: Get version
+        id: ver
         run: |
-          echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+          # 优先用手动输入的版本号
+          if [ -n "${{ inputs.version }}" ]; then
+            VERSION="${{ inputs.version }}"
+          else
+            VERSION="$(node -p "require('./package.json').version")"
+          fi
+          echo "version: $VERSION"
+          echo "value=$VERSION" >> $GITHUB_OUTPUT
       - name: Build doc
         run: npm run build:opentiny
         env:
           VITE_OPENTINY_URL_PREFIX: /tiny-charts/
-          VITE_PUBLISH_URL: //opentiny-assets.obs.cn-north-4.myhuaweicloud.com/tiny-charts-web-doc/${{ env.VERSION }}/
+          VITE_PUBLISH_URL: //res-static.opentiny.design/tiny-charts-web-doc/${{ steps.ver.outputs.value }}/
       - name: Copy files
         run: |
           cp dist/index.html dist/404.html
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-artifact
+          path: dist/
+  # Deploy job
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-artifact
+          path: dist/
+      - name: Show version
+        run: |
+          echo "Deploying version: ${{ needs.build.outputs.version }}"
       # ===== 下载 obsutil =====
       - name: Install obsutil
         run: |
@@ -55,5 +88,6 @@ jobs:
                          -e=${{ env.HUAWEI_CLOUD_ENDPOINT }}
 
           # 把本地 dist/ 目录整站同步到桶根目录
-          mv dist ${{ env.VERSION }}
-          obsutil cp ${{ env.VERSION }} obs://${{ env.HUAWEI_CLOUD_BUCKET }}/tiny-charts-web-doc/ -r -f
+          echo "needs.build.outputs.version: ${{ needs.build.outputs.version }}"
+          mv dist ${{ needs.build.outputs.version }}
+          obsutil cp ${{ needs.build.outputs.version }} obs://${{ env.HUAWEI_CLOUD_BUCKET }}/tiny-charts-web-doc/ -r -f
