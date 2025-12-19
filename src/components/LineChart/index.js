@@ -79,7 +79,7 @@ class LineChart {
       colors: iChartOption.color
     });
     // 设置VisualMap，通过数值映射颜色
-    this.baseOption.visualMap = setVisualMap(legendData, seriesData, iChartOption, this.baseOption);
+    this.baseOption.visualMap = setVisualMap(legendData, seriesData, iChartOption, this.baseOption, this);
     // 针对预测值图表需求，图表需要进行特殊处理
     handlePredict(this.baseOption, iChartOption);
     // 是否关闭hover态的效果，默认为false

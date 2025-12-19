@@ -46,7 +46,7 @@ function handleVisualMapItem({ index, topColor, top, bottom, bottomColor, vmColo
   return visualMapItem;
 }
 
-export function setVisualMap(legendData, seriesData, iChartOpt, baseOpt) {
+export function setVisualMap(legendData, seriesData, iChartOpt, baseOpt, chartsIns) {
   const visualMap = [];
   const { color: colors, markLine } = iChartOpt;
   if (!markLine) return visualMap;
@@ -92,8 +92,11 @@ export function setVisualMap(legendData, seriesData, iChartOpt, baseOpt) {
     }
     legendData.forEach((legendName, index) => {
       const data = seriesData[legendName];
-      const minData = min(data);
-      const maxData = max(data);
+      let minData = chartsIns.getYAxisMinValue(chartsIns.chartInstance, 0);
+      let maxData = chartsIns.getYAxisMaxValue(chartsIns.chartInstance, 0) ;
+      minData = minData !== undefined ? minData : min(data);
+      maxData = maxData !== undefined ? maxData : max(data);
+
       if(minData === undefined || maxData === undefined){
         return visualMap;
       }
