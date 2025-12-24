@@ -111,8 +111,8 @@ function handleSplitLine(iChartOption, seriesUnit) {
   if (iChartOption.itemStyle) {
     let { lineStyle, width } = iChartOption.itemStyle;
     width = width || chartToken.barWidth;
-    seriesUnit.splitLine.length = (lineStyle && lineStyle.length) || width || 10;
-    seriesUnit.splitLine.distance = width ? width * -1 : -3;
+    seriesUnit.splitLine.length = (lineStyle && lineStyle.length) || 7;
+    seriesUnit.splitLine.distance = (lineStyle && lineStyle.distance) || 0;
   } else {
     seriesUnit.splitLine.length = 7;
     seriesUnit.splitLine.distance = 0;
@@ -123,7 +123,7 @@ function handleSplitLine(iChartOption, seriesUnit) {
     } else {
       seriesUnit.splitLine.lineStyle.color = chartToken.splitLineColor;
     }
-    seriesUnit.splitLine.lineStyle.width = iChartOption.itemStyle.lineStyle.width || 4;
+    seriesUnit.splitLine.lineStyle.width = iChartOption.itemStyle.lineStyle.width || 2;
   }
 }
 
@@ -597,7 +597,7 @@ export function handleSeries(iChartOption,optionColor,containerWidth,containerHe
   const data = iChartOption.data.length ? iChartOption.data : [{value:0,name: ''}];
   const text = iChartOption.text || {};
   const axisLabelStyle = iChartOption.axisLabelStyle || {};
-  const { silent } = iChartOption;
+  const { silent, itemStyle } = iChartOption;
   const radiusSize = containerWidth > containerHeight ? containerHeight : containerWidth;
   // 更改仪表盘轨道底色
   handleTheme(iChartOption);
@@ -607,7 +607,7 @@ export function handleSeries(iChartOption,optionColor,containerWidth,containerHe
   } else {
     seriesInit.axisLabel['color'] = chartToken.descRichColor;
   }
-  seriesInit.axisLabel['distance'] = axisLabelStyle['distance'] || 22;
+  seriesInit.axisLabel['distance'] = axisLabelStyle['distance'] || (itemStyle?.width &&  Number(itemStyle?.width) + 6) || 22;
   seriesInit.axisLabel['fontWeight'] = axisLabelStyle['fontWeight'] || 400;
   seriesInit.axisLabel['fontSize'] = axisLabelStyle['fontSize'] || 14;
   // 组装数据
