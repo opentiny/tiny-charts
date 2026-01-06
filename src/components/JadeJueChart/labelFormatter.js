@@ -33,36 +33,6 @@ const setChildDefaultMax = (data) => {
     return sum;
 };
 
-// 配置玉闋图外围坐标系百分比展示文本
-const setAxisLabel = (sum, iChartOption, baseOpt) => {
-    if (iChartOption.max) {
-        baseOpt.angleAxis.sum = iChartOption.max;
-        const formatter = params => {
-            if (params === iChartOption.max) {
-                return '100%';
-            }
-            if ((params / iChartOption.max) * 100 > 100) {
-                return '';
-            }
-            const x = Math.ceil((params / iChartOption.max) * 100);
-            return `${Math.ceil(x / 10) * 10}%`;
-        };
-        return formatter;
-    } else {
-        const formatter = params => {
-            if (params === sum) {
-                return '100%';
-            }
-            if ((params / sum) * 100 > 100) {
-                return '';
-            }
-            const x = Math.ceil((params / sum) * 100);
-            return `${Math.ceil(x / 10) * 10}%`;
-        };
-        return formatter;
-    }
-};
-
 /**
  * 此函数两部分作用：（1）根据data和max,将数据分为四种数据类型，分类处理angleAxis的sum和max值
  * （2）根据用户传入的formatter，配置极坐标系文本
@@ -109,15 +79,16 @@ const handleLabelFormatter = (iChartOption, baseOpt, chartType) => {
      * 传入函数，用户自定义展示内容
      */
     let formatter = angleAxis.axisLabel.formatter;
+    const defaultFormatter = (params) => `${(params / angleAxis.sum * 100).toFixed(0)}%`;
     switch (formatter) {
         case 'percent':
-            formatter = setAxisLabel(angleAxis.sum, iChartOption, baseOpt);
+            formatter = defaultFormatter;
             break;
         case 'number':
             formatter = undefined;
             break;
         case undefined:
-            formatter = setAxisLabel(angleAxis.sum, iChartOption, baseOpt);
+            formatter = defaultFormatter;
             break;
     }
     if (chartType === CHARTTYPE.PROCESS) {
@@ -126,6 +97,15 @@ const handleLabelFormatter = (iChartOption, baseOpt, chartType) => {
         return;
     }
     angleAxis.axisLabel.formatter = formatter;
+    // 使用customValues属性(echarts5.5.1以上版本才支持)将刻度均分为5份。
+    const customValues = [0];
+    const interval = angleAxis.splitNumber || 5;
+    const averageVal = angleAxis.sum / interval;
+    for (let i = 0; i < interval; i++) {
+        customValues.push(customValues[customValues.length - 1] + averageVal);
+    }
+    angleAxis.axisTick.customValues = customValues;
+    angleAxis.axisLabel.customValues = customValues;
 };
 
 export { handleLabelFormatter };

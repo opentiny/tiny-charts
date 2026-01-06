@@ -17,6 +17,7 @@ function angleAxis(iChartOption, chartName) {
   switch (chartName) {
     case 'JadeJueChart':
       angleAxisOpt = base();
+      angleAxisOpt.splitNumber = 5;
       angleAxisOpt.axisTick.show = true;
       merge(angleAxisOpt, iChartOption.angleAxis);
       break;
