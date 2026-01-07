@@ -161,6 +161,7 @@ export function handleDetail(seriesUnit, text, data, sizeData, isAdaptive) {
       fontSize: sizeData.secondaryFontSize || sizeData.subFontSize,
       color: chartToken.descRichColor,
       padding: [space, 0, 0, 0],
+      fontWeight: 'normal',
     },
     unit: {
       color: chartToken.detailRichColor,
@@ -513,7 +514,7 @@ export function handleStatus(seriesUnit, iChartOption,radiusSize,text,sizeData,i
         fontSize: sizeData.secondaryFontSize || sizeData.subFontSize,
         color: chartToken.descRichColor,
         padding: [lineHeight + sizeData.space, 0, 0, 0],
-
+        fontWeight: 'normal',
       },
       status: {
         fontWeight: 'bolder',
