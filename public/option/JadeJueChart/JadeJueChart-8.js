@@ -17,7 +17,7 @@ const option = {
   // 极坐标系-角度轴相关属性配置
   angleAxis: {
     startAngle: 90,
-    splitNumber: 11,
+    splitNumber: 10,
     axisLine: {
       show: true,
     },
