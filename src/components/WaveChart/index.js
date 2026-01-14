@@ -488,15 +488,25 @@ export default class WaveChart extends BaseChart {
   }
 
   // 加载状态
-  showLoading(option) {
+  showLoading(option = {}) {
     if (this.loadingContainer) {
       this.domContainer.innerHTML = '';
       this.loadingDom.innerHTML = '';
-      option = { theme: 'light', ...option };
-      const text = option.text || '加载中...';
-      const textSize = option.textSize || 24;
-      const textShow = option.textShow === false ? false : true;
-      const textColor = option.textColor || (option.theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#808080');
+
+      let newOption = {
+        theme: this.option.theme || 'light',
+        data: this.option.data,
+        showWave: false,
+      }
+      // 合并新旧数据
+      newOption = merge(newOption, option);
+      // 重新渲染
+      this.refresh(newOption);
+      // 处理loading
+      const text = newOption?.text || '加载中...';
+      const textSize = newOption?.textSize || 24;
+      const textShow = newOption?.textShow === false ? false : true;
+      const textColor = newOption?.textColor || (newOption?.theme.indexOf('dark') !== -1 ? '#FFFFFF' : '#808080');
       const centerDom = () => {
         const dom = `
                 <div style="color: ${defendXSS(textColor)};font-size: ${defendXSS(textSize)}px;line-height: ${defendXSS(
