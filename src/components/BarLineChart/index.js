@@ -107,16 +107,10 @@ class BarLineChart {
       });
     }
     baseOption.series = series;
-    // 如果存在 dataZoom，提前返回
-    if (this.baseOption.dataZoom[0].show === true) {
-      return;
-    };
-    // 如果用户自定义了 barWidth，提前返回
-    if (this.iChartOption.itemStyle?.barWidth) {
-      return;
-    }
-    if (ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
-      updateWidth(this.baseOption, this.chartInstance, this.iChartOption);
+
+    // 如果用户自定义了 barWidth 或 存在 dataZoom，则不主动刷新柱宽
+    if (!baseOption.dataZoom?.[0]?.show && !this.iChartOption.itemStyle?.barWidth && ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
+      updateWidth(baseOption, this.chartInstance, this.iChartOption);
     }
     
   }
@@ -129,15 +123,8 @@ class BarLineChart {
 
   // 自适应柱条宽度
   resize(callback) {
-    // 如果存在 dataZoom，提前返回
-    if (this.baseOption.dataZoom[0].show === true) {
-      return;
-    };
-    // 如果用户自定义了 barWidth，提前返回
-    if (this.iChartOption.itemStyle?.barWidth) {
-      return;
-    }
-    if (ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
+    // 如果用户自定义了 barWidth 或 存在 dataZoom，则不主动刷新柱宽
+    if (!this.baseOption.dataZoom?.[0]?.show && !this.iChartOption.itemStyle?.barWidth &&  ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
       updateWidth(this.baseOption, this.chartInstance, this.iChartOption);
       callback && callback(this.baseOption, { notMerge: false });
     }
