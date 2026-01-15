@@ -133,7 +133,7 @@ function setCenterAndRadius(radar, iChartOpt, baseOpt, chartInstance) {
   if (chartPosition.center) radar.center = chartPosition.center;
   if (chartPosition.radius) radar.radius = chartPosition.radius;
   const position = handleCenterPosition(iChartOpt, baseOpt.legend, chartInstance)
-  if (position?.radius) {
+  if (!iChartOpt.isWaveRadar && position?.radius) {
     radar.radius = position.radius
   }
 }

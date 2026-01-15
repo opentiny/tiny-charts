@@ -69,8 +69,10 @@ class RadarChart {
   // 根据渲染出的结果，二次计算option
   updateOptionAgain(echartsIns) {
         
-    // 坐标轴二次计算
-    AdaptivePolarSys(this.baseOption, this.iChartOption, echartsIns, 'radar')
+    // 坐标轴二次计算 非波纹图
+    if (!this.iChartOption.isWaveRadar) {
+      AdaptivePolarSys(this.baseOption, this.iChartOption, echartsIns, 'radar')
+    }
   }
   
 
