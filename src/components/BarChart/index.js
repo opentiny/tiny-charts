@@ -128,25 +128,18 @@ class BarChart {
         }
       });
     }
-    // 如果存在 dataZoom，提前返回
-    if (this.baseOption.dataZoom[0].show === true) {
-      return;
-    };
-    // 如果用户自定义了 barWidth，提前返回
-    if (this.iChartOption.itemStyle?.barWidth) {
-      return;
-    }
+  
     // 处理用户设置的阈值大于y轴，设置y轴max保证阈值显示
     if(iChartOption.markLine){
       handleMarkLineMax(baseOption, this.chartInstance, this.iChartOption);
     }
     
-
-    if (ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
+    // 如果用户自定义了 barWidth 或 存在 dataZoom，则不主动刷新柱宽
+    if (!baseOption.dataZoom?.[0]?.show && !this.iChartOption.itemStyle?.barWidth && ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
       updateWidth(baseOption, this.chartInstance, this.iChartOption);
     }
     // 坐标轴二次计算
-    AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
+    AdaptiveRectSys(baseOption, this.iChartOption, this.chartInstance, this)
     
   }
 
@@ -162,20 +155,13 @@ class BarChart {
       // 坐标轴二次计算
       AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
       this.baseOption.legend = legend(this.iChartOption, 'BarChart', this.chartInstance);
-      callback && callback(this.baseOption, { notMerge: false });
     }
-    // 如果存在 dataZoom，提前返回
-    if (this.baseOption.dataZoom[0].show === true) {
-      return;
-    };
-    // 如果用户自定义了 barWidth，提前返回
-    if (this.iChartOption.itemStyle?.barWidth) {
-      return;
-    }
-    if (ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
+    
+    // 如果用户自定义了 barWidth 或 存在 dataZoom，则不主动刷新柱宽
+    if (!this.baseOption.dataZoom?.[0]?.show && !this.iChartOption.itemStyle?.barWidth && ADAPTIVE_THEME.includes(this.iChartOption.theme)) {
       updateWidth(this.baseOption, this.chartInstance, this.iChartOption);
-      callback && callback(this.baseOption, { notMerge: false });
     }
+    callback && callback(this.baseOption, { notMerge: false });
   }
 }
 
