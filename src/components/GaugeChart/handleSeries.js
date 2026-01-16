@@ -488,8 +488,8 @@ export function handleStatus(seriesUnit, iChartOption,radiusSize,text,sizeData,i
   }
   seriesUnit.color = color;
 
-  let name = iChartOption.data[0].name;
-  let unit = iChartOption.unit;
+  let name = iChartOption.data[0]?.name || '';
+  let unit = iChartOption.unit || '';
   seriesUnit.detail = {
     valueAnimation: true,
     offsetCenter: [0, 0],
