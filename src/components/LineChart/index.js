@@ -167,7 +167,7 @@ class LineChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMaxValue(echartsIns, index) {
-    return echartsIns?.getModel()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[1] || 1;
+    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[1] || 1;
   }
 
   /**
@@ -177,7 +177,7 @@ class LineChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMinValue(echartsIns, index) {
-    return echartsIns?.getModel()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0] || 0;
+    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0] || 0;
   }
 
   resize(callback) {
