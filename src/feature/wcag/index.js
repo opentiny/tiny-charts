@@ -218,12 +218,10 @@ class WcagObserver {
 
     this.mode = focusedMode;
     this.echartsIns.on('click', 'series', this.onSeriesClick);
-    document.addEventListener('click', this.onDocClick);
     document.addEventListener('keyup', this.onKeyUp);
   }
 
   unobserve() {
-    document.removeEventListener('click', this.onDocClick);
     document.removeEventListener('keyup', this.onKeyUp);
     this.echartsIns.off('click', this.onSeriesClick);
   }
