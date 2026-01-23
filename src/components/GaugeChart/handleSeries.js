@@ -599,6 +599,7 @@ export function handleSeries(iChartOption, optionColor, containerWidth, containe
   const text = iChartOption.text || {};
   const axisLabelStyle = iChartOption.axisLabelStyle || {};
   const { silent, itemStyle } = iChartOption;
+  const barWidth = chartToken.barWidth;
   const radiusSize = containerWidth > containerHeight ? containerHeight : containerWidth;
   // 更改仪表盘轨道底色
   handleTheme(iChartOption);
@@ -608,7 +609,7 @@ export function handleSeries(iChartOption, optionColor, containerWidth, containe
   } else {
     seriesInit.axisLabel['color'] = chartToken.descRichColor;
   }
-  seriesInit.axisLabel['distance'] = axisLabelStyle['distance'] || (itemStyle?.width &&  Number(itemStyle?.width) + 6) || 22;
+  seriesInit.axisLabel['distance'] = axisLabelStyle['distance'] || Number(itemStyle?.width || barWidth) + 6 || 22;
   seriesInit.axisLabel['fontWeight'] = axisLabelStyle['fontWeight'] || 400;
   seriesInit.axisLabel['fontSize'] = axisLabelStyle['fontSize'] || 14;
   // 组装数据
