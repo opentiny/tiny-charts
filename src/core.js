@@ -173,7 +173,7 @@ export default class CoreChart extends BaseChart {
       readScreen(this.dom, iChartOption.readScreen);
     }
     // 增加移动端类名
-    this.isMobile = mobile();
+    this.isMobile = iChartOption.isMobile || mobile();
     if (this.isMobile) this.dom.classList.add('mobile');
     // 使用图例扩展或svg图例时屏蔽默认图例
     if (iChartOption?.legend?.upgrade?.type !== undefined || iChartOption?.legend?.svg){

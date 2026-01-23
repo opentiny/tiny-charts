@@ -242,6 +242,9 @@ export default class WaveChart extends BaseChart {
           },
         },
       ],
+      tooltip:{
+        show: true
+      }
     };
     // 设置雷达图覆盖颜色
     if (type === 'health') {
@@ -262,10 +265,19 @@ export default class WaveChart extends BaseChart {
     } else {
       chartOption.data = this.data;
     }
+    // 继承属性
     chartOption.isMobile = this.option.isMobile;
     chartOption.adaptive = this.option.adaptive;
+    if (this.option.tooltip?.alwaysShowContent) {
+      chartOption.tooltip.alwaysShowContent = true;
+    }
+    if (this.option.tooltip?.enterable) {
+      chartOption.tooltip.enterable = true;
+    }
+
     chartOption.isWaveRadar = true; // 波纹图标识
     theme && (chartOption.theme = this.option.theme);
+
     // 2.自适应尺寸到达200裁剪坐标和名称
     if (this.option.adaptive && this.option.theme.includes('cloud')) {
       if (this.radarWidth === 200) {
