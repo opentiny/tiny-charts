@@ -44,8 +44,9 @@ function handleTempLegend(tempLegend, legendOffset, index) {
 
 function handleTempSeriesObj(item) {
   const tempSeriesObj = cloneDeep(item);
+  // 优先使用自定义颜色
   tempSeriesObj.itemStyle = {
-    color: item.color.rgba,
+    color: item.iColor || item.color.rgba,
   };
   return tempSeriesObj;
 }
@@ -65,6 +66,10 @@ function installInnerData(data, innerData, innerIndex) {
       const colorFrom =
         data.color.from - ((data.color.from - data.color.to) / (data.children.length + 1)) * (cindex + 1);
       const colorTo = data.color.from - ((data.color.from - data.color.to) / (data.children.length + 1)) * (cindex + 2);
+      // 保存自定义颜色
+      if (citem.color) {
+        citem.iColor = citem.color;
+      }
       citem.color = {
         rgba: changeRgbaOpacity(data.color.rgba, colorFrom),
         from: colorFrom,
@@ -95,6 +100,18 @@ function handleMulti(type, baseOption, legend, data) {
     });
     // 组装series
     inner.forEach((innerData, innerIndex) => {
+      // 添加外层data的颜色，需要按序补充，不然会导致颜色异常
+      baseOption.series[0].data.forEach((item, index) => {
+        if (item.color) {
+          item.itemStyle = {
+            color: item.color
+          }
+        } else {
+          item.itemStyle = {
+            color: colors[index]
+          }
+        }
+      })
       const tempSeries = cloneDeep(baseOption.series[0]);
       tempSeries.data = innerData.map(item => {
         const tempSeriesObj = handleTempSeriesObj(item);
