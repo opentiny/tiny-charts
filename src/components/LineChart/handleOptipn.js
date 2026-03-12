@@ -165,14 +165,19 @@ export function setTooltip(baseOpt, iChartOpt, legendData) {
   // 判断面积图是否要过滤series
   const filterArea = judgeFilterAreaSeries(iChartOpt)
   const isFilter = discrete || predict || filterArea
-  const formatter = tipHtml || tooltip?.formatter || tooltip?.valueFormatter
-  baseOpt.tooltip.formatter = (echartsParams, ticket, callback) => {
-    let params = echartsParams
-    if (isFilter) {
-      const lineNumber = legendData.length
-      params = echartsParams.slice(0, lineNumber)
+  const formatter = tipHtml || tooltip?.formatter
+  const valueFormatter = tooltip?.valueFormatter
+  if (valueFormatter) {
+    baseOpt.tooltip.valueFormatter = valueFormatter
+  } else {
+    baseOpt.tooltip.formatter = (echartsParams, ticket, callback) => {
+      let params = echartsParams
+      if (isFilter) {
+        const lineNumber = legendData.length
+        params = echartsParams.slice(0, lineNumber)
+      }
+      const initParams = coverObjDataToInit(params)
+      return formatter && typeof formatter === 'function' ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty, baseOpt.tooltip)
     }
-    const initParams = coverObjDataToInit(params)
-    return formatter && typeof formatter === 'function' ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty, baseOpt.tooltip)
   }
 }

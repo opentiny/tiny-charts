@@ -60,9 +60,14 @@ function coverObjDataToInit(params) {
 
 export function setTooltip(baseOpt, iChartOpt) {
   const { tipHtml, tooltip, color } = iChartOpt
-  const formatter = tipHtml || tooltip?.formatter || tooltip?.valueFormatter
-  baseOpt.tooltip.formatter = (params, ticket, callback) => {
-    const initParams = isArray(params) ? coverObjDataToInit(params) : params;
-    return formatter && typeof formatter === 'function' ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty, baseOpt.tooltip)
+  const formatter = tipHtml || tooltip?.formatter
+  const valueFormatter = tooltip?.valueFormatter
+  if (valueFormatter) {
+    baseOpt.tooltip.valueFormatter = valueFormatter
+  } else {
+    baseOpt.tooltip.formatter = (params, ticket, callback) => {
+      const initParams = isArray(params) ? coverObjDataToInit(params) : params;
+      return formatter && typeof formatter === 'function' ? formatter(initParams, ticket, callback) : defaultFormatter(initParams, color, iChartOpt, baseOpt.tooltip?.hideEmpty, baseOpt.tooltip)
+    }
   }
 }
