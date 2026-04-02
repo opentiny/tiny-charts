@@ -33,6 +33,21 @@ function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
   // 设置字体
   ctx.font = `${fontWeight} ${fontSize} ${fontFamily}`;
   let maxItemWidth = (rect.width - (iXdata.length - 1) * 8) / iXdata.length;
+  // 计算超出最合适的datazoom end
+  let overLoneWidth = 0;
+  let overLoneIndex = 0;
+  for (let index = 0; index < iXdata.length; index++) {
+    const item = iXdata[index];
+    const width = ctx.measureText(item).width;
+    if(maxItemWidth < width){
+      overLoneWidth += width + 8;
+      overLoneIndex ++;
+    }
+  }
+  // 为了文字完全显示，计算出超长文字 + 最小间隙对 / 默认单项的宽度
+  const regularWidth = (maxItemWidth + 8) * overLoneIndex;
+  const widthParcent = parseFloat((regularWidth / overLoneWidth) * 100);
+
   for (let index = 0; index < iXdata.length; index++) {
     const item = iXdata[index];
     const next = iXdata[index+1] ;
@@ -47,7 +62,7 @@ function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
           iChartOpt.dataZoom.mini = true;
           iChartOpt.dataZoom.bottom = 0;
           iChartOpt.dataZoom.start = 0;
-          iChartOpt.dataZoom.end = iChartOpt.dataZoom.end || 80;
+          iChartOpt.dataZoom.end = iChartOpt.dataZoom.end || widthParcent < 30 ? 30 : widthParcent;
           iChartOpt.dataZoom.type = isMobile ? "inside" : 'slider';
           // 设定底部datazoom 预留高度 18 --- 取自设计稿
           if(iChartOpt.padding && iChartOpt.padding[2] < 18){
