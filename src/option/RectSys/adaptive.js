@@ -13,6 +13,7 @@ import datazoom from '../config/datazoom';
 import xkey from '../config/xAxis/xkey';
 import xdata from '../config/xAxis/xdata';
 import mobile from '../../util/mobile';
+import { isArray } from '../../util/type';
 // 组装直角坐标系自适应
 function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
   if (baseOpt.xAxis[0].type !== 'category') return;
@@ -48,15 +49,28 @@ function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
           iChartOpt.dataZoom.start = 0;
           iChartOpt.dataZoom.end = iChartOpt.dataZoom.end || 80;
           iChartOpt.dataZoom.type = isMobile ? "inside" : 'slider';
+          // 设定底部datazoom 预留高度 18 --- 取自设计稿
+          if(iChartOpt.padding && iChartOpt.padding[2] < 18){
+            setAdaptiveGrid(baseOpt, 18)
+          }
         }
         break;
       } else {
         iChartOpt.dataZoom.show = false;
+        setAdaptiveGrid(baseOpt, iChartOpt.padding?.[2] || 0 )
       }
     }
   }
   // 图表datazoom
   baseOpt.dataZoom = datazoom(iChartOpt);
+}
+
+function setAdaptiveGrid(baseOpt, value){
+  if (isArray(baseOpt.grid)) {
+    baseOpt.grid[0].bottom = value;
+  } else {
+    baseOpt.grid.bottom = value;
+  }
 }
 
 export default AdaptiveRectSys;
