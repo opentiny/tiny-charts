@@ -99,6 +99,7 @@ function createLegend(option, secondaryRender){
   let truncateIndex ;
   for (let index = 0; index < legendData.length; index++) {
     const item = legendData[index];
+    let preItem = legendData[index-1];
     const type = item.icon || iChartOption.legend?.icon || legend.icon || 'rect';
     const style = {
       x: startX,
@@ -114,7 +115,16 @@ function createLegend(option, secondaryRender){
       legendRight: right
     }
     const name = item.name || item;
-    const itemConfig = createItem(g, type, style, svgNS, name, index, legend, legendWidth, secondaryRender)
+    const itemConfig = createItem(g, type, style, svgNS, name, index, legend, legendWidth, secondaryRender);
+    if(itemConfig.preTruncation && preItem){
+      truncateIndex = index - 1;
+      if (secondaryRender) {
+        style.x = startX;
+        createEllipsis(g, type, style, svgNS, name, index+1);
+        createDropDown(container, legend, legendData, index+1, iChartOption, chartInstance);
+      }
+      break;
+    }
     itemWidth = itemConfig.itemWidth;
     startX += itemWidth;
     // style.x = startX;
@@ -279,6 +289,10 @@ function createItem(svg, type, style, svgNS, name, index, legend, legendWidth, s
       legendText.innerHTML = newText
     }
     itemWidth = legendText.getBBox().width + width + 6;
+    if(newTextLength === 0){
+      g.remove();
+      return {itemWidth, preTruncation:true, truncation: false};
+    }
     return {itemWidth, truncation: true};
   }
   return {itemWidth, truncation: false};
