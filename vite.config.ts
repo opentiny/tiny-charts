@@ -24,7 +24,7 @@ export default defineConfig(({mode})=>{
       port: 8080,
     },
     define: {
-      'process.env': { ...process.env }
+      'process.env': { NODE_ENV: process.env.NODE_ENV }
     },
     resolve: {
       alias: {},
