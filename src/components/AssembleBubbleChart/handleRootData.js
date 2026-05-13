@@ -112,6 +112,7 @@ export function handleRootData(d3, { baseOption, chartInstance, iChartOption, ch
     // 设置label值是否显示，若有嵌套则不显示，否则显示
     const nodeName = (!node.children || !node.children.length) ? node.data.label : '';
     const { radius, widthDis, heightDis } = setChartPosition(polarInfo, chartInstance);
+    const isNodeActive = node.id === iChartOption?.activation?.id;
     return {
       type: 'circle',
       // 定义球的坐标及半径
@@ -135,26 +136,26 @@ export function handleRootData(d3, { baseOption, chartInstance, iChartOption, ch
           // 文本溢出显示
           overflow: 'visible',
           fontSize: Math.max(node.r / 3, 12),
-          fill: chartType !== CHARTTYPE.NESTED ? '#ffffff' : node.data.textColor, // 设计稿白主题默认白色
-          ...textStyle
+          ...textStyle,
+          fill: setTextContentFill(textStyle, node, chartType, isNodeActive, iChartOption), // 设计稿白主题默认白色
         },
       },
       // 设置文本显示的位置
       textConfig: { position: 'inside' },
       style: {
         // 设置球的边框色
-        stroke: node.data.borderColor,
+        stroke: isNodeActive ? iChartOption.activation?.borderColor : node.data.borderColor,
         // 设置球的背景色
-        fill: node.data.color,
+        fill: isNodeActive ? iChartOption.activation?.backgroundColor : node.data.color,
       },
       emphasis: {
         style: {
-          stroke: getMixColor(node.data.borderColor, '#FFFFFF', .3),
-          fill: codeToRGB(getMixColor(node.data.borderColor, '#FFFFFF', .3), chartType !== CHARTTYPE.NESTED ? 1 : .2),
+          stroke: getMixColor(isNodeActive ? iChartOption.activation?.borderColor : node.data.borderColor, '#FFFFFF', .3),
+          fill: codeToRGB(getMixColor(isNodeActive ? iChartOption.activation?.backgroundColor : node.data.borderColor, '#FFFFFF', .3), chartType !== CHARTTYPE.NESTED ? 1 : .2),
         },
       },
       // 设置球的跳动范围
-      keyframeAnimation: {
+      keyframeAnimation: iChartOption.cancelAnimation ? {} : {
         duration: 3000,
         loop: true,
         delay: random() * 2000,
@@ -167,6 +168,22 @@ export function handleRootData(d3, { baseOption, chartInstance, iChartOption, ch
       },
     };
   };
+}
+
+function setTextContentFill(textStyle, node, chartType, isNodeActive, iChartOption) {
+  let color = '';
+  if (isNodeActive) {
+    color = iChartOption.activation?.color;
+    return color;
+  }
+  if (typeof textStyle.fill === 'function') {
+    color = textStyle.fill(node);
+  } else if (textStyle.fill) {
+    color = textStyle.fill;
+  } else {
+    color = chartType !== CHARTTYPE.NESTED ? '#ffffff' : node.data.textColor;
+  }
+  return color;
 }
 
 

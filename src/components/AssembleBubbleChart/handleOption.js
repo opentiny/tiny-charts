@@ -47,7 +47,7 @@ const judgeType = (that) => {
   }
 };
 
-const bindLegendEvent = (baseOpt, chartInstance) => {
+const bindLegendEvent = (baseOpt, chartInstance, iChartOpt) => {
   let originSource = cloneDeep(baseOpt.dataset[0].source);
   chartInstance.on('legendselectchanged', function (params) {
     let newSource = [originSource[0]];
@@ -59,6 +59,9 @@ const bindLegendEvent = (baseOpt, chartInstance) => {
     baseOpt.dataset[0].source = newSource;
     setTimeout(() => {
       chartInstance.setOption(baseOpt);
+      if (iChartOpt.onLegendselectchanged) {
+        iChartOpt.onLegendselectchanged(params);
+      }
     }, 20);
   });
 };

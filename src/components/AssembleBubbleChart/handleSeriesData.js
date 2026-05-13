@@ -56,7 +56,7 @@ export function handleSeriesData(iChartOption, baseOpt, chartType) {
 
   baseOpt.dataset[0].source = sourceData;
 
-  baseOpt.legend.data = legendData;
+  baseOpt.legend.data = iChartOption?.legend?.data ?? legendData;
 
   [...legendData].reverse().forEach((item) => {
     baseOpt.series.unshift({
