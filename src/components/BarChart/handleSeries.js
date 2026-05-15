@@ -677,58 +677,63 @@ export function setWaterFall(baseOption, iChartOption) {
  */
 export function setLimitFormatter(baseOption, iChartOption, seriesData) {
   const type = iChartOption.type;
+  const valueFormatter = iChartOption.tooltip?.valueFormatter;
   const toolTipFormatter = baseOption.tooltip.formatter;
   const exclude = ['Placeholder'];
   const colors = baseOption.color;
   const barMinHeight = iChartOption.itemStyle && iChartOption.itemStyle.barMinHeight;
-  baseOption.tooltip.formatter = (params, ticket, callback) => {
-    const newParams = params.filter(item => {
-      return exclude.indexOf(item.seriesName) === -1;
-    });
-    // 如果设置了最小高度高度，并按%计算，将newParams值重新校正
-    if (barMinHeight && barMinHeight.toString().indexOf('%') !== -1) {
-      newParams.forEach((item) => {
-        if (iChartOption.data && iChartOption.data[item.dataIndex] && isNumber(iChartOption.data[item.dataIndex][item.seriesName])) {
-          item.data = item.value = iChartOption.data[item.dataIndex][item.seriesName]
+  if (valueFormatter){
+    baseOption.tooltip.valueFormatter = valueFormatter
+  } else {
+    baseOption.tooltip.formatter = (params, ticket, callback) => {
+      const newParams = params.filter(item => {
+        return exclude.indexOf(item.seriesName) === -1;
+      });
+      // 如果设置了最小高度高度，并按%计算，将newParams值重新校正
+      if (barMinHeight && barMinHeight.toString().indexOf('%') !== -1) {
+        newParams.forEach((item) => {
+          if (iChartOption.data && iChartOption.data[item.dataIndex] && isNumber(iChartOption.data[item.dataIndex][item.seriesName])) {
+            item.data = item.value = iChartOption.data[item.dataIndex][item.seriesName]
+          }
+        })
+      }
+      if (toolTipFormatter) {
+        return toolTipFormatter(newParams, ticket, callback);
+      }
+      const config = {
+        title: '',
+        children: [],
+        hideEmpty: baseOption.tooltip?.hideEmpty
+      }
+      newParams.forEach((item, index) => {
+        let value = item.value || seriesData[item.seriesName][item.dataIndex];
+        if (isObject(item.data) && iChartOption.series) {
+          if (iChartOption.series[0]?.encode) {
+            value = item.data[item.encode.x[0]];
+          } else {
+            value = seriesData[item.seriesName] && seriesData[item.seriesName][item.dataIndex];
+          }
         }
-      })
-    }
-    if (toolTipFormatter) {
-      return toolTipFormatter(newParams, ticket, callback);
-    }
-    const config = {
-      title: '',
-      children: [],
-      hideEmpty: baseOption.tooltip?.hideEmpty
-    }
-    newParams.forEach((item, index) => {
-      let value = item.value || seriesData[item.seriesName][item.dataIndex];
-      if (isObject(item.data) && iChartOption.series) {
-        if (iChartOption.series[0]?.encode) {
-          value = item.data[item.encode.x[0]];
-        } else {
-          value = seriesData[item.seriesName] && seriesData[item.seriesName][item.dataIndex];
+        if (index === 0) {
+          config.title = item.name
         }
-      }
-      if (index === 0) {
-        config.title = item.name
-      }
-      const itemColor = typeof item.color === 'string' ? item.color : getColor(colors, index);
-      const dataVal = type === 'range' ?
-        `${`${`[${params[index * 2].value}`}-${params[index * 2].value + item.value}`}]`
-        : value
-      const dataItem = {
-        name: item.seriesName,
-        value: dataVal,
-        iconColor: itemColor
-      }
-      config.children.push(dataItem)
-    });
-    const isMobile = iChartOption.isMobile || mobile();
-    const isCloud = iChartOption.theme?.includes('cloud');
-    config.isMobile = iChartOption.adaptive && isCloud && isMobile;
-    return getTooltipContentHtmlStr(config, baseOption.tooltip);
-  };
+        const itemColor = typeof item.color === 'string' ? item.color : getColor(colors, index);
+        const dataVal = type === 'range' ?
+          `${`${`[${params[index * 2].value}`}-${params[index * 2].value + item.value}`}]`
+          : value
+        const dataItem = {
+          name: item.seriesName,
+          value: dataVal,
+          iconColor: itemColor
+        }
+        config.children.push(dataItem)
+      });
+      const isMobile = iChartOption.isMobile || mobile();
+      const isCloud = iChartOption.theme?.includes('cloud');
+      config.isMobile = iChartOption.adaptive && isCloud && isMobile;
+      return getTooltipContentHtmlStr(config, baseOption.tooltip);
+    };
+  }
 }
 
 // 自定义dataset和series
