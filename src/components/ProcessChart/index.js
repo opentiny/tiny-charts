@@ -78,14 +78,17 @@ class ProcessChart {
 
   // 更新name的宽度
   resize(callback){
-    let nameSeries;
-    this.baseOption.series.forEach(element => {
-        if(element.name === 'seriesName'){
-          nameSeries = element;
-        }
-    });
-    setNameSeriesWidth(nameSeries, this.dataSet, this.iChartOption, this.chartInstance);
-    callback(this.baseOption, { notMerge: false })
+    let series = this.baseOption?.series;
+    if (series && series.length > 0) {
+      let nameSeries;
+      series.forEach(element => {
+          if(element.name === 'seriesName'){
+            nameSeries = element;
+          }
+      });
+      setNameSeriesWidth(nameSeries, this.dataSet, this.iChartOption, this.chartInstance);
+      callback(this.baseOption, { notMerge: false })
+    }
   }
 
 }
