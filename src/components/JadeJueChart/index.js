@@ -75,6 +75,8 @@ class JadeJueChart {
     const adaptiveCloud = this.iChartOption.adaptive && this.iChartOption.theme?.includes('cloud');
     if (adaptiveCloud) {
       this.baseOption.legend = legend(this.iChartOption, 'JadeJueChart', this.chartInstance)
+      // 为第一种数据类型单独配置legend.data和对应颜色
+      handleLegendData(this.iChartOption, this.baseOption, this.chartType);
     }
     setbarWidth(this.iChartOption, this.baseOption, this.chartInstance, this.chartType);
     if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
