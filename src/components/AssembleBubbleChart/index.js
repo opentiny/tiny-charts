@@ -51,7 +51,7 @@ class AssembleBubbleChart {
     // 聚合气泡图属于自定义系列，使用polar会报错，需要删除
     delete this.baseOption.polar;
     // 自定义系列的图例点击事件需要自行绑定
-    bindLegendEvent(this.baseOption, chartInstance);
+    bindLegendEvent(this.baseOption, chartInstance, this.iChartOption);
     // 合并用户自定义series
     mergeSeries(this.iChartOption, this.baseOption);
   }

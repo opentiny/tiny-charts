@@ -22,7 +22,7 @@ const MOUSE_EVENT_NAMES = [
 ]
 
 // 绑定图表事件
-export function event(chartInstance, event) {
+export function event(chartInstance, event, ichartIns) {
   if (!event) return;
   MOUSE_EVENT_NAMES.forEach(eventName=>{
     chartInstance.off(eventName);
@@ -32,7 +32,7 @@ export function event(chartInstance, event) {
     const eKeys = Object.keys(event[qrKey]);
     eKeys.forEach(key => {
       chartInstance.on(key, qrKey, function (params) {
-        event[qrKey][key](params);
+        event[qrKey][key](params, ichartIns);
       });
     });
   });
