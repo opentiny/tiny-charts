@@ -111,8 +111,8 @@ function handleSplitLine(iChartOption, seriesUnit) {
   if (iChartOption.itemStyle) {
     let { lineStyle, width } = iChartOption.itemStyle;
     width = width || chartToken.barWidth;
-    seriesUnit.splitLine.length = (lineStyle && lineStyle.length) || 7;
-    seriesUnit.splitLine.distance = (lineStyle && lineStyle.distance) || 0;
+    seriesUnit.splitLine.length = (lineStyle && lineStyle.length) || width;
+    seriesUnit.splitLine.distance = (lineStyle && lineStyle.distance) || -width;
   } else {
     seriesUnit.splitLine.length = 7;
     seriesUnit.splitLine.distance = 0;

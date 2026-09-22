@@ -16,7 +16,7 @@ import mobile from '../../util/mobile';
 import { isArray, isObject } from '../../util/type';
 // 组装直角坐标系自适应
 function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
-  if (baseOpt.xAxis[0].type !== 'category') return;
+  if (baseOpt.xAxis?.[0]?.type !== 'category') return;
   if (!iChartOpt.adaptive && iChartOpt.a2ui || iChartOpt.a2ui ) return;
   const rect = echartsIns?.getModel?.()?.getComponent?.('grid')?.coordinateSystem?.getRect() || echartsIns?.getDom?.().getBoundingClientRect() || {}; 
   const y0left = rect.x || rect.left || 0;
