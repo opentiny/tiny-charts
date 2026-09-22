@@ -32,6 +32,11 @@ export default function getBarDefOpt(iChartOpt){
     defOption.yAxis.axisLabel = {
       alignMaxLabel: 'right'
     }
+    defOption.xAxis = {
+      axisLabel:{
+        alignMinLabel: 'right',
+      }
+    }
   }
   return defOption
 }
