@@ -14,7 +14,10 @@ export default function getGaugeDefOpt(iChartOpt){
       center: ['50%','50%'],
       radius: '65%'
     },
-    adaptive: true
+    adaptive: true,
+    splitLine: {
+      show: false
+    }
   }
   return defOption
 }

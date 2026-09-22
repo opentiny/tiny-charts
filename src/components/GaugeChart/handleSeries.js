@@ -14,6 +14,7 @@ import cloneDeep from '../../util/cloneDeep';
 import chartToken from './chartToken';
 import Token from '../../feature/token';
 import merge from '../../util/merge';
+import { isString, isObject, isArray } from '../../util/type';
 import { calculateFontSize } from '../../option/config/polarTitle/handleCenterTitle';
 
 export const emptySeriesUnit = {
@@ -400,8 +401,30 @@ function setMarkLine(series, markLine, marklineColor) {
       color: marklineColor,
     },
   };
-  markGauge.data = [{ value: markLine }];
+  let markLineValue = isObject(markLine) ? markLine.value : markLine;
+  if (markLineValue) {
+    markGauge.data = [{ value: markLineValue }];
+  }
   return markGauge;
+}
+
+export function setMarkLineoffset(iChartOpt, eChartOpt, echartsIns, that) {
+  const rect = echartsIns.getModel?.()?.getComponent?.('grid')?.coordinateSystem?.getRect() || echartsIns?.getDom?.().getBoundingClientRect() || that.dom?.getBoundingClientRect?.() || {}; 
+  const { series } = eChartOpt;
+  const { itemStyle } = iChartOpt;
+  let barWidth = itemStyle?.width ? itemStyle.width : chartToken.barWidth;
+  let radius = series[0].radius;
+  let offset;
+  if (isString(radius) && radius.indexOf('%') > -1) {
+    radius = parseFloat(radius);
+    let wh =  rect.width < rect.height ? rect.width : rect.height;
+    offset = ((radius / 100) * wh/2 ) - barWidth - 15 - 2;
+  } else {
+    offset =  radius - barWidth - 15 - 2;
+  }
+  if (series?.[1]) {
+    series[1].pointer.offsetCenter = [0, -offset];
+  }
 }
 
 function handleOther(iChartOption, seriesUnit, series, data) {
