@@ -295,6 +295,8 @@ function setMobileLegend(iChartOption, legend, legendData, chartInstance){
     legend.left = '50%'; // 开启自适应 固定位置
     legend.right = 'auto';
     iChartOption.graphHeight = undefined;
+    legend.orient = 'vertical';
+    legend.top = 'center';
   }
 }
 

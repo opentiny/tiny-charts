@@ -1,3 +1,15 @@
+/**
+ * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
+ * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
+ *
+ * Use of this source code is governed by an MIT-style license.
+ *
+ * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+ * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+ * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+ *
+ */
+
 import Token from "../token";
 import { isArray, isNumber } from "../../util/type";
 
@@ -17,6 +29,10 @@ function createSvgLegend(legend, legendData, chartInstance, iChartOption) {
   let legendStartX;
   let legendStartRight;
   let legendStartY;
+  // 存储点击记录
+  if (!legend.legendState) {
+    legend.legendState = {};
+  }
   if (hasSvgCharts) { //是否charts为svg渲染
     svgLegend = container.querySelector('svg');
     const items = svgLegend.querySelectorAll('.legend-svg');
@@ -84,7 +100,7 @@ function createSvgLegend(legend, legendData, chartInstance, iChartOption) {
   
   // 创建点击图例
   svgLegend.onclick = (event) => {
-    handleSvgClick(event, { container, legendData, chartInstance, legend, initialIndex: legendConfig.index})
+    handleSvgClick(event, { container, legendData, chartInstance, legend, initialIndex: legendConfig.truncateIndex})
   }
 }
 
@@ -99,6 +115,7 @@ function createLegend(option, secondaryRender){
   let truncateIndex ;
   for (let index = 0; index < legendData.length; index++) {
     const item = legendData[index];
+    let preItem = legendData[index-1];
     const type = item.icon || iChartOption.legend?.icon || legend.icon || 'rect';
     const style = {
       x: startX,
@@ -114,7 +131,17 @@ function createLegend(option, secondaryRender){
       legendRight: right
     }
     const name = item.name || item;
-    const itemConfig = createItem(g, type, style, svgNS, name, index, legend, legendWidth, secondaryRender)
+    const itemConfig = createItem(g, type, style, svgNS, name, index, legend, legendWidth, secondaryRender);
+    // 这个节点文本都没有足够宽度渲染
+    if(itemConfig.preTruncation && preItem){
+      truncateIndex = index - 1;
+      if (secondaryRender) {
+        style.x = startX;
+        createEllipsis(g, type, style, svgNS, name, index+1);
+        createDropDown(container, legend, legendData, index+1, iChartOption, chartInstance);
+      }
+      break;
+    }
     itemWidth = itemConfig.itemWidth;
     startX += itemWidth;
     // style.x = startX;
@@ -206,8 +233,9 @@ function createItem(svg, type, style, svgNS, name, index, legend, legendWidth, s
   let iconY;
   const startX = x + itemGap * index;
   const g = document.createElementNS(svgNS, 'g');
+  const active = legend.legendState[name] !== undefined && !legend.legendState[name] ? 'inactive' : '';
   g.setAttribute('style', `--inactiveColor:${inactiveColor};`);
-  g.setAttribute('class', `legend-svg-item`);
+  g.setAttribute('class', `legend-svg-item ${active}`);
   g.setAttribute('index', index);
   switch (type) {
     case 'circle':
@@ -279,6 +307,10 @@ function createItem(svg, type, style, svgNS, name, index, legend, legendWidth, s
       legendText.innerHTML = newText
     }
     itemWidth = legendText.getBBox().width + width + 6;
+    if(newTextLength === 0){
+      g.remove();
+      return {itemWidth, preTruncation: true, truncation: false};
+    }
     return {itemWidth, truncation: true};
   }
   return {itemWidth, truncation: false};
@@ -335,14 +367,16 @@ function createDropDown(container, legend, legendData, initialIndex, iChartOptio
   let dom = '';
   for (let index = initialIndex - 1; index < legendData.length; index++) {
     const item = legendData[index];
+    const name = item.name || item;
+    const active = legend.legendState[name] !== undefined && !legend.legendState[name] ? 'inactive' : '';
     const icon = item.icon || iChartOption.legend?.icon || legend.icon;
-    dom += `<div class="hui-legend-dropdown-item" index="${index}" style="--inactiveColor:${inactiveColor}; --textColor: ${legendTextColor}; --iconColor: ${colorGroup[index]};"><div class="hui-legend-dropdown-icon ${icon}" index="${index}"></div><div index="${index}" class="hui-legend-dropdown-text">${item}</div></div>`
+    dom += `<div class="hui-legend-dropdown-item ${active}" index="${index}" style="--inactiveColor:${inactiveColor}; --textColor: ${legendTextColor}; --iconColor: ${colorGroup[index]};"><div class="hui-legend-dropdown-icon ${icon}" index="${index}"></div><div index="${index}" class="hui-legend-dropdown-text">${name}</div></div>`
   }
   svgLegendDropdown.innerHTML = dom;
   container.appendChild(svgLegendDropdown);
   // 创建点击切换图形
   svgLegendDropdown.onclick = (event) => {
-    handleSelectLegend(event, {container, legendData, chartInstance, initialIndex})
+    handleSelectLegend(event, {container, legendData, chartInstance, initialIndex, legend})
   }
 }
 
@@ -354,8 +388,8 @@ function handleSvgClick(e, option){
     showDropDown(e, container, legend)
   } else if (target.getAttribute('index')) {
     let index = Number(target.getAttribute('index'));
-    if ((initialIndex - 1) === index) {
-      const svgCon = container.getElementsByClassName('legend-svg-item');
+    if (initialIndex === index) {
+      const svgCon = container.getElementsByClassName('hui-legend-dropdown-item');
       for (let i = 0; i < svgCon.length; i++) {
         const item = svgCon[i];
         if (Number(item.getAttribute('index')) === index ){
@@ -365,6 +399,7 @@ function handleSvgClick(e, option){
       }
     }
     let name = legendData[index];
+    legend.legendState[name] = legend.legendState[name] !== undefined ? !legend.legendState[name] : false;
     let parentNode = target.tagName === 'g' ? target : target.parentNode;
     parentNode.classList.toggle('inactive');
     chartInstance.dispatchAction({
@@ -429,10 +464,11 @@ function showDropDown(e, container, legend){
 // 下拉框点击切换图
 function handleSelectLegend(e, option){
   let target = e.target;
-  let {container, legendData, chartInstance, initialIndex} = option
+  let {container, legendData, chartInstance, initialIndex, legend} = option
   if (target.getAttribute('index')) {
     let index = Number(target.getAttribute('index'));
     let name = legendData[index];
+    legend.legendState[name] = legend.legendState[name] !== undefined ? !legend.legendState[name] : false;
     let parentNode = target.classList.contains('hui-legend-dropdown-item') ? target : target.parentNode;
     if ((initialIndex - 1) === index) {
       const svgCon = container.getElementsByClassName('legend-svg-item');

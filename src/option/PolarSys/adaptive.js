@@ -40,6 +40,7 @@ function AdaptivePolarSys(baseOpt, iChartOpt, echartsIns, type) {
   }
   const scaleNumber = Math.trunc(polarHeight / 20) || 4; // 刻度轴行高18，最小间距2
   let split = dataMax / scaleNumber;
+  if (split < 1) return;
   if (type === 'polarBar'){
     if (split > 10) {
       split = (Math.trunc(split/10) + 1) * 10
@@ -67,4 +68,3 @@ function getDataNoObject(data) {
 }
 
 export default AdaptivePolarSys;
-

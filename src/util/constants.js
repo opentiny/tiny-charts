@@ -62,6 +62,7 @@ const TOKENCHARTNAMES = [
   'CircleArcChart',
   'CustomizeChart',
   'BarLineChart',
+  'TreeIndentChart',
   'RankProcessChart'
 ];
 
@@ -121,7 +122,9 @@ const CHART_TYPE = {
   LINEARARC: 'LinearArcChart',
   CIRCLEARC: 'CircleArcChart',
   CUSTOMIZE: 'CustomizeChart',
-  BARLINE: 'BarLineChart'
+  BARLINE: 'BarLineChart',
+  TREE_INDENT: 'TreeIndentChart',
+  FLAME: 'FlameChart'
 }
 
 const ADAPTIVE_THEME = ['hdesign-light', 'hdesign-dark', 'cloud-light', 'cloud-dark', 'bpit-light', 'bpit-dark'];

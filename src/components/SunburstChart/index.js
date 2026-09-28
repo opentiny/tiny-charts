@@ -31,7 +31,7 @@ export default class SunburstChart {
         const iChartOption = this.iChartOption;
         // 装载除series之外的其他配置
         PolarCoordSys(this.baseOption, iChartOption, CHART_TYPE.SUNBURST);
-        this.baseOption.color = ['', ...iChartOption.color];
+        this.baseOption.color = [...iChartOption.color];
         this.baseOption.series = setSeries(iChartOption);
         // 合并用户自定义series
         merge(this.baseOption.series, iChartOption.series);   

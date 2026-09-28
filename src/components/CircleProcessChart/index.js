@@ -17,6 +17,7 @@ import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
 import { mergeSeries } from '../../util/merge';
 import handleCenterTitle from '../../option/config/polarTitle/handleCenterTitle';
+import legendAdaptive from '../../option/config/legend/adaptive';
 
 export default class CircleProcessChart {
 
@@ -35,7 +36,7 @@ export default class CircleProcessChart {
   updateOption(chartInstance) {
     const iChartOption = this.iChartOption;
     // 装载除series之外的其他配置
-    PolarCoordSys(this.baseOption, iChartOption, CHART_TYPE.CIRCLE_PROCESS);
+    PolarCoordSys(this.baseOption, iChartOption, CHART_TYPE.CIRCLE_PROCESS, this.chartInstance);
     // tooltip悬浮框
     setTooltip(this.baseOption);
     // legend数据
@@ -50,6 +51,10 @@ export default class CircleProcessChart {
     if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {
       let position = iChartOption.position || this.baseOption.polar;
       handleCenterTitle(position, chartInstance, this.baseOption, iChartOption);
+    }
+    const adaptiveCloud = this.iChartOption.adaptive && this.iChartOption.theme?.includes('cloud')
+    if (adaptiveCloud) {
+      this.baseOption.legend = legendAdaptive(this.iChartOption, this.baseOption.legend, this.chartInstance, 'CircleProcessChart');
     }
     mergeSeries(iChartOption, this.baseOption);
     mini(iChartOption, this.baseOption);

@@ -109,6 +109,7 @@ const getItemCount = (arr, item) => {
 function random() {
     return parseFloat('0.' + window.crypto.getRandomValues(new Uint32Array(1))[0])
 }
+
 /**
  * @returns {string}
  *  生成uuid，用于标记数据，推荐给数据添加唯一标识的场景使用
@@ -140,6 +141,7 @@ function uuid() {
         return (c === "x" ? random : (random & 0x3) | 0x8).toString(16);
     });
 }
+
 /**
  * 
  * @param {number} length  字符串的长度
@@ -156,20 +158,24 @@ function hashString(length = 16) {
     }
     // `crypto.getRandomValues` throws an error if too much entropy is requested at once. (https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues#exceptions)
     const maxEntropy = 65_536;
+
     function getRandomValues(byteLength) {
         const generatedBytes = new Uint8Array(byteLength);
+
         for (let totalGeneratedBytes = 0; totalGeneratedBytes < byteLength; totalGeneratedBytes += maxEntropy) {
             generatedBytes.set(
                 window.crypto.getRandomValues(new Uint8Array(Math.min(maxEntropy, byteLength - totalGeneratedBytes))),
                 totalGeneratedBytes,
             );
         }
+
         return generatedBytes;
     }
     const byteLength = Math.ceil(length * 0.5)// Needs 0.5 bytes of entropy per character
     const generatedBytes = getRandomValues(byteLength);
     return toHex(generatedBytes).slice(0, length);
 }
+
 export {
     getEdge,
     getAngle,

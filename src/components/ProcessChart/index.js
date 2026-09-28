@@ -19,6 +19,7 @@ import handleSeries, { setNameSeriesWidth } from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import { CHART_TYPE } from '../../util/constants';
 import { mergeSeries } from '../../util/merge';
+import { isArray } from '../../util/type';
 
 class ProcessChart {
 
@@ -78,14 +79,17 @@ class ProcessChart {
 
   // 更新name的宽度
   resize(callback){
-    let nameSeries;
-    this.baseOption.series.forEach(element => {
-        if(element.name === 'seriesName'){
-          nameSeries = element;
-        }
-    });
-    setNameSeriesWidth(nameSeries, this.dataSet, this.iChartOption, this.chartInstance);
-    callback(this.baseOption, { notMerge: false })
+    let series = this.baseOption?.series;
+    if(series && isArray(series) && series.length > 0) {
+      let nameSeries;
+      series.forEach(element => {
+          if(element.name === 'seriesName'){
+            nameSeries = element;
+          }
+      });
+      setNameSeriesWidth(nameSeries, this.dataSet, this.iChartOption, this.chartInstance);
+      callback(this.baseOption, { notMerge: false })
+    };
   }
 
 }

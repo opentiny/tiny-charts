@@ -23,7 +23,7 @@ import { setSeries, setRange, setMarkLine, setWaterFall, setLimitFormatter, setD
 import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE, ADAPTIVE_THEME } from '../../util/constants';
 import AdaptiveRectSys from '../../option/RectSys/adaptive';
-import legend from '../../option/config/legend';
+import legendAdaptive from '../../option/config/legend/adaptive';
 
 class BarChart {
 
@@ -154,7 +154,7 @@ class BarChart {
     if (this.iChartOption.adaptive) {
       // 坐标轴二次计算
       AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
-      this.baseOption.legend = legend(this.iChartOption, 'BarChart', this.chartInstance);
+      this.baseOption.legend = legendAdaptive(this.iChartOption, this.baseOption.legend, this.chartInstance, 'BarChart');
     }
     
     // 如果用户自定义了 barWidth 或 存在 dataZoom，则不主动刷新柱宽

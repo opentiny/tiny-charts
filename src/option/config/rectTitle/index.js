@@ -47,6 +47,8 @@ function title(iChartOption, chartName, nameTextStyle = {},position) {
     } else {
       title.padding[0] = padding[0] - 30;
       title.padding[3] = padding[3];
+      title.left = 0;
+      title.top = 0;
     }
   }
   // y轴文本的样式需要合并到title配置上

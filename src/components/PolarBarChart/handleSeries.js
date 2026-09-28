@@ -12,6 +12,7 @@
 import { getColor } from '../../util/color';
 import chartToken from './chartToken';
 import handleCenterPosition from '../PieChart/handleCenterPosition';
+import { isString } from '../../util/type';
 
 function getSeriesInit(type) {
   const baseSeries = {
@@ -130,11 +131,12 @@ export function setSeries(seriesData, labelData, iChartOption, polar, type, base
     pieUnit.center = position?.center || polar.center;
     // 外radius
     const radius = polar.radius[1];
-    const radiusN = Number(radius.substring(0, radius.length - 1));
+    const radiusN = isString(radius) ? Number(radius.substring(0, radius.length - 1)) : radius;
     pieUnit.radius = adaptiveCloud && position?.radius ? [position.radius*0.2, position.radius] : [radius, `${radiusN + 8}%`];
     series.push(pieUnit);
   }
   if (adaptiveCloud) {
+    if(!iChartOption.position) iChartOption.position = {};
     if (position?.radius) {
       iChartOption.position.radius = [position.radius*0.2, position.radius - 10] // 外层矫正
       baseOption.polar.radius = [position.radius*0.2, position.radius - 10];
