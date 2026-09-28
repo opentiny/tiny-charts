@@ -62,13 +62,15 @@ function mergeExtend(iChartOption, baseOption) {
     if (!iChartOption) return;
     let extend = iChartOption.extend;
     if (!extend) return;
-    for (const key in extend) {
+    if (extend.partial){
         // 部分替换
-        if (extend.partial){
+        for (const key in extend) {
             if (Object.hasOwnProperty.call(extend, key)) {
                 merge(baseOption[key], extend[key])
             }
-        } else {
+        }
+    } else {
+        for (const key in extend) {
             if (Object.hasOwnProperty.call(extend, key)) {
                 baseOption[key] = extend[key];
             }

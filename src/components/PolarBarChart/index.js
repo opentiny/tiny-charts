@@ -16,7 +16,7 @@ import PolarCoordSys from '../../option/PolarSys';
 import { CHART_TYPE } from '../../util/constants';
 import { mergeSeries } from '../../util/merge';
 import AdaptivePolarSys from '../../option/PolarSys/adaptive';
-import legend from '../../option/config/legend';
+import legendAdaptive from '../../option/config/legend/adaptive';
 
 export default class PolarBarChart {
 
@@ -74,7 +74,7 @@ export default class PolarBarChart {
         const {adaptive, theme} = this.iChartOption;
         const adaptiveCloud = adaptive && theme.includes('cloud');
         if (adaptiveCloud) {
-            this.baseOption.legend = legend(this.iChartOption, 'PolarBarChart', this.chartInstance);
+            this.baseOption.legend = legendAdaptive(this.iChartOption, this.baseOption.legend, this.chartInstance, 'PolarBarChart');
             const data = this.iChartOption.data;
             if (data) {
                 const type = this.iChartOption.type || 'normal';

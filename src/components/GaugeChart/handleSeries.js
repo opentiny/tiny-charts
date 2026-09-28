@@ -15,681 +15,702 @@ import chartToken from './chartToken';
 import Token from '../../feature/token';
 import merge from '../../util/merge';
 import { calculateFontSize } from '../../option/config/polarTitle/handleCenterTitle';
+import { isObject, isString } from '../../util/type';
 
 export const emptySeriesUnit = {
-  type: 'gauge',
-  startAngle: 0,
-  endAngle: 0,
-  center: ['50%', '50%'],
-  radius: '50%',
-  splitNumber: 2,
-  axisLine: { show: false },
-  axisLabel: { show: false },
-  splitLine: { show: false },
-  itemStyle: { show: false },
-  axisTick: { show: false },
-  pointer: { show: false },
-  detail: { show: false },
-  title: { show: false },
-  data: [],
+  type: 'gauge',
+  startAngle: 0,
+  endAngle: 0,
+  center: ['50%', '50%'],
+  radius: '50%',
+  splitNumber: 2,
+  axisLine: { show: false },
+  axisLabel: { show: false },
+  splitLine: { show: false },
+  itemStyle: { show: false },
+  axisTick: { show: false },
+  pointer: { show: false },
+  detail: { show: false },
+  title: { show: false },
+  data: [],
 };
 
 export const seriesInit = {
-  name: '',
-  type: 'gauge',
-  // 仪表盘轨道底色
-  axisLine: {
-    roundCap: true,
-    lineStyle: {
-      width: 10,
-    },
-  },
-  // 仪表盘进度条
-  progress: {
-    show: true,
-    roundCap: true,
-    width: 10,
-  },
-  // 大刻度数量
-  splitNumber: 4,
-  // 大刻度线样式
-  splitLine: {
-    distance: 0,
-    length: 10,
-    lineStyle: {
-      width: 2,
-    },
-  },
-  // 大刻度数值
-  axisLabel: {
-    distance: 16,
-    fontSize: 14,
-    color: 'red',
-  },
-  // 小刻度线样式
-  axisTick: {
-    distance: 0,
-    length: 10,
-    lineStyle: {
-      color: 'transparent',
-      width: 2,
-    },
-  },
-  // 指针样式
-  pointer: {
-    show: false,
-    icon: 'path://M4.49 10.21L0.1 1.44C-0.23 0.78 0.25 0 1 0L9.76 0C10.5 0 10.99 0.78 10.65 1.44C9.14 4.47 7.33 8.09 6.28 10.21C5.91 10.94 4.86 10.94 4.49 10.21Z',
-    length: '12',
-    width: 16,
-    offsetCenter: [0, '-105%'],
-  },
-  title: {
-    show: false,
-  },
-  detail: {
-    valueAnimation: true,
-  },
-  data: [],
+  name: '',
+  type: 'gauge',
+  // 仪表盘轨道底色
+  axisLine: {
+    roundCap: true,
+    lineStyle: {
+      width: 10,
+    },
+  },
+  // 仪表盘进度条
+  progress: {
+    show: true,
+    roundCap: true,
+    width: 10,
+  },
+  // 大刻度数量
+  splitNumber: 4,
+  // 大刻度线样式
+  splitLine: {
+    distance: 0,
+    length: 10,
+    lineStyle: {
+      width: 2,
+    },
+  },
+  // 大刻度数值
+  axisLabel: {
+    distance: 16,
+    fontSize: 14,
+    color: 'red',
+  },
+  // 小刻度线样式
+  axisTick: {
+    distance: 0,
+    length: 10,
+    lineStyle: {
+      color: 'transparent',
+      width: 2,
+    },
+  },
+  // 指针样式
+  pointer: {
+    show: false,
+    icon: 'path://M4.49 10.21L0.1 1.44C-0.23 0.78 0.25 0 1 0L9.76 0C10.5 0 10.99 0.78 10.65 1.44C9.14 4.47 7.33 8.09 6.28 10.21C5.91 10.94 4.86 10.94 4.49 10.21Z',
+    length: '12',
+    width: 16,
+    offsetCenter: [0, '-105%'],
+  },
+  title: {
+    show: false,
+  },
+  detail: {
+    valueAnimation: true,
+  },
+  data: [],
 };
 
 // 设置刻度线现实与否/刻度线数量
 function handleSplitLine(iChartOption, seriesUnit) {
-  if (iChartOption.splitLine) {
-    if (iChartOption.splitLine.show !== undefined) {
-      seriesUnit.splitLine.show = iChartOption.splitLine.show;
-    } else {
-      seriesUnit.splitLine.show = true;
-    }
-  } else {
-    seriesUnit.splitLine.show = true;
-  }
-  if (seriesUnit.splitLine.show) {
-    seriesUnit.splitNumber = iChartOption.splitNumber || 4;
-  } else {
-    seriesUnit.splitNumber = -1;
-  }
-  if (iChartOption.itemStyle) {
-    let { lineStyle, width } = iChartOption.itemStyle;
-    width = width || chartToken.barWidth;
-    seriesUnit.splitLine.length = (lineStyle && lineStyle.length) || 7;
-    seriesUnit.splitLine.distance = (lineStyle && lineStyle.distance) || 0;
-  } else {
-    seriesUnit.splitLine.length = 7;
-    seriesUnit.splitLine.distance = 0;
-  }
-  if (iChartOption.itemStyle && iChartOption.itemStyle.lineStyle) {
-    if (iChartOption.itemStyle.lineStyle.color) {
-      seriesUnit.splitLine.lineStyle.color = iChartOption.itemStyle.lineStyle.color;
-    } else {
-      seriesUnit.splitLine.lineStyle.color = chartToken.splitLineColor;
-    }
-    seriesUnit.splitLine.lineStyle.width = iChartOption.itemStyle.lineStyle.width || 2;
-  }
+  if (iChartOption.splitLine) {
+    if (iChartOption.splitLine.show !== undefined) {
+      seriesUnit.splitLine.show = iChartOption.splitLine.show;
+    } else {
+      seriesUnit.splitLine.show = true;
+    }
+  } else {
+    seriesUnit.splitLine.show = true;
+  }
+  if (seriesUnit.splitLine.show) {
+    seriesUnit.splitNumber = iChartOption.splitNumber || 4;
+  } else {
+    seriesUnit.splitNumber = -1;
+  }
+  if (iChartOption.itemStyle) {
+    let { lineStyle, width } = iChartOption.itemStyle;
+    width = width || chartToken.barWidth;
+    seriesUnit.splitLine.length = (lineStyle && lineStyle.length) || width;
+    seriesUnit.splitLine.distance = (lineStyle && lineStyle.distance) || -width;
+  } else {
+    seriesUnit.splitLine.length = 7;
+    seriesUnit.splitLine.distance = 0;
+  }
+  if (iChartOption.itemStyle && iChartOption.itemStyle.lineStyle) {
+    if (iChartOption.itemStyle.lineStyle.color) {
+      seriesUnit.splitLine.lineStyle.color = iChartOption.itemStyle.lineStyle.color;
+    } else {
+      seriesUnit.splitLine.lineStyle.color = chartToken.splitLineColor;
+    }
+    seriesUnit.splitLine.lineStyle.width = iChartOption.itemStyle.lineStyle.width || 2;
+  }
 }
 
 // 根据主题设置刻度线的颜色
 function handleTheme(iChartOption) {
-  const { orbitalColor } = iChartOption;
-  seriesInit.axisLine.lineStyle.color = [[1, orbitalColor || chartToken.axisLineColor]];
-  seriesInit.splitLine.lineStyle.color = chartToken.splitLineColor;
-  seriesInit.axisLabel.color = chartToken.axisLabel;
+  const { orbitalColor } = iChartOption;
+  seriesInit.axisLine.lineStyle.color = [[1, orbitalColor || chartToken.axisLineColor]];
+  seriesInit.splitLine.lineStyle.color = chartToken.splitLineColor;
+  seriesInit.axisLabel.color = chartToken.axisLabel;
 }
 
 // 配置仪表盘中心文本
 export function handleDetail(seriesUnit, text, data, sizeData, isAdaptive) {
-  seriesUnit.detail.formatter =
-    text.formatter ||
-    function (value) {
-      if(Number.isFinite(value)) {
-        return `{value|${value}}\n{name|${data[0]?.name || ''}}`;
-      } else {
-        return `{name|${data[0]?.name || ''}}`
-      }
-      
-    };
-  const space = isAdaptive ? sizeData.space : 24;
-  const valuePadding = isAdaptive ? (sizeData.valuePadding || 0) : 0;
-  seriesUnit.detail.offsetCenter = text.offset || [0, 0];
-  seriesUnit.detail.rich = {
-    value: {
-      fontSize: sizeData.mainFontSize,
-      fontWeight: 'bolder',
-      color: chartToken.detailRichColor,
-      padding: [valuePadding, 0, 0, 0],
-    },
-    name: {
-      fontSize: sizeData.secondaryFontSize || sizeData.subFontSize,
-      color: chartToken.descRichColor,
-      padding: [space, 0, 0, 0],
-      fontWeight: 'normal',
-    },
-    unit: {
-      color: chartToken.detailRichColor,
-      fontSize: sizeData.secondaryFontSize || sizeData.subFontSize
-    }
-  };
-  if (text?.formatterStyle) {
-    merge(seriesUnit.detail.rich, text.formatterStyle)
-  }
+  seriesUnit.detail.formatter =
+    text.formatter ||
+    function (value) {
+      if(Number.isFinite(value)) {
+        return `{value|${value}}\n{name|${data[0]?.name || ''}}`;
+      } else {
+        return `{name|${data[0]?.name || ''}}`
+      }
+      
+    };
+  const space = isAdaptive ? sizeData.space : 24;
+  const valuePadding = isAdaptive ? (sizeData.valuePadding || 0) : 0;
+  seriesUnit.detail.offsetCenter = text.offset || [0, 0];
+  seriesUnit.detail.rich = {
+    value: {
+      fontSize: sizeData.mainFontSize,
+      fontWeight: 'bolder',
+      color: chartToken.detailRichColor,
+      padding: [valuePadding, 0, 0, 0],
+    },
+    name: {
+      fontSize: sizeData.secondaryFontSize || sizeData.subFontSize,
+      color: chartToken.descRichColor,
+      padding: [space, 0, 0, 0],
+      fontWeight: 'normal',
+    },
+    unit: {
+      color: chartToken.detailRichColor,
+      fontSize: sizeData.secondaryFontSize || sizeData.subFontSize
+    }
+  };
+  if (text?.formatterStyle) {
+    merge(seriesUnit.detail.rich, text.formatterStyle)
+  }
 }
 
 // 设置仪表盘进度条宽度
 function handleProgress(seriesUnit, iChartOption, data) {
-  const { itemStyle } = iChartOption;
-  const barWidth = chartToken.barWidth;
-  seriesUnit.progress.width = itemStyle?.width ? itemStyle.width : barWidth;
-  if (data && data.length !== 0 && data[0].value === 0) {
-    seriesUnit.progress.roundCap = false;
-  }
+  const { itemStyle } = iChartOption;
+  const barWidth = chartToken.barWidth;
+  seriesUnit.progress.width = itemStyle?.width ? itemStyle.width : barWidth;
+  if (data && data.length !== 0 && data[0].value === 0) {
+    seriesUnit.progress.roundCap = false;
+  }
 }
 
 // 设置仪表盘进度条宽度
 function handleAxisLine(seriesUnit, iChartOption) {
-  const { itemStyle } = iChartOption;
-  const barWidth = chartToken.barWidth;
-  seriesUnit.axisLine.lineStyle.width = itemStyle?.width ? itemStyle.width : barWidth;
+  const { itemStyle } = iChartOption;
+  const barWidth = chartToken.barWidth;
+  seriesUnit.axisLine.lineStyle.width = itemStyle?.width ? itemStyle.width : barWidth;
 }
 
 // 轨道颜色分块
 function setSplitColor(series, splitColor, pointerStyle) {
-  series.axisLine.lineStyle.color = splitColor;
-  series.axisLine.roundCap = false;
-  series.progress.show = false;
-  series.pointer.itemStyle = pointerStyle?.color ? { color: pointerStyle.color } : { color: 'auto' };
+  series.axisLine.lineStyle.color = splitColor;
+  series.axisLine.roundCap = false;
+  series.progress.show = false;
+  series.pointer.itemStyle = pointerStyle?.color ? { color: pointerStyle.color } : { color: 'auto' };
 }
 
 // 给series配置progress渐变色，并考虑纯色情况
 function setGradientColor(series, gradientColor, pointerStyle) {
-  const value = series.data[0] ? series.data[0].value : 0;
-  const linearColor = {
-    type: 'linear',
-    x: 0,
-    y: 0,
-    x2: 1 / (value / series.max),
-    y2: 0,
-    colorStops: gradientColor.map((item, index) => {
-      return {
-        offset: index === 0 ? 0 : index / (gradientColor.length - 1),
-        color: item,
-      };
-    }),
-    global: false,
-  };
-  // 考虑纯色情况
-  if (linearColor.colorStops.length === 1) {
-    linearColor.colorStops.push({
-      offset: 1,
-      color: gradientColor[0],
-    });
-  }
-  series.progress.itemStyle = { color: linearColor };
-  series.pointer.itemStyle = pointerStyle?.color ? { color: pointerStyle.color } : { color: linearColor };
+  const value = series.data[0] ? series.data[0].value : 0;
+  const linearColor = {
+    type: 'linear',
+    x: 0,
+    y: 0,
+    x2: 1 / (value / series.max),
+    y2: 0,
+    colorStops: gradientColor.map((item, index) => {
+      return {
+        offset: index === 0 ? 0 : index / (gradientColor.length - 1),
+        color: item,
+      };
+    }),
+    global: false,
+  };
+  // 考虑纯色情况
+  if (linearColor.colorStops.length === 1) {
+    linearColor.colorStops.push({
+      offset: 1,
+      color: gradientColor[0],
+    });
+  }
+  series.progress.itemStyle = { color: linearColor };
+  series.pointer.itemStyle = pointerStyle?.color ? { color: pointerStyle.color } : { color: linearColor };
 }
 
 // 轨道颜色分块外环光晕效果
 function setOuterHalo(seriesHalo, splitColor) {
-  const temp = cloneDeep(emptySeriesUnit);
-  const outerGaugeHalo = cloneDeep(temp);
-  outerGaugeHalo.startAngle = seriesHalo.startAngle;
-  outerGaugeHalo.endAngle = seriesHalo.endAngle;
-  outerGaugeHalo.center = seriesHalo.center;
-  const distance = seriesHalo.pointer.lineDistance.slice(0, seriesHalo.pointer.lineDistance.length - 1) - 0;
-  outerGaugeHalo.radius = `${parseFloat(seriesHalo.radius) + distance}%`;
-  outerGaugeHalo.axisLine = {
-    lineStyle: {
-      width: 1,
-      opacity: 0.3,
-      color: splitColor,
-    },
-  };
-  outerGaugeHalo.splitNumber = splitColor.length;
-  outerGaugeHalo.splitLine = {
-    // 不同颜色之间的中缝
-    distance: 8,
-    length: 10,
-    lineStyle: {
-      width: 2,
-      color: '',
-    },
-  };
-  // 2022/7/18 暂时把分割颜色屏蔽掉 darkColor、lightColor
-  outerGaugeHalo.splitLine.lineStyle.color = 'transparent';
+  const temp = cloneDeep(emptySeriesUnit);
+  const outerGaugeHalo = cloneDeep(temp);
+  outerGaugeHalo.startAngle = seriesHalo.startAngle;
+  outerGaugeHalo.endAngle = seriesHalo.endAngle;
+  outerGaugeHalo.center = seriesHalo.center;
+  const distance = seriesHalo.pointer.lineDistance.slice(0, seriesHalo.pointer.lineDistance.length - 1) - 0;
+  outerGaugeHalo.radius = `${parseFloat(seriesHalo.radius) + distance}%`;
+  outerGaugeHalo.axisLine = {
+    lineStyle: {
+      width: 1,
+      opacity: 0.3,
+      color: splitColor,
+    },
+  };
+  outerGaugeHalo.splitNumber = splitColor.length;
+  outerGaugeHalo.splitLine = {
+    // 不同颜色之间的中缝
+    distance: 8,
+    length: 10,
+    lineStyle: {
+      width: 2,
+      color: '',
+    },
+  };
+  // 2022/7/18 暂时把分割颜色屏蔽掉 darkColor、lightColor
+  outerGaugeHalo.splitLine.lineStyle.color = 'transparent';
 
-  return outerGaugeHalo;
+  return outerGaugeHalo;
 }
 
 // progress渐变色外环光晕效果
 function setProgressOuterHalo(series, outerGradientColor, mask, iChartOption) {
-  const temp = cloneDeep(emptySeriesUnit);
-  const linearColor = {
-    type: 'linear',
-    x: 0,
-    y: 0,
-    x2: 1,
-    y2: 0,
-    colorStops: outerGradientColor.map((item, index) => {
-      return {
-        offset: index === 0 ? 0 : index / (outerGradientColor.length - 1),
-        color: item,
-      };
-    }),
-    global: false,
-  };
-  const outerGauge = cloneDeep(temp);
-  outerGauge.startAngle = series.startAngle;
-  outerGauge.endAngle = series.endAngle;
-  // 是否开启蒙层及角度
-  if (mask && mask.show) {
-    outerGauge.startAngle = series.startAngle - 5;
-    outerGauge.endAngle = series.endAngle + 5;
-  }
-  outerGauge.center = series.center;
-  const distance = series.pointer.lineDistance.slice(0, series.pointer.lineDistance.length - 1) - 0;
-  outerGauge.radius = `${parseFloat(series.radius) + distance}%`;
-  outerGauge.axisLine = {
-    lineStyle: {
-      width: 1,
-      opacity: 0.3,
-      color: [[1, linearColor]],
-    },
-  };
-  // 开启蒙层outerGauge原先的光晕线变为蒙层区域，配置样式
-  if (mask && mask.show) {
-    const { pointerStyle } = iChartOption;
-    outerGauge.axisLine = {
-      lineStyle: {
-        width: mask.width || ((pointerStyle && pointerStyle.lineDistance) || '5%').replace('%', '') * 2.5,
-        opacity: 0.1,
-        color: [[1, linearColor]],
-      },
-    };
-  }
-  return outerGauge;
+  const temp = cloneDeep(emptySeriesUnit);
+  const linearColor = {
+    type: 'linear',
+    x: 0,
+    y: 0,
+    x2: 1,
+    y2: 0,
+    colorStops: outerGradientColor.map((item, index) => {
+      return {
+        offset: index === 0 ? 0 : index / (outerGradientColor.length - 1),
+        color: item,
+      };
+    }),
+    global: false,
+  };
+  const outerGauge = cloneDeep(temp);
+  outerGauge.startAngle = series.startAngle;
+  outerGauge.endAngle = series.endAngle;
+  // 是否开启蒙层及角度
+  if (mask && mask.show) {
+    outerGauge.startAngle = series.startAngle - 5;
+    outerGauge.endAngle = series.endAngle + 5;
+  }
+  outerGauge.center = series.center;
+  const distance = series.pointer.lineDistance.slice(0, series.pointer.lineDistance.length - 1) - 0;
+  outerGauge.radius = `${parseFloat(series.radius) + distance}%`;
+  outerGauge.axisLine = {
+    lineStyle: {
+      width: 1,
+      opacity: 0.3,
+      color: [[1, linearColor]],
+    },
+  };
+  // 开启蒙层outerGauge原先的光晕线变为蒙层区域，配置样式
+  if (mask && mask.show) {
+    const { pointerStyle } = iChartOption;
+    outerGauge.axisLine = {
+      lineStyle: {
+        width: mask.width || ((pointerStyle && pointerStyle.lineDistance) || '5%').replace('%', '') * 2.5,
+        opacity: 0.1,
+        color: [[1, linearColor]],
+      },
+    };
+  }
+  return outerGauge;
 }
 
 // 蒙层开启后，配置高亮光晕线
 function setHightLightGauge(series, iChartOption) {
-  const { gradientColor, mask } = iChartOption;
-  // 是否开启蒙层
-  if (mask && mask.show) {
-    const { pointerStyle } = iChartOption;
-    const outerGauge = cloneDeep(emptySeriesUnit);
-    outerGauge.startAngle = series.startAngle - 5;
-    outerGauge.endAngle = series.endAngle + 5;
-    outerGauge.center = series.center;
-    const seriesRadius = series.radius.replace('%', '');
-    const pointerRadius = (pointerStyle && pointerStyle.lineDistance) || '5%';
-    outerGauge.radius = `${seriesRadius - 0 + (pointerRadius.replace('%', '') - 0)}%`;
-    if (mask.hightLight !== false) {
-      mask.hightLight = true;
-    }
-    // 是否开启蒙层高亮
-    if (mask && mask.hightLight) {
-      const linearColor = {
-        type: 'linear',
-        x: 0,
-        y: 0,
-        x2: 1,
-        y2: 0,
-        colorStops: gradientColor.map((item, index) => {
-          return {
-            offset: index === 0 ? 0 : index / (gradientColor.length - 1),
-            color: codeToRGB(codeToHex(item), 0.5),
-          };
-        }),
-        global: false,
-      };
-      const max = iChartOption.max || 100;
-      outerGauge.axisLine = {
-        lineStyle: {
-          width: 1,
-          opacity: 1,
-          color: [
-            // [0.28, linearColor],
-            [(iChartOption.data[0].value - (5 * max) / 100) / max, codeToRGB(codeToHex(gradientColor[0]), 0.5)],
-            [(iChartOption.data[0].value + (5 * max) / 100) / max, codeToRGB(codeToHex(gradientColor[0]), 1)],
-            [1, linearColor],
-          ],
-        },
-      };
-    } else {
-      const linearColor = {
-        type: 'linear',
-        x: 0,
-        y: 0,
-        x2: 1,
-        y2: 0,
-        colorStops: gradientColor.map((item, index) => {
-          return {
-            offset: index === 0 ? 0 : index / (gradientColor.length - 1),
-            color: item,
-          };
-        }),
-        global: false,
-      };
-      outerGauge.axisLine = {
-        lineStyle: {
-          width: 1,
-          opacity: 0.3,
-          color: [[1, linearColor]],
-        },
-      };
-    }
-    return outerGauge;
-  }
+  const { gradientColor, mask } = iChartOption;
+  // 是否开启蒙层
+  if (mask && mask.show) {
+    const { pointerStyle } = iChartOption;
+    const outerGauge = cloneDeep(emptySeriesUnit);
+    outerGauge.startAngle = series.startAngle - 5;
+    outerGauge.endAngle = series.endAngle + 5;
+    outerGauge.center = series.center;
+    const seriesRadius = series.radius.replace('%', '');
+    const pointerRadius = (pointerStyle && pointerStyle.lineDistance) || '5%';
+    outerGauge.radius = `${seriesRadius - 0 + (pointerRadius.replace('%', '') - 0)}%`;
+    if (mask.hightLight !== false) {
+      mask.hightLight = true;
+    }
+    // 是否开启蒙层高亮
+    if (mask && mask.hightLight) {
+      const linearColor = {
+        type: 'linear',
+        x: 0,
+        y: 0,
+        x2: 1,
+        y2: 0,
+        colorStops: gradientColor.map((item, index) => {
+          return {
+            offset: index === 0 ? 0 : index / (gradientColor.length - 1),
+            color: codeToRGB(codeToHex(item), 0.5),
+          };
+        }),
+        global: false,
+      };
+      const max = iChartOption.max || 100;
+      outerGauge.axisLine = {
+        lineStyle: {
+          width: 1,
+          opacity: 1,
+          color: [
+            // [0.28, linearColor],
+            [(iChartOption.data[0].value - (5 * max) / 100) / max, codeToRGB(codeToHex(gradientColor[0]), 0.5)],
+            [(iChartOption.data[0].value + (5 * max) / 100) / max, codeToRGB(codeToHex(gradientColor[0]), 1)],
+            [1, linearColor],
+          ],
+        },
+      };
+    } else {
+      const linearColor = {
+        type: 'linear',
+        x: 0,
+        y: 0,
+        x2: 1,
+        y2: 0,
+        colorStops: gradientColor.map((item, index) => {
+          return {
+            offset: index === 0 ? 0 : index / (gradientColor.length - 1),
+            color: item,
+          };
+        }),
+        global: false,
+      };
+      outerGauge.axisLine = {
+        lineStyle: {
+          width: 1,
+          opacity: 0.3,
+          color: [[1, linearColor]],
+        },
+      };
+    }
+    return outerGauge;
+  }
 }
 
 // 添加一个空series，使用该空series的pointer来作为阈值线的红线
 function setMarkLine(series, markLine, marklineColor) {
-  const temp = cloneDeep(emptySeriesUnit);
-  const markGauge = cloneDeep(temp);
-  markGauge.name = 'markLine';
-  markGauge.min = series.min;
-  markGauge.max = series.max;
-  markGauge.startAngle = series.startAngle;
-  markGauge.endAngle = series.endAngle;
-  markGauge.center = series.center;
-  markGauge.radius = series.radius;
-  markGauge.animation = false;
-  markGauge.pointer = {
-    icon: 'path://M0 0 L30 0 L30 100 L0 100 Z',
-    width: 3,
-    length: 15,
-    offsetCenter: [0, '-86%'],
-    itemStyle: {
-      color: marklineColor,
-    },
-  };
-  markGauge.data = [{ value: markLine }];
-  return markGauge;
+  const temp = cloneDeep(emptySeriesUnit);
+  const markGauge = cloneDeep(temp);
+  markGauge.name = 'markLine';
+  markGauge.min = series.min;
+  markGauge.max = series.max;
+  markGauge.startAngle = series.startAngle;
+  markGauge.endAngle = series.endAngle;
+  markGauge.center = series.center;
+  markGauge.radius = series.radius;
+  markGauge.animation = false;
+  markGauge.pointer = {
+    icon: 'path://M0 0 L30 0 L30 100 L0 100 Z',
+    width: 3,
+    length: 15,
+    offsetCenter: [0, '-86%'],
+    itemStyle: {
+      color: marklineColor,
+    },
+  };
+  let markLineValue = isObject(markLine) ? markLine.value : markLine;
+  if(markLineValue){
+    markGauge.data = [{ value: markLineValue }];
+  }
+  return markGauge;
+}
+
+export function setMarkLineoffset(iChartOpt, eChartOpt, echartsIns, that) {
+  const rect = echartsIns.getModel?.()?.getComponent?.('grid')?.coordinateSystem?.getRect() || echartsIns?.getDom?.().getBoundingClientRect() || that.dom?.getBoundingClientRect?.() || {}; 
+  const { series } = eChartOpt;
+  const { itemStyle } = iChartOpt;
+  let barWidth = itemStyle?.width ? itemStyle.width : chartToken.barWidth;
+  let radius = series[0].radius;
+  let offset;
+  if (isString(radius) && radius.indexOf('%') > -1) {
+    radius = parseFloat(radius);
+    let wh =  rect.width < rect.height ? rect.width : rect.height;
+    offset = ((radius / 100) * wh/2 ) - barWidth - 15 - 2;
+  } else {
+    offset =  radius - barWidth - 15 - 2;
+  }
+  if (series?.[1]) {
+    series[1].pointer.offsetCenter = [0, -offset];
+  }
 }
 
 function handleOther(iChartOption, seriesUnit, series, data) {
-  const marklineColor = iChartOption.markLineColor ? iChartOption.markLineColor : Token.config.colorState.colorError; 
-  if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
-    setSplitColor(seriesUnit, iChartOption.splitColor, iChartOption.pointerStyle);
-  } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 0) {
-    setGradientColor(seriesUnit, iChartOption.gradientColor, iChartOption.pointerStyle);
-  }
-  // 若有阈值线，超过阈值线时为红色
-  if (iChartOption.markLine && data[0].value >= iChartOption.markLine) {
-    seriesUnit.pointer.itemStyle = { color: marklineColor };
-    seriesUnit.progress.itemStyle = { color: marklineColor };
-  }
-  series.push(seriesUnit);
-  // 轨道颜色分块、progress外环光晕效果
-  if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
-    const outerGauge = setOuterHalo(seriesUnit, iChartOption.splitColor);
-    // 是否展示外层光晕
-    if (iChartOption.itemStyle && iChartOption.itemStyle.outerGauge) {
-      if (iChartOption.itemStyle.outerGauge.show === false) {
-        outerGauge.axisLine.lineStyle.width = 0;
-        outerGauge.axisLine.lineStyle.opacity = 0;
-      }
-    }
-    series.push(outerGauge);
-  } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 1) {
-    const outerGauge = setProgressOuterHalo(seriesUnit, iChartOption.gradientColor, iChartOption.mask, iChartOption);
-    // 是否展示外层光晕
-    if (iChartOption.itemStyle && iChartOption.itemStyle.outerGauge) {
-      if (!iChartOption.itemStyle.outerGauge.show) {
-        outerGauge.axisLine.lineStyle.width = 0;
-        outerGauge.axisLine.lineStyle.opacity = 0;
-      }
-    }
-    series.push(outerGauge);
-    // 蒙层及高亮
-    const hightLightGauge = setHightLightGauge(seriesUnit, iChartOption);
-    series.push(hightLightGauge);
-  }
-  // 阈值线
-  if (iChartOption.markLine) {
-    const markGauge = setMarkLine(seriesUnit, iChartOption.markLine, marklineColor);
-    series.push(markGauge);
-  }
+  const {markLine} = iChartOption
+  const marklineColor = iChartOption.markLineColor ? iChartOption.markLineColor : Token.config.colorState.colorError; 
+  if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
+    setSplitColor(seriesUnit, iChartOption.splitColor, iChartOption.pointerStyle);
+  } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 0) {
+    setGradientColor(seriesUnit, iChartOption.gradientColor, iChartOption.pointerStyle);
+  }
+  // 若有阈值线，超过阈值线时为红色
+  let markLineValue = isObject(markLine) ? markLine.value : markLine;
+  if (markLineValue && data[0].value >= markLineValue) {
+    seriesUnit.pointer.itemStyle = { color: marklineColor };
+    seriesUnit.progress.itemStyle = { color: marklineColor };
+  }
+  series.push(seriesUnit);
+  // 轨道颜色分块、progress外环光晕效果
+  if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
+    const outerGauge = setOuterHalo(seriesUnit, iChartOption.splitColor);
+    // 是否展示外层光晕
+    if (iChartOption.itemStyle && iChartOption.itemStyle.outerGauge) {
+      if (iChartOption.itemStyle.outerGauge.show === false) {
+        outerGauge.axisLine.lineStyle.width = 0;
+        outerGauge.axisLine.lineStyle.opacity = 0;
+      }
+    }
+    series.push(outerGauge);
+  } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 1) {
+    const outerGauge = setProgressOuterHalo(seriesUnit, iChartOption.gradientColor, iChartOption.mask, iChartOption);
+    // 是否展示外层光晕
+    if (iChartOption.itemStyle && iChartOption.itemStyle.outerGauge) {
+      if (!iChartOption.itemStyle.outerGauge.show) {
+        outerGauge.axisLine.lineStyle.width = 0;
+        outerGauge.axisLine.lineStyle.opacity = 0;
+      }
+    }
+    series.push(outerGauge);
+    // 蒙层及高亮
+    const hightLightGauge = setHightLightGauge(seriesUnit, iChartOption);
+    series.push(hightLightGauge);
+  }
+  // 阈值线
+  if (markLine) {
+    const markGauge = setMarkLine(seriesUnit, markLine, marklineColor);
+    series.push(markGauge);
+  }
 }
 
 export function handleStatus(seriesUnit, iChartOption,radiusSize,text,sizeData,isAdaptive){
-  let status = iChartOption.status;
-  let statusText = iChartOption.statusText;
-  let statusColor = {
-    error: Token.config.colorAlarms.colorAlarmError,
-    fatal: Token.config.colorAlarms.colorAlarmFatal,
-    ordinary: Token.config.colorAlarms.colorAlarmOrdinary,
-    secondary: Token.config.colorAlarms.colorAlarmSecondary,
-    warning: Token.config.colorAlarms.colorAlarmWarning,
-    success: Token.config.colorState.colorSuccess
-  }
-  let radius = seriesUnit.radius.toString().indexOf('%') == -1 ? seriesUnit.radius : radiusSize * parseFloat(seriesUnit.radius) / 100 / 2;
-  if(isAdaptive) {
-    radius = radiusSize;
-  }
-  const valuePadding = isAdaptive ? sizeData.valuePadding : 0;
-  let lineHeight = radius / Math.sqrt(2) * 2 - 36;
-  let mainFontSize = sizeData.mainFontSize;
-  let unitPadding = lineHeight + 48 - (48 - mainFontSize) / 2;
-  if(isAdaptive) {
-    unitPadding = unitPadding + valuePadding;
-  }
+  let status = iChartOption.status;
+  let statusText = iChartOption.statusText;
+  let statusColor = {
+    error: Token.config.colorAlarms.colorAlarmError,
+    fatal: Token.config.colorAlarms.colorAlarmFatal,
+    ordinary: Token.config.colorAlarms.colorAlarmOrdinary,
+    secondary: Token.config.colorAlarms.colorAlarmSecondary,
+    warning: Token.config.colorAlarms.colorAlarmWarning,
+    success: Token.config.colorState.colorSuccess
+  }
+  let radius = seriesUnit.radius.toString().indexOf('%') == -1 ? seriesUnit.radius : radiusSize * parseFloat(seriesUnit.radius) / 100 / 2;
+  if(isAdaptive) {
+    radius = radiusSize;
+  }
+  const valuePadding = isAdaptive ? sizeData.valuePadding : 0;
+  let lineHeight = radius / Math.sqrt(2) * 2 - 36;
+  let mainFontSize = sizeData.mainFontSize;
+  let unitPadding = lineHeight + 48 - (48 - mainFontSize) / 2;
+  if(isAdaptive) {
+    unitPadding = unitPadding + valuePadding;
+  }
 
-  let statusLabel = {
-    fatal: '致命',
-    error: '高风险',
-    warning: '中风险',
-    secondary: '低风险',
-    ordinary: '提示',
-    success: '正常'
-  }
-  let color = statusColor[status];
-  let label = statusText ? statusText : statusLabel[status];
-  
-  if(!status || !color) {
-    return
-  }
-  seriesUnit.color = color;
+  let statusLabel = {
+    fatal: '致命',
+    error: '高风险',
+    warning: '中风险',
+    secondary: '低风险',
+    ordinary: '提示',
+    success: '正常'
+  }
+  let color = statusColor[status];
+  let label = statusText ? statusText : statusLabel[status];
+  
+  if(!status || !color) {
+    return
+  }
+  seriesUnit.color = color;
 
-  let name = iChartOption.data?.[0]?.name || '';
-  let unit = iChartOption.unit || '';
-  seriesUnit.detail = {
-    valueAnimation: true,
-    offsetCenter: [0, 0],
-    formatter: function (value) {
-        return unit ? '{value|' + value + '}{unit|'+ unit +'}\n{name|'+ name +'}\n{status|'+ label +'}' : '{value|' + value + '}\n{name|'+ name +'}\n{status|'+ label +'}'
-    },
-    rich: {
-      value: {
-        fontSize: sizeData.mainFontSize,
-        fontWeight: 'bolder',
-        color: chartToken.detailRichColor,
-        padding: [lineHeight + valuePadding, 0, 0, 0],
-     
-  
-      },
-      unit: {
-        fontSize: 14,
-        color: chartToken.unitColor,
-        padding: [unitPadding, 0, 30, 0],
-      },
-      name: {
-        fontSize: sizeData.secondaryFontSize || sizeData.subFontSize,
-        color: chartToken.descRichColor,
-        padding: [lineHeight + sizeData.space, 0, 0, 0],
-        fontWeight: 'normal',
-      },
-      status: {
-        fontWeight: 'bolder',
-        fontSize: 12,
-        color: chartToken.detailRichColor,
-        backgroundColor: chartToken.btnBgColor,
-        width: sizeData.btnWidthSize,
-        height: 24,
-        borderRadius: 20,
-        lineHeight: lineHeight,
-        align: 'center',
-        verticalAlign: 'bottom'
-      }
-    }
-  }
-  if (text?.formatterStyle) {
-    merge(seriesUnit.detail.rich, text.formatterStyle)
-  }
+  let name = iChartOption.data?.[0]?.name || '';
+  let unit = iChartOption.unit || '';
+  seriesUnit.detail = {
+    valueAnimation: true,
+    offsetCenter: [0, 0],
+    formatter: function (value) {
+        return unit ? '{value|' + value + '}{unit|'+ unit +'}\n{name|'+ name +'}\n{status|'+ label +'}' : '{value|' + value + '}\n{name|'+ name +'}\n{status|'+ label +'}'
+    },
+    rich: {
+      value: {
+        fontSize: sizeData.mainFontSize,
+        fontWeight: 'bolder',
+        color: chartToken.detailRichColor,
+        padding: [lineHeight + valuePadding, 0, 0, 0],
+     
+  
+      },
+      unit: {
+        fontSize: 14,
+        color: chartToken.unitColor,
+        padding: [unitPadding, 0, 30, 0],
+      },
+      name: {
+        fontSize: sizeData.secondaryFontSize || sizeData.subFontSize,
+        color: chartToken.descRichColor,
+        padding: [lineHeight + sizeData.space, 0, 0, 0],
+        fontWeight: 'normal',
+      },
+      status: {
+        fontWeight: 'bolder',
+        fontSize: 12,
+        color: chartToken.detailRichColor,
+        backgroundColor: chartToken.btnBgColor,
+        width: sizeData.btnWidthSize,
+        height: 24,
+        borderRadius: 20,
+        lineHeight: lineHeight,
+        align: 'center',
+        verticalAlign: 'bottom'
+      }
+    }
+  }
+  if (text?.formatterStyle) {
+    merge(seriesUnit.detail.rich, text.formatterStyle)
+  }
 }
 
 export function handleSize(seriesUnit,radiusSize){
-  
-  let diameter = seriesUnit.radius.toString().indexOf('%') == -1 ? seriesUnit.radius * 2 : radiusSize * parseFloat(seriesUnit.radius) / 100;
-  let mainFontSize,secondaryFontSize,btnWidthSize,space;
-  if(diameter >= 200) {
-    mainFontSize = 48;
-    secondaryFontSize = 14;
-    btnWidthSize = 96;
-    space = 28;
-  } else if (diameter < 200 && diameter >= 160) {
-    mainFontSize = 36;
-    secondaryFontSize = 12;
-    btnWidthSize = 80;
-    space = 4;
-  } else {
-    mainFontSize = 32;
-    secondaryFontSize = 12;
-    btnWidthSize = 64;
-    space = 0;
-  }
-  return {
-    mainFontSize: mainFontSize,
-    secondaryFontSize: secondaryFontSize,
-    btnWidthSize: btnWidthSize,
-    space: space,
-  }
+  
+  let diameter = seriesUnit.radius.toString().indexOf('%') == -1 ? seriesUnit.radius * 2 : radiusSize * parseFloat(seriesUnit.radius) / 100;
+  let mainFontSize,secondaryFontSize,btnWidthSize,space;
+  if(diameter >= 200) {
+    mainFontSize = 48;
+    secondaryFontSize = 14;
+    btnWidthSize = 96;
+    space = 28;
+  } else if (diameter < 200 && diameter >= 160) {
+    mainFontSize = 36;
+    secondaryFontSize = 12;
+    btnWidthSize = 80;
+    space = 4;
+  } else {
+    mainFontSize = 32;
+    secondaryFontSize = 12;
+    btnWidthSize = 64;
+    space = 0;
+  }
+  return {
+    mainFontSize: mainFontSize,
+    secondaryFontSize: secondaryFontSize,
+    btnWidthSize: btnWidthSize,
+    space: space,
+  }
 }
 
 function setSeriesInit(seriesUnit, iChartOption) {
-  const chartPosition = iChartOption.position || iChartOption.chartPosition || {};
-  const { pointerStyle, pointer, min, max, startAngle, endAngle } = iChartOption;
-  seriesUnit.name = iChartOption.seriesName || iChartOption.name || 'data';
-  seriesUnit.data = iChartOption.data.length ? iChartOption.data : [{value:0,name: ''}];
-  // 指针
-  seriesUnit.pointer.show = pointer || false;
-  seriesUnit.pointer.width = (pointerStyle && pointerStyle.width) || 12;
-  seriesUnit.pointer.length = (pointerStyle && pointerStyle.length) || 16;
-  seriesUnit.pointer.offsetCenter[1] = (pointerStyle && pointerStyle.pointerDistance) || '-108%';
-  seriesUnit.pointer.lineDistance = (pointerStyle && pointerStyle.lineDistance) || '5%';
-  // 位置
-  seriesUnit.center = chartPosition.center || ['50%', '50%'];
-  // 半径
-  seriesUnit.radius = chartPosition.radius || '70%';
-  // 最小值
-  seriesUnit.min = min || 0;
-  // 最大值
-  seriesUnit.max = max || 100;
-  // 开始角度
-  seriesUnit.startAngle = startAngle === undefined ? 225 : startAngle;
-  // 结束角度
-  seriesUnit.endAngle = endAngle === undefined ? -45 : endAngle;
+  const chartPosition = iChartOption.position || iChartOption.chartPosition || {};
+  const { pointerStyle, pointer, min, max, startAngle, endAngle } = iChartOption;
+  seriesUnit.name = iChartOption.seriesName || iChartOption.name || 'data';
+  seriesUnit.data = iChartOption.data.length ? iChartOption.data : [{value:0,name: ''}];
+  // 指针
+  seriesUnit.pointer.show = pointer || false;
+  seriesUnit.pointer.width = (pointerStyle && pointerStyle.width) || 12;
+  seriesUnit.pointer.length = (pointerStyle && pointerStyle.length) || 16;
+  seriesUnit.pointer.offsetCenter[1] = (pointerStyle && pointerStyle.pointerDistance) || '-108%';
+  seriesUnit.pointer.lineDistance = (pointerStyle && pointerStyle.lineDistance) || '5%';
+  // 位置
+  seriesUnit.center = chartPosition.center || ['50%', '50%'];
+  // 半径
+  seriesUnit.radius = chartPosition.radius || '70%';
+  // 最小值
+  seriesUnit.min = min || 0;
+  // 最大值
+  seriesUnit.max = max || 100;
+  // 开始角度
+  seriesUnit.startAngle = startAngle === undefined ? 225 : startAngle;
+  // 结束角度
+  seriesUnit.endAngle = endAngle === undefined ? -45 : endAngle;
 }
 
 /**
- * 组装echarts所需要的series
- * @param {主题} theme
- * @param {数据} data
- * @returns
- */
+ * 组装echarts所需要的series
+ * @param {主题} theme
+ * @param {数据} data
+ * @returns
+ */
 export function handleSeries(iChartOption, optionColor, containerWidth, containerHeight) {
-  const data = iChartOption.data.length ? iChartOption.data : [{value:0,name: ''}];
-  const text = iChartOption.text || {};
-  const axisLabelStyle = iChartOption.axisLabelStyle || {};
-  const { silent, itemStyle } = iChartOption;
-  const barWidth = chartToken.barWidth;
-  const radiusSize = containerWidth > containerHeight ? containerHeight : containerWidth;
-  // 更改仪表盘轨道底色
-  handleTheme(iChartOption);
-  // 更换刻度文本颜色、字号、字体宽度等样式
-  if (axisLabelStyle['color']) {
-    seriesInit.axisLabel['color'] = axisLabelStyle['color'];
-  } else {
-    seriesInit.axisLabel['color'] = chartToken.descRichColor;
-  }
-  seriesInit.axisLabel['distance'] = axisLabelStyle['distance'] || Number(itemStyle?.width || barWidth) + 6 || 22;
-  seriesInit.axisLabel['fontWeight'] = axisLabelStyle['fontWeight'] || 400;
-  seriesInit.axisLabel['fontSize'] = axisLabelStyle['fontSize'] || 14;
-  // 组装数据
-  const series = [];
-  const seriesUnit = cloneDeep(seriesInit);
-  
-  setSeriesInit(seriesUnit, iChartOption);
-  // 控制刻度线及刻度文本是否展示;大刻度数量以及判断刻度文本是否显示
-  handleSplitLine(iChartOption, seriesUnit);
-  // 不同尺寸下的fontSize
-  const sizeData = handleSize(seriesUnit,radiusSize);
-  // 中间文本
-  handleDetail(seriesUnit, text, data, sizeData, iChartOption.adaptive);
-  // 进度条宽度
-  handleProgress(seriesUnit, iChartOption, data);
-  handleAxisLine(seriesUnit, iChartOption);
-  // 内置状态仪表盘
-  handleStatus(seriesUnit, iChartOption,radiusSize,text,sizeData);
- 
-  // 轨道颜色分块、progress渐变只能二选一
-  handleOther(iChartOption, seriesUnit, series, data);
-  // 是否关闭hover态的效果，默认为false
-  series[0].silent = silent || false;
-  return series;
+  const data = iChartOption.data.length ? iChartOption.data : [{value:0,name: ''}];
+  const text = iChartOption.text || {};
+  const axisLabelStyle = iChartOption.axisLabelStyle || {};
+  const { silent, itemStyle } = iChartOption;
+  const barWidth = chartToken.barWidth;
+  const radiusSize = containerWidth > containerHeight ? containerHeight : containerWidth;
+  // 更改仪表盘轨道底色
+  handleTheme(iChartOption);
+  // 更换刻度文本颜色、字号、字体宽度等样式
+  if (axisLabelStyle['color']) {
+    seriesInit.axisLabel['color'] = axisLabelStyle['color'];
+  } else {
+    seriesInit.axisLabel['color'] = chartToken.descRichColor;
+  }
+  seriesInit.axisLabel['distance'] = axisLabelStyle['distance'] || Number(itemStyle?.width || barWidth) + 6 || 22;
+  seriesInit.axisLabel['fontWeight'] = axisLabelStyle['fontWeight'] || 400;
+  seriesInit.axisLabel['fontSize'] = axisLabelStyle['fontSize'] || 14;
+  // 组装数据
+  const series = [];
+  const seriesUnit = cloneDeep(seriesInit);
+  
+  setSeriesInit(seriesUnit, iChartOption);
+  // 控制刻度线及刻度文本是否展示;大刻度数量以及判断刻度文本是否显示
+  handleSplitLine(iChartOption, seriesUnit);
+  // 不同尺寸下的fontSize
+  const sizeData = handleSize(seriesUnit,radiusSize);
+  // 中间文本
+  handleDetail(seriesUnit, text, data, sizeData, iChartOption.adaptive);
+  // 进度条宽度
+  handleProgress(seriesUnit, iChartOption, data);
+  handleAxisLine(seriesUnit, iChartOption);
+  // 内置状态仪表盘
+  handleStatus(seriesUnit, iChartOption,radiusSize,text,sizeData);
+ 
+  // 轨道颜色分块、progress渐变只能二选一
+  handleOther(iChartOption, seriesUnit, series, data);
+  // 是否关闭hover态的效果，默认为false
+  series[0].silent = silent || false;
+  return series;
 }
 
 export function adapt(iChartOption, baseOption, containerWidth, containerHeight) {
-  const theme = iChartOption?.theme;
-  const adaptive =  iChartOption?.adaptive;
-  const series = baseOption.series[0];
-  const text = iChartOption.text || {};
-  // 如果主题为华为云主题，并且开启配置项则开启自适应功能
-  if (theme && theme.indexOf('cloud')!=-1 && adaptive) {
-    // 初始值为宽度的80%
-    let initRadius = containerWidth * 0.8;
-    let radius = Math.max(120,Math.min(200,Math.min(initRadius,containerHeight))) / 2;
-    let mainText;
-    const value = iChartOption?.data[0]?.value;
-    const unit = iChartOption?.unit;
-    if (value && unit) {
-      mainText = [value,unit];
-    } else {
-      mainText = value && value.toString();
-    }
-    const barWidth = baseOption.series[0]?.progress?.width;
-    let sizeData = calculateFontSize(radius * 2,mainText,barWidth);
-    
-    // 主文本的上padding
-    if(sizeData.mainFontSize === 48) {
-      sizeData.valuePadding = 0;
-    } else if (sizeData.mainFontSize === 36) {
-      sizeData.valuePadding = 8;
-    } else {
-      sizeData.valuePadding = 16;
-    }
-  
-    baseOption.series[0].axisLabel.show = false;
-    baseOption.series[0].splitLine.show = false;
-    // 非内置仪表盘 中间文本 主副文本的间距按需决定
-    if(radius*2 >= 200) {
-      sizeData.space = 24;
-    } else if (radius*2 < 200 && radius*2 >= 160) {
-      sizeData.space = 18;
-    } else {
-      sizeData.space = 10;
-    }
-    handleDetail(series, text, iChartOption.data, sizeData, true);
-    // 内置状态仪表盘 space沿用默认规则
-    if(radius*2 >= 200) {
-      sizeData.space = 28;
-    } else if (radius*2 < 200 && radius*2 >= 160) {
-      sizeData.space = 4;
-    } else {
-      sizeData.space = 0;
-    }
-    handleStatus(series, iChartOption, radius, text, sizeData, true);
-    baseOption.series[0].radius = radius;
-  }
+  const theme = iChartOption?.theme;
+  const adaptive =  iChartOption?.adaptive;
+  const series = baseOption.series[0];
+  const text = iChartOption.text || {};
+  // 如果主题为华为云主题，并且开启配置项则开启自适应功能
+  if (theme && theme.indexOf('cloud')!=-1 && adaptive) {
+    // 初始值为宽度的80%
+    let initRadius = containerWidth * 0.8;
+    let radius = Math.max(120,Math.min(200,Math.min(initRadius,containerHeight))) / 2;
+    let mainText;
+    const value = iChartOption?.data[0]?.value;
+    const unit = iChartOption?.unit;
+    if (value && unit) {
+      mainText = [value,unit];
+    } else {
+      mainText = value && value.toString();
+    }
+    const barWidth = baseOption.series[0]?.progress?.width;
+    let sizeData = calculateFontSize(radius * 2,mainText,barWidth);
+    
+    // 主文本的上padding
+    if(sizeData.mainFontSize === 48) {
+      sizeData.valuePadding = 0;
+    } else if (sizeData.mainFontSize === 36) {
+      sizeData.valuePadding = 8;
+    } else {
+      sizeData.valuePadding = 16;
+    }
+  
+    baseOption.series[0].axisLabel.show = false;
+    baseOption.series[0].splitLine.show = false;
+    // 非内置仪表盘 中间文本 主副文本的间距按需决定
+    if(radius*2 >= 200) {
+      sizeData.space = 24;
+    } else if (radius*2 < 200 && radius*2 >= 160) {
+      sizeData.space = 18;
+    } else {
+      sizeData.space = 10;
+    }
+    handleDetail(series, text, iChartOption.data, sizeData, true);
+    // 内置状态仪表盘 space沿用默认规则
+    if(radius*2 >= 200) {
+      sizeData.space = 28;
+    } else if (radius*2 < 200 && radius*2 >= 160) {
+      sizeData.space = 4;
+    } else {
+      sizeData.space = 0;
+    }
+    handleStatus(series, iChartOption, radius, text, sizeData, true);
+    baseOption.series[0].radius = radius;
+  }
 }
-
-
-
-

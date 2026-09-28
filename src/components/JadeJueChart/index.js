@@ -19,7 +19,7 @@ import { setStartAngle, setbarWidth, handleLegendData, bindLegendEvent } from '.
 import { CHART_TYPE } from '../../util/constants';
 import handleCenterTitle from '../../option/config/polarTitle/handleCenterTitle';
 import { mergeSeries } from '../../util/merge';
-import legend from '../../option/config/legend';
+import legendAdaptive from '../../option/config/legend/adaptive';
 
 class JadeJueChart {
 
@@ -74,7 +74,7 @@ class JadeJueChart {
   resize(callback){
     const adaptiveCloud = this.iChartOption.adaptive && this.iChartOption.theme?.includes('cloud');
     if (adaptiveCloud) {
-      this.baseOption.legend = legend(this.iChartOption, 'JadeJueChart', this.chartInstance)
+      this.baseOption.legend = legendAdaptive(this.iChartOption, this.baseOption.legend, this.chartInstance, 'JadeJueChart')
     }
     setbarWidth(this.iChartOption, this.baseOption, this.chartInstance, this.chartType);
     if (this.baseOption?.title?.text || this.baseOption?.title?.subtext) {

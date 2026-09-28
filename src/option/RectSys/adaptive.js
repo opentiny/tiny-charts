@@ -13,9 +13,10 @@ import datazoom from '../config/datazoom';
 import xkey from '../config/xAxis/xkey';
 import xdata from '../config/xAxis/xdata';
 import mobile from '../../util/mobile';
+import { isArray } from '../../util/type';
 // 组装直角坐标系自适应
 function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
-  if (baseOpt.xAxis[0].type !== 'category') return;
+  if (baseOpt.xAxis?.[0]?.type !== 'category') return;
   if (!iChartOpt.adaptive) return;
   const rect = echartsIns.getModel?.()?.getComponent?.('grid')?.coordinateSystem?.getRect() || echartsIns?.getDom?.().getBoundingClientRect() || {}; 
   let iXkey = xkey(iChartOpt);
@@ -32,32 +33,62 @@ function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
   // 设置字体
   ctx.font = `${fontWeight} ${fontSize} ${fontFamily}`;
   let maxItemWidth = (rect.width - (iXdata.length - 1) * 8) / iXdata.length;
+  // 计算超出最合适的datazoom end
+  let overLoneWidth = 0;
+  let overLoneIndex = 0;
+  for (let index = 0; index < iXdata.length; index++) {
+    const item = iXdata[index];
+    const width = ctx.measureText(item).width;
+    if(maxItemWidth < width){
+      overLoneWidth += width + 8;
+      overLoneIndex ++;
+    }
+  }
+  // 为了文字完全显示，计算出超长文字 + 最小间隙对 / 默认单项的宽度
+  const regularWidth = maxItemWidth * overLoneIndex + 8 * overLoneIndex;
+  const widthParcent = parseFloat((regularWidth / overLoneWidth) * 100 );
+  let flag = false;
   for (let index = 0; index < iXdata.length; index++) {
     const item = iXdata[index];
     const next = iXdata[index+1] ;
     const width = ctx.measureText(item).width;
     const nextWidth = next && ctx.measureText(next).width ;
-    if (next) {
-      if ((width + nextWidth)/2 > maxItemWidth) {
-        if((!iChartOpt.dataZoom?.show || !iChartOpt.dataZoom?.[0]?.show)) {
-          iChartOpt.dataZoom.show = true;
-          iChartOpt.dataZoom.height = 8;
-          iChartOpt.dataZoom.handleSize = '68%';
-          iChartOpt.dataZoom.mini = true;
-          iChartOpt.dataZoom.bottom = 0;
-          iChartOpt.dataZoom.start = 0;
-          iChartOpt.dataZoom.end = iChartOpt.dataZoom.end || 80;
-          iChartOpt.dataZoom.type = isMobile ? "inside" : 'slider';
-        }
-        break;
-      } else {
-        iChartOpt.dataZoom.show = false;
+    if (next && (width + nextWidth)/2 > maxItemWidth) {
+      if(!iChartOpt.dataZoom?.show && !iChartOpt.dataZoom.mini) {
+        iChartOpt.dataZoom.show = true;
+        iChartOpt.dataZoom.height = 8;
+        iChartOpt.dataZoom.handleSize = '68%';
+        iChartOpt.dataZoom.mini = true;
+        iChartOpt.dataZoom.bottom = 0;
+        iChartOpt.dataZoom.start = 0;
+        iChartOpt.dataZoom.end = iChartOpt.dataZoom.end || 80; // widthParcent < 30 ? 30 : widthParcent;
+        iChartOpt.dataZoom.type = isMobile ? "inside" : 'slider';
+        iChartOpt.dataZoom.adaptive = true;
       }
+      // 设定底部datazoom 预留高度需大于 18 --- 取自设计稿
+      if(iChartOpt.dataZoom.mini && iChartOpt.padding && isArray(iChartOpt.padding) && iChartOpt.padding[2] < 18){
+        setAdaptiveGrid(baseOpt, 18)
+      }
+      flag = true;
+      break;
     }
+  }
+  if(!flag){
+    if(iChartOpt.dataZoom.adaptive){
+      iChartOpt.dataZoom = {...echartsIns.oldDataZoom};
+    }
+    setAdaptiveGrid(baseOpt, iChartOpt.dataZoom.bottom || iChartOpt.padding?.[2] || 0);
   }
   // 图表datazoom
   baseOpt.dataZoom = datazoom(iChartOpt);
 }
 
-export default AdaptiveRectSys;
+function setAdaptiveGrid(baseOpt, value){
+  if (isArray(baseOpt.grid)) {
+    baseOpt.grid[0].bottom = value;
+  } else {
+    baseOpt.grid.bottom = value;
+  }
+}
 
+export default AdaptiveRectSys;

@@ -50,7 +50,7 @@ const colorChart = {
   colorChart5: board.orange.colorOrange40,
   colorChart6: board.brand.colorBrand30,
   colorChart7: board.purple.colorPurple60,
-  colorChart8: board.rose.colorRose60,
+  colorChart8: board.rose.colorRose40,
   colorChart9: board.indigo.colorIndigo60,
   colorChart10: board.yellow.colorYellow60,
   colorChart11: board.brand.colorBrand60,

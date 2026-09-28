@@ -24,6 +24,10 @@ import ldata from '../config/legend/ldata';
 
 // 组装直角坐标系所需的基础配置
 function RectCoordSys(baseOpt, iChartOpt, chartName, chartInstance) {
+    // 存储datazoom配置
+    if (chartInstance && !chartInstance.oldDataZoom) {
+        chartInstance.oldDataZoom = {...iChartOpt.dataZoom};
+    }
     // 图表padding
     baseOpt.grid = grid(iChartOpt);
     // 图表基础颜色
@@ -39,7 +43,7 @@ function RectCoordSys(baseOpt, iChartOpt, chartName, chartInstance) {
     // 图表datazoom
     baseOpt.dataZoom = datazoom(iChartOpt);
     // 图表toolbox
-    baseOpt.toolbox = toolbox(iChartOpt)
+    baseOpt.toolbox = toolbox(iChartOpt);
 }
 
 export default RectCoordSys;

@@ -26,7 +26,7 @@ import { lttb } from '../../feature/performance/lttb';
 import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE } from '../../util/constants';
 import { isArray, isObject } from '../../util/type';
-import legend from '../../option/config/legend';
+import legendAdaptive from '../../option/config/legend/adaptive';
 
 class LineChart {
 
@@ -167,7 +167,7 @@ class LineChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMaxValue(echartsIns, index) {
-    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[1] || 1;
+    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[1] || echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0]?.[1]  || 1;
   }
 
   /**
@@ -177,14 +177,14 @@ class LineChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMinValue(echartsIns, index) {
-    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0] || 0;
+    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0] || echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0]?.[0] || 0;
   }
 
   resize(callback) {
     // 坐标轴二次计算
     if (this.iChartOption.adaptive || this.iChartOption.legend?.svg) {
       AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
-      this.baseOption.legend = legend(this.iChartOption, 'LineChart', this.chartInstance);
+      this.baseOption.legend = legendAdaptive(this.iChartOption, this.baseOption.legend, this.chartInstance, 'LineChart');
       callback(this.baseOption, { notMerge: false });
     }
   }

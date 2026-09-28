@@ -97,7 +97,7 @@ const handleLabelFormatter = (iChartOption, baseOpt, chartType) => {
         return;
     }
     angleAxis.axisLabel.formatter = formatter;
-    // 使用customValues属性(echarts5.5.1以上版本才支持)将刻度均分为5份。
+    // 使用customValues属性(echarts6.1.0以上版本才支持)将刻度均分为5份。
     const customValues = [0];
     const interval = angleAxis.splitNumber || 5;
     const averageVal = angleAxis.sum / interval;
