@@ -36,7 +36,7 @@ const getDatasetData = option => {
     option.data = data;
     const series = option.series;
     // series.encode维度映射
-    if (series && isArray(series) && series[0].encode) {
+    if (series && isArray(series) && series[0]?.encode) {
       const encode = series[0].encode;
       option.direction = 'horizontal';
       const chartToken = Theme.getChartTokenByName(CHART_TYPE.BAR);
