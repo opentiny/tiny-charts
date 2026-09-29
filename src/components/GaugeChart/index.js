@@ -12,10 +12,11 @@
 import BaseOption from './BaseOption';
 import {handleSeries, handleSize, handleDetail, handleStatus, adapt, setMarkLineoffset} from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
-import { handleTooltip } from './handleOptipn';
+import { handleTooltip, setMiniGauge  } from './handleOptipn';
 import { mergeSeries } from '../../util/merge';
 import init from '../../option/init'
 import { CHART_TYPE } from '../../util/constants';
+import setA2ui from '../../feature/a2ui';
 
 class GaugeChart {
 
@@ -24,6 +25,8 @@ class GaugeChart {
   constructor(iChartOption, chartInstance) {
     this.baseOption = {};
     this.iChartOption = {};
+    this.chartName = CHART_TYPE.GAUGE;
+    this.dom = chartInstance._dom;
     this.baseOption = cloneDeep(BaseOption);
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
@@ -46,6 +49,7 @@ class GaugeChart {
     this.baseOption.legend.show = false;
     adapt(iChartOption, this.baseOption, containerWidth, containerHeight);
     setMarkLineoffset(this.iChartOption, this.baseOption, this.chartInstance, this);
+    setMiniGauge(this.baseOption, iChartOption);
     mergeSeries(iChartOption, this.baseOption);
   }
 
@@ -65,11 +69,15 @@ class GaugeChart {
     const series = this.baseOption.series[0];
     const sizeData = handleSize(series,radiusSize);
     const text = this.iChartOption.text || {};
+    if(this.iChartOption.a2ui) {
+      setA2ui(this.iChartOption, this);
+    }
     // 中间文本
     handleDetail(series, text, this.iChartOption.data,sizeData);
     // 内置状态仪表盘
     handleStatus(series, this.iChartOption,radiusSize,text,sizeData);
     adapt(this.iChartOption,this.baseOption,containerWidth,containerHeight);
+    setMiniGauge(this.baseOption, this.iChartOption, this);
     callback(this.baseOption);
   }
 }

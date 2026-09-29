@@ -28,6 +28,7 @@ import cloneDeep from './util/cloneDeep';
 import { uuid } from './util/math';
 import Theme from './theme';
 import mobile from './util/mobile';
+import setA2ui from './feature/a2ui';
 
 const SELF_CHART = [
   'FlowChart',
@@ -163,6 +164,10 @@ export default class CoreChart extends BaseChart {
     let iChartOption = {};
     merge(iChartOption, option);
     iChartOption = xssOption(iChartOption);
+    // 使用A2ui时
+    if (iChartOption?.a2ui) {
+      setA2ui(iChartOption, this)
+    }
     // 设定主题、自适应图表
     if (isInit) {
       Token.setDefaultTheme(Theme.globalName || iChartOption.theme);

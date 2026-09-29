@@ -326,4 +326,17 @@ function setMarkLine(baseOpt, iChartOpt, radarKeys) {
   }
 }
 
-export { setRadar, getRadarKeys, getRadarMax, setTooltip, setMarkLine, initRadarSys, setRadarShape,handletipHtml ,checkValue};
+function setMiniRadar(baseOpt, iChartOpt) {
+  const {mini} = iChartOpt;
+  merge(baseOpt.radar[0], {
+    axisName:{
+      show: !mini
+    },
+    axisLabel:{
+      show: !mini
+    }
+  })
+  // baseOpt.tooltip.show = !mini;
+}
+
+export { setRadar, getRadarKeys, getRadarMax, setTooltip, setMarkLine, initRadarSys, setRadarShape,handletipHtml ,checkValue, setMiniRadar};

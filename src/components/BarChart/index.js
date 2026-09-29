@@ -10,7 +10,7 @@
  *
  */
 import LineChart from '../LineChart';
-import mini from '../../feature/mini/miniBarChart';
+import miniBar from '../../feature/mini/miniBarChart';
 import init from '../../option/init';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../option/base';
@@ -24,6 +24,7 @@ import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE, ADAPTIVE_THEME } from '../../util/constants';
 import AdaptiveRectSys from '../../option/RectSys/adaptive';
 import legendAdaptive from '../../option/config/legend/adaptive';
+import setA2ui from '../../feature/a2ui';
 
 class BarChart {
 
@@ -33,6 +34,8 @@ class BarChart {
     this.baseOption = {};
     this.baseOption = cloneDeep(BaseOption);
     this.chartInstance = chartInstance;
+    this.chartName = CHART_TYPE.BAR;
+    this.dom = chartInstance._dom;
     getDatasetData(iChartOption);
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
@@ -92,7 +95,7 @@ class BarChart {
     // 合并用户自定义visualMap
     mergeVisualMap(iChartOption, this.baseOption);
     // 处理特性
-    mini(iChartOption, this.baseOption);
+    miniBar(iChartOption, this.baseOption);
   }
 
   // 根据渲染出的结果，二次计算option
@@ -151,10 +154,15 @@ class BarChart {
 
   // 自适应柱条宽度
   resize(callback) {
-    if (this.iChartOption.adaptive) {
-      // 坐标轴二次计算
-      AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
+    if (this.iChartOption.adaptive || this.iChartOption.a2ui) {
       this.baseOption.legend = legendAdaptive(this.iChartOption, this.baseOption.legend, this.chartInstance, 'BarChart');
+      if(this.iChartOption.a2ui) {
+        setA2ui(this.iChartOption, this);
+        miniBar(this.iChartOption, this.baseOption);
+        updateWidth(this.baseOption, this.chartInstance, this.iChartOption);
+      }
+      // 坐标轴二次计算
+      AdaptiveRectSys(baseOption, this.iChartOption, this.chartInstance, this)
     }
     
     // 如果用户自定义了 barWidth 或 存在 dataZoom，则不主动刷新柱宽

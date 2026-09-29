@@ -33,22 +33,22 @@ const outerRingLimit = 208;
 
 // 主题中 线宽由线数量来决定
 function setThemeBarRule(theme, data, baseOpt, chartInstance, gap, iChartOption) {
-  const isCloud = theme.includes('cloud');
+  const isCloudOrHDesign = (theme.includes('cloud') || theme.includes('hdesign'));
   let barWidth, textGap = gap || 2;
   if (data.length >= 5) {
-    barWidth = isCloud ? cloudThemeBarWidth.small : defaultThemeBarWidth.small;
+    barWidth = isCloudOrHDesign ? cloudThemeBarWidth.small : defaultThemeBarWidth.small;
   } else if (data.length === 4) {
-    barWidth = isCloud ? cloudThemeBarWidth.medium : defaultThemeBarWidth.medium;
+    barWidth = isCloudOrHDesign ? cloudThemeBarWidth.medium : defaultThemeBarWidth.medium;
   } else if (data.length <= 3) {
-    barWidth = isCloud ? cloudThemeBarWidth.large : defaultThemeBarWidth.large;
+    barWidth = isCloudOrHDesign ? cloudThemeBarWidth.large : defaultThemeBarWidth.large;
   }
   let outerRing = getOuterRing(baseOpt, chartInstance);
   if (outerRing < outerRingLimit / 2) {
-    barWidth = isCloud ? 4 : 8;
+    barWidth = isCloudOrHDesign ? 4 : 8;
     textGap = 0;
   }
   // 开启自适应, 华为云自适应时宽度为4，无文本间隙
-  if (iChartOption.adaptive && isCloud) {
+  if (iChartOption.adaptive && isCloudOrHDesign) {
     textGap = 0;
     barWidth = 4;
   }
@@ -60,7 +60,7 @@ function setThemeBarRule(theme, data, baseOpt, chartInstance, gap, iChartOption)
 function setThemeRadius(iChartOption, baseOpt, chartInstance, textGap) {
   const lineHeight = 20;
   const { data, theme, adaptive } = iChartOption;
-  if (adaptive && theme.includes('cloud')) {
+  if (adaptive && (theme.includes('cloud') || theme.includes('hdesign'))) {
     // 华为云主题 随数据增加，圆环由内往外逐渐增大
     let position = handleCenterPosition(iChartOption, baseOpt.legend, chartInstance);
     let outerRing = position.radius || 100;

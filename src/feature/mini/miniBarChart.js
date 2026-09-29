@@ -1,39 +1,28 @@
-/**
- * Copyright (c) 2024 - present OpenTiny HUICharts Authors.
- * Copyright (c) 2024 - present Huawei Cloud Computing Technologies Co., Ltd.
- *
- * Use of this source code is governed by an MIT-style license.
- *
- * THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
- * BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
- * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
- *
- */
 import { isArray } from '../../util/type';
 import merge from '../../util/merge';
 
 // 微型场景下，不显示不必要的图元
-function mini(iChartOption, baseOption) {
-  if (iChartOption.mini) {
+function miniBar(iChartOption, baseOption) {
+    const {mini, padding, legend, title, tooltip, yAxis} = iChartOption;
     baseOption.grid.forEach(item => {
       Object.assign(item, {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        containLabel: false,
+        top: mini ? 1 : padding?.[0] || 0,
+        right: mini ? 0 : padding?.[1] || 0,
+        bottom: mini ? 1 : padding?.[2] || 0,
+        left: mini ? 0 : padding?.[3] || 0,
+        containLabel: !mini,
       });
     });
 
     baseOption.legend = Object.assign(baseOption.legend, {
-      show: false
+      show: mini ? false : (legend?.show || true)
     });
     baseOption.title = merge(baseOption.title, {
-      show: false
+      show: mini ? false : (title?.show || true)
     });
-    baseOption.tooltip = Object.assign(baseOption.tooltip, {
-      show: false
-    });
+    // baseOption.tooltip = Object.assign(baseOption.tooltip, {
+    //   show: mini ? false : (tooltip?.show || true)
+    // });
     if (!isArray(baseOption.xAxis)) {
       baseOption.xAxis = [baseOption.xAxis];
     }
@@ -42,17 +31,16 @@ function mini(iChartOption, baseOption) {
     }
     baseOption.xAxis.forEach(item => {
       Object.assign(item, {
-        show: false,
+        show: !mini,
         boundaryGap: true,
       });
     });
     baseOption.yAxis.forEach(item => {
       Object.assign(item, {
-        show: false,
-        max: 'dataMax',
+        show: !mini,
+        max: mini ? 'dataMax' : (yAxis?.max ? yAxis?.max : () => null),
       });
     });
-  }
 }
 
-export default mini;
+export default miniBar;

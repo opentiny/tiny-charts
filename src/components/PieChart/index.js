@@ -19,6 +19,7 @@ import handleCenterPosition from './handleCenterPosition';
 import { mergeSeries } from '../../util/merge';
 import { setTooltip } from './handleOptipn';
 import ldata from '../../option/config/legend/ldata';
+import setA2ui from '../../feature/a2ui';
 
 class PieChart {
 
@@ -28,6 +29,8 @@ class PieChart {
     this.baseOption = {};
     this.iChartOption = {};
     this.chartInstance = chartInstance;
+    this.chartName = CHART_TYPE.PIE;
+    this.dom = chartInstance._dom;
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
@@ -68,6 +71,9 @@ class PieChart {
   setOption() { }
 
   resize(callback) {
+    if (this.iChartOption.a2ui) {
+      setA2ui(this.iChartOption, this)
+    }
     this.updateOption(this.chartInstance);
     callback(this.baseOption);
   }

@@ -161,7 +161,7 @@ const blue = {
   colorBlue30: '#B3D6FF',
   colorBlue40: '#7EB7FC',
   colorBlue50: '#4191FA',
-  colorBlue60: '#1476FF',
+  colorBlue60: '#2070F3',
   colorBlue70: '#0F5ED4',
   colorBlue80: '#0845A6',
   colorBlue90: '#022E7A',

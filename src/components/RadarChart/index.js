@@ -13,10 +13,11 @@ import init from '../../option/init';
 import { isArray } from '../../util/type';
 import { setSeries, setMarkLineSeries } from './handleSeries';
 import { mergeSeries } from '../../util/merge';
-import { setRadar, setTooltip, getRadarMax, getRadarKeys, setMarkLine, initRadarSys } from './handleOptipn';
+import { setRadar, setTooltip, getRadarMax, getRadarKeys, setMarkLine, initRadarSys, setMiniRadar } from './handleOptipn';
 import { CHART_TYPE } from '../../util/constants';
 import GradientRadar from './GradientRadar'
 import AdaptivePolarSys from '../../option/PolarSys/adaptive';
+import setA2ui from '../../feature/a2ui';
 
 class RadarChart {
 
@@ -28,6 +29,8 @@ class RadarChart {
     this.baseOption = {};
     this.iChartOption = {};
     this.chartInstance = chartInstance;
+    this.chartName = CHART_TYPE.RADAR;
+    this.dom = chartInstance._dom; 
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
     // 根据 iChartOption 组装 baseOption
@@ -64,6 +67,7 @@ class RadarChart {
       this.gradientRadar.setTooltip()
       this.gradientRadar.setSeries()
     }
+    setMiniRadar(this.baseOption, this.iChartOption, this);
   }
 
   // 根据渲染出的结果，二次计算option
@@ -80,8 +84,16 @@ class RadarChart {
     return this.baseOption;
   }
 
-  resize() {
-    if (this.gradientRadar) this.gradientRadar.resize()
+  resize(callback) {
+    if (this.gradientRadar) this.gradientRadar.resize();
+    if (this.iChartOption.adaptive || this.iChartOption.a2ui) {
+      if (this.iChartOption.a2ui) {
+        setA2ui(this.iChartOption, this);
+      }
+      setMiniRadar(this.baseOption, this.iChartOption, this);
+      AdaptivePolarSys(this.baseOption, this.iChartOption, this.chartInstance, 'radar')
+      callback(this.baseOption, { notMerge: false });
+    }
   }
 }
 

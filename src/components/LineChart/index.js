@@ -10,7 +10,7 @@
  *
  */
 import init from '../../option/init';
-import mini from '../../feature/mini/miniLineChart';
+import miniLine from '../../feature/mini/miniLineChart';
 import { setSeries, setDatasetSeries } from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
 import BaseOption from '../../option/base';
@@ -27,6 +27,7 @@ import { handleMarkLineMax } from '../../option/config/mark';
 import { CHART_TYPE } from '../../util/constants';
 import { isArray, isObject } from '../../util/type';
 import legendAdaptive from '../../option/config/legend/adaptive';
+import setA2ui from '../../feature/a2ui';
 
 class LineChart {
 
@@ -37,6 +38,8 @@ class LineChart {
     this.baseOption = cloneDeep(BaseOption);
     this.iChartOption = {};
     this.chartInstance = chartInstance;
+    this.chartName = CHART_TYPE.LINE;
+    this.dom = chartInstance._dom;
     getDatasetData(iChartOption);
     // 组装 iChartOption, 补全默认值
     this.iChartOption = init(iChartOption);
@@ -100,7 +103,7 @@ class LineChart {
     // 合并用户自定义visualMap
     mergeVisualMap(iChartOption, this.baseOption);
     // 处理特性
-    mini(iChartOption, this.baseOption);
+    miniLine(iChartOption, this.baseOption);
   }
 
   // 根据渲染出的结果，二次计算option
@@ -167,7 +170,7 @@ class LineChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMaxValue(echartsIns, index) {
-    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[1] || echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0]?.[1]  || 1;
+    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[1] || echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0]?.[1] || 1;
   }
 
   /**
@@ -182,9 +185,13 @@ class LineChart {
 
   resize(callback) {
     // 坐标轴二次计算
-    if (this.iChartOption.adaptive || this.iChartOption.legend?.svg) {
-      AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
+     if (this.iChartOption.adaptive || this.iChartOption.legend?.svg || this.iChartOption.a2ui) {
       this.baseOption.legend = legendAdaptive(this.iChartOption, this.baseOption.legend, this.chartInstance, 'LineChart');
+      if (this.iChartOption.a2ui) {
+        setA2ui(this.iChartOption, this);
+        miniLine(this.iChartOption, this.baseOption);
+      }
+      AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
       callback(this.baseOption, { notMerge: false });
     }
   }
