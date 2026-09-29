@@ -72,8 +72,9 @@ export default class PolarBarChart {
 
     resize(callback) {
         const {adaptive, theme} = this.iChartOption;
-        const adaptiveCloud = adaptive && theme.includes('cloud');
-        if (adaptiveCloud) {
+        const isCloudOrHDesign = theme?.includes('cloud') || theme?.includes('hdesign');
+        const isAdaptive = adaptive && isCloudOrHDesign;
+        if (isAdaptive) {
             this.baseOption.legend = legendAdaptive(this.iChartOption, this.baseOption.legend, this.chartInstance, 'PolarBarChart');
             const data = this.iChartOption.data;
             if (data) {

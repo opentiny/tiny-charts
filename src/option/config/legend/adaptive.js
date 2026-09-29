@@ -7,9 +7,9 @@ import createSvgLegend from '../../../feature/svgLegend';
 
 export default function legendAdaptive(iChartOption, legend, echartsIns, chartName){
   if (!legend) return legend;
-  const isCloud = iChartOption.theme?.includes('cloud');
+  const isCloudOrHDesign = iChartOption.theme?.includes('cloud') || iChartOption.theme?.includes('hdesign');
   // 图例设置超长滚动 cloud主题，增加宽度设定
-  if (legend.type === 'scroll' && isCloud && iChartOption.adaptive) {
+  if (legend.type === 'scroll' && isCloudOrHDesign && iChartOption.adaptive) {
     const chartWidth = echartsIns?.getWidth?.() || echartsIns?.getDom?.()?.clientWidth || echartsIns?._dom?.clientWidth || 0;
     let padding = iChartOption.padding;
     let legendWidth = chartWidth - padding[1] - (padding[3] || padding[1]);
@@ -35,7 +35,7 @@ export default function legendAdaptive(iChartOption, legend, echartsIns, chartNa
   if(isMobile && legendAdaptiveCharts.includes(chartName)){
     legend.orient = 'vertical'
   }
-  if (echartsIns && legendAdaptiveCharts.includes(chartName) && isCloud && iChartOption.adaptive && legend.orient === 'vertical'){
+  if (echartsIns && legendAdaptiveCharts.includes(chartName) && isCloudOrHDesign && iChartOption.adaptive && legend.orient === 'vertical'){
     const dataArr = isArray(iChartOption.data) ? iChartOption.data : [];
     const xAxisKey = xkey(iChartOption);
     const lData = ldata(dataArr, xAxisKey) || [];

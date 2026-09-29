@@ -34,7 +34,7 @@ const BarChartOption = (width, option, type, stack, theme) => {
   const intervalRows = rows;
 
   // 初始柱宽和不同系列柱子间距 hd是16，cloud是8
-  const rawBarwidth = (theme ?? '').includes('cloud') ? 8 : 16;
+  const rawBarwidth = option.rawBarwidth ||  (theme ?? '').includes('cloud') ? 8 : 16;
   const rawBarGap = (theme ?? '').includes('cloud') ? 2 : 4;
   // 需要根据主题设置柱子之间初始间距
   const interval = (width - (rows * columns * rawBarwidth + rows * rawBarGap * (columns - 1))) / intervalRows

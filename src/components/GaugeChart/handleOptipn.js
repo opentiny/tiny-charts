@@ -18,5 +18,11 @@ export function handleTooltip(iChartOpt,chartName) {
   return basicTip;
 }
 
-
+export function setMiniGauge(baseOpt, iChartOpt) {
+  if (iChartOpt.mini && baseOpt.series?.[0]?.detail) {
+    baseOpt.series[0].detail.show = false
+  } else {
+    baseOpt.series[0].detail.show = true
+  }
+}
 

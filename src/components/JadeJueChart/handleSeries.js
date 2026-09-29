@@ -149,6 +149,7 @@ const setRadiusAxis = (baseOpt, data, chartType, iChartOption) => {
       };
       baseOpt.radiusAxis.axisLabel.rich = merge(defaultLabelRich, iChartLabelRich);
       baseOpt.radiusAxis.axisLabel.formatter = (...params) => `{name|${params[0]}}{ratio|${(getRatio(params) * 100).toFixed(0) + '%'}}`;
+      baseOpt.radiusAxis.axisLabel.show = false;
     }
   }
 };

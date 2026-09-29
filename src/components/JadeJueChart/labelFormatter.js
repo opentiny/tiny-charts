@@ -106,6 +106,8 @@ const handleLabelFormatter = (iChartOption, baseOpt, chartType) => {
     }
     angleAxis.axisTick.customValues = customValues;
     angleAxis.axisLabel.customValues = customValues;
+    angleAxis.axisLabel.show = false;
+    angleAxis.axisTick.show = false;
 };
 
 export { handleLabelFormatter };

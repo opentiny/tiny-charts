@@ -14,8 +14,8 @@ import cloneDeep from '../../util/cloneDeep';
 import chartToken from './chartToken';
 import Token from '../../feature/token';
 import merge from '../../util/merge';
+import { isString, isObject, isArray } from '../../util/type';
 import { calculateFontSize } from '../../option/config/polarTitle/handleCenterTitle';
-import { isObject, isString } from '../../util/type';
 
 export const emptySeriesUnit = {
   type: 'gauge',
@@ -666,8 +666,8 @@ export function adapt(iChartOption, baseOption, containerWidth, containerHeight)
   const adaptive =  iChartOption?.adaptive;
   const series = baseOption.series[0];
   const text = iChartOption.text || {};
-  // 如果主题为华为云主题，并且开启配置项则开启自适应功能
-  if (theme && theme.indexOf('cloud')!=-1 && adaptive) {
+  // 如果主题为 华为云 或 hdesign 主题，并且开启配置项则开启自适应功能
+  if (theme && theme.indexOf('cloud')!=-1 && theme.indexOf('hdesign')!=-1 && adaptive) {
     // 初始值为宽度的80%
     let initRadius = containerWidth * 0.8;
     let radius = Math.max(120,Math.min(200,Math.min(initRadius,containerHeight))) / 2;
@@ -691,8 +691,8 @@ export function adapt(iChartOption, baseOption, containerWidth, containerHeight)
       sizeData.valuePadding = 16;
     }
   
-    baseOption.series[0].axisLabel.show = false;
-    baseOption.series[0].splitLine.show = false;
+    baseOption.series[0].axisLabel.show = iChartOption.axisLabel?.show ?? false;
+    // baseOption.series[0].splitLine.show = false;
     // 非内置仪表盘 中间文本 主副文本的间距按需决定
     if(radius*2 >= 200) {
       sizeData.space = 24;

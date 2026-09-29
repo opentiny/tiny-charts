@@ -123,7 +123,8 @@ export function setSeries(seriesData, labelData, iChartOption, polar, type, base
   }
   // 需要显示角度轴坐标文本
   let showLabel = label ? label.show : true;
-  const adaptiveCloud = adaptive && theme.includes('cloud');
+  const isCloudOrHDesign = theme?.includes('cloud') || theme?.includes('hdesign');
+  const isAdaptive = adaptive && isCloudOrHDesign;
   if (adaptive) showLabel = false;
   if (showLabel && type === 'normal') {
     const pieUnit = getPieInit()
@@ -132,10 +133,10 @@ export function setSeries(seriesData, labelData, iChartOption, polar, type, base
     // 外radius
     const radius = polar.radius[1];
     const radiusN = isString(radius) ? Number(radius.substring(0, radius.length - 1)) : radius;
-    pieUnit.radius = adaptiveCloud && position?.radius ? [position.radius*0.2, position.radius] : [radius, `${radiusN + 8}%`];
+    pieUnit.radius = isAdaptive && position?.radius ? [position.radius*0.2, position.radius] : [radius, `${radiusN + 8}%`];
     series.push(pieUnit);
   }
-  if (adaptiveCloud) {
+  if (isAdaptive) {
     if(!iChartOption.position) iChartOption.position = {};
     if (position?.radius) {
       iChartOption.position.radius = [position.radius*0.2, position.radius - 10] // 外层矫正

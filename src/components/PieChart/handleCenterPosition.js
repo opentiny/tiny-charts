@@ -13,7 +13,8 @@ function updatePosition(iChartOption, legend, chartInstance) {
     const graphHeight = iChartOption.graphHeight; //移动端左右布局图例大于50%时，图形剩余高度
 
     // 1.自适应处理圆环中心点位置，开启adaptive就会强行覆盖用户的position
-    if (adaptive && theme.includes('cloud')) {
+    const isCloudOrHDesign = theme?.includes('cloud') || theme?.includes('hdesign');
+    if (adaptive && isCloudOrHDesign) {
         position = {}; // 初始化为空对象
         // 圆环外直径
         let circleDiameter;
@@ -34,6 +35,9 @@ function updatePosition(iChartOption, legend, chartInstance) {
             circleDiameter = width * 0.8;
         }
         position.radius = Math.max(120, Math.min(200, Math.min(circleDiameter, height))) / 2;
+        if ( iChartOption.a2ui ){
+            position.radius = Math.max(60, Math.min(200, Math.min(circleDiameter, height))) / 2;
+        }
     }
     return position;
 }

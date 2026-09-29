@@ -118,7 +118,8 @@ export default class WaveChart extends BaseChart {
     this.center = (position && position.center) || basePosition.center;
 
     // 1.自适应处理中心点位置，开启adaptive就会强行覆盖用户的radius
-    if (this.option.adaptive && this.option.theme.includes('cloud')) {
+    const isCloudOrHDesign = this.option.theme.includes('cloud') || this.option.theme.includes('hdesign');
+    if (this.option.adaptive && isCloudOrHDesign) {
       this.radarWidth = Math.max(200, this.rContainer.clientWidth * 0.8);
       this.radius = `${(Math.max(200, this.rContainer.clientWidth * 0.8) / this.rContainer.clientWidth * 100).toString()}%`
     }
@@ -279,7 +280,8 @@ export default class WaveChart extends BaseChart {
     theme && (chartOption.theme = this.option.theme);
 
     // 2.自适应尺寸到达200裁剪坐标和名称
-    if (this.option.adaptive && this.option.theme.includes('cloud')) {
+    const isCloudOrHDesign = this.option.theme.includes('cloud') || this.option.theme.includes('hdesign');
+    if (this.option.adaptive && isCloudOrHDesign) {
       if (this.radarWidth === 200) {
         this.radarMark = false;
         chartOption.radar.axisName.show = false
@@ -368,7 +370,8 @@ export default class WaveChart extends BaseChart {
     let htmlContent = typeof centerDom === 'function' ? centerDom(dom) : centerDom;
     if (!htmlContent || !dom) return;
     // 3.自适应设置中心文本字体大小
-    if (this.option.adaptive && this.option.theme.includes('cloud')) {
+    const isCloudOrHDesign = this.option.theme.includes('cloud') || this.option.theme.includes('hdesign');
+    if (this.option.adaptive && isCloudOrHDesign) {
       htmlContent = this.setTitleFontSize(htmlContent, dom);
     }
     // 插入内容（清空旧内容）

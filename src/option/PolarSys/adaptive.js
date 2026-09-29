@@ -15,7 +15,7 @@ import min from '../../util/sort/min';
 import { isArray, isObject, isString } from '../../util/type';
 // 组装直角坐标系自适应
 function AdaptivePolarSys(baseOpt, iChartOpt, echartsIns, type) {
-  if (!iChartOpt.adaptive) return;
+  if (!iChartOpt.adaptive && !iChartOpt.a2ui) return;
   const chartHeight = echartsIns?.getHeight?.() || echartsIns?.getDom?.()?.clientHeight || echartsIns?._dom?.clientHeight || 0;
   const radius = baseOpt.polar?.radius || baseOpt.radar[0].radius;
   let dataMax = 0, dataMin = 0;

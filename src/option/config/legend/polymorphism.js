@@ -49,12 +49,13 @@ function setPolymorphism(legend, iChartOption) {
     }
   }
   // 非自适应情况，默认宽度配置
-  if (!iChartOption.adaptive || (!theme.includes('cloud') && iChartOption.adaptive)) {
+  const isCloudOrHDesign = theme.includes('cloud') || theme.includes('hdesign');
+  if (!iChartOption.adaptive || (!isCloudOrHDesign && iChartOption.adaptive)) {
     baseRich.title.width = 80;
     baseRich.value1.width = 20;
     baseRich.value.width = 20;
   }
-  if (iChartOption.adaptive && theme.includes('cloud')) {
+  if (iChartOption.adaptive && isCloudOrHDesign) {
     baseRich.title.padding = [0, 16, 0, 5];
   }
   let rich = legend?.textStyle?.rich || {};
