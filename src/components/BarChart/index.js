@@ -162,7 +162,7 @@ class BarChart {
         updateWidth(this.baseOption, this.chartInstance, this.iChartOption);
       }
       // 坐标轴二次计算
-      AdaptiveRectSys(baseOption, this.iChartOption, this.chartInstance, this)
+      AdaptiveRectSys(this.baseOption, this.iChartOption, this.chartInstance, this)
     }
     
     // 如果用户自定义了 barWidth 或 存在 dataZoom，则不主动刷新柱宽

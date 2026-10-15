@@ -60,6 +60,8 @@ class LineChart {
     const legendData = ldata(data, xAxisKey);
     // 连线的数据
     const seriesData = ydata(data, legendData);
+    this.seriesData = seriesData;
+    this.legendData = legendData;
     // 给图例和x轴赋值
     handleData(this.baseOption, legendData, xAxisData);
     // 组装series
@@ -81,8 +83,6 @@ class LineChart {
       massive: iChartOption.massive,
       colors: iChartOption.color
     });
-    // 设置VisualMap，通过数值映射颜色
-    this.baseOption.visualMap = setVisualMap(legendData, seriesData, iChartOption, this.baseOption, this);
     // 针对预测值图表需求，图表需要进行特殊处理
     handlePredict(this.baseOption, iChartOption);
     // 是否关闭hover态的效果，默认为false
@@ -100,8 +100,6 @@ class LineChart {
     } else {
       mergeSeries(iChartOption, this.baseOption);
     }
-    // 合并用户自定义visualMap
-    mergeVisualMap(iChartOption, this.baseOption);
     // 处理特性
     miniLine(iChartOption, this.baseOption);
   }
@@ -153,6 +151,10 @@ class LineChart {
     topArea(this.baseOption, this.iChartOption, echartsIns, this);
     // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
     bottomArea(this.baseOption, this.iChartOption, echartsIns, this);    
+    // 设置VisualMap，通过数值映射颜色
+    this.baseOption.visualMap = setVisualMap(this.legendData, this.seriesData, this.iChartOption, this.baseOption, this);
+    // 合并用户自定义visualMap
+    mergeVisualMap(this.iChartOption, this.baseOption);
     // 坐标轴二次计算
     AdaptiveRectSys(this.baseOption, this.iChartOption, echartsIns, this)
     // 合并用户自定义series
@@ -170,7 +172,7 @@ class LineChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMaxValue(echartsIns, index) {
-    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[1] || echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0]?.[1] || 1;
+    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[1] || echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extents?.[0]?.[1] || 1;
   }
 
   /**
@@ -180,7 +182,7 @@ class LineChart {
    * _extent是一个数组，_extent[0]为该轴上最小值，_extent[1]为该轴上最大值
    */
   getYAxisMinValue(echartsIns, index) {
-    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0] || echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0]?.[0] || 0;
+    return echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extent?.[0] || echartsIns?.getModel?.()?.getComponent('yAxis', index)?.axis?.scale?._extents?.[0]?.[0] || 0;
   }
 
   resize(callback) {
