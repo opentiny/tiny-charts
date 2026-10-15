@@ -15,13 +15,13 @@ function miniBar(iChartOption, baseOption) {
     });
 
     baseOption.legend = Object.assign(baseOption.legend, {
-      show: mini ? false : (legend?.show || true)
+      show: mini ? false : (legend?.show === undefined ? true : legend?.show)
     });
     baseOption.title = merge(baseOption.title, {
-      show: mini ? false : (title?.show || true)
+      show: mini ? false : (title?.show === undefined ? true : title?.show)
     });
     // baseOption.tooltip = Object.assign(baseOption.tooltip, {
-    //   show: mini ? false : (tooltip?.show || true)
+    //   show: mini ? false : (tooltip?.show === undefined ? true : tooltip?.show)
     // });
     if (!isArray(baseOption.xAxis)) {
       baseOption.xAxis = [baseOption.xAxis];

@@ -84,7 +84,7 @@ function setCircleRadius(radius, chartInstance, iChartOption, legend) {
   const isCloudOrHDesign = theme?.includes('cloud') || theme?.includes('hdesign');
   if (adaptive && isCloudOrHDesign) {
     // TODO 下面部分没有用到
-    if (theme.includes('hdesign') || theme.includes('bpit')) {
+    if (theme.includes('bpit')) {
       if (legend.orient === 'horizontal') {
         // 上面圆环占比的部分
         const circleSection = height - 16 - (legend.bottom !== 'auto' ? legend.bottom : 4);
