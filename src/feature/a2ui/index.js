@@ -19,52 +19,6 @@ import defHeatMapOption from "./heatMapChart";
 import defSankeyOption from "./sankeyChart";
 import defTreeMapOption from "./treeMapChart"; 
 
-function setMiniChart(iChartOption, that){
-  const { chartName } = that
-  let { dataZoom, data } = iChartOption;
-  let domRect = that.dom.getBoundingClientRect();
-  if (['LineChart', 'BarChart'].includes(chartName) && domRect.height < 60) {
-    iChartOption.mini = true;
-    if(dataZoom){
-      dataZoom.left = 10;
-    } else {
-      dataZoom = {
-        left: 0
-      }
-    }
-    iChartOption.legend.show = false;
-    
-  } else if( ['PieChart', 'RadarChart', 'GaugeChart' ].includes(chartName)  && domRect.width < 200 || domRect.height < 120 ){
-    iChartOption.mini = true;
-    iChartOption.position = {
-      center: ['50%', '50%'],
-      radius: '75%'
-    }
-    iChartOption.tooltip = {
-      show: false
-    }
-  } else if( chartName === 'ProcessChart' && domRect.height < data.length * 38){
-    iChartOption.mini = true;
-    iChartOption.legend.show = false;
-  } else if( chartName === 'CircleProcessChart' && domRect.width < 80 || domRect.height < 80){
-    iChartOption.mini = true;
-    iChartOption.position = {
-      center: ['50%', '50%'],
-      radius: '75%'
-    }
-    iChartOption.tooltip = {
-      show: false
-    }
-  } else {
-    iChartOption.mini = false;
-    if (!['ProcessChart', 'GaugeChart','CircleProcessChart'].includes(chartName) && iChartOption.legend) {
-      iChartOption.legend.show = true;
-    }
-    if(dataZoom){
-      delete dataZoom.left
-    } 
-  }
-}
 
 function setA2ui(iChartOption, that){
   const { chartName } = that;
@@ -91,10 +45,6 @@ function setA2ui(iChartOption, that){
   }
 
   merge(iChartOption, defaultOption[chartName])
-
-  // 判断是否使用mini图表
-
-  setMiniChart(iChartOption, that);
 }
 
 export default setA2ui;

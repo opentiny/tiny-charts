@@ -26,6 +26,16 @@ export default function getLineDefOpt(iChartOpt){
     }
   }
 
+  if (iChartOpt.dataZoom?.show === true){
+    defOption.dataZoom = {
+      ...iChartOpt.dataZoom,
+      mini: true,
+      bottom: 4,
+      left: 0
+    }
+    defOption.padding = [32,2,20,2];
+  }
+
   const dataLen = Object.keys(iChartOpt.data[0]).length || 0;
   const defArea = dataLen < 5  ? true : false;
   defOption.area = iChartOpt.area !== undefined ? iChartOpt.area : defArea;

@@ -680,7 +680,7 @@ export function adapt(iChartOption, baseOption, containerWidth, containerHeight)
       mainText = value && value.toString();
     }
     const barWidth = baseOption.series[0]?.progress?.width;
-    let sizeData = calculateFontSize(radius * 2,mainText,barWidth);
+    let sizeData = calculateFontSize(radius * 2, mainText, barWidth, iChartOption, 'GaugeChart');
     
     // 主文本的上padding
     if(sizeData.mainFontSize === 48) {

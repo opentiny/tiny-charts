@@ -114,6 +114,30 @@ function setCircleRadius(radius, chartInstance, iChartOption, legend) {
   if (isString(outerRing) && outerRing.indexOf('%') > -1) {
     outerRing = (Number(outerRing.slice(0, -1)) / 100) * canvasRadius;
   }
+
+  if (adaptive && theme.includes('hdesign')) {
+    // 水平布局
+    if (iChartOption.legendPosition === 'centerRight' || legend.position.top === 'center' || legend.position.top === '50%') {
+      if (outerRing >= 100) {
+        barWidth = 16;
+      } else if (outerRing > 63) {
+        barWidth = 12;
+      } else {
+        barWidth = 8;
+      }
+    } 
+    // 垂直布局
+    if (iChartOption.legendPosition === 'bottomCenter' || legend.position.left === 'center' || legend.position.left === '50%') {
+      if (outerRing >= 137) {
+        barWidth = 16;
+      } else if (outerRing > 105) {
+        barWidth = 12;
+      } else {
+        barWidth = 8;
+      }
+    }
+  }
+  iChartOption.barWidth = barWidth;
   // -2去除borderwidth带来的粗细影响
   let innerRing = Number(outerRing) - barWidth - 2;
   return [innerRing, outerRing];

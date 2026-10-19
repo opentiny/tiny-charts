@@ -45,7 +45,7 @@ export default function updateTitle(position, chartInstance, baseOption, iChartO
       const values = Object.values(parsed);
 
       // 使用解析后的文本重新计算字体大小
-      fontSize = calculateFontSize(circleDiameter, values, iChartOption.barWidth);
+      fontSize = calculateFontSize(circleDiameter, values, iChartOption.barWidth, iChartOption);
 
       // 根据主字体大小计算上padding使文本和单位底对齐
       function getTopPadding(fontSizeMain) {
@@ -91,7 +91,7 @@ export default function updateTitle(position, chartInstance, baseOption, iChartO
       baseOption.title.subtextStyle.fontSize = fontSize.subFontSize;
     } else {
       // 普通文本：先计算再赋值
-      fontSize = calculateFontSize(circleDiameter, textContent, iChartOption.barWidth);
+      fontSize = calculateFontSize(circleDiameter, textContent, iChartOption.barWidth, iChartOption);
       baseOption.title.textStyle.fontSize = fontSize.mainFontSize;
       baseOption.title.subtextStyle.fontSize = fontSize.subFontSize;
     }
@@ -153,7 +153,7 @@ export default function updateTitle(position, chartInstance, baseOption, iChartO
 }
 
 // 动态计算圆环中心文本字号大小
-export function calculateFontSize(circleSize, textContent, barWidth) {
+export function calculateFontSize(circleSize, textContent, barWidth, ichartOption, chartName) {
   // 1. 计算主文本最大可用宽度（内环直径的 80%）
   const maxMainTextWidth = (circleSize - barWidth) * 0.8;
 
@@ -171,13 +171,17 @@ export function calculateFontSize(circleSize, textContent, barWidth) {
   }
 
   // 3. 根据尺寸确定主文本候选字号区间（从大到小）
-  const getMainFontSizeRange = (size) => {
-    if (size > 160 && size <= 200) {
-      return [48, 36, 32, 24];
-    } else if (size >= 120 && size <= 160) {
-      return [36, 32, 24, 18, 16];
+  const getMainFontSizeRange = (size, theme, chartName) => {
+    if (theme.includes('hdesign') && !chartName) {
+      return [64, 48, 32, 24];
     } else {
-      return [16]; // 默认值，暂时用不上
+      if (size > 160 && size <= 200) {
+        return [48, 36, 32, 24];
+      } else if (size >= 120 && size <= 160) {
+        return [36, 32, 24, 18, 16];
+      } else {
+        return [16]; // 默认值，暂时用不上
+      }
     }
   };
 
@@ -196,7 +200,7 @@ export function calculateFontSize(circleSize, textContent, barWidth) {
   };
 
   // 5. 获取字号区间
-  const mainSizes = getMainFontSizeRange(circleSize);
+  const mainSizes = getMainFontSizeRange(circleSize, ichartOption?.theme || '', chartName);
   const subFontSize = getSubFontSize(circleSize);
   const btnWidthSize = getbtnWidthSize(circleSize);
 

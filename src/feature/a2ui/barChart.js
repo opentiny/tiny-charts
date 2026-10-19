@@ -3,25 +3,25 @@ export default function getBarDefOpt(iChartOpt){
     padding: [32,2,0,2],
     theme: iChartOpt.theme,
     adaptive: true,
-    datazoom:{
+    dataZoom: {
       left: 0
     },
-    tooltip:{
+    tooltip: {
       show:true
     },
-    legend:{
+    legend: {
       show: true,
       top: 2,
       right: 6,
       left: 'auto'
     },
-    yAxis:{
+    yAxis: {
       splitNumber: 4,
       name: iChartOpt.yAxisTitle || ''
     },
     xAxis: {
       fullGrid: true,
-      axisLabel:{
+      axisLabel: {
         interval:'auto',
         alignMinLabel: 'left',
         alignMaxLabel: 'right'
@@ -35,8 +35,20 @@ export default function getBarDefOpt(iChartOpt){
     defOption.xAxis = {
       axisLabel:{
         alignMinLabel: 'right',
+        interval: 'auto'
       }
     }
   }
+
+  if (iChartOpt.dataZoom?.show === true){
+    defOption.dataZoom = {
+      ...iChartOpt.dataZoom,
+      mini: true,
+      bottom: 4,
+      left: 0
+    }
+    defOption.padding = [32,2,20,2];
+  }
+
   return defOption
 }

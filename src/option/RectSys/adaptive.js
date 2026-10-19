@@ -69,15 +69,17 @@ function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
       }
       iChartOpt.oldPadding = iChartOpt.padding;
       const bottom = iChartOpt.padding?.[2] < 24 ? 24 : (iChartOpt.padding?.[2] || 24);
-      if ( isArray(baseOpt.grid) ) {
-        baseOpt.grid[0].bottom = bottom;
-      } 
-      if (isObject(baseOpt.grid)) {
-        baseOpt.grid.bottom = bottom;
-      }
-      // 设定底部datazoom 预留高度需大于 18 --- 取自设计稿
-      if(iChartOpt.dataZoom.mini && iChartOpt.padding && isArray(iChartOpt.padding) && iChartOpt.padding[2] < 18){
-        setAdaptiveGrid(baseOpt, 18)
+      if (!iChartOpt.mini) {
+        if ( isArray(baseOpt.grid)  ) {
+          baseOpt.grid[0].bottom = bottom;
+        } else if (isObject(baseOpt.grid)) {
+          baseOpt.grid.bottom = bottom;
+        }
+      
+        // 设定底部datazoom 预留高度需大于 18 --- 取自设计稿
+        if(iChartOpt.dataZoom.mini && iChartOpt.padding && isArray(iChartOpt.padding) && iChartOpt.padding[2] < 18){
+          setAdaptiveGrid(baseOpt, 18)
+        }
       }
       flag = true;
       break;
@@ -85,11 +87,12 @@ function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
       iChartOpt.padding = iChartOpt.oldPadding || iChartOpt.padding;
       const bottom = iChartOpt.padding?.[2] !== undefined ? iChartOpt.padding?.[2] :  baseOpt.grid?.[0]?.bottom || baseOpt.grid?.bottom;
       iChartOpt.dataZoom.show = false;
-      if ( isArray(baseOpt.grid) ) {
-        baseOpt.grid[0].bottom = bottom;
-      } 
-      if (isObject(baseOpt.grid)) {
-        baseOpt.grid.bottom = bottom;
+      if (!iChartOpt.mini) {
+        if ( isArray(baseOpt.grid) ) {
+          baseOpt.grid[0].bottom = bottom;
+        } else if (isObject(baseOpt.grid)) {
+          baseOpt.grid.bottom = bottom;
+        }
       }
     }
   }
@@ -97,7 +100,9 @@ function AdaptiveRectSys(baseOpt, iChartOpt, echartsIns, self) {
     if(iChartOpt.dataZoom.adaptive){
       iChartOpt.dataZoom = {...echartsIns.oldDataZoom};
     }
-    setAdaptiveGrid(baseOpt, iChartOpt.dataZoom.bottom || iChartOpt.padding?.[2] || 0);
+    if (!iChartOpt.mini) {
+      setAdaptiveGrid(baseOpt, iChartOpt.dataZoom.bottom || iChartOpt.padding?.[2] || 0);
+    }
   }
   // 图表datazoom
   baseOpt.dataZoom = datazoom(iChartOpt);

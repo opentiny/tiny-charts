@@ -20,9 +20,9 @@ function miniBar(iChartOption, baseOption) {
     baseOption.title = merge(baseOption.title, {
       show: mini ? false : (title?.show === undefined ? true : title?.show)
     });
-    // baseOption.tooltip = Object.assign(baseOption.tooltip, {
-    //   show: mini ? false : (tooltip?.show === undefined ? true : tooltip?.show)
-    // });
+    baseOption.tooltip = Object.assign(baseOption.tooltip, {
+      show: mini ? false : (tooltip?.show === undefined ? true : tooltip?.show)
+    });
     if (!isArray(baseOption.xAxis)) {
       baseOption.xAxis = [baseOption.xAxis];
     }
