@@ -192,11 +192,37 @@ function handleAxisLine(seriesUnit, iChartOption) {
 }
 
 // 轨道颜色分块
-function setSplitColor(series, splitColor, pointerStyle) {
-  series.axisLine.lineStyle.color = splitColor;
-  series.axisLine.roundCap = false;
-  series.progress.show = false;
-  series.pointer.itemStyle = pointerStyle?.color ? { color: pointerStyle.color } : { color: 'auto' };
+function setSplitColor(seriesUnit, splitColor, pointerStyle, series) {
+  seriesUnit.axisLine.lineStyle.color = splitColor;
+  seriesUnit.axisLine.roundCap = false;
+  seriesUnit.progress.show = false;
+  seriesUnit.pointer.itemStyle = pointerStyle?.color ? { color: pointerStyle.color } : { color: 'auto' };
+  for(let i = 0; i < 2; i++) {
+    let color = i === 0 ? splitColor[0] : splitColor[splitColor.length - 1];
+    series.push({
+      type: "gauge",
+      startAngle: i === 0 ? seriesUnit.startAngle : seriesUnit.endAngle + 1,
+      endAngle: i === 0 ? seriesUnit.startAngle - 1 : seriesUnit.endAngle, // 仅占用 5 度的微小区间
+      min: seriesUnit.min || 0,
+      max: seriesUnit.max || 100,
+      center: seriesUnit.center,
+      radius: seriesUnit.radius,
+      axisLine: {
+        roundCap: true, // 开启圆角
+        lineStyle: {
+          width: seriesUnit.axisLine.lineStyle.width,
+          color: [[1, color[1]]] 
+        }
+      },
+      progress: { show: false },
+      splitLine: { show: false },
+      axisLabel: { show: false },
+      axisTick: { show: false },
+      pointer: { show: false },
+      detail: { show: false },
+      data: []
+    })
+  } 
 }
 
 // 给series配置progress渐变色，并考虑纯色情况
@@ -422,16 +448,18 @@ export function setMarkLineoffset(iChartOpt, eChartOpt, echartsIns, that) {
   } else {
     offset =  radius - barWidth - 15 - 2;
   }
-  if (series?.[1]) {
-    series[1].pointer.offsetCenter = [0, -offset];
-  }
+  series.forEach((item) => {
+    if (item.name === 'markLine') {
+      item.pointer.offsetCenter = [0, -offset];
+    }
+  })
 }
 
 function handleOther(iChartOption, seriesUnit, series, data) {
   const {markLine} = iChartOption
   const marklineColor = iChartOption.markLineColor ? iChartOption.markLineColor : Token.config.colorState.colorError; 
   if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
-    setSplitColor(seriesUnit, iChartOption.splitColor, iChartOption.pointerStyle);
+    setSplitColor(seriesUnit, iChartOption.splitColor, iChartOption.pointerStyle, series);
   } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 0) {
     setGradientColor(seriesUnit, iChartOption.gradientColor, iChartOption.pointerStyle);
   }
@@ -441,7 +469,7 @@ function handleOther(iChartOption, seriesUnit, series, data) {
     seriesUnit.pointer.itemStyle = { color: marklineColor };
     seriesUnit.progress.itemStyle = { color: marklineColor };
   }
-  series.push(seriesUnit);
+  series.unshift(seriesUnit);
   // 轨道颜色分块、progress外环光晕效果
   if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
     const outerGauge = setOuterHalo(seriesUnit, iChartOption.splitColor);
@@ -452,7 +480,7 @@ function handleOther(iChartOption, seriesUnit, series, data) {
         outerGauge.axisLine.lineStyle.opacity = 0;
       }
     }
-    series.push(outerGauge);
+    series.unshift(outerGauge);
   } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 1) {
     const outerGauge = setProgressOuterHalo(seriesUnit, iChartOption.gradientColor, iChartOption.mask, iChartOption);
     // 是否展示外层光晕
@@ -462,15 +490,15 @@ function handleOther(iChartOption, seriesUnit, series, data) {
         outerGauge.axisLine.lineStyle.opacity = 0;
       }
     }
-    series.push(outerGauge);
+    series.unshift(outerGauge);
     // 蒙层及高亮
     const hightLightGauge = setHightLightGauge(seriesUnit, iChartOption);
-    series.push(hightLightGauge);
+    series.unshift(hightLightGauge);
   }
   // 阈值线
   if (markLine) {
     const markGauge = setMarkLine(seriesUnit, markLine, marklineColor);
-    series.push(markGauge);
+    series.unshift(markGauge);
   }
 }
 
