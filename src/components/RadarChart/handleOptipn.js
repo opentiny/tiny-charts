@@ -132,7 +132,8 @@ function setCenterAndRadius(radar, iChartOpt, baseOpt, chartInstance) {
   const chartPosition = iChartOpt.chartPosition || iChartOpt.position || {};
   if (chartPosition.center) radar.center = chartPosition.center;
   if (chartPosition.radius) radar.radius = chartPosition.radius;
-  const position = handleCenterPosition(iChartOpt, baseOpt.legend, chartInstance)
+  const legend = {...baseOpt.legend, show: true};
+  const position = handleCenterPosition(iChartOpt, legend, chartInstance)
   if (!iChartOpt.isWaveRadar && position?.radius) {
     radar.radius = position.radius
   }
@@ -326,17 +327,4 @@ function setMarkLine(baseOpt, iChartOpt, radarKeys) {
   }
 }
 
-function setMiniRadar(baseOpt, iChartOpt) {
-  const {mini} = iChartOpt;
-  merge(baseOpt.radar[0], {
-    axisName:{
-      show: !mini
-    },
-    axisLabel:{
-      show: !mini
-    }
-  })
-  // baseOpt.tooltip.show = !mini;
-}
-
-export { setRadar, getRadarKeys, getRadarMax, setTooltip, setMarkLine, initRadarSys, setRadarShape,handletipHtml ,checkValue, setMiniRadar};
+export { setRadar, getRadarKeys, getRadarMax, setTooltip, setMarkLine, initRadarSys, setRadarShape,handletipHtml ,checkValue, setCenterAndRadius};

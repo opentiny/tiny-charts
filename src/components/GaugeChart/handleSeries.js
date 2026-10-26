@@ -109,14 +109,16 @@ function handleSplitLine(iChartOption, seriesUnit) {
   } else {
     seriesUnit.splitNumber = -1;
   }
+  const splitColor = iChartOption.splitColor || chartToken.splitColor;
+  const barWidth = iChartOption.itemStyle?.width || chartToken.barWidth;
   if (iChartOption.itemStyle) {
     let { lineStyle, width } = iChartOption.itemStyle;
-    width = width || chartToken.barWidth;
+    width = width || barWidth;
     seriesUnit.splitLine.length = (lineStyle && lineStyle.length) || width;
     seriesUnit.splitLine.distance = (lineStyle && lineStyle.distance) || -width;
   } else {
-    seriesUnit.splitLine.length = 7;
-    seriesUnit.splitLine.distance = 0;
+    seriesUnit.splitLine.length = splitColor? barWidth : 7;
+    seriesUnit.splitLine.distance = splitColor? -barWidth : 0;
   }
   if (iChartOption.itemStyle && iChartOption.itemStyle.lineStyle) {
     if (iChartOption.itemStyle.lineStyle.color) {
@@ -689,16 +691,30 @@ export function handleSeries(iChartOption, optionColor, containerWidth, containe
   return series;
 }
 
+function setRadius(iChartOption, width, height) {
+  const circleSection = height - 16;
+  const theme = iChartOption?.theme;
+  const circleDiameter =  Math.min(width, circleSection) * (theme?.includes('cloud') ? 0.6 : 0.8);
+  let maxRadius = theme?.includes('cloud') ? 200 : 332;
+  let radius = Math.max(120, Math.min(200, Math.min(circleDiameter, height))) / 2;
+  if ( iChartOption.a2ui ){
+    radius = Math.max(60, Math.min(maxRadius, Math.min(circleDiameter, height))) / 2;
+  }
+  return radius;
+}
+
 export function adapt(iChartOption, baseOption, containerWidth, containerHeight) {
   const theme = iChartOption?.theme;
   const adaptive =  iChartOption?.adaptive;
-  const series = baseOption.series[0];
+  const index = baseOption.series.findIndex(item => item.name === 'data') || 0;
+  const series = baseOption.series[index];
   const text = iChartOption.text || {};
+  let radius = baseOption.series[0].radius;
   // 如果主题为 华为云 或 hdesign 主题，并且开启配置项则开启自适应功能
-  if (theme && theme.indexOf('cloud')!=-1 && theme.indexOf('hdesign')!=-1 && adaptive) {
+  if (theme && (theme.indexOf('cloud')!=-1 || theme.indexOf('hdesign')!=-1) && adaptive) {
     // 初始值为宽度的80%
     let initRadius = containerWidth * 0.8;
-    let radius = Math.max(120,Math.min(200,Math.min(initRadius,containerHeight))) / 2;
+    let radius = setRadius(iChartOption, containerWidth, containerHeight);
     let mainText;
     const value = iChartOption?.data[0]?.value;
     const unit = iChartOption?.unit;
@@ -707,7 +723,7 @@ export function adapt(iChartOption, baseOption, containerWidth, containerHeight)
     } else {
       mainText = value && value.toString();
     }
-    const barWidth = baseOption.series[0]?.progress?.width;
+    const barWidth = series?.progress?.width;
     let sizeData = calculateFontSize(radius * 2, mainText, barWidth, iChartOption, 'GaugeChart');
     
     // 主文本的上padding
@@ -719,8 +735,8 @@ export function adapt(iChartOption, baseOption, containerWidth, containerHeight)
       sizeData.valuePadding = 16;
     }
   
-    baseOption.series[0].axisLabel.show = iChartOption.axisLabel?.show ?? false;
-    // baseOption.series[0].splitLine.show = false;
+    series.axisLabel.show = iChartOption.axisLabel?.show ?? false;
+    // series.splitLine.show = false;
     // 非内置仪表盘 中间文本 主副文本的间距按需决定
     if(radius*2 >= 200) {
       sizeData.space = 24;
@@ -739,6 +755,9 @@ export function adapt(iChartOption, baseOption, containerWidth, containerHeight)
       sizeData.space = 0;
     }
     handleStatus(series, iChartOption, radius, text, sizeData, true);
-    baseOption.series[0].radius = radius;
+    
+    baseOption.series.forEach(item => {
+      item.radius = radius;
+    })
   }
 }

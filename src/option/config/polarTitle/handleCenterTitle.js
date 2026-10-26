@@ -172,7 +172,7 @@ export function calculateFontSize(circleSize, textContent, barWidth, ichartOptio
 
   // 3. 根据尺寸确定主文本候选字号区间（从大到小）
   const getMainFontSizeRange = (size, theme, chartName) => {
-    if (theme.includes('hdesign') && !chartName) {
+    if (theme.includes('hdesign') ) {
       return [64, 48, 32, 24];
     } else {
       if (size > 160 && size <= 200) {

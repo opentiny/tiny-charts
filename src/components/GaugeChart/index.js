@@ -12,10 +12,11 @@
 import BaseOption from './BaseOption';
 import {handleSeries, handleSize, handleDetail, handleStatus, adapt, setMarkLineoffset} from './handleSeries';
 import cloneDeep from '../../util/cloneDeep';
-import { handleTooltip, setMiniGauge  } from './handleOptipn';
+import { handleTooltip } from './handleOptipn';
 import { mergeSeries } from '../../util/merge';
 import init from '../../option/init'
 import { CHART_TYPE } from '../../util/constants';
+import miniGauge from '../../feature/mini/miniGauge';
 import setA2ui from '../../feature/a2ui';
 
 class GaugeChart {
@@ -49,7 +50,7 @@ class GaugeChart {
     this.baseOption.legend.show = false;
     adapt(iChartOption, this.baseOption, containerWidth, containerHeight);
     setMarkLineoffset(this.iChartOption, this.baseOption, this.chartInstance, this);
-    setMiniGauge(this.baseOption, iChartOption);
+    miniGauge(this.baseOption, iChartOption);
     mergeSeries(iChartOption, this.baseOption);
   }
 
@@ -77,7 +78,7 @@ class GaugeChart {
     // 内置状态仪表盘
     handleStatus(series, this.iChartOption,radiusSize,text,sizeData);
     adapt(this.iChartOption,this.baseOption,containerWidth,containerHeight);
-    setMiniGauge(this.baseOption, this.iChartOption, this);
+    miniGauge(this.baseOption, this.iChartOption, this);
     callback(this.baseOption);
   }
 }
