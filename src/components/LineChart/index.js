@@ -83,8 +83,7 @@ class LineChart {
       massive: iChartOption.massive,
       colors: iChartOption.color
     });
-    // 针对预测值图表需求，图表需要进行特殊处理
-    handlePredict(this.baseOption, iChartOption);
+    
     // 是否关闭hover态的效果，默认为false
     if (iChartOption.silent) {
       this.baseOption.tooltip = {};
@@ -151,10 +150,14 @@ class LineChart {
     topArea(this.baseOption, this.iChartOption, echartsIns, this);
     // 面积图下部红色阈值区域需要在二次计算中实现 -- 植入假的同名Series
     bottomArea(this.baseOption, this.iChartOption, echartsIns, this);    
+
     // 设置VisualMap，通过数值映射颜色
     this.baseOption.visualMap = setVisualMap(this.legendData, this.seriesData, this.iChartOption, this.baseOption, this);
     // 合并用户自定义visualMap
     mergeVisualMap(this.iChartOption, this.baseOption);
+
+    // 针对预测值图表需求，图表需要进行特殊处理
+    handlePredict(this.baseOption, this.iChartOption);
     // 坐标轴二次计算
     AdaptiveRectSys(this.baseOption, this.iChartOption, echartsIns, this)
     // 合并用户自定义series

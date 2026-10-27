@@ -13,10 +13,11 @@ import init from '../../option/init';
 import { isArray } from '../../util/type';
 import { setSeries, setMarkLineSeries } from './handleSeries';
 import { mergeSeries } from '../../util/merge';
-import { setRadar, setTooltip, getRadarMax, getRadarKeys, setMarkLine, initRadarSys, setMiniRadar } from './handleOptipn';
+import { setRadar, setTooltip, getRadarMax, getRadarKeys, setMarkLine, initRadarSys, setCenterAndRadius } from './handleOptipn';
 import { CHART_TYPE } from '../../util/constants';
 import GradientRadar from './GradientRadar'
 import AdaptivePolarSys from '../../option/PolarSys/adaptive';
+import miniRadar from '../../feature/mini/miniRadar';
 import setA2ui from '../../feature/a2ui';
 
 class RadarChart {
@@ -39,6 +40,9 @@ class RadarChart {
 
   updateOption(chartInstance) {
     const iChartOption = this.iChartOption;
+    if (iChartOption.mini) {
+      miniRadar(iChartOption, this.baseOption);
+    }
     // 雷达坐标系最大值
     const isCustomMaxVal = !!(isArray(iChartOption.radarMax) || iChartOption?.radar?.indicator);
     // 在配置不同系列的最大值的时候。数据不在同一维度，不显示markLine
@@ -67,7 +71,6 @@ class RadarChart {
       this.gradientRadar.setTooltip()
       this.gradientRadar.setSeries()
     }
-    setMiniRadar(this.baseOption, this.iChartOption, this);
   }
 
   // 根据渲染出的结果，二次计算option
@@ -86,11 +89,11 @@ class RadarChart {
 
   resize(callback) {
     if (this.gradientRadar) this.gradientRadar.resize();
+    setCenterAndRadius(this.baseOption.radar[0], this.iChartOption, this.baseOption, this.chartInstance);
     if (this.iChartOption.adaptive || this.iChartOption.a2ui) {
       if (this.iChartOption.a2ui) {
         setA2ui(this.iChartOption, this);
       }
-      setMiniRadar(this.baseOption, this.iChartOption, this);
       AdaptivePolarSys(this.baseOption, this.iChartOption, this.chartInstance, 'radar')
       callback(this.baseOption, { notMerge: false });
     }

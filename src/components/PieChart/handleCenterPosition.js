@@ -14,6 +14,7 @@ function updatePosition(iChartOption, legend, chartInstance) {
 
     // 1.自适应处理圆环中心点位置，开启adaptive就会强行覆盖用户的position
     const isCloudOrHDesign = theme?.includes('cloud') || theme?.includes('hdesign');
+    let maxRadius;
     if (adaptive && isCloudOrHDesign) {
         position = {}; // 初始化为空对象
         // 圆环外直径
@@ -23,11 +24,13 @@ function updatePosition(iChartOption, legend, chartInstance) {
             if (legend.orient === 'horizontal') {
                 const circleSection = height - 16 - (legend.bottom !== 'auto' ? legend.bottom : 4);
                 position.center = isMobile ? mobileCenter : [width / 2, circleSection / 2];
-                circleDiameter = isMobile && graphHeight ? graphHeight - 16 :Math.min(width, circleSection) * 0.6;
+                circleDiameter = isMobile && graphHeight ? graphHeight - 16 : Math.min(width, circleSection) * (theme?.includes('cloud') ? 0.6 : 0.8);
+                maxRadius = theme?.includes('cloud') ? 200 : 332;
             } else {
                 //左右布局
                 position.center =  isMobile ? mobileCenter : ['30%', '50%'];
                 circleDiameter = isMobile  ? width * 0.5 * 0.8 : width * 0.6 * 0.8;
+                maxRadius = theme?.includes('cloud') ? 200 : 276;
             }
         } else {
             // 图例不显示中心就居中
@@ -36,7 +39,7 @@ function updatePosition(iChartOption, legend, chartInstance) {
         }
         position.radius = Math.max(120, Math.min(200, Math.min(circleDiameter, height))) / 2;
         if ( iChartOption.a2ui ){
-            position.radius = Math.max(60, Math.min(200, Math.min(circleDiameter, height))) / 2;
+            position.radius = Math.max(60, Math.min(maxRadius, Math.min(circleDiameter, height))) / 2;
         }
     }
     return position;

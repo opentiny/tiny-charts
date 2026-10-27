@@ -12,12 +12,19 @@ export default function getGaugeDefOpt(iChartOpt){
     },
     position: {
       center: ['50%','50%'],
-      radius: '65%'
+      radius: '80%'
     },
     adaptive: true,
     splitLine: {
       show: false
     }
+  }
+  if (iChartOpt.splitColor) {
+    defOption.itemStyle.lineStyle = {
+      color: iChartOpt.theme.includes('light') ? '#fff' : '#000',
+      width: 4
+    }
+    delete defOption.splitLine;
   }
   return defOption
 }

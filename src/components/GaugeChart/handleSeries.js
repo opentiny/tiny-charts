@@ -109,14 +109,16 @@ function handleSplitLine(iChartOption, seriesUnit) {
   } else {
     seriesUnit.splitNumber = -1;
   }
+  const splitColor = iChartOption.splitColor || chartToken.splitColor;
+  const barWidth = iChartOption.itemStyle?.width || chartToken.barWidth;
   if (iChartOption.itemStyle) {
     let { lineStyle, width } = iChartOption.itemStyle;
-    width = width || chartToken.barWidth;
+    width = width || barWidth;
     seriesUnit.splitLine.length = (lineStyle && lineStyle.length) || width;
     seriesUnit.splitLine.distance = (lineStyle && lineStyle.distance) || -width;
   } else {
-    seriesUnit.splitLine.length = 7;
-    seriesUnit.splitLine.distance = 0;
+    seriesUnit.splitLine.length = splitColor? barWidth : 7;
+    seriesUnit.splitLine.distance = splitColor? -barWidth : 0;
   }
   if (iChartOption.itemStyle && iChartOption.itemStyle.lineStyle) {
     if (iChartOption.itemStyle.lineStyle.color) {
@@ -192,11 +194,37 @@ function handleAxisLine(seriesUnit, iChartOption) {
 }
 
 // 轨道颜色分块
-function setSplitColor(series, splitColor, pointerStyle) {
-  series.axisLine.lineStyle.color = splitColor;
-  series.axisLine.roundCap = false;
-  series.progress.show = false;
-  series.pointer.itemStyle = pointerStyle?.color ? { color: pointerStyle.color } : { color: 'auto' };
+function setSplitColor(seriesUnit, splitColor, pointerStyle, series) {
+  seriesUnit.axisLine.lineStyle.color = splitColor;
+  seriesUnit.axisLine.roundCap = false;
+  seriesUnit.progress.show = false;
+  seriesUnit.pointer.itemStyle = pointerStyle?.color ? { color: pointerStyle.color } : { color: 'auto' };
+  for(let i = 0; i < 2; i++) {
+    let color = i === 0 ? splitColor[0] : splitColor[splitColor.length - 1];
+    series.push({
+      type: "gauge",
+      startAngle: i === 0 ? seriesUnit.startAngle : seriesUnit.endAngle + 1,
+      endAngle: i === 0 ? seriesUnit.startAngle - 1 : seriesUnit.endAngle, // 仅占用 5 度的微小区间
+      min: seriesUnit.min || 0,
+      max: seriesUnit.max || 100,
+      center: seriesUnit.center,
+      radius: seriesUnit.radius,
+      axisLine: {
+        roundCap: true, // 开启圆角
+        lineStyle: {
+          width: seriesUnit.axisLine.lineStyle.width,
+          color: [[1, color[1]]] 
+        }
+      },
+      progress: { show: false },
+      splitLine: { show: false },
+      axisLabel: { show: false },
+      axisTick: { show: false },
+      pointer: { show: false },
+      detail: { show: false },
+      data: []
+    })
+  } 
 }
 
 // 给series配置progress渐变色，并考虑纯色情况
@@ -422,16 +450,18 @@ export function setMarkLineoffset(iChartOpt, eChartOpt, echartsIns, that) {
   } else {
     offset =  radius - barWidth - 15 - 2;
   }
-  if (series?.[1]) {
-    series[1].pointer.offsetCenter = [0, -offset];
-  }
+  series.forEach((item) => {
+    if (item.name === 'markLine') {
+      item.pointer.offsetCenter = [0, -offset];
+    }
+  })
 }
 
 function handleOther(iChartOption, seriesUnit, series, data) {
   const {markLine} = iChartOption
   const marklineColor = iChartOption.markLineColor ? iChartOption.markLineColor : Token.config.colorState.colorError; 
   if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
-    setSplitColor(seriesUnit, iChartOption.splitColor, iChartOption.pointerStyle);
+    setSplitColor(seriesUnit, iChartOption.splitColor, iChartOption.pointerStyle, series);
   } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 0) {
     setGradientColor(seriesUnit, iChartOption.gradientColor, iChartOption.pointerStyle);
   }
@@ -441,7 +471,7 @@ function handleOther(iChartOption, seriesUnit, series, data) {
     seriesUnit.pointer.itemStyle = { color: marklineColor };
     seriesUnit.progress.itemStyle = { color: marklineColor };
   }
-  series.push(seriesUnit);
+  series.unshift(seriesUnit);
   // 轨道颜色分块、progress外环光晕效果
   if (iChartOption.splitColor && iChartOption.splitColor.length > 0) {
     const outerGauge = setOuterHalo(seriesUnit, iChartOption.splitColor);
@@ -452,7 +482,7 @@ function handleOther(iChartOption, seriesUnit, series, data) {
         outerGauge.axisLine.lineStyle.opacity = 0;
       }
     }
-    series.push(outerGauge);
+    series.unshift(outerGauge);
   } else if (iChartOption.gradientColor && iChartOption.gradientColor.length > 1) {
     const outerGauge = setProgressOuterHalo(seriesUnit, iChartOption.gradientColor, iChartOption.mask, iChartOption);
     // 是否展示外层光晕
@@ -462,15 +492,15 @@ function handleOther(iChartOption, seriesUnit, series, data) {
         outerGauge.axisLine.lineStyle.opacity = 0;
       }
     }
-    series.push(outerGauge);
+    series.unshift(outerGauge);
     // 蒙层及高亮
     const hightLightGauge = setHightLightGauge(seriesUnit, iChartOption);
-    series.push(hightLightGauge);
+    series.unshift(hightLightGauge);
   }
   // 阈值线
   if (markLine) {
     const markGauge = setMarkLine(seriesUnit, markLine, marklineColor);
-    series.push(markGauge);
+    series.unshift(markGauge);
   }
 }
 
@@ -661,16 +691,30 @@ export function handleSeries(iChartOption, optionColor, containerWidth, containe
   return series;
 }
 
+function setRadius(iChartOption, width, height) {
+  const circleSection = height - 16;
+  const theme = iChartOption?.theme;
+  const circleDiameter =  Math.min(width, circleSection) * (theme?.includes('cloud') ? 0.6 : 0.8);
+  let maxRadius = theme?.includes('cloud') ? 200 : 332;
+  let radius = Math.max(120, Math.min(200, Math.min(circleDiameter, height))) / 2;
+  if ( iChartOption.a2ui ){
+    radius = Math.max(60, Math.min(maxRadius, Math.min(circleDiameter, height))) / 2;
+  }
+  return radius;
+}
+
 export function adapt(iChartOption, baseOption, containerWidth, containerHeight) {
   const theme = iChartOption?.theme;
   const adaptive =  iChartOption?.adaptive;
-  const series = baseOption.series[0];
+  const index = baseOption.series.findIndex(item => item.name === 'data') || 0;
+  const series = baseOption.series[index];
   const text = iChartOption.text || {};
+  let radius = baseOption.series[0].radius;
   // 如果主题为 华为云 或 hdesign 主题，并且开启配置项则开启自适应功能
-  if (theme && theme.indexOf('cloud')!=-1 && theme.indexOf('hdesign')!=-1 && adaptive) {
+  if (theme && (theme.indexOf('cloud')!=-1 || theme.indexOf('hdesign')!=-1) && adaptive) {
     // 初始值为宽度的80%
     let initRadius = containerWidth * 0.8;
-    let radius = Math.max(120,Math.min(200,Math.min(initRadius,containerHeight))) / 2;
+    let radius = setRadius(iChartOption, containerWidth, containerHeight);
     let mainText;
     const value = iChartOption?.data[0]?.value;
     const unit = iChartOption?.unit;
@@ -679,8 +723,8 @@ export function adapt(iChartOption, baseOption, containerWidth, containerHeight)
     } else {
       mainText = value && value.toString();
     }
-    const barWidth = baseOption.series[0]?.progress?.width;
-    let sizeData = calculateFontSize(radius * 2,mainText,barWidth);
+    const barWidth = series?.progress?.width;
+    let sizeData = calculateFontSize(radius * 2, mainText, barWidth, iChartOption, 'GaugeChart');
     
     // 主文本的上padding
     if(sizeData.mainFontSize === 48) {
@@ -691,8 +735,8 @@ export function adapt(iChartOption, baseOption, containerWidth, containerHeight)
       sizeData.valuePadding = 16;
     }
   
-    baseOption.series[0].axisLabel.show = iChartOption.axisLabel?.show ?? false;
-    // baseOption.series[0].splitLine.show = false;
+    series.axisLabel.show = iChartOption.axisLabel?.show ?? false;
+    // series.splitLine.show = false;
     // 非内置仪表盘 中间文本 主副文本的间距按需决定
     if(radius*2 >= 200) {
       sizeData.space = 24;
@@ -711,6 +755,9 @@ export function adapt(iChartOption, baseOption, containerWidth, containerHeight)
       sizeData.space = 0;
     }
     handleStatus(series, iChartOption, radius, text, sizeData, true);
-    baseOption.series[0].radius = radius;
+    
+    baseOption.series.forEach(item => {
+      item.radius = radius;
+    })
   }
 }

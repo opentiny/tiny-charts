@@ -20,6 +20,7 @@ import { mergeSeries } from '../../util/merge';
 import { setTooltip } from './handleOptipn';
 import ldata from '../../option/config/legend/ldata';
 import setA2ui from '../../feature/a2ui';
+import miniPie from '../../feature/mini/miniPieChart';
 
 class PieChart {
 
@@ -40,6 +41,7 @@ class PieChart {
   updateOption(chartInstance) {
     const iChartOption = this.iChartOption;
     const type = iChartOption.type || 'circle';
+    
     // 装载除series之外的其他配置
     PolarCoordSys(this.baseOption, this.iChartOption, 'PieChart', chartInstance);
     // 1.根据adaptive决定radius和center，再放到series里面处理
@@ -60,6 +62,10 @@ class PieChart {
     }
     //图例数据
     setTooltip(this.baseOption, iChartOption,  this);
+    if (iChartOption.mini) {
+      // 处理特性
+      miniPie(this.iChartOption, this.baseOption);
+    }
     // 合并用户自定义series
     mergeSeries(iChartOption, this.baseOption);
   }
