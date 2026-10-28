@@ -1,0 +1,66 @@
+name: NPM Publish (OIDC)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish (for example, 1.4.0)"
+        required: true
+        type: string
+      tag:
+        description: "npm dist-tag"
+        required: true
+        default: latest
+        type: choice
+        options:
+          - alpha
+          - beta
+          - rc
+          - latest
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Install OIDC-capable npm CLI
+        run: npm install --global npm@11.6.0
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Compile package
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
+        run: npm run compile
+
+      - name: Prepare package metadata
+        working-directory: build
+        run: |
+          npm pkg set name="@opentiny/huicharts"
+          npm pkg set repository.type=git repository.url="https://github.com/opentiny/tiny-charts.git"
+          npm version "${{ inputs.version }}" --no-git-tag-version --allow-same-version
+          npm pack --dry-run
+
+      - name: Publish @opentiny/huicharts with trusted publishing
+        working-directory: build
+        run: npm publish --access public --tag "${{ inputs.tag }}"
